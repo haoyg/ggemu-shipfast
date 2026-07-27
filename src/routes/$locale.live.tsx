@@ -318,23 +318,14 @@ function LiveRoomPlayerModal({
 
     document.body.style.overflow = 'hidden'
 
-    function handleKeyDown(event: KeyboardEvent) {
-      if (event.key === 'Escape') {
-        onClose()
-      }
-    }
-
-    document.addEventListener('keydown', handleKeyDown)
-
     return () => {
       document.body.style.overflow = previousOverflow
-      document.removeEventListener('keydown', handleKeyDown)
 
       if (previousFocus instanceof HTMLElement) {
         previousFocus.focus()
       }
     }
-  }, [onClose])
+  }, [])
 
   return (
     <div
@@ -365,7 +356,6 @@ function LiveRoomPlayerModal({
 
             <button
               aria-label={t.closePlayer}
-              autoFocus
               className="btn btn-circle btn-ghost btn-sm shrink-0"
               onClick={onClose}
               title={t.closePlayer}
