@@ -1,43 +1,471 @@
+import { Link } from '@tanstack/react-router'
+import type { ReactNode } from 'react'
+
 import {
-  GamesSection,
+  GameCardPreviewVideo,
+  gameCardPreviewHandlers,
+} from '#/components/game-card-preview'
+import type { Locale, PublicGame } from '#/lib/ggemu'
+import {
+  formatCopy,
+  getI18n,
+  getLocalizedCategoryLabel,
+  getLocalizedPlatformLabel,
+} from '#/lib/i18n'
+import { getRetroCoverFallbackLabel } from '#/lib/locale-labels'
+import { siteConfig } from '#/lib/site-config'
+
+import {
   HomeFaqSection,
   HomeLatestBlogPostsSection,
-  SearchForm,
+  getSearchPlaceholder,
 } from './shared'
-import { RecentPlayedGamesSection } from './recent-played-games'
+import { useRecentPlayedGames } from './recent-played-games'
 import type { HomeTemplateProps } from './types'
 
+const platformShortLabels: Record<string, string> = {
+  ARCADE: 'Arcade',
+  Arcade: 'Arcade',
+  arcade: 'Arcade',
+  'Game Boy Advance': 'GBA',
+  'game-boy-advance': 'GBA',
+  N64: 'N64',
+  NES: 'NES',
+  n64: 'N64',
+  nes: 'NES',
+  'Nintendo 64': 'N64',
+  'PlayStation 1': 'PS1',
+  'playstation-1': 'PS1',
+  PS1: 'PS1',
+  ps1: 'PS1',
+  SNES: 'SNES',
+  snes: 'SNES',
+  'Super Famicom': 'SNES',
+}
+
+const localizedPlatformShortLabels: Partial<Record<Locale, Record<string, string>>> = {
+  'zh-CN': {
+    ARCADE: '街机',
+    Arcade: '街机',
+    arcade: '街机',
+  },
+  ja: {
+    ARCADE: 'アーケード',
+    Arcade: 'アーケード',
+    arcade: 'アーケード',
+  },
+}
+
+const preferredPlatforms = [
+  'Game Boy Advance',
+  'NES',
+  'SNES',
+  'PlayStation 1',
+  'Nintendo 64',
+  'ARCADE',
+]
+
+const platformAliases: Record<string, Array<string>> = {
+  ARCADE: ['ARCADE', 'Arcade'],
+  'Game Boy Advance': ['Game Boy Advance', 'GBA'],
+  NES: ['NES', 'Nintendo Entertainment System'],
+  'Nintendo 64': ['Nintendo 64', 'N64'],
+  'PlayStation 1': ['PlayStation 1', 'PS1', 'PlayStation'],
+  SNES: ['SNES', 'Super Nintendo', 'Super Famicom'],
+}
+
 export function DefaultHomeTemplate(props: HomeTemplateProps) {
-  const { lang, latestBlogPosts, t } = props
+  const {
+    filterOptions,
+    filters,
+    games,
+    isLoading,
+    lang,
+    latestBlogPosts,
+    onFilterChange,
+    onQueryChange,
+    onSearch,
+    pagination,
+    t,
+  } = props
+  const layoutCopy = getI18n(lang).layout
+  const recentGames = useRecentPlayedGames()
+  const platformChips = getPlatformChips(filterOptions.platforms, lang)
+  const sidebarCategories = filterOptions.categories.slice(0, 6)
+  const topGames = games.slice(0, 12)
+  const newGames = games.slice(12, 18)
+  const platformCards = platformChips.slice(0, 6)
 
   return (
-    <>
-      <RecentPlayedGamesSection lang={lang} />
+    <div className="bg-neutral text-neutral-content">
+      <div className="mx-auto grid max-w-[96rem] lg:grid-cols-[14rem_minmax(0,1fr)]">
+        <aside className="hidden border-r border-white/10 bg-neutral px-3 py-4 lg:block">
+          <nav className="sticky top-20 flex flex-col gap-5">
+            <Link
+              className="flex items-center gap-3 rounded-lg bg-primary px-3 py-3 text-sm font-semibold text-primary-content"
+              params={{ locale: lang }}
+              to="/$locale"
+            >
+              <i className="ri-home-5-line text-lg" />
+              {layoutCopy.games}
+            </Link>
+            <SideNavLink icon="ri-history-line" label={t.recentlyPlayed} />
+            <SideNavLink icon="ri-gamepad-line" label={layoutCopy.playMyRom} />
+            <SideNavLink icon="ri-article-line" label={layoutCopy.blog} />
 
-      <section className="bg-base-100">
-        <div className="mx-auto flex max-w-7xl flex-col gap-4 px-4 py-6 sm:px-6 lg:px-8">
-          <div className="max-w-3xl">
-            <h1 className="text-4xl font-semibold leading-tight text-base-content sm:text-5xl">
-              {t.title}
-            </h1>
-            <p className="mt-3 text-base leading-7 text-base-content/70 sm:text-lg">
-              {t.subtitle}
-            </p>
+            <section className="border-t border-white/10 pt-4">
+              <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-white/45">
+                {t.allCategories}
+              </p>
+              <div className="grid gap-1">
+                {sidebarCategories.map((category) => (
+                  <button
+                    className="flex items-center justify-between rounded-lg px-2 py-2 text-left text-sm text-white/70 transition hover:bg-white/10 hover:text-white"
+                    key={category.name}
+                    onClick={() => onFilterChange('category', category.name)}
+                    type="button"
+                  >
+                    <span>{getLocalizedCategoryLabel(category.name, lang)}</span>
+                    <i className="ri-arrow-right-s-line text-base" />
+                  </button>
+                ))}
+              </div>
+            </section>
+          </nav>
+        </aside>
+
+        <main className="min-w-0 bg-[radial-gradient(circle_at_top_left,rgba(244,63,94,0.18),transparent_34rem),radial-gradient(circle_at_top_right,rgba(34,211,238,0.14),transparent_30rem)]">
+          <section className="border-b border-white/10 px-4 py-4 sm:px-6 lg:px-8">
+            <div className="flex flex-col gap-4 xl:flex-row xl:items-center">
+              <form className="min-w-0 flex-1" onSubmit={onSearch}>
+                <label className="input input-lg flex w-full items-center gap-3 border-2 border-primary/70 bg-base-100 text-base-content shadow-[0_0_0_4px_rgba(236,72,153,0.16)]">
+                  <i className="ri-search-line text-2xl text-primary" />
+                  <input
+                    aria-label={t.search}
+                    className="min-w-0 flex-1 text-base"
+                    onChange={(event) => onQueryChange(event.currentTarget.value)}
+                    placeholder={getSearchPlaceholder(t, pagination.total)}
+                    type="search"
+                    value={filters.query}
+                  />
+                  <button
+                    className="btn btn-primary btn-sm hidden sm:inline-flex"
+                    disabled={isLoading}
+                    type="submit"
+                  >
+                    {t.search}
+                  </button>
+                </label>
+              </form>
+
+              <div className="flex gap-2 overflow-x-auto pb-1 [scrollbar-width:none] xl:pb-0 [&::-webkit-scrollbar]:hidden">
+                {platformChips.map((platform) => (
+                  <button
+                    className={`btn btn-sm shrink-0 border-white/15 ${
+                      filters.platform === platform.name
+                        ? 'btn-primary'
+                        : 'bg-white/8 text-white hover:bg-white/15'
+                    }`}
+                    key={platform.name}
+                    onClick={() => onFilterChange('platform', platform.name)}
+                    type="button"
+                  >
+                    <i className="ri-gamepad-line" />
+                    {platform.shortLabel}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          <section className="px-4 py-5 sm:px-6 lg:px-8">
+            <div className="mb-4 flex items-end justify-between gap-3">
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-wide text-primary">
+                  {siteConfig.SITE_NAME}
+                </p>
+                <h1 className="mt-1 text-2xl font-black leading-tight text-white sm:text-3xl">
+                  {t.popular}
+                </h1>
+              </div>
+              <span className="badge badge-outline border-white/20 text-white/70">
+                {formatCopy(t.totalGames, { total: pagination.total })}
+              </span>
+            </div>
+
+            {topGames.length > 0 ? (
+              <div
+                className={`grid grid-cols-2 gap-3 sm:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-6 ${
+                  isLoading ? 'opacity-60' : ''
+                }`}
+              >
+                {topGames.map((game) => (
+                  <ArcadeGameCard game={game} key={getGameRouteId(game)} lang={lang} />
+                ))}
+              </div>
+            ) : (
+              <div className="rounded-lg border border-white/10 bg-white/5 p-10 text-center text-white/60">
+                {t.empty}
+              </div>
+            )}
+          </section>
+
+          <section className="grid gap-5 border-t border-white/10 px-4 py-5 sm:px-6 lg:px-8 xl:grid-cols-[minmax(0,1fr)_minmax(22rem,0.9fr)]">
+            <HomeRail title={t.recentlyPlayed}>
+              {recentGames.length > 0 ? (
+                recentGames.map((game) => (
+                  <Link
+                    className="group grid min-w-40 grid-cols-[4.5rem_minmax(0,1fr)] gap-3 rounded-lg border border-white/10 bg-white/5 p-2 transition hover:border-primary/60 hover:bg-white/10"
+                    key={game.id}
+                    params={{ gameId: game.id, locale: lang }}
+                    search={{}}
+                    to="/$locale/games/$gameId"
+                  >
+                    <ArcadeCover
+                      alt={game.name}
+                      className="aspect-square rounded-md"
+                      cover={game.cover}
+                      lang={lang}
+                    />
+                    <div className="min-w-0 self-center">
+                      <h3 className="line-clamp-2 text-sm font-semibold text-white">
+                        {game.name}
+                      </h3>
+                      <p className="mt-1 text-xs text-white/45">{layoutCopy.games}</p>
+                    </div>
+                  </Link>
+                ))
+              ) : (
+                <div className="rounded-lg border border-white/10 bg-white/5 p-4 text-sm text-white/55">
+                  {t.subtitle}
+                </div>
+              )}
+            </HomeRail>
+
+            <HomeRail title={t.newest}>
+              {newGames.map((game) => (
+                <ArcadeMiniCard game={game} key={getGameRouteId(game)} lang={lang} />
+              ))}
+            </HomeRail>
+          </section>
+
+          <section className="border-t border-white/10 px-4 py-5 sm:px-6 lg:px-8">
+            <div className="mb-4 flex items-end justify-between gap-3">
+              <h2 className="text-xl font-black text-white">{t.allPlatforms}</h2>
+              <button
+                className="btn btn-ghost btn-sm text-white/70"
+                onClick={() => onFilterChange('platform', '')}
+                type="button"
+              >
+                {t.reset}
+              </button>
+            </div>
+            <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
+              {platformCards.map((platform) => (
+                <button
+                  className="group flex items-center justify-between rounded-lg border border-white/10 bg-white/5 p-4 text-left transition hover:border-primary/60 hover:bg-white/10"
+                  key={platform.name}
+                  onClick={() => onFilterChange('platform', platform.name)}
+                  type="button"
+                >
+                  <span>
+                    <span className="block text-base font-bold text-white">
+                      {platform.label}
+                    </span>
+                    <span className="mt-1 block text-sm text-white/50">
+                      {platform.shortLabel}
+                    </span>
+                  </span>
+                  <i className="ri-arrow-right-s-line text-2xl text-white/40 transition group-hover:translate-x-1 group-hover:text-primary" />
+                </button>
+              ))}
+            </div>
+          </section>
+
+          <div className="bg-base-100 text-base-content">
+            <HomeLatestBlogPostsSection blogPosts={latestBlogPosts} lang={lang} />
+            <HomeFaqSection lang={lang} />
           </div>
+        </main>
+      </div>
+    </div>
+  )
+}
 
-          <SearchForm {...props} mode="default" />
+function SideNavLink({ icon, label }: { icon: string; label: string }) {
+  return (
+    <span className="flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-white/70">
+      <i className={`${icon} text-lg`} />
+      {label}
+    </span>
+  )
+}
+
+function HomeRail({
+  children,
+  title,
+}: {
+  children: ReactNode
+  title: string
+}) {
+  return (
+    <section className="min-w-0">
+      <h2 className="mb-3 text-lg font-black text-white">{title}</h2>
+      <div className="flex gap-3 overflow-x-auto pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+        {children}
+      </div>
+    </section>
+  )
+}
+
+function ArcadeGameCard({ game, lang }: { game: PublicGame; lang: Locale }) {
+  const gameId = getGameRouteId(game)
+  const platformBadge = getPlatformBadge(game, lang)
+  const gameName = game.name?.trim() || 'Game'
+
+  return (
+    <Link
+      className="group relative overflow-hidden rounded-lg border border-white/10 bg-white/5 shadow-sm transition duration-200 hover:-translate-y-0.5 hover:border-primary/70 hover:shadow-xl"
+      {...gameCardPreviewHandlers}
+      params={{ gameId, locale: lang }}
+      search={{}}
+      to="/$locale/games/$gameId"
+    >
+      <ArcadeCover
+        alt={gameName}
+        className="aspect-[4/3]"
+        cover={game.game_cover}
+        lang={lang}
+      >
+        <GameCardPreviewVideo src={game.game_video} />
+        <span className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/15 to-transparent" />
+        <span className="absolute inset-0 grid place-items-center opacity-0 transition group-hover:opacity-100">
+          <span className="grid h-12 w-12 place-items-center rounded-full bg-white/90 text-xl text-neutral shadow-xl">
+            <i className="ri-play-fill" />
+          </span>
+        </span>
+        {platformBadge ? (
+          <span className="absolute left-2 top-2 rounded bg-primary px-2 py-0.5 text-[10px] font-black uppercase text-primary-content">
+            {platformBadge}
+          </span>
+        ) : null}
+      </ArcadeCover>
+      <div className="p-2.5">
+        <h3 className="line-clamp-2 min-h-9 text-sm font-semibold leading-snug text-white">
+          {gameName}
+        </h3>
+      </div>
+    </Link>
+  )
+}
+
+function ArcadeMiniCard({ game, lang }: { game: PublicGame; lang: Locale }) {
+  const gameId = getGameRouteId(game)
+  const gameName = game.name?.trim() || 'Game'
+
+  return (
+    <Link
+      className="group w-48 shrink-0 overflow-hidden rounded-lg border border-white/10 bg-white/5 transition hover:border-primary/60 hover:bg-white/10"
+      params={{ gameId, locale: lang }}
+      search={{}}
+      to="/$locale/games/$gameId"
+    >
+      <ArcadeCover alt={gameName} className="aspect-[4/3]" cover={game.game_cover} lang={lang} />
+      <h3 className="line-clamp-2 min-h-10 p-2 text-sm font-semibold leading-snug text-white">
+        {gameName}
+      </h3>
+    </Link>
+  )
+}
+
+function ArcadeCover({
+  alt,
+  children,
+  className,
+  cover,
+  lang,
+}: {
+  alt: string
+  children?: ReactNode
+  className: string
+  cover?: string
+  lang: Locale
+}) {
+  return (
+    <div
+      className={`relative overflow-hidden bg-[linear-gradient(135deg,rgba(244,63,94,0.22),rgba(34,211,238,0.14)),radial-gradient(circle_at_35%_30%,rgba(255,255,255,0.16),transparent_32%)] ${className}`}
+    >
+      {cover?.trim() ? (
+        <img
+          alt={alt}
+          className="h-full w-full object-cover transition duration-300 group-hover:scale-105"
+          loading="lazy"
+          src={cover}
+        />
+      ) : (
+        <div className="grid h-full place-items-center px-3 text-center text-xs font-black uppercase tracking-wide text-white/45">
+          {getRetroCoverFallbackLabel(lang)}
         </div>
-      </section>
+      )}
+      {children}
+    </div>
+  )
+}
 
-      <GamesSection
-        {...props}
-        gridClassName="grid gap-4 sm:grid-cols-3 lg:grid-cols-5"
-        sectionClassName="mx-auto flex w-full max-w-7xl flex-col gap-4 px-4 py-6 sm:px-6 lg:px-8"
-        showHeader={false}
-      />
+function getPlatformChips(
+  platforms: HomeTemplateProps['filterOptions']['platforms'],
+  lang: Locale,
+) {
+  return preferredPlatforms
+    .map((preferredPlatform) => (
+      platforms.find((platform) => platformMatches(platform.name, preferredPlatform))
+    ))
+    .filter((platform): platform is NonNullable<typeof platform> => Boolean(platform))
+    .map((platform) => ({
+      label: getLocalizedPlatformLabel(platform.name, lang),
+      name: platform.name,
+      shortLabel: getPlatformShortLabel(platform.name, lang),
+    }))
+}
 
-      <HomeLatestBlogPostsSection blogPosts={latestBlogPosts} lang={lang} />
-      <HomeFaqSection lang={lang} />
-    </>
+function platformMatches(platformName: string, preferredPlatform: string) {
+  const aliases = platformAliases[preferredPlatform] ?? [preferredPlatform]
+  const normalizedPlatformName = platformName.trim().toLowerCase()
+
+  return aliases.some((alias) => alias.trim().toLowerCase() === normalizedPlatformName)
+}
+
+function getGameRouteId(game: PublicGame) {
+  return game.url_slug?.trim() || game._id?.trim() || ''
+}
+
+function getPlatformBadge(game: PublicGame, lang: Locale) {
+  const slug = game.platform_slug?.trim() || game.platformSlug?.trim()
+
+  if (slug) {
+    return getKnownPlatformShortLabel(slug, lang) ?? slug.toUpperCase()
+  }
+
+  const platform = game.platform?.trim()
+
+  if (!platform) {
+    return ''
+  }
+
+  return getKnownPlatformShortLabel(platform, lang) ?? platform
+    .split(/[\s-]+/)
+    .map((part) => part.charAt(0))
+    .join('')
+    .toUpperCase()
+}
+
+function getPlatformShortLabel(platform: string, lang: Locale) {
+  return getKnownPlatformShortLabel(platform, lang) ?? platform
+}
+
+function getKnownPlatformShortLabel(platform: string, lang: Locale) {
+  return (
+    localizedPlatformShortLabels[lang]?.[platform] ??
+    platformShortLabels[platform]
   )
 }

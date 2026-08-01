@@ -42,7 +42,9 @@ function getPwaInstallInitScript() {
       window.dispatchEvent(new Event('pokopie:installprompt'));
     });
     if('serviceWorker' in navigator){
-      navigator.serviceWorker.register('/sw.js').catch(function(){});
+      window.addEventListener('load',function(){
+        navigator.serviceWorker.register('/sw.js').catch(function(){});
+      },{once:true});
     }
   `
 }

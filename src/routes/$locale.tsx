@@ -40,7 +40,7 @@ import {
 } from '#/lib/site-config'
 import { getLocalizedSeoLinks, getSeoOrigin } from '#/lib/seo'
 
-const DEFAULT_HOME_REQUEST_SIZE = 20
+const DEFAULT_HOME_REQUEST_SIZE = 24
 
 const FeaturesHomeTemplate = lazyHomeTemplate(
   () => import('#/components/home/features-template'),
@@ -270,7 +270,7 @@ function LocalizedHomePage() {
     query: '',
     platform: '',
     category: '',
-    sort: 'newest',
+    sort: getHomeSort(currentTemplate),
   })
   const [isLoading, setIsLoading] = useState(false)
 
@@ -319,7 +319,7 @@ function LocalizedHomePage() {
       const nextResult = await runSearch({
         data: {
           query: nextFilters.query,
-          limit: getHomeRequestLimit(),
+          limit: getHomeRequestLimit(currentTemplate),
           locale: lang,
           page: nextPage,
           platform: nextFilters.platform,
@@ -350,7 +350,7 @@ function LocalizedHomePage() {
       query: '',
       platform: '',
       category: '',
-      sort: 'newest',
+      sort: getHomeSort(currentTemplate),
     }
 
     setFilters(nextFilters)
@@ -428,7 +428,7 @@ function getHomeRequestLimit(template = siteConfig.SITE_TEMPLATE) {
 }
 
 function getHomeSort(template: SiteTemplate): GameSearchSort {
-  return template === 'poki-like' ? 'popular' : 'newest'
+  return template === 'features' ? 'newest' : 'popular'
 }
 
 async function loadFeatureGames(
