@@ -6,6 +6,10 @@ import {
 } from '#/components/game-card-preview'
 import type { BlogPost, GameSearchSort, Locale, PublicGame } from '#/lib/ggemu'
 import { formatCopy, getHomeFaqs, getI18n } from '#/lib/i18n'
+import {
+  getBlogCoverFallbackLabel,
+  getRetroCoverFallbackLabel,
+} from '#/lib/locale-labels'
 
 import type { GamesSectionProps, HomeCopy, SearchFormProps } from './types'
 
@@ -351,7 +355,7 @@ function HomeBlogPostCard({
           />
         ) : (
           <div className="grid h-full place-items-center text-sm font-semibold text-base-content/40">
-            Blog
+            {getBlogCoverFallbackLabel(lang)}
           </div>
         )}
       </div>
@@ -394,7 +398,7 @@ function GameCard({ game, lang }: { game: PublicGame; lang: Locale }) {
           />
         ) : (
           <div className="flex h-full w-full items-center justify-center text-base-content/40">
-            Retro
+            {getRetroCoverFallbackLabel(lang)}
           </div>
         )}
         <GameCardPreviewVideo src={game.game_video} />

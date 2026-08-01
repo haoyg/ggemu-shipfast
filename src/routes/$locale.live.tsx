@@ -15,6 +15,7 @@ import {
   type PublicLiveRoom,
 } from '#/lib/ggemu'
 import { getI18n, normalizeLocale } from '#/lib/i18n'
+import { getLiveBadgeLabel } from '#/lib/locale-labels'
 import { getLocalizedSeoLinks, getSeoOrigin } from '#/lib/seo'
 import { siteConfig } from '#/lib/site-config'
 import { useCurrentSiteTheme } from '#/lib/use-site-theme'
@@ -276,7 +277,7 @@ function LiveRoomCard({
         />
         <span className="badge badge-error absolute left-3 top-3 gap-1 font-semibold text-error-content">
           <span className="h-1.5 w-1.5 rounded-full bg-current" />
-          LIVE
+          {getLiveBadgeLabel(lang)}
         </span>
       </div>
 
@@ -351,7 +352,7 @@ function LiveRoomPlayerModal({
               to="/$locale/games/$gameId"
             >
               <i className="ri-play-fill" />
-              Play Game
+              {t.playGame}
             </Link>
 
             <button

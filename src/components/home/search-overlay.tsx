@@ -9,6 +9,7 @@ import {
 } from '#/components/game-card-preview'
 import type { GameFilterOptions, GameSearchResult, Locale, PublicGame } from '#/lib/ggemu'
 import { searchGames } from '#/lib/ggemu'
+import { getRetroCoverFallbackLabel } from '#/lib/locale-labels'
 
 import { FilterSelects, getSearchPlaceholder } from './shared'
 import type { Filters, HomeCopy } from './types'
@@ -180,7 +181,7 @@ function SearchResultCard({
           />
         ) : (
           <div className="grid h-full w-full place-items-center text-xs text-base-content/50">
-            Retro
+            {getRetroCoverFallbackLabel(lang)}
           </div>
         )}
         <GameCardPreviewVideo src={game.game_video} />

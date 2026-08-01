@@ -5,6 +5,7 @@ import { SiteLayout } from '#/components/site-layout'
 import { normalizeLocale } from '#/lib/i18n'
 import { getLocalizedSeoLinks, getSeoOrigin } from '#/lib/seo'
 import { useCurrentSiteTheme } from '#/lib/use-site-theme'
+import type { Locale } from '#/lib/ggemu'
 
 const GGEMU_ORIGIN = 'https://ggemu.com'
 
@@ -16,6 +17,21 @@ const crossOriginIsolationHeaders = {
 
 type PlayMyRomSearch = {
   isolated?: 1
+}
+
+const playMyRomCopies: Record<Locale, { title: string; description: string }> = {
+  'zh-CN': {
+    title: '玩本地 ROM',
+    description: '通过嵌入式 GGEMU 播放器加载并游玩你自己的 ROM。',
+  },
+  en: {
+    title: 'Play My ROM',
+    description: 'Load and play your own ROM through the embedded GGEMU player.',
+  },
+  ja: {
+    title: '自分の ROM で遊ぶ',
+    description: '埋め込み GGEMU プレイヤーで自分の ROM を読み込んで遊べます。',
+  },
 }
 
 function validatePlayMyRomSearch(search: Record<string, unknown>): PlayMyRomSearch {
@@ -37,22 +53,27 @@ export const Route = createFileRoute('/$locale/play-my-rom')({
   loader: () => getSeoOrigin(),
   headers: ({ match }) =>
     isIsolatedSearch(match.search) ? crossOriginIsolationHeaders : undefined,
-  head: ({ loaderData, params }) => ({
-    links: loaderData
-      ? getLocalizedSeoLinks({
-          locale: normalizeLocale(params.locale),
-          origin: loaderData,
-          path: '/play-my-rom',
-        })
-      : undefined,
-    meta: [
-      { title: 'Play My ROM' },
-      {
-        name: 'description',
-        content: 'Load and play your own ROM through the embedded GGEMU player.',
-      },
-    ],
-  }),
+  head: ({ loaderData, params }) => {
+    const locale = normalizeLocale(params.locale)
+    const copy = playMyRomCopies[locale]
+
+    return {
+      links: loaderData
+        ? getLocalizedSeoLinks({
+            locale,
+            origin: loaderData,
+            path: '/play-my-rom',
+          })
+        : undefined,
+      meta: [
+        { title: copy.title },
+        {
+          name: 'description',
+          content: copy.description,
+        },
+      ],
+    }
+  },
   component: PlayMyRomPage,
 })
 
@@ -60,6 +81,7 @@ function PlayMyRomPage() {
   const { locale } = Route.useParams()
   const { isolated } = Route.useSearch()
   const lang = normalizeLocale(locale)
+  const copy = playMyRomCopies[lang]
   const theme = useCurrentSiteTheme()
   const iframeSrc = `${GGEMU_ORIGIN}/${lang}/play-my-rom?${buildIframeSearch(isolated === 1, theme)}`
 
@@ -115,7 +137,7 @@ function PlayMyRomPage() {
           allowFullScreen
           className="min-h-[720px] flex-1 rounded-lg border border-base-300 bg-base-100"
           src={iframeSrc}
-          title="Play My ROM"
+          title={copy.title}
         />
       </section>
     </SiteLayout>

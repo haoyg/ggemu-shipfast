@@ -7,6 +7,7 @@ import {
 } from '#/components/game-card-preview'
 import { SiteLayout } from '#/components/site-layout'
 import type { Locale, PublicGame } from '#/lib/ggemu'
+import { getRetroCoverFallbackLabel } from '#/lib/locale-labels'
 
 import { HomeFaqSection, HomeLatestBlogPostsSection } from './shared'
 import { RecentPlayedGamesSection } from './recent-played-games'
@@ -261,7 +262,7 @@ function FeatureGameCard({
         />
       ) : (
         <div className="grid h-full w-full place-items-center bg-base-300 text-sm font-semibold text-base-content/50">
-          Retro
+          {getRetroCoverFallbackLabel(lang)}
         </div>
       )}
 

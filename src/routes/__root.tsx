@@ -180,7 +180,7 @@ function MaintenanceErrorComponent() {
             allow="fullscreen"
             className="h-[calc(100vh-7.5rem)] min-h-[30rem] w-full rounded-box border border-base-300 bg-base-200"
             src={secretGameUrl}
-            title="Secret Game"
+            title={messages.secretGameTitle}
           />
         </section>
       </main>
@@ -214,7 +214,7 @@ function MaintenanceErrorComponent() {
           }}
           type="button"
         >
-          Play A Secret Game
+          {messages.secretGameButton}
         </button>
       </section>
     </main>
@@ -226,6 +226,8 @@ function getMaintenanceMessages(locale: string) {
     return {
       title: 'The server is under maintenance',
       description: 'Scheduled maintenance is in progress. We will be back online shortly.',
+      secretGameButton: 'Play A Secret Game',
+      secretGameTitle: 'Secret Game',
     }
   }
 
@@ -233,12 +235,16 @@ function getMaintenanceMessages(locale: string) {
     return {
       title: 'サーバーはメンテナンス中です',
       description: '予定メンテナンスを実施しています。まもなく再開します。',
+      secretGameButton: '秘密のゲームで遊ぶ',
+      secretGameTitle: '秘密のゲーム',
     }
   }
 
   return {
     title: '服务器维护中',
     description: '我们正在进行计划维护，很快恢复访问。',
+    secretGameButton: '玩一个隐藏游戏',
+    secretGameTitle: '隐藏游戏',
   }
 }
 

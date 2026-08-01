@@ -126,6 +126,7 @@ export const jaMessages = {
     empty: '現在配信中のゲームはありません',
     total: '全 {total} 件のライブ配信',
     watchLive: '配信を見る',
+    playGame: 'ゲームをプレイ',
     closePlayer: '配信を閉じる',
     previous: '前へ',
     next: '次へ',

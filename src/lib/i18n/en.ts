@@ -129,6 +129,7 @@ export const enMessages = {
     empty: 'No games are live right now',
     total: '{total} live rooms',
     watchLive: 'Watch live',
+    playGame: 'Play Game',
     closePlayer: 'Close live stream',
     previous: 'Previous',
     next: 'Next',

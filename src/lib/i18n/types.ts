@@ -104,6 +104,7 @@ export type I18nMessages = {
     empty: string
     total: string
     watchLive: string
+    playGame: string
     closePlayer: string
     previous: string
     next: string

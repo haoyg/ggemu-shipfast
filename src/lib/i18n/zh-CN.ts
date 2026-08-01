@@ -122,6 +122,7 @@ export const zhCnMessages = {
     empty: '目前没有正在直播的游戏',
     total: '当前共有 {total} 个直播间',
     watchLive: '进入直播',
+    playGame: '游玩游戏',
     closePlayer: '关闭直播',
     previous: '上一页',
     next: '下一页',

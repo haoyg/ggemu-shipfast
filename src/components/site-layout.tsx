@@ -4,6 +4,7 @@ import type { ReactNode } from 'react'
 
 import type { Locale } from '#/lib/ggemu'
 import { getI18n, normalizeLocale } from '#/lib/i18n'
+import { getBuiltWithGgEmuLabel } from '#/lib/locale-labels'
 import { siteConfig } from '#/lib/site-config'
 import { getSiteThemes, normalizeSiteTheme } from '#/lib/site-themes'
 
@@ -252,7 +253,7 @@ export function SiteFooter({ locale }: { locale: Locale }) {
               target="_blank"
             >
               <i className="ri-flashlight-line" />
-              Built with GGEMU
+              {getBuiltWithGgEmuLabel(locale)}
             </a>
           </section>
 

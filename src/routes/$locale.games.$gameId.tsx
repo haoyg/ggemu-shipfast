@@ -27,6 +27,7 @@ import {
   getI18n,
   normalizeLocale,
 } from '#/lib/i18n'
+import { getRetroCoverFallbackLabel } from '#/lib/locale-labels'
 import { getAlternateLinksFromCanonical } from '#/lib/seo'
 
 type BeforeInstallPromptEvent = Event & {
@@ -528,7 +529,7 @@ function InstallGuideModal({
             </p>
           </div>
           <button
-            aria-label="Close"
+            aria-label={labels.installGuideClose}
             className="btn btn-ghost btn-sm btn-circle"
             onClick={onClose}
             type="button"
@@ -550,7 +551,7 @@ function InstallGuideModal({
         </div>
       </div>
       <button
-        aria-label="Close"
+        aria-label={labels.installGuideClose}
         className="modal-backdrop"
         onClick={onClose}
         type="button"
@@ -705,7 +706,7 @@ function GameShareActions({
             <div className="flex items-center justify-between gap-4">
               <h2 className="text-lg font-semibold">{labels.posterTitle}</h2>
               <button
-                aria-label="Close"
+                aria-label={labels.installGuideClose}
                 className="btn btn-ghost btn-sm btn-circle"
                 onClick={() => setPosterUrl('')}
                 type="button"
@@ -730,7 +731,7 @@ function GameShareActions({
             </div>
           </div>
           <button
-            aria-label="Close"
+            aria-label={labels.installGuideClose}
             className="modal-backdrop"
             onClick={() => setPosterUrl('')}
             type="button"
@@ -1143,7 +1144,7 @@ function KeywordPanel({ title, value }: { title: string; value?: string }) {
 function getKeywordItems(value?: string) {
   return (
     value
-      ?.split(/[,，;；]/)
+      ?.split(/[,，、;；|/]+/)
       .map((keyword) => keyword.trim())
       .filter(Boolean) ?? []
   )
@@ -1242,8 +1243,8 @@ function RelatedGameCard({ game, lang }: { game: PublicGame; lang: Locale }) {
             src={game.game_cover}
           />
         ) : (
-          <div className="flex h-full items-center justify-center text-base-content/40">
-            Retro
+        <div className="flex h-full items-center justify-center text-base-content/40">
+            {getRetroCoverFallbackLabel(lang)}
           </div>
         )}
         <GameCardPreviewVideo src={game.game_video} />

@@ -7,6 +7,7 @@ import {
 } from '#/components/game-card-preview'
 import { SiteFooter } from '#/components/site-layout'
 import type { Locale, PublicGame } from '#/lib/ggemu'
+import { getRetroCoverFallbackLabel } from '#/lib/locale-labels'
 import { siteConfig } from '#/lib/site-config'
 import { getSiteThemes, normalizeSiteTheme } from '#/lib/site-themes'
 
@@ -207,7 +208,7 @@ function PokiRecentGameTile({
         />
       ) : (
         <div className="grid h-full w-full place-items-center bg-base-200 text-xs font-semibold text-base-content/50">
-          Retro
+          {getRetroCoverFallbackLabel(lang)}
         </div>
       )}
       <span className="absolute right-0 top-0 grid h-8 w-8 place-items-start justify-items-end overflow-hidden rounded-tr-2xl">
@@ -421,7 +422,7 @@ function PokiGameCard({
         />
       ) : (
         <div className="grid h-full w-full place-items-center bg-base-200 text-sm font-semibold text-base-content/50">
-          Retro
+          {getRetroCoverFallbackLabel(lang)}
         </div>
       )}
       <GameCardPreviewVideo src={game.game_video} />

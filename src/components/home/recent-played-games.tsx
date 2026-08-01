@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 
 import type { Locale, PublicGame } from '#/lib/ggemu'
 import { getI18n } from '#/lib/i18n'
+import { getRetroCoverFallbackLabel } from '#/lib/locale-labels'
 
 const RECENT_PLAYED_GAMES_KEY = 'ggemu-recent-played-games'
 const RECENT_PLAYED_GAMES_LIMIT = 4
@@ -90,7 +91,7 @@ function RecentPlayedGameCard({
           />
         ) : (
           <div className="grid h-full w-full place-items-center text-[11px] font-semibold text-base-content/40">
-            Retro
+            {getRetroCoverFallbackLabel(lang)}
           </div>
         )}
       </div>
