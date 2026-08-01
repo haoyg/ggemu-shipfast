@@ -45,14 +45,14 @@ const platformShortLabels: Record<string, string> = {
 
 const localizedPlatformShortLabels: Partial<Record<Locale, Record<string, string>>> = {
   'zh-CN': {
-    ARCADE: '街机',
-    Arcade: '街机',
-    arcade: '街机',
+    ARCADE: '\u8857\u673a',
+    Arcade: '\u8857\u673a',
+    arcade: '\u8857\u673a',
   },
   ja: {
-    ARCADE: 'アーケード',
-    Arcade: 'アーケード',
-    arcade: 'アーケード',
+    ARCADE: '\u30a2\u30fc\u30b1\u30fc\u30c9',
+    Arcade: '\u30a2\u30fc\u30b1\u30fc\u30c9',
+    arcade: '\u30a2\u30fc\u30b1\u30fc\u30c9',
   },
 }
 
@@ -95,6 +95,20 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
   const topGames = games.slice(0, 12)
   const newGames = games.slice(12, 18)
   const platformCards = platformChips.slice(0, 6)
+  const activeCategoryLabel = filters.category
+    ? getLocalizedCategoryLabel(filters.category, lang)
+    : ''
+  const activePlatformLabel = filters.platform
+    ? getLocalizedPlatformLabel(filters.platform, lang)
+    : ''
+
+  function handleCategoryChange(categoryName: string) {
+    onFilterChange('category', filters.category === categoryName ? '' : categoryName)
+  }
+
+  function handlePlatformChange(platformName: string) {
+    onFilterChange('platform', filters.platform === platformName ? '' : platformName)
+  }
 
   return (
     <div className="bg-neutral text-neutral-content">
@@ -109,9 +123,19 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
               <i className="ri-home-5-line text-lg" />
               {layoutCopy.games}
             </Link>
-            <SideNavLink icon="ri-history-line" label={t.recentlyPlayed} />
-            <SideNavLink icon="ri-gamepad-line" label={layoutCopy.playMyRom} />
-            <SideNavLink icon="ri-article-line" label={layoutCopy.blog} />
+            <SideNavAnchor href="#recent-games" icon="ri-history-line" label={t.recentlyPlayed} />
+            <SideNavRoute
+              icon="ri-gamepad-line"
+              label={layoutCopy.playMyRom}
+              lang={lang}
+              to="/$locale/play-my-rom"
+            />
+            <SideNavRoute
+              icon="ri-article-line"
+              label={layoutCopy.blog}
+              lang={lang}
+              to="/$locale/blog"
+            />
 
             <section className="border-t border-white/10 pt-4">
               <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-white/45">
@@ -122,11 +146,17 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
                   <button
                     className="flex items-center justify-between rounded-lg px-2 py-2 text-left text-sm text-white/70 transition hover:bg-white/10 hover:text-white"
                     key={category.name}
-                    onClick={() => onFilterChange('category', category.name)}
+                    onClick={() => handleCategoryChange(category.name)}
                     type="button"
                   >
                     <span>{getLocalizedCategoryLabel(category.name, lang)}</span>
-                    <i className="ri-arrow-right-s-line text-base" />
+                    <i
+                      className={`text-base ${
+                        filters.category === category.name
+                          ? 'ri-check-line text-primary'
+                          : 'ri-arrow-right-s-line'
+                      }`}
+                    />
                   </button>
                 ))}
               </div>
@@ -167,7 +197,7 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
                         : 'bg-white/8 text-white hover:bg-white/15'
                     }`}
                     key={platform.name}
-                    onClick={() => onFilterChange('platform', platform.name)}
+                    onClick={() => handlePlatformChange(platform.name)}
                     type="button"
                   >
                     <i className="ri-gamepad-line" />
@@ -192,6 +222,22 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
                 {formatCopy(t.totalGames, { total: pagination.total })}
               </span>
             </div>
+            {activeCategoryLabel || activePlatformLabel ? (
+              <div className="mb-4 flex flex-wrap gap-2">
+                {activePlatformLabel ? (
+                  <FilterBadge
+                    label={activePlatformLabel}
+                    onClear={() => onFilterChange('platform', '')}
+                  />
+                ) : null}
+                {activeCategoryLabel ? (
+                  <FilterBadge
+                    label={activeCategoryLabel}
+                    onClear={() => onFilterChange('category', '')}
+                  />
+                ) : null}
+              </div>
+            ) : null}
 
             {topGames.length > 0 ? (
               <div
@@ -211,7 +257,7 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
           </section>
 
           <section className="grid gap-5 border-t border-white/10 px-4 py-5 sm:px-6 lg:px-8 xl:grid-cols-[minmax(0,1fr)_minmax(22rem,0.9fr)]">
-            <HomeRail title={t.recentlyPlayed}>
+            <HomeRail id="recent-games" title={t.recentlyPlayed}>
               {recentGames.length > 0 ? (
                 recentGames.map((game) => (
                   <Link
@@ -263,9 +309,13 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
             <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
               {platformCards.map((platform) => (
                 <button
-                  className="group flex items-center justify-between rounded-lg border border-white/10 bg-white/5 p-4 text-left transition hover:border-primary/60 hover:bg-white/10"
+                  className={`group flex items-center justify-between rounded-lg border p-4 text-left transition hover:border-primary/60 hover:bg-white/10 ${
+                    filters.platform === platform.name
+                      ? 'border-primary/70 bg-primary/15'
+                      : 'border-white/10 bg-white/5'
+                  }`}
                   key={platform.name}
-                  onClick={() => onFilterChange('platform', platform.name)}
+                  onClick={() => handlePlatformChange(platform.name)}
                   type="button"
                 >
                   <span>
@@ -292,29 +342,84 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
   )
 }
 
-function SideNavLink({ icon, label }: { icon: string; label: string }) {
+function SideNavAnchor({
+  href,
+  icon,
+  label,
+}: {
+  href: string
+  icon: string
+  label: string
+}) {
   return (
-    <span className="flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-white/70">
+    <a
+      className="flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-white/70 transition hover:bg-white/10 hover:text-white"
+      href={href}
+    >
       <i className={`${icon} text-lg`} />
       {label}
-    </span>
+    </a>
+  )
+}
+
+function SideNavRoute({
+  icon,
+  label,
+  lang,
+  to,
+}: {
+  icon: string
+  label: string
+  lang: Locale
+  to: '/$locale/blog' | '/$locale/play-my-rom'
+}) {
+  return (
+    <Link
+      className="flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-white/70 transition hover:bg-white/10 hover:text-white"
+      params={{ locale: lang }}
+      to={to}
+    >
+      <i className={`${icon} text-lg`} />
+      {label}
+    </Link>
   )
 }
 
 function HomeRail({
   children,
+  id,
   title,
 }: {
   children: ReactNode
+  id?: string
   title: string
 }) {
   return (
-    <section className="min-w-0">
+    <section className="min-w-0 scroll-mt-24" id={id}>
       <h2 className="mb-3 text-lg font-black text-white">{title}</h2>
       <div className="flex gap-3 overflow-x-auto pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
         {children}
       </div>
     </section>
+  )
+}
+
+function FilterBadge({
+  label,
+  onClear,
+}: {
+  label: string
+  onClear: () => void
+}) {
+  return (
+    <button
+      className="badge badge-primary gap-1 border-0 py-3 pr-2 text-primary-content"
+      onClick={onClear}
+      type="button"
+    >
+      {label}
+      <i className="ri-close-line text-sm" />
+    </button>
   )
 }
 

@@ -1,5 +1,5 @@
 import { Link, useRouterState } from '@tanstack/react-router'
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { type ReactNode, useEffect, useMemo, useRef, useState } from 'react'
 
 import {
   GameCardPreviewVideo,
@@ -27,9 +27,9 @@ const POKI_TILE_SIZE = 100
 const POKI_TILE_GAP = 16
 
 const localeOptions: Array<{ label: string; value: Locale }> = [
-  { label: '中文', value: 'zh-CN' },
+  { label: '\u4e2d\u6587', value: 'zh-CN' },
   { label: 'English', value: 'en' },
-  { label: '日本語', value: 'ja' },
+  { label: '\u65e5\u672c\u8a9e', value: 'ja' },
 ]
 
 type PokiTileSize = 1 | 2 | 3
@@ -196,25 +196,15 @@ function PokiRecentGameTile({
       search={{}}
       to="/$locale/games/$gameId"
     >
-      {game.cover ? (
-        <img
-          alt={game.name}
-          className="h-full w-full object-cover"
-          loading="lazy"
-          src={game.cover}
-        />
-      ) : (
-        <div className="grid h-full w-full place-items-center bg-base-200 text-xs font-semibold text-base-content/50">
-          {getRetroCoverFallbackLabel(lang)}
-        </div>
-      )}
-      <span className="absolute right-0 top-0 grid h-8 w-8 place-items-start justify-items-end overflow-hidden rounded-tr-2xl">
-        <span className="h-0 w-0 border-l-[32px] border-t-[32px] border-l-transparent border-t-primary" />
-        <i className="ri-history-line absolute right-1 top-1 text-[13px] leading-none text-primary-content" />
-      </span>
-      <span className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/35 to-transparent px-2 pb-2 pt-8 text-[11px] font-semibold leading-tight text-white">
-        <span className="line-clamp-2">{game.name}</span>
-      </span>
+      <PokiTileCover alt={game.name} cover={game.cover} lang={lang}>
+        <span className="absolute right-0 top-0 grid h-8 w-8 place-items-start justify-items-end overflow-hidden rounded-tr-2xl">
+          <span className="h-0 w-0 border-l-[32px] border-t-[32px] border-l-transparent border-t-primary" />
+          <i className="ri-history-line absolute right-1 top-1 text-[13px] leading-none text-primary-content" />
+        </span>
+        <span className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/35 to-transparent px-2 pb-2 pt-8 text-[11px] font-semibold leading-tight text-white">
+          <span className="line-clamp-2">{game.name}</span>
+        </span>
+      </PokiTileCover>
     </Link>
   )
 }
@@ -410,23 +400,43 @@ function PokiGameCard({
       search={{}}
       to="/$locale/games/$gameId"
     >
-      {game.game_cover ? (
+      <PokiTileCover alt={gameName} cover={game.game_cover} lang={lang}>
+        <GameCardPreviewVideo src={game.game_video} />
+        <span className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/75 via-black/45 to-transparent px-2 pb-2 pt-8 text-[12px] font-semibold leading-tight text-white opacity-0 transition-opacity duration-200 group-hover:opacity-100">
+          <span className="line-clamp-2">{gameName}</span>
+        </span>
+      </PokiTileCover>
+    </Link>
+  )
+}
+
+function PokiTileCover({
+  alt,
+  children,
+  cover,
+  lang,
+}: {
+  alt: string
+  children: ReactNode
+  cover?: string
+  lang: Locale
+}) {
+  return (
+    <span className="relative block h-full w-full overflow-hidden bg-[linear-gradient(135deg,rgba(244,63,94,0.2),rgba(34,211,238,0.16)),radial-gradient(circle_at_35%_30%,rgba(255,255,255,0.18),transparent_34%)]">
+      {cover?.trim() ? (
         <img
-          alt={game.name ?? 'Game cover'}
-          className="h-full w-full object-cover"
+          alt={alt}
+          className="h-full w-full object-cover transition duration-300 group-hover:scale-105"
           loading="lazy"
-          src={game.game_cover}
+          src={cover}
         />
       ) : (
-        <div className="grid h-full w-full place-items-center bg-base-200 text-sm font-semibold text-base-content/50">
+        <span className="grid h-full w-full place-items-center px-2 text-center text-xs font-black uppercase tracking-wide text-base-content/45">
           {getRetroCoverFallbackLabel(lang)}
-        </div>
+        </span>
       )}
-      <GameCardPreviewVideo src={game.game_video} />
-      <span className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/75 via-black/45 to-transparent px-2 pb-2 pt-8 text-[12px] font-semibold leading-tight text-white opacity-0 transition-opacity duration-200 group-hover:opacity-100">
-        <span className="line-clamp-2">{gameName}</span>
-      </span>
-    </Link>
+      {children}
+    </span>
   )
 }
 
