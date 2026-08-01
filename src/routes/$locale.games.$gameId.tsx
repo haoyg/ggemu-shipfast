@@ -318,7 +318,7 @@ function LocalizedGameDetailPage() {
                 />
               ) : (
                 <div className="flex h-full items-center justify-center bg-base-300 text-base-content/40">
-                  Retro
+                  {getRetroCoverFallbackLabel(lang)}
                 </div>
               )}
               <GameCardPreviewVideo src={game.game_video} />
