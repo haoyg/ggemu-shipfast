@@ -7,10 +7,12 @@ const SITEMAP_PAGE_SIZE = 100
 const SITEMAP_MAX_PAGES = 50
 const SITEMAP_CACHE_TTL_MS = 1000 * 60 * 60 * 24
 const SITEMAP_FETCH_CONCURRENCY = 6
+const SITEMAP_REQUEST_TIMEOUT_MS = 5_000
 const locales = ['zh-CN', 'en', 'ja'] as const satisfies ReadonlyArray<Locale>
 const defaultLocale = 'zh-CN' satisfies Locale
 
 let sitemapCache: {
+  createdAt: number
   expiresAt: number
   xml: string
 } | null = null
@@ -63,24 +65,23 @@ async function getSitemapXml(origin: string) {
     return sitemapCache.xml
   }
 
-  let games: Array<PublicGame> = []
-  let blogPosts: Array<BlogPost> = []
+  const [gamesResult, blogPostsResult] = await Promise.allSettled([
+    fetchSitemapGames(),
+    fetchSitemapBlogPosts(),
+  ])
+  const games = gamesResult.status === 'fulfilled' ? gamesResult.value : []
+  const blogPosts =
+    blogPostsResult.status === 'fulfilled' ? blogPostsResult.value : []
 
-  try {
-    ;[games, blogPosts] = await Promise.all([
-      fetchSitemapGames(),
-      fetchSitemapBlogPosts(),
-    ])
-  } catch {
-    if (sitemapCache) {
-      return sitemapCache.xml
-    }
+  if ((games.length === 0 || blogPosts.length === 0) && sitemapCache) {
+    return sitemapCache.xml
   }
 
   const entries = buildSitemapEntries(origin, games, blogPosts)
   const xml = buildSitemapXml(entries)
 
   sitemapCache = {
+    createdAt: Date.now(),
     expiresAt: Date.now() + SITEMAP_CACHE_TTL_MS,
     xml,
   }
@@ -109,7 +110,9 @@ async function fetchGamesPage(page: number) {
     sort: 'newest',
   })
 
-  const response = await fetch(`${GGEMU_API_BASE_URL}/api/games/search?${params}`)
+  const response = await fetchSitemapJson(
+    `${GGEMU_API_BASE_URL}/api/games/search?${params}`,
+  )
 
   if (!response.ok) {
     throw new Error(`GGEMU sitemap request failed with ${response.status}`)
@@ -168,13 +171,33 @@ async function fetchBlogPostsPage(page: number) {
     page: String(page),
   })
 
-  const response = await fetch(`${GGEMU_API_BASE_URL}/api/blog-posts?${params}`)
+  const response = await fetchSitemapJson(
+    `${GGEMU_API_BASE_URL}/api/blog-posts?${params}`,
+  )
 
   if (!response.ok) {
     throw new Error(`GGEMU blog sitemap request failed with ${response.status}`)
   }
 
   return response.json() as Promise<BlogPostSearchResponse>
+}
+
+async function fetchSitemapJson(url: string) {
+  const controller = new AbortController()
+  const timeoutId = setTimeout(() => {
+    controller.abort()
+  }, SITEMAP_REQUEST_TIMEOUT_MS)
+
+  try {
+    return await fetch(url, {
+      headers: {
+        Accept: 'application/json',
+      },
+      signal: controller.signal,
+    })
+  } finally {
+    clearTimeout(timeoutId)
+  }
 }
 
 function dedupeGames(games: Array<PublicGame>) {
