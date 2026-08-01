@@ -7,6 +7,7 @@ import {
 } from '#/components/game-card-preview'
 import { SiteLayout } from '#/components/site-layout'
 import type { Locale, PublicGame } from '#/lib/ggemu'
+import { getGameDetailKeywordText } from '#/lib/i18n'
 import { getRetroCoverFallbackLabel } from '#/lib/locale-labels'
 
 import { HomeFaqSection, HomeLatestBlogPostsSection } from './shared'
@@ -243,7 +244,7 @@ function FeatureGameCard({
 }) {
   const gameId = game.url_slug || game._id || ''
   const gameName = game.name?.trim() || 'Game'
-  const keywords = game.keywords?.trim()
+  const keywords = getGameDetailKeywordText(game, lang)
 
   return (
     <Link
