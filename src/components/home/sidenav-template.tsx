@@ -145,7 +145,7 @@ function HomeSidenav({
               {siteConfig.SITE_NAME}
             </span>
             <span className="block truncate text-xs text-base-content/55">
-              {siteConfig.SITE_SLOGAN}
+              {layoutCopy.tagline}
             </span>
           </span>
         </Link>
