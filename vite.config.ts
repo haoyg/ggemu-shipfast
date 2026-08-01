@@ -4,6 +4,12 @@ import tailwindcss from '@tailwindcss/vite'
 import { cloudflare } from '@cloudflare/vite-plugin'
 import viteReact from '@vitejs/plugin-react'
 
+type VitePluginContext = {
+  environment?: {
+    name?: string
+  }
+}
+
 function cloudflareWorkersClientShim() {
   const moduleId = '\0cloudflare-workers-client-shim'
 
@@ -11,9 +17,11 @@ function cloudflareWorkersClientShim() {
     name: 'cloudflare-workers-client-shim',
     enforce: 'pre' as const,
     resolveId(id: string) {
+      const environmentName = (this as unknown as VitePluginContext).environment?.name
+
       if (
         id === 'cloudflare:workers' &&
-        this.environment?.name !== 'ssr'
+        environmentName !== 'ssr'
       ) {
         return moduleId
       }

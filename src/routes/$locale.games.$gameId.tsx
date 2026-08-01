@@ -863,6 +863,9 @@ function drawPosterKeywords(
 }
 
 function drawPosterQrCard(context: CanvasRenderingContext2D) {
+  context.fillStyle = 'rgba(255, 255, 255, 0.94)'
+  roundedRect(context, 226, 722, 268, 268, 28)
+  context.fill()
 }
 
 async function drawPosterQr(context: CanvasRenderingContext2D, url: string) {

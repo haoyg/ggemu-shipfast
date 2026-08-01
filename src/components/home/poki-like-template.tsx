@@ -392,45 +392,6 @@ function PokiControlTiles({
   )
 }
 
-function PokiSearchResultCard({
-  game,
-  lang,
-}: {
-  game: PublicGame
-  lang: Locale
-}) {
-  const gameId = game.url_slug || game._id || ''
-
-  return (
-    <Link
-      className="group overflow-hidden rounded-lg border border-base-300 bg-base-100 shadow-sm transition hover:border-primary/40 hover:shadow-md"
-      {...gameCardPreviewHandlers}
-      params={{ gameId, locale: lang }}
-      search={{}}
-      to="/$locale/games/$gameId"
-    >
-      <div className="relative aspect-square overflow-hidden bg-base-200">
-        {game.game_cover ? (
-          <img
-            alt={game.name ?? 'Game cover'}
-            className="h-full w-full object-cover"
-            loading="lazy"
-            src={game.game_cover}
-          />
-        ) : (
-          <div className="grid h-full w-full place-items-center text-xs text-base-content/50">
-            Retro
-          </div>
-        )}
-        <GameCardPreviewVideo src={game.game_video} />
-      </div>
-      <div className="p-2 text-[12px] font-medium leading-tight">
-        <span className="line-clamp-2">{game.name}</span>
-      </div>
-    </Link>
-  )
-}
-
 function PokiGameCard({
   game,
   lang,
