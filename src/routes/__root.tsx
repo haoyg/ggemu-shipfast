@@ -17,6 +17,12 @@ import appCss from '../styles.css?url'
 
 const defaultSocialImagePath = '/og.png'
 const secretGameUrl = 'https://clever-spider-5915.puter.site/'
+const rootSecurityHeaders = {
+  'Referrer-Policy': 'strict-origin-when-cross-origin',
+  'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload',
+  'X-Content-Type-Options': 'nosniff',
+  'X-Frame-Options': 'SAMEORIGIN',
+} as const
 const defaultRootSeo = {
   title: '在线玩经典复古游戏 | POKOPIE',
   description:
@@ -44,6 +50,7 @@ function getPwaInstallInitScript() {
 }
 
 export const Route = createRootRoute({
+  headers: () => rootSecurityHeaders,
   loader: () => getSeoOrigin(),
   head: ({ loaderData }) => {
     const defaultSocialImage = getDefaultSocialImage(loaderData)
