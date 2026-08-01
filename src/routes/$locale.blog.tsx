@@ -29,7 +29,7 @@ export const Route = createFileRoute('/$locale/blog')({
           limit: BLOG_PAGE_SIZE,
           page: 1,
         },
-      }),
+      }).catch(() => emptyBlogPostSearchResult()),
     ])
 
     return {
@@ -106,6 +106,18 @@ function BlogListPage() {
       </section>
     </SiteLayout>
   )
+}
+
+function emptyBlogPostSearchResult() {
+  return {
+    blogPosts: [],
+    pagination: {
+      total: 0,
+      page: 1,
+      limit: BLOG_PAGE_SIZE,
+      pages: 0,
+    },
+  }
 }
 
 function BlogPostCard({

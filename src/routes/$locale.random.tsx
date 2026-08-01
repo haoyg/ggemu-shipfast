@@ -26,7 +26,7 @@ export const Route = createFileRoute('/$locale/random')({
       data: {
         platform: deps.p,
       },
-    })
+    }).catch(() => null)
     const gameId = getRandomGameRouteId(game)
 
     if (!gameId) {

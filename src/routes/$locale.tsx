@@ -145,7 +145,7 @@ export const Route = createFileRoute('/$locale')({
           page: 1,
           sort: getHomeSort(template),
         },
-      }),
+      }).catch(() => emptyGameSearchResult(1, getHomeRequestLimit(template))),
       loadGameFilterOptions(),
       loadLatestBlogPosts(),
     ])
@@ -373,7 +373,7 @@ async function loadFeatureGames(
       platform,
       sort,
     },
-  })
+  }).catch(() => emptyGameSearchResult(1, limit))
 }
 
 async function loadFeaturePlatformGames(locale: Locale) {
@@ -392,4 +392,16 @@ async function loadFeaturePlatformGames(locale: Locale) {
       }
     }),
   )
+}
+
+function emptyGameSearchResult(page: number, limit: number) {
+  return {
+    games: [],
+    pagination: {
+      total: 0,
+      page,
+      limit,
+      pages: 0,
+    },
+  } satisfies GameSearchResult
 }

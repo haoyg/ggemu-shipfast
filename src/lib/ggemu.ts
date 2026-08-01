@@ -5,6 +5,11 @@ const API_BASE_URL = 'https://ggemu.com'
 const PAGE_SIZE = 20
 const MAX_PAGE_SIZE = 100
 const NON_GCOIN_GAME = '0'
+const GGEMU_REQUEST_TIMEOUT_MS = 8_000
+const GGEMU_DEFAULT_CACHE_TTL_MS = 1000 * 60 * 5
+const GGEMU_DEFAULT_STALE_TTL_MS = 1000 * 60 * 60 * 24
+const GGEMU_LIVE_CACHE_TTL_MS = 1000 * 15
+const GGEMU_FILTER_CACHE_TTL_MS = 1000 * 60 * 60 * 24
 
 export type Locale = 'zh-CN' | 'en' | 'ja'
 export type GameSearchSort =
@@ -197,6 +202,19 @@ type BlogPostDetailResponse = {
   blogPost: BlogPost
 }
 
+type FetchJsonOptions = {
+  cacheTtlMs?: number
+  staleTtlMs?: number
+}
+
+type CachedJson = {
+  expiresAt: number
+  staleUntil: number
+  value: unknown
+}
+
+const jsonCache = new Map<string, CachedJson>()
+
 function normalizePage(page: unknown) {
   const parsed = Number(page)
   return Number.isInteger(parsed) && parsed > 0 ? parsed : 1
@@ -245,15 +263,65 @@ function addOptionalParam(
   }
 }
 
-async function fetchJson<T>(path: string, params: URLSearchParams) {
+function getCacheKey(path: string, params: URLSearchParams) {
   const query = params.toString()
-  const response = await fetch(`${API_BASE_URL}${path}${query ? `?${query}` : ''}`)
 
-  if (!response.ok) {
-    throw new Error(`GGEMU API request failed with ${response.status}`)
+  return `${path}${query ? `?${query}` : ''}`
+}
+
+async function fetchJson<T>(
+  path: string,
+  params: URLSearchParams,
+  {
+    cacheTtlMs = GGEMU_DEFAULT_CACHE_TTL_MS,
+    staleTtlMs = GGEMU_DEFAULT_STALE_TTL_MS,
+  }: FetchJsonOptions = {},
+) {
+  const cacheKey = getCacheKey(path, params)
+  const cached = jsonCache.get(cacheKey)
+  const now = Date.now()
+
+  if (cached && cached.expiresAt > now) {
+    return cached.value as T
   }
 
-  return response.json() as Promise<T>
+  const controller = new AbortController()
+  const timeoutId = setTimeout(() => {
+    controller.abort()
+  }, GGEMU_REQUEST_TIMEOUT_MS)
+
+  try {
+    const response = await fetch(`${API_BASE_URL}${cacheKey}`, {
+      headers: {
+        Accept: 'application/json',
+      },
+      signal: controller.signal,
+    })
+
+    if (!response.ok) {
+      throw new Error(`GGEMU API request failed with ${response.status}`)
+    }
+
+    const value = await response.json() as T
+
+    if (cacheTtlMs > 0 || staleTtlMs > 0) {
+      jsonCache.set(cacheKey, {
+        expiresAt: now + cacheTtlMs,
+        staleUntil: now + cacheTtlMs + staleTtlMs,
+        value,
+      })
+    }
+
+    return value
+  } catch (error) {
+    if (cached && cached.staleUntil > now) {
+      return cached.value as T
+    }
+
+    throw error
+  } finally {
+    clearTimeout(timeoutId)
+  }
 }
 
 async function fetchGames(params: URLSearchParams) {
@@ -514,6 +582,10 @@ export const searchLiveRooms = createServerFn({ method: 'GET' })
         page: String(data.page),
         limit: String(data.limit),
       }),
+      {
+        cacheTtlMs: GGEMU_LIVE_CACHE_TTL_MS,
+        staleTtlMs: 1000 * 60 * 5,
+      },
     )
 
     return {
@@ -526,8 +598,12 @@ export const getGameFilterOptions = createServerFn({ method: 'GET' })
   .handler(async () => {
     const emptyParams = new URLSearchParams()
     const [platformsResult, genresResult] = await Promise.all([
-      fetchJson<FilterOptionResponse>('/api/games/platforms', emptyParams),
-      fetchJson<FilterOptionResponse>('/api/games/genres', emptyParams),
+      fetchJson<FilterOptionResponse>('/api/games/platforms', emptyParams, {
+        cacheTtlMs: GGEMU_FILTER_CACHE_TTL_MS,
+      }),
+      fetchJson<FilterOptionResponse>('/api/games/genres', emptyParams, {
+        cacheTtlMs: GGEMU_FILTER_CACHE_TTL_MS,
+      }),
     ])
 
     return {
@@ -544,6 +620,9 @@ export const getRandomPlayableGame = createServerFn({ method: 'GET' })
     const platformsResult = await fetchJson<FilterOptionResponse>(
       '/api/games/platforms',
       new URLSearchParams(),
+      {
+        cacheTtlMs: GGEMU_FILTER_CACHE_TTL_MS,
+      },
     )
     const platform = pickRandomPlatform(
       data.platform,

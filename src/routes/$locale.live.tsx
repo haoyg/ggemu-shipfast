@@ -54,7 +54,7 @@ export const Route = createFileRoute('/$locale/live')({
           limit: LIVE_ROOM_PAGE_SIZE,
           page,
         },
-      }),
+      }).catch(() => emptyLiveRoomSearchResult(page)),
     ])
 
     return {
@@ -83,6 +83,18 @@ export const Route = createFileRoute('/$locale/live')({
   errorComponent: LiveRoomError,
   component: LiveRoomListPage,
 })
+
+function emptyLiveRoomSearchResult(page: number) {
+  return {
+    rooms: [],
+    pagination: {
+      total: 0,
+      page,
+      limit: LIVE_ROOM_PAGE_SIZE,
+      pages: 0,
+    },
+  }
+}
 
 function LiveRoomListPage() {
   const initialResult = Route.useLoaderData()
