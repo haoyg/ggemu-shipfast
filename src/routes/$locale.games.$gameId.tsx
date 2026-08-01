@@ -16,6 +16,7 @@ import {
 import { SiteLayout } from '#/components/site-layout'
 import {
   UnavailablePage,
+  getUnavailableCopy,
 } from '#/components/unavailable-page'
 import { saveRecentPlayedGame } from '#/components/home/recent-played-games'
 import {
@@ -92,7 +93,16 @@ export const Route = createFileRoute('/$locale/games/$gameId')({
   },
   head: ({ loaderData, params }) => {
     if (!loaderData) {
-      return {}
+      const locale = normalizeLocale(params.locale)
+      const t = getUnavailableCopy(locale, 'game')
+
+      return {
+        meta: [
+          { title: t.title },
+          { name: 'description', content: t.description },
+          { name: 'robots', content: 'noindex,nofollow' },
+        ],
+      }
     }
 
     const { canonicalUrl, game } = loaderData

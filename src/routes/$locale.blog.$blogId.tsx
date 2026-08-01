@@ -8,6 +8,7 @@ import {
 import { SiteLayout } from '#/components/site-layout'
 import {
   UnavailablePage,
+  getUnavailableCopy,
 } from '#/components/unavailable-page'
 import {
   getGameDetail,
@@ -52,11 +53,19 @@ export const Route = createFileRoute('/$locale/blog/$blogId')({
     }
   },
   head: ({ loaderData, params }) => {
-    if (!loaderData) {
-      return {}
-    }
-
     const locale = normalizeLocale(params.locale)
+
+    if (!loaderData) {
+      const t = getUnavailableCopy(locale, 'blog')
+
+      return {
+        meta: [
+          { title: t.title },
+          { name: 'description', content: t.description },
+          { name: 'robots', content: 'noindex,nofollow' },
+        ],
+      }
+    }
 
     const { blogPost, canonicalUrl } = loaderData
     const title = blogPost.title || getI18n(locale).blog.title
