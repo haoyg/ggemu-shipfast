@@ -45,7 +45,7 @@ type BeforeInstallPromptEvent = Event & {
 }
 
 type InstallPromptWindow = Window & {
-  __GGEMU_INSTALL_PROMPT__?: BeforeInstallPromptEvent | null
+  __POKOPIE_INSTALL_PROMPT__?: BeforeInstallPromptEvent | null
 }
 
 const defaultManifestHref = '/manifest.webmanifest'
@@ -110,7 +110,6 @@ export const Route = createFileRoute('/$locale/games/$gameId')({
     const seo = buildGameDetailSeo(game, locale)
     const image = game.game_cover
     const faqItems = getGameDetailFaqs(game, locale)
-    const playPath = buildGamePlayPath(locale, params.gameId)
     const structuredData = buildGameStructuredData({
       canonicalUrl,
       faqItems,
@@ -124,11 +123,7 @@ export const Route = createFileRoute('/$locale/games/$gameId')({
         { rel: 'canonical', href: canonicalUrl },
         {
           rel: 'manifest',
-          href: buildGameManifestHref({
-            description: seo.description,
-            name: game.name,
-            startUrl: playPath,
-          }),
+          href: buildGameManifestHref(locale),
         },
         ...getAlternateLinksFromCanonical(canonicalUrl),
       ],
@@ -199,19 +194,9 @@ function buildGamePlayPath(locale: Locale, gameId: string) {
   return `/${locale}/games/${encodeURIComponent(gameId)}/play`
 }
 
-function buildGameManifestHref({
-  description,
-  name,
-  startUrl,
-}: {
-  description: string
-  name?: string
-  startUrl: string
-}) {
+function buildGameManifestHref(locale: Locale) {
   const params = new URLSearchParams({
-    description,
-    name: name?.trim() || 'GGEMU',
-    start_url: startUrl,
+    locale,
   })
 
   return `/manifest.webmanifest?${params.toString()}`
@@ -325,11 +310,7 @@ function LocalizedGameDetailPage() {
   const keywordText = getGameDetailKeywordText(game, lang)
   const howToPlay = getGameDetailHowToPlay(game, lang)
   const playPath = buildGamePlayPath(lang, gameId)
-  const manifestHref = buildGameManifestHref({
-    description: summary,
-    name: game.name,
-    startUrl: playPath,
-  })
+  const manifestHref = buildGameManifestHref(lang)
 
   if (pathname.endsWith('/play')) {
     return <Outlet />
@@ -487,7 +468,7 @@ function GameInstallButton({
       event.preventDefault()
       const prompt = event as BeforeInstallPromptEvent
 
-      ;(window as InstallPromptWindow).__GGEMU_INSTALL_PROMPT__ = prompt
+      ;(window as InstallPromptWindow).__POKOPIE_INSTALL_PROMPT__ = prompt
       setInstallPrompt(prompt)
       setIsGuideOpen(false)
       setMessage('')
@@ -500,11 +481,11 @@ function GameInstallButton({
     }
 
     window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt)
-    window.addEventListener('ggemu:installprompt', handleStoredInstallPrompt)
+    window.addEventListener('pokopie:installprompt', handleStoredInstallPrompt)
 
     return () => {
       window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt)
-      window.removeEventListener('ggemu:installprompt', handleStoredInstallPrompt)
+      window.removeEventListener('pokopie:installprompt', handleStoredInstallPrompt)
       syncManifestLink(defaultManifestHref)
     }
   }, [manifestHref])
@@ -520,7 +501,7 @@ function GameInstallButton({
     await installPrompt.prompt()
     const choice = await installPrompt.userChoice
 
-    ;(window as InstallPromptWindow).__GGEMU_INSTALL_PROMPT__ = null
+    ;(window as InstallPromptWindow).__POKOPIE_INSTALL_PROMPT__ = null
     setInstallPrompt(null)
 
     if (choice.outcome === 'dismissed') {
@@ -555,7 +536,7 @@ function GameInstallButton({
 function setStoredInstallPrompt(
   setInstallPrompt: (prompt: BeforeInstallPromptEvent | null) => void,
 ) {
-  setInstallPrompt((window as InstallPromptWindow).__GGEMU_INSTALL_PROMPT__ ?? null)
+  setInstallPrompt((window as InstallPromptWindow).__POKOPIE_INSTALL_PROMPT__ ?? null)
 }
 
 function InstallGuideModal({
@@ -648,7 +629,7 @@ function GameShareActions({
   const [posterUrl, setPosterUrl] = useState('')
   const [shareMessage, setShareMessage] = useState('')
   const [isGeneratingPoster, setIsGeneratingPoster] = useState(false)
-  const title = game.name || 'GGEMU'
+  const title = game.name || 'POKOPIE'
 
   useEffect(() => {
     function handlePointerDown(event: PointerEvent) {
@@ -809,7 +790,7 @@ async function createPosterDataUrl({
   canvas.height = 1080
   drawPosterBackground(context)
   await drawPosterCover(context, game)
-  const titleBottom = drawPosterTitle(context, game.name || 'GGEMU')
+  const titleBottom = drawPosterTitle(context, game.name || 'POKOPIE')
   drawPosterKeywords(context, game.keywords, titleBottom + 14)
   drawPosterQrCard(context)
   await drawPosterQr(context, url)

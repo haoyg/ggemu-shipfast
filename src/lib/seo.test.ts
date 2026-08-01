@@ -7,10 +7,10 @@ import {
 } from './seo'
 
 function hasHrefLang(
-  link: { href: string; hrefLang?: string; rel: string },
+  link: { href: string; hreflang?: string; rel: string },
   hrefLang: string,
 ) {
-  return link.hrefLang === hrefLang
+  return link.hreflang === hrefLang
 }
 
 describe('seo locale links', () => {
@@ -34,12 +34,12 @@ describe('seo locale links', () => {
 
     expect(links).toContainEqual({
       rel: 'alternate',
-      hrefLang: 'zh-CN',
+      hreflang: 'zh-CN',
       href: 'https://pokopie.com/zh-CN/games/test-game',
     })
     expect(links).toContainEqual({
       rel: 'alternate',
-      hrefLang: 'x-default',
+      hreflang: 'x-default',
       href: 'https://pokopie.com/zh-CN/games/test-game',
     })
   })

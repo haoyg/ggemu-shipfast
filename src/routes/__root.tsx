@@ -35,11 +35,11 @@ function getDefaultSocialImage(origin?: string) {
 
 function getPwaInstallInitScript() {
   return `
-    window.__GGEMU_INSTALL_PROMPT__=null;
+    window.__POKOPIE_INSTALL_PROMPT__=null;
     window.addEventListener('beforeinstallprompt',function(event){
       event.preventDefault();
-      window.__GGEMU_INSTALL_PROMPT__=event;
-      window.dispatchEvent(new Event('ggemu:installprompt'));
+      window.__POKOPIE_INSTALL_PROMPT__=event;
+      window.dispatchEvent(new Event('pokopie:installprompt'));
     });
     if('serviceWorker' in navigator){
       navigator.serviceWorker.register('/sw.js').catch(function(){});

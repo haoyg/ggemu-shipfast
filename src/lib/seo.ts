@@ -45,12 +45,12 @@ function getLocalizedAlternateLinks(origin: string, path: string) {
   return [
     ...seoLocales.map((locale) => ({
       rel: 'alternate',
-      hrefLang: locale,
+      hreflang: locale,
       href: toAbsoluteLocalizedUrl(origin, locale, path),
     })),
     {
       rel: 'alternate',
-      hrefLang: 'x-default',
+      hreflang: 'x-default',
       href: toAbsoluteLocalizedUrl(origin, defaultSeoLocale, path),
     },
   ]
