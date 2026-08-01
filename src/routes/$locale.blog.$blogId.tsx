@@ -395,7 +395,7 @@ function renderExternalLink(urlValue: string, index: number) {
       className="link link-primary"
       href={urlValue}
       key={`${urlValue}-${index}`}
-      rel="noreferrer"
+      rel="noopener noreferrer nofollow"
       target="_blank"
     >
       {getExternalLinkLabel(urlValue)}

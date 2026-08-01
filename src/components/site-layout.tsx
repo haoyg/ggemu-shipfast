@@ -250,6 +250,7 @@ export function SiteFooter({ locale }: { locale: Locale }) {
             <a
               className="mt-4 badge badge-sm badge-outline gap-2 p-3"
               href="https://ggemu.com"
+              rel="noopener noreferrer nofollow"
               target="_blank"
             >
               <i className="ri-flashlight-line" />

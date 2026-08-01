@@ -404,7 +404,7 @@ function LocalizedGameDetailPage() {
                   className="btn btn-primary btn-lg px-8 text-primary-content hover:text-primary-content sm:w-auto"
                   href={playPath}
                   onClick={() => saveRecentPlayedGame(game, gameId)}
-                  rel="noreferrer"
+                  rel="noopener noreferrer"
                   target="_blank"
                 >
                   <i className="ri-play-fill text-xl" />
