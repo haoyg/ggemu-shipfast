@@ -1,5 +1,4 @@
 import type { ReactNode } from 'react'
-import { useState } from 'react'
 import {
   HeadContent,
   Outlet,
@@ -16,7 +15,6 @@ import { getSiteThemeInitScript } from '#/lib/site-themes'
 import appCss from '../styles.css?url'
 
 const defaultSocialImagePath = '/og.png'
-const secretGameUrl = 'https://clever-spider-5915.puter.site/'
 const rootSecurityHeaders = {
   'Referrer-Policy': 'strict-origin-when-cross-origin',
   'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload',
@@ -163,41 +161,10 @@ function RootComponent() {
 }
 
 function MaintenanceErrorComponent() {
-  const [isSecretGameVisible, setIsSecretGameVisible] = useState(false)
   const pathname = useRouterState({ select: (state) => state.location.pathname })
   const locale = getDocumentLang(pathname)
   const messages = getMaintenanceMessages(locale)
   const tagline = getI18n(locale).layout.tagline
-
-  if (isSecretGameVisible) {
-    return (
-      <main className="min-h-screen bg-base-100 px-4 py-6 text-base-content sm:px-6 lg:px-8">
-        <section className="mx-auto flex max-w-7xl flex-col gap-5">
-          <div className="flex items-center gap-3">
-            <img
-              alt={siteConfig.SITE_NAME}
-              className="h-12 w-12 rounded-xl object-contain"
-              src="/logo-128.png"
-            />
-            <div className="min-w-0">
-              <h1 className="text-xl font-semibold leading-tight">
-                {siteConfig.SITE_NAME}
-              </h1>
-              <p className="truncate text-sm font-medium text-primary">
-                {tagline}
-              </p>
-            </div>
-          </div>
-          <iframe
-            allow="fullscreen"
-            className="h-[calc(100vh-7.5rem)] min-h-[30rem] w-full rounded-box border border-base-300 bg-base-200"
-            src={secretGameUrl}
-            title={messages.secretGameTitle}
-          />
-        </section>
-      </main>
-    )
-  }
 
   return (
     <main className="min-h-screen bg-base-100 px-4 py-16 text-base-content sm:px-6 lg:px-8">
@@ -219,15 +186,6 @@ function MaintenanceErrorComponent() {
         <p className="mt-4 max-w-xl text-base leading-7 text-base-content/70">
           {messages.description}
         </p>
-        <button
-          className="btn btn-primary mt-8"
-          onClick={() => {
-            setIsSecretGameVisible(true)
-          }}
-          type="button"
-        >
-          {messages.secretGameButton}
-        </button>
       </section>
     </main>
   )
@@ -238,8 +196,6 @@ function getMaintenanceMessages(locale: string) {
     return {
       title: 'The server is under maintenance',
       description: 'Scheduled maintenance is in progress. We will be back online shortly.',
-      secretGameButton: 'Play A Secret Game',
-      secretGameTitle: 'Secret Game',
     }
   }
 
@@ -247,16 +203,12 @@ function getMaintenanceMessages(locale: string) {
     return {
       title: 'サーバーはメンテナンス中です',
       description: '予定メンテナンスを実施しています。まもなく再開します。',
-      secretGameButton: '秘密のゲームで遊ぶ',
-      secretGameTitle: '秘密のゲーム',
     }
   }
 
   return {
     title: '服务器维护中',
     description: '我们正在进行计划维护，很快恢复访问。',
-    secretGameButton: '玩一个隐藏游戏',
-    secretGameTitle: '隐藏游戏',
   }
 }
 

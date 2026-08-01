@@ -1,7 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router'
 
 import type { Locale } from '#/lib/ggemu'
-import { getI18n, normalizeLocale } from '#/lib/i18n'
+import { getI18n, isSupportedLocale } from '#/lib/i18n'
 import { siteConfig } from '#/lib/site-config'
 
 const manifestCacheMaxAge = 60 * 60
@@ -40,18 +40,15 @@ export const Route = createFileRoute('/manifest.webmanifest')({
   },
 })
 
-function buildManifest(request: Request): WebAppManifest {
+export function buildManifest(request: Request): WebAppManifest {
   const url = new URL(request.url)
   const locale = getManifestLocale(url, request.headers.get('referer'))
-  const name = getSearchValue(url, 'name') || siteConfig.SITE_NAME
-  const description =
-    getSearchValue(url, 'description') || getI18n(locale).homeSeo.description
-  const startUrl = normalizeStartUrl(getSearchValue(url, 'start_url'), locale)
+  const startUrl = `/${locale}`
 
   return {
-    short_name: name,
-    name,
-    description,
+    short_name: siteConfig.SITE_NAME,
+    name: siteConfig.SITE_NAME,
+    description: getI18n(locale).homeSeo.description,
     lang: locale,
     icons: buildIcons(),
     id: startUrl,
@@ -81,13 +78,8 @@ function buildIcons() {
   ]
 }
 
-function getSearchValue(url: URL, key: string) {
-  return url.searchParams.get(key)?.trim() ?? ''
-}
-
 function getManifestLocale(url: URL, referer: string | null): Locale {
   return (
-    getLocaleFromPath(url.searchParams.get('start_url')) ||
     getLocaleFromValue(url.searchParams.get('locale')) ||
     getLocaleFromPath(referer) ||
     'zh-CN'
@@ -95,9 +87,7 @@ function getManifestLocale(url: URL, referer: string | null): Locale {
 }
 
 function getLocaleFromValue(value: string | null) {
-  return value === 'en' || value === 'ja' || value === 'zh-CN'
-    ? normalizeLocale(value)
-    : undefined
+  return isSupportedLocale(value) ? value : undefined
 }
 
 function getLocaleFromPath(value: string | null) {
@@ -112,20 +102,6 @@ function getLocaleFromPath(value: string | null) {
     return getLocaleFromValue(locale)
   } catch {
     return undefined
-  }
-}
-
-function normalizeStartUrl(value: string, locale: Locale) {
-  if (!value) {
-    return `/${locale}`
-  }
-
-  try {
-    const url = new URL(value, 'https://ggemu.local')
-
-    return `${url.pathname}${url.search}${url.hash}` || '/'
-  } catch {
-    return '/'
   }
 }
 
