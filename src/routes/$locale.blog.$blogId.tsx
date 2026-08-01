@@ -1,4 +1,4 @@
-import { Link, createFileRoute } from '@tanstack/react-router'
+import { Link, createFileRoute, notFound } from '@tanstack/react-router'
 import type { ReactNode } from 'react'
 
 import {
@@ -8,7 +8,6 @@ import {
 import { SiteLayout } from '#/components/site-layout'
 import {
   UnavailablePage,
-  getUnavailableCopy,
 } from '#/components/unavailable-page'
 import {
   getGameDetail,
@@ -36,11 +35,12 @@ export const Route = createFileRoute('/$locale/blog/$blogId')({
     }).catch(() => null)
 
     if (!detail) {
-      return {
-        blogId: params.blogId,
-        kind: 'missing' as const,
-        locale,
-      }
+      throw notFound({
+        data: { locale },
+        headers: {
+          'X-Robots-Tag': 'noindex, nofollow',
+        },
+      })
     }
 
     return {
@@ -57,18 +57,6 @@ export const Route = createFileRoute('/$locale/blog/$blogId')({
     }
 
     const locale = normalizeLocale(params.locale)
-
-    if (loaderData.kind === 'missing') {
-      const t = getUnavailableCopy(locale, 'blog')
-
-      return {
-        meta: [
-          { title: t.title },
-          { name: 'description', content: t.description },
-          { name: 'robots', content: 'noindex,nofollow' },
-        ],
-      }
-    }
 
     const { blogPost, canonicalUrl } = loaderData
     const title = blogPost.title || getI18n(locale).blog.title
@@ -103,18 +91,27 @@ export const Route = createFileRoute('/$locale/blog/$blogId')({
       ],
     }
   },
+  notFoundComponent: BlogDetailNotFound,
   component: BlogDetailPage,
 })
 
+function BlogDetailNotFound({ data }: { data?: unknown }) {
+  return <UnavailablePage locale={getNotFoundLocale(data)} type="blog" />
+}
+
+function getNotFoundLocale(data: unknown) {
+  if (data && typeof data === 'object' && 'locale' in data) {
+    return normalizeLocale((data as { locale?: unknown }).locale)
+  }
+
+  return normalizeLocale(undefined)
+}
+
 function BlogDetailPage() {
-  const data = Route.useLoaderData()
+  const data = Route.useLoaderData()!
   const { locale } = Route.useParams()
   const lang = normalizeLocale(locale)
   const t = getI18n(lang).blog
-
-  if (data.kind === 'missing') {
-    return <UnavailablePage locale={lang} type="blog" />
-  }
 
   const { blogPost, linkedGames } = data
 

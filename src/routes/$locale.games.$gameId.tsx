@@ -3,6 +3,7 @@ import {
   Link,
   Outlet,
   createFileRoute,
+  notFound,
   redirect,
   useRouterState,
 } from '@tanstack/react-router'
@@ -15,7 +16,6 @@ import {
 import { SiteLayout } from '#/components/site-layout'
 import {
   UnavailablePage,
-  getUnavailableCopy,
 } from '#/components/unavailable-page'
 import { saveRecentPlayedGame } from '#/components/home/recent-played-games'
 import {
@@ -52,7 +52,7 @@ const defaultManifestHref = '/manifest.webmanifest'
 export const Route = createFileRoute('/$locale/games/$gameId')({
   beforeLoad: ({ location, params }) => {
     if (location.pathname.endsWith('/play') || !location.searchStr) {
-      return
+      return undefined as never
     }
 
     throw redirect({
@@ -68,11 +68,12 @@ export const Route = createFileRoute('/$locale/games/$gameId')({
     }).catch(() => null)
 
     if (!detail) {
-      return {
-        gameId: params.gameId,
-        kind: 'missing' as const,
-        locale,
-      }
+      throw notFound({
+        data: { locale },
+        headers: {
+          'X-Robots-Tag': 'noindex, nofollow',
+        },
+      })
     }
 
     const currentId = getGameRouteId(detail.game) || params.gameId
@@ -92,19 +93,6 @@ export const Route = createFileRoute('/$locale/games/$gameId')({
   head: ({ loaderData, params }) => {
     if (!loaderData) {
       return {}
-    }
-
-    if (loaderData.kind === 'missing') {
-      const locale = normalizeLocale(params.locale)
-      const t = getUnavailableCopy(locale, 'game')
-
-      return {
-        meta: [
-          { title: t.title },
-          { name: 'description', content: t.description },
-          { name: 'robots', content: 'noindex,nofollow' },
-        ],
-      }
     }
 
     const { canonicalUrl, game } = loaderData
@@ -157,8 +145,21 @@ export const Route = createFileRoute('/$locale/games/$gameId')({
       ],
     }
   },
+  notFoundComponent: GameDetailNotFound,
   component: LocalizedGameDetailPage,
 })
+
+function GameDetailNotFound({ data }: { data?: unknown }) {
+  return <UnavailablePage locale={getNotFoundLocale(data)} type="game" />
+}
+
+function getNotFoundLocale(data: unknown) {
+  if (data && typeof data === 'object' && 'locale' in data) {
+    return normalizeLocale((data as { locale?: unknown }).locale)
+  }
+
+  return normalizeLocale(undefined)
+}
 
 function getRelatedGames(
   relatedByCategory: Array<PublicGame>,
@@ -299,15 +300,11 @@ function removeEmptySchemaValues<T extends Record<string, unknown>>(schema: T) {
 }
 
 function LocalizedGameDetailPage() {
-  const data = Route.useLoaderData()
+  const data = Route.useLoaderData()!
   const { gameId, locale } = Route.useParams()
   const pathname = useRouterState({ select: (state) => state.location.pathname })
   const lang = normalizeLocale(locale)
   const t = getI18n(lang).detail
-
-  if (data.kind === 'missing') {
-    return <UnavailablePage locale={lang} type="game" />
-  }
 
   const { canonicalUrl, game, relatedGamesPromise } = data
   const categories = getLocalizedCategoryLabels(game.categories, lang)
