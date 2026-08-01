@@ -4,6 +4,7 @@ const defaultTheme = 'default'
 
 const daisyThemes = [
   'default',
+  'pokopie',
   'light',
   'dark',
   'cupcake',

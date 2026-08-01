@@ -1,5 +1,5 @@
 {
-  "name": "my-tanstack-app",
+  "name": "ggemu-shipfast",
   "private": true,
   "license": "Apache-2.0",
   "type": "module",
@@ -9,9 +9,13 @@
   "scripts": {
     "dev": "vite dev --port 3000",
     "generate-routes": "tsr generate",
+    "typecheck": "tsc --noEmit",
+    "check": "npm run typecheck && npm test && npm run build",
     "build": "vite build",
     "preview": "vite preview",
-    "test": "vitest run"
+    "test": "vitest run",
+    "deploy:dry-run": "npm run build && wrangler deploy --dry-run",
+    "deploy": "npm run build && wrangler deploy"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.3.2",

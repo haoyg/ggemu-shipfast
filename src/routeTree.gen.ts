@@ -18,6 +18,7 @@ import { Route as LocaleRouteImport } from './routes/$locale'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as GamesGameIdRouteImport } from './routes/games/$gameId'
 import { Route as ApiShareImageRouteImport } from './routes/api/share-image'
+import { Route as ApiHealthRouteImport } from './routes/api/health'
 import { Route as LocaleTermsOfServiceRouteImport } from './routes/$locale.terms-of-service'
 import { Route as LocaleRandomRouteImport } from './routes/$locale.random'
 import { Route as LocalePrivacyPolicyRouteImport } from './routes/$locale.privacy-policy'
@@ -75,6 +76,11 @@ const GamesGameIdRoute = GamesGameIdRouteImport.update({
 const ApiShareImageRoute = ApiShareImageRouteImport.update({
   id: '/api/share-image',
   path: '/api/share-image',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiHealthRoute = ApiHealthRouteImport.update({
+  id: '/api/health',
+  path: '/api/health',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LocaleTermsOfServiceRoute = LocaleTermsOfServiceRouteImport.update({
@@ -158,6 +164,7 @@ export interface FileRoutesByFullPath {
   '/$locale/privacy-policy': typeof LocalePrivacyPolicyRoute
   '/$locale/random': typeof LocaleRandomRoute
   '/$locale/terms-of-service': typeof LocaleTermsOfServiceRoute
+  '/api/health': typeof ApiHealthRoute
   '/api/share-image': typeof ApiShareImageRoute
   '/games/$gameId': typeof GamesGameIdRouteWithChildren
   '/$locale/blog/$blogId': typeof LocaleBlogBlogIdRoute
@@ -182,6 +189,7 @@ export interface FileRoutesByTo {
   '/$locale/privacy-policy': typeof LocalePrivacyPolicyRoute
   '/$locale/random': typeof LocaleRandomRoute
   '/$locale/terms-of-service': typeof LocaleTermsOfServiceRoute
+  '/api/health': typeof ApiHealthRoute
   '/api/share-image': typeof ApiShareImageRoute
   '/games/$gameId': typeof GamesGameIdRouteWithChildren
   '/$locale/blog/$blogId': typeof LocaleBlogBlogIdRoute
@@ -207,6 +215,7 @@ export interface FileRoutesById {
   '/$locale/privacy-policy': typeof LocalePrivacyPolicyRoute
   '/$locale/random': typeof LocaleRandomRoute
   '/$locale/terms-of-service': typeof LocaleTermsOfServiceRoute
+  '/api/health': typeof ApiHealthRoute
   '/api/share-image': typeof ApiShareImageRoute
   '/games/$gameId': typeof GamesGameIdRouteWithChildren
   '/$locale/blog/$blogId': typeof LocaleBlogBlogIdRoute
@@ -233,6 +242,7 @@ export interface FileRouteTypes {
     | '/$locale/privacy-policy'
     | '/$locale/random'
     | '/$locale/terms-of-service'
+    | '/api/health'
     | '/api/share-image'
     | '/games/$gameId'
     | '/$locale/blog/$blogId'
@@ -257,6 +267,7 @@ export interface FileRouteTypes {
     | '/$locale/privacy-policy'
     | '/$locale/random'
     | '/$locale/terms-of-service'
+    | '/api/health'
     | '/api/share-image'
     | '/games/$gameId'
     | '/$locale/blog/$blogId'
@@ -281,6 +292,7 @@ export interface FileRouteTypes {
     | '/$locale/privacy-policy'
     | '/$locale/random'
     | '/$locale/terms-of-service'
+    | '/api/health'
     | '/api/share-image'
     | '/games/$gameId'
     | '/$locale/blog/$blogId'
@@ -299,6 +311,7 @@ export interface RootRouteChildren {
   RobotsDottxtRoute: typeof RobotsDottxtRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   XRoute: typeof XRoute
+  ApiHealthRoute: typeof ApiHealthRoute
   ApiShareImageRoute: typeof ApiShareImageRoute
   GamesGameIdRoute: typeof GamesGameIdRouteWithChildren
   UsernameArticleStatusidRoute: typeof UsernameArticleStatusidRoute
@@ -368,6 +381,13 @@ declare module '@tanstack/react-router' {
       path: '/api/share-image'
       fullPath: '/api/share-image'
       preLoaderRoute: typeof ApiShareImageRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/health': {
+      id: '/api/health'
+      path: '/api/health'
+      fullPath: '/api/health'
+      preLoaderRoute: typeof ApiHealthRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/$locale/terms-of-service': {
@@ -532,6 +552,7 @@ const rootRouteChildren: RootRouteChildren = {
   RobotsDottxtRoute: RobotsDottxtRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   XRoute: XRoute,
+  ApiHealthRoute: ApiHealthRoute,
   ApiShareImageRoute: ApiShareImageRoute,
   GamesGameIdRoute: GamesGameIdRouteWithChildren,
   UsernameArticleStatusidRoute: UsernameArticleStatusidRoute,

@@ -4,5 +4,15 @@
   "keep_vars": true,
   "compatibility_date": "2026-07-01",
   "compatibility_flags": ["nodejs_compat"],
-  "main": "@tanstack/react-start/server-entry"
+  "main": "@tanstack/react-start/server-entry",
+  "routes": [
+    {
+      "pattern": "pokopie.com",
+      "custom_domain": true
+    },
+    {
+      "pattern": "www.pokopie.com",
+      "custom_domain": true
+    }
+  ]
 }
