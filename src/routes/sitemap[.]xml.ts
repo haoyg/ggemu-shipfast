@@ -6,6 +6,7 @@ const GGEMU_API_BASE_URL = 'https://ggemu.com'
 const SITEMAP_PAGE_SIZE = 100
 const SITEMAP_MAX_PAGES = 50
 const SITEMAP_CACHE_TTL_MS = 1000 * 60 * 60 * 24
+const SITEMAP_FETCH_CONCURRENCY = 6
 const locales = ['zh-CN', 'en', 'ja'] as const satisfies ReadonlyArray<Locale>
 const defaultLocale = 'zh-CN' satisfies Locale
 
@@ -90,12 +91,11 @@ async function getSitemapXml(origin: string) {
 async function fetchSitemapGames() {
   const firstPage = await fetchGamesPage(1)
   const pageCount = Math.min(firstPage.pagination.pages, SITEMAP_MAX_PAGES)
-  const games = [...firstPage.data]
-
-  for (let page = 2; page <= pageCount; page += 1) {
-    const result = await fetchGamesPage(page)
-    games.push(...result.data)
-  }
+  const remainingPages = await fetchRemainingSitemapPages(pageCount, fetchGamesPage)
+  const games = [
+    ...firstPage.data,
+    ...remainingPages.flatMap((result) => result.data),
+  ]
 
   return dedupeGames(games)
 }
@@ -121,14 +121,45 @@ async function fetchGamesPage(page: number) {
 async function fetchSitemapBlogPosts() {
   const firstPage = await fetchBlogPostsPage(1)
   const pageCount = Math.min(firstPage.pagination.pages, SITEMAP_MAX_PAGES)
-  const blogPosts = [...firstPage.blogPosts]
-
-  for (let page = 2; page <= pageCount; page += 1) {
-    const result = await fetchBlogPostsPage(page)
-    blogPosts.push(...result.blogPosts)
-  }
+  const remainingPages = await fetchRemainingSitemapPages(
+    pageCount,
+    fetchBlogPostsPage,
+  )
+  const blogPosts = [
+    ...firstPage.blogPosts,
+    ...remainingPages.flatMap((result) => result.blogPosts),
+  ]
 
   return dedupeBlogPosts(blogPosts)
+}
+
+async function fetchRemainingSitemapPages<T>(
+  pageCount: number,
+  fetchPage: (page: number) => Promise<T>,
+) {
+  const pages = Array.from(
+    { length: Math.max(pageCount - 1, 0) },
+    (_, index) => index + 2,
+  )
+  const results: Array<T> = []
+  let nextIndex = 0
+
+  await Promise.all(
+    Array.from(
+      { length: Math.min(SITEMAP_FETCH_CONCURRENCY, pages.length) },
+      async () => {
+        while (nextIndex < pages.length) {
+          const currentIndex = nextIndex
+          const page = pages[currentIndex]
+
+          nextIndex += 1
+          results[currentIndex] = await fetchPage(page)
+        }
+      },
+    ),
+  )
+
+  return results
 }
 
 async function fetchBlogPostsPage(page: number) {
