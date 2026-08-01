@@ -4,8 +4,19 @@ import {
   GameCardPreviewVideo,
   gameCardPreviewHandlers,
 } from '#/components/game-card-preview'
-import type { BlogPost, GameSearchSort, Locale, PublicGame } from '#/lib/ggemu'
-import { formatCopy, getHomeFaqs, getI18n } from '#/lib/i18n'
+import type {
+  BlogPost,
+  GameSearchSort,
+  Locale,
+  PublicGame,
+} from '#/lib/ggemu'
+import {
+  formatCopy,
+  getHomeFaqs,
+  getI18n,
+  getLocalizedCategoryLabel,
+  getLocalizedPlatformLabel,
+} from '#/lib/i18n'
 import {
   getBlogCoverFallbackLabel,
   getRetroCoverFallbackLabel,
@@ -129,6 +140,7 @@ export function SearchForm({
   filterOptions,
   filters,
   isLoading,
+  lang,
   mode,
   onFilterChange,
   onQueryChange,
@@ -157,6 +169,7 @@ export function SearchForm({
           filterOptions={filterOptions}
           filters={filters}
           isLoading={isLoading}
+          lang={lang}
           onFilterChange={onFilterChange}
           onReset={onReset}
           t={t}
@@ -186,6 +199,7 @@ export function SearchForm({
           filterOptions={filterOptions}
           filters={filters}
           isLoading={isLoading}
+          lang={lang}
           onFilterChange={onFilterChange}
           onReset={onReset}
           t={t}
@@ -199,6 +213,7 @@ export function FilterSelects({
   filterOptions,
   filters,
   isLoading,
+  lang,
   onFilterChange,
   onReset,
   t,
@@ -213,7 +228,7 @@ export function FilterSelects({
         <option value="">{t.allPlatforms}</option>
         {filterOptions.platforms.map((platform) => (
           <option key={platform.name} value={platform.name}>
-            {platform.name}
+            {getLocalizedPlatformLabel(platform.name, lang)}
           </option>
         ))}
       </select>
@@ -226,7 +241,7 @@ export function FilterSelects({
         <option value="">{t.allCategories}</option>
         {filterOptions.categories.map((category) => (
           <option key={category.name} value={category.name}>
-            {category.name}
+            {getLocalizedCategoryLabel(category.name, lang)}
           </option>
         ))}
       </select>

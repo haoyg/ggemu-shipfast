@@ -8,6 +8,7 @@ import {
   getGameDetailSummary,
   getGameDetailFaqs,
   getI18n,
+  getLocalizedCategoryLabels,
 } from './i18n'
 
 const mojibakePattern = /涓|鏃|漏|銈|鍏|鐜|瑾|俙|锛焋/
@@ -66,6 +67,8 @@ describe('i18n messages', () => {
     expect(getGameDetailFaqs(game, 'ja')[0]?.question).toBe(
       'Pixel Quest はオンラインで遊べますか？',
     )
+    expect(getGameDetailFaqs(game, 'zh-CN')[2]?.answer).toContain('动作')
+    expect(getGameDetailFaqs(game, 'zh-CN')[2]?.answer).not.toContain('Action')
     expect(buildGameDetailSeo(game, 'zh-CN').title).toBe(
       'Pixel Quest 在线玩 | GBA | 2001 | 浏览器免下载',
     )
@@ -89,5 +92,10 @@ describe('i18n messages', () => {
       'Pixel Quest オンライン',
     )
     expect(getGameDetailKeywordText(game, 'ja')).not.toContain('movie game')
+    expect(buildGameDetailSeo(game, 'zh-CN').keywords).toContain('动作')
+    expect(buildGameDetailSeo(game, 'zh-CN').keywords).not.toContain('Action')
+    expect(getLocalizedCategoryLabels(game.categories, 'ja')).toEqual([
+      'アクション',
+    ])
   })
 })

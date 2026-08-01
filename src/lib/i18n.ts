@@ -36,11 +36,114 @@ export function getHomeFaqs(locale: Locale) {
   return homeFaqs[locale]
 }
 
+const localizedPlatformLabels: Record<Locale, Record<string, string>> = {
+  en: {},
+  'zh-CN': {
+    Arcade: '街机',
+    Famicom: '红白机',
+    'Game Boy': 'Game Boy',
+    'Game Boy Advance': 'GBA',
+    'Game Boy Color': 'GBC',
+    'Master System': 'Master System',
+    NES: 'NES',
+    'Nintendo 64': 'N64',
+    'Nintendo DS': 'Nintendo DS',
+    'PlayStation 1': 'PS1',
+    'PlayStation Portable': 'PSP',
+    'Sega Genesis': 'Sega Genesis',
+    'Super Famicom': 'Super Famicom',
+  },
+  ja: {
+    Arcade: 'アーケード',
+    Famicom: 'ファミコン',
+    'Game Boy': 'ゲームボーイ',
+    'Game Boy Advance': 'GBA',
+    'Game Boy Color': 'ゲームボーイカラー',
+    'Master System': 'マスターシステム',
+    NES: 'NES',
+    'Nintendo 64': 'NINTENDO 64',
+    'Nintendo DS': 'ニンテンドーDS',
+    'PlayStation 1': 'PS1',
+    'PlayStation Portable': 'PSP',
+    'Sega Genesis': 'メガドライブ',
+    'Super Famicom': 'スーパーファミコン',
+  },
+}
+
+const localizedCategoryLabels: Record<Locale, Record<string, string>> = {
+  en: {},
+  'zh-CN': {
+    Action: '动作',
+    Adventure: '冒险',
+    Arcade: '街机',
+    Cards: '卡牌',
+    Educational: '教育',
+    Fighting: '格斗',
+    Platform: '平台跳跃',
+    Puzzle: '益智',
+    Racing: '竞速',
+    Role: '角色扮演',
+    RPG: '角色扮演',
+    Shooter: '射击',
+    Simulation: '模拟',
+    Sports: '体育',
+    Strategy: '策略',
+  },
+  ja: {
+    Action: 'アクション',
+    Adventure: 'アドベンチャー',
+    Arcade: 'アーケード',
+    Cards: 'カード',
+    Educational: '教育',
+    Fighting: '格闘',
+    Platform: 'プラットフォーム',
+    Puzzle: 'パズル',
+    Racing: 'レース',
+    Role: 'ロールプレイング',
+    RPG: 'ロールプレイング',
+    Shooter: 'シューティング',
+    Simulation: 'シミュレーション',
+    Sports: 'スポーツ',
+    Strategy: 'ストラテジー',
+  },
+}
+
+export function getLocalizedPlatformLabel(value: string | undefined, locale: Locale) {
+  const name = value?.trim()
+
+  if (!name) {
+    return ''
+  }
+
+  return localizedPlatformLabels[locale][name] ?? name
+}
+
+export function getLocalizedCategoryLabel(value: string | undefined, locale: Locale) {
+  const name = value?.trim()
+
+  if (!name) {
+    return ''
+  }
+
+  return localizedCategoryLabels[locale][name] ?? name
+}
+
+export function getLocalizedCategoryLabels(
+  values: Array<string> | undefined,
+  locale: Locale,
+) {
+  return (
+    values
+      ?.map((value) => getLocalizedCategoryLabel(value, locale))
+      .filter(Boolean) ?? []
+  )
+}
+
 export function getGameDetailFaqs(game: PublicGame, locale: Locale) {
   const name = game.name?.trim() || getFallbackGameName(locale)
-  const platform = game.platform?.trim()
+  const platform = getLocalizedPlatformLabel(game.platform, locale)
   const developer = game.developer?.trim()
-  const category = game.categories?.find((item) => item.trim())?.trim()
+  const category = getLocalizedCategoryLabels(game.categories, locale)[0]
 
   if (locale === 'zh-CN') {
     return [
@@ -154,9 +257,11 @@ function truncateText(value: string, maxLength: number) {
 
 export function buildGameDetailSeo(game: PublicGame, locale: Locale) {
   const name = game.name?.trim() || 'Retro Game'
-  const platform = game.platform?.trim()
+  const platform = getLocalizedPlatformLabel(game.platform, locale)
   const year = game.released_year?.trim()
-  const categoryText = (game.categories ?? []).slice(0, 3).join(', ')
+  const categoryText = getLocalizedCategoryLabels(game.categories, locale)
+    .slice(0, 3)
+    .join(', ')
   const baseDescription = game.description ? compactText(game.description) : ''
   const localizedDescription = getGameDetailSummary(game, locale)
 
@@ -225,7 +330,7 @@ export function buildGameDetailSeo(game: PublicGame, locale: Locale) {
 
 export function getGameDetailSummary(game: PublicGame, locale: Locale) {
   const name = game.name?.trim() || getFallbackGameName(locale)
-  const platform = game.platform?.trim()
+  const platform = getLocalizedPlatformLabel(game.platform, locale)
   const year = game.released_year?.trim()
   const baseDescription = game.description ? compactText(game.description) : ''
 
@@ -249,7 +354,7 @@ export function getGameDetailSummary(game: PublicGame, locale: Locale) {
 
 export function getGameDetailKeywordText(game: PublicGame, locale: Locale) {
   const name = game.name?.trim() || getFallbackGameName(locale)
-  const platform = game.platform?.trim()
+  const platform = getLocalizedPlatformLabel(game.platform, locale)
 
   if (locale === 'zh-CN') {
     return [
@@ -280,7 +385,7 @@ export function getGameDetailKeywordText(game: PublicGame, locale: Locale) {
 
 export function getGameDetailHowToPlay(game: PublicGame, locale: Locale) {
   const name = game.name?.trim() || getFallbackGameName(locale)
-  const platform = game.platform?.trim()
+  const platform = getLocalizedPlatformLabel(game.platform, locale)
   const baseHowToPlay = game.how_to_play ? compactText(game.how_to_play) : ''
 
   if (locale === 'zh-CN') {

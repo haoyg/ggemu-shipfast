@@ -43,6 +43,7 @@ export type SearchFormProps = {
   filterOptions: GameFilterOptions
   filters: Filters
   isLoading: boolean
+  lang: Locale
   mode: 'default' | 'sidebar'
   onFilterChange: <Key extends keyof Filters>(
     key: Key,

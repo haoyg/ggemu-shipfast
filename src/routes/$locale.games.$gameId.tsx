@@ -27,6 +27,8 @@ import {
   getGameDetailKeywordText,
   getGameDetailSummary,
   getI18n,
+  getLocalizedCategoryLabels,
+  getLocalizedPlatformLabel,
   normalizeLocale,
 } from '#/lib/i18n'
 import { getRetroCoverFallbackLabel } from '#/lib/locale-labels'
@@ -274,8 +276,9 @@ function LocalizedGameDetailPage() {
   const pathname = useRouterState({ select: (state) => state.location.pathname })
   const lang = normalizeLocale(locale)
   const t = getI18n(lang).detail
-  const categories = game.categories ?? []
+  const categories = getLocalizedCategoryLabels(game.categories, lang)
   const languages = game.languages ?? []
+  const platformLabel = getLocalizedPlatformLabel(game.platform, lang)
   const faqItems = getGameDetailFaqs(game, lang)
   const summary = getGameDetailSummary(game, lang)
   const keywordText = getGameDetailKeywordText(game, lang)
@@ -340,10 +343,10 @@ function LocalizedGameDetailPage() {
                     <i className="ri-download-cloud-2-line" />
                     {t.noDownload}
                   </span>
-                  {game.platform ? (
+                  {platformLabel ? (
                     <span className="badge badge-sm badge-primary max-w-full gap-1 sm:badge-md">
                       <i className="ri-gamepad-line" />
-                      <span className="truncate">{game.platform}</span>
+                      <span className="truncate">{platformLabel}</span>
                     </span>
                   ) : null}
                 </div>
@@ -406,7 +409,7 @@ function LocalizedGameDetailPage() {
               <section className="rounded-box border border-base-300 bg-base-100 p-5 shadow-sm">
                 <h2 className="text-lg font-semibold">{t.details}</h2>
                 <dl className="mt-4 grid gap-3 text-sm">
-                  <Fact icon="ri-gamepad-line" label={t.platform} value={game.platform} />
+                  <Fact icon="ri-gamepad-line" label={t.platform} value={platformLabel} />
                   <Fact icon="ri-building-2-line" label={t.developer} value={game.developer} />
                   <Fact icon="ri-calendar-line" label={t.released} value={game.released_year} />
                   <Fact icon="ri-user-line" label={t.players} value={String(game.players ?? 1)} />

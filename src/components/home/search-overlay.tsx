@@ -115,6 +115,7 @@ export function HomeSearchOverlay({
             filterOptions={filterOptions}
             filters={filters}
             isLoading={isSearching}
+            lang={lang}
             onFilterChange={updateFilter}
             onReset={resetSearch}
             t={t}
