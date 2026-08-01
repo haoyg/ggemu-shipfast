@@ -3,10 +3,16 @@
   "name": "POKOPIE",
   "icons": [
     {
-      "src": "logo.png",
+      "src": "icon-192.png",
       "type": "image/png",
-      "sizes": "240x240",
+      "sizes": "192x192",
       "purpose": "any maskable"
+    },
+    {
+      "src": "icon-512.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "any"
     }
   ],
   "start_url": ".",

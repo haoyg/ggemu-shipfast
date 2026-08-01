@@ -89,11 +89,11 @@ export const Route = createRootRoute({
         },
         {
           property: 'og:image:width',
-          content: '1731',
+          content: '1200',
         },
         {
           property: 'og:image:height',
-          content: '909',
+          content: '630',
         },
         {
           property: 'og:image:alt',
@@ -128,12 +128,12 @@ export const Route = createRootRoute({
         },
         {
           rel: 'icon',
-          href: '/logo.png',
+          href: '/icon-192.png',
           type: 'image/png',
         },
         {
           rel: 'apple-touch-icon',
-          href: '/logo.png',
+          href: '/icon-512.png',
         },
         {
           rel: 'manifest',
