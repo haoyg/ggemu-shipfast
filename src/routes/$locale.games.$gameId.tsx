@@ -23,6 +23,9 @@ import {
 import {
   buildGameDetailSeo,
   getGameDetailFaqs,
+  getGameDetailHowToPlay,
+  getGameDetailKeywordText,
+  getGameDetailSummary,
   getI18n,
   normalizeLocale,
 } from '#/lib/i18n'
@@ -274,9 +277,12 @@ function LocalizedGameDetailPage() {
   const categories = game.categories ?? []
   const languages = game.languages ?? []
   const faqItems = getGameDetailFaqs(game, lang)
+  const summary = getGameDetailSummary(game, lang)
+  const keywordText = getGameDetailKeywordText(game, lang)
+  const howToPlay = getGameDetailHowToPlay(game, lang)
   const playPath = buildGamePlayPath(lang, gameId)
   const manifestHref = buildGameManifestHref({
-    description: buildGameDetailSeo(game, lang).description,
+    description: summary,
     name: game.name,
     startUrl: playPath,
   })
@@ -344,11 +350,9 @@ function LocalizedGameDetailPage() {
                 <h1 className="max-w-4xl truncate text-2xl font-semibold leading-tight sm:text-4xl">
                   {game.name}
                 </h1>
-                {game.description ? (
-                  <p className="mt-2 line-clamp-2 max-w-3xl text-sm leading-6 text-base-content/70 sm:mt-4 sm:line-clamp-none sm:text-lg sm:leading-7">
-                    {game.description}
-                  </p>
-                ) : null}
+                <p className="mt-2 line-clamp-2 max-w-3xl text-sm leading-6 text-base-content/70 sm:mt-4 sm:line-clamp-none sm:text-lg sm:leading-7">
+                  {summary}
+                </p>
               </div>
 
               <div className="grid gap-3 sm:flex sm:flex-row">
@@ -381,8 +385,8 @@ function LocalizedGameDetailPage() {
 
           <section className="grid gap-6 lg:grid-cols-[1fr_340px]">
             <div className="flex flex-col gap-6">
-              <KeywordPanel title={t.keywords} value={game.keywords} />
-              <ContentPanel title={t.howToPlay} value={game.how_to_play} />
+              <KeywordPanel title={t.keywords} value={keywordText} />
+              <ContentPanel title={t.howToPlay} value={howToPlay} />
               <FaqSection items={faqItems} title={t.faq} />
               <Await promise={relatedGamesPromise} fallback={<RelatedGamesFallback title={t.relatedGames} />}>
                 {(related) => (

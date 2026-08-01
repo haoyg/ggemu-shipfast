@@ -158,17 +158,14 @@ export function buildGameDetailSeo(game: PublicGame, locale: Locale) {
   const year = game.released_year?.trim()
   const categoryText = (game.categories ?? []).slice(0, 3).join(', ')
   const baseDescription = game.description ? compactText(game.description) : ''
+  const localizedDescription = getGameDetailSummary(game, locale)
 
   if (locale === 'zh-CN') {
     return {
       title: [`${name} 在线玩`, platform, year, '浏览器免下载']
         .filter(Boolean)
         .join(' | '),
-      description: truncateText(
-        baseDescription ||
-          `在线游玩 ${name}${platform ? ` ${platform}` : ''} 复古游戏，浏览器直接启动，无需下载。`,
-        155,
-      ),
+      description: truncateText(localizedDescription, 155),
       keywords: [
         `${name} 在线玩`,
         `${name} online`,
@@ -188,11 +185,7 @@ export function buildGameDetailSeo(game: PublicGame, locale: Locale) {
       title: [`${name} をオンラインでプレイ`, platform, year, 'ダウンロード不要']
         .filter(Boolean)
         .join(' | '),
-      description: truncateText(
-        baseDescription ||
-          `${name}${platform ? ` for ${platform}` : ''} をブラウザーでそのままプレイ。ダウンロード不要です。`,
-        155,
-      ),
+      description: truncateText(localizedDescription, 155),
       keywords: [
         `${name} オンライン`,
         `${name} play online`,
@@ -228,4 +221,82 @@ export function buildGameDetailSeo(game: PublicGame, locale: Locale) {
       .filter(Boolean)
       .join(', '),
   }
+}
+
+export function getGameDetailSummary(game: PublicGame, locale: Locale) {
+  const name = game.name?.trim() || getFallbackGameName(locale)
+  const platform = game.platform?.trim()
+  const year = game.released_year?.trim()
+  const baseDescription = game.description ? compactText(game.description) : ''
+
+  if (locale === 'zh-CN') {
+    return compactText(
+      `在线游玩 ${name}${platform ? `（${platform}）` : ''}${year ? `，这是一款 ${year} 年发布的经典复古游戏` : ' 经典复古游戏'}。浏览器直接启动，无需下载。`,
+    )
+  }
+
+  if (locale === 'ja') {
+    return compactText(
+      `${name}${platform ? `（${platform}）` : ''}${year ? `は${year}年発売のレトロゲームです` : 'をオンラインでプレイできます'}。ブラウザーでそのまま遊べて、ダウンロードは不要です。`,
+    )
+  }
+
+  return (
+    baseDescription ||
+    `Play ${name}${platform ? ` for ${platform}` : ''} online in your browser. No download required.`
+  )
+}
+
+export function getGameDetailKeywordText(game: PublicGame, locale: Locale) {
+  const name = game.name?.trim() || getFallbackGameName(locale)
+  const platform = game.platform?.trim()
+
+  if (locale === 'zh-CN') {
+    return [
+      `${name} 在线玩`,
+      platform ? `${platform} 复古游戏` : '',
+      '浏览器游戏',
+      '免下载',
+      'POKOPIE',
+    ]
+      .filter(Boolean)
+      .join(', ')
+  }
+
+  if (locale === 'ja') {
+    return [
+      `${name} オンライン`,
+      platform ? `${platform} レトロゲーム` : '',
+      'ブラウザーゲーム',
+      'ダウンロード不要',
+      'POKOPIE',
+    ]
+      .filter(Boolean)
+      .join(', ')
+  }
+
+  return game.keywords?.trim() || buildGameDetailSeo(game, locale).keywords
+}
+
+export function getGameDetailHowToPlay(game: PublicGame, locale: Locale) {
+  const name = game.name?.trim() || getFallbackGameName(locale)
+  const platform = game.platform?.trim()
+  const baseHowToPlay = game.how_to_play ? compactText(game.how_to_play) : ''
+
+  if (locale === 'zh-CN') {
+    return compactText(
+      `点击“开始游戏”即可在浏览器中启动 ${name}${platform ? `（${platform}）` : ''}。使用键盘或手柄按页面内模拟器提示操作；如需调整按键、保存进度或切换全屏，请进入游戏后使用模拟器菜单。`,
+    )
+  }
+
+  if (locale === 'ja') {
+    return compactText(
+      `「プレイ」を押すと、${name}${platform ? `（${platform}）` : ''} がブラウザーで起動します。キーボードまたはゲームパッドで操作し、キー設定、セーブ、全画面表示はゲーム画面内のエミュレーターメニューから調整できます。`,
+    )
+  }
+
+  return (
+    baseHowToPlay ||
+    `Select Play to launch ${name}${platform ? ` for ${platform}` : ''} in your browser. Use the emulator menu to adjust controls, save progress, or enter fullscreen mode.`
+  )
 }

@@ -3,6 +3,9 @@ import { describe, expect, it } from 'vitest'
 import type { PublicGame } from './ggemu'
 import {
   buildGameDetailSeo,
+  getGameDetailHowToPlay,
+  getGameDetailKeywordText,
+  getGameDetailSummary,
   getGameDetailFaqs,
   getI18n,
 } from './i18n'
@@ -46,6 +49,11 @@ describe('i18n messages', () => {
   it('builds localized game detail FAQ and SEO text', () => {
     const game = {
       categories: ['Action'],
+      description:
+        'A side-scrolling action game with high-speed motorcycle sequences.',
+      how_to_play:
+        'Use quick attacks and special moves to clear each side-scrolling stage.',
+      keywords: 'action, movie game, motorcycle',
       developer: 'POKOPIE Studio',
       name: 'Pixel Quest',
       platform: 'GBA',
@@ -64,5 +72,22 @@ describe('i18n messages', () => {
     expect(buildGameDetailSeo(game, 'ja').title).toBe(
       'Pixel Quest をオンラインでプレイ | GBA | 2001 | ダウンロード不要',
     )
+    expect(buildGameDetailSeo(game, 'zh-CN').description).toContain(
+      '在线游玩 Pixel Quest',
+    )
+    expect(buildGameDetailSeo(game, 'zh-CN').description).not.toContain(
+      'side-scrolling',
+    )
+    expect(getGameDetailSummary(game, 'ja')).toContain(
+      'Pixel Quest（GBA）は2001年発売のレトロゲームです',
+    )
+    expect(getGameDetailHowToPlay(game, 'zh-CN')).toContain(
+      '点击“开始游戏”即可在浏览器中启动 Pixel Quest',
+    )
+    expect(getGameDetailHowToPlay(game, 'zh-CN')).not.toContain('quick attacks')
+    expect(getGameDetailKeywordText(game, 'ja')).toContain(
+      'Pixel Quest オンライン',
+    )
+    expect(getGameDetailKeywordText(game, 'ja')).not.toContain('movie game')
   })
 })
