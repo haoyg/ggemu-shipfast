@@ -13,6 +13,10 @@ import {
   gameCardPreviewHandlers,
 } from '#/components/game-card-preview'
 import { SiteLayout } from '#/components/site-layout'
+import {
+  UnavailablePage,
+  getUnavailableCopy,
+} from '#/components/unavailable-page'
 import { saveRecentPlayedGame } from '#/components/home/recent-played-games'
 import {
   getGameDetailPageData,
@@ -58,13 +62,24 @@ export const Route = createFileRoute('/$locale/games/$gameId')({
     })
   },
   loader: async ({ params }) => {
+    const locale = normalizeLocale(params.locale)
     const detail = await getGameDetailPageData({
-      data: { id: params.gameId, locale: normalizeLocale(params.locale) },
-    })
+      data: { id: params.gameId, locale },
+    }).catch(() => null)
+
+    if (!detail) {
+      return {
+        gameId: params.gameId,
+        kind: 'missing' as const,
+        locale,
+      }
+    }
+
     const currentId = getGameRouteId(detail.game) || params.gameId
 
     return {
       ...detail,
+      kind: 'ready' as const,
       relatedGamesPromise: getRelatedGamePageData({
         data: {
           category: detail.game.categories?.[0],
@@ -77,6 +92,19 @@ export const Route = createFileRoute('/$locale/games/$gameId')({
   head: ({ loaderData, params }) => {
     if (!loaderData) {
       return {}
+    }
+
+    if (loaderData.kind === 'missing') {
+      const locale = normalizeLocale(params.locale)
+      const t = getUnavailableCopy(locale, 'game')
+
+      return {
+        meta: [
+          { title: t.title },
+          { name: 'description', content: t.description },
+          { name: 'robots', content: 'noindex,nofollow' },
+        ],
+      }
     }
 
     const { canonicalUrl, game } = loaderData
@@ -271,11 +299,17 @@ function removeEmptySchemaValues<T extends Record<string, unknown>>(schema: T) {
 }
 
 function LocalizedGameDetailPage() {
-  const { canonicalUrl, game, relatedGamesPromise } = Route.useLoaderData()
+  const data = Route.useLoaderData()
   const { gameId, locale } = Route.useParams()
   const pathname = useRouterState({ select: (state) => state.location.pathname })
   const lang = normalizeLocale(locale)
   const t = getI18n(lang).detail
+
+  if (data.kind === 'missing') {
+    return <UnavailablePage locale={lang} type="game" />
+  }
+
+  const { canonicalUrl, game, relatedGamesPromise } = data
   const categories = getLocalizedCategoryLabels(game.categories, lang)
   const languages = game.languages ?? []
   const platformLabel = getLocalizedPlatformLabel(game.platform, lang)

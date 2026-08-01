@@ -7,6 +7,10 @@ import {
 } from '#/components/game-card-preview'
 import { SiteLayout } from '#/components/site-layout'
 import {
+  UnavailablePage,
+  getUnavailableCopy,
+} from '#/components/unavailable-page'
+import {
   getGameDetail,
   getBlogPostDetailPageData,
   type BlogPost,
@@ -23,15 +27,25 @@ import { getAlternateLinksFromCanonical } from '#/lib/seo'
 
 export const Route = createFileRoute('/$locale/blog/$blogId')({
   loader: async ({ params }) => {
+    const locale = normalizeLocale(params.locale)
     const detail = await getBlogPostDetailPageData({
       data: {
         id: params.blogId,
-        locale: normalizeLocale(params.locale),
+        locale,
       },
-    })
+    }).catch(() => null)
+
+    if (!detail) {
+      return {
+        blogId: params.blogId,
+        kind: 'missing' as const,
+        locale,
+      }
+    }
 
     return {
       ...detail,
+      kind: 'ready' as const,
       linkedGames: await loadLinkedGames(
         detail.blogPost.content || detail.blogPost.excerpt || '',
       ),
@@ -43,6 +57,19 @@ export const Route = createFileRoute('/$locale/blog/$blogId')({
     }
 
     const locale = normalizeLocale(params.locale)
+
+    if (loaderData.kind === 'missing') {
+      const t = getUnavailableCopy(locale, 'blog')
+
+      return {
+        meta: [
+          { title: t.title },
+          { name: 'description', content: t.description },
+          { name: 'robots', content: 'noindex,nofollow' },
+        ],
+      }
+    }
+
     const { blogPost, canonicalUrl } = loaderData
     const title = blogPost.title || getI18n(locale).blog.title
     const description = getLocalizedBlogPostExcerpt(blogPost, locale)
@@ -80,10 +107,16 @@ export const Route = createFileRoute('/$locale/blog/$blogId')({
 })
 
 function BlogDetailPage() {
-  const { blogPost, linkedGames } = Route.useLoaderData()
+  const data = Route.useLoaderData()
   const { locale } = Route.useParams()
   const lang = normalizeLocale(locale)
   const t = getI18n(lang).blog
+
+  if (data.kind === 'missing') {
+    return <UnavailablePage locale={lang} type="blog" />
+  }
+
+  const { blogPost, linkedGames } = data
 
   return (
     <SiteLayout locale={lang}>
