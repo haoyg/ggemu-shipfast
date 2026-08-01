@@ -9,6 +9,7 @@ import {
 } from '@tanstack/react-router'
 
 import { ThirdPartyScripts } from '#/components/third-party-scripts'
+import { getI18n } from '#/lib/i18n'
 import { getDocumentLang, getSeoOrigin } from '#/lib/seo'
 import { serializeSiteConfig, siteConfig } from '#/lib/site-config'
 import { getSiteThemeInitScript } from '#/lib/site-themes'
@@ -16,6 +17,13 @@ import appCss from '../styles.css?url'
 
 const defaultSocialImagePath = '/og.png'
 const secretGameUrl = 'https://clever-spider-5915.puter.site/'
+const defaultRootSeo = {
+  title: '在线玩经典复古游戏 | POKOPIE',
+  description:
+    '在 POKOPIE 直接用浏览器游玩 GBA、NES、SNES、PS1、N64、Sega Genesis、街机等经典复古游戏，无需下载。',
+  keywords:
+    'POKOPIE, 在线复古游戏, GBA 在线游戏, NES 在线游戏, SNES 在线游戏, PS1 在线游戏, N64 在线游戏, 街机游戏, 浏览器游戏, 免下载游戏',
+}
 
 function getDefaultSocialImage(origin?: string) {
   return origin ? `${origin}${defaultSocialImagePath}` : defaultSocialImagePath
@@ -50,21 +58,19 @@ export const Route = createRootRoute({
           content: 'width=device-width, initial-scale=1',
         },
         {
-          title: `${siteConfig.SITE_SLOGAN} | No Downloads Required`,
+          title: defaultRootSeo.title,
         },
         {
           name: 'description',
-          content:
-            'Play classic retro games from GBA, NES, SNES, PS1, N64, Sega Genesis, Arcade and more directly in your browser. No downloads required.',
+          content: defaultRootSeo.description,
         },
         {
           name: 'keywords',
-          content:
-            'retro games online, play GBA games online, NES games online, SNES games online, PS1 games online, N64 games online, Sega Genesis games, arcade games online, browser emulator games, no download games',
+          content: defaultRootSeo.keywords,
         },
         {
           property: 'og:title',
-          content: siteConfig.SITE_SLOGAN,
+          content: defaultRootSeo.title,
         },
         {
           property: 'og:site_name',
@@ -72,8 +78,7 @@ export const Route = createRootRoute({
         },
         {
           property: 'og:description',
-          content:
-            'Play GBA, NES, SNES, PS1, N64, Sega Genesis, Arcade and more directly in your browser. No downloads required.',
+          content: defaultRootSeo.description,
         },
         {
           property: 'og:type',
@@ -97,7 +102,7 @@ export const Route = createRootRoute({
         },
         {
           property: 'og:image:alt',
-          content: siteConfig.SITE_SLOGAN,
+          content: defaultRootSeo.title,
         },
         {
           name: 'twitter:card',
@@ -105,12 +110,11 @@ export const Route = createRootRoute({
         },
         {
           name: 'twitter:title',
-          content: siteConfig.SITE_SLOGAN,
+          content: defaultRootSeo.title,
         },
         {
           name: 'twitter:description',
-          content:
-            'Classic retro games playable in your browser across GBA, NES, SNES, PS1, N64, Sega Genesis, Arcade and more.',
+          content: defaultRootSeo.description,
         },
         {
           name: 'twitter:image',
@@ -118,7 +122,7 @@ export const Route = createRootRoute({
         },
         {
           name: 'twitter:image:alt',
-          content: siteConfig.SITE_SLOGAN,
+          content: defaultRootSeo.title,
         },
       ],
       links: [
@@ -156,6 +160,7 @@ function MaintenanceErrorComponent() {
   const pathname = useRouterState({ select: (state) => state.location.pathname })
   const locale = getDocumentLang(pathname)
   const messages = getMaintenanceMessages(locale)
+  const tagline = getI18n(locale).layout.tagline
 
   if (isSecretGameVisible) {
     return (
@@ -172,7 +177,7 @@ function MaintenanceErrorComponent() {
                 {siteConfig.SITE_NAME}
               </h1>
               <p className="truncate text-sm font-medium text-primary">
-                {siteConfig.SITE_SLOGAN}
+                {tagline}
               </p>
             </div>
           </div>
@@ -199,7 +204,7 @@ function MaintenanceErrorComponent() {
           {siteConfig.SITE_NAME}
         </h1>
         <p className="mt-2 max-w-full truncate text-base font-medium text-primary">
-          {siteConfig.SITE_SLOGAN}
+          {tagline}
         </p>
         <h2 className="mt-8 text-2xl font-semibold leading-tight sm:text-3xl">
           {messages.title}

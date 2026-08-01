@@ -100,7 +100,7 @@ export function SiteLayout({
                   {siteConfig.SITE_NAME}
                 </span>
                 <span className="block truncate text-xs text-base-content/55">
-                  {siteConfig.SITE_SLOGAN}
+                  {t.tagline}
                 </span>
               </span>
             </Link>

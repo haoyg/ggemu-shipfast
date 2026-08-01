@@ -35,6 +35,14 @@ describe('i18n messages', () => {
     expect(localizedText).not.toMatch(mojibakePattern)
   })
 
+  it('localizes the site tagline used in the header', () => {
+    expect(getI18n('zh-CN').layout.tagline).toBe('在 POKOPIE 玩复古游戏')
+    expect(getI18n('en').layout.tagline).toBe('Play Retro Games on POKOPIE')
+    expect(getI18n('ja').layout.tagline).toBe(
+      'POKOPIEでレトロゲームをプレイ',
+    )
+  })
+
   it('builds localized game detail FAQ and SEO text', () => {
     const game = {
       categories: ['Action'],

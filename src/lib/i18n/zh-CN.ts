@@ -14,6 +14,7 @@ export const zhCnMessages = {
     termsOfService: '服务条款',
     theme: '主题',
     language: '语言',
+    tagline: '在 POKOPIE 玩复古游戏',
     get copyright() {
       return `Copyright 2025 ${siteConfig.SITE_NAME}`
     },

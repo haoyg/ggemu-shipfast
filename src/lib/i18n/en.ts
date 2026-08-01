@@ -14,6 +14,7 @@ export const enMessages = {
     termsOfService: 'Terms of Service',
     theme: 'Theme',
     language: 'Language',
+    tagline: 'Play Retro Games on POKOPIE',
     get copyright() {
       return `Copyright 2025 ${siteConfig.SITE_NAME}`
     },

@@ -6,7 +6,6 @@ import {
   redirect,
   useRouterState,
 } from '@tanstack/react-router'
-import QRCode from 'qrcode'
 import { useEffect, useRef, useState } from 'react'
 
 import {
@@ -870,6 +869,7 @@ function drawPosterQrCard(context: CanvasRenderingContext2D) {
 }
 
 async function drawPosterQr(context: CanvasRenderingContext2D, url: string) {
+  const { default: QRCode } = await import('qrcode')
   const qrDataUrl = await QRCode.toDataURL(url, {
     errorCorrectionLevel: 'M',
     margin: 1,

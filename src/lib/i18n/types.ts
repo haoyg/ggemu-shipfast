@@ -11,6 +11,7 @@ export type I18nMessages = {
     termsOfService: string
     theme: string
     language: string
+    tagline: string
     copyright: string
     disclaimer: string
     footer: string

@@ -14,6 +14,7 @@ export const jaMessages = {
     termsOfService: '利用規約',
     theme: 'テーマ',
     language: '言語',
+    tagline: 'POKOPIEでレトロゲームをプレイ',
     get copyright() {
       return `Copyright 2025 ${siteConfig.SITE_NAME}`
     },
