@@ -1,2 +1,17 @@
 /assets/*
   Cache-Control: public, max-age=31536000, immutable
+
+/remixicon.woff2
+  Cache-Control: public, max-age=604800
+
+/logo*.png
+  Cache-Control: public, max-age=86400, stale-while-revalidate=604800
+
+/icon-*.png
+  Cache-Control: public, max-age=86400, stale-while-revalidate=604800
+
+/og.png
+  Cache-Control: public, max-age=86400, stale-while-revalidate=604800
+
+/sw.js
+  Cache-Control: no-cache, no-store, must-revalidate
