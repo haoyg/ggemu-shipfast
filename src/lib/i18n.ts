@@ -1,4 +1,4 @@
-import type { Locale, PublicGame } from '#/lib/ggemu'
+import type { BlogPost, Locale, PublicGame } from '#/lib/ggemu'
 import { enHomeFaqs, enMessages } from '#/lib/i18n/en'
 import { jaHomeFaqs, jaMessages } from '#/lib/i18n/ja'
 import { zhCnHomeFaqs, zhCnMessages } from '#/lib/i18n/zh-CN'
@@ -34,6 +34,63 @@ const homeFaqs = {
 
 export function getHomeFaqs(locale: Locale) {
   return homeFaqs[locale]
+}
+
+export function getLocalizedBlogPostExcerpt(
+  blogPost: BlogPost,
+  locale: Locale,
+) {
+  const excerpt = sanitizeBlogExcerpt(blogPost.excerpt)
+
+  if (locale === 'en') {
+    return excerpt || getEnglishBlogPostFallback(blogPost)
+  }
+
+  if (excerpt && isLocalizedText(excerpt, locale)) {
+    return excerpt
+  }
+
+  const title = blogPost.title?.trim() || getI18n(locale).home.blogPostFallback
+
+  if (locale === 'ja') {
+    return `POKOPIEの「${title}」を読み、ブラウザーで遊べるレトロゲーム、エミュレーター体験、関連タイトルをチェックしましょう。`
+  }
+
+  return `阅读 POKOPIE 的《${title}》，了解浏览器复古游戏、模拟器体验和相关经典作品。`
+}
+
+function sanitizeBlogExcerpt(value: string | undefined) {
+  return value
+    ?.replace(/!\[[^\]]*]\([^)]+\)/g, '')
+    .replace(/!\[[^\]]*]\([^)]*$/g, '')
+    .replace(/\[([^\]]+)]\([^)]+\)/g, '$1')
+    .replace(/^#{1,6}\s*/gm, '')
+    .replace(/(^|\s)#{1,6}\s+/g, '$1')
+    .replace(/\*\*([^*]+)\*\*/g, '$1')
+    .replace(/__(.*?)__/g, '$1')
+    .replace(/`([^`]+)`/g, '$1')
+    .replace(/https?:\/\/\S+/g, '')
+    .replace(/\bGGEMU(?:\.com)?\b/gi, 'POKOPIE')
+    .replace(/\s+/g, ' ')
+    .trim()
+}
+
+function getEnglishBlogPostFallback(blogPost: BlogPost) {
+  const title = blogPost.title?.trim() || 'this POKOPIE guide'
+
+  return `Read ${title} on POKOPIE for browser retro games, emulator tips, and related classic titles.`
+}
+
+function isLocalizedText(value: string, locale: Locale) {
+  if (locale === 'zh-CN') {
+    return /[\u4e00-\u9fff]/.test(value)
+  }
+
+  if (locale === 'ja') {
+    return /[\u3040-\u30ff\u4e00-\u9fff]/.test(value)
+  }
+
+  return true
 }
 
 const localizedPlatformLabels: Record<Locale, Record<string, string>> = {

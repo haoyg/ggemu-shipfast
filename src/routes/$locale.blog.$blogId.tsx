@@ -13,7 +13,11 @@ import {
   type Locale,
   type PublicGame,
 } from '#/lib/ggemu'
-import { getI18n, normalizeLocale } from '#/lib/i18n'
+import {
+  getI18n,
+  getLocalizedBlogPostExcerpt,
+  normalizeLocale,
+} from '#/lib/i18n'
 import { getAlternateLinksFromCanonical } from '#/lib/seo'
 
 export const Route = createFileRoute('/$locale/blog/$blogId')({
@@ -40,7 +44,7 @@ export const Route = createFileRoute('/$locale/blog/$blogId')({
     const locale = normalizeLocale(params.locale)
     const { blogPost, canonicalUrl } = loaderData
     const title = blogPost.title || getI18n(locale).blog.title
-    const description = blogPost.excerpt || getI18n(locale).blog.description
+    const description = getLocalizedBlogPostExcerpt(blogPost, locale)
     const image = blogPost.cover_image_url
 
     return {
@@ -64,7 +68,9 @@ export const Route = createFileRoute('/$locale/blog/$blogId')({
       scripts: [
         {
           type: 'application/ld+json',
-          children: serializeJsonLd(buildArticleStructuredData(blogPost, canonicalUrl)),
+          children: serializeJsonLd(
+            buildArticleStructuredData(blogPost, canonicalUrl, description),
+          ),
         },
       ],
     }
@@ -448,12 +454,16 @@ function formatDate(value: string | undefined, locale: Locale) {
   }).format(new Date(value))
 }
 
-function buildArticleStructuredData(blogPost: BlogPost, canonicalUrl: string) {
+function buildArticleStructuredData(
+  blogPost: BlogPost,
+  canonicalUrl: string,
+  description: string,
+) {
   return {
     '@context': 'https://schema.org',
     '@type': 'Article',
     headline: blogPost.title,
-    description: blogPost.excerpt,
+    description,
     image: blogPost.cover_image_url,
     datePublished: blogPost.created_at,
     dateModified: blogPost.updated_at,

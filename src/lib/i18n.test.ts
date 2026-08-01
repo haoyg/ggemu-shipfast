@@ -8,6 +8,7 @@ import {
   getGameDetailSummary,
   getGameDetailFaqs,
   getI18n,
+  getLocalizedBlogPostExcerpt,
   getLocalizedCategoryLabels,
 } from './i18n'
 
@@ -97,5 +98,36 @@ describe('i18n messages', () => {
     expect(getLocalizedCategoryLabels(game.categories, 'ja')).toEqual([
       'アクション',
     ])
+  })
+
+  it('uses localized fallbacks for blog excerpts that do not match the page locale', () => {
+    const blogPost = {
+      excerpt: 'Play classic games directly in your browser with no download.',
+      title: 'Browser Retro Games',
+    }
+
+    expect(getLocalizedBlogPostExcerpt(blogPost, 'zh-CN')).toContain(
+      '阅读 POKOPIE',
+    )
+    expect(getLocalizedBlogPostExcerpt(blogPost, 'zh-CN')).not.toContain(
+      'Play classic games',
+    )
+    expect(getLocalizedBlogPostExcerpt(blogPost, 'ja')).toContain('POKOPIEの')
+    expect(getLocalizedBlogPostExcerpt(blogPost, 'en')).toBe(blogPost.excerpt)
+  })
+
+  it('cleans markdown and legacy branding from localized blog excerpts', () => {
+    const blogPost = {
+      excerpt:
+        '经典游戏介绍。 ## 1. 推荐 ![Image](https://example.com/a.jpg) 在 GGEMU.com 免费畅玩 **动作游戏**。 ![Image](ht...',
+      title: '经典游戏',
+    }
+    const excerpt = getLocalizedBlogPostExcerpt(blogPost, 'zh-CN')
+
+    expect(excerpt).toContain('POKOPIE')
+    expect(excerpt).not.toContain('GGEMU')
+    expect(excerpt).not.toContain('![Image]')
+    expect(excerpt).not.toContain('##')
+    expect(excerpt).not.toContain('**')
   })
 })

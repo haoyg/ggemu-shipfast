@@ -14,6 +14,7 @@ import {
   formatCopy,
   getHomeFaqs,
   getI18n,
+  getLocalizedBlogPostExcerpt,
   getLocalizedCategoryLabel,
   getLocalizedPlatformLabel,
 } from '#/lib/i18n'
@@ -353,6 +354,7 @@ function HomeBlogPostCard({
 }) {
   const id = getBlogPostRouteId(blogPost)
   const title = blogPost.title?.trim() || getI18n(lang).home.blogPostFallback
+  const excerpt = getLocalizedBlogPostExcerpt(blogPost, lang)
 
   return (
     <Link
@@ -381,9 +383,9 @@ function HomeBlogPostCard({
         <h3 className="mt-2 line-clamp-2 min-h-10 text-base font-semibold leading-snug text-base-content">
           {title}
         </h3>
-        {blogPost.excerpt ? (
+        {excerpt ? (
           <p className="mt-3 line-clamp-2 text-sm leading-6 text-base-content/65">
-            {blogPost.excerpt}
+            {excerpt}
           </p>
         ) : null}
       </div>

@@ -11,7 +11,11 @@ import {
   type BlogPost,
   type Locale,
 } from '#/lib/ggemu'
-import { getI18n, normalizeLocale } from '#/lib/i18n'
+import {
+  getI18n,
+  getLocalizedBlogPostExcerpt,
+  normalizeLocale,
+} from '#/lib/i18n'
 import { getLocalizedSeoLinks, getSeoOrigin } from '#/lib/seo'
 
 const BLOG_PAGE_SIZE = 12
@@ -112,6 +116,7 @@ function BlogPostCard({
   lang: Locale
 }) {
   const id = getBlogPostRouteId(blogPost)
+  const excerpt = getLocalizedBlogPostExcerpt(blogPost, lang)
 
   if (!id) {
     return null
@@ -144,9 +149,9 @@ function BlogPostCard({
         <h2 className="mt-2 line-clamp-2 min-h-14 text-xl font-semibold leading-tight">
           {blogPost.title}
         </h2>
-        {blogPost.excerpt ? (
+        {excerpt ? (
           <p className="mt-3 line-clamp-3 leading-6 text-base-content/65">
-            {blogPost.excerpt}
+            {excerpt}
           </p>
         ) : null}
       </div>
