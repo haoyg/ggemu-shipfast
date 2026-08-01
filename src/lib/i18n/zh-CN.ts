@@ -6,7 +6,7 @@ export const zhCnMessages = {
     games: '首页',
     live: '游戏直播',
     explore: '探索',
-    playMyRom: '玩本地游戏',
+    playMyRom: '玩本地 ROM',
     blog: '博客',
     about: '关于我们',
     legal: '法律',
@@ -15,10 +15,10 @@ export const zhCnMessages = {
     theme: '主题',
     language: '语言',
     get copyright() {
-      return `版权所有 © 2025 ${siteConfig.SITE_NAME}`
+      return `Copyright 2025 ${siteConfig.SITE_NAME}`
     },
     get disclaimer() {
-      return `所有游戏 ROM / 程序均由用户提交或收集自互联网，版权归其各自所有者所有。如有任何问题，请发送邮件至 ${siteConfig.SITE_EMAIL}，我们会移除对应内容。`
+      return `所有游戏 ROM / 程序均由用户提交或收集自互联网，版权归其各自权利人所有。如有任何问题，请发送邮件至 ${siteConfig.SITE_EMAIL}，我们会移除对应内容。`
     },
     footer:
       '直接在浏览器里游玩经典复古游戏，无需下载。覆盖掌机、主机、街机与更多平台。',
@@ -62,13 +62,18 @@ export const zhCnMessages = {
     home: '游戏库',
     play: '开始游戏',
     install: '下载',
-    installUnavailable: '安装功能正在准备中。如果浏览器没有弹出安装提示，请刷新本页后重试。',
+    installUnavailable:
+      '安装功能正在准备中。如果浏览器没有弹出安装提示，请刷新本页后重试。',
     installDismissed: '已取消安装。',
     installGuideTitle: '添加游戏到主屏幕',
-    installGuideIntro: '当前浏览器没有弹出安装提示，你仍然可以手动添加这个游戏。',
-    installGuideIos: 'iPhone 或 iPad：用 Safari 打开本页，点击分享按钮，然后选择“添加到主屏幕”。',
-    installGuideAndroid: 'Android：用 Chrome 打开本页，点击菜单或分享按钮，然后选择“安装应用”或“添加到主屏幕”。',
-    installGuideDesktop: '桌面版 Chrome 或 Edge：点击地址栏里的安装图标，或打开浏览器菜单后选择“安装应用”。',
+    installGuideIntro:
+      '当前浏览器没有弹出安装提示，你仍然可以手动添加这个游戏。',
+    installGuideIos:
+      'iPhone 或 iPad：用 Safari 打开本页，点击分享按钮，然后选择“添加到主屏幕”。',
+    installGuideAndroid:
+      'Android：用 Chrome 打开本页，点击菜单或分享按钮，然后选择“安装应用”或“添加到主屏幕”。',
+    installGuideDesktop:
+      '桌面版 Chrome 或 Edge：点击地址栏里的安装图标，或打开浏览器菜单后选择“安装应用”。',
     installGuideClose: '知道了',
     share: '分享',
     generatePoster: '生成海报',
@@ -105,7 +110,7 @@ export const zhCnMessages = {
     title: '博客',
     description: '阅读游戏指南、浏览器游玩技巧和复古游戏相关文章。',
     subtitle: '阅读游戏指南、浏览器游玩技巧和复古游戏相关文章。',
-    eyebrow: 'Blog',
+    eyebrow: '博客',
     empty: '暂无文章',
     total: '共 {total} 篇文章',
   },
@@ -128,7 +133,8 @@ export const zhCnMessages = {
 
 export const zhCnHomeFaqs = {
   title: '常见问题',
-  subtitle: '了解如何在线游玩、查找游戏、按平台筛选，以及联系我们处理内容问题。',
+  subtitle:
+    '了解如何在线游玩、查找游戏、按平台筛选，以及联系站点处理内容问题。',
   items: [
     {
       question: '这些复古游戏可以直接在线玩吗？',
@@ -148,7 +154,7 @@ export const zhCnHomeFaqs = {
     {
       question: '支持哪些设备游玩？',
       answer:
-        '我们提供全面完善的机型支持，绝大部分主流智能设备，例如 iOS、Android、iPad、Mac、Windows 都有很好的支持。虽然我们支持大部分现代浏览器，但仍然建议使用 Chrome 浏览器来获得最稳定的游戏体验。',
+        '我们支持大多数主流智能设备，例如 iOS、Android、iPad、Mac 和 Windows。多数现代浏览器都可以运行，但建议使用 Chrome 获得更稳定的游戏体验。',
     },
     {
       question: '搜索不到想玩的游戏怎么办？',

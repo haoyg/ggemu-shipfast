@@ -37,7 +37,7 @@ export function getHomeFaqs(locale: Locale) {
 }
 
 export function getGameDetailFaqs(game: PublicGame, locale: Locale) {
-  const name = game.name?.trim() || 'this game'
+  const name = game.name?.trim() || getFallbackGameName(locale)
   const platform = game.platform?.trim()
   const developer = game.developer?.trim()
   const category = game.categories?.find((item) => item.trim())?.trim()
@@ -74,20 +74,20 @@ export function getGameDetailFaqs(game: PublicGame, locale: Locale) {
   if (locale === 'ja') {
     return [
       {
-        question: `${name} はオンラインでプレイできますか？`,
-        answer: `はい。${name} はブラウザーで直接プレイできます。ゲームページを開き、開始ボタンを押すだけで遊べます。`,
+        question: `${name} はオンラインで遊べますか？`,
+        answer: `はい。${name} はブラウザーで直接プレイできます。ゲームページを開いてプレイボタンを押すだけで始められます。`,
       },
       {
         question: `${name} を遊ぶためにダウンロードは必要ですか？`,
-        answer: `必要ありません。${name} はダウンロード不要で、ブラウザー上で起動できます。`,
+        answer: `必要ありません。${name} はダウンロード不要で、ブラウザー内で起動できます。`,
       },
       {
-        question: `${name} はどの機種やジャンルのゲームですか？`,
+        question: `${name} はどのプラットフォームまたはジャンルのゲームですか？`,
         answer: `${name}${platform ? ` は ${platform} のゲームです` : ' はレトロゲームです'}${category ? `。ジャンルには ${category} が含まれます` : ''}。関連ゲームから似た作品も探せます。`,
       },
       {
-        question: `${name} はどのデバイスで遊べますか？`,
-        answer: `${name} は多くのモダンブラウザーで動作します。PC、タブレット、スマートフォンでプレイできますが、安定した体験には Chrome などの主要ブラウザーがおすすめです。`,
+        question: `${name} はどの端末で遊べますか？`,
+        answer: `${name} は多くのモダンブラウザーで動作し、PC、タブレット、スマートフォンでプレイできます。安定した体験には Chrome などの主要ブラウザーをおすすめします。`,
       },
       ...(developer
         ? [
@@ -126,6 +126,18 @@ export function getGameDetailFaqs(game: PublicGame, locale: Locale) {
         ]
       : []),
   ]
+}
+
+function getFallbackGameName(locale: Locale) {
+  if (locale === 'zh-CN') {
+    return '这款游戏'
+  }
+
+  if (locale === 'ja') {
+    return 'このゲーム'
+  }
+
+  return 'this game'
 }
 
 function compactText(value: string) {

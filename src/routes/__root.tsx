@@ -231,14 +231,14 @@ function getMaintenanceMessages(locale: string) {
 
   if (locale === 'ja') {
     return {
-      title: 'サーバーは現在メンテナンス中です',
-      description: '予定されたメンテナンスを実施しています。まもなく再開します。',
+      title: 'サーバーはメンテナンス中です',
+      description: '予定メンテナンスを実施しています。まもなく再開します。',
     }
   }
 
   return {
-    title: '当前服务器正在维护',
-    description: '我们正在进行计划维护，很快就会恢复访问。',
+    title: '服务器维护中',
+    description: '我们正在进行计划维护，很快恢复访问。',
   }
 }
 

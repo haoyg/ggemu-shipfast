@@ -6,7 +6,7 @@ export const jaMessages = {
     games: 'ホーム',
     live: 'ゲーム配信',
     explore: '探す',
-    playMyRom: '自分の ROM をプレイ',
+    playMyRom: '自分の ROM で遊ぶ',
     blog: 'ブログ',
     about: '私たちについて',
     legal: '法的情報',
@@ -15,10 +15,10 @@ export const jaMessages = {
     theme: 'テーマ',
     language: '言語',
     get copyright() {
-      return `Copyright © 2025 ${siteConfig.SITE_NAME}`
+      return `Copyright 2025 ${siteConfig.SITE_NAME}`
     },
     get disclaimer() {
-      return `すべてのゲーム ROM / プログラムはユーザーから投稿されたもの、またはインターネット上で収集されたものです。著作権はそれぞれの権利所有者に帰属します。問題がある場合は ${siteConfig.SITE_EMAIL} までメールでご連絡ください。該当するコンテンツを削除します。`
+      return `すべてのゲーム ROM / プログラムはユーザー投稿またはインターネット上で収集されたものです。著作権はそれぞれの権利者に帰属します。問題がある場合は ${siteConfig.SITE_EMAIL} までご連絡ください。該当するコンテンツを削除します。`
     },
     footer:
       'クラシックなレトロゲームをブラウザーでそのままプレイ。ダウンロードは不要です。',
@@ -26,14 +26,14 @@ export const jaMessages = {
   home: {
     title: 'レトロゲームをオンラインでプレイ',
     subtitle:
-      'GBA、NES、SNES、PS1、N64、Sega Genesis、アーケードなどの名作をブラウザーでそのまま遊べます。ダウンロード不要。',
-    searchPlaceholder: 'ゲーム名、機種、シリーズを検索...',
+      'GBA、NES、SNES、PS1、N64、Sega Genesis、アーケードなどの名作をブラウザーでそのまま遊べます。ダウンロードは不要です。',
+    searchPlaceholder: 'ゲーム名、プラットフォーム、シリーズを検索...',
     search: '検索',
     reset: 'リセット',
-    allPlatforms: 'すべての機種',
-    allCategories: 'すべてのカテゴリ',
-    newest: '新着順',
-    popular: '人気順',
+    allPlatforms: 'すべてのプラットフォーム',
+    allCategories: 'すべてのカテゴリー',
+    newest: '新着',
+    popular: '人気',
     oldest: '古い順',
     nameAsc: '名前 A-Z',
     empty: 'ゲームが見つかりません',
@@ -43,7 +43,7 @@ export const jaMessages = {
     totalGames: '全 {total} 件のゲーム',
     views: '閲覧',
     plays: 'プレイ',
-    details: '詳細',
+    details: '詳細を見る',
     featured: 'オンライン対応レトロゲーム',
     recentlyPlayed: '最近プレイしたゲーム',
     latestBlogPosts: '最新ブログ記事',
@@ -57,14 +57,14 @@ export const jaMessages = {
     description:
       'GBA、NES、SNES、PS1、N64、Sega Genesis、アーケードなどの名作レトロゲームをブラウザーでそのまま遊べます。',
     keywords:
-      'レトロゲーム オンライン, GBA ゲーム, NES ゲーム, SNES ゲーム, PS1 ゲーム, N64 ゲーム, アーケードゲーム, ブラウザーゲーム',
+      'レトロゲーム オンライン, GBA ゲーム, NES ゲーム, SNES ゲーム, PS1 ゲーム, N64 ゲーム, アーケードゲーム, ブラウザーゲーム, ダウンロード不要',
   },
   detail: {
     home: 'ゲーム',
     play: '今すぐプレイ',
     install: 'ダウンロード',
     installUnavailable:
-      'インストールを準備中です。ブラウザーに表示されない場合は、このページを再読み込みしてもう一度お試しください。',
+      'インストール機能を準備中です。ブラウザーに表示されない場合は、このページを更新してもう一度お試しください。',
     installDismissed: 'インストールをキャンセルしました。',
     installGuideTitle: 'このゲームをホーム画面に追加',
     installGuideIntro:
@@ -72,7 +72,7 @@ export const jaMessages = {
     installGuideIos:
       'iPhone または iPad: Safari でこのページを開き、共有ボタンをタップして「ホーム画面に追加」を選びます。',
     installGuideAndroid:
-      'Android: Chrome でこのページを開き、メニューまたは共有ボタンをタップして「アプリをインストール」または「ホーム画面に追加」を選びます。',
+      'Android: Chrome でこのページを開き、メニューまたは共有ボタンから「アプリをインストール」または「ホーム画面に追加」を選びます。',
     installGuideDesktop:
       'デスクトップ版 Chrome または Edge: アドレスバーのインストールアイコン、またはブラウザーメニューから「アプリをインストール」を選びます。',
     installGuideClose: '閉じる',
@@ -81,14 +81,14 @@ export const jaMessages = {
     systemShare: 'システム共有',
     posterTitle: '共有ポスター',
     downloadPoster: 'ポスターをダウンロード',
-    posterScanCta: 'スキャンしてすぐプレイ。ダウンロード不要。',
+    posterScanCta: 'スキャンしてすぐプレイ。ダウンロード不要',
     shareUnavailableCopied: 'システム共有を利用できないため、リンクをコピーしました。',
     overview: '概要',
     keywords: 'キーワード',
     howToPlay: '遊び方',
     details: 'ゲーム情報',
-    platform: '機種',
-    developer: '開発',
+    platform: 'プラットフォーム',
+    developer: '開発元',
     released: '発売年',
     players: 'プレイヤー',
     views: '閲覧',
@@ -110,9 +110,9 @@ export const jaMessages = {
   blog: {
     title: 'ブログ',
     description:
-      'ゲームガイド、ブラウザーでの遊び方、レトロゲーム記事を読めます。',
+      'ゲームガイド、ブラウザーでの遊び方、レトロゲーム関連記事を読めます。',
     subtitle:
-      'ゲームガイド、ブラウザーでの遊び方、レトロゲーム記事を読めます。',
+      'ゲームガイド、ブラウザーでの遊び方、レトロゲーム関連記事を読めます。',
     eyebrow: 'ブログ',
     empty: '記事はまだありません',
     total: '全 {total} 件の記事',
@@ -120,7 +120,8 @@ export const jaMessages = {
   live: {
     title: 'ゲーム配信',
     description: '現在配信中のクラシックゲームとライブ配信ルームを探せます。',
-    subtitle: '今みんなが配信しているクラシックゲームをチェックして、次に遊ぶ作品を見つけましょう。',
+    subtitle:
+      'みんなが今配信しているクラシックゲームをチェックして、次に遊ぶ作品を見つけましょう。',
     eyebrow: '配信中',
     empty: '現在配信中のゲームはありません',
     total: '全 {total} 件のライブ配信',
@@ -137,37 +138,37 @@ export const jaMessages = {
 export const jaHomeFaqs = {
   title: 'よくある質問',
   subtitle:
-    'オンラインプレイ、ゲーム検索、機種別フィルター、コンテンツに関する連絡方法を確認できます。',
+    'オンラインプレイ、ゲーム検索、プラットフォーム別フィルター、コンテンツに関する連絡方法を確認できます。',
   items: [
     {
-      question: 'レトロゲームをオンラインで遊べますか？',
+      question: 'これらのレトロゲームはオンラインで遊べますか？',
       answer:
-        'はい。ゲーム詳細ページを開いて開始すると、エミュレーターをインストールせずにブラウザーで直接プレイできます。',
+        'はい。ゲーム詳細ページを開いてプレイボタンを押すだけで、エミュレーターをインストールせずにブラウザーで直接遊べます。',
     },
     {
-      question: 'エミュレーターや ROM のダウンロードは必要ですか？',
+      question: 'エミュレーターや ROM ファイルのダウンロードは必要ですか？',
       answer:
-        '必要ありません。ゲーム詳細ページを開くだけで、ブラウザーから直接プレイできます。',
+        '必要ありません。ゲーム詳細ページを開くだけで、追加ソフトをインストールせずにブラウザーから直接プレイできます。',
     },
     {
-      question: 'どの機種に対応していますか？',
+      question: 'どのプラットフォームに対応していますか？',
       answer:
         'Game Boy Advance（GBA）、Game Boy、Game Boy Color（GBC）、Nintendo DS（NDS）、NES / Famicom、SNES / Super Famicom、Nintendo 64（N64）、PlayStation / PS1、Sega Genesis / Genesis、Master System、Sega CD、Neo Geo、Atari、Arcade、MS-DOS / DOS、HTML5、Flash、Java などに対応しています。',
     },
     {
-      question: 'どのデバイスで遊べますか？',
+      question: 'どの端末で遊べますか？',
       answer:
-        'iOS、Android、iPad、Mac、Windows など、主要なスマートデバイスを幅広くサポートしています。多くのモダンブラウザーで動作しますが、より安定したゲーム体験には Chrome の利用をおすすめします。',
+        'iOS、Android、iPad、Mac、Windows など、主要なスマートデバイスを幅広くサポートしています。多くのモダンブラウザーで動作しますが、安定した体験には Chrome をおすすめします。',
     },
     {
       question: '探しているゲームが見つからない場合は？',
       answer:
-        '英語タイトル、シリーズ名、機種名、短いキーワードで検索してください。地域によって名前が異なる場合があります。',
+        '英語タイトル、シリーズ名、プラットフォーム名、短いキーワードで検索してみてください。地域によって名前が異なる場合があります。',
     },
     {
       question: '著作権や削除依頼はどう扱われますか？',
       get answer() {
-        return `ゲーム ROM / プログラムはユーザー投稿またはインターネット上から収集されたもので、著作権は各権利者に帰属します。削除依頼は ${siteConfig.SITE_EMAIL} までご連絡ください。`
+        return `ゲーム ROM / プログラムはユーザー投稿またはインターネット上で収集されたもので、著作権は各権利者に帰属します。削除依頼は ${siteConfig.SITE_EMAIL} までご連絡ください。`
       },
     },
   ],
