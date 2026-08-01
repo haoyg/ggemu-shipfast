@@ -13,7 +13,9 @@
 }
 
 .ri-arrow-left-line:before { content: "\ea60"; }
+.ri-arrow-left-s-line:before { content: "\ea64"; }
 .ri-arrow-right-line:before { content: "\ea6c"; }
+.ri-arrow-right-s-line:before { content: "\ea6e"; }
 .ri-arrow-right-up-line:before { content: "\ea70"; }
 .ri-article-line:before { content: "\ea7e"; }
 .ri-building-2-line:before { content: "\eb09"; }
@@ -27,6 +29,7 @@
 .ri-gamepad-line:before { content: "\edab"; }
 .ri-global-line:before { content: "\edcf"; }
 .ri-home-5-line:before { content: "\ee1f"; }
+.ri-history-line:before { content: "\ee17"; }
 .ri-image-line:before { content: "\ee4b"; }
 .ri-information-line:before { content: "\ee59"; }
 .ri-live-line:before { content: "\eec0"; }
@@ -35,6 +38,7 @@
 .ri-play-fill:before { content: "\f00a"; }
 .ri-price-tag-3-line:before { content: "\f023"; }
 .ri-refresh-line:before { content: "\f064"; }
+.ri-search-line:before { content: "\f0d1"; }
 .ri-share-forward-line:before { content: "\f0fd"; }
 .ri-share-line:before { content: "\f0fe"; }
 .ri-signal-wifi-error-line:before { content: "\f132"; }
