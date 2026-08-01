@@ -15,6 +15,7 @@ import {
 } from '#/lib/ggemu'
 import {
   getI18n,
+  getGameDetailSummary,
   getLocalizedBlogPostExcerpt,
   normalizeLocale,
 } from '#/lib/i18n'
@@ -188,7 +189,7 @@ function renderBlock(
     return (
       <figure className="overflow-hidden rounded-box border border-base-300 bg-base-200" key={index}>
         <img
-          alt={image.groups.alt || 'Blog image'}
+          alt={cleanBlogDisplayText(image.groups.alt) || 'Blog image'}
           className="h-full w-full object-cover"
           loading="lazy"
           src={image.groups.src}
@@ -197,39 +198,53 @@ function renderBlock(
     )
   }
 
-  if (block.startsWith('### ')) {
+  const displayBlock = cleanBlogDisplayText(block)
+
+  if (!displayBlock) {
+    return null
+  }
+
+  if (displayBlock.startsWith('### ')) {
     return (
       <h3 className="pt-3 text-2xl font-semibold text-base-content" key={index}>
-        {block.slice(4)}
+        {displayBlock.slice(4)}
       </h3>
     )
   }
 
-  if (block.startsWith('## ')) {
+  if (displayBlock.startsWith('## ')) {
     return (
       <h2 className="pt-4 text-3xl font-semibold text-base-content" key={index}>
-        {block.slice(3)}
+        {displayBlock.slice(3)}
       </h2>
     )
   }
 
-  if (/^-{3,}$/.test(block)) {
+  if (/^-{3,}$/.test(displayBlock)) {
     return <hr className="border-base-300" key={index} />
   }
 
-  if (hasInternalGameLink(block)) {
+  if (hasInternalGameLink(displayBlock)) {
     return (
       <div className="space-y-4" key={index}>
-        {renderBlockWithGameCards(block, locale, linkedGames)}
+        {renderBlockWithGameCards(displayBlock, locale, linkedGames)}
       </div>
     )
   }
 
   return (
     <p className="whitespace-pre-line" key={index}>
-      {renderInlineMarkdown(block, locale)}
+      {renderInlineMarkdown(displayBlock, locale)}
     </p>
   )
+}
+
+function cleanBlogDisplayText(text: string) {
+  return text
+    .replace(/!\[[^\]]*]\([^)]+\)/g, '')
+    .replace(/!\[[^\]]*]\([^)]*$/g, '')
+    .replace(/\bGGEMU(?:\.com)?\b/gi, 'POKOPIE')
+    .trim()
 }
 
 function hasInternalGameLink(text: string) {
@@ -344,9 +359,24 @@ function renderExternalLink(urlValue: string, index: number) {
       rel="noreferrer"
       target="_blank"
     >
-      {urlValue}
+      {getExternalLinkLabel(urlValue)}
     </a>
   )
+}
+
+function getExternalLinkLabel(urlValue: string) {
+  try {
+    const url = new URL(urlValue)
+
+    if (url.hostname === 'ggemu.com') {
+      url.hostname = 'pokopie.com'
+      return url.toString()
+    }
+  } catch {
+    return cleanBlogDisplayText(urlValue)
+  }
+
+  return cleanBlogDisplayText(urlValue)
 }
 
 function LinkedGameCard({
@@ -359,7 +389,8 @@ function LinkedGameCard({
   locale: Locale
 }) {
   const title = game?.name?.trim() || gameId
-  const description = game?.description?.trim()
+  const description = game ? getGameDetailSummary(game, locale) : ''
+  const labels = getLinkedGameCardLabels(locale)
 
   return (
     <Link
@@ -385,7 +416,7 @@ function LinkedGameCard({
       </div>
       <div className="min-w-0 self-center">
         <p className="text-xs font-semibold uppercase tracking-wide text-primary">
-          Game
+          {labels.eyebrow}
         </p>
         <h3 className="mt-1 line-clamp-2 text-xl font-semibold leading-tight text-base-content">
           {title}
@@ -396,12 +427,33 @@ function LinkedGameCard({
           </p>
         ) : null}
         <span className="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-primary">
-          Play now
+          {labels.action}
           <i className="ri-arrow-right-line" />
         </span>
       </div>
     </Link>
   )
+}
+
+function getLinkedGameCardLabels(locale: Locale) {
+  if (locale === 'zh-CN') {
+    return {
+      action: '开始游戏',
+      eyebrow: '相关游戏',
+    }
+  }
+
+  if (locale === 'ja') {
+    return {
+      action: '今すぐプレイ',
+      eyebrow: '関連ゲーム',
+    }
+  }
+
+  return {
+    action: 'Play now',
+    eyebrow: 'Related game',
+  }
 }
 
 function getInternalGameLink(urlValue: string, locale: Locale) {
