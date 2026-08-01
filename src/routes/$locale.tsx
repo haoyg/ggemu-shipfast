@@ -158,38 +158,45 @@ export const Route = createFileRoute('/$locale')({
       seoOrigin,
     }
   },
-  head: ({ loaderData, params, match }) => {
+  head: ({ loaderData, params, match, matches }) => {
     const data = loaderData as unknown as HomeLoaderData | undefined
     const locale = normalizeLocale(params.locale)
     const meta = getI18n(locale).homeSeo
     const isTemplatePreview = Boolean(getSearchTemplate(match.search))
+    const shouldRenderHomeSeo = isExactHomeHeadMatch(matches)
 
     return {
-      links: data?.seoOrigin
+      links: shouldRenderHomeSeo && data?.seoOrigin
         ? getLocalizedSeoLinks({
             locale,
             origin: data.seoOrigin,
             path: '/',
           })
         : undefined,
-      meta: [
-        { title: meta.title },
-        { name: 'description', content: meta.description },
-        { name: 'keywords', content: meta.keywords },
-        { property: 'og:title', content: meta.title },
-        { property: 'og:description', content: meta.description },
-        { property: 'og:type', content: 'website' },
-        { name: 'twitter:card', content: 'summary_large_image' },
-        { name: 'twitter:title', content: meta.title },
-        { name: 'twitter:description', content: meta.description },
-        ...(isTemplatePreview
-          ? [{ name: 'robots', content: 'noindex,nofollow' }]
-          : []),
-      ],
+      meta: shouldRenderHomeSeo
+        ? [
+            { title: meta.title },
+            { name: 'description', content: meta.description },
+            { name: 'keywords', content: meta.keywords },
+            { property: 'og:title', content: meta.title },
+            { property: 'og:description', content: meta.description },
+            { property: 'og:type', content: 'website' },
+            { name: 'twitter:card', content: 'summary_large_image' },
+            { name: 'twitter:title', content: meta.title },
+            { name: 'twitter:description', content: meta.description },
+            ...(isTemplatePreview
+              ? [{ name: 'robots', content: 'noindex,nofollow' }]
+              : []),
+          ]
+        : undefined,
     }
   },
   component: LocalizedHomePage,
 })
+
+function isExactHomeHeadMatch(matches: Array<{ routeId: string }>) {
+  return matches.at(-1)?.routeId === '/$locale'
+}
 
 function LocalizedHomePage() {
   const { locale } = Route.useParams()
