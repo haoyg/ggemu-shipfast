@@ -92,7 +92,7 @@ export function SiteLayout({
                 <img
                   alt={siteConfig.SITE_NAME}
                   className="h-full w-full object-contain"
-                  src="/logo.png"
+                  src="/logo-128.png"
                 />
               </span>
               <span className="min-w-0 leading-tight">
@@ -237,7 +237,7 @@ export function SiteFooter({ locale }: { locale: Locale }) {
                 <img
                   alt={siteConfig.SITE_NAME}
                   className="h-full w-full object-contain"
-                  src="/logo.png"
+                  src="/logo-128.png"
                 />
               </span>
               <div>

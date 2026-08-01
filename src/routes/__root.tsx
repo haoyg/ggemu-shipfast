@@ -170,7 +170,7 @@ function MaintenanceErrorComponent() {
             <img
               alt={siteConfig.SITE_NAME}
               className="h-12 w-12 rounded-xl object-contain"
-              src="/logo.png"
+              src="/logo-128.png"
             />
             <div className="min-w-0">
               <h1 className="text-xl font-semibold leading-tight">
@@ -198,7 +198,7 @@ function MaintenanceErrorComponent() {
         <img
           alt={siteConfig.SITE_NAME}
           className="h-20 w-20 rounded-2xl object-contain"
-          src="/logo.png"
+          src="/logo-128.png"
         />
         <h1 className="mt-5 text-3xl font-semibold leading-tight sm:text-4xl">
           {siteConfig.SITE_NAME}
