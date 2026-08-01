@@ -24,16 +24,16 @@ export function getBlogCoverFallbackLabel(locale: Locale) {
   return 'Blog'
 }
 
-export function getBuiltWithGgEmuLabel(locale: Locale) {
+export function getPoweredByLabel(locale: Locale) {
   if (locale === 'zh-CN') {
-    return '由 GGEMU 提供支持'
+    return '由 POKOPIE 提供'
   }
 
   if (locale === 'ja') {
-    return 'GGEMU で構築'
+    return 'POKOPIE 提供'
   }
 
-  return 'Built with GGEMU'
+  return 'Powered by POKOPIE'
 }
 
 export function getLiveBadgeLabel(locale: Locale) {

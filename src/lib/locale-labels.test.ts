@@ -2,8 +2,8 @@ import { describe, expect, it } from 'vitest'
 
 import {
   getBlogCoverFallbackLabel,
-  getBuiltWithGgEmuLabel,
   getLiveBadgeLabel,
+  getPoweredByLabel,
   getRetroCoverFallbackLabel,
 } from './locale-labels'
 
@@ -19,9 +19,9 @@ describe('locale labels', () => {
   })
 
   it('returns localized footer and live labels', () => {
-    expect(getBuiltWithGgEmuLabel('zh-CN')).toBe('由 GGEMU 提供支持')
-    expect(getBuiltWithGgEmuLabel('en')).toBe('Built with GGEMU')
-    expect(getBuiltWithGgEmuLabel('ja')).toBe('GGEMU で構築')
+    expect(getPoweredByLabel('zh-CN')).toBe('由 POKOPIE 提供')
+    expect(getPoweredByLabel('en')).toBe('Powered by POKOPIE')
+    expect(getPoweredByLabel('ja')).toBe('POKOPIE 提供')
 
     expect(getLiveBadgeLabel('zh-CN')).toBe('直播中')
     expect(getLiveBadgeLabel('en')).toBe('LIVE')

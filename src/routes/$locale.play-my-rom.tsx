@@ -22,15 +22,15 @@ type PlayMyRomSearch = {
 const playMyRomCopies: Record<Locale, { title: string; description: string }> = {
   'zh-CN': {
     title: '玩本地 ROM',
-    description: '通过嵌入式 GGEMU 播放器加载并游玩你自己的 ROM。',
+    description: '通过 POKOPIE 的嵌入式播放器加载并游玩你自己的 ROM。',
   },
   en: {
     title: 'Play My ROM',
-    description: 'Load and play your own ROM through the embedded GGEMU player.',
+    description: 'Load and play your own ROM through the embedded POKOPIE player.',
   },
   ja: {
     title: '自分の ROM で遊ぶ',
-    description: '埋め込み GGEMU プレイヤーで自分の ROM を読み込んで遊べます。',
+    description: 'POKOPIEの埋め込みプレイヤーで自分の ROM を読み込んで遊べます。',
   },
 }
 
