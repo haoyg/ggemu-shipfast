@@ -1,6 +1,7 @@
 {
   "short_name": "POKOPIE",
   "name": "POKOPIE",
+  "description": "在 POKOPIE 直接用浏览器游玩经典复古游戏，无需下载。",
   "icons": [
     {
       "src": "icon-192.png",

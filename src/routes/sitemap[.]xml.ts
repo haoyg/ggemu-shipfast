@@ -7,6 +7,7 @@ const SITEMAP_PAGE_SIZE = 100
 const SITEMAP_MAX_PAGES = 50
 const SITEMAP_CACHE_TTL_MS = 1000 * 60 * 60 * 24
 const locales = ['zh-CN', 'en', 'ja'] as const satisfies ReadonlyArray<Locale>
+const defaultLocale = 'zh-CN' satisfies Locale
 
 let sitemapCache: {
   expiresAt: number
@@ -277,7 +278,7 @@ function formatSitemapAlternateLinks(entry: SitemapEntry) {
       hrefLang: locale,
     })),
     {
-      href: toAbsoluteLocalizedUrl(origin, 'en', entry.path),
+      href: toAbsoluteLocalizedUrl(origin, defaultLocale, entry.path),
       hrefLang: 'x-default',
     },
   ]

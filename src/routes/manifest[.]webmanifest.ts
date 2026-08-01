@@ -42,7 +42,7 @@ function buildManifest(request: Request): WebAppManifest {
   const name = getSearchValue(url, 'name') || siteConfig.SITE_NAME
   const description =
     getSearchValue(url, 'description') ||
-    'Play classic retro games on POKOPIE directly in your browser. No downloads required.'
+    '在 POKOPIE 直接用浏览器游玩经典复古游戏，无需下载。'
   const startUrl = normalizeStartUrl(getSearchValue(url, 'start_url'))
 
   return {
