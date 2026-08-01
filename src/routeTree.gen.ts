@@ -9,7 +9,6 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as XRouteImport } from './routes/x'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as RobotsDottxtRouteImport } from './routes/robots[.]txt'
 import { Route as RandomRouteImport } from './routes/random'
@@ -27,17 +26,10 @@ import { Route as LocaleLiveRouteImport } from './routes/$locale.live'
 import { Route as LocaleBlogRouteImport } from './routes/$locale.blog'
 import { Route as LocaleAboutRouteImport } from './routes/$locale.about'
 import { Route as GamesGameIdPlayRouteImport } from './routes/games/$gameId/play'
-import { Route as UsernameStatusStatusidRouteImport } from './routes/$username/status/$statusid'
-import { Route as UsernameArticleStatusidRouteImport } from './routes/$username/article/$statusid'
 import { Route as LocaleGamesGameIdRouteImport } from './routes/$locale.games.$gameId'
 import { Route as LocaleBlogBlogIdRouteImport } from './routes/$locale.blog.$blogId'
 import { Route as LocaleGamesGameIdPlayRouteImport } from './routes/$locale.games.$gameId.play'
 
-const XRoute = XRouteImport.update({
-  id: '/x',
-  path: '/x',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
@@ -123,16 +115,6 @@ const GamesGameIdPlayRoute = GamesGameIdPlayRouteImport.update({
   path: '/play',
   getParentRoute: () => GamesGameIdRoute,
 } as any)
-const UsernameStatusStatusidRoute = UsernameStatusStatusidRouteImport.update({
-  id: '/$username/status/$statusid',
-  path: '/$username/status/$statusid',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const UsernameArticleStatusidRoute = UsernameArticleStatusidRouteImport.update({
-  id: '/$username/article/$statusid',
-  path: '/$username/article/$statusid',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const LocaleGamesGameIdRoute = LocaleGamesGameIdRouteImport.update({
   id: '/games/$gameId',
   path: '/games/$gameId',
@@ -156,7 +138,6 @@ export interface FileRoutesByFullPath {
   '/random': typeof RandomRoute
   '/robots.txt': typeof RobotsDottxtRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
-  '/x': typeof XRoute
   '/$locale/about': typeof LocaleAboutRoute
   '/$locale/blog': typeof LocaleBlogRouteWithChildren
   '/$locale/live': typeof LocaleLiveRoute
@@ -169,8 +150,6 @@ export interface FileRoutesByFullPath {
   '/games/$gameId': typeof GamesGameIdRouteWithChildren
   '/$locale/blog/$blogId': typeof LocaleBlogBlogIdRoute
   '/$locale/games/$gameId': typeof LocaleGamesGameIdRouteWithChildren
-  '/$username/article/$statusid': typeof UsernameArticleStatusidRoute
-  '/$username/status/$statusid': typeof UsernameStatusStatusidRoute
   '/games/$gameId/play': typeof GamesGameIdPlayRoute
   '/$locale/games/$gameId/play': typeof LocaleGamesGameIdPlayRoute
 }
@@ -181,7 +160,6 @@ export interface FileRoutesByTo {
   '/random': typeof RandomRoute
   '/robots.txt': typeof RobotsDottxtRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
-  '/x': typeof XRoute
   '/$locale/about': typeof LocaleAboutRoute
   '/$locale/blog': typeof LocaleBlogRouteWithChildren
   '/$locale/live': typeof LocaleLiveRoute
@@ -194,8 +172,6 @@ export interface FileRoutesByTo {
   '/games/$gameId': typeof GamesGameIdRouteWithChildren
   '/$locale/blog/$blogId': typeof LocaleBlogBlogIdRoute
   '/$locale/games/$gameId': typeof LocaleGamesGameIdRouteWithChildren
-  '/$username/article/$statusid': typeof UsernameArticleStatusidRoute
-  '/$username/status/$statusid': typeof UsernameStatusStatusidRoute
   '/games/$gameId/play': typeof GamesGameIdPlayRoute
   '/$locale/games/$gameId/play': typeof LocaleGamesGameIdPlayRoute
 }
@@ -207,7 +183,6 @@ export interface FileRoutesById {
   '/random': typeof RandomRoute
   '/robots.txt': typeof RobotsDottxtRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
-  '/x': typeof XRoute
   '/$locale/about': typeof LocaleAboutRoute
   '/$locale/blog': typeof LocaleBlogRouteWithChildren
   '/$locale/live': typeof LocaleLiveRoute
@@ -220,8 +195,6 @@ export interface FileRoutesById {
   '/games/$gameId': typeof GamesGameIdRouteWithChildren
   '/$locale/blog/$blogId': typeof LocaleBlogBlogIdRoute
   '/$locale/games/$gameId': typeof LocaleGamesGameIdRouteWithChildren
-  '/$username/article/$statusid': typeof UsernameArticleStatusidRoute
-  '/$username/status/$statusid': typeof UsernameStatusStatusidRoute
   '/games/$gameId/play': typeof GamesGameIdPlayRoute
   '/$locale/games/$gameId/play': typeof LocaleGamesGameIdPlayRoute
 }
@@ -234,7 +207,6 @@ export interface FileRouteTypes {
     | '/random'
     | '/robots.txt'
     | '/sitemap.xml'
-    | '/x'
     | '/$locale/about'
     | '/$locale/blog'
     | '/$locale/live'
@@ -247,8 +219,6 @@ export interface FileRouteTypes {
     | '/games/$gameId'
     | '/$locale/blog/$blogId'
     | '/$locale/games/$gameId'
-    | '/$username/article/$statusid'
-    | '/$username/status/$statusid'
     | '/games/$gameId/play'
     | '/$locale/games/$gameId/play'
   fileRoutesByTo: FileRoutesByTo
@@ -259,7 +229,6 @@ export interface FileRouteTypes {
     | '/random'
     | '/robots.txt'
     | '/sitemap.xml'
-    | '/x'
     | '/$locale/about'
     | '/$locale/blog'
     | '/$locale/live'
@@ -272,8 +241,6 @@ export interface FileRouteTypes {
     | '/games/$gameId'
     | '/$locale/blog/$blogId'
     | '/$locale/games/$gameId'
-    | '/$username/article/$statusid'
-    | '/$username/status/$statusid'
     | '/games/$gameId/play'
     | '/$locale/games/$gameId/play'
   id:
@@ -284,7 +251,6 @@ export interface FileRouteTypes {
     | '/random'
     | '/robots.txt'
     | '/sitemap.xml'
-    | '/x'
     | '/$locale/about'
     | '/$locale/blog'
     | '/$locale/live'
@@ -297,8 +263,6 @@ export interface FileRouteTypes {
     | '/games/$gameId'
     | '/$locale/blog/$blogId'
     | '/$locale/games/$gameId'
-    | '/$username/article/$statusid'
-    | '/$username/status/$statusid'
     | '/games/$gameId/play'
     | '/$locale/games/$gameId/play'
   fileRoutesById: FileRoutesById
@@ -310,23 +274,13 @@ export interface RootRouteChildren {
   RandomRoute: typeof RandomRoute
   RobotsDottxtRoute: typeof RobotsDottxtRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
-  XRoute: typeof XRoute
   ApiHealthRoute: typeof ApiHealthRoute
   ApiShareImageRoute: typeof ApiShareImageRoute
   GamesGameIdRoute: typeof GamesGameIdRouteWithChildren
-  UsernameArticleStatusidRoute: typeof UsernameArticleStatusidRoute
-  UsernameStatusStatusidRoute: typeof UsernameStatusStatusidRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/x': {
-      id: '/x'
-      path: '/x'
-      fullPath: '/x'
-      preLoaderRoute: typeof XRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/sitemap.xml': {
       id: '/sitemap.xml'
       path: '/sitemap.xml'
@@ -446,20 +400,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof GamesGameIdPlayRouteImport
       parentRoute: typeof GamesGameIdRoute
     }
-    '/$username/status/$statusid': {
-      id: '/$username/status/$statusid'
-      path: '/$username/status/$statusid'
-      fullPath: '/$username/status/$statusid'
-      preLoaderRoute: typeof UsernameStatusStatusidRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/$username/article/$statusid': {
-      id: '/$username/article/$statusid'
-      path: '/$username/article/$statusid'
-      fullPath: '/$username/article/$statusid'
-      preLoaderRoute: typeof UsernameArticleStatusidRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/$locale/games/$gameId': {
       id: '/$locale/games/$gameId'
       path: '/games/$gameId'
@@ -551,12 +491,9 @@ const rootRouteChildren: RootRouteChildren = {
   RandomRoute: RandomRoute,
   RobotsDottxtRoute: RobotsDottxtRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
-  XRoute: XRoute,
   ApiHealthRoute: ApiHealthRoute,
   ApiShareImageRoute: ApiShareImageRoute,
   GamesGameIdRoute: GamesGameIdRouteWithChildren,
-  UsernameArticleStatusidRoute: UsernameArticleStatusidRoute,
-  UsernameStatusStatusidRoute: UsernameStatusStatusidRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

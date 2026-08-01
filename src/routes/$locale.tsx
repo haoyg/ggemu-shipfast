@@ -1,6 +1,8 @@
 import {
+  Link,
   Outlet,
   createFileRoute,
+  notFound,
   redirect,
   useRouterState,
 } from '@tanstack/react-router'
@@ -35,7 +37,7 @@ import {
   searchBlogPosts,
   searchGames,
 } from '#/lib/ggemu'
-import { getI18n, normalizeLocale } from '#/lib/i18n'
+import { getI18n, isSupportedLocale, normalizeLocale } from '#/lib/i18n'
 import {
   type SiteTemplate,
   getSiteTemplate,
@@ -83,6 +85,15 @@ export const Route = createFileRoute('/$locale')({
         }
       : undefined,
   beforeLoad: ({ location, params }) => {
+    if (!isSupportedLocale(params.locale)) {
+      throw notFound({
+        data: { locale: 'zh-CN' },
+        headers: {
+          'X-Robots-Tag': 'noindex, nofollow',
+        },
+      })
+    }
+
     if (!location.searchStr || location.pathname !== `/${params.locale}`) {
       return undefined as never
     }
@@ -191,8 +202,33 @@ export const Route = createFileRoute('/$locale')({
         : undefined,
     }
   },
+  notFoundComponent: InvalidLocaleNotFound,
   component: LocalizedHomePage,
 })
+
+function InvalidLocaleNotFound() {
+  return (
+    <SiteLayout locale="zh-CN">
+      <section className="mx-auto flex min-h-[60vh] max-w-2xl flex-col items-center justify-center px-4 py-20 text-center sm:px-6 lg:px-8">
+        <img
+          alt="POKOPIE"
+          className="h-16 w-16 rounded-2xl object-contain"
+          src="/logo-128.png"
+        />
+        <h1 className="mt-6 text-3xl font-semibold leading-tight">
+          页面不存在
+        </h1>
+        <p className="mt-4 text-base leading-7 text-base-content/70">
+          这个地址不是 POKOPIE 的有效页面，你可以返回首页继续浏览复古游戏。
+        </p>
+        <Link className="btn btn-primary mt-8" params={{ locale: 'zh-CN' }} to="/$locale">
+          <i className="ri-home-5-line" />
+          返回首页
+        </Link>
+      </section>
+    </SiteLayout>
+  )
+}
 
 function isExactHomeHeadMatch(matches: Array<{ routeId: string }>) {
   return matches.at(-1)?.routeId === '/$locale'

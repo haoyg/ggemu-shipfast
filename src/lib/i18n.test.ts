@@ -10,6 +10,7 @@ import {
   getI18n,
   getLocalizedBlogPostExcerpt,
   getLocalizedCategoryLabels,
+  isSupportedLocale,
 } from './i18n'
 
 const mojibakePattern = /涓|鏃|漏|銈|鍏|鐜|瑾|俙|锛焋/
@@ -31,6 +32,14 @@ function collectStrings(value: unknown): Array<string> {
 }
 
 describe('i18n messages', () => {
+  it('recognizes only supported route locales', () => {
+    expect(isSupportedLocale('zh-CN')).toBe(true)
+    expect(isSupportedLocale('en')).toBe(true)
+    expect(isSupportedLocale('ja')).toBe(true)
+    expect(isSupportedLocale('x')).toBe(false)
+    expect(isSupportedLocale('fr')).toBe(false)
+  })
+
   it('does not include known mojibake markers in zh-CN or ja messages', () => {
     const localizedText = [
       ...collectStrings(getI18n('zh-CN')),

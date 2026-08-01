@@ -7,6 +7,10 @@ export function normalizeLocale(value: unknown): Locale {
   return value === 'en' || value === 'ja' ? value : 'zh-CN'
 }
 
+export function isSupportedLocale(value: unknown): value is Locale {
+  return value === 'zh-CN' || value === 'en' || value === 'ja'
+}
+
 export function formatCopy(
   template: string,
   values: Record<string, string | number>,
