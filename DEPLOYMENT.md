@@ -18,10 +18,10 @@
 - `SITE_EMAIL`: `contact@pokopie.com`
 - `SITE_THEMES`: `pokopie,dark`
 - `SITE_TEMPLATE`: `default`
+- `GGEMU_REFCODE`: `v2pRNT`
 
 仍需按业务确认：
 
-- `GGEMU_REFCODE`: GGEMU 推荐码
 - `GOOGLE_ANALYTICS_ID`: Google Analytics ID
 - `GOOGLE_ADSENSE_CLIENT`: Google AdSense client ID
 
@@ -55,5 +55,6 @@ npm run deploy
 ## 注意事项
 
 - 游戏数据、博客数据、直播房和游戏 iframe 依赖 `https://ggemu.com`。
+- 游戏播放页和直播房链接会携带 GGEMU 推荐码 `v2pRNT`。
 - `/api/health` 只检查 POKOPIE Worker 是否可响应，不检查 GGEMU 外部服务。
 - `wrangler.jsonc` 当前没有 KV、D1、R2 等绑定。

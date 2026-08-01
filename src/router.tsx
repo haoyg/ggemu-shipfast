@@ -1,5 +1,5 @@
 import { createRouter as createTanStackRouter } from '@tanstack/react-router'
-import 'remixicon/fonts/remixicon.css'
+import './remixicon-subset.css'
 import { routeTree } from './routeTree.gen'
 
 export function getRouter() {
