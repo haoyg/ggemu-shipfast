@@ -7,8 +7,8 @@ import {
   useRouterState,
 } from '@tanstack/react-router'
 import { useServerFn } from '@tanstack/react-start'
-import type { FormEvent } from 'react'
-import { useEffect, useState } from 'react'
+import type { ComponentType, FormEvent } from 'react'
+import { Suspense, lazy, useEffect, useState } from 'react'
 
 import { DefaultHomeTemplate } from '#/components/home/default-template'
 import {
@@ -16,18 +16,12 @@ import {
   FEATURE_PLATFORM_LIMIT,
   FEATURE_PLATFORMS,
   FEATURE_SECTION_LIMIT,
-  FeaturesHomeTemplate,
   getFeatureSections,
-} from '#/components/home/features-template'
-import {
   POKI_REQUEST_SIZE,
-  PokiLikeHomeTemplate,
   getPokiDailyLayoutSeed,
-} from '#/components/home/poki-like-template'
-import { SidenavHomeTemplate } from '#/components/home/sidenav-template'
+} from '#/components/home/template-config'
 import { HOME_BLOG_POST_LIMIT } from '#/components/home/shared'
 import type { Filters, HomeLoaderData } from '#/components/home/types'
-import { TwoColumnHomeTemplate } from '#/components/home/two-column-template'
 import { SiteLayout } from '#/components/site-layout'
 import {
   type GameSearchSort,
@@ -48,9 +42,37 @@ import { getLocalizedSeoLinks, getSeoOrigin } from '#/lib/seo'
 
 const DEFAULT_HOME_REQUEST_SIZE = 20
 
+const FeaturesHomeTemplate = lazyHomeTemplate(
+  () => import('#/components/home/features-template'),
+  'FeaturesHomeTemplate',
+)
+const PokiLikeHomeTemplate = lazyHomeTemplate(
+  () => import('#/components/home/poki-like-template'),
+  'PokiLikeHomeTemplate',
+)
+const SidenavHomeTemplate = lazyHomeTemplate(
+  () => import('#/components/home/sidenav-template'),
+  'SidenavHomeTemplate',
+)
+const TwoColumnHomeTemplate = lazyHomeTemplate(
+  () => import('#/components/home/two-column-template'),
+  'TwoColumnHomeTemplate',
+)
+
 type HomeSearch = {
   template?: SiteTemplate
 }
+
+function lazyHomeTemplate<
+  Key extends string,
+  Module extends Record<Key, ComponentType<HomeLoaderTemplateProps>>,
+>(loadModule: () => Promise<Module>, exportName: Key) {
+  return lazy(async () => ({
+    default: (await loadModule())[exportName],
+  }))
+}
+
+type HomeLoaderTemplateProps = Parameters<typeof DefaultHomeTemplate>[0]
 
 function validateHomeSearch(search: Record<string, unknown>): HomeSearch {
   return {
@@ -336,21 +358,35 @@ function LocalizedHomePage() {
   }
 
   if (isPokiLike) {
-    return <PokiLikeHomeTemplate {...templateProps} />
+    return (
+      <Suspense fallback={null}>
+        <PokiLikeHomeTemplate {...templateProps} />
+      </Suspense>
+    )
   }
 
   if (isFeatures) {
-    return <FeaturesHomeTemplate {...templateProps} />
+    return (
+      <Suspense fallback={null}>
+        <FeaturesHomeTemplate {...templateProps} />
+      </Suspense>
+    )
   }
 
   if (currentTemplate === 'sidenav') {
-    return <SidenavHomeTemplate {...templateProps} />
+    return (
+      <Suspense fallback={null}>
+        <SidenavHomeTemplate {...templateProps} />
+      </Suspense>
+    )
   }
 
   if (currentTemplate === 'two-column') {
     return (
       <SiteLayout locale={lang}>
-        <TwoColumnHomeTemplate {...templateProps} />
+        <Suspense fallback={null}>
+          <TwoColumnHomeTemplate {...templateProps} />
+        </Suspense>
       </SiteLayout>
     )
   }

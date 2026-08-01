@@ -13,18 +13,8 @@ import { getRetroCoverFallbackLabel } from '#/lib/locale-labels'
 import { HomeFaqSection, HomeLatestBlogPostsSection } from './shared'
 import { RecentPlayedGamesSection } from './recent-played-games'
 import { HomeSearchOverlay } from './search-overlay'
-import type { FeaturePlatformGames, FeatureSection, HomeTemplateProps } from './types'
-
-export const FEATURE_NEW_ARRIVAL_LIMIT = 7
-export const FEATURE_PLATFORM_LIMIT = 8
-export const FEATURE_PLATFORMS = [
-  'Arcade',
-  'FLASH',
-  'HTML5',
-  'Famicom',
-  'Game Boy Advance',
-] as const
-export const FEATURE_SECTION_LIMIT = 10
+import { getFeatureSections } from './template-config'
+import type { HomeTemplateProps } from './types'
 
 export function FeaturesHomeTemplate({
   featureSections,
@@ -84,28 +74,6 @@ export function FeaturesHomeTemplate({
       />
     </SiteLayout>
   )
-}
-
-export function getFeatureSections({
-  newArrival,
-  platformGames = [],
-}: {
-  newArrival: Array<PublicGame>
-  platformGames?: Array<FeaturePlatformGames>
-}): Array<FeatureSection> {
-  return [
-    {
-      title: 'New Arrival',
-      games: newArrival.slice(0, FEATURE_NEW_ARRIVAL_LIMIT),
-      hasHeroCard: true,
-    },
-    ...platformGames.map((platform) => ({
-      title: platform.title,
-      games: platform.games.slice(0, FEATURE_PLATFORM_LIMIT),
-      hasHeroCard: false,
-      isSingleRow: true,
-    })),
-  ]
 }
 
 function FeatureGamesSection({

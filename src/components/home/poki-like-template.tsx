@@ -22,12 +22,9 @@ import {
 import { HomeSearchOverlay } from './search-overlay'
 import type { HomeCopy, HomeTemplateProps } from './types'
 
-export const POKI_REQUEST_SIZE = 100
-
 const POKI_VISIBLE_GAME_COUNT = 60
 const POKI_TILE_SIZE = 100
 const POKI_TILE_GAP = 16
-const POKI_LAYOUT_SEED_DAY_MS = 24 * 60 * 60 * 1000
 
 const localeOptions: Array<{ label: string; value: Locale }> = [
   { label: '中文', value: 'zh-CN' },
@@ -617,16 +614,6 @@ function getPokiBalancedTileSize(
   }
 
   return size
-}
-
-export function getPokiDailyLayoutSeed(date = new Date()) {
-  const utcDayStart = Date.UTC(
-    date.getUTCFullYear(),
-    date.getUTCMonth(),
-    date.getUTCDate(),
-  )
-
-  return Math.floor(utcDayStart / POKI_LAYOUT_SEED_DAY_MS)
 }
 
 function getPokiLayoutHash(game: PublicGame, layoutSeed: number) {
