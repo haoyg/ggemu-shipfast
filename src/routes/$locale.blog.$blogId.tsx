@@ -146,7 +146,7 @@ function BlogDetailPage() {
           <p className="text-sm font-semibold uppercase tracking-wide text-primary">
             {t.eyebrow}
           </p>
-          <h1 className="mt-3 text-4xl font-semibold leading-tight sm:text-5xl">
+          <h1 className="mt-3 break-words text-4xl font-semibold leading-tight sm:text-5xl">
             {blogPost.title}
           </h1>
           <div className="mt-5 text-sm text-base-content/55">
@@ -166,7 +166,7 @@ function BlogDetailPage() {
           </div>
         ) : null}
 
-        <div className="mt-10 space-y-6 text-base leading-8 text-base-content/75">
+        <div className="mt-10 break-words space-y-6 text-base leading-8 text-base-content/75">
           {renderContent(
             blogPost.content || '',
             lang,

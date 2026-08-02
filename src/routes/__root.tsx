@@ -62,7 +62,7 @@ export const Route = createRootRoute({
         },
         {
           name: 'viewport',
-          content: 'width=device-width, initial-scale=1',
+          content: 'width=device-width, initial-scale=1, viewport-fit=cover',
         },
         {
           title: defaultRootSeo.title,
@@ -174,7 +174,9 @@ function MaintenanceErrorComponent() {
         <img
           alt={siteConfig.SITE_NAME}
           className="h-20 w-20 rounded-2xl object-contain"
+          height="128"
           src="/logo-128.png"
+          width="128"
         />
         <h1 className="mt-5 text-3xl font-semibold leading-tight sm:text-4xl">
           {siteConfig.SITE_NAME}

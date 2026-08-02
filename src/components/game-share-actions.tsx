@@ -175,7 +175,9 @@ function PosterModal({
         alt={labels.posterTitle}
         className="mt-4 w-full rounded-box border border-base-300 bg-base-200"
         decoding="async"
+        height="1080"
         src={posterUrl}
+        width="720"
       />
       <div className="modal-action">
         <a

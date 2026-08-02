@@ -237,7 +237,9 @@ function InvalidLocaleNotFound() {
         <img
           alt="POKOPIE"
           className="h-16 w-16 rounded-2xl object-contain"
+          height="128"
           src="/logo-128.png"
+          width="128"
         />
         <h1 className="mt-6 text-3xl font-semibold leading-tight">
           页面不存在
