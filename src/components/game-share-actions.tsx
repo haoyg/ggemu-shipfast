@@ -116,7 +116,13 @@ export function GameShareActions({
 
       {shareMessage ? (
         <div className="toast toast-top toast-center z-50">
-          <div className="alert alert-info py-2 text-sm">{shareMessage}</div>
+          <div
+            aria-live="polite"
+            className="alert alert-info w-[calc(100vw-1rem)] max-w-sm py-2 text-sm"
+            role="status"
+          >
+            {shareMessage}
+          </div>
         </div>
       ) : null}
 

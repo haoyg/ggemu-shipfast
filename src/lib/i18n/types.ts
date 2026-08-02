@@ -21,6 +21,7 @@ export type I18nMessages = {
     subtitle: string
     searchPlaceholder: string
     search: string
+    closeSearch: string
     reset: string
     allPlatforms: string
     allCategories: string
@@ -28,6 +29,7 @@ export type I18nMessages = {
     popular: string
     oldest: string
     nameAsc: string
+    sortBy: string
     empty: string
     previous: string
     next: string
@@ -43,6 +45,7 @@ export type I18nMessages = {
     viewAllBlog: string
     blogPostFallback: string
     loadError: string
+    loading: string
     retry: string
   }
   homeSeo: {

@@ -30,6 +30,7 @@ export const zhCnMessages = {
       '在浏览器里直接游玩 GBA、NES、SNES、PS1、N64、Sega Genesis、街机等经典游戏，无需下载。',
     searchPlaceholder: '搜索游戏名、平台或系列...',
     search: '搜索',
+    closeSearch: '关闭搜索',
     reset: '重置',
     allPlatforms: '全部平台',
     allCategories: '全部分类',
@@ -37,6 +38,7 @@ export const zhCnMessages = {
     popular: '热门游戏',
     oldest: '最早发布',
     nameAsc: '名称 A-Z',
+    sortBy: '排序方式',
     empty: '没有找到游戏',
     previous: '上一页',
     next: '下一页',
@@ -52,6 +54,7 @@ export const zhCnMessages = {
     viewAllBlog: '查看全部文章',
     blogPostFallback: '博客文章',
     loadError: '游戏加载失败，请检查网络后重试。',
+    loading: '正在加载游戏…',
     retry: '重试',
   },
   homeSeo: {

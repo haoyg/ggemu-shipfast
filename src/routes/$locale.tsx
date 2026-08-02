@@ -42,6 +42,7 @@ import {
 import { getLocalizedSeoLinks, getSeoOrigin } from '#/lib/seo'
 
 const DEFAULT_HOME_REQUEST_SIZE = 24
+const homeFallbackItems = Array.from({ length: 8 }, (_, index) => index)
 
 const FeaturesHomeTemplate = lazyHomeTemplate(
   () => import('#/components/home/features-template'),
@@ -391,26 +392,26 @@ function LocalizedHomePage() {
 
   if (isPokiLike) {
     content = (
-      <Suspense fallback={null}>
+      <Suspense fallback={<HomeTemplateFallback label={t.loading} />}>
         <PokiLikeHomeTemplate {...templateProps} />
       </Suspense>
     )
   } else if (isFeatures) {
     content = (
-      <Suspense fallback={null}>
+      <Suspense fallback={<HomeTemplateFallback label={t.loading} />}>
         <FeaturesHomeTemplate {...templateProps} />
       </Suspense>
     )
   } else if (currentTemplate === 'sidenav') {
     content = (
-      <Suspense fallback={null}>
+      <Suspense fallback={<HomeTemplateFallback label={t.loading} />}>
         <SidenavHomeTemplate {...templateProps} />
       </Suspense>
     )
   } else if (currentTemplate === 'two-column') {
     content = (
       <SiteLayout locale={lang}>
-        <Suspense fallback={null}>
+        <Suspense fallback={<HomeTemplateFallback embedded label={t.loading} />}>
           <TwoColumnHomeTemplate {...templateProps} />
         </Suspense>
       </SiteLayout>
@@ -428,7 +429,10 @@ function LocalizedHomePage() {
       {content}
       {hasLoadError ? (
         <div className="toast toast-top toast-center z-50">
-          <div className="alert alert-error max-w-md shadow-lg" role="alert">
+          <div
+            className="alert alert-error w-[calc(100vw-1rem)] max-w-md shadow-lg"
+            role="alert"
+          >
             <i className="ri-error-warning-line text-xl" />
             <span>{t.loadError}</span>
             <button
@@ -445,6 +449,45 @@ function LocalizedHomePage() {
         </div>
       ) : null}
     </>
+  )
+}
+
+function HomeTemplateFallback({
+  embedded = false,
+  label,
+}: {
+  embedded?: boolean
+  label: string
+}) {
+  const content = (
+    <div
+      aria-busy="true"
+      aria-live="polite"
+      className="mx-auto w-full max-w-7xl px-4 py-8 sm:px-6 lg:px-8"
+      role="status"
+    >
+      <div className="flex items-center gap-3 text-sm font-medium text-base-content/65">
+        <span className="loading loading-spinner loading-sm" />
+        {label}
+      </div>
+      <div className="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+        {homeFallbackItems.map((item) => (
+          <div className="overflow-hidden rounded-box border border-base-300" key={item}>
+            <div className="skeleton aspect-[4/3] w-full rounded-none" />
+            <div className="space-y-2 p-3">
+              <div className="skeleton h-4 w-4/5" />
+              <div className="skeleton h-3 w-2/5" />
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+
+  return embedded ? (
+    <section className="min-h-[60vh] bg-base-100 text-base-content">{content}</section>
+  ) : (
+    <main className="min-h-screen bg-base-100 text-base-content">{content}</main>
   )
 }
 

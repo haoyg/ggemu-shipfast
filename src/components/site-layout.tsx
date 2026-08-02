@@ -80,7 +80,7 @@ export function SiteLayout({
 
   return (
     <main className="min-h-screen overflow-x-hidden bg-base-100 text-base-content">
-      <header className="sticky top-0 z-40 border-b border-base-300/70 bg-base-100/90 backdrop-blur">
+      <header className="sticky top-0 z-40 border-b border-base-300/70 bg-base-100/90 [padding-top:env(safe-area-inset-top)] backdrop-blur">
         <div className="navbar mx-auto max-w-7xl px-3 sm:px-6 lg:px-8">
           <div className="navbar-start min-w-0 flex-1">
             <Link
@@ -92,7 +92,9 @@ export function SiteLayout({
                 <img
                   alt={siteConfig.SITE_NAME}
                   className="h-full w-full object-contain"
+                  height="128"
                   src="/logo-128.png"
+                  width="128"
                 />
               </span>
               <span className="min-w-0 leading-tight">
@@ -238,7 +240,7 @@ export function SiteFooter({ locale }: { locale: Locale }) {
 
   return (
     <footer className="border-t border-base-300 bg-base-100">
-      <div className="mx-auto max-w-7xl px-4 py-8 text-sm text-base-content/70 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl px-4 py-8 text-sm text-base-content/70 [padding-bottom:max(2rem,env(safe-area-inset-bottom))] sm:px-6 lg:px-8">
         <div className="grid gap-8 md:grid-cols-[minmax(0,1fr)_auto_auto] md:items-start">
           <section className="max-w-md">
             <div className="flex items-center gap-3">
@@ -246,7 +248,11 @@ export function SiteFooter({ locale }: { locale: Locale }) {
                 <img
                   alt={siteConfig.SITE_NAME}
                   className="h-full w-full object-contain"
+                  decoding="async"
+                  height="128"
+                  loading="lazy"
                   src="/logo-128.png"
+                  width="128"
                 />
               </span>
               <div>

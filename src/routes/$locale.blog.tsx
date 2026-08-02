@@ -145,6 +145,7 @@ function BlogPostCard({
           <img
             alt={blogPost.title ?? 'Blog cover'}
             className="h-full w-full object-cover transition duration-300 group-hover:scale-105"
+            decoding="async"
             loading="lazy"
             src={blogPost.cover_image_url}
           />

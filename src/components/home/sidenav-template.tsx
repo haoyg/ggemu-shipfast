@@ -125,8 +125,8 @@ function HomeSidenav({
   }
 
   return (
-    <aside className="relative z-[90] border-b border-base-300 bg-base-200 lg:sticky lg:top-0 lg:h-screen lg:overflow-visible lg:border-b-0 lg:border-r">
-      <div className="flex min-h-full flex-col gap-4 p-3">
+    <aside className="relative z-[90] border-b border-base-300 bg-base-200 pt-[env(safe-area-inset-top)] lg:sticky lg:top-0 lg:h-screen lg:overflow-visible lg:border-b-0 lg:border-r">
+      <div className="flex min-h-full flex-col gap-4 p-3 lg:pb-[max(0.75rem,env(safe-area-inset-bottom))]">
         <Link
           className="flex items-center gap-2 rounded-lg p-2 transition hover:bg-base-300/70"
           params={{ locale }}
@@ -137,7 +137,9 @@ function HomeSidenav({
             <img
               alt={siteConfig.SITE_NAME}
               className="h-full w-full object-contain"
+              height="128"
               src="/logo-128.png"
+              width="128"
             />
           </span>
           <span className="min-w-0 leading-tight">

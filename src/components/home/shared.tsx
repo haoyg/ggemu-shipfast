@@ -156,6 +156,7 @@ export function SearchForm({
     return (
       <form className="flex flex-col gap-3" onSubmit={onSearch}>
         <input
+          aria-label={t.search}
           className="input input-bordered w-full"
           onChange={(event) => onQueryChange(event.currentTarget.value)}
           placeholder={searchPlaceholder}
@@ -183,6 +184,7 @@ export function SearchForm({
     <form className="flex max-w-5xl flex-col gap-3" onSubmit={onSearch}>
       <div className="join w-full">
         <input
+          aria-label={t.search}
           className="input input-bordered join-item min-w-0 flex-1"
           onChange={(event) => onQueryChange(event.currentTarget.value)}
           placeholder={searchPlaceholder}
@@ -222,6 +224,7 @@ export function FilterSelects({
   return (
     <>
       <select
+        aria-label={t.allPlatforms}
         className="select select-bordered w-full"
         onChange={(event) => onFilterChange('platform', event.currentTarget.value)}
         value={filters.platform}
@@ -235,6 +238,7 @@ export function FilterSelects({
       </select>
 
       <select
+        aria-label={t.allCategories}
         className="select select-bordered w-full"
         onChange={(event) => onFilterChange('category', event.currentTarget.value)}
         value={filters.category}
@@ -248,6 +252,7 @@ export function FilterSelects({
       </select>
 
       <select
+        aria-label={t.sortBy}
         className="select select-bordered w-full"
         onChange={(event) =>
           onFilterChange('sort', event.currentTarget.value as GameSearchSort)
@@ -307,7 +312,10 @@ export function GamesSection({
       ) : null}
 
       {games.length > 0 ? (
-        <div className={`${gridClassName} ${isLoading ? 'opacity-60' : ''}`}>
+        <div
+          aria-busy={isLoading}
+          className={`${gridClassName} ${isLoading ? 'opacity-60' : ''}`}
+        >
           {games.map((game) => (
             <GameCard game={game} key={game._id ?? game.url_slug} lang={lang} />
           ))}
@@ -328,9 +336,9 @@ export function GamesSection({
           <i className="ri-arrow-left-s-line" />
           {t.previous}
         </button>
-        <button className="btn join-item btn-disabled">
+        <span aria-current="page" className="btn join-item btn-disabled">
           {formatCopy(t.page, { page, pages })}
-        </button>
+        </span>
         <button
           className={`btn join-item ${page >= pages ? 'btn-disabled' : ''}`}
           disabled={isLoading || page >= pages}
@@ -367,6 +375,7 @@ function HomeBlogPostCard({
           <img
             alt={title}
             className="h-full w-full object-cover transition duration-300 group-hover:scale-105"
+            decoding="async"
             loading="lazy"
             src={blogPost.cover_image_url}
           />
@@ -410,6 +419,7 @@ function GameCard({ game, lang }: { game: PublicGame; lang: Locale }) {
           <img
             alt={game.name ?? 'Game cover'}
             className="h-full w-full object-cover"
+            decoding="async"
             loading="lazy"
             src={game.game_cover}
           />

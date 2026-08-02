@@ -226,6 +226,7 @@ function FeatureGameCard({
         <img
           alt={gameName}
           className="h-full w-full object-cover"
+          decoding="async"
           loading="lazy"
           src={game.game_cover}
         />

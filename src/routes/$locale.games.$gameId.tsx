@@ -588,6 +588,7 @@ function RelatedGameCard({ game, lang }: { game: PublicGame; lang: Locale }) {
           <img
             alt={game.name ?? 'Game cover'}
             className="h-full w-full object-cover"
+            decoding="async"
             loading="lazy"
             src={game.game_cover}
           />

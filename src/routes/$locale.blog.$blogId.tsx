@@ -230,6 +230,7 @@ function renderBlock(
         <img
           alt={cleanBlogDisplayText(image.groups.alt) || 'Blog image'}
           className="h-full w-full object-cover"
+          decoding="async"
           loading="lazy"
           src={image.groups.src}
         />
@@ -443,6 +444,7 @@ function LinkedGameCard({
           <img
             alt={title}
             className="h-full w-full object-cover transition duration-300 group-hover:scale-105"
+            decoding="async"
             loading="lazy"
             src={game.game_cover}
           />

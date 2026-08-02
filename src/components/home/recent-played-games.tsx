@@ -86,6 +86,7 @@ function RecentPlayedGameCard({
           <img
             alt={game.name}
             className="h-full w-full object-cover"
+            decoding="async"
             loading="lazy"
             src={game.cover}
           />

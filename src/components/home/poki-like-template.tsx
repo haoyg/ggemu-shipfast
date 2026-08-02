@@ -427,6 +427,7 @@ function PokiTileCover({
         <img
           alt={alt}
           className="h-full w-full object-cover transition duration-300 group-hover:scale-105"
+          decoding="async"
           loading="lazy"
           src={cover}
         />

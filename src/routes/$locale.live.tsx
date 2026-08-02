@@ -6,7 +6,7 @@ import {
   useRouterState,
 } from '@tanstack/react-router'
 import { useServerFn } from '@tanstack/react-start'
-import { useEffect, useState } from 'react'
+import { useEffect, useId, useRef, useState } from 'react'
 
 import { SiteLayout } from '#/components/site-layout'
 import {
@@ -19,6 +19,7 @@ import { getLiveBadgeLabel } from '#/lib/locale-labels'
 import { getLocalizedSeoLinks, getSeoOrigin } from '#/lib/seo'
 import { siteConfig } from '#/lib/site-config'
 import { useCurrentSiteTheme } from '#/lib/use-site-theme'
+import { useModalAccessibility } from '#/lib/use-modal-accessibility'
 import { startVisibilityAwarePolling } from '#/lib/visibility-aware-polling'
 
 const LIVE_ROOM_PAGE_SIZE = 24
@@ -274,6 +275,7 @@ function LiveRoomCard({
         <img
           alt={room.game.name}
           className="h-full w-full object-cover transition duration-300 group-hover:scale-105"
+          decoding="async"
           loading="lazy"
           src={room.game.game_cover}
         />
@@ -314,37 +316,42 @@ function LiveRoomPlayerModal({
   const theme = useCurrentSiteTheme()
   const embedSrc = buildLiveRoomEmbedUrl(lang, room.roomId, theme)
   const gameId = room.game.url_slug || room.game._id
+  const titleId = useId()
+  const playerRef = useRef<HTMLElement>(null)
+  const closeButtonRef = useRef<HTMLButtonElement>(null)
 
-  useEffect(() => {
-    const previousOverflow = document.body.style.overflow
-    const previousFocus = document.activeElement
-
-    document.body.style.overflow = 'hidden'
-
-    return () => {
-      document.body.style.overflow = previousOverflow
-
-      if (previousFocus instanceof HTMLElement) {
-        previousFocus.focus()
-      }
-    }
-  }, [])
+  useModalAccessibility({
+    containerRef: playerRef,
+    initialFocusRef: closeButtonRef,
+    onClose,
+  })
 
   return (
     <div
-      aria-label={`${t.watchLive}: ${room.game.name}`}
+      aria-labelledby={titleId}
       aria-modal="true"
       className="fixed inset-0 z-[100] grid place-items-center bg-black/75 p-2 backdrop-blur-sm sm:p-6 lg:p-10"
+      onPointerDown={(event) => {
+        if (event.target === event.currentTarget) {
+          onClose()
+        }
+      }}
       role="dialog"
     >
-      <section className="flex h-full max-h-[900px] w-full max-w-[1500px] flex-col overflow-hidden rounded-lg border border-base-300 bg-base-100 shadow-2xl sm:rounded-xl">
+      <section
+        className="flex h-full max-h-[900px] w-full max-w-[1500px] flex-col overflow-hidden rounded-lg border border-base-300 bg-base-100 shadow-2xl sm:rounded-xl"
+        ref={playerRef}
+        tabIndex={-1}
+      >
         <header className="flex shrink-0 items-center justify-between gap-4 border-b border-base-300 px-4 py-3">
           <div className="flex min-w-0 flex-1 items-center gap-3">
             <span className="relative flex h-2.5 w-2.5 shrink-0">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-error opacity-60" />
               <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-error" />
             </span>
-            <h2 className="min-w-0 truncate font-semibold">{room.game.name}</h2>
+            <h2 className="min-w-0 truncate font-semibold" id={titleId}>
+              {room.game.name}
+            </h2>
           </div>
 
           <div className="flex shrink-0 items-center gap-2">
@@ -361,6 +368,7 @@ function LiveRoomPlayerModal({
               aria-label={t.closePlayer}
               className="btn btn-circle btn-ghost btn-sm shrink-0"
               onClick={onClose}
+              ref={closeButtonRef}
               title={t.closePlayer}
               type="button"
             >
@@ -371,7 +379,7 @@ function LiveRoomPlayerModal({
 
         <div className="relative min-h-0 flex-1 bg-black">
           <div className="absolute inset-0 grid place-items-center text-white/70">
-            <span className="loading loading-spinner loading-lg" />
+            <span aria-hidden="true" className="loading loading-spinner loading-lg" />
           </div>
 
           <iframe

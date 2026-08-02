@@ -30,6 +30,7 @@ export const jaMessages = {
       'GBA、NES、SNES、PS1、N64、Sega Genesis、アーケードなどの名作をブラウザーでそのまま遊べます。ダウンロードは不要です。',
     searchPlaceholder: 'ゲーム名、プラットフォーム、シリーズを検索...',
     search: '検索',
+    closeSearch: '検索を閉じる',
     reset: 'リセット',
     allPlatforms: 'すべてのプラットフォーム',
     allCategories: 'すべてのカテゴリー',
@@ -37,6 +38,7 @@ export const jaMessages = {
     popular: '人気',
     oldest: '古い順',
     nameAsc: '名前 A-Z',
+    sortBy: '並び順',
     empty: 'ゲームが見つかりません',
     previous: '前へ',
     next: '次へ',
@@ -53,6 +55,7 @@ export const jaMessages = {
     viewAllBlog: 'すべての記事を見る',
     blogPostFallback: 'ブログ記事',
     loadError: 'ゲームを読み込めませんでした。接続を確認して、もう一度お試しください。',
+    loading: 'ゲームを読み込み中…',
     retry: '再試行',
   },
   homeSeo: {

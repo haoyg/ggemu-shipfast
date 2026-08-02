@@ -32,6 +32,7 @@ export const enMessages = {
       'Play classic retro games from GBA, NES, SNES, PS1, N64, Sega Genesis, Arcade and more directly in your browser. No downloads required.',
     searchPlaceholder: 'Search by game title, platform, or series...',
     search: 'Search',
+    closeSearch: 'Close search',
     reset: 'Reset',
     allPlatforms: 'All platforms',
     allCategories: 'All categories',
@@ -39,6 +40,7 @@ export const enMessages = {
     popular: 'Popular',
     oldest: 'Oldest',
     nameAsc: 'Name A-Z',
+    sortBy: 'Sort by',
     empty: 'No games found',
     previous: 'Previous',
     next: 'Next',
@@ -55,6 +57,7 @@ export const enMessages = {
     viewAllBlog: 'View all posts',
     blogPostFallback: 'Blog post',
     loadError: 'Games could not be loaded. Check your connection and try again.',
+    loading: 'Loading games…',
     retry: 'Retry',
   },
   homeSeo: {
