@@ -156,6 +156,7 @@ export function SiteLayout({
                 ref={themeMenuRef}
               >
                 <summary
+                  aria-label={t.theme}
                   className="btn btn-sm btn-ghost border border-base-300"
                   onClick={(event) => {
                     event.preventDefault()
@@ -193,6 +194,7 @@ export function SiteLayout({
               ref={localeMenuRef}
             >
               <summary
+                aria-label={t.language}
                 className="btn btn-sm btn-ghost border border-base-300"
                 onClick={(event) => {
                   event.preventDefault()
@@ -214,17 +216,29 @@ export function SiteLayout({
               </summary>
               <ul className="menu dropdown-content z-50 mt-3 w-36 rounded-box border border-base-300 bg-base-100 p-2 shadow-xl">
                 <li>
-                  <button onClick={() => handleLocaleChange('zh-CN')} type="button">
+                  <button
+                    className={locale === 'zh-CN' ? 'active' : ''}
+                    onClick={() => handleLocaleChange('zh-CN')}
+                    type="button"
+                  >
                     {'\u4e2d\u6587'}
                   </button>
                 </li>
                 <li>
-                  <button onClick={() => handleLocaleChange('en')} type="button">
+                  <button
+                    className={locale === 'en' ? 'active' : ''}
+                    onClick={() => handleLocaleChange('en')}
+                    type="button"
+                  >
                     English
                   </button>
                 </li>
                 <li>
-                  <button onClick={() => handleLocaleChange('ja')} type="button">
+                  <button
+                    className={locale === 'ja' ? 'active' : ''}
+                    onClick={() => handleLocaleChange('ja')}
+                    type="button"
+                  >
                     {'\u65e5\u672c\u8a9e'}
                   </button>
                 </li>

@@ -372,7 +372,7 @@ function LiveRoomPlayerModal({
               title={t.closePlayer}
               type="button"
             >
-              <i className="ri-close-line text-xl" />
+              <i aria-hidden="true" className="ri-close-line text-xl" />
             </button>
           </div>
         </header>

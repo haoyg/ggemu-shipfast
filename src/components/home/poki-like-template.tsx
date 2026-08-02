@@ -7,6 +7,7 @@ import {
 } from '#/components/game-card-preview'
 import { SiteFooter } from '#/components/site-layout'
 import type { Locale, PublicGame } from '#/lib/ggemu'
+import { getI18n } from '#/lib/i18n'
 import { getRetroCoverFallbackLabel } from '#/lib/locale-labels'
 import { siteConfig } from '#/lib/site-config'
 import { getSiteThemes, normalizeSiteTheme } from '#/lib/site-themes'
@@ -219,6 +220,7 @@ function PokiControlTiles({
   t: HomeCopy
 }) {
   const location = useRouterState({ select: (state) => state.location })
+  const layoutCopy = getI18n(lang).layout
   const siteThemes = getSiteThemes()
   const [theme, setTheme] = useState(() => normalizeSiteTheme(null))
   const [isLocaleMenuOpen, setIsLocaleMenuOpen] = useState(false)
@@ -278,17 +280,17 @@ function PokiControlTiles({
   }
 
   return (
-    <div className="relative h-[100px] w-[100px] overflow-visible rounded-2xl bg-white shadow-lg">
+    <div className="relative col-span-2 h-[100px] w-full overflow-visible rounded-2xl bg-white shadow-lg">
       <Link
         aria-label={siteConfig.SITE_NAME}
-        className="grid h-[60px] place-items-center border-b border-slate-200"
+        className="grid h-[56px] place-items-center border-b border-slate-200"
         params={{ locale: lang }}
         search={{}}
         to="/$locale"
       >
         <img
           alt={siteConfig.SITE_NAME}
-          className="h-full max-h-[52px] w-full object-contain px-3 py-2"
+          className="h-full max-h-[48px] w-full object-contain px-3 py-2"
           height="128"
           src="/logo-128.png"
           width="128"
@@ -296,7 +298,7 @@ function PokiControlTiles({
       </Link>
 
       <div
-        className={`grid h-[40px] divide-x divide-slate-200 ${
+        className={`grid h-[44px] divide-x divide-slate-200 ${
           canSwitchTheme ? 'grid-cols-3' : 'grid-cols-2'
         }`}
       >
@@ -307,14 +309,15 @@ function PokiControlTiles({
           ref={localeMenuRef}
         >
           <summary
-            className="grid h-[40px] cursor-pointer list-none place-items-center rounded-bl-2xl text-xl text-sky-600 transition hover:bg-sky-50"
+            aria-label={layoutCopy.language}
+            className="grid h-[44px] cursor-pointer list-none place-items-center rounded-bl-2xl text-xl text-sky-600 transition hover:bg-sky-50"
             onClick={(event) => {
               event.preventDefault()
               setIsLocaleMenuOpen((isOpen) => !isOpen)
               setIsThemeMenuOpen(false)
             }}
           >
-            <i className="ri-global-line" />
+            <i aria-hidden="true" className="ri-global-line" />
           </summary>
           <ul className="menu dropdown-content z-50 mt-2 w-40 rounded-box bg-base-100 p-2 shadow-xl">
             {localeOptions.map((option) => (
@@ -339,14 +342,15 @@ function PokiControlTiles({
             ref={themeMenuRef}
           >
             <summary
-              className="grid h-[40px] cursor-pointer list-none place-items-center text-xl text-violet-600 transition hover:bg-violet-50"
+              aria-label={layoutCopy.theme}
+              className="grid h-[44px] cursor-pointer list-none place-items-center text-xl text-violet-600 transition hover:bg-violet-50"
               onClick={(event) => {
                 event.preventDefault()
                 setIsThemeMenuOpen((isOpen) => !isOpen)
                 setIsLocaleMenuOpen(false)
               }}
             >
-              <i className="ri-palette-line" />
+              <i aria-hidden="true" className="ri-palette-line" />
             </summary>
             <ul className="menu dropdown-content z-50 mt-2 max-h-96 w-56 overflow-y-auto rounded-box bg-base-100 p-2 shadow-xl">
               {siteThemes.map((nextTheme) => (
@@ -370,11 +374,11 @@ function PokiControlTiles({
 
         <button
           aria-label={t.search}
-          className="grid h-[40px] place-items-center rounded-br-2xl text-xl text-blue-600 transition hover:bg-blue-50"
+          className="grid h-[44px] place-items-center rounded-br-2xl text-xl text-blue-600 transition hover:bg-blue-50"
           onClick={onToggleSearch}
           type="button"
         >
-          <i className="ri-search-line" />
+          <i aria-hidden="true" className="ri-search-line" />
         </button>
       </div>
 
@@ -480,7 +484,7 @@ function getPokiFillerCount(tiles: Array<PokiGridSizeTile>, grid: HTMLDivElement
   }
 
   const placedTiles = [
-    { colSpan: 1, rowSpan: 1 },
+    { colSpan: 2, rowSpan: 1 },
     ...tiles.map((tile) => getPokiPlacedTile(tile.size)),
   ]
   const occupied: Array<Array<boolean>> = []

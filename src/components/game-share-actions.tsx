@@ -168,7 +168,7 @@ function PosterModal({
           onClick={onClose}
           type="button"
         >
-          <i className="ri-close-line text-xl" />
+          <i aria-hidden="true" className="ri-close-line text-xl" />
         </button>
       </div>
       <img
