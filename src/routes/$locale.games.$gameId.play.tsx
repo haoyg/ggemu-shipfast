@@ -62,7 +62,7 @@ function LocalizedPlayGamePage() {
   }, [isPsp])
 
   return (
-    <main className="min-h-screen bg-black">
+    <main className="min-h-[100svh] bg-black">
       <iframe
         allow={
           isPsp
@@ -70,7 +70,7 @@ function LocalizedPlayGamePage() {
             : 'autoplay; gamepad'
         }
         allowFullScreen
-        className="h-screen w-full border-0 bg-black"
+        className="h-[100svh] w-full border-0 bg-black"
         src={embedSrc}
         title={game.name ?? 'Retro game'}
       />

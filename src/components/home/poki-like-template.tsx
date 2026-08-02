@@ -289,7 +289,9 @@ function PokiControlTiles({
         <img
           alt={siteConfig.SITE_NAME}
           className="h-full max-h-[52px] w-full object-contain px-3 py-2"
+          height="128"
           src="/logo-128.png"
+          width="128"
         />
       </Link>
 

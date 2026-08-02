@@ -155,10 +155,12 @@ function BlogDetailPage() {
         </header>
 
         {blogPost.cover_image_url ? (
-          <div className="mt-8 overflow-hidden rounded-box border border-base-300 bg-base-200">
+          <div className="mt-8 aspect-[16/9] overflow-hidden rounded-box border border-base-300 bg-base-200">
             <img
               alt={blogPost.title ?? 'Blog cover'}
               className="h-full w-full object-cover"
+              decoding="async"
+              fetchPriority="high"
               src={blogPost.cover_image_url}
             />
           </div>

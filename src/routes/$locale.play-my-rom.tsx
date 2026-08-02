@@ -1,5 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 import { SiteLayout } from '#/components/site-layout'
 import { normalizeLocale } from '#/lib/i18n'
@@ -83,7 +83,9 @@ function PlayMyRomPage() {
   const lang = normalizeLocale(locale)
   const copy = playMyRomCopies[lang]
   const theme = useCurrentSiteTheme()
+  const [loadedFrameSrc, setLoadedFrameSrc] = useState<string | null>(null)
   const iframeSrc = `${GGEMU_ORIGIN}/${lang}/play-my-rom?${buildIframeSearch(isolated === 1, theme)}`
+  const isFrameLoading = loadedFrameSrc !== iframeSrc
 
   useEffect(() => {
     function handleMessage(event: MessageEvent) {
@@ -127,18 +129,39 @@ function PlayMyRomPage() {
 
   return (
     <SiteLayout locale={lang}>
-      <section className="mx-auto flex min-h-[calc(100vh-4rem)] max-w-7xl flex-col px-4 py-6 sm:px-6 lg:px-8">
-        <iframe
-          allow={
-            isolated === 1
-              ? 'fullscreen; gamepad; autoplay; cross-origin-isolated'
-              : 'fullscreen; gamepad; autoplay'
-          }
-          allowFullScreen
-          className="min-h-[720px] flex-1 rounded-lg border border-base-300 bg-base-100"
-          src={iframeSrc}
-          title={copy.title}
-        />
+      <section className="mx-auto flex min-h-[calc(100svh-7rem)] max-w-7xl flex-col gap-5 px-4 py-6 sm:px-6 lg:min-h-[calc(100svh-4rem)] lg:px-8">
+        <header className="max-w-3xl">
+          <h1 className="text-3xl font-semibold leading-tight sm:text-4xl">
+            {copy.title}
+          </h1>
+          <p className="mt-2 text-sm leading-6 text-base-content/65 sm:text-base">
+            {copy.description}
+          </p>
+        </header>
+
+        <div className="relative min-h-[32rem] flex-1 overflow-hidden rounded-lg border border-base-300 bg-base-200">
+          <iframe
+            allow={
+              isolated === 1
+                ? 'fullscreen; gamepad; autoplay; cross-origin-isolated'
+                : 'fullscreen; gamepad; autoplay'
+            }
+            allowFullScreen
+            className="absolute inset-0 h-full w-full border-0 bg-base-100"
+            onLoad={() => setLoadedFrameSrc(iframeSrc)}
+            src={iframeSrc}
+            title={copy.title}
+          />
+          {isFrameLoading ? (
+            <div
+              aria-live="polite"
+              className="absolute inset-0 z-10 grid place-items-center bg-base-200"
+              role="status"
+            >
+              <span className="loading loading-spinner loading-lg text-primary" />
+            </div>
+          ) : null}
+        </div>
       </section>
     </SiteLayout>
   )
