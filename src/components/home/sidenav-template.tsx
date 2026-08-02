@@ -179,6 +179,12 @@ function HomeSidenav({
             to="/$locale/play-my-rom"
           />
           <SidenavLink
+            icon="ri-live-line"
+            label={layoutCopy.live}
+            locale={locale}
+            to="/$locale/live"
+          />
+          <SidenavLink
             icon="ri-article-line"
             label={layoutCopy.blog}
             locale={locale}
@@ -283,7 +289,12 @@ function SidenavLink({
   icon: string
   label: string
   locale: Locale
-  to: '/$locale' | '/$locale/about' | '/$locale/blog' | '/$locale/play-my-rom'
+  to:
+    | '/$locale'
+    | '/$locale/about'
+    | '/$locale/blog'
+    | '/$locale/live'
+    | '/$locale/play-my-rom'
 }) {
   return (
     <Link

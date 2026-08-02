@@ -124,6 +124,12 @@ export function SiteLayout({
                   </Link>
                 </li>
                 <li>
+                  <Link params={{ locale }} to="/$locale/live">
+                    <i className="ri-live-line" />
+                    {t.live}
+                  </Link>
+                </li>
+                <li>
                   <Link params={{ locale }} to="/$locale/blog">
                     <i className="ri-article-line" />
                     {t.blog}
@@ -226,12 +232,80 @@ export function SiteLayout({
             </details>
           </div>
         </div>
+
+        {hideHeaderNav ? null : (
+          <nav
+            aria-label={t.explore}
+            className="mx-auto flex max-w-7xl gap-1 overflow-x-auto px-3 pb-2 [scrollbar-width:none] sm:px-6 lg:hidden [&::-webkit-scrollbar]:hidden"
+          >
+            <HeaderMobileLink
+              icon="ri-home-5-line"
+              label={t.games}
+              locale={locale}
+              to="/$locale"
+            />
+            <HeaderMobileLink
+              icon="ri-live-line"
+              label={t.live}
+              locale={locale}
+              to="/$locale/live"
+            />
+            <HeaderMobileLink
+              icon="ri-gamepad-line"
+              label={t.playMyRom}
+              locale={locale}
+              to="/$locale/play-my-rom"
+            />
+            <HeaderMobileLink
+              icon="ri-article-line"
+              label={t.blog}
+              locale={locale}
+              to="/$locale/blog"
+            />
+            <HeaderMobileLink
+              icon="ri-information-line"
+              label={t.about}
+              locale={locale}
+              to="/$locale/about"
+            />
+          </nav>
+        )}
       </header>
 
       {children}
 
       <SiteFooter locale={locale} />
     </main>
+  )
+}
+
+function HeaderMobileLink({
+  icon,
+  label,
+  locale,
+  to,
+}: {
+  icon: string
+  label: string
+  locale: Locale
+  to:
+    | '/$locale'
+    | '/$locale/about'
+    | '/$locale/blog'
+    | '/$locale/live'
+    | '/$locale/play-my-rom'
+}) {
+  return (
+    <Link
+      activeOptions={{ exact: to === '/$locale' }}
+      activeProps={{ className: 'btn-primary' }}
+      className="btn btn-ghost btn-sm shrink-0 gap-2 whitespace-nowrap"
+      params={{ locale }}
+      to={to}
+    >
+      <i aria-hidden="true" className={icon} />
+      {label}
+    </Link>
   )
 }
 

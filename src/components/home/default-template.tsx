@@ -131,10 +131,22 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
               to="/$locale/play-my-rom"
             />
             <SideNavRoute
+              icon="ri-live-line"
+              label={layoutCopy.live}
+              lang={lang}
+              to="/$locale/live"
+            />
+            <SideNavRoute
               icon="ri-article-line"
               label={layoutCopy.blog}
               lang={lang}
               to="/$locale/blog"
+            />
+            <SideNavRoute
+              icon="ri-information-line"
+              label={layoutCopy.about}
+              lang={lang}
+              to="/$locale/about"
             />
 
             <section className="border-t border-white/10 pt-4">
@@ -165,6 +177,16 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
         </aside>
 
         <main className="min-w-0 max-w-full overflow-x-hidden bg-[radial-gradient(circle_at_top_left,rgba(244,63,94,0.18),transparent_34rem),radial-gradient(circle_at_top_right,rgba(34,211,238,0.14),transparent_30rem)]">
+          <nav
+            aria-label={layoutCopy.explore}
+            className="flex gap-1 overflow-x-auto border-b border-white/10 px-3 py-2 [scrollbar-width:none] sm:px-6 lg:hidden [&::-webkit-scrollbar]:hidden"
+          >
+            <DefaultMobileNavLink icon="ri-home-5-line" label={layoutCopy.games} lang={lang} to="/$locale" />
+            <DefaultMobileNavLink icon="ri-live-line" label={layoutCopy.live} lang={lang} to="/$locale/live" />
+            <DefaultMobileNavLink icon="ri-gamepad-line" label={layoutCopy.playMyRom} lang={lang} to="/$locale/play-my-rom" />
+            <DefaultMobileNavLink icon="ri-article-line" label={layoutCopy.blog} lang={lang} to="/$locale/blog" />
+            <DefaultMobileNavLink icon="ri-information-line" label={layoutCopy.about} lang={lang} to="/$locale/about" />
+          </nav>
           <section className="border-b border-white/10 px-3 py-3 sm:px-6 sm:py-4 lg:px-8">
             <div className="flex min-w-0 flex-col gap-3 xl:flex-row xl:items-center">
               <form className="min-w-0 flex-1" onSubmit={onSearch}>
@@ -377,7 +399,11 @@ function SideNavRoute({
   icon: string
   label: string
   lang: Locale
-  to: '/$locale/blog' | '/$locale/play-my-rom'
+  to:
+    | '/$locale/about'
+    | '/$locale/blog'
+    | '/$locale/live'
+    | '/$locale/play-my-rom'
 }) {
   return (
     <Link
@@ -386,6 +412,36 @@ function SideNavRoute({
       to={to}
     >
       <i className={`${icon} text-lg`} />
+      {label}
+    </Link>
+  )
+}
+
+function DefaultMobileNavLink({
+  icon,
+  label,
+  lang,
+  to,
+}: {
+  icon: string
+  label: string
+  lang: Locale
+  to:
+    | '/$locale'
+    | '/$locale/about'
+    | '/$locale/blog'
+    | '/$locale/live'
+    | '/$locale/play-my-rom'
+}) {
+  return (
+    <Link
+      activeOptions={{ exact: to === '/$locale' }}
+      activeProps={{ className: 'bg-primary text-primary-content' }}
+      className="flex shrink-0 items-center gap-2 whitespace-nowrap rounded-lg px-3 py-2 text-sm font-medium text-white/70 transition hover:bg-white/10 hover:text-white"
+      params={{ locale: lang }}
+      to={to}
+    >
+      <i aria-hidden="true" className={icon} />
       {label}
     </Link>
   )
