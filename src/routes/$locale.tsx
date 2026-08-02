@@ -7,8 +7,8 @@ import {
   useRouterState,
 } from '@tanstack/react-router'
 import { useServerFn } from '@tanstack/react-start'
-import type { ComponentType, FormEvent } from 'react'
-import { Suspense, lazy, useEffect, useState } from 'react'
+import type { ComponentType, FormEvent, ReactNode } from 'react'
+import { Suspense, lazy, useEffect, useRef, useState } from 'react'
 
 import { DefaultHomeTemplate } from '#/components/home/default-template'
 import {
@@ -32,6 +32,7 @@ import {
   searchGames,
 } from '#/lib/ggemu'
 import { getI18n, isSupportedLocale, normalizeLocale } from '#/lib/i18n'
+import { LatestRequestGuard } from '#/lib/latest-request-guard'
 import {
   type SiteTemplate,
   getSiteTemplate,
@@ -273,9 +274,21 @@ function LocalizedHomePage() {
     sort: getHomeSort(currentTemplate),
   })
   const [isLoading, setIsLoading] = useState(false)
+  const [hasLoadError, setHasLoadError] = useState(false)
+  const requestGuardRef = useRef<LatestRequestGuard | null>(null)
+  const lastRequestRef = useRef({ filters, page: 1 })
+
+  if (!requestGuardRef.current) {
+    requestGuardRef.current = new LatestRequestGuard()
+  }
 
   useEffect(() => {
+    requestGuardRef.current?.invalidate()
     setResult(initialResult)
+    setIsLoading(false)
+    setHasLoadError(false)
+
+    return () => requestGuardRef.current?.invalidate()
   }, [initialResult])
 
   const { games, pagination } = result
@@ -313,7 +326,16 @@ function LocalizedHomePage() {
   }
 
   async function loadGames(nextFilters: Filters, nextPage: number) {
+    const requestGuard = requestGuardRef.current
+
+    if (!requestGuard) {
+      return
+    }
+
+    const requestSequence = requestGuard.begin()
+    lastRequestRef.current = { filters: nextFilters, page: nextPage }
     setIsLoading(true)
+    setHasLoadError(false)
 
     try {
       const nextResult = await runSearch({
@@ -328,9 +350,17 @@ function LocalizedHomePage() {
         },
       })
 
-      setResult(nextResult)
+      if (requestGuard.isLatest(requestSequence)) {
+        setResult(nextResult)
+      }
+    } catch {
+      if (requestGuard.isLatest(requestSequence)) {
+        setHasLoadError(true)
+      }
     } finally {
-      setIsLoading(false)
+      if (requestGuard.isLatest(requestSequence)) {
+        setIsLoading(false)
+      }
     }
   }
 
@@ -357,44 +387,64 @@ function LocalizedHomePage() {
     loadGames(nextFilters, 1)
   }
 
+  let content: ReactNode
+
   if (isPokiLike) {
-    return (
+    content = (
       <Suspense fallback={null}>
         <PokiLikeHomeTemplate {...templateProps} />
       </Suspense>
     )
-  }
-
-  if (isFeatures) {
-    return (
+  } else if (isFeatures) {
+    content = (
       <Suspense fallback={null}>
         <FeaturesHomeTemplate {...templateProps} />
       </Suspense>
     )
-  }
-
-  if (currentTemplate === 'sidenav') {
-    return (
+  } else if (currentTemplate === 'sidenav') {
+    content = (
       <Suspense fallback={null}>
         <SidenavHomeTemplate {...templateProps} />
       </Suspense>
     )
-  }
-
-  if (currentTemplate === 'two-column') {
-    return (
+  } else if (currentTemplate === 'two-column') {
+    content = (
       <SiteLayout locale={lang}>
         <Suspense fallback={null}>
           <TwoColumnHomeTemplate {...templateProps} />
         </Suspense>
       </SiteLayout>
     )
+  } else {
+    content = (
+      <SiteLayout locale={lang}>
+        <DefaultHomeTemplate {...templateProps} />
+      </SiteLayout>
+    )
   }
 
   return (
-    <SiteLayout locale={lang}>
-      <DefaultHomeTemplate {...templateProps} />
-    </SiteLayout>
+    <>
+      {content}
+      {hasLoadError ? (
+        <div className="toast toast-top toast-center z-50">
+          <div className="alert alert-error max-w-md shadow-lg" role="alert">
+            <i className="ri-error-warning-line text-xl" />
+            <span>{t.loadError}</span>
+            <button
+              className="btn btn-sm"
+              onClick={() => {
+                const lastRequest = lastRequestRef.current
+                loadGames(lastRequest.filters, lastRequest.page)
+              }}
+              type="button"
+            >
+              {t.retry}
+            </button>
+          </div>
+        </div>
+      ) : null}
+    </>
   )
 }
 

@@ -51,6 +51,8 @@ export const zhCnMessages = {
     latestBlogSubtitle: '阅读最新游戏指南、浏览器游玩技巧和复古游戏相关文章。',
     viewAllBlog: '查看全部文章',
     blogPostFallback: '博客文章',
+    loadError: '游戏加载失败，请检查网络后重试。',
+    retry: '重试',
   },
   homeSeo: {
     title: '在线玩经典复古游戏 | GBA、NES、SNES、PS1、N64 免下载',

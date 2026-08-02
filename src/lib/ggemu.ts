@@ -1,6 +1,8 @@
 import { createServerFn } from '@tanstack/react-start'
 import { getRequestUrl } from '@tanstack/react-start/server'
 
+import { TimedAsyncCache } from '#/lib/timed-async-cache'
+
 const API_BASE_URL = 'https://ggemu.com'
 const PAGE_SIZE = 20
 const MAX_PAGE_SIZE = 100
@@ -10,6 +12,7 @@ const GGEMU_DEFAULT_CACHE_TTL_MS = 1000 * 60 * 5
 const GGEMU_DEFAULT_STALE_TTL_MS = 1000 * 60 * 60 * 24
 const GGEMU_LIVE_CACHE_TTL_MS = 1000 * 15
 const GGEMU_FILTER_CACHE_TTL_MS = 1000 * 60 * 60 * 24
+const GGEMU_CACHE_MAX_ENTRIES = 500
 
 export type Locale = 'zh-CN' | 'en' | 'ja'
 export type GameSearchSort =
@@ -207,13 +210,7 @@ type FetchJsonOptions = {
   staleTtlMs?: number
 }
 
-type CachedJson = {
-  expiresAt: number
-  staleUntil: number
-  value: unknown
-}
-
-const jsonCache = new Map<string, CachedJson>()
+const jsonCache = new TimedAsyncCache(GGEMU_CACHE_MAX_ENTRIES)
 
 function normalizePage(page: unknown) {
   const parsed = Number(page)
@@ -285,43 +282,53 @@ async function fetchJson<T>(
     return cached.value as T
   }
 
-  const controller = new AbortController()
-  const timeoutId = setTimeout(() => {
-    controller.abort()
-  }, GGEMU_REQUEST_TIMEOUT_MS)
+  return jsonCache.run(cacheKey, async () => {
+    const latestCached = jsonCache.get<T>(cacheKey)
 
-  try {
-    const response = await fetch(`${API_BASE_URL}${cacheKey}`, {
-      headers: {
-        Accept: 'application/json',
-      },
-      signal: controller.signal,
-    })
-
-    if (!response.ok) {
-      throw new Error(`GGEMU API request failed with ${response.status}`)
+    if (latestCached && latestCached.expiresAt > Date.now()) {
+      return latestCached.value
     }
 
-    const value = await response.json() as T
+    const controller = new AbortController()
+    const timeoutId = setTimeout(() => {
+      controller.abort()
+    }, GGEMU_REQUEST_TIMEOUT_MS)
 
-    if (cacheTtlMs > 0 || staleTtlMs > 0) {
-      jsonCache.set(cacheKey, {
-        expiresAt: now + cacheTtlMs,
-        staleUntil: now + cacheTtlMs + staleTtlMs,
-        value,
+    try {
+      const response = await fetch(`${API_BASE_URL}${cacheKey}`, {
+        headers: {
+          Accept: 'application/json',
+        },
+        signal: controller.signal,
       })
-    }
 
-    return value
-  } catch (error) {
-    if (cached && cached.staleUntil > now) {
-      return cached.value as T
-    }
+      if (!response.ok) {
+        throw new Error(`GGEMU API request failed with ${response.status}`)
+      }
 
-    throw error
-  } finally {
-    clearTimeout(timeoutId)
-  }
+      const value = await response.json() as T
+
+      if (cacheTtlMs > 0 || staleTtlMs > 0) {
+        const cachedAt = Date.now()
+
+        jsonCache.set(cacheKey, {
+          expiresAt: cachedAt + cacheTtlMs,
+          staleUntil: cachedAt + cacheTtlMs + staleTtlMs,
+          value,
+        })
+      }
+
+      return value
+    } catch (error) {
+      if (latestCached && latestCached.staleUntil > Date.now()) {
+        return latestCached.value
+      }
+
+      throw error
+    } finally {
+      clearTimeout(timeoutId)
+    }
+  })
 }
 
 async function fetchGames(params: URLSearchParams) {

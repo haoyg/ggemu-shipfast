@@ -42,6 +42,8 @@ export type I18nMessages = {
     latestBlogSubtitle: string
     viewAllBlog: string
     blogPostFallback: string
+    loadError: string
+    retry: string
   }
   homeSeo: {
     title: string

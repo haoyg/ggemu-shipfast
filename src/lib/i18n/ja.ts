@@ -52,6 +52,8 @@ export const jaMessages = {
       '最新のゲームガイド、ブラウザーでの遊び方、レトロゲーム記事を読めます。',
     viewAllBlog: 'すべての記事を見る',
     blogPostFallback: 'ブログ記事',
+    loadError: 'ゲームを読み込めませんでした。接続を確認して、もう一度お試しください。',
+    retry: '再試行',
   },
   homeSeo: {
     title: 'レトロゲームをオンラインでプレイ | ダウンロード不要',

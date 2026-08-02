@@ -54,6 +54,8 @@ export const enMessages = {
       'Read the latest game guides, browser play tips, and retro gaming articles.',
     viewAllBlog: 'View all posts',
     blogPostFallback: 'Blog post',
+    loadError: 'Games could not be loaded. Check your connection and try again.',
+    retry: 'Retry',
   },
   homeSeo: {
     get title() {
