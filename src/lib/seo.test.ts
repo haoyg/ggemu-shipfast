@@ -14,8 +14,8 @@ function hasHrefLang(
 }
 
 describe('seo locale links', () => {
-  it('uses zh-CN as the x-default locale', () => {
-    expect(defaultSeoLocale).toBe('zh-CN')
+  it('uses English as the x-default locale', () => {
+    expect(defaultSeoLocale).toBe('en')
 
     const links = getLocalizedSeoLinks({
       locale: 'en',
@@ -24,7 +24,7 @@ describe('seo locale links', () => {
     })
     const xDefault = links.find((link) => hasHrefLang(link, 'x-default'))
 
-    expect(xDefault?.href).toBe('https://pokopie.com/zh-CN/games/test-game')
+    expect(xDefault?.href).toBe('https://pokopie.com/en/games/test-game')
   })
 
   it('builds alternate links from a canonical game URL', () => {
@@ -40,7 +40,7 @@ describe('seo locale links', () => {
     expect(links).toContainEqual({
       rel: 'alternate',
       hreflang: 'x-default',
-      href: 'https://pokopie.com/zh-CN/games/test-game',
+      href: 'https://pokopie.com/en/games/test-game',
     })
   })
 })

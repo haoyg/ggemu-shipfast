@@ -1,6 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router'
 
 import type { BlogPost, Locale, PublicGame } from '#/lib/ggemu'
+import { defaultSeoLocale } from '#/lib/seo'
 
 const GGEMU_API_BASE_URL = 'https://ggemu.com'
 const SITEMAP_PAGE_SIZE = 100
@@ -9,7 +10,6 @@ const SITEMAP_CACHE_TTL_MS = 1000 * 60 * 60 * 24
 const SITEMAP_FETCH_CONCURRENCY = 6
 const SITEMAP_REQUEST_TIMEOUT_MS = 5_000
 const locales = ['zh-CN', 'en', 'ja'] as const satisfies ReadonlyArray<Locale>
-const defaultLocale = 'zh-CN' satisfies Locale
 
 let sitemapCache: {
   createdAt: number
@@ -18,6 +18,7 @@ let sitemapCache: {
 } | null = null
 
 type SitemapEntry = {
+  alternateLocales?: ReadonlyArray<Locale>
   locale: Locale
   loc: string
   path: string
@@ -238,6 +239,15 @@ function buildSitemapEntries(
 ) {
   const entries: Array<SitemapEntry> = []
 
+  entries.push({
+    alternateLocales: ['en'],
+    locale: 'en',
+    loc: toAbsoluteLocalizedUrl(origin, 'en', '/ps1-games'),
+    path: '/ps1-games',
+    changefreq: 'weekly',
+    priority: 0.9,
+  })
+
   for (const locale of locales) {
     entries.push({
       locale,
@@ -326,13 +336,14 @@ ${urls.join('\n')}
 
 function formatSitemapAlternateLinks(entry: SitemapEntry) {
   const origin = new URL(entry.loc).origin
+  const alternateLocales = entry.alternateLocales ?? locales
   const links = [
-    ...locales.map((locale) => ({
+    ...alternateLocales.map((locale) => ({
       href: toAbsoluteLocalizedUrl(origin, locale, entry.path),
       hrefLang: locale,
     })),
     {
-      href: toAbsoluteLocalizedUrl(origin, defaultLocale, entry.path),
+      href: toAbsoluteLocalizedUrl(origin, defaultSeoLocale, entry.path),
       hrefLang: 'x-default',
     },
   ]

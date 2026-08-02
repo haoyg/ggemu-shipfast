@@ -13,11 +13,13 @@ export function SiteLayout({
   headerActions,
   hideHeaderNav = false,
   locale,
+  localePaths,
 }: {
   children: ReactNode
   headerActions?: ReactNode
   hideHeaderNav?: boolean
   locale: Locale
+  localePaths?: Partial<Record<Locale, string>>
 }) {
   const t = getI18n(locale).layout
   const location = useRouterState({ select: (state) => state.location })
@@ -70,10 +72,8 @@ export function SiteLayout({
 
   function handleLocaleChange(nextValue: string) {
     const nextLocale = normalizeLocale(nextValue)
-    const nextPath = location.pathname.replace(
-      /^\/(zh-CN|en|ja)(?=\/|$)/,
-      `/${nextLocale}`,
-    )
+    const nextPath = localePaths?.[nextLocale] ??
+      location.pathname.replace(/^\/(zh-CN|en|ja)(?=\/|$)/, `/${nextLocale}`)
 
     window.location.assign(nextPath)
   }

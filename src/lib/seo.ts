@@ -5,7 +5,7 @@ import type { Locale } from '#/lib/ggemu'
 import { normalizeLocale } from '#/lib/i18n'
 
 export const seoLocales = ['zh-CN', 'en', 'ja'] as const satisfies ReadonlyArray<Locale>
-export const defaultSeoLocale = 'zh-CN' satisfies Locale
+export const defaultSeoLocale = 'en' satisfies Locale
 
 export const getSeoOrigin = createServerFn({ method: 'GET' }).handler(() => {
   return getRequestUrl({ xForwardedHost: true }).origin

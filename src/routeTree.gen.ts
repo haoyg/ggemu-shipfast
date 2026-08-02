@@ -16,6 +16,7 @@ import { Route as ManifestDotwebmanifestRouteImport } from './routes/manifest[.]
 import { Route as LocaleRouteImport } from './routes/$locale'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as GamesGameIdRouteImport } from './routes/games/$gameId'
+import { Route as EnPs1GamesRouteImport } from './routes/en.ps1-games'
 import { Route as ApiShareImageRouteImport } from './routes/api/share-image'
 import { Route as ApiHealthRouteImport } from './routes/api/health'
 import { Route as LocaleTermsOfServiceRouteImport } from './routes/$locale.terms-of-service'
@@ -63,6 +64,11 @@ const IndexRoute = IndexRouteImport.update({
 const GamesGameIdRoute = GamesGameIdRouteImport.update({
   id: '/games/$gameId',
   path: '/games/$gameId',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EnPs1GamesRoute = EnPs1GamesRouteImport.update({
+  id: '/en/ps1-games',
+  path: '/en/ps1-games',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiShareImageRoute = ApiShareImageRouteImport.update({
@@ -147,6 +153,7 @@ export interface FileRoutesByFullPath {
   '/$locale/terms-of-service': typeof LocaleTermsOfServiceRoute
   '/api/health': typeof ApiHealthRoute
   '/api/share-image': typeof ApiShareImageRoute
+  '/en/ps1-games': typeof EnPs1GamesRoute
   '/games/$gameId': typeof GamesGameIdRouteWithChildren
   '/$locale/blog/$blogId': typeof LocaleBlogBlogIdRoute
   '/$locale/games/$gameId': typeof LocaleGamesGameIdRouteWithChildren
@@ -169,6 +176,7 @@ export interface FileRoutesByTo {
   '/$locale/terms-of-service': typeof LocaleTermsOfServiceRoute
   '/api/health': typeof ApiHealthRoute
   '/api/share-image': typeof ApiShareImageRoute
+  '/en/ps1-games': typeof EnPs1GamesRoute
   '/games/$gameId': typeof GamesGameIdRouteWithChildren
   '/$locale/blog/$blogId': typeof LocaleBlogBlogIdRoute
   '/$locale/games/$gameId': typeof LocaleGamesGameIdRouteWithChildren
@@ -192,6 +200,7 @@ export interface FileRoutesById {
   '/$locale/terms-of-service': typeof LocaleTermsOfServiceRoute
   '/api/health': typeof ApiHealthRoute
   '/api/share-image': typeof ApiShareImageRoute
+  '/en/ps1-games': typeof EnPs1GamesRoute
   '/games/$gameId': typeof GamesGameIdRouteWithChildren
   '/$locale/blog/$blogId': typeof LocaleBlogBlogIdRoute
   '/$locale/games/$gameId': typeof LocaleGamesGameIdRouteWithChildren
@@ -216,6 +225,7 @@ export interface FileRouteTypes {
     | '/$locale/terms-of-service'
     | '/api/health'
     | '/api/share-image'
+    | '/en/ps1-games'
     | '/games/$gameId'
     | '/$locale/blog/$blogId'
     | '/$locale/games/$gameId'
@@ -238,6 +248,7 @@ export interface FileRouteTypes {
     | '/$locale/terms-of-service'
     | '/api/health'
     | '/api/share-image'
+    | '/en/ps1-games'
     | '/games/$gameId'
     | '/$locale/blog/$blogId'
     | '/$locale/games/$gameId'
@@ -260,6 +271,7 @@ export interface FileRouteTypes {
     | '/$locale/terms-of-service'
     | '/api/health'
     | '/api/share-image'
+    | '/en/ps1-games'
     | '/games/$gameId'
     | '/$locale/blog/$blogId'
     | '/$locale/games/$gameId'
@@ -276,6 +288,7 @@ export interface RootRouteChildren {
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   ApiHealthRoute: typeof ApiHealthRoute
   ApiShareImageRoute: typeof ApiShareImageRoute
+  EnPs1GamesRoute: typeof EnPs1GamesRoute
   GamesGameIdRoute: typeof GamesGameIdRouteWithChildren
 }
 
@@ -328,6 +341,13 @@ declare module '@tanstack/react-router' {
       path: '/games/$gameId'
       fullPath: '/games/$gameId'
       preLoaderRoute: typeof GamesGameIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/en/ps1-games': {
+      id: '/en/ps1-games'
+      path: '/en/ps1-games'
+      fullPath: '/en/ps1-games'
+      preLoaderRoute: typeof EnPs1GamesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/share-image': {
@@ -493,6 +513,7 @@ const rootRouteChildren: RootRouteChildren = {
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   ApiHealthRoute: ApiHealthRoute,
   ApiShareImageRoute: ApiShareImageRoute,
+  EnPs1GamesRoute: EnPs1GamesRoute,
   GamesGameIdRoute: GamesGameIdRouteWithChildren,
 }
 export const routeTree = rootRouteImport
