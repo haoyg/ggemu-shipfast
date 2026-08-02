@@ -7,6 +7,10 @@ function getPreviewVideo(element: HTMLElement) {
 }
 
 function playPreviewVideo(event: FocusEvent<HTMLElement> | MouseEvent<HTMLElement>) {
+  if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) {
+    return
+  }
+
   getPreviewVideo(event.currentTarget)?.play().catch(() => {})
 }
 
@@ -41,7 +45,8 @@ export function GameCardPreviewVideo({
 
   return (
     <video
-      className={`absolute inset-0 h-full w-full object-cover opacity-0 transition-opacity duration-200 group-hover:opacity-100 ${className}`}
+      aria-hidden="true"
+      className={`absolute inset-0 h-full w-full object-cover opacity-0 transition-opacity duration-200 group-focus-visible:opacity-100 group-hover:opacity-100 motion-reduce:hidden ${className}`}
       data-game-card-preview-video
       loop
       muted
