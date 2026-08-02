@@ -384,7 +384,6 @@ function LiveRoomPlayerModal({
 
           <iframe
             allow="autoplay; gamepad; fullscreen"
-            allowFullScreen
             className="relative z-10 h-full w-full border-0 bg-black"
             src={embedSrc}
             title={room.game.name}
