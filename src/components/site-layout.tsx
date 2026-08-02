@@ -79,16 +79,16 @@ export function SiteLayout({
   }
 
   return (
-    <main className="min-h-screen bg-base-100 text-base-content">
+    <main className="min-h-screen overflow-x-hidden bg-base-100 text-base-content">
       <header className="sticky top-0 z-40 border-b border-base-300/70 bg-base-100/90 backdrop-blur">
-        <div className="navbar mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="navbar-start">
+        <div className="navbar mx-auto max-w-7xl px-3 sm:px-6 lg:px-8">
+          <div className="navbar-start min-w-0 flex-1">
             <Link
-              className="flex min-w-0 items-center gap-3"
+              className="flex min-w-0 items-center gap-2 sm:gap-3"
               params={{ locale }}
               to="/$locale"
             >
-              <span className="grid h-10 w-10 shrink-0 place-items-center overflow-hidden rounded-lg bg-base-100">
+              <span className="grid h-9 w-9 shrink-0 place-items-center overflow-hidden rounded-lg bg-base-100 sm:h-10 sm:w-10">
                 <img
                   alt={siteConfig.SITE_NAME}
                   className="h-full w-full object-contain"
@@ -96,10 +96,10 @@ export function SiteLayout({
                 />
               </span>
               <span className="min-w-0 leading-tight">
-                <span className="block text-lg font-semibold tracking-wide">
+                <span className="block text-base font-semibold tracking-wide sm:text-lg">
                   {siteConfig.SITE_NAME}
                 </span>
-                <span className="block truncate text-xs text-base-content/55">
+                <span className="hidden truncate text-xs text-base-content/55 sm:block">
                   {t.tagline}
                 </span>
               </span>
@@ -137,7 +137,7 @@ export function SiteLayout({
             </nav>
           )}
 
-          <div className="navbar-end gap-2">
+          <div className="navbar-end w-auto shrink-0 gap-1 sm:gap-2">
             {headerActions}
 
             {canSwitchTheme ? (
@@ -156,7 +156,7 @@ export function SiteLayout({
                   }}
                 >
                   <i className="ri-palette-line" />
-                  {t.theme}
+                  <span className="hidden sm:inline">{t.theme}</span>
                 </summary>
                 <ul className="menu dropdown-content z-50 mt-3 max-h-96 w-56 overflow-y-auto rounded-box border border-base-300 bg-base-100 p-2 shadow-xl">
                   {siteThemes.map((nextTheme) => (
@@ -193,12 +193,21 @@ export function SiteLayout({
                 }}
               >
                 <i className="ri-global-line" />
-                {locale === 'zh-CN' ? '中文' : locale === 'en' ? 'EN' : '日本語'}
+                <span className="sm:hidden">
+                  {locale === 'zh-CN' ? '\u4e2d' : locale === 'en' ? 'EN' : '\u65e5'}
+                </span>
+                <span className="hidden sm:inline">
+                  {locale === 'zh-CN'
+                    ? '\u4e2d\u6587'
+                    : locale === 'en'
+                      ? 'EN'
+                      : '\u65e5\u672c\u8a9e'}
+                </span>
               </summary>
               <ul className="menu dropdown-content z-50 mt-3 w-36 rounded-box border border-base-300 bg-base-100 p-2 shadow-xl">
                 <li>
                   <button onClick={() => handleLocaleChange('zh-CN')} type="button">
-                    中文
+                    {'\u4e2d\u6587'}
                   </button>
                 </li>
                 <li>
@@ -208,7 +217,7 @@ export function SiteLayout({
                 </li>
                 <li>
                   <button onClick={() => handleLocaleChange('ja')} type="button">
-                    日本語
+                    {'\u65e5\u672c\u8a9e'}
                   </button>
                 </li>
               </ul>

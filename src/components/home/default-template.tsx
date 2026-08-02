@@ -111,8 +111,8 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
   }
 
   return (
-    <div className="bg-neutral text-neutral-content">
-      <div className="mx-auto grid max-w-[96rem] lg:grid-cols-[14rem_minmax(0,1fr)]">
+    <div className="overflow-x-hidden bg-neutral text-neutral-content">
+      <div className="mx-auto grid w-full max-w-[96rem] min-w-0 lg:grid-cols-[14rem_minmax(0,1fr)]">
         <aside className="hidden border-r border-white/10 bg-neutral px-3 py-4 lg:block">
           <nav className="sticky top-20 flex flex-col gap-5">
             <Link
@@ -164,15 +164,15 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
           </nav>
         </aside>
 
-        <main className="min-w-0 bg-[radial-gradient(circle_at_top_left,rgba(244,63,94,0.18),transparent_34rem),radial-gradient(circle_at_top_right,rgba(34,211,238,0.14),transparent_30rem)]">
-          <section className="border-b border-white/10 px-4 py-4 sm:px-6 lg:px-8">
-            <div className="flex flex-col gap-4 xl:flex-row xl:items-center">
+        <main className="min-w-0 max-w-full overflow-x-hidden bg-[radial-gradient(circle_at_top_left,rgba(244,63,94,0.18),transparent_34rem),radial-gradient(circle_at_top_right,rgba(34,211,238,0.14),transparent_30rem)]">
+          <section className="border-b border-white/10 px-3 py-3 sm:px-6 sm:py-4 lg:px-8">
+            <div className="flex min-w-0 flex-col gap-3 xl:flex-row xl:items-center">
               <form className="min-w-0 flex-1" onSubmit={onSearch}>
-                <label className="input input-lg flex w-full items-center gap-3 border-2 border-primary/70 bg-base-100 text-base-content shadow-[0_0_0_4px_rgba(236,72,153,0.16)]">
-                  <i className="ri-search-line text-2xl text-primary" />
+                <label className="input input-md flex w-full min-w-0 max-w-full items-center gap-2 border-2 border-primary/70 bg-base-100 text-base-content shadow-[0_0_0_3px_rgba(236,72,153,0.14)] sm:input-lg sm:gap-3 sm:shadow-[0_0_0_4px_rgba(236,72,153,0.16)]">
+                  <i className="ri-search-line text-xl text-primary sm:text-2xl" />
                   <input
                     aria-label={t.search}
-                    className="min-w-0 flex-1 text-base"
+                    className="min-w-0 flex-1 text-sm sm:text-base"
                     onChange={(event) => onQueryChange(event.currentTarget.value)}
                     placeholder={getSearchPlaceholder(t, pagination.total)}
                     type="search"
@@ -188,7 +188,7 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
                 </label>
               </form>
 
-              <div className="flex gap-2 overflow-x-auto pb-1 [scrollbar-width:none] xl:pb-0 [&::-webkit-scrollbar]:hidden">
+              <div className="flex min-w-0 max-w-full gap-2 overflow-x-auto pb-1 [scrollbar-width:none] xl:pb-0 [&::-webkit-scrollbar]:hidden">
                 {platformChips.map((platform) => (
                   <button
                     className={`btn btn-sm shrink-0 border-white/15 ${
@@ -208,17 +208,17 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
             </div>
           </section>
 
-          <section className="px-4 py-5 sm:px-6 lg:px-8">
-            <div className="mb-4 flex items-end justify-between gap-3">
+          <section className="px-3 py-4 sm:px-6 sm:py-5 lg:px-8">
+            <div className="mb-3 flex items-end justify-between gap-3 sm:mb-4">
               <div>
                 <p className="text-xs font-semibold uppercase tracking-wide text-primary">
                   {siteConfig.SITE_NAME}
                 </p>
-                <h1 className="mt-1 text-2xl font-black leading-tight text-white sm:text-3xl">
+                <h1 className="mt-1 text-xl font-black leading-tight text-white sm:text-3xl">
                   {t.popular}
                 </h1>
               </div>
-              <span className="badge badge-outline border-white/20 text-white/70">
+              <span className="badge badge-outline shrink-0 border-white/20 text-xs text-white/70 sm:text-sm">
                 {formatCopy(t.totalGames, { total: pagination.total })}
               </span>
             </div>
@@ -241,7 +241,7 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
 
             {topGames.length > 0 ? (
               <div
-                className={`grid grid-cols-2 gap-3 sm:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-6 ${
+                className={`grid min-w-0 grid-cols-2 gap-3 sm:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-6 ${
                   isLoading ? 'opacity-60' : ''
                 }`}
               >
