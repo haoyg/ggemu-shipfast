@@ -7,8 +7,9 @@ import {
   redirect,
   useRouterState,
 } from '@tanstack/react-router'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useId, useRef, useState } from 'react'
 
+import { AccessibleModal } from '#/components/accessible-modal'
 import {
   GameCardPreviewVideo,
   gameCardPreviewHandlers,
@@ -344,7 +345,11 @@ function LocalizedGameDetailPage() {
                 <img
                   alt={game.name ?? 'Game cover'}
                   className="h-full w-full object-cover"
+                  decoding="async"
+                  fetchPriority="high"
+                  height="660"
                   src={game.game_cover}
+                  width="880"
                 />
               ) : (
                 <div className="flex h-full items-center justify-center bg-base-300 text-base-content/40">
@@ -546,45 +551,46 @@ function InstallGuideModal({
   labels: ReturnType<typeof getI18n>['detail']
   onClose: () => void
 }) {
+  const titleId = useId()
+
   return (
-    <div className="modal modal-open">
-      <div className="modal-box max-w-md">
-        <div className="flex items-start justify-between gap-4">
-          <div>
-            <h2 className="text-lg font-semibold">{labels.installGuideTitle}</h2>
-            <p className="mt-2 text-sm leading-6 text-base-content/70">
-              {labels.installGuideIntro}
-            </p>
-          </div>
-          <button
-            aria-label={labels.installGuideClose}
-            className="btn btn-ghost btn-sm btn-circle"
-            onClick={onClose}
-            type="button"
-          >
-            <i className="ri-close-line text-xl" />
-          </button>
+    <AccessibleModal
+      closeLabel={labels.installGuideClose}
+      labelledBy={titleId}
+      modalBoxClassName="max-w-md"
+      onClose={onClose}
+    >
+      <div className="flex items-start justify-between gap-4">
+        <div>
+          <h2 className="text-lg font-semibold" id={titleId}>
+            {labels.installGuideTitle}
+          </h2>
+          <p className="mt-2 text-sm leading-6 text-base-content/70">
+            {labels.installGuideIntro}
+          </p>
         </div>
-
-        <div className="mt-5 grid gap-3 text-sm">
-          <InstallGuideStep icon="ri-share-forward-line" text={labels.installGuideIos} />
-          <InstallGuideStep icon="ri-more-2-fill" text={labels.installGuideAndroid} />
-          <InstallGuideStep icon="ri-computer-line" text={labels.installGuideDesktop} />
-        </div>
-
-        <div className="modal-action">
-          <button className="btn btn-primary" onClick={onClose} type="button">
-            {labels.installGuideClose}
-          </button>
-        </div>
+        <button
+          aria-label={labels.installGuideClose}
+          className="btn btn-ghost btn-sm btn-circle"
+          onClick={onClose}
+          type="button"
+        >
+          <i className="ri-close-line text-xl" />
+        </button>
       </div>
-      <button
-        aria-label={labels.installGuideClose}
-        className="modal-backdrop"
-        onClick={onClose}
-        type="button"
-      />
-    </div>
+
+      <div className="mt-5 grid gap-3 text-sm">
+        <InstallGuideStep icon="ri-share-forward-line" text={labels.installGuideIos} />
+        <InstallGuideStep icon="ri-more-2-fill" text={labels.installGuideAndroid} />
+        <InstallGuideStep icon="ri-computer-line" text={labels.installGuideDesktop} />
+      </div>
+
+      <div className="modal-action">
+        <button className="btn btn-primary" onClick={onClose} type="button">
+          {labels.installGuideClose}
+        </button>
+      </div>
+    </AccessibleModal>
   )
 }
 
@@ -729,44 +735,67 @@ function GameShareActions({
       ) : null}
 
       {posterUrl ? (
-        <div className="modal modal-open">
-          <div className="modal-box max-w-sm p-4">
-            <div className="flex items-center justify-between gap-4">
-              <h2 className="text-lg font-semibold">{labels.posterTitle}</h2>
-              <button
-                aria-label={labels.installGuideClose}
-                className="btn btn-ghost btn-sm btn-circle"
-                onClick={() => setPosterUrl('')}
-                type="button"
-              >
-                <i className="ri-close-line text-xl" />
-              </button>
-            </div>
-            <img
-              alt={labels.posterTitle}
-              className="mt-4 w-full rounded-box border border-base-300 bg-base-200"
-              src={posterUrl}
-            />
-            <div className="modal-action">
-              <a
-                className="btn btn-primary"
-                download={`${getPosterFileName(title)}.png`}
-                href={posterUrl}
-              >
-                <i className="ri-download-line" />
-                {labels.downloadPoster}
-              </a>
-            </div>
-          </div>
-          <button
-            aria-label={labels.installGuideClose}
-            className="modal-backdrop"
-            onClick={() => setPosterUrl('')}
-            type="button"
-          />
-        </div>
+        <PosterModal
+          labels={labels}
+          onClose={() => setPosterUrl('')}
+          posterUrl={posterUrl}
+          title={title}
+        />
       ) : null}
     </>
+  )
+}
+
+function PosterModal({
+  labels,
+  onClose,
+  posterUrl,
+  title,
+}: {
+  labels: ReturnType<typeof getI18n>['detail']
+  onClose: () => void
+  posterUrl: string
+  title: string
+}) {
+  const titleId = useId()
+
+  return (
+    <AccessibleModal
+      closeLabel={labels.installGuideClose}
+      labelledBy={titleId}
+      modalBoxClassName="max-w-sm p-4"
+      onClose={onClose}
+    >
+      <div className="flex items-center justify-between gap-4">
+        <h2 className="text-lg font-semibold" id={titleId}>
+          {labels.posterTitle}
+        </h2>
+        <button
+          aria-label={labels.installGuideClose}
+          className="btn btn-ghost btn-sm btn-circle"
+          onClick={onClose}
+          type="button"
+        >
+          <i className="ri-close-line text-xl" />
+        </button>
+      </div>
+      <img
+        alt={labels.posterTitle}
+        className="mt-4 w-full rounded-box border border-base-300 bg-base-200"
+        decoding="async"
+        src={posterUrl}
+      />
+      <div className="modal-action">
+        <a
+          className="btn btn-primary"
+          download={`${getPosterFileName(title)}.png`}
+          href={posterUrl}
+        >
+          <i className="ri-download-line" />
+          {labels.downloadPoster}
+        </a>
+      </div>
+    </AccessibleModal>
   )
 }
 

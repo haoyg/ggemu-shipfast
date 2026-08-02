@@ -19,9 +19,11 @@ import { getLiveBadgeLabel } from '#/lib/locale-labels'
 import { getLocalizedSeoLinks, getSeoOrigin } from '#/lib/seo'
 import { siteConfig } from '#/lib/site-config'
 import { useCurrentSiteTheme } from '#/lib/use-site-theme'
+import { startVisibilityAwarePolling } from '#/lib/visibility-aware-polling'
 
 const LIVE_ROOM_PAGE_SIZE = 24
 const LIVE_ROOM_REFRESH_INTERVAL = 10_000
+const LIVE_ROOM_MAX_REFRESH_INTERVAL = 60_000
 
 type LiveRoomSearch = {
   page?: number
@@ -115,41 +117,29 @@ function LiveRoomListPage() {
 
   useEffect(() => {
     let isDisposed = false
-    let isRequesting = false
 
     async function refreshRooms() {
-      if (isRequesting) {
-        return
-      }
+      const nextResult = await runSearch({
+        data: {
+          limit: LIVE_ROOM_PAGE_SIZE,
+          page,
+        },
+      })
 
-      isRequesting = true
-
-      try {
-        const nextResult = await runSearch({
-          data: {
-            limit: LIVE_ROOM_PAGE_SIZE,
-            page,
-          },
-        })
-
-        if (!isDisposed) {
-          setResult((current) => ({ ...current, ...nextResult }))
-        }
-      } catch {
-        // Keep the last successful result.
-      } finally {
-        isRequesting = false
+      if (!isDisposed) {
+        setResult((current) => ({ ...current, ...nextResult }))
       }
     }
 
-    const intervalId = window.setInterval(
-      refreshRooms,
-      LIVE_ROOM_REFRESH_INTERVAL,
-    )
+    const stopPolling = startVisibilityAwarePolling({
+      intervalMs: LIVE_ROOM_REFRESH_INTERVAL,
+      maxIntervalMs: LIVE_ROOM_MAX_REFRESH_INTERVAL,
+      run: refreshRooms,
+    })
 
     return () => {
       isDisposed = true
-      window.clearInterval(intervalId)
+      stopPolling()
     }
   }, [page, runSearch])
 

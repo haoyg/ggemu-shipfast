@@ -245,8 +245,13 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
                   isLoading ? 'opacity-60' : ''
                 }`}
               >
-                {topGames.map((game) => (
-                  <ArcadeGameCard game={game} key={getGameRouteId(game)} lang={lang} />
+                {topGames.map((game, index) => (
+                  <ArcadeGameCard
+                    game={game}
+                    isPriority={index === 0}
+                    key={getGameRouteId(game)}
+                    lang={lang}
+                  />
                 ))}
               </div>
             ) : (
@@ -423,7 +428,15 @@ function FilterBadge({
   )
 }
 
-function ArcadeGameCard({ game, lang }: { game: PublicGame; lang: Locale }) {
+function ArcadeGameCard({
+  game,
+  isPriority,
+  lang,
+}: {
+  game: PublicGame
+  isPriority: boolean
+  lang: Locale
+}) {
   const gameId = getGameRouteId(game)
   const platformBadge = getPlatformBadge(game, lang)
   const gameName = game.name?.trim() || 'Game'
@@ -440,6 +453,7 @@ function ArcadeGameCard({ game, lang }: { game: PublicGame; lang: Locale }) {
         alt={gameName}
         className="aspect-[4/3]"
         cover={game.game_cover}
+        isPriority={isPriority}
         lang={lang}
       >
         <GameCardPreviewVideo src={game.game_video} />
@@ -488,12 +502,14 @@ function ArcadeCover({
   children,
   className,
   cover,
+  isPriority = false,
   lang,
 }: {
   alt: string
   children?: ReactNode
   className: string
   cover?: string
+  isPriority?: boolean
   lang: Locale
 }) {
   return (
@@ -504,7 +520,9 @@ function ArcadeCover({
         <img
           alt={alt}
           className="h-full w-full object-cover transition duration-300 group-hover:scale-105"
-          loading="lazy"
+          decoding="async"
+          fetchPriority={isPriority ? 'high' : 'auto'}
+          loading={isPriority ? 'eager' : 'lazy'}
           src={cover}
         />
       ) : (
