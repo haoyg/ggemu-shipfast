@@ -223,8 +223,8 @@ function PokiControlTiles({
   const layoutCopy = getI18n(lang).layout
   const siteThemes = getSiteThemes()
   const [theme, setTheme] = useState(() => normalizeSiteTheme(null))
-  const [isLocaleMenuOpen, setIsLocaleMenuOpen] = useState(false)
-  const [isThemeMenuOpen, setIsThemeMenuOpen] = useState(false)
+  const [openMenu, setOpenMenu] = useState<'locale' | 'nav' | 'theme' | null>(null)
+  const navMenuRef = useRef<HTMLDetailsElement>(null)
   const themeMenuRef = useRef<HTMLDetailsElement>(null)
   const localeMenuRef = useRef<HTMLDetailsElement>(null)
   const canSwitchTheme = siteThemes.length > 1
@@ -246,11 +246,11 @@ function PokiControlTiles({
       }
 
       if (
+        !navMenuRef.current?.contains(target) &&
         !localeMenuRef.current?.contains(target) &&
         !themeMenuRef.current?.contains(target)
       ) {
-        setIsLocaleMenuOpen(false)
-        setIsThemeMenuOpen(false)
+        setOpenMenu(null)
       }
     }
 
@@ -262,7 +262,7 @@ function PokiControlTiles({
   }, [])
 
   function handleLocaleChange(nextLocale: Locale) {
-    setIsLocaleMenuOpen(false)
+    setOpenMenu(null)
 
     const nextPath = location.pathname.replace(
       /^\/(zh-CN|en|ja)(?=\/|$)/,
@@ -274,7 +274,7 @@ function PokiControlTiles({
 
   function handleThemeChange(nextTheme: string) {
     setTheme(nextTheme)
-    setIsThemeMenuOpen(false)
+    setOpenMenu(null)
     document.documentElement.dataset.theme = nextTheme
     window.localStorage.setItem('retro-games-theme', nextTheme)
   }
@@ -299,22 +299,63 @@ function PokiControlTiles({
 
       <div
         className={`grid h-[44px] divide-x divide-slate-200 ${
-          canSwitchTheme ? 'grid-cols-3' : 'grid-cols-2'
+          canSwitchTheme ? 'grid-cols-4' : 'grid-cols-3'
         }`}
       >
         <details
           className="dropdown"
-          onToggle={(event) => setIsLocaleMenuOpen(event.currentTarget.open)}
-          open={isLocaleMenuOpen}
+          open={openMenu === 'nav'}
+          ref={navMenuRef}
+        >
+          <summary
+            aria-label={layoutCopy.explore}
+            className="grid h-[44px] cursor-pointer list-none place-items-center rounded-bl-2xl text-xl text-emerald-600 transition hover:bg-emerald-50"
+            onClick={(event) => {
+              event.preventDefault()
+              setOpenMenu((current) => current === 'nav' ? null : 'nav')
+            }}
+          >
+            <i aria-hidden="true" className="ri-menu-line" />
+          </summary>
+          <ul className="menu dropdown-content z-50 mt-2 w-48 rounded-box bg-base-100 p-2 shadow-xl">
+            <li>
+              <Link params={{ locale: lang }} search={{}} to="/$locale/live">
+                <i aria-hidden="true" className="ri-live-line" />
+                {layoutCopy.live}
+              </Link>
+            </li>
+            <li>
+              <Link params={{ locale: lang }} search={{}} to="/$locale/play-my-rom">
+                <i aria-hidden="true" className="ri-gamepad-line" />
+                {layoutCopy.playMyRom}
+              </Link>
+            </li>
+            <li>
+              <Link params={{ locale: lang }} search={{}} to="/$locale/blog">
+                <i aria-hidden="true" className="ri-article-line" />
+                {layoutCopy.blog}
+              </Link>
+            </li>
+            <li>
+              <Link params={{ locale: lang }} search={{}} to="/$locale/about">
+                <i aria-hidden="true" className="ri-information-line" />
+                {layoutCopy.about}
+              </Link>
+            </li>
+          </ul>
+        </details>
+
+        <details
+          className="dropdown"
+          open={openMenu === 'locale'}
           ref={localeMenuRef}
         >
           <summary
             aria-label={layoutCopy.language}
-            className="grid h-[44px] cursor-pointer list-none place-items-center rounded-bl-2xl text-xl text-sky-600 transition hover:bg-sky-50"
+            className="grid h-[44px] cursor-pointer list-none place-items-center text-xl text-sky-600 transition hover:bg-sky-50"
             onClick={(event) => {
               event.preventDefault()
-              setIsLocaleMenuOpen((isOpen) => !isOpen)
-              setIsThemeMenuOpen(false)
+              setOpenMenu((current) => current === 'locale' ? null : 'locale')
             }}
           >
             <i aria-hidden="true" className="ri-global-line" />
@@ -337,8 +378,7 @@ function PokiControlTiles({
         {canSwitchTheme ? (
           <details
             className="dropdown"
-            onToggle={(event) => setIsThemeMenuOpen(event.currentTarget.open)}
-            open={isThemeMenuOpen}
+            open={openMenu === 'theme'}
             ref={themeMenuRef}
           >
             <summary
@@ -346,8 +386,7 @@ function PokiControlTiles({
               className="grid h-[44px] cursor-pointer list-none place-items-center text-xl text-violet-600 transition hover:bg-violet-50"
               onClick={(event) => {
                 event.preventDefault()
-                setIsThemeMenuOpen((isOpen) => !isOpen)
-                setIsLocaleMenuOpen(false)
+                setOpenMenu((current) => current === 'theme' ? null : 'theme')
               }}
             >
               <i aria-hidden="true" className="ri-palette-line" />
@@ -375,7 +414,10 @@ function PokiControlTiles({
         <button
           aria-label={t.search}
           className="grid h-[44px] place-items-center rounded-br-2xl text-xl text-blue-600 transition hover:bg-blue-50"
-          onClick={onToggleSearch}
+          onClick={() => {
+            setOpenMenu(null)
+            onToggleSearch()
+          }}
           type="button"
         >
           <i aria-hidden="true" className="ri-search-line" />
