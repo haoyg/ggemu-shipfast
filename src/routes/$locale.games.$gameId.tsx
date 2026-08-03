@@ -9,6 +9,7 @@ import {
 } from '@tanstack/react-router'
 import { GameInstallButton } from '#/components/game-install-button'
 import { GameShareActions } from '#/components/game-share-actions'
+import { EmbeddedGamePlayer } from '#/components/embedded-game-player'
 import {
   GameCardPreviewVideo,
   gameCardPreviewHandlers,
@@ -40,6 +41,7 @@ import {
   normalizeLocale,
 } from '#/lib/i18n'
 import { getRetroCoverFallbackLabel } from '#/lib/locale-labels'
+import { getTargetedGameSeo } from '#/lib/game-seo-targets'
 import { getAlternateLinksFromCanonical } from '#/lib/seo'
 
 export const Route = createFileRoute('/$locale/games/$gameId')({
@@ -99,7 +101,7 @@ export const Route = createFileRoute('/$locale/games/$gameId')({
 
     const { canonicalUrl, game } = loaderData
     const locale = normalizeLocale(params.locale)
-    const seo = buildGameDetailSeo(game, locale)
+    const seo = getTargetedGameSeo(game, locale) ?? buildGameDetailSeo(game, locale)
     const image = game.game_cover
     const faqItems = getGameDetailFaqs(game, locale)
     const structuredData = buildGameStructuredData({
@@ -303,6 +305,7 @@ function LocalizedGameDetailPage() {
   const howToPlay = getGameDetailHowToPlay(game, lang)
   const playPath = buildGamePlayPath(lang, gameId)
   const manifestHref = buildGameManifestHref(lang)
+  const targetedSeo = getTargetedGameSeo(game, lang)
 
   if (pathname.endsWith('/play')) {
     return <Outlet />
@@ -368,8 +371,8 @@ function LocalizedGameDetailPage() {
                     </span>
                   ) : null}
                 </div>
-                <h1 className="max-w-4xl truncate text-2xl font-semibold leading-tight sm:text-4xl">
-                  {game.name}
+                <h1 className="max-w-4xl text-2xl font-semibold leading-tight sm:text-4xl">
+                  {targetedSeo?.heading ?? game.name}
                 </h1>
                 <p className="mt-2 line-clamp-2 max-w-3xl text-sm leading-6 text-base-content/70 sm:mt-4 sm:line-clamp-none sm:text-lg sm:leading-7">
                   {summary}
@@ -379,10 +382,10 @@ function LocalizedGameDetailPage() {
               <div className="grid gap-3 sm:flex sm:flex-row">
                 <a
                   className="btn btn-primary btn-lg px-8 text-primary-content hover:text-primary-content sm:w-auto"
-                  href={playPath}
+                  href={targetedSeo ? '#play-contra-online' : playPath}
                   onClick={() => saveRecentPlayedGame(game, gameId)}
-                  rel="noopener noreferrer"
-                  target="_blank"
+                  rel={targetedSeo ? undefined : 'noopener noreferrer'}
+                  target={targetedSeo ? undefined : '_blank'}
                 >
                   <i className="ri-play-fill text-xl" />
                   {t.play}
@@ -403,6 +406,15 @@ function LocalizedGameDetailPage() {
               </div>
             </div>
           </section>
+
+          {targetedSeo ? (
+            <EmbeddedGamePlayer
+              game={game}
+              gameId={gameId}
+              locale={lang}
+              playPath={playPath}
+            />
+          ) : null}
 
           <section className="grid gap-6 lg:grid-cols-[1fr_340px]">
             <div className="flex flex-col gap-6">
