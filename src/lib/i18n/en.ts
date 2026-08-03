@@ -25,9 +25,7 @@ export const enMessages = {
       'Play classic retro games directly in your browser. No downloads required.',
   },
   home: {
-    get title() {
-      return siteConfig.SITE_SLOGAN
-    },
+    title: 'Play Classic Retro Games Online',
     subtitle:
       'Play classic retro games from GBA, NES, SNES, PS1, N64, Sega Genesis, Arcade and more directly in your browser. No downloads required.',
     searchPlaceholder: 'Search by game title, platform, or series...',

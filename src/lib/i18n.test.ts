@@ -57,6 +57,10 @@ describe('i18n messages', () => {
     )
   })
 
+  it('uses the primary English search phrase in the homepage heading', () => {
+    expect(getI18n('en').home.title).toBe('Play Classic Retro Games Online')
+  })
+
   it('builds localized game detail FAQ and SEO text', () => {
     const game = {
       categories: ['Action'],

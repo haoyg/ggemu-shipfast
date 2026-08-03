@@ -227,7 +227,7 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
                   {siteConfig.SITE_NAME}
                 </p>
                 <h1 className="mt-1 text-xl font-black leading-tight text-white sm:text-3xl">
-                  {t.popular}
+                  {t.title}
                 </h1>
               </div>
               <span className="badge badge-outline shrink-0 border-white/20 text-xs text-white/70 sm:text-sm">

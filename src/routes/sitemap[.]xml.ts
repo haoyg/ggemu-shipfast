@@ -248,6 +248,15 @@ function buildSitemapEntries(
     priority: 0.9,
   })
 
+  entries.push({
+    alternateLocales: ['en'],
+    locale: 'en',
+    loc: toAbsoluteLocalizedUrl(origin, 'en', '/arcade-games'),
+    path: '/arcade-games',
+    changefreq: 'weekly',
+    priority: 0.9,
+  })
+
   for (const locale of locales) {
     entries.push({
       locale,
