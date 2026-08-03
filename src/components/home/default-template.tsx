@@ -229,6 +229,9 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
                 <h1 className="mt-1 text-xl font-black leading-tight text-white sm:text-3xl">
                   {t.title}
                 </h1>
+                <p className="mt-2 max-w-3xl text-sm leading-6 text-white/65 sm:text-base">
+                  {t.subtitle}
+                </p>
               </div>
               <span className="badge badge-outline shrink-0 border-white/20 text-xs text-white/70 sm:text-sm">
                 {formatCopy(t.totalGames, { total: pagination.total })}
@@ -252,21 +255,24 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
             ) : null}
 
             {topGames.length > 0 ? (
-              <div
-                aria-busy={isLoading}
-                className={`grid min-w-0 grid-cols-2 gap-3 sm:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-6 ${
-                  isLoading ? 'opacity-60' : ''
-                }`}
-              >
-                {topGames.map((game, index) => (
-                  <ArcadeGameCard
-                    game={game}
-                    isPriority={index === 0}
-                    key={getGameRouteId(game)}
-                    lang={lang}
-                  />
-                ))}
-              </div>
+              <>
+                <h2 className="sr-only">{t.featured}</h2>
+                <div
+                  aria-busy={isLoading}
+                  className={`grid min-w-0 grid-cols-2 gap-3 sm:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-6 ${
+                    isLoading ? 'opacity-60' : ''
+                  }`}
+                >
+                  {topGames.map((game, index) => (
+                    <ArcadeGameCard
+                      game={game}
+                      isPriority={index === 0}
+                      key={getGameRouteId(game)}
+                      lang={lang}
+                    />
+                  ))}
+                </div>
+              </>
             ) : (
               <div className="rounded-lg border border-white/10 bg-white/5 p-10 text-center text-white/60">
                 {t.empty}

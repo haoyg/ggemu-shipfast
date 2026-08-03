@@ -31,7 +31,13 @@ import {
   searchBlogPosts,
   searchGames,
 } from '#/lib/ggemu'
-import { getI18n, isSupportedLocale, normalizeLocale } from '#/lib/i18n'
+import {
+  getHomeFaqs,
+  getI18n,
+  isSupportedLocale,
+  normalizeLocale,
+} from '#/lib/i18n'
+import { buildBrandedTitle, buildHomeStructuredData } from '#/lib/home-seo'
 import { LatestRequestGuard } from '#/lib/latest-request-guard'
 import {
   type SiteTemplate,
@@ -197,8 +203,12 @@ export const Route = createFileRoute('/$locale')({
     const data = loaderData as unknown as HomeLoaderData | undefined
     const locale = normalizeLocale(params.locale)
     const meta = getI18n(locale).homeSeo
+    const title = buildBrandedTitle(meta.title, siteConfig.SITE_NAME)
     const isTemplatePreview = Boolean(getSearchTemplate(match.search))
     const shouldRenderHomeSeo = isExactHomeHeadMatch(matches)
+    const canonicalUrl = data?.seoOrigin
+      ? `${data.seoOrigin}/${locale}`
+      : undefined
 
     return {
       links: shouldRenderHomeSeo && data?.seoOrigin
@@ -210,18 +220,37 @@ export const Route = createFileRoute('/$locale')({
         : undefined,
       meta: shouldRenderHomeSeo
         ? [
-            { title: meta.title },
+            { title },
             { name: 'description', content: meta.description },
             { name: 'keywords', content: meta.keywords },
-            { property: 'og:title', content: meta.title },
+            { property: 'og:title', content: title },
             { property: 'og:description', content: meta.description },
             { property: 'og:type', content: 'website' },
             { name: 'twitter:card', content: 'summary_large_image' },
-            { name: 'twitter:title', content: meta.title },
+            { name: 'twitter:title', content: title },
             { name: 'twitter:description', content: meta.description },
             ...(isTemplatePreview
               ? [{ name: 'robots', content: 'noindex,nofollow' }]
               : []),
+          ]
+        : undefined,
+      scripts: shouldRenderHomeSeo && !isTemplatePreview && canonicalUrl && data?.seoOrigin
+        ? [
+            {
+              type: 'application/ld+json',
+              children: serializeJsonLd(
+                buildHomeStructuredData({
+                  canonicalUrl,
+                  description: meta.description,
+                  faq: getHomeFaqs(locale),
+                  locale,
+                  origin: data.seoOrigin,
+                  siteEmail: siteConfig.SITE_EMAIL,
+                  siteName: siteConfig.SITE_NAME,
+                  title,
+                }),
+              ),
+            },
           ]
         : undefined,
     }
@@ -258,6 +287,10 @@ function InvalidLocaleNotFound() {
 
 function isExactHomeHeadMatch(matches: Array<{ routeId: string }>) {
   return matches.at(-1)?.routeId === '/$locale'
+}
+
+function serializeJsonLd(data: unknown) {
+  return JSON.stringify(data).replace(/</g, '\\u003c')
 }
 
 function LocalizedHomePage() {

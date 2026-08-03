@@ -350,15 +350,24 @@ export function SiteFooter({ locale }: { locale: Locale }) {
               </div>
             </div>
             <p className="mt-4 leading-6">{t.footer}</p>
-            <a
-              className="mt-4 badge badge-sm badge-outline gap-2 p-3"
-              href="https://ggemu.com"
-              rel="noopener noreferrer nofollow"
-              target="_blank"
-            >
-              <i className="ri-flashlight-line" />
-              {getPoweredByLabel(locale)}
-            </a>
+            <div className="mt-4 flex flex-wrap gap-2">
+              <a
+                className="badge badge-sm badge-outline gap-2 p-3"
+                href={`mailto:${siteConfig.SITE_EMAIL}`}
+              >
+                <i className="ri-mail-line" />
+                {siteConfig.SITE_EMAIL}
+              </a>
+              <a
+                className="badge badge-sm badge-outline gap-2 p-3"
+                href="https://ggemu.com"
+                rel="noopener noreferrer nofollow"
+                target="_blank"
+              >
+                <i className="ri-flashlight-line" />
+                {getPoweredByLabel(locale)}
+              </a>
+            </div>
           </section>
 
           <nav className="md:min-w-32">
