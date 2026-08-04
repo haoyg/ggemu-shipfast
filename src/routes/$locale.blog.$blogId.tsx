@@ -11,9 +11,13 @@ import {
   getUnavailableCopy,
 } from '#/components/unavailable-page'
 import {
+  buildArticleStructuredData,
+  getArticleMetaCopy,
+  hasDistinctUpdatedDate,
+} from '#/lib/article-seo'
+import {
   getGameDetail,
   getBlogPostDetailPageData,
-  type BlogPost,
   type Locale,
   type PublicGame,
 } from '#/lib/ggemu'
@@ -24,6 +28,7 @@ import {
   normalizeLocale,
 } from '#/lib/i18n'
 import { getAlternateLinksFromCanonical } from '#/lib/seo'
+import { siteConfig } from '#/lib/site-config'
 
 export const Route = createFileRoute('/$locale/blog/$blogId')({
   loader: async ({ params }) => {
@@ -71,6 +76,7 @@ export const Route = createFileRoute('/$locale/blog/$blogId')({
     const title = blogPost.title || getI18n(locale).blog.title
     const description = getLocalizedBlogPostExcerpt(blogPost, locale)
     const image = blogPost.cover_image_url
+    const origin = new URL(canonicalUrl).origin
 
     return {
       links: [
@@ -84,6 +90,16 @@ export const Route = createFileRoute('/$locale/blog/$blogId')({
         { property: 'og:description', content: description },
         { property: 'og:type', content: 'article' },
         { property: 'og:url', content: canonicalUrl },
+        ...(blogPost.created_at
+          ? [{ property: 'article:published_time', content: blogPost.created_at }]
+          : []),
+        ...(blogPost.updated_at
+          ? [{ property: 'article:modified_time', content: blogPost.updated_at }]
+          : []),
+        {
+          property: 'article:author',
+          content: `${origin}/${locale}/about`,
+        },
         ...(image ? [{ property: 'og:image', content: image }] : []),
         { name: 'twitter:card', content: image ? 'summary_large_image' : 'summary' },
         { name: 'twitter:title', content: title },
@@ -94,7 +110,13 @@ export const Route = createFileRoute('/$locale/blog/$blogId')({
         {
           type: 'application/ld+json',
           children: serializeJsonLd(
-            buildArticleStructuredData(blogPost, canonicalUrl, description),
+            buildArticleStructuredData({
+              blogPost,
+              canonicalUrl,
+              description,
+              locale,
+              siteName: siteConfig.SITE_NAME,
+            }),
           ),
         },
       ],
@@ -121,6 +143,7 @@ function BlogDetailPage() {
   const { locale } = Route.useParams()
   const lang = normalizeLocale(locale)
   const t = getI18n(lang).blog
+  const articleMeta = getArticleMetaCopy(lang, siteConfig.SITE_NAME)
 
   const { blogPost, linkedGames } = data
 
@@ -149,8 +172,34 @@ function BlogDetailPage() {
           <h1 className="mt-3 break-words text-4xl font-semibold leading-tight sm:text-5xl">
             {blogPost.title}
           </h1>
-          <div className="mt-5 text-sm text-base-content/55">
-            <span>{formatDate(blogPost.created_at, lang)}</span>
+          <div className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-base-content/60">
+            <Link
+              className="inline-flex items-center gap-2 font-medium text-base-content/75 hover:text-primary"
+              params={{ locale: lang }}
+              rel="author"
+              to="/$locale/about"
+            >
+              <i className="ri-team-line text-base text-primary" />
+              {articleMeta.author}
+            </Link>
+            {blogPost.created_at ? (
+              <span className="inline-flex items-center gap-2">
+                <i className="ri-calendar-line" />
+                {articleMeta.published}
+                <time dateTime={blogPost.created_at}>
+                  {formatDate(blogPost.created_at, lang)}
+                </time>
+              </span>
+            ) : null}
+            {hasDistinctUpdatedDate(blogPost.created_at, blogPost.updated_at) ? (
+              <span className="inline-flex items-center gap-2">
+                <i className="ri-refresh-line" />
+                {articleMeta.updated}
+                <time dateTime={blogPost.updated_at}>
+                  {formatDate(blogPost.updated_at, lang)}
+                </time>
+              </span>
+            ) : null}
           </div>
         </header>
 
@@ -547,23 +596,6 @@ function formatDate(value: string | undefined, locale: Locale) {
     month: 'short',
     year: 'numeric',
   }).format(new Date(value))
-}
-
-function buildArticleStructuredData(
-  blogPost: BlogPost,
-  canonicalUrl: string,
-  description: string,
-) {
-  return {
-    '@context': 'https://schema.org',
-    '@type': 'Article',
-    headline: blogPost.title,
-    description,
-    image: blogPost.cover_image_url,
-    datePublished: blogPost.created_at,
-    dateModified: blogPost.updated_at,
-    url: canonicalUrl,
-  }
 }
 
 function serializeJsonLd(data: unknown) {
