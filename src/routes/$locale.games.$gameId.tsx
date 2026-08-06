@@ -1,5 +1,4 @@
 import {
-  Await,
   Link,
   Outlet,
   createFileRoute,
@@ -72,17 +71,21 @@ export const Route = createFileRoute('/$locale/games/$gameId')({
     }
 
     const currentId = getGameRouteId(detail.game) || params.gameId
+    const relatedGames = await getRelatedGamePageData({
+      data: {
+        category: detail.game.categories?.[0],
+        currentId,
+        developer: detail.game.developer,
+      },
+    }).catch(() => ({
+      relatedByCategory: [],
+      relatedByDeveloper: [],
+    }))
 
     return {
       ...detail,
       kind: 'ready' as const,
-      relatedGamesPromise: getRelatedGamePageData({
-        data: {
-          category: detail.game.categories?.[0],
-          currentId,
-          developer: detail.game.developer,
-        },
-      }),
+      relatedGames,
     }
   },
   head: ({ loaderData, params }) => {
@@ -295,7 +298,7 @@ function LocalizedGameDetailPage() {
   const lang = normalizeLocale(locale)
   const t = getI18n(lang).detail
 
-  const { canonicalUrl, game, relatedGamesPromise } = data
+  const { canonicalUrl, game, relatedGames } = data
   const categories = getLocalizedCategoryLabels(game.categories, lang)
   const languages = game.languages ?? []
   const platformLabel = getLocalizedPlatformLabel(game.platform, lang)
@@ -421,18 +424,14 @@ function LocalizedGameDetailPage() {
               <KeywordPanel title={t.keywords} value={keywordText} />
               <ContentPanel title={t.howToPlay} value={howToPlay} />
               <FaqSection items={faqItems} title={t.faq} />
-              <Await promise={relatedGamesPromise} fallback={<RelatedGamesFallback title={t.relatedGames} />}>
-                {(related) => (
-                  <RelatedGameSection
-                    games={getRelatedGames(
-                      related.relatedByCategory,
-                      related.relatedByDeveloper,
-                    )}
-                    lang={lang}
-                    title={t.relatedGames}
-                  />
+              <RelatedGameSection
+                games={getRelatedGames(
+                  relatedGames.relatedByCategory,
+                  relatedGames.relatedByDeveloper,
                 )}
-              </Await>
+                lang={lang}
+                title={t.relatedGames}
+              />
             </div>
 
             <aside className="flex flex-col gap-4">
@@ -552,28 +551,6 @@ function RelatedGameSection({
       <div className="mt-4 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
         {games.map((game) => (
           <RelatedGameCard game={game} key={game.url_slug ?? game._id} lang={lang} />
-        ))}
-      </div>
-    </section>
-  )
-}
-
-function RelatedGamesFallback({ title }: { title: string }) {
-  return (
-    <section>
-      <h2 className="text-xl font-semibold">{title}</h2>
-      <div className="mt-4 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
-        {Array.from({ length: 3 }).map((_, index) => (
-          <div
-            className="overflow-hidden rounded-box border border-base-300 bg-base-100 shadow-sm"
-            key={index}
-          >
-            <div className="aspect-[4/3] animate-pulse bg-base-300" />
-            <div className="space-y-2 p-3">
-              <div className="h-4 w-4/5 animate-pulse rounded bg-base-300" />
-              <div className="h-3 w-1/2 animate-pulse rounded bg-base-300" />
-            </div>
-          </div>
         ))}
       </div>
     </section>
