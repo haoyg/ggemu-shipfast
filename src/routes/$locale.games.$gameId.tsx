@@ -31,7 +31,6 @@ import {
 import {
   buildGameDetailSeo,
   getGameDetailFaqs,
-  getGameDetailHowToPlay,
   getGameDetailKeywordText,
   getGameDetailSummary,
   getI18n,
@@ -41,6 +40,11 @@ import {
 } from '#/lib/i18n'
 import { getRetroCoverFallbackLabel } from '#/lib/locale-labels'
 import { getTargetedGameSeo } from '#/lib/game-seo-targets'
+import {
+  getGameDescriptionParagraphs,
+  getGameHowToPlayParagraphs,
+  getGameSidebarContent,
+} from '#/lib/game-detail-content'
 import { getAlternateLinksFromCanonical } from '#/lib/seo'
 
 export const Route = createFileRoute('/$locale/games/$gameId')({
@@ -305,7 +309,9 @@ function LocalizedGameDetailPage() {
   const faqItems = getGameDetailFaqs(game, lang)
   const summary = getGameDetailSummary(game, lang)
   const keywordText = getGameDetailKeywordText(game, lang)
-  const howToPlay = getGameDetailHowToPlay(game, lang)
+  const descriptionParagraphs = getGameDescriptionParagraphs(game, lang)
+  const howToPlayParagraphs = getGameHowToPlayParagraphs(game, lang)
+  const sidebarContent = getGameSidebarContent(game, lang)
   const playPath = buildGamePlayPath(lang, gameId)
   const manifestHref = buildGameManifestHref(lang)
   const targetedSeo = getTargetedGameSeo(game, lang)
@@ -334,26 +340,33 @@ function LocalizedGameDetailPage() {
           </section>
 
           <section className="grid gap-4 lg:grid-cols-[minmax(320px,440px)_1fr] lg:gap-8">
-            <div
-              className="group relative aspect-[4/3] w-full self-start overflow-hidden rounded-box border border-base-300 bg-base-200 shadow-sm"
-              {...gameCardPreviewHandlers}
-            >
-              {game.game_cover ? (
-                <img
-                  alt={game.name ?? 'Game cover'}
-                  className="h-full w-full object-cover"
-                  decoding="async"
-                  fetchPriority="high"
-                  height="660"
-                  src={game.game_cover}
-                  width="880"
-                />
-              ) : (
-                <div className="flex h-full items-center justify-center bg-base-300 text-base-content/40">
-                  {getRetroCoverFallbackLabel(lang)}
-                </div>
-              )}
-              <GameCardPreviewVideo src={game.game_video} />
+            <div className="flex min-w-0 flex-col gap-4">
+              <div
+                className="group relative aspect-[4/3] w-full self-start overflow-hidden rounded-box border border-base-300 bg-base-200 shadow-sm"
+                {...gameCardPreviewHandlers}
+              >
+                {game.game_cover ? (
+                  <img
+                    alt={game.name ?? 'Game cover'}
+                    className="h-full w-full object-cover"
+                    decoding="async"
+                    fetchPriority="high"
+                    height="660"
+                    src={game.game_cover}
+                    width="880"
+                  />
+                ) : (
+                  <div className="flex h-full items-center justify-center bg-base-300 text-base-content/40">
+                    {getRetroCoverFallbackLabel(lang)}
+                  </div>
+                )}
+                <GameCardPreviewVideo src={game.game_video} />
+              </div>
+
+              <ArticlePanel
+                paragraphs={descriptionParagraphs}
+                title={t.overview}
+              />
             </div>
 
             <div className="flex min-w-0 flex-col justify-center gap-3 sm:gap-6 lg:self-center">
@@ -422,7 +435,7 @@ function LocalizedGameDetailPage() {
           <section className="grid gap-6 lg:grid-cols-[1fr_340px]">
             <div className="flex flex-col gap-6">
               <KeywordPanel title={t.keywords} value={keywordText} />
-              <ContentPanel title={t.howToPlay} value={howToPlay} />
+              <ArticlePanel paragraphs={howToPlayParagraphs} title={t.howToPlay} />
               <FaqSection items={faqItems} title={t.faq} />
               <RelatedGameSection
                 games={getRelatedGames(
@@ -444,6 +457,17 @@ function LocalizedGameDetailPage() {
                   <Fact icon="ri-user-line" label={t.players} value={String(game.players ?? 1)} />
                 </dl>
               </section>
+
+              <SidebarArticle
+                icon="ri-book-open-line"
+                text={sidebarContent.background}
+                title={sidebarContent.backgroundTitle}
+              />
+
+              <SidebarTips
+                items={sidebarContent.tips}
+                title={sidebarContent.tipsTitle}
+              />
 
               <TagSection emptyText={t.noData} items={categories} title={t.categories} />
               <TagSection emptyText={t.noData} items={languages} title={t.languages} />
@@ -470,18 +494,69 @@ function Stat({
   )
 }
 
-function ContentPanel({ title, value }: { title: string; value?: string }) {
-  if (!value) {
+function ArticlePanel({
+  paragraphs,
+  title,
+}: {
+  paragraphs: Array<string>
+  title: string
+}) {
+  if (paragraphs.length === 0) {
     return null
   }
 
   return (
-    <section className="rounded-box border border-base-300 bg-base-100 p-6 shadow-sm">
+    <article className="rounded-box border border-base-300 bg-base-100 p-6 shadow-sm">
       <h2 className="flex items-center gap-2 text-xl font-semibold">
         <i className="ri-file-text-line text-primary" />
         {title}
       </h2>
-      <p className="mt-4 whitespace-pre-line leading-7 text-base-content/75">{value}</p>
+      <div className="mt-4 space-y-4 text-base-content/75">
+        {paragraphs.map((paragraph, index) => (
+          <p className="leading-7" key={`${index}-${paragraph.slice(0, 32)}`}>
+            {paragraph}
+          </p>
+        ))}
+      </div>
+    </article>
+  )
+}
+
+function SidebarArticle({
+  icon,
+  text,
+  title,
+}: {
+  icon: string
+  text: string
+  title: string
+}) {
+  return (
+    <section className="rounded-box border border-base-300 bg-base-100 p-5 shadow-sm">
+      <h2 className="flex items-center gap-2 text-lg font-semibold">
+        <i className={`${icon} text-primary`} />
+        {title}
+      </h2>
+      <p className="mt-3 text-sm leading-6 text-base-content/70">{text}</p>
+    </section>
+  )
+}
+
+function SidebarTips({ items, title }: { items: Array<string>; title: string }) {
+  return (
+    <section className="rounded-box border border-base-300 bg-base-100 p-5 shadow-sm">
+      <h2 className="flex items-center gap-2 text-lg font-semibold">
+        <i className="ri-lightbulb-line text-primary" />
+        {title}
+      </h2>
+      <ul className="mt-3 grid gap-3 text-sm leading-6 text-base-content/70">
+        {items.map((item) => (
+          <li className="flex gap-2" key={item}>
+            <i className="ri-check-line mt-0.5 shrink-0 text-primary" />
+            <span>{item}</span>
+          </li>
+        ))}
+      </ul>
     </section>
   )
 }
