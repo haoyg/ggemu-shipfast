@@ -280,7 +280,24 @@ function buildGameStructuredData({
     })),
   }
 
-  return [removeEmptySchemaValues(gameSchema), breadcrumbSchema, faqSchema]
+  const schemas: unknown[] = [removeEmptySchemaValues(gameSchema), breadcrumbSchema]
+
+  if (faqItems.length > 0) {
+    schemas.push(faqSchema)
+  }
+
+  if (game.game_video) {
+    schemas.push({
+      '@context': 'https://schema.org',
+      '@type': 'VideoObject',
+      name: `${game.name} - Game Video`,
+      description: seo.description,
+      thumbnailUrl: game.game_cover,
+      contentUrl: game.game_video,
+    })
+  }
+
+  return schemas
 }
 
 function removeEmptySchemaValues<T extends Record<string, unknown>>(schema: T) {
