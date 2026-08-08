@@ -48,6 +48,12 @@ export function buildHomeStructuredData({
         },
         name: siteName,
         url: origin,
+        sameAs: [
+          'https://twitter.com/pokopie',
+          'https://www.facebook.com/pokopie',
+          'https://www.youtube.com/@pokopie',
+          'https://www.instagram.com/pokopie',
+        ],
       },
       {
         '@id': websiteId,
