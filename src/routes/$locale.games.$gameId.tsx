@@ -297,6 +297,21 @@ function buildGameStructuredData({
     })
   }
 
+  const howToSteps = getGameHowToPlayParagraphs(game, locale)
+  if (howToSteps.length > 0) {
+    schemas.push({
+      '@context': 'https://schema.org',
+      '@type': 'HowTo',
+      name: `How to play ${game.name}`,
+      description: seo.description,
+      step: howToSteps.map((step, index) => ({
+        '@type': 'HowToStep',
+        name: String(index + 1),
+        text: step,
+      })),
+    })
+  }
+
   return schemas
 }
 
