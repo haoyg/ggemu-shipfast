@@ -101,6 +101,7 @@ export type I18nMessages = {
     eyebrow: string
     empty: string
     total: string
+    relatedPosts: string
   }
   live: {
     title: string

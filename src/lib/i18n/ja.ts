@@ -122,6 +122,7 @@ export const jaMessages = {
     eyebrow: 'ブログ',
     empty: '記事はまだありません',
     total: '全 {total} 件の記事',
+    relatedPosts: '関連記事',
   },
   live: {
     title: 'ゲーム配信',

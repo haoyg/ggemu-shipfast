@@ -119,6 +119,7 @@ export const zhCnMessages = {
     eyebrow: '博客',
     empty: '暂无文章',
     total: '共 {total} 篇文章',
+    relatedPosts: '相关文章',
   },
   live: {
     title: '游戏直播',

@@ -721,3 +721,38 @@ export const getBlogPostDetailPageData = createServerFn({ method: 'GET' })
       ),
     } satisfies BlogPostDetailPageData
   })
+
+type RelatedBlogPostsPayload = {
+  currentPostId: string
+  keyword?: string
+  limit?: number
+}
+
+export const getRelatedBlogPosts = createServerFn({ method: 'GET' })
+  .validator((payload: RelatedBlogPostsPayload) => ({
+    currentPostId: payload.currentPostId,
+    keyword: payload.keyword?.trim() || '',
+    limit: normalizeLimit(payload.limit ?? 4),
+  }))
+  .handler(async ({ data }) => {
+    if (!data.keyword) {
+      return { blogPosts: [] as Array<BlogPost> }
+    }
+
+    const result = await fetchBlogPosts(
+      new URLSearchParams({
+        keyword: data.keyword,
+        limit: String(data.limit + 1),
+        page: '1',
+      }),
+    )
+
+    return {
+      blogPosts: result.blogPosts
+        .filter((post) => {
+          const postId = post.slug?.trim() || post._id?.trim() || ''
+          return postId !== data.currentPostId
+        })
+        .slice(0, data.limit),
+    }
+  })

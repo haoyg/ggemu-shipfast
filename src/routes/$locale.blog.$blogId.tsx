@@ -18,6 +18,7 @@ import {
 import {
   getGameDetail,
   getBlogPostDetailPageData,
+  getRelatedBlogPosts,
   type Locale,
   type PublicGame,
 } from '#/lib/ggemu'
@@ -55,6 +56,13 @@ export const Route = createFileRoute('/$locale/blog/$blogId')({
       linkedGames: await loadLinkedGames(
         detail.blogPost.content || detail.blogPost.excerpt || '',
       ),
+      relatedBlogPosts: await getRelatedBlogPosts({
+        data: {
+          currentPostId: detail.blogPost.slug?.trim() || detail.blogPost._id?.trim() || '',
+          keyword: extractRelatedKeyword(detail.blogPost.title || ''),
+          limit: 4,
+        },
+      }).catch(() => ({ blogPosts: [] })),
     }
   },
   head: ({ loaderData, params }) => {
@@ -166,7 +174,7 @@ function BlogDetailPage() {
   const t = getI18n(lang).blog
   const articleMeta = getArticleMetaCopy(lang, siteConfig.SITE_NAME)
 
-  const { blogPost, linkedGames, canonicalUrl } = data
+  const { blogPost, linkedGames, canonicalUrl, relatedBlogPosts } = data
   const description = getLocalizedBlogPostExcerpt(blogPost, lang)
 
   return (
@@ -320,6 +328,62 @@ function BlogDetailPage() {
             <span>Link copied! Share to WeChat</span>
           </div>
         </div>
+
+        {relatedBlogPosts.blogPosts.length > 0 && (
+          <section className="mt-12 border-t border-base-300 pt-10">
+            <h2 className="text-2xl font-semibold">
+              {t.relatedPosts}
+            </h2>
+            <div className="mt-6 grid gap-6 md:grid-cols-2">
+              {relatedBlogPosts.blogPosts.map((post) => {
+                const postId = post.slug?.trim() || post._id?.trim() || ''
+                const postExcerpt = getLocalizedBlogPostExcerpt(post, lang)
+
+                if (!postId) {
+                  return null
+                }
+
+                return (
+                  <Link
+                    className="group overflow-hidden rounded-box border border-base-300 bg-base-100 transition duration-200 hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-lg"
+                    key={postId}
+                    params={{ blogId: postId, locale: lang }}
+                    to="/$locale/blog/$blogId"
+                  >
+                    <div className="aspect-[16/9] bg-base-300">
+                      {post.cover_image_url ? (
+                        <img
+                          alt={post.title ?? 'Blog cover'}
+                          className="h-full w-full object-cover transition duration-300 group-hover:scale-105"
+                          decoding="async"
+                          loading="lazy"
+                          src={post.cover_image_url}
+                        />
+                      ) : (
+                        <div className="flex h-full items-center justify-center text-base-content/40">
+                          Blog
+                        </div>
+                      )}
+                    </div>
+                    <div className="p-4">
+                      <p className="text-xs text-base-content/50">
+                        {formatDate(post.created_at, lang)}
+                      </p>
+                      <h3 className="mt-2 line-clamp-2 text-lg font-semibold leading-tight">
+                        {post.title}
+                      </h3>
+                      {postExcerpt ? (
+                        <p className="mt-2 line-clamp-2 text-sm leading-6 text-base-content/65">
+                          {postExcerpt}
+                        </p>
+                      ) : null}
+                    </div>
+                  </Link>
+                )
+              })}
+            </div>
+          </section>
+        )}
       </article>
     </SiteLayout>
   )
@@ -698,4 +762,17 @@ function formatDate(value: string | undefined, locale: Locale) {
 
 function serializeJsonLd(data: unknown) {
   return JSON.stringify(data).replace(/</g, '\\u003c')
+}
+
+function extractRelatedKeyword(title: string) {
+  if (!title) {
+    return ''
+  }
+
+  return title
+    .replace(/[^\w\s一-鿿぀-ゟ゠-ヿ]/g, ' ')
+    .split(/\s+/)
+    .filter((word) => word.length > 2)
+    .slice(0, 3)
+    .join(' ')
 }

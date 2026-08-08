@@ -124,6 +124,7 @@ export const enMessages = {
     eyebrow: 'Blog',
     empty: 'No posts yet',
     total: '{total} posts',
+    relatedPosts: 'Related Posts',
   },
   live: {
     title: 'Game Live',
