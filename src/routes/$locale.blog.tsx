@@ -16,6 +16,9 @@ import {
   getLocalizedBlogPostExcerpt,
   normalizeLocale,
 } from '#/lib/i18n'
+import { enBlogFaqs } from '#/lib/i18n/en'
+import { jaBlogFaqs } from '#/lib/i18n/ja'
+import { zhCnBlogFaqs } from '#/lib/i18n/zh-CN'
 import { getLocalizedSeoLinks, getSeoOrigin } from '#/lib/seo'
 
 const BLOG_PAGE_SIZE = 12
@@ -40,12 +43,17 @@ export const Route = createFileRoute('/$locale/blog')({
   head: ({ loaderData, params }) => {
     const locale = normalizeLocale(params.locale)
     const t = getI18n(locale).blog
+    const faqs = locale === 'zh-CN' ? zhCnBlogFaqs : locale === 'ja' ? jaBlogFaqs : enBlogFaqs
+    const seoOrigin = loaderData?.seoOrigin
+    const canonicalUrl = seoOrigin
+      ? `${seoOrigin}/${locale}/blog`
+      : undefined
 
     return {
-      links: loaderData?.seoOrigin
+      links: canonicalUrl && seoOrigin
         ? getLocalizedSeoLinks({
             locale,
-            origin: loaderData.seoOrigin,
+            origin: seoOrigin,
             path: '/blog',
           })
         : undefined,
@@ -53,6 +61,25 @@ export const Route = createFileRoute('/$locale/blog')({
         { title: t.title },
         { name: 'description', content: t.description },
       ],
+      scripts: canonicalUrl
+        ? [
+            {
+              type: 'application/ld+json',
+              children: JSON.stringify({
+                '@context': 'https://schema.org',
+                '@type': 'FAQPage',
+                mainEntity: faqs.items.map((item: { question: string; answer: string }) => ({
+                  '@type': 'Question',
+                  name: item.question,
+                  acceptedAnswer: {
+                    '@type': 'Answer',
+                    text: item.answer,
+                  },
+                })),
+              }),
+            },
+          ]
+        : undefined,
     }
   },
   component: BlogListPage,

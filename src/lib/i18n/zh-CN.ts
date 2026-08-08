@@ -177,3 +177,30 @@ export const zhCnHomeFaqs = {
     },
   ],
 } satisfies HomeFaqs
+
+export const zhCnBlogFaqs = {
+  title: '常见问题',
+  subtitle: '了解如何在本站玩复古游戏、查找游戏攻略，以及获取使用提示。',
+  items: [
+    {
+      question: '如何在本站玩复古游戏？',
+      answer: '只需浏览我们的游戏库，点击任意游戏，即可在浏览器中直接开始游玩。无需下载或安装模拟器。',
+    },
+    {
+      question: '游戏免费吗？',
+      answer: '是的，平台上所有游戏均可免费游玩。游戏通过网页模拟技术直接在浏览器中运行。',
+    },
+    {
+      question: '支持哪些类型的复古游戏？',
+      answer: '我们提供多种经典游戏，涵盖 Game Boy Advance、NES、SNES、PlayStation (PS1)、Sega Genesis、Nintendo 64、 Arcade 等多个平台。',
+    },
+    {
+      question: '我可以阅读游戏攻略和文章吗？',
+      answer: '可以。博客栏目提供游戏攻略、浏览器游玩技巧和复古游戏相关文章，帮助你获得更好的游戏体验。',
+    },
+    {
+      question: '需要注册账号才能玩游戏吗？',
+      answer: '无需注册。只需选择游戏即可立即开始游玩。',
+    },
+  ],
+} satisfies HomeFaqs

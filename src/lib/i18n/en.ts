@@ -144,6 +144,39 @@ export const enMessages = {
   },
 } satisfies I18nMessages
 
+export const enBlogFaqs = {
+  title: 'FAQ',
+  subtitle:
+    'Learn how to play retro games online, find game guides, and get tips on using our website.',
+  items: [
+    {
+      question: 'How do I play retro games on this website?',
+      answer:
+        'Simply browse our game library, click on any game you want to play, and start playing directly in your browser. No downloads or emulator setup required.',
+    },
+    {
+      question: 'Are the games free to play?',
+      answer:
+        'Yes, all games on our platform are free to play. They run directly in your browser using web-based emulation technology.',
+    },
+    {
+      question: 'What types of retro games are available?',
+      answer:
+        'We offer a wide variety of classic games from platforms including Game Boy Advance, NES, SNES, PlayStation (PS1), Sega Genesis, Nintendo 64, Arcade, and many more.',
+    },
+    {
+      question: 'Can I read game guides and articles?',
+      answer:
+        'Yes. Our blog section features game guides, browser play tips, and retro gaming articles to help you get the most out of your gaming experience.',
+    },
+    {
+      question: 'Do I need to create an account to play games?',
+      answer:
+        'No account is required. Simply select a game and start playing immediately.',
+    },
+  ],
+} satisfies HomeFaqs
+
 export const enHomeFaqs = {
   title: 'FAQ',
   subtitle:
