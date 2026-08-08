@@ -167,6 +167,7 @@ function BlogDetailPage() {
   const articleMeta = getArticleMetaCopy(lang, siteConfig.SITE_NAME)
 
   const { blogPost, linkedGames, canonicalUrl } = data
+  const description = getLocalizedBlogPostExcerpt(blogPost, lang)
 
   return (
     <SiteLayout locale={lang}>
@@ -272,6 +273,52 @@ function BlogDetailPage() {
             <i className="ri-linkedin-box-line" />
             LinkedIn
           </a>
+          <a
+            className="btn btn-outline btn-sm gap-2"
+            href={`https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=${encodeURIComponent(canonicalUrl)}&title=${encodeURIComponent(blogPost.title || '')}&desc=${encodeURIComponent(description)}`}
+            rel="noopener noreferrer"
+            target="_blank"
+            title="Share to QQ/QZone"
+          >
+            <i className="ri-qq-line" />
+            QQ
+          </a>
+          <button
+            className="btn btn-outline btn-sm gap-2"
+            onClick={() => {
+              navigator.clipboard?.writeText(canonicalUrl).catch(() => undefined)
+              const el = document.getElementById('wechat-toast')
+              if (el) {
+                el.classList.remove('hidden')
+                setTimeout(() => el.classList.add('hidden'), 2000)
+              }
+            }}
+            type="button"
+          >
+            <i className="ri-wechat-pay-line" />
+            WeChat
+          </button>
+          <a
+            className="btn btn-outline btn-sm gap-2"
+            href={`https://www.xiaohongshu.com/explore/${encodeURIComponent(canonicalUrl)}`}
+            rel="noopener noreferrer"
+            target="_blank"
+            title="Share to Xiaohongshu"
+          >
+            <i className="ri-baidu-line" />
+            Rednote
+          </a>
+        </div>
+
+        <div
+          className="hidden toast toast-top toast-center z-50"
+          id="wechat-toast"
+          role="alert"
+        >
+          <div className="alert alert-info w-auto shadow-lg">
+            <i className="ri-check-line" />
+            <span>Link copied! Share to WeChat</span>
+          </div>
         </div>
       </article>
     </SiteLayout>
