@@ -119,6 +119,27 @@ export const Route = createFileRoute('/$locale/blog/$blogId')({
             }),
           ),
         },
+        {
+          type: 'application/ld+json',
+          children: serializeJsonLd({
+            '@context': 'https://schema.org',
+            '@type': 'BreadcrumbList',
+            itemListElement: [
+              {
+                '@type': 'ListItem',
+                position: 1,
+                name: getI18n(locale).blog.title,
+                item: `${origin}/${locale}/blog`,
+              },
+              {
+                '@type': 'ListItem',
+                position: 2,
+                name: blogPost.title,
+                item: canonicalUrl,
+              },
+            ],
+          }),
+        },
       ],
     }
   },
@@ -145,7 +166,7 @@ function BlogDetailPage() {
   const t = getI18n(lang).blog
   const articleMeta = getArticleMetaCopy(lang, siteConfig.SITE_NAME)
 
-  const { blogPost, linkedGames } = data
+  const { blogPost, linkedGames, canonicalUrl } = data
 
   return (
     <SiteLayout locale={lang}>
@@ -221,6 +242,36 @@ function BlogDetailPage() {
             lang,
             linkedGames,
           )}
+        </div>
+
+        <div className="mt-8 flex flex-wrap gap-3 border-t border-base-300 pt-8">
+          <a
+            className="btn btn-outline btn-sm gap-2"
+            href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(blogPost.title || '')}&url=${encodeURIComponent(canonicalUrl)}`}
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <i className="ri-twitter-x-line" />
+            Tweet
+          </a>
+          <a
+            className="btn btn-outline btn-sm gap-2"
+            href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(canonicalUrl)}`}
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <i className="ri-facebook-circle-line" />
+            Share
+          </a>
+          <a
+            className="btn btn-outline btn-sm gap-2"
+            href={`https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(canonicalUrl)}&title=${encodeURIComponent(blogPost.title || '')}`}
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <i className="ri-linkedin-box-line" />
+            LinkedIn
+          </a>
         </div>
       </article>
     </SiteLayout>
