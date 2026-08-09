@@ -150,7 +150,7 @@ export function SiteLayout({
 
             {canSwitchTheme ? (
               <details
-                className="dropdown dropdown-end"
+                className="dropdown dropdown-end hidden sm:block"
                 onToggle={(event) => setIsThemeMenuOpen(event.currentTarget.open)}
                 open={isThemeMenuOpen}
                 ref={themeMenuRef}
@@ -165,7 +165,7 @@ export function SiteLayout({
                   }}
                 >
                   <i className="ri-palette-line" />
-                  <span className="hidden sm:inline">{t.theme}</span>
+                  <span>{t.theme}</span>
                 </summary>
                 <ul className="menu dropdown-content z-50 mt-3 max-h-96 w-56 overflow-y-auto rounded-box border border-base-300 bg-base-100 p-2 shadow-xl">
                   {siteThemes.map((nextTheme) => (

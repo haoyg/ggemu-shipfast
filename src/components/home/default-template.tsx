@@ -221,8 +221,8 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
           </section>
 
           <section className="px-3 py-4 sm:px-6 sm:py-5 lg:px-8">
-            <div className="mb-3 flex items-end justify-between gap-3 sm:mb-4">
-              <div>
+            <div className="mb-3 flex min-w-0 flex-col gap-3 sm:mb-4 sm:flex-row sm:items-end sm:justify-between">
+              <div className="min-w-0">
                 <p className="text-xs font-semibold uppercase tracking-wide text-primary">
                   {siteConfig.SITE_NAME}
                 </p>
@@ -233,7 +233,7 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
                   {t.subtitle}
                 </p>
               </div>
-              <span className="badge badge-outline shrink-0 border-white/20 text-xs text-white/70 sm:text-sm">
+              <span className="badge badge-outline w-fit border-white/20 text-xs text-white/70 sm:shrink-0 sm:text-sm">
                 {formatCopy(t.totalGames, { total: pagination.total })}
               </span>
             </div>
@@ -259,7 +259,7 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
                 <h2 className="sr-only">{t.featured}</h2>
                 <div
                   aria-busy={isLoading}
-                  className={`grid min-w-0 grid-cols-2 gap-3 sm:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-6 ${
+                  className={`grid min-w-0 grid-cols-1 gap-3 min-[420px]:grid-cols-[repeat(2,minmax(0,1fr))] sm:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-6 ${
                     isLoading ? 'opacity-60' : ''
                   }`}
                 >
@@ -466,7 +466,7 @@ function ArcadeGameCard({
 
   return (
     <Link
-      className="group relative overflow-hidden rounded-lg border border-white/10 bg-white/5 shadow-sm transition duration-200 hover:-translate-y-0.5 hover:border-primary/70 hover:shadow-xl"
+      className="group relative min-w-0 overflow-hidden rounded-lg border border-white/10 bg-white/5 shadow-sm transition duration-200 hover:-translate-y-0.5 hover:border-primary/70 hover:shadow-xl"
       {...gameCardPreviewHandlers}
       params={{ gameId, locale: lang }}
       search={{}}
@@ -507,7 +507,7 @@ function ArcadeMiniCard({ game, lang }: { game: PublicGame; lang: Locale }) {
 
   return (
     <Link
-      className="group w-48 shrink-0 overflow-hidden rounded-lg border border-white/10 bg-white/5 transition hover:border-primary/60 hover:bg-white/10"
+      className="group w-48 min-w-0 shrink-0 overflow-hidden rounded-lg border border-white/10 bg-white/5 transition hover:border-primary/60 hover:bg-white/10"
       params={{ gameId, locale: lang }}
       search={{}}
       to="/$locale/games/$gameId"
@@ -537,7 +537,7 @@ function ArcadeCover({
 }) {
   return (
     <div
-      className={`relative overflow-hidden bg-[linear-gradient(135deg,rgba(244,63,94,0.22),rgba(34,211,238,0.14)),radial-gradient(circle_at_35%_30%,rgba(255,255,255,0.16),transparent_32%)] ${className}`}
+      className={`relative w-full overflow-hidden bg-[linear-gradient(135deg,rgba(244,63,94,0.22),rgba(34,211,238,0.14)),radial-gradient(circle_at_35%_30%,rgba(255,255,255,0.16),transparent_32%)] ${className}`}
     >
       {cover?.trim() ? (
         <img
