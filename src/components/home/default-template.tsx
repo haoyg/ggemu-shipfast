@@ -101,9 +101,11 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
     isLoading,
     lang,
     latestBlogPosts,
+    latestGames,
     onFilterChange,
     onQueryChange,
     onSearch,
+    pages,
     pagination,
     t,
   } = props
@@ -112,7 +114,7 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
   const platformChips = getPlatformChips(filterOptions.platforms, lang)
   const sidebarCategories = filterOptions.categories.slice(0, 6)
   const topGames = games.slice(0, 12)
-  const newGames = games.slice(12, 18)
+  const newGames = latestGames.slice(0, 8)
   const platformCards = platformChips.slice(0, 6)
   const activeCategoryLabel = filters.category
     ? getLocalizedCategoryLabel(filters.category, lang)
@@ -275,7 +277,12 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
 
             {topGames.length > 0 ? (
               <>
-                <h2 className="sr-only">{t.featured}</h2>
+                <div className="mb-3 flex items-center justify-between gap-3">
+                  <h2 className="text-xl font-black text-white">{t.popular}</h2>
+                  <span className="text-xs font-medium text-white/45">
+                    {formatCopy(t.page, { page: 1, pages })}
+                  </span>
+                </div>
                 <div
                   aria-busy={isLoading}
                   className={`grid min-w-0 grid-cols-1 gap-3 min-[420px]:grid-cols-[repeat(2,minmax(0,1fr))] sm:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-6 ${
@@ -332,9 +339,15 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
             </HomeRail>
 
             <HomeRail title={t.newest}>
-              {newGames.map((game) => (
-                <ArcadeMiniCard game={game} key={getGameRouteId(game)} lang={lang} />
-              ))}
+              {newGames.length > 0 ? (
+                newGames.map((game) => (
+                  <ArcadeMiniCard game={game} key={getGameRouteId(game)} lang={lang} />
+                ))
+              ) : (
+                <div className="rounded-lg border border-white/10 bg-white/5 p-4 text-sm text-white/55">
+                  {t.empty}
+                </div>
+              )}
             </HomeRail>
           </section>
 

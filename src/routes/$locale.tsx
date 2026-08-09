@@ -172,11 +172,18 @@ export const Route = createFileRoute('/$locale')({
         filterOptions,
         layoutSeed: getPokiDailyLayoutSeed(),
         latestBlogPosts,
+        latestGames: newArrival.games,
         seoOrigin,
       }
     }
 
-    const [seoOrigin, result, filterOptions, latestBlogPosts] = await Promise.all([
+    const [
+      seoOrigin,
+      result,
+      latestGamesResult,
+      filterOptions,
+      latestBlogPosts,
+    ] = await Promise.all([
       getSeoOrigin(),
       searchGames({
         data: {
@@ -187,6 +194,15 @@ export const Route = createFileRoute('/$locale')({
           sort: getHomeSort(template),
         },
       }).catch(() => emptyGameSearchResult(1, getHomeRequestLimit(template))),
+      searchGames({
+        data: {
+          query: '',
+          limit: 8,
+          locale,
+          page: 1,
+          sort: 'newest',
+        },
+      }).catch(() => emptyGameSearchResult(1, 8)),
       loadGameFilterOptions(),
       loadLatestBlogPosts(),
     ])
@@ -196,6 +212,7 @@ export const Route = createFileRoute('/$locale')({
       filterOptions,
       layoutSeed: getPokiDailyLayoutSeed(),
       latestBlogPosts,
+      latestGames: latestGamesResult.games,
       seoOrigin,
     }
   },
@@ -341,6 +358,7 @@ function LocalizedHomePage() {
     lang,
     layoutSeed: initialResult.layoutSeed,
     latestBlogPosts: initialResult.latestBlogPosts,
+    latestGames: initialResult.latestGames,
     onFilterChange: updateFilter,
     onLoadPage: (nextPage: number) => loadGames(filters, nextPage),
     onQueryChange: (query: string) => {
