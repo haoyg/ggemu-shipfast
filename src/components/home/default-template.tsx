@@ -1,11 +1,14 @@
 import { Link } from '@tanstack/react-router'
-import type { ReactNode } from 'react'
+import { useServerFn } from '@tanstack/react-start'
+import type { FocusEvent, ReactNode } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 import {
   GameCardPreviewVideo,
   gameCardPreviewHandlers,
 } from '#/components/game-card-preview'
 import type { Locale, PublicGame } from '#/lib/ggemu'
+import { searchGames } from '#/lib/ggemu'
 import {
   formatCopy,
   getI18n,
@@ -201,24 +204,14 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
           <section className="border-b border-white/10 px-3 py-3 sm:px-6 sm:py-4 lg:px-8">
             <div className="flex min-w-0 flex-col gap-3 xl:flex-row xl:items-center">
               <form className="min-w-0 flex-1" onSubmit={onSearch}>
-                <label className="input input-md flex w-full min-w-0 max-w-full items-center gap-2 border-2 border-primary/70 bg-base-100 text-base-content shadow-[0_0_0_3px_rgba(236,72,153,0.14)] sm:input-lg sm:gap-3 sm:shadow-[0_0_0_4px_rgba(236,72,153,0.16)]">
-                  <i className="ri-search-line text-xl text-primary sm:text-2xl" />
-                  <input
-                    aria-label={t.search}
-                    className="min-w-0 flex-1 text-sm sm:text-base"
-                    onChange={(event) => onQueryChange(event.currentTarget.value)}
-                    placeholder={getSearchPlaceholder(t, pagination.total)}
-                    type="search"
-                    value={filters.query}
-                  />
-                  <button
-                    className="btn btn-primary btn-sm hidden sm:inline-flex"
-                    disabled={isLoading}
-                    type="submit"
-                  >
-                    {t.search}
-                  </button>
-                </label>
+                <HomeSearchSuggest
+                  gameTotal={pagination.total}
+                  isLoading={isLoading}
+                  lang={lang}
+                  onQueryChange={onQueryChange}
+                  query={filters.query}
+                  t={t}
+                />
               </form>
 
               <div className="flex min-w-0 max-w-full gap-2 overflow-x-auto pb-1 [scrollbar-width:none] xl:pb-0 [&::-webkit-scrollbar]:hidden">
@@ -396,6 +389,170 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
         </main>
       </div>
     </div>
+  )
+}
+
+function HomeSearchSuggest({
+  gameTotal,
+  isLoading,
+  lang,
+  onQueryChange,
+  query,
+  t,
+}: {
+  gameTotal: number
+  isLoading: boolean
+  lang: Locale
+  onQueryChange: (query: string) => void
+  query: string
+  t: HomeTemplateProps['t']
+}) {
+  const runSearch = useServerFn(searchGames)
+  const requestIdRef = useRef(0)
+  const [suggestions, setSuggestions] = useState<Array<PublicGame>>([])
+  const [isSuggesting, setIsSuggesting] = useState(false)
+  const [isFocused, setIsFocused] = useState(false)
+  const normalizedQuery = query.trim()
+  const shouldSuggest = normalizedQuery.length >= 2
+  const showSuggestions = isFocused && shouldSuggest
+
+  useEffect(() => {
+    if (!shouldSuggest) {
+      setSuggestions([])
+      setIsSuggesting(false)
+      return
+    }
+
+    const requestId = requestIdRef.current + 1
+    requestIdRef.current = requestId
+    setIsSuggesting(true)
+
+    const timeoutId = window.setTimeout(() => {
+      void runSearch({
+        data: {
+          query: normalizedQuery,
+          limit: 6,
+          locale: lang,
+          page: 1,
+          sort: 'popular',
+        },
+      })
+        .then((result) => {
+          if (requestIdRef.current === requestId) {
+            setSuggestions(result.games)
+          }
+        })
+        .catch(() => {
+          if (requestIdRef.current === requestId) {
+            setSuggestions([])
+          }
+        })
+        .finally(() => {
+          if (requestIdRef.current === requestId) {
+            setIsSuggesting(false)
+          }
+        })
+    }, 220)
+
+    return () => window.clearTimeout(timeoutId)
+  }, [lang, normalizedQuery, runSearch, shouldSuggest])
+
+  function handleBlur(event: FocusEvent<HTMLDivElement>) {
+    if (!event.currentTarget.contains(event.relatedTarget as Node | null)) {
+      setIsFocused(false)
+    }
+  }
+
+  return (
+    <div className="relative" onBlur={handleBlur}>
+      <label className="input input-md flex w-full min-w-0 max-w-full items-center gap-2 border-2 border-primary/70 bg-base-100 text-base-content shadow-[0_0_0_3px_rgba(236,72,153,0.14)] sm:input-lg sm:gap-3 sm:shadow-[0_0_0_4px_rgba(236,72,153,0.16)]">
+        <i className="ri-search-line text-xl text-primary sm:text-2xl" />
+        <input
+          aria-label={t.search}
+          autoComplete="off"
+          className="min-w-0 flex-1 text-sm sm:text-base"
+          onChange={(event) => onQueryChange(event.currentTarget.value)}
+          onFocus={() => setIsFocused(true)}
+          placeholder={getSearchPlaceholder(t, gameTotal)}
+          type="search"
+          value={query}
+        />
+        <button
+          className="btn btn-primary btn-sm hidden sm:inline-flex"
+          disabled={isLoading}
+          type="submit"
+        >
+          {t.search}
+        </button>
+      </label>
+
+      {showSuggestions ? (
+        <div className="absolute left-0 right-0 top-[calc(100%+0.5rem)] z-40 overflow-hidden rounded-lg border border-white/10 bg-neutral/95 shadow-2xl backdrop-blur">
+          {isSuggesting ? (
+            <div className="flex items-center gap-2 px-3 py-3 text-sm text-white/65">
+              <span className="loading loading-spinner loading-xs" />
+              {t.search}
+            </div>
+          ) : suggestions.length > 0 ? (
+            <div className="max-h-[22rem] overflow-y-auto p-2">
+              {suggestions.map((game) => (
+                <SearchSuggestionItem game={game} key={game._id ?? game.url_slug ?? game.name} lang={lang} />
+              ))}
+            </div>
+          ) : (
+            <div className="px-3 py-3 text-sm text-white/60">{t.empty}</div>
+          )}
+        </div>
+      ) : null}
+    </div>
+  )
+}
+
+function SearchSuggestionItem({
+  game,
+  lang,
+}: {
+  game: PublicGame
+  lang: Locale
+}) {
+  const gameId = game.url_slug || game._id || ''
+  const platform = game.platform ? getLocalizedPlatformLabel(game.platform, lang) : ''
+  const category = game.categories?.[0]
+    ? getLocalizedCategoryLabel(game.categories[0], lang)
+    : ''
+
+  return (
+    <Link
+      className="flex min-w-0 items-center gap-3 rounded-md px-2 py-2 text-white transition hover:bg-white/10"
+      params={{ gameId, locale: lang }}
+      search={{}}
+      title={`Play ${game.name} online`}
+      to="/$locale/games/$gameId"
+    >
+      <div className="h-12 w-12 shrink-0 overflow-hidden rounded-md bg-white/10">
+        {game.game_cover ? (
+          <img
+            alt={game.name ?? 'Game cover'}
+            className="h-full w-full object-cover"
+            decoding="async"
+            loading="lazy"
+            src={game.game_cover}
+          />
+        ) : (
+          <div className="grid h-full w-full place-items-center text-[10px] text-white/45">
+            {getRetroCoverFallbackLabel(lang)}
+          </div>
+        )}
+      </div>
+      <div className="min-w-0 flex-1">
+        <div className="truncate text-sm font-semibold">{game.name}</div>
+        <div className="mt-1 flex min-w-0 gap-2 text-xs text-white/50">
+          {platform ? <span className="truncate">{platform}</span> : null}
+          {category ? <span className="truncate">{category}</span> : null}
+        </div>
+      </div>
+      <i className="ri-arrow-right-s-line shrink-0 text-lg text-white/45" />
+    </Link>
   )
 }
 
