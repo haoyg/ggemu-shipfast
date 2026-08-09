@@ -367,6 +367,22 @@ export function SiteFooter({ locale }: { locale: Locale }) {
                 <i className="ri-flashlight-line" />
                 {getPoweredByLabel(locale)}
               </a>
+              <a
+                className="inline-flex items-center"
+                href="https://neeed.directory"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <img
+                  alt="Featured on neeed.directory"
+                  className="h-auto w-[139px]"
+                  decoding="async"
+                  height="40"
+                  loading="lazy"
+                  src="https://neeed.directory/badges/neeed-badge-light.svg"
+                  width="139"
+                />
+              </a>
             </div>
           </section>
 

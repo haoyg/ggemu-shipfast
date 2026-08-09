@@ -151,14 +151,6 @@ export const Route = createRootRoute({
           href: '/manifest.webmanifest',
         },
       ],
-      scripts: [
-        {
-          async: true,
-          'data-cfasync': 'false',
-          'data-zone': '268390',
-          src: 'https://quge5.com/88/tag.min.js',
-        },
-      ],
     }
   },
   component: RootComponent,
