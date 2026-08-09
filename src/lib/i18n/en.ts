@@ -25,9 +25,9 @@ export const enMessages = {
       'Play classic retro games directly in your browser. No downloads required.',
   },
   home: {
-    title: 'Play Classic Retro Games Online',
+    title: 'Play Retro Games Online - No Download Required',
     subtitle:
-      'Play classic retro games from GBA, NES, SNES, PS1, N64, Sega Genesis, Arcade and more directly in your browser. No downloads required.',
+      'Browse 1500+ classic games from NES, SNES, GBA, PS1, Arcade, Sega Genesis and more. Start instantly in your browser with no downloads or sign-up.',
     searchPlaceholder: 'Search by game title, platform, or series...',
     search: 'Search',
     closeSearch: 'Close search',
@@ -59,13 +59,32 @@ export const enMessages = {
     retry: 'Retry',
   },
   homeSeo: {
-    get title() {
-      return `${siteConfig.SITE_SLOGAN} | No Downloads Required`
-    },
+    title:
+      'POKOPIE - Play Retro Games Online Free | NES, SNES, GBA, PS1, Arcade Games',
     description:
-      'Play classic retro games from GBA, NES, SNES, PS1, N64, Sega Genesis, Arcade and more directly in your browser. No downloads required.',
+      'POKOPIE is a browser-based retro games website where you can play NES, SNES, GBA, PS1, Arcade, Sega Genesis and other classic games online free with no download required.',
     keywords:
       'retro games online, play GBA games online, NES games online, SNES games online, PS1 games online, N64 games online, Sega Genesis games, arcade games online, browser emulator games, no download games',
+  },
+  homeContent: {
+    whyTitle: 'Why Play Retro Games Online?',
+    whyBody:
+      'POKOPIE makes classic games easy to revisit without installing emulators, downloading ROM files, or creating an account. Open a game page, press play, and the browser loads the game directly on desktop, tablet, or mobile. The library brings together retro favorites across NES, SNES, Game Boy Advance, PlayStation, Arcade, Sega Genesis, Nintendo 64, and more, so you can browse by platform, search by title, and discover related games from the same era. Online retro gaming is useful for quick nostalgia sessions, classroom breaks, casual competition, and testing games before you decide what to play next. Because each game has its own detail page, you also get clear descriptions, platform information, controls guidance, related titles, and share options instead of a bare iframe with no context.',
+    howTitle: 'How to Play',
+    howSteps: [
+      {
+        title: 'Choose a game',
+        body: 'Search by title or browse a platform such as NES, SNES, GBA, PS1, Arcade, or Sega Genesis.',
+      },
+      {
+        title: 'Open the game page',
+        body: 'Every card leads to a dedicated game page with cover art, details, related games, and a play button.',
+      },
+      {
+        title: 'Start in your browser',
+        body: 'Press Play Now and use the keyboard, touch controls, or a connected gamepad when supported.',
+      },
+    ],
   },
   detail: {
     home: 'Games',

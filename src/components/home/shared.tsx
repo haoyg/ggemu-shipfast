@@ -137,6 +137,48 @@ export function HomeFaqSection({ lang }: { lang: Locale }) {
   )
 }
 
+export function HomeSeoContentSection({ lang }: { lang: Locale }) {
+  const content = getI18n(lang).homeContent
+
+  return (
+    <section className="bg-base-100">
+      <div className="mx-auto grid max-w-7xl gap-5 px-4 py-8 sm:px-6 lg:grid-cols-[minmax(0,1.1fr)_minmax(20rem,0.9fr)] lg:px-8">
+        <article className="rounded-lg border border-base-300 bg-base-100 p-5 shadow-sm">
+          <h2 className="text-2xl font-semibold text-base-content">
+            {content.whyTitle}
+          </h2>
+          <p className="mt-4 text-sm leading-7 text-base-content/70 sm:text-base">
+            {content.whyBody}
+          </p>
+        </article>
+
+        <article className="rounded-lg border border-base-300 bg-base-100 p-5 shadow-sm">
+          <h2 className="text-2xl font-semibold text-base-content">
+            {content.howTitle}
+          </h2>
+          <ol className="mt-4 grid gap-4">
+            {content.howSteps.map((step, index) => (
+              <li className="grid grid-cols-[2rem_minmax(0,1fr)] gap-3" key={step.title}>
+                <span className="grid size-8 place-items-center rounded-full bg-primary text-sm font-bold text-primary-content">
+                  {index + 1}
+                </span>
+                <span>
+                  <span className="block text-sm font-semibold text-base-content">
+                    {step.title}
+                  </span>
+                  <span className="mt-1 block text-sm leading-6 text-base-content/65">
+                    {step.body}
+                  </span>
+                </span>
+              </li>
+            ))}
+          </ol>
+        </article>
+      </div>
+    </section>
+  )
+}
+
 export function SearchForm({
   filterOptions,
   filters,

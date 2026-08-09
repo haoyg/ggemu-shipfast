@@ -53,6 +53,12 @@ export type I18nMessages = {
     description: string
     keywords: string
   }
+  homeContent: {
+    whyTitle: string
+    whyBody: string
+    howTitle: string
+    howSteps: Array<{ title: string; body: string }>
+  }
   detail: {
     home: string
     play: string

@@ -18,6 +18,7 @@ import { siteConfig } from '#/lib/site-config'
 import {
   HomeFaqSection,
   HomeLatestBlogPostsSection,
+  HomeSeoContentSection,
   getSearchPlaceholder,
 } from './shared'
 import { useRecentPlayedGames } from './recent-played-games'
@@ -357,6 +358,7 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
           </section>
 
           <div className="bg-base-100 text-base-content">
+            <HomeSeoContentSection lang={lang} />
             <HomeLatestBlogPostsSection blogPosts={latestBlogPosts} lang={lang} />
             <HomeFaqSection lang={lang} />
           </div>

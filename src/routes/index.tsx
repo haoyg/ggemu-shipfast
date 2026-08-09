@@ -8,7 +8,7 @@ export const Route = createFileRoute('/')({
   }),
   beforeLoad: ({ search }) => {
     throw redirect({
-      params: { locale: 'zh-CN' },
+      params: { locale: 'en' },
       search,
       to: '/$locale',
     })

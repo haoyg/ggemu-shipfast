@@ -58,7 +58,15 @@ describe('i18n messages', () => {
   })
 
   it('uses the primary English search phrase in the homepage heading', () => {
-    expect(getI18n('en').home.title).toBe('Play Classic Retro Games Online')
+    expect(getI18n('en').home.title).toBe(
+      'Play Retro Games Online - No Download Required',
+    )
+    expect(getI18n('en').homeSeo.title).toBe(
+      'POKOPIE - Play Retro Games Online Free | NES, SNES, GBA, PS1, Arcade Games',
+    )
+    expect(getI18n('en').homeContent.whyTitle).toBe(
+      'Why Play Retro Games Online?',
+    )
   })
 
   it('builds localized game detail FAQ and SEO text', () => {
