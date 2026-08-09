@@ -68,6 +68,11 @@ export type I18nMessages = {
     share: string
     generatePoster: string
     systemShare: string
+    copyEmbedCode: string
+    embedCodeCopied: string
+    embedCardTitle: string
+    embedCardDescription: string
+    embedCodeLabel: string
     posterTitle: string
     downloadPoster: string
     posterScanCta: string

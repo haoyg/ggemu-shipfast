@@ -85,6 +85,12 @@ export const jaMessages = {
     share: '共有',
     generatePoster: 'ポスターを生成',
     systemShare: 'システム共有',
+    copyEmbedCode: '埋め込みコードをコピー',
+    embedCodeCopied: '埋め込みコードをコピーしました。',
+    embedCardTitle: 'このゲームを埋め込む',
+    embedCardDescription:
+      '他のサイトにこのプレイ可能なゲームを表示し、POKOPIE へのリンクを残せます。',
+    embedCodeLabel: 'Iframe 埋め込みコード',
     posterTitle: '共有ポスター',
     downloadPoster: 'ポスターをダウンロード',
     posterScanCta: 'スキャンしてすぐプレイ。ダウンロード不要',

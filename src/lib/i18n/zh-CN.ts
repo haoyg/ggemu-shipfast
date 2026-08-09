@@ -84,6 +84,12 @@ export const zhCnMessages = {
     share: '分享',
     generatePoster: '生成海报',
     systemShare: '系统分享',
+    copyEmbedCode: '复制嵌入代码',
+    embedCodeCopied: '嵌入代码已复制。',
+    embedCardTitle: '嵌入这个游戏',
+    embedCardDescription:
+      '让其他网站把这个可玩的游戏放到页面里，并保留指向 POKOPIE 的回链。',
+    embedCodeLabel: 'Iframe 嵌入代码',
     posterTitle: '分享海报',
     downloadPoster: '下载海报',
     posterScanCta: '扫码立即游戏，无需下载',

@@ -7,6 +7,7 @@ const ALLOWED_IMAGE_HOSTS = new Set([
   'www.pokopie.com',
   'ggemu.com',
   'www.ggemu.com',
+  'storage.ggemu.com',
   'storage.134x.com',
   'pbs.twimg.com',
 ])

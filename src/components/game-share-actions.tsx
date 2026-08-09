@@ -10,10 +10,12 @@ import { getI18n } from '#/lib/i18n'
 
 export function GameShareActions({
   canonicalUrl,
+  embedUrl,
   game,
   labels,
 }: {
   canonicalUrl: string
+  embedUrl: string
   game: PublicGame
   labels: ReturnType<typeof getI18n>['detail']
 }) {
@@ -87,6 +89,16 @@ export function GameShareActions({
     setShareMessage(labels.shareUnavailableCopied)
   }
 
+  async function handleCopyEmbedCode() {
+    closeDropdown()
+    await navigator.clipboard?.writeText(buildEmbedCode({
+      canonicalUrl,
+      embedUrl,
+      title,
+    })).catch(() => undefined)
+    setShareMessage(labels.embedCodeCopied)
+  }
+
   return (
     <>
       <details className="dropdown" ref={dropdownRef}>
@@ -109,6 +121,12 @@ export function GameShareActions({
             <button onClick={() => void handleSystemShare()} type="button">
               <i className="ri-share-forward-line" />
               {labels.systemShare}
+            </button>
+          </li>
+          <li>
+            <button onClick={() => void handleCopyEmbedCode()} type="button">
+              <i className="ri-code-box-line" />
+              {labels.copyEmbedCode}
             </button>
           </li>
         </ul>
@@ -136,6 +154,100 @@ export function GameShareActions({
       ) : null}
     </>
   )
+}
+
+export function GameEmbedCard({
+  canonicalUrl,
+  embedUrl,
+  labels,
+  title,
+}: {
+  canonicalUrl: string
+  embedUrl: string
+  labels: ReturnType<typeof getI18n>['detail']
+  title: string
+}) {
+  const [message, setMessage] = useState('')
+  const embedCode = buildEmbedCode({
+    canonicalUrl,
+    embedUrl,
+    title,
+  })
+
+  async function handleCopyEmbedCode() {
+    await navigator.clipboard?.writeText(embedCode).catch(() => undefined)
+    setMessage(labels.embedCodeCopied)
+  }
+
+  return (
+    <section className="rounded-box border border-primary/20 bg-primary/5 p-4 sm:max-w-2xl">
+      <div className="flex items-start gap-3">
+        <span className="grid size-10 shrink-0 place-items-center rounded-box bg-primary text-primary-content">
+          <i aria-hidden="true" className="ri-code-box-line text-xl" />
+        </span>
+        <div className="min-w-0">
+          <h2 className="text-base font-semibold">{labels.embedCardTitle}</h2>
+          <p className="mt-1 text-sm leading-6 text-base-content/70">
+            {labels.embedCardDescription}
+          </p>
+        </div>
+      </div>
+
+      <label className="label mt-3 pb-1" htmlFor="game-embed-code">
+        <span className="label-text text-xs font-medium uppercase tracking-wide text-base-content/60">
+          {labels.embedCodeLabel}
+        </span>
+      </label>
+      <textarea
+        aria-label={labels.embedCodeLabel}
+        className="textarea textarea-bordered min-h-24 w-full resize-none bg-base-100 font-mono text-xs leading-5"
+        id="game-embed-code"
+        onFocus={(event) => event.currentTarget.select()}
+        readOnly
+        value={embedCode}
+      />
+      <div className="mt-3 flex flex-wrap items-center gap-3">
+        <button
+          className="btn btn-primary btn-sm"
+          onClick={() => void handleCopyEmbedCode()}
+          type="button"
+        >
+          <i aria-hidden="true" className="ri-file-copy-line" />
+          {labels.copyEmbedCode}
+        </button>
+        {message ? (
+          <p aria-live="polite" className="text-sm text-success" role="status">
+            {message}
+          </p>
+        ) : null}
+      </div>
+    </section>
+  )
+}
+
+function buildEmbedCode({
+  canonicalUrl,
+  embedUrl,
+  title,
+}: {
+  canonicalUrl: string
+  embedUrl: string
+  title: string
+}) {
+  const escapedTitle = escapeHtmlAttribute(title)
+  const escapedEmbedUrl = escapeHtmlAttribute(embedUrl)
+  const escapedCanonicalUrl = escapeHtmlAttribute(canonicalUrl)
+
+  return `<iframe src="${escapedEmbedUrl}" width="800" height="600" style="border:0;max-width:100%;aspect-ratio:4/3;" allow="autoplay; gamepad; fullscreen" allowfullscreen title="${escapedTitle}"></iframe>
+<p>Play ${escapedTitle} on <a href="${escapedCanonicalUrl}" target="_blank" rel="noopener">POKOPIE</a></p>`
+}
+
+function escapeHtmlAttribute(value: string) {
+  return value
+    .replace(/&/g, '&amp;')
+    .replace(/"/g, '&quot;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
 }
 
 function PosterModal({

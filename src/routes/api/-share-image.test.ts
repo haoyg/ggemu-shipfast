@@ -7,6 +7,9 @@ describe('share image proxy guards', () => {
     expect(isAllowedShareImageUrl(new URL('https://storage.134x.com/games/demo/game_cover.jpg'))).toBe(
       true,
     )
+    expect(isAllowedShareImageUrl(new URL('https://storage.ggemu.com/games/demo/game_cover.jpg'))).toBe(
+      true,
+    )
     expect(isAllowedShareImageUrl(new URL('https://pokopie.com/og.png'))).toBe(true)
   })
 
@@ -26,6 +29,13 @@ describe('share image proxy guards', () => {
         ),
       ),
     ).toBe('https://storage.134x.com/games/demo/game_cover.jpg')
+    expect(
+      getImageUrl(
+        new URL(
+          'https://pokopie.com/api/share-image?url=https%3A%2F%2Fstorage.ggemu.com%2Fgames%2Fdemo%2Fgame_cover.jpg',
+        ),
+      ),
+    ).toBe('https://storage.ggemu.com/games/demo/game_cover.jpg')
     expect(getImageUrl(new URL('https://pokopie.com/api/share-image?url=https%3A%2F%2Fexample.com'))).toBe(
       '',
     )

@@ -7,7 +7,7 @@ import {
   useRouterState,
 } from '@tanstack/react-router'
 import { GameInstallButton } from '#/components/game-install-button'
-import { GameShareActions } from '#/components/game-share-actions'
+import { GameEmbedCard, GameShareActions } from '#/components/game-share-actions'
 import { EmbeddedGamePlayer } from '#/components/embedded-game-player'
 import {
   GameCardPreviewVideo,
@@ -195,6 +195,14 @@ function buildGamePlayPath(locale: Locale, gameId: string) {
   return `/${locale}/games/${encodeURIComponent(gameId)}/play`
 }
 
+function buildGameEmbedUrl(canonicalUrl: string, locale: Locale, gameId: string) {
+  const url = new URL(`/embed/${locale}/games/${encodeURIComponent(gameId)}`, canonicalUrl)
+
+  url.searchParams.set('utm_source', 'embed')
+  url.searchParams.set('utm_medium', 'iframe')
+  return url.toString()
+}
+
 function buildGameManifestHref(locale: Locale) {
   const params = new URLSearchParams({
     locale,
@@ -345,6 +353,7 @@ function LocalizedGameDetailPage() {
   const howToPlayParagraphs = getGameHowToPlayParagraphs(game, lang)
   const sidebarContent = getGameSidebarContent(game, lang)
   const playPath = buildGamePlayPath(lang, gameId)
+  const embedUrl = buildGameEmbedUrl(canonicalUrl, lang, gameId)
   const manifestHref = buildGameManifestHref(lang)
   const targetedSeo = getTargetedGameSeo(game, lang)
 
@@ -442,11 +451,19 @@ function LocalizedGameDetailPage() {
                   <GameInstallButton labels={t} manifestHref={manifestHref} />
                   <GameShareActions
                     canonicalUrl={canonicalUrl}
+                    embedUrl={embedUrl}
                     game={game}
                     labels={t}
                   />
                 </div>
               </div>
+
+              <GameEmbedCard
+                canonicalUrl={canonicalUrl}
+                embedUrl={embedUrl}
+                labels={t}
+                title={game.name || 'POKOPIE'}
+              />
 
               <div className="grid grid-cols-2 gap-4 text-left sm:max-w-md sm:gap-6">
                 <Stat label={t.plays} value={game.plays_count ?? 0} />

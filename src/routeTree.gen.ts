@@ -30,6 +30,7 @@ import { Route as LocaleAboutRouteImport } from './routes/$locale.about'
 import { Route as GamesGameIdPlayRouteImport } from './routes/games/$gameId/play'
 import { Route as LocaleGamesGameIdRouteImport } from './routes/$locale.games.$gameId'
 import { Route as LocaleBlogBlogIdRouteImport } from './routes/$locale.blog.$blogId'
+import { Route as EmbedLocaleGamesGameIdRouteImport } from './routes/embed.$locale.games.$gameId'
 import { Route as LocaleGamesGameIdPlayRouteImport } from './routes/$locale.games.$gameId.play'
 
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
@@ -137,6 +138,11 @@ const LocaleBlogBlogIdRoute = LocaleBlogBlogIdRouteImport.update({
   path: '/$blogId',
   getParentRoute: () => LocaleBlogRoute,
 } as any)
+const EmbedLocaleGamesGameIdRoute = EmbedLocaleGamesGameIdRouteImport.update({
+  id: '/embed/$locale/games/$gameId',
+  path: '/embed/$locale/games/$gameId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const LocaleGamesGameIdPlayRoute = LocaleGamesGameIdPlayRouteImport.update({
   id: '/play',
   path: '/play',
@@ -166,6 +172,7 @@ export interface FileRoutesByFullPath {
   '/$locale/games/$gameId': typeof LocaleGamesGameIdRouteWithChildren
   '/games/$gameId/play': typeof GamesGameIdPlayRoute
   '/$locale/games/$gameId/play': typeof LocaleGamesGameIdPlayRoute
+  '/embed/$locale/games/$gameId': typeof EmbedLocaleGamesGameIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -190,6 +197,7 @@ export interface FileRoutesByTo {
   '/$locale/games/$gameId': typeof LocaleGamesGameIdRouteWithChildren
   '/games/$gameId/play': typeof GamesGameIdPlayRoute
   '/$locale/games/$gameId/play': typeof LocaleGamesGameIdPlayRoute
+  '/embed/$locale/games/$gameId': typeof EmbedLocaleGamesGameIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -215,6 +223,7 @@ export interface FileRoutesById {
   '/$locale/games/$gameId': typeof LocaleGamesGameIdRouteWithChildren
   '/games/$gameId/play': typeof GamesGameIdPlayRoute
   '/$locale/games/$gameId/play': typeof LocaleGamesGameIdPlayRoute
+  '/embed/$locale/games/$gameId': typeof EmbedLocaleGamesGameIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -241,6 +250,7 @@ export interface FileRouteTypes {
     | '/$locale/games/$gameId'
     | '/games/$gameId/play'
     | '/$locale/games/$gameId/play'
+    | '/embed/$locale/games/$gameId'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -265,6 +275,7 @@ export interface FileRouteTypes {
     | '/$locale/games/$gameId'
     | '/games/$gameId/play'
     | '/$locale/games/$gameId/play'
+    | '/embed/$locale/games/$gameId'
   id:
     | '__root__'
     | '/'
@@ -289,6 +300,7 @@ export interface FileRouteTypes {
     | '/$locale/games/$gameId'
     | '/games/$gameId/play'
     | '/$locale/games/$gameId/play'
+    | '/embed/$locale/games/$gameId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -303,6 +315,7 @@ export interface RootRouteChildren {
   EnArcadeGamesRoute: typeof EnArcadeGamesRoute
   EnPs1GamesRoute: typeof EnPs1GamesRoute
   GamesGameIdRoute: typeof GamesGameIdRouteWithChildren
+  EmbedLocaleGamesGameIdRoute: typeof EmbedLocaleGamesGameIdRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -454,6 +467,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LocaleBlogBlogIdRouteImport
       parentRoute: typeof LocaleBlogRoute
     }
+    '/embed/$locale/games/$gameId': {
+      id: '/embed/$locale/games/$gameId'
+      path: '/embed/$locale/games/$gameId'
+      fullPath: '/embed/$locale/games/$gameId'
+      preLoaderRoute: typeof EmbedLocaleGamesGameIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/$locale/games/$gameId/play': {
       id: '/$locale/games/$gameId/play'
       path: '/play'
@@ -536,6 +556,7 @@ const rootRouteChildren: RootRouteChildren = {
   EnArcadeGamesRoute: EnArcadeGamesRoute,
   EnPs1GamesRoute: EnPs1GamesRoute,
   GamesGameIdRoute: GamesGameIdRouteWithChildren,
+  EmbedLocaleGamesGameIdRoute: EmbedLocaleGamesGameIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

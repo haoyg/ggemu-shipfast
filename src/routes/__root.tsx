@@ -21,6 +21,11 @@ const rootSecurityHeaders = {
   'X-Content-Type-Options': 'nosniff',
   'X-Frame-Options': 'SAMEORIGIN',
 } as const
+const embeddableRootSecurityHeaders = {
+  'Referrer-Policy': rootSecurityHeaders['Referrer-Policy'],
+  'Strict-Transport-Security': rootSecurityHeaders['Strict-Transport-Security'],
+  'X-Content-Type-Options': rootSecurityHeaders['X-Content-Type-Options'],
+} as const
 const defaultRootSeo = {
   title: '在线玩经典复古游戏 | POKOPIE',
   description:
@@ -50,7 +55,10 @@ function getPwaInstallInitScript() {
 }
 
 export const Route = createRootRoute({
-  headers: () => rootSecurityHeaders,
+  headers: ({ matches }) =>
+    matches.some((match) => String(match.routeId).startsWith('/embed/'))
+      ? embeddableRootSecurityHeaders
+      : rootSecurityHeaders,
   loader: () => getSeoOrigin(),
   head: ({ loaderData }) => {
     const defaultSocialImage = getDefaultSocialImage(loaderData)

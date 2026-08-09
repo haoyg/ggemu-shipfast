@@ -375,12 +375,28 @@ export function SiteFooter({ locale }: { locale: Locale }) {
               >
                 <img
                   alt="Featured on neeed.directory"
-                  className="h-auto w-[139px]"
+                  className="h-[40px] w-auto"
                   decoding="async"
                   height="40"
                   loading="lazy"
                   src="https://neeed.directory/badges/neeed-badge-light.svg"
                   width="139"
+                />
+              </a>
+              <a
+                className="inline-flex items-center"
+                href="https://navfolders.com"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <img
+                  alt="NavFolders"
+                  className="h-[40px] w-auto"
+                  decoding="async"
+                  height="54"
+                  loading="lazy"
+                  src="https://navfolders.com/badge/nav_dark.svg"
+                  width="200"
                 />
               </a>
             </div>

@@ -87,6 +87,12 @@ export const enMessages = {
     share: 'Share',
     generatePoster: 'Generate Poster',
     systemShare: 'System Share',
+    copyEmbedCode: 'Copy Embed Code',
+    embedCodeCopied: 'Embed code copied.',
+    embedCardTitle: 'Embed This Game',
+    embedCardDescription:
+      'Let other websites place this playable game on their page with a backlink to POKOPIE.',
+    embedCodeLabel: 'Iframe embed code',
     posterTitle: 'Share Poster',
     downloadPoster: 'Download Poster',
     posterScanCta: 'Scan to play instantly. No download needed.',
