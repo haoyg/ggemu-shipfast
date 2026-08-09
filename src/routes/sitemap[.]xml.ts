@@ -10,6 +10,14 @@ const SITEMAP_CACHE_TTL_MS = 1000 * 60 * 60 * 24
 const SITEMAP_FETCH_CONCURRENCY = 6
 const SITEMAP_REQUEST_TIMEOUT_MS = 5_000
 const locales = ['zh-CN', 'en', 'ja'] as const satisfies ReadonlyArray<Locale>
+const englishCollectionPaths = [
+  '/arcade-games',
+  '/gba-games',
+  '/nes-games',
+  '/ps1-games',
+  '/sega-genesis-games',
+  '/snes-games',
+] as const
 
 let sitemapCache: {
   createdAt: number
@@ -239,23 +247,16 @@ function buildSitemapEntries(
 ) {
   const entries: Array<SitemapEntry> = []
 
-  entries.push({
-    alternateLocales: ['en'],
-    locale: 'en',
-    loc: toAbsoluteLocalizedUrl(origin, 'en', '/ps1-games'),
-    path: '/ps1-games',
-    changefreq: 'weekly',
-    priority: 0.9,
-  })
-
-  entries.push({
-    alternateLocales: ['en'],
-    locale: 'en',
-    loc: toAbsoluteLocalizedUrl(origin, 'en', '/arcade-games'),
-    path: '/arcade-games',
-    changefreq: 'weekly',
-    priority: 0.9,
-  })
+  for (const path of englishCollectionPaths) {
+    entries.push({
+      alternateLocales: ['en'],
+      locale: 'en',
+      loc: toAbsoluteLocalizedUrl(origin, 'en', path),
+      path,
+      changefreq: 'weekly',
+      priority: 0.9,
+    })
+  }
 
   for (const locale of locales) {
     entries.push({
