@@ -16,7 +16,11 @@ import { Route as ManifestDotwebmanifestRouteImport } from './routes/manifest[.]
 import { Route as LocaleRouteImport } from './routes/$locale'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as GamesGameIdRouteImport } from './routes/games/$gameId'
+import { Route as EnSnesGamesRouteImport } from './routes/en.snes-games'
+import { Route as EnSegaGenesisGamesRouteImport } from './routes/en.sega-genesis-games'
 import { Route as EnPs1GamesRouteImport } from './routes/en.ps1-games'
+import { Route as EnNesGamesRouteImport } from './routes/en.nes-games'
+import { Route as EnGbaGamesRouteImport } from './routes/en.gba-games'
 import { Route as EnArcadeGamesRouteImport } from './routes/en.arcade-games'
 import { Route as ApiShareImageRouteImport } from './routes/api/share-image'
 import { Route as ApiHealthRouteImport } from './routes/api/health'
@@ -68,9 +72,29 @@ const GamesGameIdRoute = GamesGameIdRouteImport.update({
   path: '/games/$gameId',
   getParentRoute: () => rootRouteImport,
 } as any)
+const EnSnesGamesRoute = EnSnesGamesRouteImport.update({
+  id: '/en/snes-games',
+  path: '/en/snes-games',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EnSegaGenesisGamesRoute = EnSegaGenesisGamesRouteImport.update({
+  id: '/en/sega-genesis-games',
+  path: '/en/sega-genesis-games',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const EnPs1GamesRoute = EnPs1GamesRouteImport.update({
   id: '/en/ps1-games',
   path: '/en/ps1-games',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EnNesGamesRoute = EnNesGamesRouteImport.update({
+  id: '/en/nes-games',
+  path: '/en/nes-games',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EnGbaGamesRoute = EnGbaGamesRouteImport.update({
+  id: '/en/gba-games',
+  path: '/en/gba-games',
   getParentRoute: () => rootRouteImport,
 } as any)
 const EnArcadeGamesRoute = EnArcadeGamesRouteImport.update({
@@ -166,7 +190,11 @@ export interface FileRoutesByFullPath {
   '/api/health': typeof ApiHealthRoute
   '/api/share-image': typeof ApiShareImageRoute
   '/en/arcade-games': typeof EnArcadeGamesRoute
+  '/en/gba-games': typeof EnGbaGamesRoute
+  '/en/nes-games': typeof EnNesGamesRoute
   '/en/ps1-games': typeof EnPs1GamesRoute
+  '/en/sega-genesis-games': typeof EnSegaGenesisGamesRoute
+  '/en/snes-games': typeof EnSnesGamesRoute
   '/games/$gameId': typeof GamesGameIdRouteWithChildren
   '/$locale/blog/$blogId': typeof LocaleBlogBlogIdRoute
   '/$locale/games/$gameId': typeof LocaleGamesGameIdRouteWithChildren
@@ -191,7 +219,11 @@ export interface FileRoutesByTo {
   '/api/health': typeof ApiHealthRoute
   '/api/share-image': typeof ApiShareImageRoute
   '/en/arcade-games': typeof EnArcadeGamesRoute
+  '/en/gba-games': typeof EnGbaGamesRoute
+  '/en/nes-games': typeof EnNesGamesRoute
   '/en/ps1-games': typeof EnPs1GamesRoute
+  '/en/sega-genesis-games': typeof EnSegaGenesisGamesRoute
+  '/en/snes-games': typeof EnSnesGamesRoute
   '/games/$gameId': typeof GamesGameIdRouteWithChildren
   '/$locale/blog/$blogId': typeof LocaleBlogBlogIdRoute
   '/$locale/games/$gameId': typeof LocaleGamesGameIdRouteWithChildren
@@ -217,7 +249,11 @@ export interface FileRoutesById {
   '/api/health': typeof ApiHealthRoute
   '/api/share-image': typeof ApiShareImageRoute
   '/en/arcade-games': typeof EnArcadeGamesRoute
+  '/en/gba-games': typeof EnGbaGamesRoute
+  '/en/nes-games': typeof EnNesGamesRoute
   '/en/ps1-games': typeof EnPs1GamesRoute
+  '/en/sega-genesis-games': typeof EnSegaGenesisGamesRoute
+  '/en/snes-games': typeof EnSnesGamesRoute
   '/games/$gameId': typeof GamesGameIdRouteWithChildren
   '/$locale/blog/$blogId': typeof LocaleBlogBlogIdRoute
   '/$locale/games/$gameId': typeof LocaleGamesGameIdRouteWithChildren
@@ -244,7 +280,11 @@ export interface FileRouteTypes {
     | '/api/health'
     | '/api/share-image'
     | '/en/arcade-games'
+    | '/en/gba-games'
+    | '/en/nes-games'
     | '/en/ps1-games'
+    | '/en/sega-genesis-games'
+    | '/en/snes-games'
     | '/games/$gameId'
     | '/$locale/blog/$blogId'
     | '/$locale/games/$gameId'
@@ -269,7 +309,11 @@ export interface FileRouteTypes {
     | '/api/health'
     | '/api/share-image'
     | '/en/arcade-games'
+    | '/en/gba-games'
+    | '/en/nes-games'
     | '/en/ps1-games'
+    | '/en/sega-genesis-games'
+    | '/en/snes-games'
     | '/games/$gameId'
     | '/$locale/blog/$blogId'
     | '/$locale/games/$gameId'
@@ -294,7 +338,11 @@ export interface FileRouteTypes {
     | '/api/health'
     | '/api/share-image'
     | '/en/arcade-games'
+    | '/en/gba-games'
+    | '/en/nes-games'
     | '/en/ps1-games'
+    | '/en/sega-genesis-games'
+    | '/en/snes-games'
     | '/games/$gameId'
     | '/$locale/blog/$blogId'
     | '/$locale/games/$gameId'
@@ -313,7 +361,11 @@ export interface RootRouteChildren {
   ApiHealthRoute: typeof ApiHealthRoute
   ApiShareImageRoute: typeof ApiShareImageRoute
   EnArcadeGamesRoute: typeof EnArcadeGamesRoute
+  EnGbaGamesRoute: typeof EnGbaGamesRoute
+  EnNesGamesRoute: typeof EnNesGamesRoute
   EnPs1GamesRoute: typeof EnPs1GamesRoute
+  EnSegaGenesisGamesRoute: typeof EnSegaGenesisGamesRoute
+  EnSnesGamesRoute: typeof EnSnesGamesRoute
   GamesGameIdRoute: typeof GamesGameIdRouteWithChildren
   EmbedLocaleGamesGameIdRoute: typeof EmbedLocaleGamesGameIdRoute
 }
@@ -369,11 +421,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof GamesGameIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/en/snes-games': {
+      id: '/en/snes-games'
+      path: '/en/snes-games'
+      fullPath: '/en/snes-games'
+      preLoaderRoute: typeof EnSnesGamesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/en/sega-genesis-games': {
+      id: '/en/sega-genesis-games'
+      path: '/en/sega-genesis-games'
+      fullPath: '/en/sega-genesis-games'
+      preLoaderRoute: typeof EnSegaGenesisGamesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/en/ps1-games': {
       id: '/en/ps1-games'
       path: '/en/ps1-games'
       fullPath: '/en/ps1-games'
       preLoaderRoute: typeof EnPs1GamesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/en/nes-games': {
+      id: '/en/nes-games'
+      path: '/en/nes-games'
+      fullPath: '/en/nes-games'
+      preLoaderRoute: typeof EnNesGamesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/en/gba-games': {
+      id: '/en/gba-games'
+      path: '/en/gba-games'
+      fullPath: '/en/gba-games'
+      preLoaderRoute: typeof EnGbaGamesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/en/arcade-games': {
@@ -554,7 +634,11 @@ const rootRouteChildren: RootRouteChildren = {
   ApiHealthRoute: ApiHealthRoute,
   ApiShareImageRoute: ApiShareImageRoute,
   EnArcadeGamesRoute: EnArcadeGamesRoute,
+  EnGbaGamesRoute: EnGbaGamesRoute,
+  EnNesGamesRoute: EnNesGamesRoute,
   EnPs1GamesRoute: EnPs1GamesRoute,
+  EnSegaGenesisGamesRoute: EnSegaGenesisGamesRoute,
+  EnSnesGamesRoute: EnSnesGamesRoute,
   GamesGameIdRoute: GamesGameIdRouteWithChildren,
   EmbedLocaleGamesGameIdRoute: EmbedLocaleGamesGameIdRoute,
 }

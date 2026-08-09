@@ -8,6 +8,15 @@ import { getPoweredByLabel } from '#/lib/locale-labels'
 import { siteConfig } from '#/lib/site-config'
 import { getSiteThemes, normalizeSiteTheme } from '#/lib/site-themes'
 
+const platformNavLinks = [
+  { href: '/en/nes-games', label: 'NES' },
+  { href: '/en/snes-games', label: 'SNES' },
+  { href: '/en/gba-games', label: 'GBA' },
+  { href: '/en/ps1-games', label: 'PS1' },
+  { href: '/en/arcade-games', label: 'Arcade' },
+  { href: '/en/sega-genesis-games', label: 'Sega Genesis' },
+] as const
+
 export function SiteLayout({
   children,
   headerActions,
@@ -117,6 +126,13 @@ export function SiteLayout({
                     {t.games}
                   </Link>
                 </li>
+                {platformNavLinks.map((link) => (
+                  <li key={link.href}>
+                    <a href={link.href} title={`Play ${link.label} games online`}>
+                      {link.label}
+                    </a>
+                  </li>
+                ))}
                 <li>
                   <Link params={{ locale }} to="/$locale/play-my-rom">
                     <i className="ri-gamepad-line" />
@@ -258,6 +274,16 @@ export function SiteLayout({
               locale={locale}
               to="/$locale"
             />
+            {platformNavLinks.slice(0, 5).map((link) => (
+              <a
+                className="btn btn-ghost btn-sm shrink-0 gap-2 whitespace-nowrap"
+                href={link.href}
+                key={link.href}
+                title={`Play ${link.label} games online`}
+              >
+                {link.label}
+              </a>
+            ))}
             <HeaderMobileLink
               icon="ri-live-line"
               label={t.live}

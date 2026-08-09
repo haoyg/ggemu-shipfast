@@ -62,8 +62,8 @@ const preferredPlatforms = [
   'NES',
   'SNES',
   'PlayStation 1',
-  'Nintendo 64',
   'ARCADE',
+  'Sega Genesis',
 ]
 
 const platformAliases: Record<string, Array<string>> = {
@@ -72,7 +72,25 @@ const platformAliases: Record<string, Array<string>> = {
   NES: ['NES', 'Nintendo Entertainment System'],
   'Nintendo 64': ['Nintendo 64', 'N64'],
   'PlayStation 1': ['PlayStation 1', 'PS1', 'PlayStation'],
+  'Sega Genesis': ['Sega Genesis', 'Genesis'],
   SNES: ['SNES', 'Super Nintendo', 'Super Famicom'],
+}
+
+const platformSeoPaths: Record<string, string> = {
+  ARCADE: '/en/arcade-games',
+  Arcade: '/en/arcade-games',
+  'Game Boy Advance': '/en/gba-games',
+  GBA: '/en/gba-games',
+  Genesis: '/en/sega-genesis-games',
+  NES: '/en/nes-games',
+  'Nintendo Entertainment System': '/en/nes-games',
+  'PlayStation 1': '/en/ps1-games',
+  PlayStation: '/en/ps1-games',
+  PS1: '/en/ps1-games',
+  'Sega Genesis': '/en/sega-genesis-games',
+  SNES: '/en/snes-games',
+  'Super Famicom': '/en/snes-games',
+  'Super Nintendo': '/en/snes-games',
 }
 
 export function DefaultHomeTemplate(props: HomeTemplateProps) {
@@ -333,15 +351,15 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
             </div>
             <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
               {platformCards.map((platform) => (
-                <button
+                <a
                   className={`group flex items-center justify-between rounded-lg border p-4 text-left transition hover:border-primary/60 hover:bg-white/10 ${
                     filters.platform === platform.name
                       ? 'border-primary/70 bg-primary/15'
                       : 'border-white/10 bg-white/5'
                   }`}
+                  href={platform.seoPath}
                   key={platform.name}
-                  onClick={() => handlePlatformChange(platform.name)}
-                  type="button"
+                  title={`Play ${platform.shortLabel} games online`}
                 >
                   <span>
                     <span className="block text-base font-bold text-white">
@@ -352,7 +370,7 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
                     </span>
                   </span>
                   <i className="ri-arrow-right-s-line text-2xl text-white/40 transition group-hover:translate-x-1 group-hover:text-primary" />
-                </button>
+                </a>
               ))}
             </div>
           </section>
@@ -472,6 +490,7 @@ function ArcadeGameCard({
       {...gameCardPreviewHandlers}
       params={{ gameId, locale: lang }}
       search={{}}
+      title={`Play ${gameName} online`}
       to="/$locale/games/$gameId"
     >
       <ArcadeCover
@@ -512,6 +531,7 @@ function ArcadeMiniCard({ game, lang }: { game: PublicGame; lang: Locale }) {
       className="group w-48 min-w-0 shrink-0 overflow-hidden rounded-lg border border-white/10 bg-white/5 transition hover:border-primary/60 hover:bg-white/10"
       params={{ gameId, locale: lang }}
       search={{}}
+      title={`Play ${gameName} online`}
       to="/$locale/games/$gameId"
     >
       <ArcadeCover alt={gameName} className="aspect-[4/3]" cover={game.game_cover} lang={lang} />
@@ -572,8 +592,10 @@ function getPlatformChips(
     .map((platform) => ({
       label: getLocalizedPlatformLabel(platform.name, lang),
       name: platform.name,
+      seoPath: getPlatformSeoPath(platform.name),
       shortLabel: getPlatformShortLabel(platform.name, lang),
     }))
+    .filter((platform) => Boolean(platform.seoPath))
 }
 
 function platformMatches(platformName: string, preferredPlatform: string) {
@@ -616,4 +638,8 @@ function getKnownPlatformShortLabel(platform: string, lang: Locale) {
     localizedPlatformShortLabels[lang]?.[platform] ??
     platformShortLabels[platform]
   )
+}
+
+function getPlatformSeoPath(platform: string) {
+  return platformSeoPaths[platform] ?? '/en'
 }
