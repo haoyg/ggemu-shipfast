@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as TopIdleGamesRouteImport } from './routes/top-idle-games'
 import { Route as SnesGamesRouteImport } from './routes/snes-games'
 import { Route as SnesRouteImport } from './routes/snes'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
@@ -26,6 +27,9 @@ import { Route as N64RouteImport } from './routes/n64'
 import { Route as ManifestDotwebmanifestRouteImport } from './routes/manifest[.]webmanifest'
 import { Route as GbaGamesRouteImport } from './routes/gba-games'
 import { Route as GbaRouteImport } from './routes/gba'
+import { Route as FunQuizDothtmlRouteImport } from './routes/fun-quiz[.]html'
+import { Route as FunQuizRouteImport } from './routes/fun-quiz'
+import { Route as BestUnblockedGamesRouteImport } from './routes/best-unblocked-games'
 import { Route as ArcadeGamesRouteImport } from './routes/arcade-games'
 import { Route as ArcadeRouteImport } from './routes/arcade'
 import { Route as LocaleRouteImport } from './routes/$locale'
@@ -47,6 +51,7 @@ import { Route as EnGbaGamesRouteImport } from './routes/en.gba-games'
 import { Route as EnGbaRouteImport } from './routes/en.gba'
 import { Route as EnArcadeGamesRouteImport } from './routes/en.arcade-games'
 import { Route as EnArcadeRouteImport } from './routes/en.arcade'
+import { Route as ArticlesHowToPlayGamesOnlineWithoutDownloadingRouteImport } from './routes/articles.how-to-play-games-online-without-downloading'
 import { Route as ApiShareImageRouteImport } from './routes/api/share-image'
 import { Route as ApiHealthRouteImport } from './routes/api/health'
 import { Route as LocaleTermsOfServiceRouteImport } from './routes/$locale.terms-of-service'
@@ -62,6 +67,11 @@ import { Route as LocaleBlogBlogIdRouteImport } from './routes/$locale.blog.$blo
 import { Route as EmbedLocaleGamesGameIdRouteImport } from './routes/embed.$locale.games.$gameId'
 import { Route as LocaleGamesGameIdPlayRouteImport } from './routes/$locale.games.$gameId.play'
 
+const TopIdleGamesRoute = TopIdleGamesRouteImport.update({
+  id: '/top-idle-games',
+  path: '/top-idle-games',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SnesGamesRoute = SnesGamesRouteImport.update({
   id: '/snes-games',
   path: '/snes-games',
@@ -145,6 +155,21 @@ const GbaGamesRoute = GbaGamesRouteImport.update({
 const GbaRoute = GbaRouteImport.update({
   id: '/gba',
   path: '/gba',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FunQuizDothtmlRoute = FunQuizDothtmlRouteImport.update({
+  id: '/fun-quiz.html',
+  path: '/fun-quiz.html',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FunQuizRoute = FunQuizRouteImport.update({
+  id: '/fun-quiz',
+  path: '/fun-quiz',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BestUnblockedGamesRoute = BestUnblockedGamesRouteImport.update({
+  id: '/best-unblocked-games',
+  path: '/best-unblocked-games',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ArcadeGamesRoute = ArcadeGamesRouteImport.update({
@@ -252,6 +277,12 @@ const EnArcadeRoute = EnArcadeRouteImport.update({
   path: '/en/arcade',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ArticlesHowToPlayGamesOnlineWithoutDownloadingRoute =
+  ArticlesHowToPlayGamesOnlineWithoutDownloadingRouteImport.update({
+    id: '/articles/how-to-play-games-online-without-downloading',
+    path: '/articles/how-to-play-games-online-without-downloading',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiShareImageRoute = ApiShareImageRouteImport.update({
   id: '/api/share-image',
   path: '/api/share-image',
@@ -328,6 +359,9 @@ export interface FileRoutesByFullPath {
   '/$locale': typeof LocaleRouteWithChildren
   '/arcade': typeof ArcadeRoute
   '/arcade-games': typeof ArcadeGamesRoute
+  '/best-unblocked-games': typeof BestUnblockedGamesRoute
+  '/fun-quiz': typeof FunQuizRoute
+  '/fun-quiz.html': typeof FunQuizDothtmlRoute
   '/gba': typeof GbaRoute
   '/gba-games': typeof GbaGamesRoute
   '/manifest.webmanifest': typeof ManifestDotwebmanifestRoute
@@ -345,6 +379,7 @@ export interface FileRoutesByFullPath {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/snes': typeof SnesRoute
   '/snes-games': typeof SnesGamesRoute
+  '/top-idle-games': typeof TopIdleGamesRoute
   '/$locale/about': typeof LocaleAboutRoute
   '/$locale/blog': typeof LocaleBlogRouteWithChildren
   '/$locale/live': typeof LocaleLiveRoute
@@ -354,6 +389,7 @@ export interface FileRoutesByFullPath {
   '/$locale/terms-of-service': typeof LocaleTermsOfServiceRoute
   '/api/health': typeof ApiHealthRoute
   '/api/share-image': typeof ApiShareImageRoute
+  '/articles/how-to-play-games-online-without-downloading': typeof ArticlesHowToPlayGamesOnlineWithoutDownloadingRoute
   '/en/arcade': typeof EnArcadeRoute
   '/en/arcade-games': typeof EnArcadeGamesRoute
   '/en/gba': typeof EnGbaRoute
@@ -382,6 +418,9 @@ export interface FileRoutesByTo {
   '/$locale': typeof LocaleRouteWithChildren
   '/arcade': typeof ArcadeRoute
   '/arcade-games': typeof ArcadeGamesRoute
+  '/best-unblocked-games': typeof BestUnblockedGamesRoute
+  '/fun-quiz': typeof FunQuizRoute
+  '/fun-quiz.html': typeof FunQuizDothtmlRoute
   '/gba': typeof GbaRoute
   '/gba-games': typeof GbaGamesRoute
   '/manifest.webmanifest': typeof ManifestDotwebmanifestRoute
@@ -399,6 +438,7 @@ export interface FileRoutesByTo {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/snes': typeof SnesRoute
   '/snes-games': typeof SnesGamesRoute
+  '/top-idle-games': typeof TopIdleGamesRoute
   '/$locale/about': typeof LocaleAboutRoute
   '/$locale/blog': typeof LocaleBlogRouteWithChildren
   '/$locale/live': typeof LocaleLiveRoute
@@ -408,6 +448,7 @@ export interface FileRoutesByTo {
   '/$locale/terms-of-service': typeof LocaleTermsOfServiceRoute
   '/api/health': typeof ApiHealthRoute
   '/api/share-image': typeof ApiShareImageRoute
+  '/articles/how-to-play-games-online-without-downloading': typeof ArticlesHowToPlayGamesOnlineWithoutDownloadingRoute
   '/en/arcade': typeof EnArcadeRoute
   '/en/arcade-games': typeof EnArcadeGamesRoute
   '/en/gba': typeof EnGbaRoute
@@ -437,6 +478,9 @@ export interface FileRoutesById {
   '/$locale': typeof LocaleRouteWithChildren
   '/arcade': typeof ArcadeRoute
   '/arcade-games': typeof ArcadeGamesRoute
+  '/best-unblocked-games': typeof BestUnblockedGamesRoute
+  '/fun-quiz': typeof FunQuizRoute
+  '/fun-quiz.html': typeof FunQuizDothtmlRoute
   '/gba': typeof GbaRoute
   '/gba-games': typeof GbaGamesRoute
   '/manifest.webmanifest': typeof ManifestDotwebmanifestRoute
@@ -454,6 +498,7 @@ export interface FileRoutesById {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/snes': typeof SnesRoute
   '/snes-games': typeof SnesGamesRoute
+  '/top-idle-games': typeof TopIdleGamesRoute
   '/$locale/about': typeof LocaleAboutRoute
   '/$locale/blog': typeof LocaleBlogRouteWithChildren
   '/$locale/live': typeof LocaleLiveRoute
@@ -463,6 +508,7 @@ export interface FileRoutesById {
   '/$locale/terms-of-service': typeof LocaleTermsOfServiceRoute
   '/api/health': typeof ApiHealthRoute
   '/api/share-image': typeof ApiShareImageRoute
+  '/articles/how-to-play-games-online-without-downloading': typeof ArticlesHowToPlayGamesOnlineWithoutDownloadingRoute
   '/en/arcade': typeof EnArcadeRoute
   '/en/arcade-games': typeof EnArcadeGamesRoute
   '/en/gba': typeof EnGbaRoute
@@ -493,6 +539,9 @@ export interface FileRouteTypes {
     | '/$locale'
     | '/arcade'
     | '/arcade-games'
+    | '/best-unblocked-games'
+    | '/fun-quiz'
+    | '/fun-quiz.html'
     | '/gba'
     | '/gba-games'
     | '/manifest.webmanifest'
@@ -510,6 +559,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/snes'
     | '/snes-games'
+    | '/top-idle-games'
     | '/$locale/about'
     | '/$locale/blog'
     | '/$locale/live'
@@ -519,6 +569,7 @@ export interface FileRouteTypes {
     | '/$locale/terms-of-service'
     | '/api/health'
     | '/api/share-image'
+    | '/articles/how-to-play-games-online-without-downloading'
     | '/en/arcade'
     | '/en/arcade-games'
     | '/en/gba'
@@ -547,6 +598,9 @@ export interface FileRouteTypes {
     | '/$locale'
     | '/arcade'
     | '/arcade-games'
+    | '/best-unblocked-games'
+    | '/fun-quiz'
+    | '/fun-quiz.html'
     | '/gba'
     | '/gba-games'
     | '/manifest.webmanifest'
@@ -564,6 +618,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/snes'
     | '/snes-games'
+    | '/top-idle-games'
     | '/$locale/about'
     | '/$locale/blog'
     | '/$locale/live'
@@ -573,6 +628,7 @@ export interface FileRouteTypes {
     | '/$locale/terms-of-service'
     | '/api/health'
     | '/api/share-image'
+    | '/articles/how-to-play-games-online-without-downloading'
     | '/en/arcade'
     | '/en/arcade-games'
     | '/en/gba'
@@ -601,6 +657,9 @@ export interface FileRouteTypes {
     | '/$locale'
     | '/arcade'
     | '/arcade-games'
+    | '/best-unblocked-games'
+    | '/fun-quiz'
+    | '/fun-quiz.html'
     | '/gba'
     | '/gba-games'
     | '/manifest.webmanifest'
@@ -618,6 +677,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/snes'
     | '/snes-games'
+    | '/top-idle-games'
     | '/$locale/about'
     | '/$locale/blog'
     | '/$locale/live'
@@ -627,6 +687,7 @@ export interface FileRouteTypes {
     | '/$locale/terms-of-service'
     | '/api/health'
     | '/api/share-image'
+    | '/articles/how-to-play-games-online-without-downloading'
     | '/en/arcade'
     | '/en/arcade-games'
     | '/en/gba'
@@ -656,6 +717,9 @@ export interface RootRouteChildren {
   LocaleRoute: typeof LocaleRouteWithChildren
   ArcadeRoute: typeof ArcadeRoute
   ArcadeGamesRoute: typeof ArcadeGamesRoute
+  BestUnblockedGamesRoute: typeof BestUnblockedGamesRoute
+  FunQuizRoute: typeof FunQuizRoute
+  FunQuizDothtmlRoute: typeof FunQuizDothtmlRoute
   GbaRoute: typeof GbaRoute
   GbaGamesRoute: typeof GbaGamesRoute
   ManifestDotwebmanifestRoute: typeof ManifestDotwebmanifestRoute
@@ -673,8 +737,10 @@ export interface RootRouteChildren {
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   SnesRoute: typeof SnesRoute
   SnesGamesRoute: typeof SnesGamesRoute
+  TopIdleGamesRoute: typeof TopIdleGamesRoute
   ApiHealthRoute: typeof ApiHealthRoute
   ApiShareImageRoute: typeof ApiShareImageRoute
+  ArticlesHowToPlayGamesOnlineWithoutDownloadingRoute: typeof ArticlesHowToPlayGamesOnlineWithoutDownloadingRoute
   EnArcadeRoute: typeof EnArcadeRoute
   EnArcadeGamesRoute: typeof EnArcadeGamesRoute
   EnGbaRoute: typeof EnGbaRoute
@@ -697,6 +763,13 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/top-idle-games': {
+      id: '/top-idle-games'
+      path: '/top-idle-games'
+      fullPath: '/top-idle-games'
+      preLoaderRoute: typeof TopIdleGamesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/snes-games': {
       id: '/snes-games'
       path: '/snes-games'
@@ -814,6 +887,27 @@ declare module '@tanstack/react-router' {
       path: '/gba'
       fullPath: '/gba'
       preLoaderRoute: typeof GbaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/fun-quiz.html': {
+      id: '/fun-quiz.html'
+      path: '/fun-quiz.html'
+      fullPath: '/fun-quiz.html'
+      preLoaderRoute: typeof FunQuizDothtmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/fun-quiz': {
+      id: '/fun-quiz'
+      path: '/fun-quiz'
+      fullPath: '/fun-quiz'
+      preLoaderRoute: typeof FunQuizRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/best-unblocked-games': {
+      id: '/best-unblocked-games'
+      path: '/best-unblocked-games'
+      fullPath: '/best-unblocked-games'
+      preLoaderRoute: typeof BestUnblockedGamesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/arcade-games': {
@@ -961,6 +1055,13 @@ declare module '@tanstack/react-router' {
       path: '/en/arcade'
       fullPath: '/en/arcade'
       preLoaderRoute: typeof EnArcadeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/articles/how-to-play-games-online-without-downloading': {
+      id: '/articles/how-to-play-games-online-without-downloading'
+      path: '/articles/how-to-play-games-online-without-downloading'
+      fullPath: '/articles/how-to-play-games-online-without-downloading'
+      preLoaderRoute: typeof ArticlesHowToPlayGamesOnlineWithoutDownloadingRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/share-image': {
@@ -1129,6 +1230,9 @@ const rootRouteChildren: RootRouteChildren = {
   LocaleRoute: LocaleRouteWithChildren,
   ArcadeRoute: ArcadeRoute,
   ArcadeGamesRoute: ArcadeGamesRoute,
+  BestUnblockedGamesRoute: BestUnblockedGamesRoute,
+  FunQuizRoute: FunQuizRoute,
+  FunQuizDothtmlRoute: FunQuizDothtmlRoute,
   GbaRoute: GbaRoute,
   GbaGamesRoute: GbaGamesRoute,
   ManifestDotwebmanifestRoute: ManifestDotwebmanifestRoute,
@@ -1146,8 +1250,11 @@ const rootRouteChildren: RootRouteChildren = {
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   SnesRoute: SnesRoute,
   SnesGamesRoute: SnesGamesRoute,
+  TopIdleGamesRoute: TopIdleGamesRoute,
   ApiHealthRoute: ApiHealthRoute,
   ApiShareImageRoute: ApiShareImageRoute,
+  ArticlesHowToPlayGamesOnlineWithoutDownloadingRoute:
+    ArticlesHowToPlayGamesOnlineWithoutDownloadingRoute,
   EnArcadeRoute: EnArcadeRoute,
   EnArcadeGamesRoute: EnArcadeGamesRoute,
   EnGbaRoute: EnGbaRoute,
