@@ -51,6 +51,7 @@ const removedLegacyGameIds = new Set([
   's-c-a-t-nes-1991',
   'superman-the-new-superman-adventures-n64-1999',
 ])
+const VIDEO_SCHEMA_UPLOAD_DATE = '2026-08-10'
 
 export const Route = createFileRoute('/$locale/games/$gameId')({
   beforeLoad: ({ location, params }) => {
@@ -333,6 +334,7 @@ function buildGameStructuredData({
       description: seo.description,
       thumbnailUrl: game.game_cover,
       contentUrl: game.game_video,
+      uploadDate: VIDEO_SCHEMA_UPLOAD_DATE,
     })
   }
 
