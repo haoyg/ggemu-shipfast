@@ -13,6 +13,7 @@ const platformNavLinks = [
   { href: '/en/snes-games', label: 'SNES' },
   { href: '/en/gba-games', label: 'GBA' },
   { href: '/en/ps1-games', label: 'PS1' },
+  { href: '/en/n64-games', label: 'N64' },
   { href: '/en/arcade-games', label: 'Arcade' },
   { href: '/en/sega-genesis-games', label: 'Sega Genesis' },
 ] as const

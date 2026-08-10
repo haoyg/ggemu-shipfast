@@ -106,6 +106,46 @@ function parseHomeSearchStr(searchStr: string) {
   }
 }
 
+function isSimplifiedChineseLocaleAlias(value: string) {
+  if (value === 'zh-CN') {
+    return false
+  }
+
+  const normalized = value.toLowerCase()
+
+  return normalized === 'zh-cn' || normalized === 'zh'
+}
+
+function getCanonicalChineseAliasHref(href: string) {
+  if (href.startsWith('http://') || href.startsWith('https://')) {
+    const url = new URL(href)
+
+    return `${url.pathname}${url.search}${url.hash}`.replace(
+      /^\/zh(?:-cn)?(?=\/|$)/i,
+      '/zh-CN',
+    )
+  }
+
+  return href.replace(/^\/zh(?:-cn)?(?=\/|$)/i, '/zh-CN')
+}
+
+function isRoutePlaceholderLocale(value: string) {
+  return value === '$locale' || value.toLowerCase() === '%24locale'
+}
+
+function getCanonicalRoutePlaceholderHref(href: string) {
+  if (href.startsWith('http://') || href.startsWith('https://')) {
+    const url = new URL(href)
+
+    return `${url.pathname}${url.search}${url.hash}`.replace(
+      /^\/(?:\$|%24)locale(?=\/|$)/i,
+      '/en',
+    )
+  }
+
+  return href.replace(/^\/(?:\$|%24)locale(?=\/|$)/i, '/en')
+}
+
 export const Route = createFileRoute('/$locale')({
   validateSearch: validateHomeSearch,
   headers: ({ match }) =>
@@ -115,6 +155,20 @@ export const Route = createFileRoute('/$locale')({
         }
       : undefined,
   beforeLoad: ({ location, params }) => {
+    if (isRoutePlaceholderLocale(params.locale)) {
+      throw redirect({
+        href: getCanonicalRoutePlaceholderHref(location.href),
+        replace: true,
+      })
+    }
+
+    if (isSimplifiedChineseLocaleAlias(params.locale)) {
+      throw redirect({
+        href: getCanonicalChineseAliasHref(location.href),
+        replace: true,
+      })
+    }
+
     if (!isSupportedLocale(params.locale)) {
       throw notFound({
         data: { locale: 'zh-CN' },

@@ -65,6 +65,7 @@ const preferredPlatforms = [
   'NES',
   'SNES',
   'PlayStation 1',
+  'Nintendo 64',
   'ARCADE',
   'Sega Genesis',
 ]
@@ -86,7 +87,9 @@ const platformSeoPaths: Record<string, string> = {
   GBA: '/en/gba-games',
   Genesis: '/en/sega-genesis-games',
   NES: '/en/nes-games',
+  N64: '/en/n64-games',
   'Nintendo Entertainment System': '/en/nes-games',
+  'Nintendo 64': '/en/n64-games',
   'PlayStation 1': '/en/ps1-games',
   PlayStation: '/en/ps1-games',
   PS1: '/en/ps1-games',

@@ -19,6 +19,14 @@ const noindexHeaders = {
 
 export const Route = createFileRoute('/$locale/games/$gameId/play')({
   beforeLoad: ({ location, params }) => {
+    if (isSimplifiedChineseLocaleAlias(params.locale)) {
+      throw redirect({
+        params: { gameId: params.gameId, locale: 'zh-CN' },
+        replace: true,
+        to: '/$locale/games/$gameId/play',
+      })
+    }
+
     if (!location.searchStr) {
       return
     }
@@ -36,6 +44,16 @@ export const Route = createFileRoute('/$locale/games/$gameId/play')({
   }),
   component: LocalizedPlayGamePage,
 })
+
+function isSimplifiedChineseLocaleAlias(value: string) {
+  if (value === 'zh-CN') {
+    return false
+  }
+
+  const normalized = value.toLowerCase()
+
+  return normalized === 'zh-cn' || normalized === 'zh'
+}
 
 function LocalizedPlayGamePage() {
   const game = Route.useLoaderData()

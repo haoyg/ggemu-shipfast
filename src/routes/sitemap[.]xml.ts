@@ -13,6 +13,7 @@ const locales = ['zh-CN', 'en', 'ja'] as const satisfies ReadonlyArray<Locale>
 const englishCollectionPaths = [
   '/arcade-games',
   '/gba-games',
+  '/n64-games',
   '/nes-games',
   '/ps1-games',
   '/sega-genesis-games',

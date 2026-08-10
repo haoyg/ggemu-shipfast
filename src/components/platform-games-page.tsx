@@ -6,6 +6,7 @@ import type { PublicGame } from '#/lib/ggemu'
 
 export type PlatformCollectionKey =
   | 'gba'
+  | 'n64'
   | 'nes'
   | 'segaGenesis'
   | 'snes'
@@ -77,6 +78,66 @@ export const platformCollections = {
           question: 'Can I use a controller for GBA games?',
           answer:
             'Controller support depends on the browser player. Connect your controller before launching a game when gamepad input is supported.',
+        },
+      ],
+    },
+  },
+  n64: {
+    routePath: '/en/n64-games',
+    platform: 'Nintendo 64',
+    title: 'Play N64 Games Online Free | POKOPIE',
+    description:
+      'Play N64 games online in your browser. Browse Nintendo 64 platform, racing, sports, action, and adventure games from dedicated POKOPIE game pages.',
+    schemaName: 'Play N64 Games Online',
+    breadcrumbName: 'N64 Games',
+    page: {
+      routePath: '/en/n64-games',
+      heroTitle: 'Play N64 Games Online',
+      heroDescription:
+        'Play N64 games online and revisit Nintendo 64 classics across platform, racing, sports, action, and adventure genres from browser-friendly game pages.',
+      ctaLabel: 'Browse N64 Games',
+      libraryTitle: 'N64 Game Library',
+      libraryDescription: (total) =>
+        `Browse ${total} Nintendo 64 games currently listed in the POKOPIE catalog.`,
+      unavailableMessage: 'N64 games are temporarily unavailable. Please check back soon.',
+      featuredLabel: 'Featured N64 games',
+      coverAlt: 'N64 game cover',
+      articleTitle: 'Nintendo 64 Games with Dedicated Browser Pages',
+      articleParagraphs: [
+        'Nintendo 64 games brought 3D platforming, racing, sports, and adventure games into a new era. POKOPIE gives available N64 titles a focused collection page for discovery.',
+        'Each listed game links to its own page with cover art, platform details, controls guidance, related games, and the browser player when available.',
+        'Use this hub to move from broad N64 browsing into individual games without relying on homepage search alone.',
+      ],
+      benefits: [
+        { icon: 'compass', title: '3D-era discovery', body: 'Browse Nintendo 64 platformers, adventures, racers, and sports titles.' },
+        { icon: 'gamepad', title: 'Game page first', body: 'Open each title through a dedicated page with context and controls.' },
+        { icon: 'monitor', title: 'Modern browser access', body: 'Launch supported games from current desktop or mobile browsers.' },
+        { icon: 'grid', title: 'Clear internal hub', body: 'Connect N64 searches to a crawlable platform collection.' },
+      ],
+      genresTitle: 'Popular N64 Genres',
+      genres: [
+        { name: 'Platform', description: '3D jumping and exploration', icon: 'platform' },
+        { name: 'Racing', description: 'Fast multiplayer-style competition', icon: 'flag' },
+        { name: 'Sports', description: 'Arcade and simulation sports', icon: 'ball' },
+        { name: 'Action', description: 'Console action challenges', icon: 'swords' },
+        { name: 'Adventure', description: 'Explore 3D worlds', icon: 'compass' },
+        { name: 'Puzzle', description: 'Retro logic challenges', icon: 'puzzle' },
+      ],
+      faqs: [
+        {
+          question: 'Can I play N64 games online on POKOPIE?',
+          answer:
+            'Supported Nintendo 64 games listed on POKOPIE open from their game pages in a modern browser. Availability can vary by title and device.',
+        },
+        {
+          question: 'Do N64 games need a separate emulator download?',
+          answer:
+            'No separate emulator download is required for supported titles. Open the game page and use the browser player when available.',
+        },
+        {
+          question: 'Are N64 games better with a controller?',
+          answer:
+            'Many N64 games are easier with a connected controller, though keyboard support depends on the browser player.',
         },
       ],
     },

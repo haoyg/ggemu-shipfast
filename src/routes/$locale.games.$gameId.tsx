@@ -49,6 +49,14 @@ import { getAlternateLinksFromCanonical } from '#/lib/seo'
 
 export const Route = createFileRoute('/$locale/games/$gameId')({
   beforeLoad: ({ location, params }) => {
+    if (isSimplifiedChineseLocaleAlias(params.locale)) {
+      throw redirect({
+        params: { gameId: params.gameId, locale: 'zh-CN' },
+        replace: true,
+        to: '/$locale/games/$gameId',
+      })
+    }
+
     if (location.pathname.endsWith('/play') || !location.searchStr) {
       return undefined as never
     }
@@ -154,6 +162,16 @@ export const Route = createFileRoute('/$locale/games/$gameId')({
   notFoundComponent: GameDetailNotFound,
   component: LocalizedGameDetailPage,
 })
+
+function isSimplifiedChineseLocaleAlias(value: string) {
+  if (value === 'zh-CN') {
+    return false
+  }
+
+  const normalized = value.toLowerCase()
+
+  return normalized === 'zh-cn' || normalized === 'zh'
+}
 
 function GameDetailNotFound({ data }: { data?: unknown }) {
   return <UnavailablePage locale={getNotFoundLocale(data)} type="game" />

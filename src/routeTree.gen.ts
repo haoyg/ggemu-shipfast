@@ -9,19 +9,44 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SnesGamesRouteImport } from './routes/snes-games'
+import { Route as SnesRouteImport } from './routes/snes'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as SegaGenesisGamesRouteImport } from './routes/sega-genesis-games'
+import { Route as SegaGenesisRouteImport } from './routes/sega-genesis'
 import { Route as RobotsDottxtRouteImport } from './routes/robots[.]txt'
 import { Route as RandomRouteImport } from './routes/random'
+import { Route as Ps1GamesRouteImport } from './routes/ps1-games'
+import { Route as Ps1RouteImport } from './routes/ps1'
+import { Route as PlaystationGamesRouteImport } from './routes/playstation-games'
+import { Route as NesGamesRouteImport } from './routes/nes-games'
+import { Route as NesRouteImport } from './routes/nes'
+import { Route as N64GamesRouteImport } from './routes/n64-games'
+import { Route as N64RouteImport } from './routes/n64'
 import { Route as ManifestDotwebmanifestRouteImport } from './routes/manifest[.]webmanifest'
+import { Route as GbaGamesRouteImport } from './routes/gba-games'
+import { Route as GbaRouteImport } from './routes/gba'
+import { Route as ArcadeGamesRouteImport } from './routes/arcade-games'
+import { Route as ArcadeRouteImport } from './routes/arcade'
 import { Route as LocaleRouteImport } from './routes/$locale'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as PlayGameIdRouteImport } from './routes/play.$gameId'
 import { Route as GamesGameIdRouteImport } from './routes/games/$gameId'
 import { Route as EnSnesGamesRouteImport } from './routes/en.snes-games'
+import { Route as EnSnesRouteImport } from './routes/en.snes'
 import { Route as EnSegaGenesisGamesRouteImport } from './routes/en.sega-genesis-games'
+import { Route as EnSegaGenesisRouteImport } from './routes/en.sega-genesis'
 import { Route as EnPs1GamesRouteImport } from './routes/en.ps1-games'
+import { Route as EnPs1RouteImport } from './routes/en.ps1'
+import { Route as EnPlaystationGamesRouteImport } from './routes/en.playstation-games'
 import { Route as EnNesGamesRouteImport } from './routes/en.nes-games'
+import { Route as EnNesRouteImport } from './routes/en.nes'
+import { Route as EnN64GamesRouteImport } from './routes/en.n64-games'
+import { Route as EnGenesisGamesRouteImport } from './routes/en.genesis-games'
 import { Route as EnGbaGamesRouteImport } from './routes/en.gba-games'
+import { Route as EnGbaRouteImport } from './routes/en.gba'
 import { Route as EnArcadeGamesRouteImport } from './routes/en.arcade-games'
+import { Route as EnArcadeRouteImport } from './routes/en.arcade'
 import { Route as ApiShareImageRouteImport } from './routes/api/share-image'
 import { Route as ApiHealthRouteImport } from './routes/api/health'
 import { Route as LocaleTermsOfServiceRouteImport } from './routes/$locale.terms-of-service'
@@ -37,9 +62,29 @@ import { Route as LocaleBlogBlogIdRouteImport } from './routes/$locale.blog.$blo
 import { Route as EmbedLocaleGamesGameIdRouteImport } from './routes/embed.$locale.games.$gameId'
 import { Route as LocaleGamesGameIdPlayRouteImport } from './routes/$locale.games.$gameId.play'
 
+const SnesGamesRoute = SnesGamesRouteImport.update({
+  id: '/snes-games',
+  path: '/snes-games',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SnesRoute = SnesRouteImport.update({
+  id: '/snes',
+  path: '/snes',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SegaGenesisGamesRoute = SegaGenesisGamesRouteImport.update({
+  id: '/sega-genesis-games',
+  path: '/sega-genesis-games',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SegaGenesisRoute = SegaGenesisRouteImport.update({
+  id: '/sega-genesis',
+  path: '/sega-genesis',
   getParentRoute: () => rootRouteImport,
 } as any)
 const RobotsDottxtRoute = RobotsDottxtRouteImport.update({
@@ -52,9 +97,64 @@ const RandomRoute = RandomRouteImport.update({
   path: '/random',
   getParentRoute: () => rootRouteImport,
 } as any)
+const Ps1GamesRoute = Ps1GamesRouteImport.update({
+  id: '/ps1-games',
+  path: '/ps1-games',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const Ps1Route = Ps1RouteImport.update({
+  id: '/ps1',
+  path: '/ps1',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PlaystationGamesRoute = PlaystationGamesRouteImport.update({
+  id: '/playstation-games',
+  path: '/playstation-games',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NesGamesRoute = NesGamesRouteImport.update({
+  id: '/nes-games',
+  path: '/nes-games',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NesRoute = NesRouteImport.update({
+  id: '/nes',
+  path: '/nes',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const N64GamesRoute = N64GamesRouteImport.update({
+  id: '/n64-games',
+  path: '/n64-games',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const N64Route = N64RouteImport.update({
+  id: '/n64',
+  path: '/n64',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ManifestDotwebmanifestRoute = ManifestDotwebmanifestRouteImport.update({
   id: '/manifest.webmanifest',
   path: '/manifest.webmanifest',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GbaGamesRoute = GbaGamesRouteImport.update({
+  id: '/gba-games',
+  path: '/gba-games',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GbaRoute = GbaRouteImport.update({
+  id: '/gba',
+  path: '/gba',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ArcadeGamesRoute = ArcadeGamesRouteImport.update({
+  id: '/arcade-games',
+  path: '/arcade-games',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ArcadeRoute = ArcadeRouteImport.update({
+  id: '/arcade',
+  path: '/arcade',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LocaleRoute = LocaleRouteImport.update({
@@ -67,6 +167,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PlayGameIdRoute = PlayGameIdRouteImport.update({
+  id: '/play/$gameId',
+  path: '/play/$gameId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const GamesGameIdRoute = GamesGameIdRouteImport.update({
   id: '/games/$gameId',
   path: '/games/$gameId',
@@ -77,9 +182,19 @@ const EnSnesGamesRoute = EnSnesGamesRouteImport.update({
   path: '/en/snes-games',
   getParentRoute: () => rootRouteImport,
 } as any)
+const EnSnesRoute = EnSnesRouteImport.update({
+  id: '/en/snes',
+  path: '/en/snes',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const EnSegaGenesisGamesRoute = EnSegaGenesisGamesRouteImport.update({
   id: '/en/sega-genesis-games',
   path: '/en/sega-genesis-games',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EnSegaGenesisRoute = EnSegaGenesisRouteImport.update({
+  id: '/en/sega-genesis',
+  path: '/en/sega-genesis',
   getParentRoute: () => rootRouteImport,
 } as any)
 const EnPs1GamesRoute = EnPs1GamesRouteImport.update({
@@ -87,9 +202,34 @@ const EnPs1GamesRoute = EnPs1GamesRouteImport.update({
   path: '/en/ps1-games',
   getParentRoute: () => rootRouteImport,
 } as any)
+const EnPs1Route = EnPs1RouteImport.update({
+  id: '/en/ps1',
+  path: '/en/ps1',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EnPlaystationGamesRoute = EnPlaystationGamesRouteImport.update({
+  id: '/en/playstation-games',
+  path: '/en/playstation-games',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const EnNesGamesRoute = EnNesGamesRouteImport.update({
   id: '/en/nes-games',
   path: '/en/nes-games',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EnNesRoute = EnNesRouteImport.update({
+  id: '/en/nes',
+  path: '/en/nes',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EnN64GamesRoute = EnN64GamesRouteImport.update({
+  id: '/en/n64-games',
+  path: '/en/n64-games',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EnGenesisGamesRoute = EnGenesisGamesRouteImport.update({
+  id: '/en/genesis-games',
+  path: '/en/genesis-games',
   getParentRoute: () => rootRouteImport,
 } as any)
 const EnGbaGamesRoute = EnGbaGamesRouteImport.update({
@@ -97,9 +237,19 @@ const EnGbaGamesRoute = EnGbaGamesRouteImport.update({
   path: '/en/gba-games',
   getParentRoute: () => rootRouteImport,
 } as any)
+const EnGbaRoute = EnGbaRouteImport.update({
+  id: '/en/gba',
+  path: '/en/gba',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const EnArcadeGamesRoute = EnArcadeGamesRouteImport.update({
   id: '/en/arcade-games',
   path: '/en/arcade-games',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EnArcadeRoute = EnArcadeRouteImport.update({
+  id: '/en/arcade',
+  path: '/en/arcade',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiShareImageRoute = ApiShareImageRouteImport.update({
@@ -176,10 +326,25 @@ const LocaleGamesGameIdPlayRoute = LocaleGamesGameIdPlayRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/$locale': typeof LocaleRouteWithChildren
+  '/arcade': typeof ArcadeRoute
+  '/arcade-games': typeof ArcadeGamesRoute
+  '/gba': typeof GbaRoute
+  '/gba-games': typeof GbaGamesRoute
   '/manifest.webmanifest': typeof ManifestDotwebmanifestRoute
+  '/n64': typeof N64Route
+  '/n64-games': typeof N64GamesRoute
+  '/nes': typeof NesRoute
+  '/nes-games': typeof NesGamesRoute
+  '/playstation-games': typeof PlaystationGamesRoute
+  '/ps1': typeof Ps1Route
+  '/ps1-games': typeof Ps1GamesRoute
   '/random': typeof RandomRoute
   '/robots.txt': typeof RobotsDottxtRoute
+  '/sega-genesis': typeof SegaGenesisRoute
+  '/sega-genesis-games': typeof SegaGenesisGamesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/snes': typeof SnesRoute
+  '/snes-games': typeof SnesGamesRoute
   '/$locale/about': typeof LocaleAboutRoute
   '/$locale/blog': typeof LocaleBlogRouteWithChildren
   '/$locale/live': typeof LocaleLiveRoute
@@ -189,13 +354,23 @@ export interface FileRoutesByFullPath {
   '/$locale/terms-of-service': typeof LocaleTermsOfServiceRoute
   '/api/health': typeof ApiHealthRoute
   '/api/share-image': typeof ApiShareImageRoute
+  '/en/arcade': typeof EnArcadeRoute
   '/en/arcade-games': typeof EnArcadeGamesRoute
+  '/en/gba': typeof EnGbaRoute
   '/en/gba-games': typeof EnGbaGamesRoute
+  '/en/genesis-games': typeof EnGenesisGamesRoute
+  '/en/n64-games': typeof EnN64GamesRoute
+  '/en/nes': typeof EnNesRoute
   '/en/nes-games': typeof EnNesGamesRoute
+  '/en/playstation-games': typeof EnPlaystationGamesRoute
+  '/en/ps1': typeof EnPs1Route
   '/en/ps1-games': typeof EnPs1GamesRoute
+  '/en/sega-genesis': typeof EnSegaGenesisRoute
   '/en/sega-genesis-games': typeof EnSegaGenesisGamesRoute
+  '/en/snes': typeof EnSnesRoute
   '/en/snes-games': typeof EnSnesGamesRoute
   '/games/$gameId': typeof GamesGameIdRouteWithChildren
+  '/play/$gameId': typeof PlayGameIdRoute
   '/$locale/blog/$blogId': typeof LocaleBlogBlogIdRoute
   '/$locale/games/$gameId': typeof LocaleGamesGameIdRouteWithChildren
   '/games/$gameId/play': typeof GamesGameIdPlayRoute
@@ -205,10 +380,25 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/$locale': typeof LocaleRouteWithChildren
+  '/arcade': typeof ArcadeRoute
+  '/arcade-games': typeof ArcadeGamesRoute
+  '/gba': typeof GbaRoute
+  '/gba-games': typeof GbaGamesRoute
   '/manifest.webmanifest': typeof ManifestDotwebmanifestRoute
+  '/n64': typeof N64Route
+  '/n64-games': typeof N64GamesRoute
+  '/nes': typeof NesRoute
+  '/nes-games': typeof NesGamesRoute
+  '/playstation-games': typeof PlaystationGamesRoute
+  '/ps1': typeof Ps1Route
+  '/ps1-games': typeof Ps1GamesRoute
   '/random': typeof RandomRoute
   '/robots.txt': typeof RobotsDottxtRoute
+  '/sega-genesis': typeof SegaGenesisRoute
+  '/sega-genesis-games': typeof SegaGenesisGamesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/snes': typeof SnesRoute
+  '/snes-games': typeof SnesGamesRoute
   '/$locale/about': typeof LocaleAboutRoute
   '/$locale/blog': typeof LocaleBlogRouteWithChildren
   '/$locale/live': typeof LocaleLiveRoute
@@ -218,13 +408,23 @@ export interface FileRoutesByTo {
   '/$locale/terms-of-service': typeof LocaleTermsOfServiceRoute
   '/api/health': typeof ApiHealthRoute
   '/api/share-image': typeof ApiShareImageRoute
+  '/en/arcade': typeof EnArcadeRoute
   '/en/arcade-games': typeof EnArcadeGamesRoute
+  '/en/gba': typeof EnGbaRoute
   '/en/gba-games': typeof EnGbaGamesRoute
+  '/en/genesis-games': typeof EnGenesisGamesRoute
+  '/en/n64-games': typeof EnN64GamesRoute
+  '/en/nes': typeof EnNesRoute
   '/en/nes-games': typeof EnNesGamesRoute
+  '/en/playstation-games': typeof EnPlaystationGamesRoute
+  '/en/ps1': typeof EnPs1Route
   '/en/ps1-games': typeof EnPs1GamesRoute
+  '/en/sega-genesis': typeof EnSegaGenesisRoute
   '/en/sega-genesis-games': typeof EnSegaGenesisGamesRoute
+  '/en/snes': typeof EnSnesRoute
   '/en/snes-games': typeof EnSnesGamesRoute
   '/games/$gameId': typeof GamesGameIdRouteWithChildren
+  '/play/$gameId': typeof PlayGameIdRoute
   '/$locale/blog/$blogId': typeof LocaleBlogBlogIdRoute
   '/$locale/games/$gameId': typeof LocaleGamesGameIdRouteWithChildren
   '/games/$gameId/play': typeof GamesGameIdPlayRoute
@@ -235,10 +435,25 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/$locale': typeof LocaleRouteWithChildren
+  '/arcade': typeof ArcadeRoute
+  '/arcade-games': typeof ArcadeGamesRoute
+  '/gba': typeof GbaRoute
+  '/gba-games': typeof GbaGamesRoute
   '/manifest.webmanifest': typeof ManifestDotwebmanifestRoute
+  '/n64': typeof N64Route
+  '/n64-games': typeof N64GamesRoute
+  '/nes': typeof NesRoute
+  '/nes-games': typeof NesGamesRoute
+  '/playstation-games': typeof PlaystationGamesRoute
+  '/ps1': typeof Ps1Route
+  '/ps1-games': typeof Ps1GamesRoute
   '/random': typeof RandomRoute
   '/robots.txt': typeof RobotsDottxtRoute
+  '/sega-genesis': typeof SegaGenesisRoute
+  '/sega-genesis-games': typeof SegaGenesisGamesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/snes': typeof SnesRoute
+  '/snes-games': typeof SnesGamesRoute
   '/$locale/about': typeof LocaleAboutRoute
   '/$locale/blog': typeof LocaleBlogRouteWithChildren
   '/$locale/live': typeof LocaleLiveRoute
@@ -248,13 +463,23 @@ export interface FileRoutesById {
   '/$locale/terms-of-service': typeof LocaleTermsOfServiceRoute
   '/api/health': typeof ApiHealthRoute
   '/api/share-image': typeof ApiShareImageRoute
+  '/en/arcade': typeof EnArcadeRoute
   '/en/arcade-games': typeof EnArcadeGamesRoute
+  '/en/gba': typeof EnGbaRoute
   '/en/gba-games': typeof EnGbaGamesRoute
+  '/en/genesis-games': typeof EnGenesisGamesRoute
+  '/en/n64-games': typeof EnN64GamesRoute
+  '/en/nes': typeof EnNesRoute
   '/en/nes-games': typeof EnNesGamesRoute
+  '/en/playstation-games': typeof EnPlaystationGamesRoute
+  '/en/ps1': typeof EnPs1Route
   '/en/ps1-games': typeof EnPs1GamesRoute
+  '/en/sega-genesis': typeof EnSegaGenesisRoute
   '/en/sega-genesis-games': typeof EnSegaGenesisGamesRoute
+  '/en/snes': typeof EnSnesRoute
   '/en/snes-games': typeof EnSnesGamesRoute
   '/games/$gameId': typeof GamesGameIdRouteWithChildren
+  '/play/$gameId': typeof PlayGameIdRoute
   '/$locale/blog/$blogId': typeof LocaleBlogBlogIdRoute
   '/$locale/games/$gameId': typeof LocaleGamesGameIdRouteWithChildren
   '/games/$gameId/play': typeof GamesGameIdPlayRoute
@@ -266,10 +491,25 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/$locale'
+    | '/arcade'
+    | '/arcade-games'
+    | '/gba'
+    | '/gba-games'
     | '/manifest.webmanifest'
+    | '/n64'
+    | '/n64-games'
+    | '/nes'
+    | '/nes-games'
+    | '/playstation-games'
+    | '/ps1'
+    | '/ps1-games'
     | '/random'
     | '/robots.txt'
+    | '/sega-genesis'
+    | '/sega-genesis-games'
     | '/sitemap.xml'
+    | '/snes'
+    | '/snes-games'
     | '/$locale/about'
     | '/$locale/blog'
     | '/$locale/live'
@@ -279,13 +519,23 @@ export interface FileRouteTypes {
     | '/$locale/terms-of-service'
     | '/api/health'
     | '/api/share-image'
+    | '/en/arcade'
     | '/en/arcade-games'
+    | '/en/gba'
     | '/en/gba-games'
+    | '/en/genesis-games'
+    | '/en/n64-games'
+    | '/en/nes'
     | '/en/nes-games'
+    | '/en/playstation-games'
+    | '/en/ps1'
     | '/en/ps1-games'
+    | '/en/sega-genesis'
     | '/en/sega-genesis-games'
+    | '/en/snes'
     | '/en/snes-games'
     | '/games/$gameId'
+    | '/play/$gameId'
     | '/$locale/blog/$blogId'
     | '/$locale/games/$gameId'
     | '/games/$gameId/play'
@@ -295,10 +545,25 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/$locale'
+    | '/arcade'
+    | '/arcade-games'
+    | '/gba'
+    | '/gba-games'
     | '/manifest.webmanifest'
+    | '/n64'
+    | '/n64-games'
+    | '/nes'
+    | '/nes-games'
+    | '/playstation-games'
+    | '/ps1'
+    | '/ps1-games'
     | '/random'
     | '/robots.txt'
+    | '/sega-genesis'
+    | '/sega-genesis-games'
     | '/sitemap.xml'
+    | '/snes'
+    | '/snes-games'
     | '/$locale/about'
     | '/$locale/blog'
     | '/$locale/live'
@@ -308,13 +573,23 @@ export interface FileRouteTypes {
     | '/$locale/terms-of-service'
     | '/api/health'
     | '/api/share-image'
+    | '/en/arcade'
     | '/en/arcade-games'
+    | '/en/gba'
     | '/en/gba-games'
+    | '/en/genesis-games'
+    | '/en/n64-games'
+    | '/en/nes'
     | '/en/nes-games'
+    | '/en/playstation-games'
+    | '/en/ps1'
     | '/en/ps1-games'
+    | '/en/sega-genesis'
     | '/en/sega-genesis-games'
+    | '/en/snes'
     | '/en/snes-games'
     | '/games/$gameId'
+    | '/play/$gameId'
     | '/$locale/blog/$blogId'
     | '/$locale/games/$gameId'
     | '/games/$gameId/play'
@@ -324,10 +599,25 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/$locale'
+    | '/arcade'
+    | '/arcade-games'
+    | '/gba'
+    | '/gba-games'
     | '/manifest.webmanifest'
+    | '/n64'
+    | '/n64-games'
+    | '/nes'
+    | '/nes-games'
+    | '/playstation-games'
+    | '/ps1'
+    | '/ps1-games'
     | '/random'
     | '/robots.txt'
+    | '/sega-genesis'
+    | '/sega-genesis-games'
     | '/sitemap.xml'
+    | '/snes'
+    | '/snes-games'
     | '/$locale/about'
     | '/$locale/blog'
     | '/$locale/live'
@@ -337,13 +627,23 @@ export interface FileRouteTypes {
     | '/$locale/terms-of-service'
     | '/api/health'
     | '/api/share-image'
+    | '/en/arcade'
     | '/en/arcade-games'
+    | '/en/gba'
     | '/en/gba-games'
+    | '/en/genesis-games'
+    | '/en/n64-games'
+    | '/en/nes'
     | '/en/nes-games'
+    | '/en/playstation-games'
+    | '/en/ps1'
     | '/en/ps1-games'
+    | '/en/sega-genesis'
     | '/en/sega-genesis-games'
+    | '/en/snes'
     | '/en/snes-games'
     | '/games/$gameId'
+    | '/play/$gameId'
     | '/$locale/blog/$blogId'
     | '/$locale/games/$gameId'
     | '/games/$gameId/play'
@@ -354,29 +654,82 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   LocaleRoute: typeof LocaleRouteWithChildren
+  ArcadeRoute: typeof ArcadeRoute
+  ArcadeGamesRoute: typeof ArcadeGamesRoute
+  GbaRoute: typeof GbaRoute
+  GbaGamesRoute: typeof GbaGamesRoute
   ManifestDotwebmanifestRoute: typeof ManifestDotwebmanifestRoute
+  N64Route: typeof N64Route
+  N64GamesRoute: typeof N64GamesRoute
+  NesRoute: typeof NesRoute
+  NesGamesRoute: typeof NesGamesRoute
+  PlaystationGamesRoute: typeof PlaystationGamesRoute
+  Ps1Route: typeof Ps1Route
+  Ps1GamesRoute: typeof Ps1GamesRoute
   RandomRoute: typeof RandomRoute
   RobotsDottxtRoute: typeof RobotsDottxtRoute
+  SegaGenesisRoute: typeof SegaGenesisRoute
+  SegaGenesisGamesRoute: typeof SegaGenesisGamesRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  SnesRoute: typeof SnesRoute
+  SnesGamesRoute: typeof SnesGamesRoute
   ApiHealthRoute: typeof ApiHealthRoute
   ApiShareImageRoute: typeof ApiShareImageRoute
+  EnArcadeRoute: typeof EnArcadeRoute
   EnArcadeGamesRoute: typeof EnArcadeGamesRoute
+  EnGbaRoute: typeof EnGbaRoute
   EnGbaGamesRoute: typeof EnGbaGamesRoute
+  EnGenesisGamesRoute: typeof EnGenesisGamesRoute
+  EnN64GamesRoute: typeof EnN64GamesRoute
+  EnNesRoute: typeof EnNesRoute
   EnNesGamesRoute: typeof EnNesGamesRoute
+  EnPlaystationGamesRoute: typeof EnPlaystationGamesRoute
+  EnPs1Route: typeof EnPs1Route
   EnPs1GamesRoute: typeof EnPs1GamesRoute
+  EnSegaGenesisRoute: typeof EnSegaGenesisRoute
   EnSegaGenesisGamesRoute: typeof EnSegaGenesisGamesRoute
+  EnSnesRoute: typeof EnSnesRoute
   EnSnesGamesRoute: typeof EnSnesGamesRoute
   GamesGameIdRoute: typeof GamesGameIdRouteWithChildren
+  PlayGameIdRoute: typeof PlayGameIdRoute
   EmbedLocaleGamesGameIdRoute: typeof EmbedLocaleGamesGameIdRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/snes-games': {
+      id: '/snes-games'
+      path: '/snes-games'
+      fullPath: '/snes-games'
+      preLoaderRoute: typeof SnesGamesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/snes': {
+      id: '/snes'
+      path: '/snes'
+      fullPath: '/snes'
+      preLoaderRoute: typeof SnesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/sitemap.xml': {
       id: '/sitemap.xml'
       path: '/sitemap.xml'
       fullPath: '/sitemap.xml'
       preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sega-genesis-games': {
+      id: '/sega-genesis-games'
+      path: '/sega-genesis-games'
+      fullPath: '/sega-genesis-games'
+      preLoaderRoute: typeof SegaGenesisGamesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sega-genesis': {
+      id: '/sega-genesis'
+      path: '/sega-genesis'
+      fullPath: '/sega-genesis'
+      preLoaderRoute: typeof SegaGenesisRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/robots.txt': {
@@ -393,11 +746,88 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RandomRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/ps1-games': {
+      id: '/ps1-games'
+      path: '/ps1-games'
+      fullPath: '/ps1-games'
+      preLoaderRoute: typeof Ps1GamesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ps1': {
+      id: '/ps1'
+      path: '/ps1'
+      fullPath: '/ps1'
+      preLoaderRoute: typeof Ps1RouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/playstation-games': {
+      id: '/playstation-games'
+      path: '/playstation-games'
+      fullPath: '/playstation-games'
+      preLoaderRoute: typeof PlaystationGamesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/nes-games': {
+      id: '/nes-games'
+      path: '/nes-games'
+      fullPath: '/nes-games'
+      preLoaderRoute: typeof NesGamesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/nes': {
+      id: '/nes'
+      path: '/nes'
+      fullPath: '/nes'
+      preLoaderRoute: typeof NesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/n64-games': {
+      id: '/n64-games'
+      path: '/n64-games'
+      fullPath: '/n64-games'
+      preLoaderRoute: typeof N64GamesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/n64': {
+      id: '/n64'
+      path: '/n64'
+      fullPath: '/n64'
+      preLoaderRoute: typeof N64RouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/manifest.webmanifest': {
       id: '/manifest.webmanifest'
       path: '/manifest.webmanifest'
       fullPath: '/manifest.webmanifest'
       preLoaderRoute: typeof ManifestDotwebmanifestRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/gba-games': {
+      id: '/gba-games'
+      path: '/gba-games'
+      fullPath: '/gba-games'
+      preLoaderRoute: typeof GbaGamesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/gba': {
+      id: '/gba'
+      path: '/gba'
+      fullPath: '/gba'
+      preLoaderRoute: typeof GbaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/arcade-games': {
+      id: '/arcade-games'
+      path: '/arcade-games'
+      fullPath: '/arcade-games'
+      preLoaderRoute: typeof ArcadeGamesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/arcade': {
+      id: '/arcade'
+      path: '/arcade'
+      fullPath: '/arcade'
+      preLoaderRoute: typeof ArcadeRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/$locale': {
@@ -414,6 +844,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/play/$gameId': {
+      id: '/play/$gameId'
+      path: '/play/$gameId'
+      fullPath: '/play/$gameId'
+      preLoaderRoute: typeof PlayGameIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/games/$gameId': {
       id: '/games/$gameId'
       path: '/games/$gameId'
@@ -428,11 +865,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EnSnesGamesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/en/snes': {
+      id: '/en/snes'
+      path: '/en/snes'
+      fullPath: '/en/snes'
+      preLoaderRoute: typeof EnSnesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/en/sega-genesis-games': {
       id: '/en/sega-genesis-games'
       path: '/en/sega-genesis-games'
       fullPath: '/en/sega-genesis-games'
       preLoaderRoute: typeof EnSegaGenesisGamesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/en/sega-genesis': {
+      id: '/en/sega-genesis'
+      path: '/en/sega-genesis'
+      fullPath: '/en/sega-genesis'
+      preLoaderRoute: typeof EnSegaGenesisRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/en/ps1-games': {
@@ -442,11 +893,46 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EnPs1GamesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/en/ps1': {
+      id: '/en/ps1'
+      path: '/en/ps1'
+      fullPath: '/en/ps1'
+      preLoaderRoute: typeof EnPs1RouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/en/playstation-games': {
+      id: '/en/playstation-games'
+      path: '/en/playstation-games'
+      fullPath: '/en/playstation-games'
+      preLoaderRoute: typeof EnPlaystationGamesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/en/nes-games': {
       id: '/en/nes-games'
       path: '/en/nes-games'
       fullPath: '/en/nes-games'
       preLoaderRoute: typeof EnNesGamesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/en/nes': {
+      id: '/en/nes'
+      path: '/en/nes'
+      fullPath: '/en/nes'
+      preLoaderRoute: typeof EnNesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/en/n64-games': {
+      id: '/en/n64-games'
+      path: '/en/n64-games'
+      fullPath: '/en/n64-games'
+      preLoaderRoute: typeof EnN64GamesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/en/genesis-games': {
+      id: '/en/genesis-games'
+      path: '/en/genesis-games'
+      fullPath: '/en/genesis-games'
+      preLoaderRoute: typeof EnGenesisGamesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/en/gba-games': {
@@ -456,11 +942,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EnGbaGamesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/en/gba': {
+      id: '/en/gba'
+      path: '/en/gba'
+      fullPath: '/en/gba'
+      preLoaderRoute: typeof EnGbaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/en/arcade-games': {
       id: '/en/arcade-games'
       path: '/en/arcade-games'
       fullPath: '/en/arcade-games'
       preLoaderRoute: typeof EnArcadeGamesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/en/arcade': {
+      id: '/en/arcade'
+      path: '/en/arcade'
+      fullPath: '/en/arcade'
+      preLoaderRoute: typeof EnArcadeRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/share-image': {
@@ -627,19 +1127,44 @@ const GamesGameIdRouteWithChildren = GamesGameIdRoute._addFileChildren(
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   LocaleRoute: LocaleRouteWithChildren,
+  ArcadeRoute: ArcadeRoute,
+  ArcadeGamesRoute: ArcadeGamesRoute,
+  GbaRoute: GbaRoute,
+  GbaGamesRoute: GbaGamesRoute,
   ManifestDotwebmanifestRoute: ManifestDotwebmanifestRoute,
+  N64Route: N64Route,
+  N64GamesRoute: N64GamesRoute,
+  NesRoute: NesRoute,
+  NesGamesRoute: NesGamesRoute,
+  PlaystationGamesRoute: PlaystationGamesRoute,
+  Ps1Route: Ps1Route,
+  Ps1GamesRoute: Ps1GamesRoute,
   RandomRoute: RandomRoute,
   RobotsDottxtRoute: RobotsDottxtRoute,
+  SegaGenesisRoute: SegaGenesisRoute,
+  SegaGenesisGamesRoute: SegaGenesisGamesRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  SnesRoute: SnesRoute,
+  SnesGamesRoute: SnesGamesRoute,
   ApiHealthRoute: ApiHealthRoute,
   ApiShareImageRoute: ApiShareImageRoute,
+  EnArcadeRoute: EnArcadeRoute,
   EnArcadeGamesRoute: EnArcadeGamesRoute,
+  EnGbaRoute: EnGbaRoute,
   EnGbaGamesRoute: EnGbaGamesRoute,
+  EnGenesisGamesRoute: EnGenesisGamesRoute,
+  EnN64GamesRoute: EnN64GamesRoute,
+  EnNesRoute: EnNesRoute,
   EnNesGamesRoute: EnNesGamesRoute,
+  EnPlaystationGamesRoute: EnPlaystationGamesRoute,
+  EnPs1Route: EnPs1Route,
   EnPs1GamesRoute: EnPs1GamesRoute,
+  EnSegaGenesisRoute: EnSegaGenesisRoute,
   EnSegaGenesisGamesRoute: EnSegaGenesisGamesRoute,
+  EnSnesRoute: EnSnesRoute,
   EnSnesGamesRoute: EnSnesGamesRoute,
   GamesGameIdRoute: GamesGameIdRouteWithChildren,
+  PlayGameIdRoute: PlayGameIdRoute,
   EmbedLocaleGamesGameIdRoute: EmbedLocaleGamesGameIdRoute,
 }
 export const routeTree = rootRouteImport
