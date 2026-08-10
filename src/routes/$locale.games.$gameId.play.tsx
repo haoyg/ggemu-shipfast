@@ -17,6 +17,11 @@ const noindexHeaders = {
   'X-Robots-Tag': 'noindex, nofollow',
 } as const
 
+const removedLegacyGameIds = new Set([
+  's-c-a-t-nes-1991',
+  'superman-the-new-superman-adventures-n64-1999',
+])
+
 export const Route = createFileRoute('/$locale/games/$gameId/play')({
   beforeLoad: ({ location, params }) => {
     if (isSimplifiedChineseLocaleAlias(params.locale)) {
@@ -37,7 +42,27 @@ export const Route = createFileRoute('/$locale/games/$gameId/play')({
       to: '/$locale/games/$gameId/play',
     })
   },
-  loader: ({ params }) => getGameDetail({ data: { id: params.gameId } }),
+  loader: async ({ params }) => {
+    const game = await getGameDetail({ data: { id: params.gameId } }).catch(() => null)
+
+    if (!game && removedLegacyGameIds.has(params.gameId)) {
+      throw redirect({
+        params: { locale: normalizeLocale(params.locale) },
+        replace: true,
+        to: '/$locale',
+      })
+    }
+
+    if (!game) {
+      throw redirect({
+        params: { locale: normalizeLocale(params.locale) },
+        replace: true,
+        to: '/$locale',
+      })
+    }
+
+    return game
+  },
   headers: ({ loaderData }) => ({
     ...noindexHeaders,
     ...(loaderData && isPspGame(loaderData) ? pspCrossOriginIsolationHeaders : {}),

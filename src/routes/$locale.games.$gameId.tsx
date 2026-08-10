@@ -47,6 +47,11 @@ import {
 } from '#/lib/game-detail-content'
 import { getAlternateLinksFromCanonical } from '#/lib/seo'
 
+const removedLegacyGameIds = new Set([
+  's-c-a-t-nes-1991',
+  'superman-the-new-superman-adventures-n64-1999',
+])
+
 export const Route = createFileRoute('/$locale/games/$gameId')({
   beforeLoad: ({ location, params }) => {
     if (isSimplifiedChineseLocaleAlias(params.locale)) {
@@ -74,6 +79,14 @@ export const Route = createFileRoute('/$locale/games/$gameId')({
     }).catch(() => null)
 
     if (!detail) {
+      if (removedLegacyGameIds.has(params.gameId)) {
+        throw redirect({
+          params: { locale },
+          replace: true,
+          to: '/$locale',
+        })
+      }
+
       throw notFound({
         data: { locale },
         headers: {

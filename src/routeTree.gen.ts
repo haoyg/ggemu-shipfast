@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TopIdleGamesRouteImport } from './routes/top-idle-games'
+import { Route as SportsGamesRouteImport } from './routes/sports-games'
 import { Route as SnesGamesRouteImport } from './routes/snes-games'
 import { Route as SnesRouteImport } from './routes/snes'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
@@ -17,6 +18,8 @@ import { Route as SegaGenesisGamesRouteImport } from './routes/sega-genesis-game
 import { Route as SegaGenesisRouteImport } from './routes/sega-genesis'
 import { Route as RobotsDottxtRouteImport } from './routes/robots[.]txt'
 import { Route as RandomRouteImport } from './routes/random'
+import { Route as RacingGamesRouteImport } from './routes/racing-games'
+import { Route as PuzzleGamesRouteImport } from './routes/puzzle-games'
 import { Route as Ps1GamesRouteImport } from './routes/ps1-games'
 import { Route as Ps1RouteImport } from './routes/ps1'
 import { Route as PlaystationGamesRouteImport } from './routes/playstation-games'
@@ -51,7 +54,9 @@ import { Route as EnGbaGamesRouteImport } from './routes/en.gba-games'
 import { Route as EnGbaRouteImport } from './routes/en.gba'
 import { Route as EnArcadeGamesRouteImport } from './routes/en.arcade-games'
 import { Route as EnArcadeRouteImport } from './routes/en.arcade'
+import { Route as BlogBlogIdRouteImport } from './routes/blog.$blogId'
 import { Route as ArticlesHowToPlayGamesOnlineWithoutDownloadingRouteImport } from './routes/articles.how-to-play-games-online-without-downloading'
+import { Route as ArticlesArticleIdRouteImport } from './routes/articles.$articleId'
 import { Route as ApiShareImageRouteImport } from './routes/api/share-image'
 import { Route as ApiHealthRouteImport } from './routes/api/health'
 import { Route as LocaleTermsOfServiceRouteImport } from './routes/$locale.terms-of-service'
@@ -61,6 +66,7 @@ import { Route as LocalePlayMyRomRouteImport } from './routes/$locale.play-my-ro
 import { Route as LocaleLiveRouteImport } from './routes/$locale.live'
 import { Route as LocaleBlogRouteImport } from './routes/$locale.blog'
 import { Route as LocaleAboutRouteImport } from './routes/$locale.about'
+import { Route as LibraryGenresGenreRouteImport } from './routes/library.genres.$genre'
 import { Route as GamesGameIdPlayRouteImport } from './routes/games/$gameId/play'
 import { Route as LocaleGamesGameIdRouteImport } from './routes/$locale.games.$gameId'
 import { Route as LocaleBlogBlogIdRouteImport } from './routes/$locale.blog.$blogId'
@@ -70,6 +76,11 @@ import { Route as LocaleGamesGameIdPlayRouteImport } from './routes/$locale.game
 const TopIdleGamesRoute = TopIdleGamesRouteImport.update({
   id: '/top-idle-games',
   path: '/top-idle-games',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SportsGamesRoute = SportsGamesRouteImport.update({
+  id: '/sports-games',
+  path: '/sports-games',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SnesGamesRoute = SnesGamesRouteImport.update({
@@ -105,6 +116,16 @@ const RobotsDottxtRoute = RobotsDottxtRouteImport.update({
 const RandomRoute = RandomRouteImport.update({
   id: '/random',
   path: '/random',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RacingGamesRoute = RacingGamesRouteImport.update({
+  id: '/racing-games',
+  path: '/racing-games',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PuzzleGamesRoute = PuzzleGamesRouteImport.update({
+  id: '/puzzle-games',
+  path: '/puzzle-games',
   getParentRoute: () => rootRouteImport,
 } as any)
 const Ps1GamesRoute = Ps1GamesRouteImport.update({
@@ -277,12 +298,22 @@ const EnArcadeRoute = EnArcadeRouteImport.update({
   path: '/en/arcade',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BlogBlogIdRoute = BlogBlogIdRouteImport.update({
+  id: '/blog/$blogId',
+  path: '/blog/$blogId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ArticlesHowToPlayGamesOnlineWithoutDownloadingRoute =
   ArticlesHowToPlayGamesOnlineWithoutDownloadingRouteImport.update({
     id: '/articles/how-to-play-games-online-without-downloading',
     path: '/articles/how-to-play-games-online-without-downloading',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ArticlesArticleIdRoute = ArticlesArticleIdRouteImport.update({
+  id: '/articles/$articleId',
+  path: '/articles/$articleId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiShareImageRoute = ApiShareImageRouteImport.update({
   id: '/api/share-image',
   path: '/api/share-image',
@@ -328,6 +359,11 @@ const LocaleAboutRoute = LocaleAboutRouteImport.update({
   path: '/about',
   getParentRoute: () => LocaleRoute,
 } as any)
+const LibraryGenresGenreRoute = LibraryGenresGenreRouteImport.update({
+  id: '/library/genres/$genre',
+  path: '/library/genres/$genre',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const GamesGameIdPlayRoute = GamesGameIdPlayRouteImport.update({
   id: '/play',
   path: '/play',
@@ -372,6 +408,8 @@ export interface FileRoutesByFullPath {
   '/playstation-games': typeof PlaystationGamesRoute
   '/ps1': typeof Ps1Route
   '/ps1-games': typeof Ps1GamesRoute
+  '/puzzle-games': typeof PuzzleGamesRoute
+  '/racing-games': typeof RacingGamesRoute
   '/random': typeof RandomRoute
   '/robots.txt': typeof RobotsDottxtRoute
   '/sega-genesis': typeof SegaGenesisRoute
@@ -379,6 +417,7 @@ export interface FileRoutesByFullPath {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/snes': typeof SnesRoute
   '/snes-games': typeof SnesGamesRoute
+  '/sports-games': typeof SportsGamesRoute
   '/top-idle-games': typeof TopIdleGamesRoute
   '/$locale/about': typeof LocaleAboutRoute
   '/$locale/blog': typeof LocaleBlogRouteWithChildren
@@ -389,7 +428,9 @@ export interface FileRoutesByFullPath {
   '/$locale/terms-of-service': typeof LocaleTermsOfServiceRoute
   '/api/health': typeof ApiHealthRoute
   '/api/share-image': typeof ApiShareImageRoute
+  '/articles/$articleId': typeof ArticlesArticleIdRoute
   '/articles/how-to-play-games-online-without-downloading': typeof ArticlesHowToPlayGamesOnlineWithoutDownloadingRoute
+  '/blog/$blogId': typeof BlogBlogIdRoute
   '/en/arcade': typeof EnArcadeRoute
   '/en/arcade-games': typeof EnArcadeGamesRoute
   '/en/gba': typeof EnGbaRoute
@@ -410,6 +451,7 @@ export interface FileRoutesByFullPath {
   '/$locale/blog/$blogId': typeof LocaleBlogBlogIdRoute
   '/$locale/games/$gameId': typeof LocaleGamesGameIdRouteWithChildren
   '/games/$gameId/play': typeof GamesGameIdPlayRoute
+  '/library/genres/$genre': typeof LibraryGenresGenreRoute
   '/$locale/games/$gameId/play': typeof LocaleGamesGameIdPlayRoute
   '/embed/$locale/games/$gameId': typeof EmbedLocaleGamesGameIdRoute
 }
@@ -431,6 +473,8 @@ export interface FileRoutesByTo {
   '/playstation-games': typeof PlaystationGamesRoute
   '/ps1': typeof Ps1Route
   '/ps1-games': typeof Ps1GamesRoute
+  '/puzzle-games': typeof PuzzleGamesRoute
+  '/racing-games': typeof RacingGamesRoute
   '/random': typeof RandomRoute
   '/robots.txt': typeof RobotsDottxtRoute
   '/sega-genesis': typeof SegaGenesisRoute
@@ -438,6 +482,7 @@ export interface FileRoutesByTo {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/snes': typeof SnesRoute
   '/snes-games': typeof SnesGamesRoute
+  '/sports-games': typeof SportsGamesRoute
   '/top-idle-games': typeof TopIdleGamesRoute
   '/$locale/about': typeof LocaleAboutRoute
   '/$locale/blog': typeof LocaleBlogRouteWithChildren
@@ -448,7 +493,9 @@ export interface FileRoutesByTo {
   '/$locale/terms-of-service': typeof LocaleTermsOfServiceRoute
   '/api/health': typeof ApiHealthRoute
   '/api/share-image': typeof ApiShareImageRoute
+  '/articles/$articleId': typeof ArticlesArticleIdRoute
   '/articles/how-to-play-games-online-without-downloading': typeof ArticlesHowToPlayGamesOnlineWithoutDownloadingRoute
+  '/blog/$blogId': typeof BlogBlogIdRoute
   '/en/arcade': typeof EnArcadeRoute
   '/en/arcade-games': typeof EnArcadeGamesRoute
   '/en/gba': typeof EnGbaRoute
@@ -469,6 +516,7 @@ export interface FileRoutesByTo {
   '/$locale/blog/$blogId': typeof LocaleBlogBlogIdRoute
   '/$locale/games/$gameId': typeof LocaleGamesGameIdRouteWithChildren
   '/games/$gameId/play': typeof GamesGameIdPlayRoute
+  '/library/genres/$genre': typeof LibraryGenresGenreRoute
   '/$locale/games/$gameId/play': typeof LocaleGamesGameIdPlayRoute
   '/embed/$locale/games/$gameId': typeof EmbedLocaleGamesGameIdRoute
 }
@@ -491,6 +539,8 @@ export interface FileRoutesById {
   '/playstation-games': typeof PlaystationGamesRoute
   '/ps1': typeof Ps1Route
   '/ps1-games': typeof Ps1GamesRoute
+  '/puzzle-games': typeof PuzzleGamesRoute
+  '/racing-games': typeof RacingGamesRoute
   '/random': typeof RandomRoute
   '/robots.txt': typeof RobotsDottxtRoute
   '/sega-genesis': typeof SegaGenesisRoute
@@ -498,6 +548,7 @@ export interface FileRoutesById {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/snes': typeof SnesRoute
   '/snes-games': typeof SnesGamesRoute
+  '/sports-games': typeof SportsGamesRoute
   '/top-idle-games': typeof TopIdleGamesRoute
   '/$locale/about': typeof LocaleAboutRoute
   '/$locale/blog': typeof LocaleBlogRouteWithChildren
@@ -508,7 +559,9 @@ export interface FileRoutesById {
   '/$locale/terms-of-service': typeof LocaleTermsOfServiceRoute
   '/api/health': typeof ApiHealthRoute
   '/api/share-image': typeof ApiShareImageRoute
+  '/articles/$articleId': typeof ArticlesArticleIdRoute
   '/articles/how-to-play-games-online-without-downloading': typeof ArticlesHowToPlayGamesOnlineWithoutDownloadingRoute
+  '/blog/$blogId': typeof BlogBlogIdRoute
   '/en/arcade': typeof EnArcadeRoute
   '/en/arcade-games': typeof EnArcadeGamesRoute
   '/en/gba': typeof EnGbaRoute
@@ -529,6 +582,7 @@ export interface FileRoutesById {
   '/$locale/blog/$blogId': typeof LocaleBlogBlogIdRoute
   '/$locale/games/$gameId': typeof LocaleGamesGameIdRouteWithChildren
   '/games/$gameId/play': typeof GamesGameIdPlayRoute
+  '/library/genres/$genre': typeof LibraryGenresGenreRoute
   '/$locale/games/$gameId/play': typeof LocaleGamesGameIdPlayRoute
   '/embed/$locale/games/$gameId': typeof EmbedLocaleGamesGameIdRoute
 }
@@ -552,6 +606,8 @@ export interface FileRouteTypes {
     | '/playstation-games'
     | '/ps1'
     | '/ps1-games'
+    | '/puzzle-games'
+    | '/racing-games'
     | '/random'
     | '/robots.txt'
     | '/sega-genesis'
@@ -559,6 +615,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/snes'
     | '/snes-games'
+    | '/sports-games'
     | '/top-idle-games'
     | '/$locale/about'
     | '/$locale/blog'
@@ -569,7 +626,9 @@ export interface FileRouteTypes {
     | '/$locale/terms-of-service'
     | '/api/health'
     | '/api/share-image'
+    | '/articles/$articleId'
     | '/articles/how-to-play-games-online-without-downloading'
+    | '/blog/$blogId'
     | '/en/arcade'
     | '/en/arcade-games'
     | '/en/gba'
@@ -590,6 +649,7 @@ export interface FileRouteTypes {
     | '/$locale/blog/$blogId'
     | '/$locale/games/$gameId'
     | '/games/$gameId/play'
+    | '/library/genres/$genre'
     | '/$locale/games/$gameId/play'
     | '/embed/$locale/games/$gameId'
   fileRoutesByTo: FileRoutesByTo
@@ -611,6 +671,8 @@ export interface FileRouteTypes {
     | '/playstation-games'
     | '/ps1'
     | '/ps1-games'
+    | '/puzzle-games'
+    | '/racing-games'
     | '/random'
     | '/robots.txt'
     | '/sega-genesis'
@@ -618,6 +680,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/snes'
     | '/snes-games'
+    | '/sports-games'
     | '/top-idle-games'
     | '/$locale/about'
     | '/$locale/blog'
@@ -628,7 +691,9 @@ export interface FileRouteTypes {
     | '/$locale/terms-of-service'
     | '/api/health'
     | '/api/share-image'
+    | '/articles/$articleId'
     | '/articles/how-to-play-games-online-without-downloading'
+    | '/blog/$blogId'
     | '/en/arcade'
     | '/en/arcade-games'
     | '/en/gba'
@@ -649,6 +714,7 @@ export interface FileRouteTypes {
     | '/$locale/blog/$blogId'
     | '/$locale/games/$gameId'
     | '/games/$gameId/play'
+    | '/library/genres/$genre'
     | '/$locale/games/$gameId/play'
     | '/embed/$locale/games/$gameId'
   id:
@@ -670,6 +736,8 @@ export interface FileRouteTypes {
     | '/playstation-games'
     | '/ps1'
     | '/ps1-games'
+    | '/puzzle-games'
+    | '/racing-games'
     | '/random'
     | '/robots.txt'
     | '/sega-genesis'
@@ -677,6 +745,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/snes'
     | '/snes-games'
+    | '/sports-games'
     | '/top-idle-games'
     | '/$locale/about'
     | '/$locale/blog'
@@ -687,7 +756,9 @@ export interface FileRouteTypes {
     | '/$locale/terms-of-service'
     | '/api/health'
     | '/api/share-image'
+    | '/articles/$articleId'
     | '/articles/how-to-play-games-online-without-downloading'
+    | '/blog/$blogId'
     | '/en/arcade'
     | '/en/arcade-games'
     | '/en/gba'
@@ -708,6 +779,7 @@ export interface FileRouteTypes {
     | '/$locale/blog/$blogId'
     | '/$locale/games/$gameId'
     | '/games/$gameId/play'
+    | '/library/genres/$genre'
     | '/$locale/games/$gameId/play'
     | '/embed/$locale/games/$gameId'
   fileRoutesById: FileRoutesById
@@ -730,6 +802,8 @@ export interface RootRouteChildren {
   PlaystationGamesRoute: typeof PlaystationGamesRoute
   Ps1Route: typeof Ps1Route
   Ps1GamesRoute: typeof Ps1GamesRoute
+  PuzzleGamesRoute: typeof PuzzleGamesRoute
+  RacingGamesRoute: typeof RacingGamesRoute
   RandomRoute: typeof RandomRoute
   RobotsDottxtRoute: typeof RobotsDottxtRoute
   SegaGenesisRoute: typeof SegaGenesisRoute
@@ -737,10 +811,13 @@ export interface RootRouteChildren {
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   SnesRoute: typeof SnesRoute
   SnesGamesRoute: typeof SnesGamesRoute
+  SportsGamesRoute: typeof SportsGamesRoute
   TopIdleGamesRoute: typeof TopIdleGamesRoute
   ApiHealthRoute: typeof ApiHealthRoute
   ApiShareImageRoute: typeof ApiShareImageRoute
+  ArticlesArticleIdRoute: typeof ArticlesArticleIdRoute
   ArticlesHowToPlayGamesOnlineWithoutDownloadingRoute: typeof ArticlesHowToPlayGamesOnlineWithoutDownloadingRoute
+  BlogBlogIdRoute: typeof BlogBlogIdRoute
   EnArcadeRoute: typeof EnArcadeRoute
   EnArcadeGamesRoute: typeof EnArcadeGamesRoute
   EnGbaRoute: typeof EnGbaRoute
@@ -758,6 +835,7 @@ export interface RootRouteChildren {
   EnSnesGamesRoute: typeof EnSnesGamesRoute
   GamesGameIdRoute: typeof GamesGameIdRouteWithChildren
   PlayGameIdRoute: typeof PlayGameIdRoute
+  LibraryGenresGenreRoute: typeof LibraryGenresGenreRoute
   EmbedLocaleGamesGameIdRoute: typeof EmbedLocaleGamesGameIdRoute
 }
 
@@ -768,6 +846,13 @@ declare module '@tanstack/react-router' {
       path: '/top-idle-games'
       fullPath: '/top-idle-games'
       preLoaderRoute: typeof TopIdleGamesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sports-games': {
+      id: '/sports-games'
+      path: '/sports-games'
+      fullPath: '/sports-games'
+      preLoaderRoute: typeof SportsGamesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/snes-games': {
@@ -817,6 +902,20 @@ declare module '@tanstack/react-router' {
       path: '/random'
       fullPath: '/random'
       preLoaderRoute: typeof RandomRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/racing-games': {
+      id: '/racing-games'
+      path: '/racing-games'
+      fullPath: '/racing-games'
+      preLoaderRoute: typeof RacingGamesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/puzzle-games': {
+      id: '/puzzle-games'
+      path: '/puzzle-games'
+      fullPath: '/puzzle-games'
+      preLoaderRoute: typeof PuzzleGamesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/ps1-games': {
@@ -1057,11 +1156,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EnArcadeRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/blog/$blogId': {
+      id: '/blog/$blogId'
+      path: '/blog/$blogId'
+      fullPath: '/blog/$blogId'
+      preLoaderRoute: typeof BlogBlogIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/articles/how-to-play-games-online-without-downloading': {
       id: '/articles/how-to-play-games-online-without-downloading'
       path: '/articles/how-to-play-games-online-without-downloading'
       fullPath: '/articles/how-to-play-games-online-without-downloading'
       preLoaderRoute: typeof ArticlesHowToPlayGamesOnlineWithoutDownloadingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/articles/$articleId': {
+      id: '/articles/$articleId'
+      path: '/articles/$articleId'
+      fullPath: '/articles/$articleId'
+      preLoaderRoute: typeof ArticlesArticleIdRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/share-image': {
@@ -1126,6 +1239,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/$locale/about'
       preLoaderRoute: typeof LocaleAboutRouteImport
       parentRoute: typeof LocaleRoute
+    }
+    '/library/genres/$genre': {
+      id: '/library/genres/$genre'
+      path: '/library/genres/$genre'
+      fullPath: '/library/genres/$genre'
+      preLoaderRoute: typeof LibraryGenresGenreRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/games/$gameId/play': {
       id: '/games/$gameId/play'
@@ -1243,6 +1363,8 @@ const rootRouteChildren: RootRouteChildren = {
   PlaystationGamesRoute: PlaystationGamesRoute,
   Ps1Route: Ps1Route,
   Ps1GamesRoute: Ps1GamesRoute,
+  PuzzleGamesRoute: PuzzleGamesRoute,
+  RacingGamesRoute: RacingGamesRoute,
   RandomRoute: RandomRoute,
   RobotsDottxtRoute: RobotsDottxtRoute,
   SegaGenesisRoute: SegaGenesisRoute,
@@ -1250,11 +1372,14 @@ const rootRouteChildren: RootRouteChildren = {
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   SnesRoute: SnesRoute,
   SnesGamesRoute: SnesGamesRoute,
+  SportsGamesRoute: SportsGamesRoute,
   TopIdleGamesRoute: TopIdleGamesRoute,
   ApiHealthRoute: ApiHealthRoute,
   ApiShareImageRoute: ApiShareImageRoute,
+  ArticlesArticleIdRoute: ArticlesArticleIdRoute,
   ArticlesHowToPlayGamesOnlineWithoutDownloadingRoute:
     ArticlesHowToPlayGamesOnlineWithoutDownloadingRoute,
+  BlogBlogIdRoute: BlogBlogIdRoute,
   EnArcadeRoute: EnArcadeRoute,
   EnArcadeGamesRoute: EnArcadeGamesRoute,
   EnGbaRoute: EnGbaRoute,
@@ -1272,6 +1397,7 @@ const rootRouteChildren: RootRouteChildren = {
   EnSnesGamesRoute: EnSnesGamesRoute,
   GamesGameIdRoute: GamesGameIdRouteWithChildren,
   PlayGameIdRoute: PlayGameIdRoute,
+  LibraryGenresGenreRoute: LibraryGenresGenreRoute,
   EmbedLocaleGamesGameIdRoute: EmbedLocaleGamesGameIdRoute,
 }
 export const routeTree = rootRouteImport
