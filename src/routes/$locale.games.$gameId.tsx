@@ -97,6 +97,15 @@ export const Route = createFileRoute('/$locale/games/$gameId')({
     }
 
     const currentId = getGameRouteId(detail.game) || params.gameId
+
+    if (currentId !== params.gameId) {
+      throw redirect({
+        params: { gameId: currentId, locale },
+        replace: true,
+        to: '/$locale/games/$gameId',
+      })
+    }
+
     const relatedGames = await getRelatedGamePageData({
       data: {
         category: detail.game.categories?.[0],
