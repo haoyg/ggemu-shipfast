@@ -13,6 +13,10 @@ const GGEMU_DEFAULT_STALE_TTL_MS = 1000 * 60 * 60 * 24
 const GGEMU_LIVE_CACHE_TTL_MS = 1000 * 15
 const GGEMU_FILTER_CACHE_TTL_MS = 1000 * 60 * 60 * 24
 const GGEMU_CACHE_MAX_ENTRIES = 500
+const BLOCKED_IMAGE_HOSTS = new Set([
+  'cdn.emulatorgamer.com',
+  'emulatorgamer.com',
+])
 
 export type Locale = 'zh-CN' | 'en' | 'ja'
 export type GameSearchSort =
@@ -335,9 +339,50 @@ async function fetchGames(params: URLSearchParams) {
   const result = await fetchJson<GameSearchResponse>('/api/games/search', params)
 
   return {
-    games: result.data,
+    games: normalizePublicGames(result.data),
     pagination: result.pagination,
   } satisfies GameSearchResult
+}
+
+function normalizePublicGames(games: Array<PublicGame>) {
+  return games.map(normalizePublicGame)
+}
+
+function normalizePublicGame(game: PublicGame) {
+  return {
+    ...game,
+    game_cover: normalizeImageUrl(game.game_cover),
+  }
+}
+
+function normalizeLiveRoom(room: PublicLiveRoom) {
+  return {
+    ...room,
+    game: {
+      ...room.game,
+      game_cover: normalizeImageUrl(room.game.game_cover) ?? '',
+    },
+  }
+}
+
+function normalizeImageUrl(value: string | undefined) {
+  const trimmed = value?.trim()
+
+  if (!trimmed) {
+    return undefined
+  }
+
+  try {
+    const url = new URL(trimmed)
+
+    if (BLOCKED_IMAGE_HOSTS.has(url.hostname.toLowerCase())) {
+      return undefined
+    }
+  } catch {
+    return undefined
+  }
+
+  return trimmed
 }
 
 function getGameId(game: PublicGame) {
@@ -596,7 +641,7 @@ export const searchLiveRooms = createServerFn({ method: 'GET' })
     )
 
     return {
-      rooms: result.items,
+      rooms: result.items.map(normalizeLiveRoom),
       pagination: result.pagination,
     } satisfies LiveRoomSearchResult
   })
@@ -647,7 +692,7 @@ export const getGameDetail = createServerFn({ method: 'GET' })
     const params = new URLSearchParams({ id: data.id })
     const result = await fetchJson<GameDetailResponse>('/api/game/detail', params)
 
-    return result.data
+    return normalizePublicGame(result.data)
   })
 
 export const getGameDetailPageData = createServerFn({ method: 'GET' })
@@ -658,7 +703,7 @@ export const getGameDetailPageData = createServerFn({ method: 'GET' })
   .handler(async ({ data }) => {
     const params = new URLSearchParams({ id: data.id })
     const result = await fetchJson<GameDetailResponse>('/api/game/detail', params)
-    const game = result.data
+    const game = normalizePublicGame(result.data)
     const origin = getRequestUrl({ xForwardedHost: true }).origin
 
     return {

@@ -16,12 +16,14 @@ import appCss from '../styles.css?url'
 
 const defaultSocialImagePath = '/og.png'
 const rootSecurityHeaders = {
+  'Cache-Control': 'no-cache, no-store, must-revalidate',
   'Referrer-Policy': 'strict-origin-when-cross-origin',
   'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload',
   'X-Content-Type-Options': 'nosniff',
   'X-Frame-Options': 'SAMEORIGIN',
 } as const
 const embeddableRootSecurityHeaders = {
+  'Cache-Control': rootSecurityHeaders['Cache-Control'],
   'Referrer-Policy': rootSecurityHeaders['Referrer-Policy'],
   'Strict-Transport-Security': rootSecurityHeaders['Strict-Transport-Security'],
   'X-Content-Type-Options': rootSecurityHeaders['X-Content-Type-Options'],
