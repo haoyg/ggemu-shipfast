@@ -144,7 +144,7 @@ export const platformCollections = {
   },
   nes: {
     routePath: '/en/nes-games',
-    platform: 'NES',
+    platform: 'Famicom',
     title: 'Play NES Games Online Free | No Download | POKOPIE',
     description:
       'Play NES games online in your browser. Browse classic Nintendo action, platform, puzzle, sports, and adventure games with no separate emulator download.',
@@ -204,7 +204,7 @@ export const platformCollections = {
   },
   segaGenesis: {
     routePath: '/en/sega-genesis-games',
-    platform: 'Sega Genesis',
+    platform: 'Genesis',
     title: 'Play Sega Genesis Games Online Free | POKOPIE',
     description:
       'Play Sega Genesis games online in your browser. Browse classic action, platform, racing, fighting, and sports games with no separate emulator download.',
@@ -264,7 +264,7 @@ export const platformCollections = {
   },
   snes: {
     routePath: '/en/snes-games',
-    platform: 'SNES',
+    platform: 'Super Famicom',
     title: 'Play SNES Games Online Free | No Download | POKOPIE',
     description:
       'Play SNES games online in your browser. Browse Super Nintendo RPG, platform, racing, action, and adventure classics with no separate emulator download.',
