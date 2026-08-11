@@ -5,7 +5,7 @@ const siteConfig = {
   SITE_TEMPLATE: 'default',// default, two-column, poki-like, features, sidenav
   SITE_EMAIL: 'contact@pokopie.com',
   GGEMU_REFCODE: 'v2pRNT',// your GGEMU referral code, to get more revenue from GGEMU
-  GOOGLE_ADSENSE_CLIENT: '',// your Google AdSense client ID
+  GOOGLE_ADSENSE_CLIENT: 'ca-pub-3274781156049995',// your Google AdSense client ID
   GOOGLE_ANALYTICS_ID: '',// your Google Analytics ID
 }
 
