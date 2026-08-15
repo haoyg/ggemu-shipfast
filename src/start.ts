@@ -1,13 +1,18 @@
 import { createMiddleware, createStart } from '@tanstack/react-start'
 
-import { preventErrorResponseCaching } from '#/lib/response-cache'
+import { applyResponseCachePolicy } from '#/lib/response-cache'
 
-const responseCacheMiddleware = createMiddleware().server(async ({ next }) => {
+const responseCacheMiddleware = createMiddleware().server(async ({
+  handlerType,
+  next,
+}) => {
   const result = await next()
 
   return {
     ...result,
-    response: preventErrorResponseCaching(result.response),
+    response: applyResponseCachePolicy(result.response, {
+      isServerFn: handlerType === 'serverFn',
+    }),
   }
 })
 

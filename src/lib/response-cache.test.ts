@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { preventErrorResponseCaching } from './response-cache'
+import { applyResponseCachePolicy } from './response-cache'
 
 describe('response cache', () => {
   it('keeps successful document cache headers unchanged', () => {
@@ -10,7 +10,7 @@ describe('response cache', () => {
       },
     })
 
-    expect(preventErrorResponseCaching(response)).toBe(response)
+    expect(applyResponseCachePolicy(response)).toBe(response)
   })
 
   it('prevents document errors from entering the edge cache', () => {
@@ -21,7 +21,7 @@ describe('response cache', () => {
       },
       status: 500,
     })
-    const protectedResponse = preventErrorResponseCaching(response)
+    const protectedResponse = applyResponseCachePolicy(response)
 
     expect(protectedResponse.status).toBe(500)
     expect(protectedResponse.headers.get('Cache-Control')).toBe('no-store')
@@ -36,6 +36,26 @@ describe('response cache', () => {
       status: 503,
     })
 
-    expect(preventErrorResponseCaching(response)).toBe(response)
+    expect(applyResponseCachePolicy(response)).toBe(response)
+  })
+
+  it('prevents implicit caching of server function responses', () => {
+    const response = Response.json({ games: [] })
+    const protectedResponse = applyResponseCachePolicy(response, {
+      isServerFn: true,
+    })
+
+    expect(protectedResponse.headers.get('Cache-Control')).toBe('no-store')
+  })
+
+  it('preserves explicit server function cache policies', () => {
+    const response = Response.json(
+      { games: [] },
+      { headers: { 'Cache-Control': 'private, max-age=60' } },
+    )
+
+    expect(applyResponseCachePolicy(response, { isServerFn: true })).toBe(
+      response,
+    )
   })
 })

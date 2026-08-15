@@ -61,5 +61,6 @@ npm run deploy
 - `/api/health` 同时检查 POKOPIE Worker 和 GGEMU 上游服务，并返回上游延迟。
 - Cloudflare Workers Observability 已启用完整 invocation logs，可在 Cloudflare Dashboard 查询生产日志。
 - Cloudflare Workers Caching 已启用。成功的 SSR HTML 不写入浏览器缓存，在 Cloudflare 边缘缓存 5 分钟，并最多使用 24 小时的旧副本执行后台刷新；错误响应不进入缓存。
+- TanStack Server Function 默认使用 `no-store`；只有显式声明缓存策略的函数响应才允许进入缓存，避免搜索和实时数据被 Cloudflare 的默认 TTL 长时间缓存。
 - 发布后使用响应头中的 `CF-Cache-Status` 验证边缘缓存；同一路径连续请求应从 `MISS` 变为 `HIT`。
 - `wrangler.jsonc` 当前没有 KV、D1、R2 等绑定。
