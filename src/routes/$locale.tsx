@@ -396,7 +396,7 @@ function LocalizedHomePage() {
     setHasLoadError(false)
 
     return () => requestGuardRef.current?.invalidate()
-  }, [initialResult])
+  }, [currentTemplate, lang])
 
   const { games, pagination } = result
   const page = pagination.page

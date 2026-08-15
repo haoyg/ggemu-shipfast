@@ -215,6 +215,7 @@ function formatDate(value: string | undefined, locale: Locale) {
   return new Intl.DateTimeFormat(locale, {
     day: 'numeric',
     month: 'short',
+    timeZone: 'UTC',
     year: 'numeric',
   }).format(new Date(value))
 }

@@ -280,17 +280,17 @@ function PokiControlTiles({
   }
 
   return (
-    <div className="relative col-span-2 h-[100px] w-full overflow-visible rounded-2xl bg-white shadow-lg">
+    <div className="relative col-span-2 row-span-2 h-full min-h-[216px] w-full overflow-visible rounded-2xl bg-white shadow-lg">
       <Link
         aria-label={siteConfig.SITE_NAME}
-        className="grid h-[56px] place-items-center border-b border-slate-200"
+        className="grid h-[132px] place-items-center border-b border-slate-200"
         params={{ locale: lang }}
         search={{}}
         to="/$locale"
       >
         <img
           alt={siteConfig.SITE_NAME}
-          className="h-full max-h-[48px] w-full object-contain px-3 py-2"
+          className="block h-auto max-h-[96px] w-full max-w-[156px] object-contain px-4 py-3"
           height="128"
           src="/logo-128.png"
           width="128"
@@ -298,7 +298,7 @@ function PokiControlTiles({
       </Link>
 
       <div
-        className={`grid h-[44px] divide-x divide-slate-200 ${
+        className={`grid h-[84px] divide-x divide-slate-200 ${
           canSwitchTheme ? 'grid-cols-4' : 'grid-cols-3'
         }`}
       >
@@ -309,7 +309,7 @@ function PokiControlTiles({
         >
           <summary
             aria-label={layoutCopy.explore}
-            className="grid h-[44px] cursor-pointer list-none place-items-center rounded-bl-2xl text-xl text-emerald-600 transition hover:bg-emerald-50"
+            className="grid h-[84px] cursor-pointer list-none place-items-center rounded-bl-2xl text-xl text-emerald-600 transition hover:bg-emerald-50"
             onClick={(event) => {
               event.preventDefault()
               setOpenMenu((current) => current === 'nav' ? null : 'nav')
@@ -352,7 +352,7 @@ function PokiControlTiles({
         >
           <summary
             aria-label={layoutCopy.language}
-            className="grid h-[44px] cursor-pointer list-none place-items-center text-xl text-sky-600 transition hover:bg-sky-50"
+            className="grid h-[84px] cursor-pointer list-none place-items-center text-xl text-sky-600 transition hover:bg-sky-50"
             onClick={(event) => {
               event.preventDefault()
               setOpenMenu((current) => current === 'locale' ? null : 'locale')
@@ -383,7 +383,7 @@ function PokiControlTiles({
           >
             <summary
               aria-label={layoutCopy.theme}
-              className="grid h-[44px] cursor-pointer list-none place-items-center text-xl text-violet-600 transition hover:bg-violet-50"
+              className="grid h-[84px] cursor-pointer list-none place-items-center text-xl text-violet-600 transition hover:bg-violet-50"
               onClick={(event) => {
                 event.preventDefault()
                 setOpenMenu((current) => current === 'theme' ? null : 'theme')
@@ -413,7 +413,7 @@ function PokiControlTiles({
 
         <button
           aria-label={t.search}
-          className="grid h-[44px] place-items-center rounded-br-2xl text-xl text-blue-600 transition hover:bg-blue-50"
+          className="grid h-[84px] place-items-center rounded-br-2xl text-xl text-blue-600 transition hover:bg-blue-50"
           onClick={() => {
             setOpenMenu(null)
             onToggleSearch()
@@ -526,7 +526,7 @@ function getPokiFillerCount(tiles: Array<PokiGridSizeTile>, grid: HTMLDivElement
   }
 
   const placedTiles = [
-    { colSpan: 2, rowSpan: 1 },
+    { colSpan: 2, rowSpan: 2 },
     ...tiles.map((tile) => getPokiPlacedTile(tile.size)),
   ]
   const occupied: Array<Array<boolean>> = []

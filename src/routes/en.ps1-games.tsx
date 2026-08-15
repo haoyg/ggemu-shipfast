@@ -36,8 +36,8 @@ export const Route = createFileRoute('/en/ps1-games')({
       links: loaderData?.origin
         ? [
             { rel: 'canonical', href: canonicalUrl },
-            { rel: 'alternate', hreflang: 'en', href: canonicalUrl },
-            { rel: 'alternate', hreflang: 'x-default', href: canonicalUrl },
+            { rel: 'alternate', hrefLang: 'en', href: canonicalUrl },
+            { rel: 'alternate', hrefLang: 'x-default', href: canonicalUrl },
           ]
         : undefined,
       meta: [

@@ -49,9 +49,21 @@ function getPwaInstallInitScript() {
       window.dispatchEvent(new Event('pokopie:installprompt'));
     });
     if('serviceWorker' in navigator){
-      window.addEventListener('load',function(){
-        navigator.serviceWorker.register('/sw.js').catch(function(){});
-      },{once:true});
+      var isLocalHost=location.hostname==='localhost'||location.hostname==='127.0.0.1'||location.hostname==='::1';
+      if(isLocalHost){
+        navigator.serviceWorker.getRegistrations().then(function(registrations){
+          registrations.forEach(function(registration){registration.unregister();});
+        });
+        if('caches' in window){
+          caches.keys().then(function(cacheNames){
+            cacheNames.filter(function(cacheName){return cacheName.indexOf('pokopie-static-')===0;}).forEach(function(cacheName){caches.delete(cacheName);});
+          });
+        }
+      }else{
+        window.addEventListener('load',function(){
+          navigator.serviceWorker.register('/sw.js').catch(function(){});
+        },{once:true});
+      }
     }
   `
 }
@@ -230,7 +242,7 @@ function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
   const pathname = useRouterState({ select: (state) => state.location.pathname })
 
   return (
-    <html lang={getDocumentLang(pathname)}>
+    <html lang={getDocumentLang(pathname)} suppressHydrationWarning>
       <head>
         <script
           dangerouslySetInnerHTML={{

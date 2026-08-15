@@ -481,11 +481,13 @@ function HomeSearchSuggest({
           value={query}
         />
         <button
-          className="btn btn-primary btn-sm hidden sm:inline-flex"
+          aria-label={t.search}
+          className="btn btn-primary btn-sm shrink-0"
           disabled={isLoading}
           type="submit"
         >
-          {t.search}
+          <i aria-hidden="true" className="ri-arrow-right-line sm:hidden" />
+          <span className="hidden sm:inline">{t.search}</span>
         </button>
       </label>
 
