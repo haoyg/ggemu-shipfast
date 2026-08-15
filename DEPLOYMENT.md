@@ -60,4 +60,6 @@ npm run deploy
 - 游戏播放页和直播房链接会携带 GGEMU 推荐码 `v2pRNT`。
 - `/api/health` 同时检查 POKOPIE Worker 和 GGEMU 上游服务，并返回上游延迟。
 - Cloudflare Workers Observability 已启用完整 invocation logs，可在 Cloudflare Dashboard 查询生产日志。
+- Cloudflare Workers Caching 已启用。成功的 SSR HTML 不写入浏览器缓存，在 Cloudflare 边缘缓存 5 分钟，并最多使用 24 小时的旧副本执行后台刷新；错误响应不进入缓存。
+- 发布后使用响应头中的 `CF-Cache-Status` 验证边缘缓存；同一路径连续请求应从 `MISS` 变为 `HIT`。
 - `wrangler.jsonc` 当前没有 KV、D1、R2 等绑定。

@@ -8,6 +8,7 @@ import {
 } from '@tanstack/react-router'
 
 import { ThirdPartyScripts } from '#/components/third-party-scripts'
+import { getDocumentHeaders } from '#/lib/document-headers'
 import { getI18n } from '#/lib/i18n'
 import { getDocumentLang, getSeoOrigin } from '#/lib/seo'
 import { serializeSiteConfig, siteConfig } from '#/lib/site-config'
@@ -15,19 +16,6 @@ import { getSiteThemeInitScript } from '#/lib/site-themes'
 import appCss from '../styles.css?url'
 
 const defaultSocialImagePath = '/og.png'
-const rootSecurityHeaders = {
-  'Cache-Control': 'no-cache, no-store, must-revalidate',
-  'Referrer-Policy': 'strict-origin-when-cross-origin',
-  'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload',
-  'X-Content-Type-Options': 'nosniff',
-  'X-Frame-Options': 'SAMEORIGIN',
-} as const
-const embeddableRootSecurityHeaders = {
-  'Cache-Control': rootSecurityHeaders['Cache-Control'],
-  'Referrer-Policy': rootSecurityHeaders['Referrer-Policy'],
-  'Strict-Transport-Security': rootSecurityHeaders['Strict-Transport-Security'],
-  'X-Content-Type-Options': rootSecurityHeaders['X-Content-Type-Options'],
-} as const
 const defaultRootSeo = {
   title: '在线玩经典复古游戏 | POKOPIE',
   description:
@@ -70,9 +58,9 @@ function getPwaInstallInitScript() {
 
 export const Route = createRootRoute({
   headers: ({ matches }) =>
-    matches.some((match) => String(match.routeId).startsWith('/embed/'))
-      ? embeddableRootSecurityHeaders
-      : rootSecurityHeaders,
+    getDocumentHeaders(
+      matches.some((match) => String(match.routeId).startsWith('/embed/')),
+    ),
   loader: () => getSeoOrigin(),
   head: ({ loaderData }) => {
     const defaultSocialImage = getDefaultSocialImage(loaderData)
