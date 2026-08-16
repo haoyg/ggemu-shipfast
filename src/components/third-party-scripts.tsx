@@ -4,42 +4,56 @@ import { siteConfig } from '#/lib/site-config'
 
 const googleAnalyticsScriptId = 'pokopie-google-analytics'
 const googleAdsenseScriptId = 'pokopie-google-adsense'
+const googleConsentInitializedKey = '__POKOPIE_GOOGLE_CONSENT_INITIALIZED__'
+
+type GoogleTagWindow = Window & {
+  dataLayer?: Array<Array<unknown>>
+  gtag?: (...args: Array<unknown>) => void
+  [googleConsentInitializedKey]?: boolean
+}
 
 export function ThirdPartyScripts({ pathname }: Readonly<{ pathname: string }>) {
-  useGoogleAnalytics()
-  useGoogleAdsense(isGamePlayPath(pathname))
+  const isPrivacyPolicy = isPrivacyPolicyPath(pathname)
+
+  useGoogleAnalytics(isPrivacyPolicy)
+  useGoogleAdsense(!isAdSenseEligiblePath(pathname))
 
   return null
 }
 
-export function isGamePlayPath(pathname: string) {
-  return /^\/(?:[^/]+\/)?games\/[^/]+\/play\/?$/.test(pathname)
+export function isAdSenseEligiblePath(pathname: string) {
+  const localizedContentPath =
+    /^\/(?:zh-CN|en|ja)(?:\/?|\/games\/[^/]+\/?|\/blog(?:\/[^/]+)?\/?)$/
+
+  return localizedContentPath.test(pathname)
 }
 
-function useGoogleAnalytics() {
+export function isPrivacyPolicyPath(pathname: string) {
+  return /^\/(?:[^/]+\/)?privacy-policy\/?$/.test(pathname)
+}
+
+function useGoogleAnalytics(disabled: boolean) {
   const analyticsId = siteConfig.GOOGLE_ANALYTICS_ID.trim()
 
   useEffect(() => {
-    if (!analyticsId || document.getElementById(googleAnalyticsScriptId)) {
+    if (
+      disabled ||
+      !analyticsId ||
+      document.getElementById(googleAnalyticsScriptId)
+    ) {
       return
     }
 
-    const analyticsWindow = window as Window & {
-      dataLayer?: Array<Array<unknown>>
-      gtag?: (...args: Array<unknown>) => void
-    }
-    analyticsWindow.dataLayer = analyticsWindow.dataLayer ?? []
-    analyticsWindow.gtag = (...args) => {
-      analyticsWindow.dataLayer?.push(args)
-    }
-    analyticsWindow.gtag('js', new Date())
-    analyticsWindow.gtag('config', analyticsId)
+    const googleWindow = initializeGoogleConsentMode()
+
+    googleWindow.gtag?.('js', new Date())
+    googleWindow.gtag?.('config', analyticsId)
 
     appendAsyncScript(
       googleAnalyticsScriptId,
       `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(analyticsId)}`,
     )
-  }, [analyticsId])
+  }, [analyticsId, disabled])
 }
 
 function useGoogleAdsense(disabled: boolean) {
@@ -50,12 +64,38 @@ function useGoogleAdsense(disabled: boolean) {
       return
     }
 
+    initializeGoogleConsentMode()
     appendAsyncScript(
       googleAdsenseScriptId,
       `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${encodeURIComponent(client)}`,
       'anonymous',
     )
   }, [client, disabled])
+}
+
+function initializeGoogleConsentMode() {
+  const googleWindow = window as GoogleTagWindow
+
+  googleWindow.dataLayer = googleWindow.dataLayer ?? []
+  googleWindow.gtag =
+    googleWindow.gtag ??
+    ((...args) => {
+      googleWindow.dataLayer?.push(args)
+    })
+
+  if (!googleWindow[googleConsentInitializedKey]) {
+    googleWindow.gtag('consent', 'default', {
+      ad_personalization: 'denied',
+      ad_storage: 'denied',
+      ad_user_data: 'denied',
+      analytics_storage: 'denied',
+      wait_for_update: 500,
+    })
+    googleWindow.gtag('set', 'ads_data_redaction', true)
+    googleWindow[googleConsentInitializedKey] = true
+  }
+
+  return googleWindow
 }
 
 function appendAsyncScript(

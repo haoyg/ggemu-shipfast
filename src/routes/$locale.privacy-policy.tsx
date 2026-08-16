@@ -10,7 +10,11 @@ type LegalCopy = {
   title: string
   description: string
   intro: string
-  sections: Array<{ title: string; body: string }>
+  sections: Array<{
+    title: string
+    body: string
+    links?: Array<{ href: string; label: string }>
+  }>
 }
 
 const privacyCopies: Record<Locale, LegalCopy> = {
@@ -40,6 +44,21 @@ const privacyCopies: Record<Locale, LegalCopy> = {
         title: '第三方服务',
         body:
           '本网站可能使用第三方服务进行托管、分析、广告、嵌入内容或游戏交付。这些服务提供方可能会按照其隐私政策和条款处理信息。',
+      },
+      {
+        title: 'Google 广告与分析',
+        body:
+          '本网站可能使用 Google AdSense 和 Google Analytics。Google 及其合作伙伴可能因提供广告和衡量服务而放置或读取 Cookie，并使用网络信标、IP 地址、设备标识符、访问页面以及此前访问本网站或其他网站的信息。Google 会根据适用的同意选择决定是否使用数据进行广告个性化。',
+        links: [
+          {
+            href: 'https://policies.google.com/technologies/partner-sites',
+            label: '了解 Google 如何使用合作伙伴网站提供的信息',
+          },
+          {
+            href: 'https://adssettings.google.com/',
+            label: '管理 Google 广告设置',
+          },
+        ],
       },
       {
         title: '数据保留',
@@ -82,6 +101,21 @@ const privacyCopies: Record<Locale, LegalCopy> = {
           'The website may use third-party services for hosting, analytics, advertising, embedded content, or game delivery. These providers may process information according to their own privacy policies and terms.',
       },
       {
+        title: 'Google advertising and analytics',
+        body:
+          'The website may use Google AdSense and Google Analytics. Google and its partners may place or read cookies and use web beacons, IP addresses, device identifiers, pages visited, and information from prior visits to this or other websites to provide and measure advertising. Google uses applicable consent choices to determine whether data may be used for ad personalization.',
+        links: [
+          {
+            href: 'https://policies.google.com/technologies/partner-sites',
+            label: 'How Google uses information from partner sites',
+          },
+          {
+            href: 'https://adssettings.google.com/',
+            label: 'Manage Google ad settings',
+          },
+        ],
+      },
+      {
         title: 'Data retention',
         body:
           'Information is retained only as long as reasonably necessary for operational, legal, security, or support purposes. Retention periods may vary depending on the type of information and the reason it is processed.',
@@ -120,6 +154,21 @@ const privacyCopies: Record<Locale, LegalCopy> = {
         title: '第三者サービス',
         body:
           '本サイトは、ホスティング、分析、広告、埋め込みコンテンツ、ゲーム配信のために第三者サービスを利用する場合があります。これらの提供者は、それぞれのプライバシーポリシーと規約に従って情報を処理することがあります。',
+      },
+      {
+        title: 'Google の広告と分析',
+        body:
+          '本サイトは Google AdSense および Google Analytics を利用する場合があります。Google とそのパートナーは、広告の配信と測定のために Cookie の保存や読み取りを行い、ウェブビーコン、IP アドレス、端末識別子、閲覧ページ、本サイトまたは他のサイトへの過去のアクセス情報を使用する場合があります。広告のパーソナライズにデータを利用できるかどうかは、適用される同意設定に従って判断されます。',
+        links: [
+          {
+            href: 'https://policies.google.com/technologies/partner-sites',
+            label: 'Google によるパートナーサイト情報の利用について',
+          },
+          {
+            href: 'https://adssettings.google.com/',
+            label: 'Google 広告設定を管理',
+          },
+        ],
       },
       {
         title: 'データ保持',
@@ -186,6 +235,22 @@ function LegalPage({ copy }: { copy: LegalCopy }) {
             <p className="mt-3 leading-7 text-base-content/70">
               {section.body}
             </p>
+            {section.links ? (
+              <ul className="mt-3 space-y-2 text-sm">
+                {section.links.map((link) => (
+                  <li key={link.href}>
+                    <a
+                      className="link link-primary"
+                      href={link.href}
+                      rel="noopener noreferrer"
+                      target="_blank"
+                    >
+                      {link.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            ) : null}
           </section>
         ))}
       </div>

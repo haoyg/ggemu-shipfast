@@ -303,6 +303,7 @@ function SidenavLink({
       }}
       className="flex items-center gap-2 rounded-lg px-2 py-2 text-sm font-medium transition hover:bg-base-300/70"
       params={{ locale }}
+      reloadDocument={to !== '/$locale' && to !== '/$locale/blog'}
       search={{}}
       to={to}
     >

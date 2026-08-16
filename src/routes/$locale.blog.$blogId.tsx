@@ -207,6 +207,7 @@ function BlogDetailPage() {
               className="inline-flex items-center gap-2 font-medium text-base-content/75 hover:text-primary"
               params={{ locale: lang }}
               rel="author"
+              reloadDocument
               to="/$locale/about"
             >
               <i className="ri-team-line text-base text-primary" />

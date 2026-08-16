@@ -319,13 +319,23 @@ function PokiControlTiles({
           </summary>
           <ul className="menu dropdown-content z-50 mt-2 w-48 rounded-box bg-base-100 p-2 shadow-xl">
             <li>
-              <Link params={{ locale: lang }} search={{}} to="/$locale/live">
+              <Link
+                params={{ locale: lang }}
+                reloadDocument
+                search={{}}
+                to="/$locale/live"
+              >
                 <i aria-hidden="true" className="ri-live-line" />
                 {layoutCopy.live}
               </Link>
             </li>
             <li>
-              <Link params={{ locale: lang }} search={{}} to="/$locale/play-my-rom">
+              <Link
+                params={{ locale: lang }}
+                reloadDocument
+                search={{}}
+                to="/$locale/play-my-rom"
+              >
                 <i aria-hidden="true" className="ri-gamepad-line" />
                 {layoutCopy.playMyRom}
               </Link>
@@ -337,7 +347,12 @@ function PokiControlTiles({
               </Link>
             </li>
             <li>
-              <Link params={{ locale: lang }} search={{}} to="/$locale/about">
+              <Link
+                params={{ locale: lang }}
+                reloadDocument
+                search={{}}
+                to="/$locale/about"
+              >
                 <i aria-hidden="true" className="ri-information-line" />
                 {layoutCopy.about}
               </Link>

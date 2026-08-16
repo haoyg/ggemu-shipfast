@@ -1,6 +1,15 @@
 import { createMiddleware, createStart } from '@tanstack/react-start'
 
+import { getCanonicalHostRedirect } from '#/lib/canonical-host'
 import { applyResponseCachePolicy } from '#/lib/response-cache'
+
+const canonicalHostMiddleware = createMiddleware().server(
+  async ({ next, request }) => {
+    const redirectResponse = getCanonicalHostRedirect(request)
+
+    return redirectResponse ?? next()
+  },
+)
 
 const responseCacheMiddleware = createMiddleware().server(async ({
   handlerType,
@@ -17,5 +26,5 @@ const responseCacheMiddleware = createMiddleware().server(async ({
 })
 
 export const startInstance = createStart(() => ({
-  requestMiddleware: [responseCacheMiddleware],
+  requestMiddleware: [canonicalHostMiddleware, responseCacheMiddleware],
 }))

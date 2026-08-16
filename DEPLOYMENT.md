@@ -9,6 +9,8 @@
 
 `wrangler.jsonc` 已配置这两个 Cloudflare Workers 自定义域名。部署前需要确认 `pokopie.com` 已接入当前 Cloudflare 账号，并且 DNS/zone 权限可用。
 
+`www.pokopie.com` 会使用 `308` 永久重定向到 `https://pokopie.com`，并保留原始路径和查询参数。
+
 ## 上线前配置
 
 当前已设置：
@@ -24,6 +26,21 @@
 仍需按业务确认：
 
 - `GOOGLE_ANALYTICS_ID`: Google Analytics ID
+
+## Google 广告同意管理
+
+代码已在 Google 标签加载前将 Consent Mode v2 的广告、广告个性化、广告用户数据和分析存储默认设为 `denied`。上线前仍必须在 AdSense 后台完成以下配置：
+
+AdSense 代码仅在本地化首页、游戏详情页和博客内容页加载。游戏游玩页、嵌入页、直播页、本地 ROM 工具、About、Privacy、Terms 及未知路径不会加载广告，避免在第三方框架或低价值页面产生广告请求。
+
+1. 打开「Privacy & messaging」，创建并发布 European regulations message。
+2. 确认使用 Google 认证并支持 IAB TCF 的 CMP；Google 自带的 European regulations message 满足该认证要求。
+3. 将隐私政策 URL 配置为 `https://pokopie.com/en/privacy-policy`，并为其他语言提供站内入口。
+4. 在 European regulations message 设置中启用广告和分析用途的 Consent Mode。
+5. 配置拒绝、同意和管理选项，并确认页面底部显示「Privacy and cookie settings」撤回入口。
+6. 使用 `?fc=alwaysshow` 在 EEA 测试环境验证消息、拒绝流程、同意流程和撤回流程。
+
+未完成并发布认证 CMP 前，不应面向 EEA、英国或瑞士流量启用个性化广告。
 
 不要把服务端密钥放进 `VITE_` 前缀变量。当前项目没有必须配置的密钥。
 

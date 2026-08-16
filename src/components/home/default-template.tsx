@@ -600,6 +600,7 @@ function SideNavRoute({
     <Link
       className="flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-white/70 transition hover:bg-white/10 hover:text-white"
       params={{ locale: lang }}
+      reloadDocument={to !== '/$locale/blog'}
       to={to}
     >
       <i className={`${icon} text-lg`} />

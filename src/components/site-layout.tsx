@@ -135,13 +135,17 @@ export function SiteLayout({
                   </li>
                 ))}
                 <li>
-                  <Link params={{ locale }} to="/$locale/play-my-rom">
+                  <Link
+                    params={{ locale }}
+                    reloadDocument
+                    to="/$locale/play-my-rom"
+                  >
                     <i className="ri-gamepad-line" />
                     {t.playMyRom}
                   </Link>
                 </li>
                 <li>
-                  <Link params={{ locale }} to="/$locale/live">
+                  <Link params={{ locale }} reloadDocument to="/$locale/live">
                     <i className="ri-live-line" />
                     {t.live}
                   </Link>
@@ -153,7 +157,7 @@ export function SiteLayout({
                   </Link>
                 </li>
                 <li>
-                  <Link params={{ locale }} to="/$locale/about">
+                  <Link params={{ locale }} reloadDocument to="/$locale/about">
                     <i className="ri-information-line" />
                     {t.about}
                   </Link>
@@ -342,6 +346,7 @@ function HeaderMobileLink({
       activeProps={{ className: 'btn-primary' }}
       className="btn btn-ghost btn-sm shrink-0 gap-2 whitespace-nowrap"
       params={{ locale }}
+      reloadDocument={to !== '/$locale' && to !== '/$locale/blog'}
       to={to}
     >
       <i aria-hidden="true" className={icon} />
@@ -441,6 +446,7 @@ export function SiteFooter({ locale }: { locale: Locale }) {
               <Link
                 className="link-hover link"
                 params={{ locale }}
+                reloadDocument
                 to="/$locale/live"
               >
                 <i className="ri-live-line mr-1" />
@@ -449,6 +455,7 @@ export function SiteFooter({ locale }: { locale: Locale }) {
               <Link
                 className="link-hover link"
                 params={{ locale }}
+                reloadDocument
                 to="/$locale/play-my-rom"
               >
                 <i className="ri-gamepad-line mr-1" />
@@ -461,6 +468,7 @@ export function SiteFooter({ locale }: { locale: Locale }) {
               <Link
                 className="link-hover link"
                 params={{ locale }}
+                reloadDocument
                 to="/$locale/about"
               >
                 <i className="ri-information-line mr-1" />
@@ -477,6 +485,7 @@ export function SiteFooter({ locale }: { locale: Locale }) {
               <Link
                 className="link-hover link"
                 params={{ locale }}
+                reloadDocument
                 to="/$locale/privacy-policy"
               >
                 {t.privacyPolicy}
@@ -484,6 +493,7 @@ export function SiteFooter({ locale }: { locale: Locale }) {
               <Link
                 className="link-hover link"
                 params={{ locale }}
+                reloadDocument
                 to="/$locale/terms-of-service"
               >
                 {t.termsOfService}
