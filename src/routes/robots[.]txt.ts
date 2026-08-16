@@ -4,7 +4,7 @@ export const Route = createFileRoute('/robots.txt')({
   server: {
     handlers: {
       GET: ({ request }) => {
-        const origin = new URL(request.url).origin
+        const origin = getRobotsOrigin(request)
 
         return new Response(buildRobotsTxt(origin), {
           headers: {
@@ -17,7 +17,17 @@ export const Route = createFileRoute('/robots.txt')({
   },
 })
 
-function buildRobotsTxt(origin: string) {
+export function getRobotsOrigin(request: Request) {
+  const url = new URL(request.url)
+
+  if (url.hostname === 'pokopie.com' || url.hostname === 'www.pokopie.com') {
+    return 'https://pokopie.com'
+  }
+
+  return url.origin
+}
+
+export function buildRobotsTxt(origin: string) {
   return `User-agent: *
 Disallow:
 Sitemap: ${origin}/sitemap.xml
