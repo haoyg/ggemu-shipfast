@@ -465,6 +465,10 @@ export function SiteFooter({ locale }: { locale: Locale }) {
                 <i className="ri-article-line mr-1" />
                 {t.blog}
               </Link>
+              <a className="link-hover link" href="/en/ps1-compatibility">
+                <i className="ri-pulse-line mr-1" />
+                PS1 Compatibility
+              </a>
               <Link
                 className="link-hover link"
                 params={{ locale }}

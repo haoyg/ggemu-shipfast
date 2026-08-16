@@ -16,6 +16,7 @@ const englishCollectionPaths = [
   '/n64-games',
   '/nes-games',
   '/ps1-games',
+  '/ps1-compatibility',
   '/sega-genesis-games',
   '/snes-games',
 ] as const

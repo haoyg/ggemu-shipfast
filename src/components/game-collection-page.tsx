@@ -26,6 +26,7 @@ export type GameCollectionPageConfig = {
   heroTitle: string
   heroDescription: string
   ctaLabel: string
+  secondaryCta?: { href: string; label: string }
   libraryTitle: string
   libraryDescription: (total: number) => string
   unavailableMessage: string
@@ -65,10 +66,18 @@ export function GameCollectionPage({
             <p className="mt-6 max-w-xl text-lg leading-8 text-base-content/70">
               {config.heroDescription}
             </p>
-            <a className="btn btn-primary mt-8" href="#game-library">
-              {config.ctaLabel}
-              <i aria-hidden="true" className="ri-arrow-down-line" />
-            </a>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <a className="btn btn-primary" href="#game-library">
+                {config.ctaLabel}
+                <i aria-hidden="true" className="ri-arrow-down-line" />
+              </a>
+              {config.secondaryCta ? (
+                <a className="btn btn-outline" href={config.secondaryCta.href}>
+                  {config.secondaryCta.label}
+                  <i aria-hidden="true" className="ri-pulse-line" />
+                </a>
+              ) : null}
+            </div>
           </div>
 
           <HeroGameCovers games={featuredGames} label={config.featuredLabel} />

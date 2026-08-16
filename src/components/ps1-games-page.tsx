@@ -33,6 +33,10 @@ const ps1PageConfig: GameCollectionPageConfig = {
   heroDescription:
     'Play PS1 games online in your browser and revisit classic PlayStation adventures, racers, RPGs, and fighting games. No separate emulator installation is required for supported titles.',
   ctaLabel: 'Browse PS1 Games',
+  secondaryCta: {
+    href: '/en/ps1-compatibility',
+    label: 'Check browser compatibility',
+  },
   libraryTitle: 'PS1 Game Library',
   libraryDescription: (total) =>
     `Browse ${total} PlayStation 1 games currently listed in the POKOPIE catalog.`,

@@ -44,6 +44,7 @@ import { Route as EnSnesRouteImport } from './routes/en.snes'
 import { Route as EnSegaGenesisGamesRouteImport } from './routes/en.sega-genesis-games'
 import { Route as EnSegaGenesisRouteImport } from './routes/en.sega-genesis'
 import { Route as EnPs1GamesRouteImport } from './routes/en.ps1-games'
+import { Route as EnPs1CompatibilityRouteImport } from './routes/en.ps1-compatibility'
 import { Route as EnPs1RouteImport } from './routes/en.ps1'
 import { Route as EnPlaystationGamesRouteImport } from './routes/en.playstation-games'
 import { Route as EnNesGamesRouteImport } from './routes/en.nes-games'
@@ -248,6 +249,11 @@ const EnPs1GamesRoute = EnPs1GamesRouteImport.update({
   path: '/en/ps1-games',
   getParentRoute: () => rootRouteImport,
 } as any)
+const EnPs1CompatibilityRoute = EnPs1CompatibilityRouteImport.update({
+  id: '/en/ps1-compatibility',
+  path: '/en/ps1-compatibility',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const EnPs1Route = EnPs1RouteImport.update({
   id: '/en/ps1',
   path: '/en/ps1',
@@ -441,6 +447,7 @@ export interface FileRoutesByFullPath {
   '/en/nes-games': typeof EnNesGamesRoute
   '/en/playstation-games': typeof EnPlaystationGamesRoute
   '/en/ps1': typeof EnPs1Route
+  '/en/ps1-compatibility': typeof EnPs1CompatibilityRoute
   '/en/ps1-games': typeof EnPs1GamesRoute
   '/en/sega-genesis': typeof EnSegaGenesisRoute
   '/en/sega-genesis-games': typeof EnSegaGenesisGamesRoute
@@ -506,6 +513,7 @@ export interface FileRoutesByTo {
   '/en/nes-games': typeof EnNesGamesRoute
   '/en/playstation-games': typeof EnPlaystationGamesRoute
   '/en/ps1': typeof EnPs1Route
+  '/en/ps1-compatibility': typeof EnPs1CompatibilityRoute
   '/en/ps1-games': typeof EnPs1GamesRoute
   '/en/sega-genesis': typeof EnSegaGenesisRoute
   '/en/sega-genesis-games': typeof EnSegaGenesisGamesRoute
@@ -572,6 +580,7 @@ export interface FileRoutesById {
   '/en/nes-games': typeof EnNesGamesRoute
   '/en/playstation-games': typeof EnPlaystationGamesRoute
   '/en/ps1': typeof EnPs1Route
+  '/en/ps1-compatibility': typeof EnPs1CompatibilityRoute
   '/en/ps1-games': typeof EnPs1GamesRoute
   '/en/sega-genesis': typeof EnSegaGenesisRoute
   '/en/sega-genesis-games': typeof EnSegaGenesisGamesRoute
@@ -639,6 +648,7 @@ export interface FileRouteTypes {
     | '/en/nes-games'
     | '/en/playstation-games'
     | '/en/ps1'
+    | '/en/ps1-compatibility'
     | '/en/ps1-games'
     | '/en/sega-genesis'
     | '/en/sega-genesis-games'
@@ -704,6 +714,7 @@ export interface FileRouteTypes {
     | '/en/nes-games'
     | '/en/playstation-games'
     | '/en/ps1'
+    | '/en/ps1-compatibility'
     | '/en/ps1-games'
     | '/en/sega-genesis'
     | '/en/sega-genesis-games'
@@ -769,6 +780,7 @@ export interface FileRouteTypes {
     | '/en/nes-games'
     | '/en/playstation-games'
     | '/en/ps1'
+    | '/en/ps1-compatibility'
     | '/en/ps1-games'
     | '/en/sega-genesis'
     | '/en/sega-genesis-games'
@@ -828,6 +840,7 @@ export interface RootRouteChildren {
   EnNesGamesRoute: typeof EnNesGamesRoute
   EnPlaystationGamesRoute: typeof EnPlaystationGamesRoute
   EnPs1Route: typeof EnPs1Route
+  EnPs1CompatibilityRoute: typeof EnPs1CompatibilityRoute
   EnPs1GamesRoute: typeof EnPs1GamesRoute
   EnSegaGenesisRoute: typeof EnSegaGenesisRoute
   EnSegaGenesisGamesRoute: typeof EnSegaGenesisGamesRoute
@@ -1084,6 +1097,13 @@ declare module '@tanstack/react-router' {
       path: '/en/ps1-games'
       fullPath: '/en/ps1-games'
       preLoaderRoute: typeof EnPs1GamesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/en/ps1-compatibility': {
+      id: '/en/ps1-compatibility'
+      path: '/en/ps1-compatibility'
+      fullPath: '/en/ps1-compatibility'
+      preLoaderRoute: typeof EnPs1CompatibilityRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/en/ps1': {
@@ -1390,6 +1410,7 @@ const rootRouteChildren: RootRouteChildren = {
   EnNesGamesRoute: EnNesGamesRoute,
   EnPlaystationGamesRoute: EnPlaystationGamesRoute,
   EnPs1Route: EnPs1Route,
+  EnPs1CompatibilityRoute: EnPs1CompatibilityRoute,
   EnPs1GamesRoute: EnPs1GamesRoute,
   EnSegaGenesisRoute: EnSegaGenesisRoute,
   EnSegaGenesisGamesRoute: EnSegaGenesisGamesRoute,
