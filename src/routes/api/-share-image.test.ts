@@ -11,6 +11,11 @@ describe('share image proxy guards', () => {
       true,
     )
     expect(isAllowedShareImageUrl(new URL('https://pokopie.com/og.png'))).toBe(true)
+    expect(
+      isAllowedShareImageUrl(
+        new URL('https://thumbnails.libretro.com/Sony%20-%20PlayStation/box.png'),
+      ),
+    ).toBe(true)
   })
 
   it('rejects arbitrary, local, and non-https sources', () => {

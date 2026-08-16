@@ -9,6 +9,7 @@ const ALLOWED_IMAGE_HOSTS = new Set([
   'www.ggemu.com',
   'storage.ggemu.com',
   'storage.134x.com',
+  'thumbnails.libretro.com',
   'pbs.twimg.com',
 ])
 

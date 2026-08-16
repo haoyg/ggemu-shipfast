@@ -2,6 +2,7 @@ import { createServerFn } from '@tanstack/react-start'
 import { getRequestUrl } from '@tanstack/react-start/server'
 
 import { TimedAsyncCache } from '#/lib/timed-async-cache'
+import { getPs1CoverFallback } from '#/lib/ps1-cover-fallbacks'
 
 const API_BASE_URL = 'https://ggemu.com'
 const PAGE_SIZE = 20
@@ -351,7 +352,7 @@ function normalizePublicGames(games: Array<PublicGame>) {
 function normalizePublicGame(game: PublicGame) {
   return {
     ...game,
-    game_cover: normalizeImageUrl(game.game_cover),
+    game_cover: normalizeImageUrl(game.game_cover) ?? getPs1CoverFallback(game.url_slug),
   }
 }
 
@@ -360,7 +361,8 @@ function normalizeLiveRoom(room: PublicLiveRoom) {
     ...room,
     game: {
       ...room.game,
-      game_cover: normalizeImageUrl(room.game.game_cover) ?? '',
+      game_cover:
+        normalizeImageUrl(room.game.game_cover) ?? getPs1CoverFallback(room.game.url_slug) ?? '',
     },
   }
 }
