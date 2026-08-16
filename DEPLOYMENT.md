@@ -19,7 +19,7 @@
 - `SITE_SLOGAN`: `Play Retro Games on POKOPIE`
 - `SITE_EMAIL`: `hughhao7@gmail.com`
 - `SITE_THEMES`: `cyberpunk`
-- `SITE_TEMPLATE`: `poki-like`
+- `SITE_TEMPLATE`: `default`
 - `GGEMU_REFCODE`: `v2pRNT`
 - `GOOGLE_ADSENSE_CLIENT`: `ca-pub-3274781156049995`
 
