@@ -56,6 +56,16 @@ function getPwaInstallInitScript() {
   `
 }
 
+function getGoogleTagInitScript(analyticsId: string) {
+  return `
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', ${JSON.stringify(analyticsId)});
+  `
+}
+
 export const Route = createRootRoute({
   headers: ({ matches }) =>
     getDocumentHeaders(
@@ -228,10 +238,24 @@ function getMaintenanceMessages(locale: string) {
 
 function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
   const pathname = useRouterState({ select: (state) => state.location.pathname })
+  const googleAnalyticsId = siteConfig.GOOGLE_ANALYTICS_ID.trim()
 
   return (
     <html lang={getDocumentLang(pathname)} suppressHydrationWarning>
       <head>
+        {googleAnalyticsId ? (
+          <>
+            <script
+              async
+              src={`https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(googleAnalyticsId)}`}
+            />
+            <script
+              dangerouslySetInnerHTML={{
+                __html: getGoogleTagInitScript(googleAnalyticsId),
+              }}
+            />
+          </>
+        ) : null}
         <script
           dangerouslySetInnerHTML={{
             __html: getSiteThemeInitScript(),

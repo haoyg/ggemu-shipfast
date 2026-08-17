@@ -2,7 +2,6 @@ import { useEffect } from 'react'
 
 import { siteConfig } from '#/lib/site-config'
 
-const googleAnalyticsScriptId = 'pokopie-google-analytics'
 const googleAdsenseScriptId = 'pokopie-google-adsense'
 const googleConsentInitializedKey = '__POKOPIE_GOOGLE_CONSENT_INITIALIZED__'
 
@@ -15,8 +14,7 @@ type GoogleTagWindow = Window & {
 export function ThirdPartyScripts({ pathname }: Readonly<{ pathname: string }>) {
   const isPrivacyPolicy = isPrivacyPolicyPath(pathname)
 
-  useGoogleAnalytics(isPrivacyPolicy)
-  useGoogleAdsense(!isAdSenseEligiblePath(pathname))
+  useGoogleAdsense(isPrivacyPolicy || !isAdSenseEligiblePath(pathname))
 
   return null
 }
@@ -30,30 +28,6 @@ export function isAdSenseEligiblePath(pathname: string) {
 
 export function isPrivacyPolicyPath(pathname: string) {
   return /^\/(?:[^/]+\/)?privacy-policy\/?$/.test(pathname)
-}
-
-function useGoogleAnalytics(disabled: boolean) {
-  const analyticsId = siteConfig.GOOGLE_ANALYTICS_ID.trim()
-
-  useEffect(() => {
-    if (
-      disabled ||
-      !analyticsId ||
-      document.getElementById(googleAnalyticsScriptId)
-    ) {
-      return
-    }
-
-    const googleWindow = initializeGoogleConsentMode()
-
-    googleWindow.gtag?.('js', new Date())
-    googleWindow.gtag?.('config', analyticsId)
-
-    appendAsyncScript(
-      googleAnalyticsScriptId,
-      `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(analyticsId)}`,
-    )
-  }, [analyticsId, disabled])
 }
 
 function useGoogleAdsense(disabled: boolean) {

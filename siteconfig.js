@@ -6,7 +6,7 @@ const siteConfig = {
   SITE_EMAIL: 'hughhao7@gmail.com',
   GGEMU_REFCODE: 'v2pRNT',// your GGEMU referral code, to get more revenue from GGEMU
   GOOGLE_ADSENSE_CLIENT: 'ca-pub-3274781156049995',// your Google AdSense client ID
-  GOOGLE_ANALYTICS_ID: '',// your Google Analytics ID
+  GOOGLE_ANALYTICS_ID: 'G-VF74ZFN6E7',// your Google Analytics ID
 }
 
 export default siteConfig
