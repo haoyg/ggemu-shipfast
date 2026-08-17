@@ -418,8 +418,10 @@ function HomeBlogPostCard({
             alt={title}
             className="h-full w-full object-cover transition duration-300 group-hover:scale-105"
             decoding="async"
+            height="360"
             loading="lazy"
             src={blogPost.cover_image_url}
+            width="640"
           />
         ) : (
           <div className="grid h-full place-items-center text-sm font-semibold text-base-content/40">
@@ -462,8 +464,10 @@ function GameCard({ game, lang }: { game: PublicGame; lang: Locale }) {
             alt={game.name ?? 'Game cover'}
             className="h-full w-full object-cover"
             decoding="async"
+            height="300"
             loading="lazy"
             src={game.game_cover}
+            width="400"
           />
         ) : (
           <div className="flex h-full w-full items-center justify-center text-base-content/40">

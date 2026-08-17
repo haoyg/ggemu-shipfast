@@ -56,6 +56,16 @@ export function GameInstallButton({
     }
   }, [manifestHref])
 
+  useEffect(() => {
+    if (!message) {
+      return
+    }
+
+    const timer = setTimeout(() => setMessage(''), 3000)
+
+    return () => clearTimeout(timer)
+  }, [message])
+
   async function handleInstall() {
     setMessage('')
 
@@ -82,7 +92,7 @@ export function GameInstallButton({
         onClick={() => void handleInstall()}
         type="button"
       >
-        <i className="ri-download-cloud-2-line text-xl" />
+        <i aria-hidden="true" className="ri-download-cloud-2-line text-xl" />
         {labels.install}
       </button>
 
@@ -183,7 +193,7 @@ function InstallGuideModal({
 function InstallGuideStep({ icon, text }: { icon: string; text: string }) {
   return (
     <div className="flex gap-3 rounded-box border border-base-300 bg-base-200/60 p-3">
-      <i className={`${icon} mt-0.5 text-lg text-primary`} />
+      <i aria-hidden="true" className={`${icon} mt-0.5 text-lg text-primary`} />
       <p className="leading-6 text-base-content/80">{text}</p>
     </div>
   )

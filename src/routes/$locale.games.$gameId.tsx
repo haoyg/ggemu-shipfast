@@ -768,8 +768,10 @@ function RelatedGameCard({ game, lang }: { game: PublicGame; lang: Locale }) {
             alt={game.name ?? 'Game cover'}
             className="h-full w-full object-cover"
             decoding="async"
+            height="660"
             loading="lazy"
             src={game.game_cover}
+            width="880"
           />
         ) : (
         <div className="flex h-full items-center justify-center text-base-content/40">

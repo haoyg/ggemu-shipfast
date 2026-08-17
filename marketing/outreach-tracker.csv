@@ -1,0 +1,23 @@
+wave,priority,target,type,landing_page,submit_url,status,date_contacted,response,live_url,indexed,notes
+1,P1,Product Hunt,Product directory,https://pokopie.com/en/play-my-rom,https://www.producthunt.com/,todo,,,,,准备画廊图+maker评论+发布日期；主发布渠道
+1,P1,BetaList,Startup directory,https://pokopie.com/en/play-my-rom,https://betalist.com/,todo,,,,,早期工具定位
+1,P1,Uneed,Product directory,https://pokopie.com/en/play-my-rom,https://www.uneed.best/,todo,,,,,确认是否仍有免费提交
+1,P1,Fazier,Product directory,https://pokopie.com/en/play-my-rom,https://fazier.com/,todo,,,,,仅品牌锚文本
+1,P1,AlternativeTo,Software directory,https://pokopie.com/en/play-my-rom,https://alternativeto.net/,todo,,,,,alternative=已安装的桌面模拟器
+1,P2,Sloop Web Directory,Curated web directory,https://pokopie.com/en/ps1-compatibility,https://sloop.nz/,todo,,,,,申请games/tools分类
+1,P2,Launching Next,Startup directory,https://pokopie.com/en/play-my-rom,https://www.launchingnext.com/,todo,,,,,提交后确认被index
+1,P2,PitchWall,Startup directory,https://pokopie.com/en/play-my-rom,https://pitchwall.co/,todo,,,,,不买排名包
+1,P2,BetaPage,Startup directory,https://pokopie.com/en/play-my-rom,https://betapage.co/,todo,,,,,确认免费listing
+2,P1,RetroRGB,Retro editorial,https://pokopie.com/en/ps1-compatibility,https://www.retrorgb.com/,todo,,,,,editorial pitch；先读近期模拟器报道找联系人
+2,P1,Time Extension,Retro editorial,https://pokopie.com/en/ps1-compatibility,https://www.timeextension.com/,todo,,,,,找相关作者+近期浏览器模拟器文章
+2,P1,Retro Dodo,Retro editorial,https://pokopie.com/en/ps1-compatibility,https://retrododo.com/,todo,,,,,不要求精确锚文本
+2,P1,Gaming Alexandria,Preservation editorial,https://pokopie.com/en/ps1-compatibility,https://www.gamingalexandria.com/,todo,,,,,主打合法自有ROM+技术文档
+2,P1,Retro Gaming Space,Retro editorial,https://pokopie.com/en/ps1-compatibility,https://retrogamespace.com/,todo,,,,,定位为诊断工具而非竞品目录
+2,P1,The Old Computer,Retro resource directory,https://pokopie.com/en/ps1-compatibility,https://www.theoldcomputer.com/links.php,todo,,,,,按Link To Us规则手动提交
+3,P1,EmulatorJS Discussions,Open-source community,https://pokopie.com/en/ps1-compatibility,https://github.com/EmulatorJS/EmulatorJS/discussions,todo,,,,,先搜已有讨论；技术贡献角度
+3,P1,Libretro Forums,Emulation community,https://pokopie.com/en/ps1-compatibility,https://forums.libretro.com/,todo,,,,,先参与+求方法论反馈
+3,P2,Reddit r/emulation,Reddit community,https://pokopie.com/en/ps1-compatibility,https://www.reddit.com/r/emulation/,todo,,,,,读规则+先问mod；无ROM链接
+3,P2,Reddit r/retrogaming,Reddit community,https://pokopie.com/en/ps1-compatibility,https://www.reddit.com/r/retrogaming/,todo,,,,,先贡献再分享
+3,P1,Hacker News Show HN,Developer community,https://pokopie.com/en/ps1-compatibility,https://news.ycombinator.com/show,todo,,,,,生产页稳定后一次性打
+4,P1,dev.to,Developer publishing,https://pokopie.com/en/ps1-compatibility,https://dev.to/,todo,,,,,发原创技术长文，正文自然引用
+4,P1,Hashnode,Developer publishing,https://pokopie.com/en/ps1-compatibility,https://hashnode.com/,todo,,,,,带代码片段的工程write-up

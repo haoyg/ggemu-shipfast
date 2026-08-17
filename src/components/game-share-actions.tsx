@@ -43,6 +43,16 @@ export function GameShareActions({
     return () => document.removeEventListener('pointerdown', handlePointerDown)
   }, [])
 
+  useEffect(() => {
+    if (!shareMessage) {
+      return
+    }
+
+    const timer = setTimeout(() => setShareMessage(''), 3000)
+
+    return () => clearTimeout(timer)
+  }, [shareMessage])
+
   function closeDropdown() {
     if (dropdownRef.current) {
       dropdownRef.current.open = false
@@ -103,7 +113,7 @@ export function GameShareActions({
     <>
       <details className="dropdown" ref={dropdownRef}>
         <summary className="btn btn-outline btn-lg w-full px-5 sm:w-auto">
-          <i className="ri-share-line text-xl" />
+          <i aria-hidden="true" className="ri-share-line text-xl" />
           {labels.share}
         </summary>
         <ul className="menu dropdown-content z-50 mt-2 w-44 rounded-box border border-base-300 bg-base-100 p-2 shadow-xl">
@@ -113,19 +123,19 @@ export function GameShareActions({
               onClick={() => void handleGeneratePoster()}
               type="button"
             >
-              <i className={isGeneratingPoster ? 'loading loading-spinner loading-xs' : 'ri-image-line'} />
+              <i aria-hidden="true" className={isGeneratingPoster ? 'loading loading-spinner loading-xs' : 'ri-image-line'} />
               {labels.generatePoster}
             </button>
           </li>
           <li>
             <button onClick={() => void handleSystemShare()} type="button">
-              <i className="ri-share-forward-line" />
+              <i aria-hidden="true" className="ri-share-forward-line" />
               {labels.systemShare}
             </button>
           </li>
           <li>
             <button onClick={() => void handleCopyEmbedCode()} type="button">
-              <i className="ri-code-box-line" />
+              <i aria-hidden="true" className="ri-code-box-line" />
               {labels.copyEmbedCode}
             </button>
           </li>
@@ -173,6 +183,16 @@ export function GameEmbedCard({
     embedUrl,
     title,
   })
+
+  useEffect(() => {
+    if (!message) {
+      return
+    }
+
+    const timer = setTimeout(() => setMessage(''), 3000)
+
+    return () => clearTimeout(timer)
+  }, [message])
 
   async function handleCopyEmbedCode() {
     await navigator.clipboard?.writeText(embedCode).catch(() => undefined)
@@ -297,7 +317,7 @@ function PosterModal({
           download={`${getPosterFileName(title)}.png`}
           href={posterUrl}
         >
-          <i className="ri-download-line" />
+          <i aria-hidden="true" className="ri-download-line" />
           {labels.downloadPoster}
         </a>
       </div>

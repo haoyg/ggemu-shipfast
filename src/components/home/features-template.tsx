@@ -227,8 +227,10 @@ function FeatureGameCard({
           alt={gameName}
           className="h-full w-full object-cover"
           decoding="async"
+          height="300"
           loading="lazy"
           src={game.game_cover}
+          width="400"
         />
       ) : (
         <div className="grid h-full w-full place-items-center bg-base-300 text-sm font-semibold text-base-content/50">
