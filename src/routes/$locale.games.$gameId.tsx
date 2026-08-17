@@ -51,7 +51,7 @@ const removedLegacyGameIds = new Set([
   's-c-a-t-nes-1991',
   'superman-the-new-superman-adventures-n64-1999',
 ])
-const VIDEO_SCHEMA_UPLOAD_DATE = '2026-08-10'
+const DEFAULT_VIDEO_SCHEMA_UPLOAD_DATE = '2026-08-10'
 
 export const Route = createFileRoute('/$locale/games/$gameId')({
   beforeLoad: ({ location, params }) => {
@@ -264,7 +264,7 @@ function serializeJsonLd(data: unknown) {
   return JSON.stringify(data).replace(/</g, '\\u003c')
 }
 
-function buildGameStructuredData({
+export function buildGameStructuredData({
   canonicalUrl,
   faqItems,
   game,
@@ -343,7 +343,7 @@ function buildGameStructuredData({
       description: seo.description,
       thumbnailUrl: game.game_cover,
       contentUrl: game.game_video,
-      uploadDate: VIDEO_SCHEMA_UPLOAD_DATE,
+      uploadDate: getVideoSchemaUploadDate(game),
     })
   }
 
@@ -363,6 +363,30 @@ function buildGameStructuredData({
   }
 
   return schemas
+}
+
+function getVideoSchemaUploadDate(game: PublicGame) {
+  return (
+    getSchemaDate(game.created_at) ??
+    getSchemaDate(game.updated_at) ??
+    DEFAULT_VIDEO_SCHEMA_UPLOAD_DATE
+  )
+}
+
+function getSchemaDate(value?: string) {
+  const trimmed = value?.trim()
+
+  if (!trimmed) {
+    return undefined
+  }
+
+  const date = new Date(trimmed)
+
+  if (Number.isNaN(date.getTime())) {
+    return undefined
+  }
+
+  return date.toISOString().slice(0, 10)
 }
 
 function removeEmptySchemaValues<T extends Record<string, unknown>>(schema: T) {

@@ -56,6 +56,8 @@ export type PublicGame = {
   comments_count?: number
   views_count?: number
   plays_count?: number
+  created_at?: string
+  updated_at?: string
 }
 
 export type Pagination = {
