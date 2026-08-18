@@ -1,4 +1,4 @@
-wave,priority,target,type,landing_page,submit_url,status,date_contacted,response,live_url,indexed,notes
+﻿wave,priority,target,type,landing_page,submit_url,status,date_contacted,response,live_url,indexed,notes
 1,P1,Product Hunt,Product directory,https://pokopie.com/en/play-my-rom,https://www.producthunt.com/,todo,,,,,准备画廊图+maker评论+发布日期；主发布渠道
 1,P1,BetaList,Startup directory,https://pokopie.com/en/play-my-rom,https://betalist.com/,todo,,,,,早期工具定位
 1,P1,Uneed,Product directory,https://pokopie.com/en/play-my-rom,https://www.uneed.best/,todo,,,,,确认是否仍有免费提交
