@@ -1,0 +1,774 @@
+# Pokopie Product Directory Record
+
+Last updated: 2026-08-20T11:26:07+08:00
+
+## Permanent operating rules
+
+- Public brand: Pokopie
+- Canonical product URL: https://pokopie.com/
+- Product canonical ID: pokopie-com
+- Approved one-sentence description: POKOPIE - Play Retro Games Online Free | NES, SNES, GBA, PS1, Arcade Games
+- Approved long description: POKOPIE is a browser-based retro games website where you can play NES, SNES, GBA, PS1, Arcade, Sega Genesis and other classic games online free with no download required.
+- Approved category: Browser-based retro games; online games; web app; PWA
+- Approved platform coverage: Arcade, Atari Jaguar, DOS, Flash, Famicom, Game Boy, Game Boy Advance, Game Boy Color, Game Gear, Genesis, HTML5, Java, Master System, Neo Geo Pocket Color, Nintendo 64, Nintendo DS, Nintendo Switch, PC Engine, PlayStation 1, PlayStation Portable, Sega 32X, Sega CD, Sega Genesis, Sega Saturn, Super Famicom, Virtual Boy, WonderSwan, WonderSwan Color
+- Approved device support: iOS, Android, iPad, Mac, Windows, and modern browsers; Chrome recommended by the site for stable gameplay
+- Approved key features: play classic games in the browser; no download required; no sign-up required on homepage copy; search by game title, platform, or series; browse by platform and genre; Play My ROM feature; multilingual site
+- Approved game count evidence: homepage displayed 1616 games at the inspection time
+- Approved public asset references: https://pokopie.com/logo-128.png; https://pokopie.com/logo.png; https://pokopie.com/icon-192.png; https://pokopie.com/icon-512.png; https://pokopie.com/og.png
+- Approved PWA evidence: manifest at https://pokopie.com/manifest.webmanifest; display=standalone; start_url=/en; service worker registered at /sw.js by homepage script
+- Approved legal pages: https://pokopie.com/en/privacy-policy; https://pokopie.com/en/terms-of-service
+- Approved about page: https://pokopie.com/en/about
+- Approved public contact reference: published contact channel on site
+- Approved submission account alias: pokopie-submit-account
+- Campaign purpose: product discovery; profile accuracy; referral traffic; listing durability
+- Ranking manipulation prohibited: yes
+- Approved contact reference: published-contact-channel
+- Master-data source: https://pokopie.com/en; https://pokopie.com/en/about; https://pokopie.com/manifest.webmanifest; https://pokopie.com/en/privacy-policy
+- Evidence store: ev-local-summary
+- Evidence retention policy: campaign policy
+- Execution modes: manual
+- Host platform: windows
+- UI environment: unknown
+- Available control capabilities: web search/read-only browser
+- Browser routing policy: explicit choice; connector/API/CLI; supported browser runtime; OS-matched desktop UI control; user handoff
+- Rollout stage: pilot
+- Maximum sites this batch: 10
+- Per-site approval required: yes
+- Anchor policy: brand / product / naked URL only
+- KPI policy: qualified publication rate; referral visits; referral conversion; profile accuracy; listing survival
+
+## Authorization matrix
+
+- inspection: decision=allowed; approved_by=user; approved_at=2026-08-20T10:49:00+08:00; scope=all listed sites; expires_at=2026-09-20T10:49:00+08:00
+- form filling: decision=allowed; approved_by=user; approved_at=2026-08-20T11:10:00+08:00; scope=producthunt.com, alternativeto.net, saashub.com, appdirectory.org, startupbase.io, pwa.directory; expires_at=2026-09-20T11:10:00+08:00
+- account creation: decision=ask; approved_by=not applicable; approved_at=not applicable; scope=not applicable; expires_at=not applicable
+- native registration-email verification: decision=ask; approved_by=not applicable; approved_at=not applicable; scope=not applicable; expires_at=not applicable
+- terms/privacy acceptance: decision=ask; approved_by=not applicable; approved_at=not applicable; scope=not applicable; expires_at=not applicable
+- final form submission: decision=allowed; approved_by=user; approved_at=2026-08-20T11:16:11+08:00; scope=pwa.directory, appdirectory.org; expires_at=2026-09-20T11:16:11+08:00
+- email sending: decision=prohibited; approved_by=not applicable; approved_at=not applicable; scope=not applicable; expires_at=not applicable
+- article publication: decision=prohibited; approved_by=not applicable; approved_at=not applicable; scope=not applicable; expires_at=not applicable
+- claim ownership: decision=ask; approved_by=not applicable; approved_at=not applicable; scope=not applicable; expires_at=not applicable
+- payment/upgrade: decision=prohibited; approved_by=not applicable; approved_at=not applicable; scope=not applicable; expires_at=not applicable
+- reciprocal link/site modification: decision=prohibited; approved_by=not applicable; approved_at=not applicable; scope=not applicable; expires_at=not applicable
+- dns/html/domain verification: decision=prohibited; approved_by=not applicable; approved_at=not applicable; scope=not applicable; expires_at=not applicable
+
+## Source list
+
+1. https://www.producthunt.com/launch
+2. https://alternativeto.net/software/new/
+3. https://www.saashub.com/product/new
+4. https://appdirectory.org/submit
+5. https://startupbase.io/submit
+6. https://submitstartup.io/
+7. https://pwa.directory/
+8. https://warp-point.com/
+9. https://discovergg.com/submit.php
+10. https://insertcoin.org/submit
+
+## Product Hunt
+
+- Website: Product Hunt
+- Submission URL: https://www.producthunt.com/launch
+- Platform domain: producthunt.com
+- Product canonical ID: pokopie-com
+- Account alias: pokopie-submit-account
+- Site approval reference: approval-producthunt-001
+- Route: directory listing
+- Idempotency key: producthunt.com|pokopie-com|pokopie-submit-account|directory listing
+- Quality gate: passed
+- Audience relevance: pass
+- User/discovery value: pass
+- Editorial/platform governance: governed platform
+- Paid/ranking-link offer: none
+- Directory/network quality: pass
+- Automation/terms compatibility: manual-only
+- Reciprocal link requirement: none
+- Phase: eligibility
+- Status: not attempted
+- Listing plan/cost: free launch path appears available; recheck at form time
+- Execution mode: manual
+- Platform capability result: supported with handoff
+- Requested browser constraint: not specified
+- Selected browser surface: user handoff
+- Execution backend/profile alias: user-browser
+- Backend selection reason: account session and final launch require user-controlled browser
+- Account/login: pokopie-submit-account; login not attempted
+- Credential source: not applicable
+- Verification preflight: awaiting manual verification
+- Manual-verification queue: position 1/action log in to Product Hunt with authorized account; stop before product submission flow
+- Duplicate check: no exact public search result found for "Pokopie" or "pokopie.com" on producthunt.com
+- Fields entered: none
+- Fields omitted: none
+- Category: browser-based retro games; online games; web app
+- Asset reference: ev-pokopie-public-assets
+- Asset SHA-256: not applicable
+- Agreements: none
+- Subscriptions: none
+- CAPTCHA/authentication: login required; user handoff required
+- Artifact stage: not applicable
+- First opened: not attempted
+- Eligibility checked at: 2026-08-20T10:49:00+08:00
+- Verification checked at: not checked
+- Form started at: not started
+- Submit action timestamp: not submitted
+- Last checked: 2026-08-20T10:49:00+08:00
+- Result summary: Suitable product-discovery platform; public duplicate check found no exact Pokopie listing; login required before form work.
+- Exact result: none
+- Public listing URL: not applicable
+- Evidence type: none
+- Evidence store reference: none
+- Evidence captured at: not applicable
+- Evidence retention until: not applicable
+- Backend checked: not applicable
+- Mailbox checked: not applicable
+- Public search checked: not applicable
+- Next review time: not applicable
+- Outbound link anchor: not observed
+- Outbound link anchor type: not observed
+- Outbound link href: not observed
+- Outbound link rel: not observed
+- Commercial relationship: none
+- Link checked at: not applicable
+- Follow-up: user login handoff, then recheck duplicate state inside Product Hunt before form work
+- Owner: user
+- Deadline: not applicable
+
+### Attempt/Event log
+
+## AlternativeTo
+
+- Website: AlternativeTo
+- Submission URL: https://alternativeto.net/software/new/
+- Platform domain: alternativeto.net
+- Product canonical ID: pokopie-com
+- Account alias: pokopie-submit-account
+- Site approval reference: approval-alternativeto-001
+- Route: directory listing
+- Idempotency key: alternativeto.net|pokopie-com|pokopie-submit-account|directory listing
+- Quality gate: passed
+- Audience relevance: pass
+- User/discovery value: pass
+- Editorial/platform governance: governed platform
+- Paid/ranking-link offer: none
+- Directory/network quality: pass
+- Automation/terms compatibility: manual-only
+- Reciprocal link requirement: none
+- Phase: eligibility
+- Status: not attempted
+- Listing plan/cost: free app suggestion path appears available; recheck at form time
+- Execution mode: manual
+- Platform capability result: supported with handoff
+- Requested browser constraint: not specified
+- Selected browser surface: user handoff
+- Execution backend/profile alias: user-browser
+- Backend selection reason: account session and moderation requirements require user-controlled browser
+- Account/login: pokopie-submit-account; login not attempted
+- Credential source: not applicable
+- Verification preflight: not checked
+- Manual-verification queue: not queued
+- Duplicate check: no exact public search result found for "Pokopie" or "pokopie.com" on alternativeto.net
+- Fields entered: none
+- Fields omitted: none
+- Category: browser-based retro games; web app; online games
+- Asset reference: ev-pokopie-public-assets
+- Asset SHA-256: not applicable
+- Agreements: none
+- Subscriptions: none
+- CAPTCHA/authentication: not presented
+- Artifact stage: not applicable
+- First opened: not attempted
+- Eligibility checked at: 2026-08-20T10:49:00+08:00
+- Verification checked at: not checked
+- Form started at: not started
+- Submit action timestamp: not submitted
+- Last checked: 2026-08-20T10:49:00+08:00
+- Result summary: Suitable if Pokopie is positioned as a web app for playing classic games online; no exact public duplicate found.
+- Exact result: none
+- Public listing URL: not applicable
+- Evidence type: none
+- Evidence store reference: none
+- Evidence captured at: not applicable
+- Evidence retention until: not applicable
+- Backend checked: not applicable
+- Mailbox checked: not applicable
+- Public search checked: not applicable
+- Next review time: not applicable
+- Outbound link anchor: not observed
+- Outbound link anchor type: not observed
+- Outbound link href: not observed
+- Outbound link rel: not observed
+- Commercial relationship: none
+- Link checked at: not applicable
+- Follow-up: open live submission flow in user browser and stop at login, verification, or final submission
+- Owner: user
+- Deadline: not applicable
+
+### Attempt/Event log
+
+## SaaSHub
+
+- Website: SaaSHub
+- Submission URL: https://www.saashub.com/product/new
+- Platform domain: saashub.com
+- Product canonical ID: pokopie-com
+- Account alias: pokopie-submit-account
+- Site approval reference: approval-saashub-001
+- Route: directory listing
+- Idempotency key: saashub.com|pokopie-com|pokopie-submit-account|directory listing
+- Quality gate: passed
+- Audience relevance: pass
+- User/discovery value: pass
+- Editorial/platform governance: governed platform
+- Paid/ranking-link offer: none
+- Directory/network quality: pass
+- Automation/terms compatibility: manual-only
+- Reciprocal link requirement: none
+- Phase: eligibility
+- Status: not attempted
+- Listing plan/cost: free product listing path appears available; recheck at form time
+- Execution mode: manual
+- Platform capability result: supported with handoff
+- Requested browser constraint: not specified
+- Selected browser surface: user handoff
+- Execution backend/profile alias: user-browser
+- Backend selection reason: account session and moderation requirements require user-controlled browser
+- Account/login: pokopie-submit-account; login not attempted
+- Credential source: not applicable
+- Verification preflight: not checked
+- Manual-verification queue: not queued
+- Duplicate check: no exact public search result found for "Pokopie" or "pokopie.com" on saashub.com
+- Fields entered: none
+- Fields omitted: none
+- Category: browser-based retro games; web app; online games
+- Asset reference: ev-pokopie-public-assets
+- Asset SHA-256: not applicable
+- Agreements: none
+- Subscriptions: none
+- CAPTCHA/authentication: not presented
+- Artifact stage: not applicable
+- First opened: not attempted
+- Eligibility checked at: 2026-08-20T10:49:00+08:00
+- Verification checked at: not checked
+- Form started at: not started
+- Submit action timestamp: not submitted
+- Last checked: 2026-08-20T10:49:00+08:00
+- Result summary: Suitable for product/service listing as a browser-based retro games website; no exact public duplicate found.
+- Exact result: none
+- Public listing URL: not applicable
+- Evidence type: none
+- Evidence store reference: none
+- Evidence captured at: not applicable
+- Evidence retention until: not applicable
+- Backend checked: not applicable
+- Mailbox checked: not applicable
+- Public search checked: not applicable
+- Next review time: not applicable
+- Outbound link anchor: not observed
+- Outbound link anchor type: not observed
+- Outbound link href: not observed
+- Outbound link rel: not observed
+- Commercial relationship: none
+- Link checked at: not applicable
+- Follow-up: open live submission flow in user browser and stop at login, verification, or final submission
+- Owner: user
+- Deadline: not applicable
+
+### Attempt/Event log
+
+## AppDirectory
+
+- Website: AppDirectory
+- Submission URL: https://appdirectory.org/submit
+- Platform domain: appdirectory.org
+- Product canonical ID: pokopie-com
+- Account alias: pokopie-submit-account
+- Site approval reference: approval-appdirectory-001
+- Route: directory listing
+- Idempotency key: appdirectory.org|pokopie-com|pokopie-submit-account|directory listing
+- Quality gate: passed
+- Audience relevance: pass
+- User/discovery value: pass
+- Editorial/platform governance: governed platform
+- Paid/ranking-link offer: none
+- Directory/network quality: pass
+- Automation/terms compatibility: manual-only
+- Reciprocal link requirement: none
+- Phase: confirmation
+- Status: submitted
+- Listing plan/cost: free/basic requirements must be rechecked at form time
+- Execution mode: manual
+- Platform capability result: supported with handoff
+- Requested browser constraint: not specified
+- Selected browser surface: user handoff
+- Execution backend/profile alias: user-browser
+- Backend selection reason: account session and moderation requirements require user-controlled browser
+- Account/login: pokopie-submit-account; login not attempted
+- Credential source: not applicable
+- Verification preflight: manual verification completed
+- Manual-verification queue: user completed arithmetic verification and final submission in browser
+- Duplicate check: no exact text match found on AppDirectory get-listed page; no exact public search result found for "Pokopie" or "pokopie.com" on appdirectory.org
+- Fields entered: approved product name, canonical URL, approved description, public asset references, category/tags, contact alias
+- Fields omitted: none
+- Category: browser-based retro games; web app; PWA
+- Asset reference: ev-pokopie-public-assets
+- Asset SHA-256: not applicable
+- Agreements: none
+- Subscriptions: none
+- CAPTCHA/authentication: arithmetic verification completed by user
+- Artifact stage: not applicable
+- First opened: 2026-08-20T10:49:00+08:00
+- Eligibility checked at: 2026-08-20T10:49:00+08:00
+- Verification checked at: 2026-08-20T11:26:07+08:00
+- Form started at: 2026-08-20T11:26:07+08:00
+- Submit action timestamp: 2026-08-20T11:26:07+08:00
+- Last checked: 2026-08-20T11:26:07+08:00
+- Result summary: User reported AppDirectory submission completed.
+- Exact result: User confirmation: completed/submitted.
+- Public listing URL: not applicable
+- Evidence type: user confirmation
+- Evidence store reference: ev-appdirectory-user-submit-001
+- Evidence captured at: 2026-08-20T11:26:07+08:00
+- Evidence retention until: 2027-08-20T11:26:07+08:00
+- Backend checked: not applicable
+- Mailbox checked: not applicable
+- Public search checked: not applicable
+- Next review time: not applicable
+- Outbound link anchor: not observed
+- Outbound link anchor type: not observed
+- Outbound link href: not observed
+- Outbound link rel: not observed
+- Commercial relationship: none
+- Link checked at: not applicable
+- Follow-up: ask user for exact confirmation message or review ETA if available; later check for public listing
+- Owner: user
+- Deadline: not applicable
+
+### Attempt/Event log
+
+- 2026-08-20T10:49:00+08:00 | event_id=evt-appdirectory-inspection-001 | action=inspection | result=completed duplicate and submission-route inspection | evidence=ev-appdirectory-inspection-001
+- 2026-08-20T11:26:07+08:00 | event_id=evt-appdirectory-form-001 | action=form filling | result=user completed approved listing fields in browser | evidence=ev-appdirectory-user-submit-001
+- 2026-08-20T11:26:07+08:00 | event_id=evt-appdirectory-submit-001 | action=final form submission | result=user reported submitted | evidence=ev-appdirectory-user-submit-001
+
+## StartupBase
+
+- Website: StartupBase
+- Submission URL: https://startupbase.io/submit
+- Platform domain: startupbase.io
+- Product canonical ID: pokopie-com
+- Account alias: pokopie-submit-account
+- Site approval reference: approval-startupbase-001
+- Route: directory listing
+- Idempotency key: startupbase.io|pokopie-com|pokopie-submit-account|directory listing
+- Quality gate: passed
+- Audience relevance: pass
+- User/discovery value: pass
+- Editorial/platform governance: governed platform
+- Paid/ranking-link offer: none
+- Directory/network quality: pass
+- Automation/terms compatibility: manual-only
+- Reciprocal link requirement: none
+- Phase: eligibility
+- Status: not attempted
+- Listing plan/cost: free startup submission path appears available; recheck at form time
+- Execution mode: manual
+- Platform capability result: supported with handoff
+- Requested browser constraint: not specified
+- Selected browser surface: user handoff
+- Execution backend/profile alias: user-browser
+- Backend selection reason: account session and moderation requirements require user-controlled browser
+- Account/login: pokopie-submit-account; login not attempted
+- Credential source: not applicable
+- Verification preflight: awaiting manual verification
+- Manual-verification queue: position 3/action log in to StartupBase; stop before terms acceptance and submission
+- Duplicate check: no exact public search result found for "Pokopie" or "pokopie.com" on startupbase.io
+- Fields entered: none
+- Fields omitted: none
+- Category: browser-based retro games; web app; online games
+- Asset reference: ev-pokopie-public-assets
+- Asset SHA-256: not applicable
+- Agreements: none
+- Subscriptions: none
+- CAPTCHA/authentication: login required; email one-time code or OAuth options presented; user handoff required
+- Artifact stage: not applicable
+- First opened: not attempted
+- Eligibility checked at: 2026-08-20T10:49:00+08:00
+- Verification checked at: not checked
+- Form started at: not started
+- Submit action timestamp: not submitted
+- Last checked: 2026-08-20T10:49:00+08:00
+- Result summary: Suitable if Pokopie is positioned as a browser-based games startup/product; no exact public duplicate found; login required.
+- Exact result: none
+- Public listing URL: not applicable
+- Evidence type: none
+- Evidence store reference: none
+- Evidence captured at: not applicable
+- Evidence retention until: not applicable
+- Backend checked: not applicable
+- Mailbox checked: not applicable
+- Public search checked: not applicable
+- Next review time: not applicable
+- Outbound link anchor: not observed
+- Outbound link anchor type: not observed
+- Outbound link href: not observed
+- Outbound link rel: not observed
+- Commercial relationship: none
+- Link checked at: not applicable
+- Follow-up: user login handoff, terms confirmation, then duplicate recheck inside account before form work
+- Owner: user
+- Deadline: not applicable
+
+### Attempt/Event log
+
+## SubmitStartup
+
+- Website: SubmitStartup
+- Submission URL: https://submitstartup.io/
+- Platform domain: submitstartup.io
+- Product canonical ID: pokopie-com
+- Account alias: pokopie-submit-account
+- Site approval reference: approval-submitstartup-001
+- Route: directory listing
+- Idempotency key: submitstartup.io|pokopie-com|pokopie-submit-account|directory listing
+- Quality gate: not checked
+- Audience relevance: unknown
+- User/discovery value: unknown
+- Editorial/platform governance: unknown
+- Paid/ranking-link offer: unknown
+- Directory/network quality: unknown
+- Automation/terms compatibility: manual-only
+- Reciprocal link requirement: optional
+- Phase: eligibility
+- Status: blocked — missing verified data
+- Listing plan/cost: final cost and moderation policy must be verified
+- Execution mode: manual
+- Platform capability result: supported with handoff
+- Requested browser constraint: not specified
+- Selected browser surface: user handoff
+- Execution backend/profile alias: user-browser
+- Backend selection reason: governance and cost need user-visible recheck
+- Account/login: pokopie-submit-account; login not attempted
+- Credential source: not applicable
+- Verification preflight: not checked
+- Manual-verification queue: not queued
+- Duplicate check: required before submission
+- Fields entered: none
+- Fields omitted: none
+- Category: startup directory
+- Asset reference: none
+- Asset SHA-256: not applicable
+- Agreements: none
+- Subscriptions: none
+- CAPTCHA/authentication: not presented
+- Artifact stage: not applicable
+- First opened: not attempted
+- Eligibility checked at: 2026-08-20T10:49:00+08:00
+- Verification checked at: not checked
+- Form started at: not started
+- Submit action timestamp: not submitted
+- Last checked: 2026-08-20T10:49:00+08:00
+- Result summary: Candidate, but governance and cost must be confirmed before form work.
+- Exact result: none
+- Public listing URL: not applicable
+- Evidence type: none
+- Evidence store reference: none
+- Evidence captured at: not applicable
+- Evidence retention until: not applicable
+- Backend checked: not applicable
+- Mailbox checked: not applicable
+- Public search checked: not applicable
+- Next review time: not applicable
+- Outbound link anchor: not observed
+- Outbound link anchor type: not observed
+- Outbound link href: not observed
+- Outbound link rel: not observed
+- Commercial relationship: none
+- Link checked at: not applicable
+- Follow-up: verify governance, free path, reciprocal policy, and duplicate state
+- Owner: user
+- Deadline: not applicable
+
+### Attempt/Event log
+
+## PWA Directory
+
+- Website: PWA Directory
+- Submission URL: https://pwa.directory/
+- Platform domain: pwa.directory
+- Product canonical ID: pokopie-com
+- Account alias: pokopie-submit-account
+- Site approval reference: approval-pwadirectory-001
+- Route: directory listing
+- Idempotency key: pwa.directory|pokopie-com|pokopie-submit-account|directory listing
+- Quality gate: passed
+- Audience relevance: pass
+- User/discovery value: pass
+- Editorial/platform governance: governed platform
+- Paid/ranking-link offer: none
+- Directory/network quality: pass
+- Automation/terms compatibility: manual-only
+- Reciprocal link requirement: optional
+- Phase: confirmation
+- Status: submitted
+- Listing plan/cost: depends on final submission form requirements; PWA eligibility evidence is available
+- Execution mode: manual
+- Platform capability result: supported with handoff
+- Requested browser constraint: not specified
+- Selected browser surface: user handoff
+- Execution backend/profile alias: user-browser
+- Backend selection reason: account/session and final submission require user-controlled browser
+- Account/login: pokopie-submit-account; login not attempted
+- Credential source: not applicable
+- Verification preflight: manual verification completed
+- Manual-verification queue: user completed review email and final submission in browser
+- Duplicate check: no exact text match found in PWA Directory visible list for "Pokopie" or "pokopie.com"; no exact public search result found on pwa.directory
+- Fields entered: approved product name, canonical URL, approved description, public asset references, review contact alias
+- Fields omitted: none
+- Category: PWA; browser-based retro games; online games
+- Asset reference: ev-pokopie-public-assets
+- Asset SHA-256: not applicable
+- Agreements: none
+- Subscriptions: none
+- CAPTCHA/authentication: review email/final confirmation completed by user
+- Artifact stage: not applicable
+- First opened: 2026-08-20T10:49:00+08:00
+- Eligibility checked at: 2026-08-20T10:49:00+08:00
+- Verification checked at: 2026-08-20T11:16:11+08:00
+- Form started at: 2026-08-20T11:16:11+08:00
+- Submit action timestamp: 2026-08-20T11:16:11+08:00
+- Last checked: 2026-08-20T11:16:11+08:00
+- Result summary: User reported PWA Directory submission completed.
+- Exact result: User confirmation: submitted.
+- Public listing URL: not applicable
+- Evidence type: user confirmation
+- Evidence store reference: ev-pwadirectory-user-submit-001
+- Evidence captured at: 2026-08-20T11:16:11+08:00
+- Evidence retention until: 2027-08-20T11:16:11+08:00
+- Backend checked: not applicable
+- Mailbox checked: not applicable
+- Public search checked: not applicable
+- Next review time: not applicable
+- Outbound link anchor: not observed
+- Outbound link anchor type: not observed
+- Outbound link href: not observed
+- Outbound link rel: not observed
+- Commercial relationship: none
+- Link checked at: not applicable
+- Follow-up: ask user for exact confirmation message or review ETA if available; later check for public listing
+- Owner: user
+- Deadline: not applicable
+
+### Attempt/Event log
+
+- 2026-08-20T10:49:00+08:00 | event_id=evt-pwadirectory-inspection-001 | action=inspection | result=completed duplicate and PWA eligibility inspection | evidence=ev-pokopie-public-assets
+- 2026-08-20T11:16:11+08:00 | event_id=evt-pwadirectory-form-001 | action=form filling | result=user completed approved listing fields in browser | evidence=ev-pwadirectory-user-submit-001
+- 2026-08-20T11:16:11+08:00 | event_id=evt-pwadirectory-submit-001 | action=final form submission | result=user reported submitted | evidence=ev-pwadirectory-user-submit-001
+
+## Warp Point
+
+- Website: Warp Point
+- Submission URL: https://warp-point.com/
+- Platform domain: warp-point.com
+- Product canonical ID: pokopie-com
+- Account alias: pokopie-submit-account
+- Site approval reference: approval-warppoint-001
+- Route: directory listing
+- Idempotency key: warp-point.com|pokopie-com|pokopie-submit-account|directory listing
+- Quality gate: not checked
+- Audience relevance: unknown
+- User/discovery value: unknown
+- Editorial/platform governance: governed platform
+- Paid/ranking-link offer: none
+- Directory/network quality: pass
+- Automation/terms compatibility: manual-only
+- Reciprocal link requirement: optional
+- Phase: eligibility
+- Status: blocked — missing verified data
+- Listing plan/cost: likely free directory listing, but requirements must be verified
+- Execution mode: manual
+- Platform capability result: supported with handoff
+- Requested browser constraint: not specified
+- Selected browser surface: user handoff
+- Execution backend/profile alias: user-browser
+- Backend selection reason: RSS, content, and asset requirements need recheck
+- Account/login: pokopie-submit-account; login not attempted
+- Credential source: not applicable
+- Verification preflight: not checked
+- Manual-verification queue: not queued
+- Duplicate check: required before submission
+- Fields entered: none
+- Fields omitted: none
+- Category: gaming website directory
+- Asset reference: none
+- Asset SHA-256: not applicable
+- Agreements: none
+- Subscriptions: none
+- CAPTCHA/authentication: not presented
+- Artifact stage: not applicable
+- First opened: not attempted
+- Eligibility checked at: 2026-08-20T10:49:00+08:00
+- Verification checked at: not checked
+- Form started at: not started
+- Submit action timestamp: not submitted
+- Last checked: 2026-08-20T10:49:00+08:00
+- Result summary: Conditional candidate; needs RSS, human-written gaming content, and asset checks.
+- Exact result: none
+- Public listing URL: not applicable
+- Evidence type: none
+- Evidence store reference: none
+- Evidence captured at: not applicable
+- Evidence retention until: not applicable
+- Backend checked: not applicable
+- Mailbox checked: not applicable
+- Public search checked: not applicable
+- Next review time: not applicable
+- Outbound link anchor: not observed
+- Outbound link anchor type: not observed
+- Outbound link href: not observed
+- Outbound link rel: not observed
+- Commercial relationship: none
+- Link checked at: not applicable
+- Follow-up: confirm RSS, content originality, and no AI-generated-content exclusion issue
+- Owner: user
+- Deadline: not applicable
+
+### Attempt/Event log
+
+## DiscoverGG
+
+- Website: DiscoverGG
+- Submission URL: https://discovergg.com/submit.php
+- Platform domain: discovergg.com
+- Product canonical ID: pokopie-com
+- Account alias: pokopie-submit-account
+- Site approval reference: approval-discovergg-001
+- Route: directory listing
+- Idempotency key: discovergg.com|pokopie-com|pokopie-submit-account|directory listing
+- Quality gate: failed
+- Audience relevance: pass
+- User/discovery value: pass
+- Editorial/platform governance: unknown
+- Paid/ranking-link offer: none
+- Directory/network quality: pass
+- Automation/terms compatibility: manual-only
+- Reciprocal link requirement: optional
+- Phase: eligibility
+- Status: ineligible
+- Listing plan/cost: not applicable for Pokopie homepage
+- Execution mode: manual
+- Platform capability result: supported with handoff
+- Requested browser constraint: not specified
+- Selected browser surface: user handoff
+- Execution backend/profile alias: user-browser
+- Backend selection reason: product-level homepage is not the route fit
+- Account/login: pokopie-submit-account; login not attempted
+- Credential source: not applicable
+- Verification preflight: not checked
+- Manual-verification queue: not queued
+- Duplicate check: not applicable
+- Fields entered: none
+- Fields omitted: none
+- Category: browser game directory
+- Asset reference: none
+- Asset SHA-256: not applicable
+- Agreements: none
+- Subscriptions: none
+- CAPTCHA/authentication: not presented
+- Artifact stage: not applicable
+- First opened: not attempted
+- Eligibility checked at: 2026-08-20T10:49:00+08:00
+- Verification checked at: not checked
+- Form started at: not started
+- Submit action timestamp: not submitted
+- Last checked: 2026-08-20T10:49:00+08:00
+- Result summary: Do not submit Pokopie homepage; reconsider only for a specific playable game page with authorization.
+- Exact result: Game-directory route appears intended for individual browser games, not a general product homepage.
+- Public listing URL: not applicable
+- Evidence type: policy page
+- Evidence store reference: ev-discovergg-001
+- Evidence captured at: 2026-08-20T10:49:00+08:00
+- Evidence retention until: 2027-08-20T10:49:00+08:00
+- Backend checked: not applicable
+- Mailbox checked: not applicable
+- Public search checked: not applicable
+- Next review time: not applicable
+- Outbound link anchor: not observed
+- Outbound link anchor type: not observed
+- Outbound link href: not observed
+- Outbound link rel: not observed
+- Commercial relationship: none
+- Link checked at: not applicable
+- Follow-up: only revisit with a specific original or authorized playable game page
+- Owner: user
+- Deadline: not applicable
+
+### Attempt/Event log
+
+## Insert Coin
+
+- Website: Insert Coin
+- Submission URL: https://insertcoin.org/submit
+- Platform domain: insertcoin.org
+- Product canonical ID: pokopie-com
+- Account alias: pokopie-submit-account
+- Site approval reference: approval-insertcoin-001
+- Route: directory listing
+- Idempotency key: insertcoin.org|pokopie-com|pokopie-submit-account|directory listing
+- Quality gate: failed
+- Audience relevance: pass
+- User/discovery value: pass
+- Editorial/platform governance: governed platform
+- Paid/ranking-link offer: none
+- Directory/network quality: pass
+- Automation/terms compatibility: manual-only
+- Reciprocal link requirement: optional
+- Phase: eligibility
+- Status: ineligible
+- Listing plan/cost: not applicable for Pokopie homepage
+- Execution mode: manual
+- Platform capability result: supported with handoff
+- Requested browser constraint: not specified
+- Selected browser surface: user handoff
+- Execution backend/profile alias: user-browser
+- Backend selection reason: product-level homepage is not the route fit
+- Account/login: pokopie-submit-account; login not attempted
+- Credential source: not applicable
+- Verification preflight: not checked
+- Manual-verification queue: not queued
+- Duplicate check: not applicable
+- Fields entered: none
+- Fields omitted: none
+- Category: browser game directory
+- Asset reference: none
+- Asset SHA-256: not applicable
+- Agreements: none
+- Subscriptions: none
+- CAPTCHA/authentication: not presented
+- Artifact stage: not applicable
+- First opened: not attempted
+- Eligibility checked at: 2026-08-20T10:49:00+08:00
+- Verification checked at: not checked
+- Form started at: not started
+- Submit action timestamp: not submitted
+- Last checked: 2026-08-20T10:49:00+08:00
+- Result summary: Do not submit Pokopie homepage; reconsider only for a specific original or authorized browser game page.
+- Exact result: Game-directory route appears intended for individual browser games, not a general product homepage.
+- Public listing URL: not applicable
+- Evidence type: policy page
+- Evidence store reference: ev-insertcoin-001
+- Evidence captured at: 2026-08-20T10:49:00+08:00
+- Evidence retention until: 2027-08-20T10:49:00+08:00
+- Backend checked: not applicable
+- Mailbox checked: not applicable
+- Public search checked: not applicable
+- Next review time: not applicable
+- Outbound link anchor: not observed
+- Outbound link anchor type: not observed
+- Outbound link href: not observed
+- Outbound link rel: not observed
+- Commercial relationship: none
+- Link checked at: not applicable
+- Follow-up: only revisit with a specific original or authorized playable game page
+- Owner: user
+- Deadline: not applicable
+
+### Attempt/Event log
