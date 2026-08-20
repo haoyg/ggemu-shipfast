@@ -1,6 +1,6 @@
 # Pokopie Product Directory Record
 
-Last updated: 2026-08-20T11:26:07+08:00
+Last updated: 2026-08-20T14:24:58+08:00
 
 ## Permanent operating rules
 
@@ -44,7 +44,7 @@ Last updated: 2026-08-20T11:26:07+08:00
 - account creation: decision=ask; approved_by=not applicable; approved_at=not applicable; scope=not applicable; expires_at=not applicable
 - native registration-email verification: decision=ask; approved_by=not applicable; approved_at=not applicable; scope=not applicable; expires_at=not applicable
 - terms/privacy acceptance: decision=ask; approved_by=not applicable; approved_at=not applicable; scope=not applicable; expires_at=not applicable
-- final form submission: decision=allowed; approved_by=user; approved_at=2026-08-20T11:16:11+08:00; scope=pwa.directory, appdirectory.org; expires_at=2026-09-20T11:16:11+08:00
+- final form submission: decision=allowed; approved_by=user; approved_at=2026-08-20T11:16:11+08:00; scope=pwa.directory, appdirectory.org, alternativeto.net, saashub.com, startupbase.io; expires_at=2026-09-20T11:16:11+08:00
 - email sending: decision=prohibited; approved_by=not applicable; approved_at=not applicable; scope=not applicable; expires_at=not applicable
 - article publication: decision=prohibited; approved_by=not applicable; approved_at=not applicable; scope=not applicable; expires_at=not applicable
 - claim ownership: decision=ask; approved_by=not applicable; approved_at=not applicable; scope=not applicable; expires_at=not applicable
@@ -56,7 +56,7 @@ Last updated: 2026-08-20T11:26:07+08:00
 
 1. https://www.producthunt.com/launch
 2. https://alternativeto.net/software/new/
-3. https://www.saashub.com/product/new
+3. https://www.saashub.com/services/submit
 4. https://appdirectory.org/submit
 5. https://startupbase.io/submit
 6. https://submitstartup.io/
@@ -153,8 +153,8 @@ Last updated: 2026-08-20T11:26:07+08:00
 - Directory/network quality: pass
 - Automation/terms compatibility: manual-only
 - Reciprocal link requirement: none
-- Phase: eligibility
-- Status: not attempted
+- Phase: confirmation
+- Status: submitted
 - Listing plan/cost: free app suggestion path appears available; recheck at form time
 - Execution mode: manual
 - Platform capability result: supported with handoff
@@ -164,31 +164,31 @@ Last updated: 2026-08-20T11:26:07+08:00
 - Backend selection reason: account session and moderation requirements require user-controlled browser
 - Account/login: pokopie-submit-account; login not attempted
 - Credential source: not applicable
-- Verification preflight: not checked
-- Manual-verification queue: not queued
+- Verification preflight: manual verification completed
+- Manual-verification queue: user completed AlternativeTo flow in browser
 - Duplicate check: no exact public search result found for "Pokopie" or "pokopie.com" on alternativeto.net
-- Fields entered: none
+- Fields entered: approved product name, canonical URL, approved description, platform/category/tags, alternatives
 - Fields omitted: none
 - Category: browser-based retro games; web app; online games
 - Asset reference: ev-pokopie-public-assets
 - Asset SHA-256: not applicable
 - Agreements: none
 - Subscriptions: none
-- CAPTCHA/authentication: not presented
+- CAPTCHA/authentication: completed by user if presented
 - Artifact stage: not applicable
-- First opened: not attempted
+- First opened: 2026-08-20T10:49:00+08:00
 - Eligibility checked at: 2026-08-20T10:49:00+08:00
-- Verification checked at: not checked
-- Form started at: not started
-- Submit action timestamp: not submitted
-- Last checked: 2026-08-20T10:49:00+08:00
-- Result summary: Suitable if Pokopie is positioned as a web app for playing classic games online; no exact public duplicate found.
-- Exact result: none
+- Verification checked at: 2026-08-20T13:43:03+08:00
+- Form started at: 2026-08-20T13:43:03+08:00
+- Submit action timestamp: 2026-08-20T13:43:03+08:00
+- Last checked: 2026-08-20T13:43:03+08:00
+- Result summary: User reported AlternativeTo submission completed.
+- Exact result: User confirmation: submitted.
 - Public listing URL: not applicable
-- Evidence type: none
-- Evidence store reference: none
-- Evidence captured at: not applicable
-- Evidence retention until: not applicable
+- Evidence type: user confirmation
+- Evidence store reference: ev-alternativeto-user-submit-001
+- Evidence captured at: 2026-08-20T13:43:03+08:00
+- Evidence retention until: 2027-08-20T13:43:03+08:00
 - Backend checked: not applicable
 - Mailbox checked: not applicable
 - Public search checked: not applicable
@@ -199,16 +199,20 @@ Last updated: 2026-08-20T11:26:07+08:00
 - Outbound link rel: not observed
 - Commercial relationship: none
 - Link checked at: not applicable
-- Follow-up: open live submission flow in user browser and stop at login, verification, or final submission
+- Follow-up: ask user for exact confirmation message or review ETA if available; later check for public listing
 - Owner: user
 - Deadline: not applicable
 
 ### Attempt/Event log
 
+- 2026-08-20T10:49:00+08:00 | event_id=evt-alternativeto-inspection-001 | action=inspection | result=completed duplicate and submission-route inspection | evidence=ev-alternativeto-inspection-001
+- 2026-08-20T13:43:03+08:00 | event_id=evt-alternativeto-form-001 | action=form filling | result=user completed approved listing fields and alternatives in browser | evidence=ev-alternativeto-user-submit-001
+- 2026-08-20T13:43:03+08:00 | event_id=evt-alternativeto-submit-001 | action=final form submission | result=user reported submitted | evidence=ev-alternativeto-user-submit-001
+
 ## SaaSHub
 
 - Website: SaaSHub
-- Submission URL: https://www.saashub.com/product/new
+- Submission URL: https://www.saashub.com/services/submit
 - Platform domain: saashub.com
 - Product canonical ID: pokopie-com
 - Account alias: pokopie-submit-account
@@ -223,9 +227,9 @@ Last updated: 2026-08-20T11:26:07+08:00
 - Directory/network quality: pass
 - Automation/terms compatibility: manual-only
 - Reciprocal link requirement: none
-- Phase: eligibility
-- Status: not attempted
-- Listing plan/cost: free product listing path appears available; recheck at form time
+- Phase: confirmation
+- Status: submitted
+- Listing plan/cost: free product submission path; approval process applies; product verification with domain email may improve priority
 - Execution mode: manual
 - Platform capability result: supported with handoff
 - Requested browser constraint: not specified
@@ -234,31 +238,31 @@ Last updated: 2026-08-20T11:26:07+08:00
 - Backend selection reason: account session and moderation requirements require user-controlled browser
 - Account/login: pokopie-submit-account; login not attempted
 - Credential source: not applicable
-- Verification preflight: not checked
-- Manual-verification queue: not queued
+- Verification preflight: manual verification completed
+- Manual-verification queue: user completed SaaSHub submission in browser
 - Duplicate check: no exact public search result found for "Pokopie" or "pokopie.com" on saashub.com
-- Fields entered: none
+- Fields entered: approved product URL, approved product name, approved description, category, competitors/alternatives
 - Fields omitted: none
 - Category: browser-based retro games; web app; online games
 - Asset reference: ev-pokopie-public-assets
 - Asset SHA-256: not applicable
 - Agreements: none
 - Subscriptions: none
-- CAPTCHA/authentication: not presented
+- CAPTCHA/authentication: completed by user if presented
 - Artifact stage: not applicable
-- First opened: not attempted
+- First opened: 2026-08-20T10:49:00+08:00
 - Eligibility checked at: 2026-08-20T10:49:00+08:00
-- Verification checked at: not checked
-- Form started at: not started
-- Submit action timestamp: not submitted
-- Last checked: 2026-08-20T10:49:00+08:00
-- Result summary: Suitable for product/service listing as a browser-based retro games website; no exact public duplicate found.
-- Exact result: none
+- Verification checked at: 2026-08-20T14:17:34+08:00
+- Form started at: 2026-08-20T14:17:34+08:00
+- Submit action timestamp: 2026-08-20T14:17:34+08:00
+- Last checked: 2026-08-20T14:17:34+08:00
+- Result summary: User reported SaaSHub submission completed.
+- Exact result: User confirmation: submitted.
 - Public listing URL: not applicable
-- Evidence type: none
-- Evidence store reference: none
-- Evidence captured at: not applicable
-- Evidence retention until: not applicable
+- Evidence type: user confirmation
+- Evidence store reference: ev-saashub-user-submit-001
+- Evidence captured at: 2026-08-20T14:17:34+08:00
+- Evidence retention until: 2027-08-20T14:17:34+08:00
 - Backend checked: not applicable
 - Mailbox checked: not applicable
 - Public search checked: not applicable
@@ -269,11 +273,15 @@ Last updated: 2026-08-20T11:26:07+08:00
 - Outbound link rel: not observed
 - Commercial relationship: none
 - Link checked at: not applicable
-- Follow-up: open live submission flow in user browser and stop at login, verification, or final submission
+- Follow-up: ask user for exact confirmation message or review ETA if available; later check for public listing
 - Owner: user
 - Deadline: not applicable
 
 ### Attempt/Event log
+
+- 2026-08-20T10:49:00+08:00 | event_id=evt-saashub-inspection-001 | action=inspection | result=completed duplicate and submission-route inspection | evidence=ev-saashub-inspection-001
+- 2026-08-20T14:17:34+08:00 | event_id=evt-saashub-form-001 | action=form filling | result=user completed approved listing fields in browser | evidence=ev-saashub-user-submit-001
+- 2026-08-20T14:17:34+08:00 | event_id=evt-saashub-submit-001 | action=final form submission | result=user reported submitted | evidence=ev-saashub-user-submit-001
 
 ## AppDirectory
 
@@ -367,8 +375,8 @@ Last updated: 2026-08-20T11:26:07+08:00
 - Directory/network quality: pass
 - Automation/terms compatibility: manual-only
 - Reciprocal link requirement: none
-- Phase: eligibility
-- Status: not attempted
+- Phase: confirmation
+- Status: submitted
 - Listing plan/cost: free startup submission path appears available; recheck at form time
 - Execution mode: manual
 - Platform capability result: supported with handoff
@@ -378,31 +386,31 @@ Last updated: 2026-08-20T11:26:07+08:00
 - Backend selection reason: account session and moderation requirements require user-controlled browser
 - Account/login: pokopie-submit-account; login not attempted
 - Credential source: not applicable
-- Verification preflight: awaiting manual verification
-- Manual-verification queue: position 3/action log in to StartupBase; stop before terms acceptance and submission
+- Verification preflight: manual verification completed
+- Manual-verification queue: user completed StartupBase login/verification and submission in browser
 - Duplicate check: no exact public search result found for "Pokopie" or "pokopie.com" on startupbase.io
-- Fields entered: none
+- Fields entered: approved product name, canonical URL, approved description, category/tags, public asset references
 - Fields omitted: none
 - Category: browser-based retro games; web app; online games
 - Asset reference: ev-pokopie-public-assets
 - Asset SHA-256: not applicable
 - Agreements: none
 - Subscriptions: none
-- CAPTCHA/authentication: login required; email one-time code or OAuth options presented; user handoff required
+- CAPTCHA/authentication: login/verification completed by user if presented
 - Artifact stage: not applicable
-- First opened: not attempted
+- First opened: 2026-08-20T10:49:00+08:00
 - Eligibility checked at: 2026-08-20T10:49:00+08:00
-- Verification checked at: not checked
-- Form started at: not started
-- Submit action timestamp: not submitted
-- Last checked: 2026-08-20T10:49:00+08:00
-- Result summary: Suitable if Pokopie is positioned as a browser-based games startup/product; no exact public duplicate found; login required.
-- Exact result: none
+- Verification checked at: 2026-08-20T14:24:58+08:00
+- Form started at: 2026-08-20T14:24:58+08:00
+- Submit action timestamp: 2026-08-20T14:24:58+08:00
+- Last checked: 2026-08-20T14:24:58+08:00
+- Result summary: User reported StartupBase submission completed.
+- Exact result: User confirmation: submitted.
 - Public listing URL: not applicable
-- Evidence type: none
-- Evidence store reference: none
-- Evidence captured at: not applicable
-- Evidence retention until: not applicable
+- Evidence type: user confirmation
+- Evidence store reference: ev-startupbase-user-submit-001
+- Evidence captured at: 2026-08-20T14:24:58+08:00
+- Evidence retention until: 2027-08-20T14:24:58+08:00
 - Backend checked: not applicable
 - Mailbox checked: not applicable
 - Public search checked: not applicable
@@ -413,11 +421,15 @@ Last updated: 2026-08-20T11:26:07+08:00
 - Outbound link rel: not observed
 - Commercial relationship: none
 - Link checked at: not applicable
-- Follow-up: user login handoff, terms confirmation, then duplicate recheck inside account before form work
+- Follow-up: ask user for exact confirmation message or review ETA if available; later check for public listing
 - Owner: user
 - Deadline: not applicable
 
 ### Attempt/Event log
+
+- 2026-08-20T10:49:00+08:00 | event_id=evt-startupbase-inspection-001 | action=inspection | result=completed duplicate and submission-route inspection | evidence=ev-startupbase-inspection-001
+- 2026-08-20T14:24:58+08:00 | event_id=evt-startupbase-form-001 | action=form filling | result=user completed approved listing fields in browser | evidence=ev-startupbase-user-submit-001
+- 2026-08-20T14:24:58+08:00 | event_id=evt-startupbase-submit-001 | action=final form submission | result=user reported submitted | evidence=ev-startupbase-user-submit-001
 
 ## SubmitStartup
 
