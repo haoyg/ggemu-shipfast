@@ -40,4 +40,42 @@ describe('game embed helpers', () => {
     expect(getTargetedGameSeo({ url_slug: 'contra-1987-arcade-1987' }, 'en')).toBeNull()
     expect(getTargetedGameSeo({ url_slug: 'contra-nes-1988' }, 'ja')).toBeNull()
   })
+
+  it('targets the English Murdoku landing page with query-aligned metadata', () => {
+    const seo = getTargetedGameSeo({ url_slug: 'murdoku-html5-2026' }, 'en')
+
+    expect(seo?.heading).toBe('Play Murdoku Online Free')
+    expect(seo?.title).toMatch(/^Murdoku Online/)
+    expect(seo?.description).toContain('murder mystery')
+    expect(getTargetedGameSeo({ url_slug: 'murdoku-html5-2026' }, 'ja')).toBeNull()
+  })
+
+  it('targets the English Onet Master page with intent-aligned metadata', () => {
+    const seo = getTargetedGameSeo({ url_slug: 'onet-master-html5' }, 'en')
+
+    expect(seo?.heading).toBe('Play Onet Master Online Free')
+    expect(seo?.title).toMatch(/^Onet Master Online/)
+    expect(seo?.description).toContain('Match identical tiles')
+    expect(getTargetedGameSeo({ url_slug: 'onet-master-html5' }, 'zh-CN')).toBeNull()
+  })
+
+  it('targets the English Geometry Dash Advance page', () => {
+    const seo = getTargetedGameSeo(
+      { url_slug: 'geometry-dash-advance-gba-2025' },
+      'en',
+    )
+
+    expect(seo?.title).toMatch(/^Geometry Dash Advance/)
+    expect(seo?.description).toContain('GBA demake')
+  })
+
+  it('targets the English Taiko Web page', () => {
+    const seo = getTargetedGameSeo(
+      { url_slug: 'taiko-no-tatsujin-taiko-web-html5-2011' },
+      'en',
+    )
+
+    expect(seo?.title).toMatch(/^Taiko Web/)
+    expect(seo?.description).toContain('drum notes')
+  })
 })

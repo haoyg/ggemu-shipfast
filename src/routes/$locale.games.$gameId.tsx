@@ -39,6 +39,10 @@ import {
   normalizeLocale,
 } from '#/lib/i18n'
 import { getRetroCoverFallbackLabel } from '#/lib/locale-labels'
+import {
+  getGameSeoInternalLinks,
+  type GameSeoInternalLink,
+} from '#/lib/game-seo-links'
 import { getTargetedGameSeo } from '#/lib/game-seo-targets'
 import {
   getGameDescriptionParagraphs,
@@ -422,6 +426,7 @@ function LocalizedGameDetailPage() {
   const embedUrl = buildGameEmbedUrl(canonicalUrl, lang, gameId)
   const manifestHref = buildGameManifestHref(lang)
   const targetedSeo = getTargetedGameSeo(game, lang)
+  const seoInternalLinks = getGameSeoInternalLinks(game, lang)
 
   if (pathname.endsWith('/play')) {
     return <Outlet />
@@ -505,7 +510,7 @@ function LocalizedGameDetailPage() {
               <div className="grid gap-3 sm:flex sm:flex-row">
                 <a
                   className="btn btn-primary btn-lg px-8 text-primary-content hover:text-primary-content sm:w-auto"
-                  href={targetedSeo ? '#play-contra-online' : playPath}
+                  href={targetedSeo ? '#play-online' : playPath}
                   onClick={() => saveRecentPlayedGame(game, gameId)}
                   rel={targetedSeo ? undefined : 'noopener noreferrer'}
                   target={targetedSeo ? undefined : '_blank'}
@@ -540,8 +545,10 @@ function LocalizedGameDetailPage() {
 
           {targetedSeo ? (
             <EmbeddedGamePlayer
+              description={targetedSeo.description}
               game={game}
               gameId={gameId}
+              heading={targetedSeo.heading}
               locale={lang}
               playPath={playPath}
             />
@@ -551,6 +558,7 @@ function LocalizedGameDetailPage() {
             <div className="flex flex-col gap-6">
               <KeywordPanel title={t.keywords} value={keywordText} />
               <ArticlePanel paragraphs={howToPlayParagraphs} title={t.howToPlay} />
+              <SeoInternalLinkSection lang={lang} links={seoInternalLinks} />
               <FaqSection items={faqItems} title={t.faq} />
               <RelatedGameSection
                 games={getRelatedGames(
@@ -743,6 +751,39 @@ function RelatedGameSection({
           <RelatedGameCard game={game} key={game.url_slug ?? game._id} lang={lang} />
         ))}
       </div>
+    </section>
+  )
+}
+
+function SeoInternalLinkSection({
+  lang,
+  links,
+}: {
+  lang: Locale
+  links: Array<GameSeoInternalLink>
+}) {
+  if (links.length === 0) {
+    return null
+  }
+
+  return (
+    <section>
+      <h2 className="text-xl font-semibold">Explore related online games</h2>
+      <ul className="mt-3 flex flex-wrap gap-x-5 gap-y-3">
+        {links.map((link) => (
+          <li key={link.slug}>
+            <Link
+              className="inline-flex items-center gap-1 font-medium text-primary underline-offset-4 hover:underline"
+              params={{ gameId: link.slug, locale: lang }}
+              search={{}}
+              to="/$locale/games/$gameId"
+            >
+              {link.label}
+              <i aria-hidden="true" className="ri-arrow-right-up-line" />
+            </Link>
+          </li>
+        ))}
+      </ul>
     </section>
   )
 }

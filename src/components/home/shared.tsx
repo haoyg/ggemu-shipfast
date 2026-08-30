@@ -150,6 +150,20 @@ export function HomeSeoContentSection({ lang }: { lang: Locale }) {
           <p className="mt-4 text-sm leading-7 text-base-content/70 sm:text-base">
             {content.whyBody}
           </p>
+          {lang === 'en' ? (
+            <p className="mt-4 text-sm leading-6 text-base-content/65">
+              Trending puzzle:{' '}
+              <Link
+                className="font-semibold text-primary underline-offset-4 hover:underline"
+                params={{ gameId: 'murdoku-html5-2026', locale: lang }}
+                search={{}}
+                to="/$locale/games/$gameId"
+              >
+                Play Murdoku online
+              </Link>{' '}
+              and solve a Sudoku-style murder mystery in your browser.
+            </p>
+          ) : null}
         </article>
 
         <article className="rounded-lg border border-base-300 bg-base-100 p-5 shadow-sm">

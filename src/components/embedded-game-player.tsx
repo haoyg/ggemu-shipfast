@@ -4,13 +4,17 @@ import { siteConfig } from '#/lib/site-config'
 import { useCurrentSiteTheme } from '#/lib/use-site-theme'
 
 export function EmbeddedGamePlayer({
+  description,
   game,
   gameId,
+  heading,
   locale,
   playPath,
 }: {
+  description: string
   game: PublicGame
   gameId: string
+  heading: string
   locale: string
   playPath: string
 }) {
@@ -26,15 +30,15 @@ export function EmbeddedGamePlayer({
   return (
     <section
       className="scroll-mt-24 overflow-hidden rounded-box border border-base-300 bg-neutral text-neutral-content shadow-lg"
-      id="play-contra-online"
+      id="play-online"
     >
       <div className="flex flex-col justify-between gap-3 border-b border-white/10 px-4 py-4 sm:flex-row sm:items-center sm:px-6">
         <div>
           <h2 className="text-xl font-semibold text-white sm:text-2xl">
-            Play Contra Game Online Free
+            {heading}
           </h2>
           <p className="mt-1 text-sm leading-6 text-white/65">
-            Start Contra in your browser with no separate emulator download.
+            {description}
           </p>
         </div>
         <a
@@ -54,7 +58,7 @@ export function EmbeddedGamePlayer({
           className="h-full w-full border-0 bg-black"
           loading="lazy"
           src={embedSrc}
-          title="Play Contra game online free"
+          title={heading}
         />
       </div>
     </section>
