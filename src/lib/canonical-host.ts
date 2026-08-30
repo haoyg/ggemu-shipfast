@@ -3,8 +3,11 @@ const legacyHost = `www.${canonicalHost}`
 
 export function getCanonicalHostRedirect(request: Request) {
   const url = new URL(request.url)
+  const isCanonicalHost = url.hostname === canonicalHost
+  const isLegacyHost = url.hostname === legacyHost
+  const isRootPath = url.pathname === '/'
 
-  if (url.hostname !== legacyHost) {
+  if (!isLegacyHost && !(isCanonicalHost && isRootPath)) {
     return undefined
   }
 
@@ -12,12 +15,16 @@ export function getCanonicalHostRedirect(request: Request) {
   url.hostname = canonicalHost
   url.port = ''
 
+  if (isRootPath) {
+    url.pathname = '/en'
+  }
+
   return new Response(null, {
     headers: {
       'Cache-Control': 'public, max-age=3600',
       'Cloudflare-CDN-Cache-Control': 'public, max-age=86400',
       Location: url.toString(),
     },
-    status: 308,
+    status: 301,
   })
 }

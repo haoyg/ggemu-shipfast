@@ -8,7 +8,7 @@ describe('canonical host redirect', () => {
       new Request('http://www.pokopie.com:8787/en/games/demo?ref=home'),
     )
 
-    expect(response?.status).toBe(308)
+    expect(response?.status).toBe(301)
     expect(response?.headers.get('Location')).toBe(
       'https://pokopie.com/en/games/demo?ref=home',
     )
@@ -20,7 +20,25 @@ describe('canonical host redirect', () => {
     )
   })
 
-  it('does not redirect the canonical host', () => {
+  it('redirects both homepage host variants to the English homepage', () => {
+    const canonicalResponse = getCanonicalHostRedirect(
+      new Request('http://pokopie.com/?ref=home'),
+    )
+    const legacyResponse = getCanonicalHostRedirect(
+      new Request('https://www.pokopie.com/?ref=home'),
+    )
+
+    expect(canonicalResponse?.status).toBe(301)
+    expect(canonicalResponse?.headers.get('Location')).toBe(
+      'https://pokopie.com/en?ref=home',
+    )
+    expect(legacyResponse?.status).toBe(301)
+    expect(legacyResponse?.headers.get('Location')).toBe(
+      'https://pokopie.com/en?ref=home',
+    )
+  })
+
+  it('does not redirect canonical localized pages', () => {
     expect(
       getCanonicalHostRedirect(new Request('https://pokopie.com/en')),
     ).toBeUndefined()
@@ -34,6 +52,9 @@ describe('canonical host redirect', () => {
     ).toBeUndefined()
     expect(
       getCanonicalHostRedirect(new Request('http://localhost:3000/en')),
+    ).toBeUndefined()
+    expect(
+      getCanonicalHostRedirect(new Request('http://localhost:3000/')),
     ).toBeUndefined()
   })
 })
