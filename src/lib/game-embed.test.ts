@@ -78,4 +78,15 @@ describe('game embed helpers', () => {
     expect(seo?.title).toMatch(/^Taiko Web/)
     expect(seo?.description).toContain('drum notes')
   })
+
+  it('targets the One Piece GBA page without presenting it as Online 2', () => {
+    const seo = getTargetedGameSeo(
+      { url_slug: 'shonen-jump-s-one-piece-gba-2005' },
+      'en',
+    )
+
+    expect(seo?.title).toMatch(/^Play One Piece Online/)
+    expect(seo?.description).toContain('2005 GBA action game')
+    expect(`${seo?.title} ${seo?.description}`).not.toContain('Online 2')
+  })
 })

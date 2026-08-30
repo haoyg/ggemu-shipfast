@@ -4,6 +4,7 @@ const contraTargetSlug = 'contra-nes-1988'
 const geometryDashAdvanceTargetSlug = 'geometry-dash-advance-gba-2025'
 const murdokuTargetSlug = 'murdoku-html5-2026'
 const onetMasterTargetSlug = 'onet-master-html5'
+const shonenJumpOnePieceTargetSlug = 'shonen-jump-s-one-piece-gba-2005'
 const taikoWebTargetSlug = 'taiko-no-tatsujin-taiko-web-html5-2011'
 
 const targetedGameSeoBySlug = {
@@ -38,6 +39,14 @@ const targetedGameSeoBySlug = {
       'Play Onet Master online free in your browser. Match identical tiles, connect pairs with up to two turns, and clear the board. No download required.',
     keywords:
       'Onet Master, Onet Master online, play Onet Master, tile matching game, pair connect puzzle',
+  },
+  [shonenJumpOnePieceTargetSlug]: {
+    heading: "Play Shonen Jump's One Piece Online",
+    title: 'Play One Piece Online - Shonen Jump GBA Game | POKOPIE',
+    description:
+      "Play Shonen Jump's One Piece online in your browser. Guide Luffy through the 2005 GBA action game with keyboard or controller support and no download.",
+    keywords:
+      "play One Piece online, Shonen Jump's One Piece, One Piece GBA game, Luffy game online, anime action game",
   },
   [taikoWebTargetSlug]: {
     heading: 'Play Taiko Web Online',
