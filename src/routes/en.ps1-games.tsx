@@ -2,7 +2,7 @@ import { createFileRoute } from '@tanstack/react-router'
 
 import { Ps1GamesPage, ps1Faqs } from '#/components/ps1-games-page'
 import { searchGames } from '#/lib/ggemu'
-import { getSeoOrigin } from '#/lib/seo'
+import { getSeoLinksFromCanonical, getSeoOrigin } from '#/lib/seo'
 import { siteConfig } from '#/lib/site-config'
 
 const title = 'Play PS1 Games Online Free | No Download | POKOPIE'
@@ -34,11 +34,7 @@ export const Route = createFileRoute('/en/ps1-games')({
 
     return {
       links: loaderData?.origin
-        ? [
-            { rel: 'canonical', href: canonicalUrl },
-            { rel: 'alternate', hrefLang: 'en', href: canonicalUrl },
-            { rel: 'alternate', hrefLang: 'x-default', href: canonicalUrl },
-          ]
+        ? getSeoLinksFromCanonical(canonicalUrl, ['en'])
         : undefined,
       meta: [
         { title },

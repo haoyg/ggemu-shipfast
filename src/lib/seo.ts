@@ -18,32 +18,62 @@ export function getDocumentLang(pathname: string) {
 }
 
 export function getLocalizedSeoLinks({
+  alternateLocales = seoLocales,
   locale,
   origin,
   path,
 }: {
+  alternateLocales?: ReadonlyArray<Locale>
   locale: Locale
   origin: string
   path: string
 }) {
   const canonicalUrl = toAbsoluteLocalizedUrl(origin, locale, path)
 
+  return getSeoLinksFromCanonical(canonicalUrl, alternateLocales)
+}
+
+export function getSeoLinksFromCanonical(
+  canonicalUrl: string,
+  alternateLocales: ReadonlyArray<Locale> = seoLocales,
+) {
   return [
     { rel: 'canonical', href: canonicalUrl },
-    ...getLocalizedAlternateLinks(origin, path),
+    ...getAlternateLinksFromCanonical(canonicalUrl, alternateLocales),
   ]
 }
 
-export function getAlternateLinksFromCanonical(canonicalUrl: string) {
+export function getAlternateLinksFromCanonical(
+  canonicalUrl: string,
+  alternateLocales: ReadonlyArray<Locale> = seoLocales,
+) {
   const url = new URL(canonicalUrl)
-  const [, , ...pathParts] = url.pathname.split('/')
+  const [, localeSegment, ...pathParts] = url.pathname.split('/')
+  const locale = normalizeLocale(localeSegment)
 
-  return getLocalizedAlternateLinks(url.origin, `/${pathParts.join('/')}`)
+  return getLocalizedAlternateLinks(
+    url.origin,
+    `/${pathParts.join('/')}`,
+    locale,
+    alternateLocales,
+  )
 }
 
-function getLocalizedAlternateLinks(origin: string, path: string) {
+function getLocalizedAlternateLinks(
+  origin: string,
+  path: string,
+  currentLocale: Locale,
+  alternateLocales: ReadonlyArray<Locale>,
+) {
+  const availableLocales = Array.from(
+    new Set([...alternateLocales, currentLocale]),
+  )
+  const xDefaultLocale = availableLocales.includes(defaultSeoLocale)
+    ? defaultSeoLocale
+    : currentLocale
+
   return [
-    ...seoLocales.map((locale) => ({
+    ...availableLocales.map((locale) => ({
       rel: 'alternate',
       hrefLang: locale,
       href: toAbsoluteLocalizedUrl(origin, locale, path),
@@ -51,7 +81,7 @@ function getLocalizedAlternateLinks(origin: string, path: string) {
     {
       rel: 'alternate',
       hrefLang: 'x-default',
-      href: toAbsoluteLocalizedUrl(origin, defaultSeoLocale, path),
+      href: toAbsoluteLocalizedUrl(origin, xDefaultLocale, path),
     },
   ]
 }

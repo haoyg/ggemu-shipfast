@@ -1,7 +1,7 @@
 import { searchGames } from '#/lib/ggemu'
 import type { PublicGame } from '#/lib/ggemu'
 import type { PlatformCollectionConfig } from '#/components/platform-games-page'
-import { getSeoOrigin } from '#/lib/seo'
+import { getSeoLinksFromCanonical, getSeoOrigin } from '#/lib/seo'
 import { siteConfig } from '#/lib/site-config'
 
 export type PlatformCollectionLoaderData = {
@@ -45,11 +45,7 @@ export function buildPlatformCollectionHead(
 
   return {
     links: loaderData?.origin
-      ? [
-          { rel: 'canonical', href: canonicalUrl },
-          { rel: 'alternate', hrefLang: 'en', href: canonicalUrl },
-          { rel: 'alternate', hrefLang: 'x-default', href: canonicalUrl },
-        ]
+      ? getSeoLinksFromCanonical(canonicalUrl, ['en'])
       : undefined,
     meta: [
       { title: collection.title },

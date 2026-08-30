@@ -2,7 +2,7 @@ import { createFileRoute } from '@tanstack/react-router'
 
 import { ArcadeGamesPage, arcadeFaqs } from '#/components/arcade-games-page'
 import { searchGames } from '#/lib/ggemu'
-import { getSeoOrigin } from '#/lib/seo'
+import { getSeoLinksFromCanonical, getSeoOrigin } from '#/lib/seo'
 import { siteConfig } from '#/lib/site-config'
 
 const title = 'Play Classic Arcade Games Online Free | POKOPIE'
@@ -34,11 +34,7 @@ export const Route = createFileRoute('/en/arcade-games')({
 
     return {
       links: loaderData?.origin
-        ? [
-            { rel: 'canonical', href: canonicalUrl },
-            { rel: 'alternate', hrefLang: 'en', href: canonicalUrl },
-            { rel: 'alternate', hrefLang: 'x-default', href: canonicalUrl },
-          ]
+        ? getSeoLinksFromCanonical(canonicalUrl, ['en'])
         : undefined,
       meta: [
         { title },

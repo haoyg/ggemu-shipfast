@@ -6,7 +6,7 @@ import {
   evaluateBrowserReadiness,
   type BrowserCapabilityFlags,
 } from '#/lib/browser-compatibility'
-import { getSeoOrigin } from '#/lib/seo'
+import { getSeoLinksFromCanonical, getSeoOrigin } from '#/lib/seo'
 
 const pagePath = '/en/ps1-compatibility'
 const pageTitle = 'PS1 Browser Compatibility Check | POKOPIE'
@@ -72,7 +72,7 @@ export const Route = createFileRoute('/en/ps1-compatibility')({
     const canonicalUrl = loaderData ? `${loaderData}${pagePath}` : pagePath
 
     return {
-      links: [{ rel: 'canonical', href: canonicalUrl }],
+      links: getSeoLinksFromCanonical(canonicalUrl, ['en']),
       meta: [
         { title: pageTitle },
         { name: 'description', content: pageDescription },

@@ -4,6 +4,7 @@ import {
   defaultSeoLocale,
   getAlternateLinksFromCanonical,
   getLocalizedSeoLinks,
+  getSeoLinksFromCanonical,
 } from './seo'
 
 function hasHrefLang(
@@ -41,6 +42,45 @@ describe('seo locale links', () => {
       rel: 'alternate',
       hrefLang: 'x-default',
       href: 'https://pokopie.com/en/games/test-game',
+    })
+  })
+
+  it('only advertises language versions that exist', () => {
+    const links = getSeoLinksFromCanonical(
+      'https://pokopie.com/en/ps1-compatibility',
+      ['en'],
+    )
+
+    expect(links).toEqual([
+      {
+        rel: 'canonical',
+        href: 'https://pokopie.com/en/ps1-compatibility',
+      },
+      {
+        rel: 'alternate',
+        hrefLang: 'en',
+        href: 'https://pokopie.com/en/ps1-compatibility',
+      },
+      {
+        rel: 'alternate',
+        hrefLang: 'x-default',
+        href: 'https://pokopie.com/en/ps1-compatibility',
+      },
+    ])
+  })
+
+  it('always includes a self-referencing hreflang', () => {
+    const links = getLocalizedSeoLinks({
+      alternateLocales: ['en'],
+      locale: 'ja',
+      origin: 'https://pokopie.com',
+      path: '/games/test-game',
+    })
+
+    expect(links).toContainEqual({
+      rel: 'alternate',
+      hrefLang: 'ja',
+      href: 'https://pokopie.com/ja/games/test-game',
     })
   })
 })
