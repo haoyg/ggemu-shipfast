@@ -14,6 +14,8 @@ const copy = {
     backToGame: 'Game details',
     controlsLabel: 'Controls',
     controls: 'Controls and saves are available in the game player menu.',
+    error: 'The game player failed to load. Please retry.',
+    unsupported: 'This game is not currently available to play in the browser.',
   },
   'zh-CN': {
     loading: '正在加载游戏播放器……',
@@ -27,6 +29,8 @@ const copy = {
     backToGame: '返回游戏详情',
     controlsLabel: '操作与存档',
     controls: '按键和存档设置可在游戏播放器菜单中调整。',
+    error: '游戏播放器加载失败，请重试。',
+    unsupported: '该游戏目前暂不支持在浏览器中游玩。',
   },
   ja: {
     loading: 'ゲームプレーヤーを読み込み中…',
@@ -40,6 +44,8 @@ const copy = {
     backToGame: 'ゲーム詳細に戻る',
     controlsLabel: '操作とセーブ',
     controls: '操作とセーブ設定はゲームプレーヤーのメニューから変更できます。',
+    error: 'ゲームプレーヤーの読み込みに失敗しました。再試行してください。',
+    unsupported: 'このゲームは現在ブラウザーでプレイできません。',
   },
 }
 
@@ -52,6 +58,7 @@ type Props = {
   allow?: string
   lazy?: boolean
   backHref?: string
+  unavailable?: boolean
 }
 
 export function GamePlayerFrame(props: Props) {
@@ -59,11 +66,11 @@ export function GamePlayerFrame(props: Props) {
   return <PlayerAttempt key={props.src} {...props} />
 }
 
-function PlayerAttempt({ src, title, gameId, locale, className, allow = 'autoplay; gamepad', lazy = false, backHref }: Props) {
+function PlayerAttempt({ src, title, gameId, locale, className, allow = 'autoplay; gamepad', lazy = false, backHref, unavailable = false }: Props) {
   const container = useRef<HTMLDivElement>(null)
   const [active, setActive] = useState(!lazy)
   const [attempt, setAttempt] = useState(0)
-  const [status, setStatus] = useState<'loading' | 'ready' | 'timeout'>('loading')
+  const [status, setStatus] = useState<'loading' | 'ready' | 'timeout' | 'error' | 'unsupported'>(unavailable ? 'unsupported' : 'loading')
   const [isFullscreen, setIsFullscreen] = useState(false)
   const timer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
   const reportedLoad = useRef(false)
@@ -81,14 +88,14 @@ function PlayerAttempt({ src, title, gameId, locale, className, allow = 'autopla
   }, [active])
 
   useEffect(() => {
-    if (!active) return
+    if (!active || unavailable) return
     trackEvent('player_load_start', { game_id: gameId })
     timer.current = setTimeout(() => {
       setStatus('timeout')
       trackEvent('player_load_timeout', { game_id: gameId })
     }, 20_000)
     return () => clearTimeout(timer.current)
-  }, [active, attempt, gameId])
+  }, [active, attempt, gameId, unavailable])
 
   useEffect(() => {
     function handleFullscreenChange() {
@@ -100,6 +107,7 @@ function PlayerAttempt({ src, title, gameId, locale, className, allow = 'autopla
   }, [])
 
   function retry() {
+    if (unavailable) return
     clearTimeout(timer.current)
     reportedLoad.current = false
     trackEvent('player_retry', { game_id: gameId })
@@ -112,8 +120,13 @@ function PlayerAttempt({ src, title, gameId, locale, className, allow = 'autopla
       <div className="player-toolbar flex flex-wrap items-center justify-between gap-2 bg-neutral px-3 py-2 text-sm">
         <div className="min-w-0">
           <span className="block truncate font-semibold text-white">{title}</span>
-          <span className="player-status" role="status">
-            {status === 'loading' ? t.loading : status === 'ready' ? t.ready : t.slow}
+          <span
+            className={`player-status ${
+              status === 'error' || status === 'unsupported' ? 'font-semibold text-error' : status === 'timeout' ? 'font-semibold text-warning' : ''
+            }`}
+            role="status"
+          >
+            {status === 'loading' ? t.loading : status === 'ready' ? t.ready : status === 'timeout' ? t.slow : status === 'error' ? t.error : t.unsupported}
           </span>
           <p className="player-guide mt-1 text-xs text-white/75">{t.guide}</p>
           <details className="mt-1 text-xs text-white/60">
@@ -122,7 +135,7 @@ function PlayerAttempt({ src, title, gameId, locale, className, allow = 'autopla
           </details>
         </div>
         <div className="flex flex-wrap items-center gap-3">
-          <button className="underline" disabled={!active} onClick={retry}>{t.retry}</button>
+          <button className="underline" disabled={!active || unavailable} onClick={retry}>{t.retry}</button>
           {backHref ? <a className="underline" href={backHref} target="_top">{t.backToGame}</a> : null}
           <a className="underline" href={`/${lang}`} target="_top">{t.browse}</a>
           <button
@@ -143,7 +156,26 @@ function PlayerAttempt({ src, title, gameId, locale, className, allow = 'autopla
           </button>
         </div>
       </div>
-      {active ? <iframe
+      {status === 'unsupported' ? (
+        <div className="grid flex-1 place-items-center bg-black px-6 text-center">
+          <div className="max-w-md">
+            <i aria-hidden="true" className="ri-gamepad-line text-4xl text-white/35" />
+            <p className="mt-3 text-sm leading-6 text-white/70">{t.unsupported}</p>
+          </div>
+        </div>
+      ) : null}
+      {status === 'error' ? (
+        <div className="grid flex-1 place-items-center bg-black px-6 text-center">
+          <div className="max-w-md">
+            <i aria-hidden="true" className="ri-error-warning-line text-4xl text-error" />
+            <p className="mt-3 text-sm leading-6 text-white/70">{t.error}</p>
+            <button className="btn btn-primary btn-sm mt-4" onClick={retry} type="button">
+              {t.retry}
+            </button>
+          </div>
+        </div>
+      ) : null}
+      {active && !unavailable && status !== 'error' ? <iframe
         key={attempt}
         allow={`${allow}; screen-wake-lock`}
         allowFullScreen
@@ -158,6 +190,10 @@ function PlayerAttempt({ src, title, gameId, locale, className, allow = 'autopla
             // A cross-origin load event does not prove that the game started.
             trackEvent('player_frame_loaded', { game_id: gameId })
           }
+        }}
+        onError={() => {
+          clearTimeout(timer.current)
+          setStatus('error')
         }}
       /> : null}
     </div>

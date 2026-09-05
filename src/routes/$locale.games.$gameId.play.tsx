@@ -125,6 +125,7 @@ function LocalizedPlayGamePage() {
         src={embedSrc}
         title={game.name ?? 'Retro game'}
         backHref={`/${lang}/games/${encodeURIComponent(gameId)}`}
+        unavailable={game.play_online === 0}
       />
     </main>
   )

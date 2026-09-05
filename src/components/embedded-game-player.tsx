@@ -70,6 +70,7 @@ export function EmbeddedGamePlayer({
           locale={locale}
           src={embedSrc}
           title={heading}
+          unavailable={game.play_online === 0}
         />
       </div>
     </section>

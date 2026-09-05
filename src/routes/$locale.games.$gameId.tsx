@@ -772,7 +772,7 @@ function RelatedGameSection({
   return (
     <section>
       <h2 className="text-xl font-semibold">{title}</h2>
-      <div className="mt-4 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+      <div className="mt-4 grid gap-4 grid-cols-2 max-[360px]:grid-cols-1 xl:grid-cols-3">
         {games.map((game) => (
           <RelatedGameCard game={game} key={game.url_slug ?? game._id} lang={lang} />
         ))}
