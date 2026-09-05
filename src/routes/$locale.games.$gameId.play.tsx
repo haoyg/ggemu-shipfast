@@ -1,3 +1,4 @@
+import { GamePlayerFrame } from '#/components/game-player-frame'
 import { createFileRoute, redirect } from '@tanstack/react-router'
 import { useEffect } from 'react'
 
@@ -43,7 +44,7 @@ export const Route = createFileRoute('/$locale/games/$gameId/play')({
     })
   },
   loader: async ({ params }) => {
-    const game = await getGameDetail({ data: { id: params.gameId } }).catch(() => null)
+    const game = await getGameDetail({ data: { id: params.gameId } })
 
     if (!game && removedLegacyGameIds.has(params.gameId)) {
       throw redirect({
@@ -112,13 +113,14 @@ function LocalizedPlayGamePage() {
 
   return (
     <main className="min-h-[100svh] bg-black">
-      <iframe
+      <GamePlayerFrame
         allow={
           isPsp
             ? 'autoplay; gamepad; fullscreen; cross-origin-isolated'
             : 'autoplay; gamepad'
         }
-        allowFullScreen
+        gameId={gameId}
+        locale={lang}
         className="h-[100svh] w-full border-0 bg-black"
         src={embedSrc}
         title={game.name ?? 'Retro game'}

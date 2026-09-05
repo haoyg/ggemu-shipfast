@@ -1,3 +1,4 @@
+import { GamePlayerFrame } from '#/components/game-player-frame'
 import { Link, createFileRoute } from '@tanstack/react-router'
 
 import { getGameDetail } from '#/lib/ggemu'
@@ -81,13 +82,14 @@ function EmbedGamePage() {
           Play on POKOPIE
         </a>
       </header>
-      <iframe
+      <GamePlayerFrame
         allow={
           isPsp
             ? 'autoplay; gamepad; fullscreen; cross-origin-isolated'
             : 'autoplay; gamepad; fullscreen'
         }
-        allowFullScreen
+        gameId={gameId}
+        locale={lang}
         className="min-h-0 flex-1 border-0 bg-black"
         src={embedSrc}
         title={game.name ?? 'POKOPIE game'}

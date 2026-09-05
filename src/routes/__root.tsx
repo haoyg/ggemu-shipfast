@@ -7,6 +7,7 @@ import {
   useRouterState,
 } from '@tanstack/react-router'
 
+import { getGoogleConsentInitScript } from '#/lib/analytics'
 import { ThirdPartyScripts } from '#/components/third-party-scripts'
 import { getDocumentHeaders } from '#/lib/document-headers'
 import { getI18n } from '#/lib/i18n'
@@ -174,7 +175,7 @@ export const Route = createRootRoute({
     }
   },
   component: RootComponent,
-  errorComponent: MaintenanceErrorComponent,
+  errorComponent: PageErrorComponent,
   shellComponent: RootDocument,
 })
 
@@ -182,10 +183,10 @@ function RootComponent() {
   return <Outlet />
 }
 
-function MaintenanceErrorComponent() {
+function PageErrorComponent() {
   const pathname = useRouterState({ select: (state) => state.location.pathname })
   const locale = getDocumentLang(pathname)
-  const messages = getMaintenanceMessages(locale)
+  const messages = getPageErrorMessages(locale)
   const tagline = getI18n(locale).layout.tagline
 
   return (
@@ -210,29 +211,39 @@ function MaintenanceErrorComponent() {
         <p className="mt-4 max-w-xl text-base leading-7 text-base-content/70">
           {messages.description}
         </p>
+        <div className="mt-6 flex flex-wrap justify-center gap-3">
+          <button className="btn btn-primary" onClick={() => window.location.reload()}>{messages.retry}</button>
+          <a className="btn" href={`/${locale}`}>{messages.browse}</a>
+        </div>
       </section>
     </main>
   )
 }
 
-function getMaintenanceMessages(locale: string) {
+function getPageErrorMessages(locale: string) {
   if (locale === 'en') {
     return {
-      title: 'The server is under maintenance',
-      description: 'Scheduled maintenance is in progress. We will be back online shortly.',
+      retry: 'Retry',
+      browse: 'Browse games',
+      title: 'This page could not be loaded',
+      description: 'The connection or game service may be temporarily unavailable. Please retry or choose another game.',
     }
   }
 
   if (locale === 'ja') {
     return {
-      title: 'サーバーはメンテナンス中です',
-      description: '予定メンテナンスを実施しています。まもなく再開します。',
+      retry: '再試行',
+      browse: 'ゲームを探す',
+      title: 'ページを読み込めませんでした',
+      description: '接続またはゲームサービスが一時的に利用できない可能性があります。再試行するか、別のゲームを選んでください。',
     }
   }
 
   return {
-    title: '服务器维护中',
-    description: '我们正在进行计划维护，很快恢复访问。',
+    retry: '重试',
+    browse: '浏览其他游戏',
+    title: '页面暂时无法加载',
+    description: '网络或游戏服务可能暂时不可用，请重试或选择其他游戏。',
   }
 }
 
@@ -243,6 +254,7 @@ function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
   return (
     <html lang={getDocumentLang(pathname)} suppressHydrationWarning>
       <head>
+        <script dangerouslySetInnerHTML={{ __html: getGoogleConsentInitScript() }} />
         {googleAnalyticsId ? (
           <>
             <script

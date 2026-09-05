@@ -1,3 +1,4 @@
+import { trackEvent } from '#/lib/analytics'
 import {
   Link,
   Outlet,
@@ -440,6 +441,7 @@ function LocalizedHomePage() {
       return
     }
 
+    trackEvent('game_search', { source: 'home', has_query: Number(Boolean(nextFilters.query.trim())), page: nextPage })
     const requestSequence = requestGuard.begin()
     lastRequestRef.current = { filters: nextFilters, page: nextPage }
     setIsLoading(true)
@@ -460,10 +462,13 @@ function LocalizedHomePage() {
 
       if (requestGuard.isLatest(requestSequence)) {
         setResult(nextResult)
+        trackEvent('game_search_results', { source: 'home', result_count: nextResult.pagination.total })
+        if (nextResult.pagination.total === 0) trackEvent('game_search_empty', { source: 'home' })
       }
     } catch {
       if (requestGuard.isLatest(requestSequence)) {
         setHasLoadError(true)
+        trackEvent('game_search_error', { source: 'home' })
       }
     } finally {
       if (requestGuard.isLatest(requestSequence)) {

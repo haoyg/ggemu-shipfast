@@ -1,3 +1,4 @@
+import { trackEvent } from '#/lib/analytics'
 import {
   Link,
   Outlet,
@@ -511,7 +512,10 @@ function LocalizedGameDetailPage() {
                 <a
                   className="btn btn-primary btn-lg px-8 text-primary-content hover:text-primary-content sm:w-auto"
                   href={targetedSeo ? '#play-online' : playPath}
-                  onClick={() => saveRecentPlayedGame(game, gameId)}
+                  onClick={() => {
+                    saveRecentPlayedGame(game, gameId)
+                    trackEvent('game_play_click', { game_id: gameId, source: 'detail' })
+                  }}
                   rel={targetedSeo ? undefined : 'noopener noreferrer'}
                   target={targetedSeo ? undefined : '_blank'}
                 >

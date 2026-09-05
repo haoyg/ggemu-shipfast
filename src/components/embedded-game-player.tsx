@@ -1,3 +1,5 @@
+import { GamePlayerFrame } from '#/components/game-player-frame'
+import { trackEvent } from '#/lib/analytics'
 import type { PublicGame } from '#/lib/ggemu'
 import { buildGameEmbedSrc } from '#/lib/game-embed'
 import { siteConfig } from '#/lib/site-config'
@@ -44,6 +46,7 @@ export function EmbeddedGamePlayer({
         <a
           className="btn btn-sm border-white/20 bg-white/10 text-white hover:bg-white/20"
           href={playPath}
+          onClick={() => trackEvent('game_play_click', { game_id: gameId, source: 'fullscreen' })}
           rel="noopener noreferrer"
           target="_blank"
         >
@@ -51,12 +54,13 @@ export function EmbeddedGamePlayer({
           Open Fullscreen
         </a>
       </div>
-      <div className="aspect-video min-h-56 bg-black sm:min-h-96">
-        <iframe
+      <div className="aspect-video min-h-96 w-full min-w-0 bg-black">
+        <GamePlayerFrame
           allow="autoplay; gamepad"
-          allowFullScreen
           className="h-full w-full border-0 bg-black"
-          loading="lazy"
+          lazy
+          gameId={gameId}
+          locale={locale}
           src={embedSrc}
           title={heading}
         />

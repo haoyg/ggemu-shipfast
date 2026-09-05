@@ -42,7 +42,6 @@ async function checkGgemu() {
   try {
     const response = await fetch(
       `${GGEMU_API_BASE_URL}/api/games/search?${new URLSearchParams({
-        is_gcoin_game: '0',
         limit: '1',
         page: '1',
         play_online: '1',

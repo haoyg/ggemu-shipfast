@@ -1,3 +1,4 @@
+import { trackEvent } from '#/lib/analytics'
 import { Link } from '@tanstack/react-router'
 import { useServerFn } from '@tanstack/react-start'
 import type { FormEvent } from 'react'
@@ -54,6 +55,7 @@ export function HomeSearchOverlay({
   })
 
   async function searchOverlayGames(nextFilters: Filters) {
+    trackEvent('game_search', { source: 'overlay', has_query: Number(Boolean(nextFilters.query.trim())) })
     setIsSearching(true)
     setHasSearchError(false)
 
@@ -71,8 +73,11 @@ export function HomeSearchOverlay({
       })
 
       setResult(nextResult)
+      trackEvent('game_search_results', { source: 'overlay', result_count: nextResult.pagination.total })
+      if (nextResult.pagination.total === 0) trackEvent('game_search_empty', { source: 'overlay' })
     } catch {
       setHasSearchError(true)
+      trackEvent('game_search_error', { source: 'overlay' })
     } finally {
       setIsSearching(false)
     }

@@ -1,16 +1,9 @@
 import { useEffect } from 'react'
 
+import { initializeGoogleConsentMode } from '#/lib/analytics'
 import { siteConfig } from '#/lib/site-config'
 
 const googleAdsenseScriptId = 'pokopie-google-adsense'
-const googleConsentInitializedKey = '__POKOPIE_GOOGLE_CONSENT_INITIALIZED__'
-
-type GoogleTagWindow = Window & {
-  dataLayer?: Array<Array<unknown>>
-  gtag?: (...args: Array<unknown>) => void
-  [googleConsentInitializedKey]?: boolean
-}
-
 export function ThirdPartyScripts({ pathname }: Readonly<{ pathname: string }>) {
   const isPrivacyPolicy = isPrivacyPolicyPath(pathname)
 
@@ -45,31 +38,6 @@ function useGoogleAdsense(disabled: boolean) {
       'anonymous',
     )
   }, [client, disabled])
-}
-
-function initializeGoogleConsentMode() {
-  const googleWindow = window as GoogleTagWindow
-
-  googleWindow.dataLayer = googleWindow.dataLayer ?? []
-  googleWindow.gtag =
-    googleWindow.gtag ??
-    ((...args) => {
-      googleWindow.dataLayer?.push(args)
-    })
-
-  if (!googleWindow[googleConsentInitializedKey]) {
-    googleWindow.gtag('consent', 'default', {
-      ad_personalization: 'denied',
-      ad_storage: 'denied',
-      ad_user_data: 'denied',
-      analytics_storage: 'denied',
-      wait_for_update: 500,
-    })
-    googleWindow.gtag('set', 'ads_data_redaction', true)
-    googleWindow[googleConsentInitializedKey] = true
-  }
-
-  return googleWindow
 }
 
 function appendAsyncScript(

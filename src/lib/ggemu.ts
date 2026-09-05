@@ -7,7 +7,6 @@ import { getPs1CoverFallback } from '#/lib/ps1-cover-fallbacks'
 const API_BASE_URL = 'https://ggemu.com'
 const PAGE_SIZE = 20
 const MAX_PAGE_SIZE = 100
-const NON_GCOIN_GAME = '0'
 const GGEMU_REQUEST_TIMEOUT_MS = 8_000
 const GGEMU_DEFAULT_CACHE_TTL_MS = 1000 * 60 * 5
 const GGEMU_DEFAULT_STALE_TTL_MS = 1000 * 60 * 60 * 24
@@ -558,14 +557,12 @@ async function fetchRelatedGames({
   developer?: string
 }) {
   const categoryParams = new URLSearchParams({
-    is_gcoin_game: NON_GCOIN_GAME,
     limit: '8',
     page: '1',
     play_online: '1',
     sort: 'popular',
   })
   const developerParams = new URLSearchParams({
-    is_gcoin_game: NON_GCOIN_GAME,
     limit: '8',
     page: '1',
     play_online: '1',
@@ -612,7 +609,6 @@ export const searchGames = createServerFn({ method: 'GET' })
   }))
   .handler(async ({ data }) => {
     const params = new URLSearchParams({
-      is_gcoin_game: NON_GCOIN_GAME,
       page: String(data.page),
       limit: String(data.limit),
       play_online: '1',
