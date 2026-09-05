@@ -254,7 +254,9 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
               <div className="mb-3 flex items-center justify-between gap-3">
                 <h2 className="text-lg font-black text-white">{t.recentlyPlayed}</h2>
                 {recentGames.length > 0 ? (
-                  <span className="text-xs text-white/45">{recentGames.length} saved</span>
+                  <span className="text-xs text-white/45">
+                    {recentGames.length} {lang === 'zh-CN' ? '个游戏' : lang === 'ja' ? 'ゲーム' : 'games'}
+                  </span>
                 ) : null}
               </div>
               {recentGames.length > 0 ? (

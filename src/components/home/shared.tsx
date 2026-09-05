@@ -118,18 +118,20 @@ export function HomeFaqSection({ lang }: { lang: Locale }) {
         </div>
 
         <div className="mt-4 grid gap-3">
-          {faq.items.map((item) => (
-            <article
-              className="rounded-lg border border-white/10 bg-white/5 p-4"
+          {faq.items.map((item, index) => (
+            <details
+              className="group rounded-lg border border-white/10 bg-white/5 p-4"
               key={item.question}
+              open={index === 0}
             >
-              <h3 className="text-sm font-semibold text-white">
+              <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-sm font-semibold text-white">
                 {item.question}
-              </h3>
-              <p className="mt-3 text-sm leading-6 text-white/65">
+                <i className="ri-add-line shrink-0 text-lg text-white/50 transition group-open:rotate-45" />
+              </summary>
+              <p className="mt-3 max-w-4xl text-sm leading-6 text-white/65">
                 {item.answer}
               </p>
-            </article>
+            </details>
           ))}
         </div>
       </div>
