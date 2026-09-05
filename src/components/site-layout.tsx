@@ -286,7 +286,7 @@ export function SiteLayout({
             />
             {localizedPlatformNavLinks.slice(0, 5).map((link) => (
               <a
-                className="btn btn-ghost btn-sm shrink-0 gap-2 whitespace-nowrap"
+                className="btn btn-ghost btn-sm min-h-11 shrink-0 gap-2 whitespace-nowrap"
                 href={link.href}
                 key={link.href}
                 title={`Play ${link.label} games online`}
@@ -349,7 +349,7 @@ function HeaderMobileLink({
     <Link
       activeOptions={{ exact: to === '/$locale' }}
       activeProps={{ className: 'btn-primary' }}
-      className="btn btn-ghost btn-sm shrink-0 gap-2 whitespace-nowrap"
+      className="btn btn-ghost btn-sm min-h-11 shrink-0 gap-2 whitespace-nowrap"
       params={{ locale }}
       reloadDocument={to !== '/$locale' && to !== '/$locale/blog'}
       to={to}

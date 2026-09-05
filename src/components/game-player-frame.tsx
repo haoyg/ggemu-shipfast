@@ -12,6 +12,8 @@ const copy = {
     fullscreen: 'Fullscreen',
     exitFullscreen: 'Exit fullscreen',
     backToGame: 'Game details',
+    controlsLabel: 'Controls',
+    controls: 'Controls and saves are available in the game player menu.',
   },
   'zh-CN': {
     loading: '正在加载游戏播放器……',
@@ -23,6 +25,8 @@ const copy = {
     fullscreen: '全屏',
     exitFullscreen: '退出全屏',
     backToGame: '返回游戏详情',
+    controlsLabel: '操作与存档',
+    controls: '按键和存档设置可在游戏播放器菜单中调整。',
   },
   ja: {
     loading: 'ゲームプレーヤーを読み込み中…',
@@ -34,6 +38,8 @@ const copy = {
     fullscreen: '全画面',
     exitFullscreen: '全画面を終了',
     backToGame: 'ゲーム詳細に戻る',
+    controlsLabel: '操作とセーブ',
+    controls: '操作とセーブ設定はゲームプレーヤーのメニューから変更できます。',
   },
 }
 
@@ -103,13 +109,17 @@ function PlayerAttempt({ src, title, gameId, locale, className, allow = 'autopla
 
   return (
     <div ref={container} className={`relative flex flex-col bg-black text-white ${className}`}>
-      <div className="flex flex-wrap items-center justify-between gap-2 bg-neutral px-3 py-2 text-sm">
+      <div className="player-toolbar flex flex-wrap items-center justify-between gap-2 bg-neutral px-3 py-2 text-sm">
         <div className="min-w-0">
           <span className="block truncate font-semibold text-white">{title}</span>
-          <span role="status">
+          <span className="player-status" role="status">
             {status === 'loading' ? t.loading : status === 'ready' ? t.ready : t.slow}
           </span>
-          <p className="mt-1 text-xs text-white/75">{t.guide}</p>
+          <p className="player-guide mt-1 text-xs text-white/75">{t.guide}</p>
+          <details className="mt-1 text-xs text-white/60">
+            <summary className="cursor-pointer underline underline-offset-2">{t.controlsLabel}</summary>
+            <p className="mt-1">{t.controls}</p>
+          </details>
         </div>
         <div className="flex flex-wrap items-center gap-3">
           <button className="underline" disabled={!active} onClick={retry}>{t.retry}</button>

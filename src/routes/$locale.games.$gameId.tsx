@@ -584,7 +584,7 @@ function LocalizedGameDetailPage() {
               />
             </div>
 
-            <aside className="flex flex-col gap-4 lg:sticky lg:top-24 lg:self-start">
+            <aside className="order-first flex flex-col gap-4 lg:order-none lg:sticky lg:top-24 lg:self-start">
               <section className="rounded-box border border-base-300 bg-base-100 p-5 shadow-sm">
                 <h2 className="text-lg font-semibold">{t.details}</h2>
                 <dl className="mt-4 grid gap-3 text-sm">
@@ -655,7 +655,7 @@ function ArticlePanel({
   }
 
   return (
-    <article className="rounded-box border border-base-300 bg-base-100 p-6 shadow-sm">
+    <article className="rounded-box border border-base-300 bg-base-100 p-4 shadow-sm sm:p-6">
       <h2 className="flex items-center gap-2 text-xl font-semibold">
         <i className="ri-file-text-line text-primary" />
         {title}
@@ -718,7 +718,7 @@ function KeywordPanel({ title, value }: { title: string; value?: string }) {
   }
 
   return (
-    <section className="rounded-box border border-base-300 bg-base-100 p-6 shadow-sm">
+    <section className="rounded-box border border-base-300 bg-base-100 p-4 shadow-sm sm:p-6">
       <h2 className="flex items-center gap-2 text-xl font-semibold">
         <i className="ri-price-tag-3-line text-primary" />
         {title}
@@ -742,7 +742,7 @@ function FaqSection({
   title: string
 }) {
   return (
-    <section className="rounded-box border border-base-300 bg-base-100 p-6 shadow-sm">
+    <section className="rounded-box border border-base-300 bg-base-100 p-4 shadow-sm sm:p-6">
       <h2 className="text-xl font-semibold">{title}</h2>
       <div className="mt-4 grid gap-4">
         {items.map((item) => (

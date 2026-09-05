@@ -199,7 +199,7 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
               <div className="flex min-w-0 max-w-full gap-2 overflow-x-auto pb-1 [scrollbar-width:none] xl:pb-0 [&::-webkit-scrollbar]:hidden">
                 {platformChips.map((platform) => (
                   <button
-                    className={`btn btn-sm shrink-0 border-white/15 ${
+                    className={`btn btn-sm min-h-11 shrink-0 border-white/15 ${
                       filters.platform === platform.name
                         ? 'btn-primary'
                         : 'bg-white/8 text-white hover:bg-white/15'
@@ -294,7 +294,7 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
                 </div>
                 <div
                   aria-busy={isLoading}
-                  className={`grid min-w-0 grid-cols-1 gap-3 min-[420px]:grid-cols-[repeat(2,minmax(0,1fr))] sm:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-6 ${
+                  className={`grid min-w-0 grid-cols-2 gap-3 sm:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-6 ${
                     isLoading ? 'opacity-60' : ''
                   }`}
                 >
@@ -484,7 +484,7 @@ function HomeSearchSuggest({
         />
         <button
           aria-label={t.search}
-          className="btn btn-primary btn-sm shrink-0"
+          className="btn btn-primary btn-sm min-h-11 shrink-0"
           disabled={isLoading}
           type="submit"
         >

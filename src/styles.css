@@ -59,6 +59,21 @@ body {
   }
 }
 
+@media (orientation: landscape) and (max-height: 520px) {
+  .player-toolbar {
+    padding-block: 0.35rem;
+  }
+
+  .player-toolbar .player-guide,
+  .player-toolbar details {
+    display: none;
+  }
+
+  .player-toolbar .player-status {
+    font-size: 0.75rem;
+  }
+}
+
 .line-clamp-3 {
   display: -webkit-box;
   -webkit-box-orient: vertical;
