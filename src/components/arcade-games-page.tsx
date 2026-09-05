@@ -2,7 +2,7 @@ import {
   GameCollectionPage,
   type GameCollectionPageConfig,
 } from '#/components/game-collection-page'
-import type { PublicGame } from '#/lib/ggemu'
+import type { Locale, PublicGame } from '#/lib/ggemu'
 
 export const arcadeFaqs = [
   {
@@ -27,7 +27,7 @@ export const arcadeFaqs = [
   },
 ]
 
-const arcadePageConfig: GameCollectionPageConfig = {
+export const arcadePageConfig: GameCollectionPageConfig = {
   routePath: '/en/arcade-games',
   heroTitle: 'Play Classic Arcade Games Online',
   heroDescription:
@@ -105,6 +105,26 @@ const arcadePageConfig: GameCollectionPageConfig = {
   faqs: arcadeFaqs,
 }
 
-export function ArcadeGamesPage({ games, total }: { games: Array<PublicGame>; total: number }) {
-  return <GameCollectionPage config={arcadePageConfig} games={games} total={total} />
+const localizedArcadeCopy = {
+  'zh-CN': {
+    title: '在线玩经典街机游戏 | POKOPIE', description: '在浏览器中在线玩经典街机游戏，浏览格斗、射击、益智、赛车和平台游戏。', heroTitle: '在线玩经典街机游戏', heroDescription: '在浏览器中重温经典街机游戏，支持的游戏无需单独下载模拟器。', ctaLabel: '浏览街机游戏', libraryTitle: '经典街机游戏库', libraryDescription: (total: number) => `浏览 POKOPIE 目录中的 ${total} 款街机游戏。`, unavailableMessage: '街机游戏暂时不可用，请稍后再试。', featuredLabel: '精选经典街机游戏', coverAlt: '经典街机游戏封面',
+  },
+  ja: {
+    title: 'クラシックアーケードゲームをオンラインでプレイ | POKOPIE', description: 'ブラウザーでクラシックアーケードゲームをプレイ。格闘、シューティング、パズル、レースなどを楽しめます。', heroTitle: 'クラシックアーケードゲームをオンラインでプレイ', heroDescription: 'ブラウザーで名作アーケードゲームを楽しめます。対応タイトルは専用エミュレーター不要です。', ctaLabel: 'アーケードゲームを見る', libraryTitle: 'クラシックアーケードゲームライブラリ', libraryDescription: (total: number) => `POKOPIE に掲載されているアーケードゲーム ${total} 件を閲覧できます。`, unavailableMessage: 'アーケードゲームは一時的に利用できません。後でもう一度お試しください。', featuredLabel: 'おすすめアーケードゲーム', coverAlt: 'クラシックアーケードゲームのカバー',
+  },
+} as const
+
+export function getLocalizedArcadePageConfig(locale: Locale): GameCollectionPageConfig {
+  if (locale === 'en') return arcadePageConfig
+  return { ...arcadePageConfig, ...localizedArcadeCopy[locale], routePath: `/${locale}/arcade-games` }
+}
+
+export function getLocalizedArcadeCollection(locale: Locale) {
+  const page = getLocalizedArcadePageConfig(locale)
+  const copy = locale === 'en' ? null : localizedArcadeCopy[locale]
+  return { breadcrumbName: locale === 'ja' ? 'アーケードゲーム' : locale === 'en' ? 'Arcade Games' : '街机游戏', description: copy?.description ?? 'Play classic arcade games online in your browser.', page, platform: 'Arcade', routePath: page.routePath, schemaName: page.heroTitle, title: copy?.title ?? 'Play Classic Arcade Games Online Free | POKOPIE' }
+}
+
+export function ArcadeGamesPage({ games, total, locale = 'en' }: { games: Array<PublicGame>; total: number; locale?: Locale }) {
+  return <GameCollectionPage config={getLocalizedArcadePageConfig(locale)} games={games} locale={locale} total={total} />
 }

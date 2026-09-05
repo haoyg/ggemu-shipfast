@@ -2,7 +2,7 @@ import {
   GameCollectionPage,
   type GameCollectionPageConfig,
 } from '#/components/game-collection-page'
-import type { PublicGame } from '#/lib/ggemu'
+import type { Locale, PublicGame } from '#/lib/ggemu'
 
 export type PlatformCollectionKey =
   | 'gba'
@@ -20,6 +20,161 @@ export type PlatformCollectionConfig = {
   schemaName: string
   title: string
 }
+
+const localizedPlatformSlugs: Record<PlatformCollectionKey, string> = {
+  gba: 'gba-games',
+  n64: 'n64-games',
+  nes: 'nes-games',
+  segaGenesis: 'sega-genesis-games',
+  snes: 'snes-games',
+}
+
+const localizedPlatformCopy = {
+  'zh-CN': {
+    gba: {
+      title: '在线玩 GBA 游戏 | 免下载 | POKOPIE',
+      description: '在浏览器中在线玩 GBA 游戏，浏览动作、RPG、赛车、平台和冒险类 Game Boy Advance 游戏，无需单独下载模拟器。',
+      schemaName: '在线玩 GBA 游戏',
+      breadcrumbName: 'GBA 游戏',
+      heroTitle: '在线玩 GBA 游戏',
+      heroDescription: '在浏览器中在线玩 GBA 游戏，重温 Game Boy Advance 上的动作、RPG、赛车、平台和冒险经典。支持的游戏无需单独下载模拟器。',
+      ctaLabel: '浏览 GBA 游戏',
+      libraryTitle: 'GBA 游戏库',
+      libraryDescription: (total: number) => `浏览 POKOPIE 目录中的 ${total} 款 Game Boy Advance 游戏。`,
+      unavailableMessage: 'GBA 游戏暂时不可用，请稍后再试。',
+      featuredLabel: '精选 GBA 游戏',
+      coverAlt: 'GBA 游戏封面',
+    },
+    n64: {
+      title: '在线玩 N64 游戏 | 免下载 | POKOPIE',
+      description: '在浏览器中在线玩 N64 游戏，浏览 Nintendo 64 的平台、赛车、体育、动作和冒险游戏。',
+      schemaName: '在线玩 N64 游戏',
+      breadcrumbName: 'N64 游戏',
+      heroTitle: '在线玩 N64 游戏',
+      heroDescription: '在线重温 Nintendo 64 的 3D 平台、赛车、体育、动作和冒险经典，从浏览器直接开始游戏。',
+      ctaLabel: '浏览 N64 游戏',
+      libraryTitle: 'N64 游戏库',
+      libraryDescription: (total: number) => `浏览 POKOPIE 目录中的 ${total} 款 Nintendo 64 游戏。`,
+      unavailableMessage: 'N64 游戏暂时不可用，请稍后再试。',
+      featuredLabel: '精选 N64 游戏',
+      coverAlt: 'N64 游戏封面',
+    },
+    nes: {
+      title: '在线玩 NES 游戏 | 免下载 | POKOPIE',
+      description: '在浏览器中在线玩 NES 游戏，浏览经典 Nintendo 动作、平台、益智、体育和冒险游戏，无需单独下载模拟器。',
+      schemaName: '在线玩 NES 游戏',
+      breadcrumbName: 'NES 游戏',
+      heroTitle: '在线玩 NES 游戏',
+      heroDescription: '在线重温塑造动作、平台、益智、体育和冒险游戏的 8 位经典作品，支持的游戏可以直接从详情页开始。',
+      ctaLabel: '浏览 NES 游戏',
+      libraryTitle: 'NES 游戏库',
+      libraryDescription: (total: number) => `浏览 POKOPIE 目录中的 ${total} 款 NES 游戏。`,
+      unavailableMessage: 'NES 游戏暂时不可用，请稍后再试。',
+      featuredLabel: '精选 NES 游戏',
+      coverAlt: 'NES 游戏封面',
+    },
+    segaGenesis: {
+      title: '在线玩 Sega Genesis 游戏 | POKOPIE',
+      description: '在浏览器中在线玩 Sega Genesis 游戏，浏览动作、平台、赛车、格斗和体育经典，无需单独下载模拟器。',
+      schemaName: '在线玩 Sega Genesis 游戏',
+      breadcrumbName: 'Sega Genesis 游戏',
+      heroTitle: '在线玩 Sega Genesis 游戏',
+      heroDescription: '在线重温 Sega Genesis 的动作、平台、赛车、格斗和体育经典，支持的游戏可以直接从浏览器开始。',
+      ctaLabel: '浏览 Sega Genesis 游戏',
+      libraryTitle: 'Sega Genesis 游戏库',
+      libraryDescription: (total: number) => `浏览 POKOPIE 目录中的 ${total} 款 Sega Genesis 游戏。`,
+      unavailableMessage: 'Sega Genesis 游戏暂时不可用，请稍后再试。',
+      featuredLabel: '精选 Sega Genesis 游戏',
+      coverAlt: 'Sega Genesis 游戏封面',
+    },
+    snes: {
+      title: '在线玩 SNES 游戏 | 免下载 | POKOPIE',
+      description: '在浏览器中在线玩 SNES 游戏，浏览 Super Nintendo 的 RPG、平台、赛车、动作和冒险经典，无需单独下载模拟器。',
+      schemaName: '在线玩 SNES 游戏',
+      breadcrumbName: 'SNES 游戏',
+      heroTitle: '在线玩 SNES 游戏',
+      heroDescription: '在线重温 Super Nintendo 的 16 位 RPG、平台、赛车、动作和冒险经典，支持的游戏可以直接从浏览器开始。',
+      ctaLabel: '浏览 SNES 游戏',
+      libraryTitle: 'SNES 游戏库',
+      libraryDescription: (total: number) => `浏览 POKOPIE 目录中的 ${total} 款 SNES 游戏。`,
+      unavailableMessage: 'SNES 游戏暂时不可用，请稍后再试。',
+      featuredLabel: '精选 SNES 游戏',
+      coverAlt: 'SNES 游戏封面',
+    },
+  },
+  ja: {
+    gba: {
+      title: 'GBA ゲームをオンラインでプレイ | ダウンロード不要 | POKOPIE',
+      description: 'ブラウザーで GBA ゲームをプレイ。専用エミュレーターのダウンロードなしで、アクション、RPG、レースなどを楽しめます。',
+      schemaName: 'GBA ゲームをオンラインでプレイ',
+      breadcrumbName: 'GBA ゲーム',
+      heroTitle: 'GBA ゲームをオンラインでプレイ',
+      heroDescription: 'ブラウザーで Game Boy Advance のアクション、RPG、レース、アドベンチャーの名作を楽しめます。対応タイトルは専用エミュレーター不要です。',
+      ctaLabel: 'GBA ゲームを見る',
+      libraryTitle: 'GBA ゲームライブラリ',
+      libraryDescription: (total: number) => `POKOPIE に掲載されている GBA ゲーム ${total} 件を閲覧できます。`,
+      unavailableMessage: 'GBA ゲームは一時的に利用できません。後でもう一度お試しください。',
+      featuredLabel: 'おすすめ GBA ゲーム',
+      coverAlt: 'GBA ゲームのカバー',
+    },
+    n64: {
+      title: 'N64 ゲームをオンラインでプレイ | POKOPIE',
+      description: 'ブラウザーで N64 ゲームをプレイ。Nintendo 64 のアクション、レース、スポーツ、アドベンチャーを探せます。',
+      schemaName: 'N64 ゲームをオンラインでプレイ',
+      breadcrumbName: 'N64 ゲーム',
+      heroTitle: 'N64 ゲームをオンラインでプレイ',
+      heroDescription: 'Nintendo 64 の 3D プラットフォーム、レース、スポーツ、アクションの名作をブラウザーで楽しめます。',
+      ctaLabel: 'N64 ゲームを見る',
+      libraryTitle: 'N64 ゲームライブラリ',
+      libraryDescription: (total: number) => `POKOPIE に掲載されている N64 ゲーム ${total} 件を閲覧できます。`,
+      unavailableMessage: 'N64 ゲームは一時的に利用できません。後でもう一度お試しください。',
+      featuredLabel: 'おすすめ N64 ゲーム',
+      coverAlt: 'N64 ゲームのカバー',
+    },
+    nes: {
+      title: 'NES ゲームをオンラインでプレイ | ダウンロード不要 | POKOPIE',
+      description: 'ブラウザーで NES ゲームをプレイ。専用エミュレーターのダウンロードなしで、Nintendo のアクションやパズルを楽しめます。',
+      schemaName: 'NES ゲームをオンラインでプレイ',
+      breadcrumbName: 'NES ゲーム',
+      heroTitle: 'NES ゲームをオンラインでプレイ',
+      heroDescription: 'アクション、プラットフォーム、パズル、スポーツの 8 ビット名作をブラウザーで楽しめます。対応タイトルはゲームページから開始できます。',
+      ctaLabel: 'NES ゲームを見る',
+      libraryTitle: 'NES ゲームライブラリ',
+      libraryDescription: (total: number) => `POKOPIE に掲載されている NES ゲーム ${total} 件を閲覧できます。`,
+      unavailableMessage: 'NES ゲームは一時的に利用できません。後でもう一度お試しください。',
+      featuredLabel: 'おすすめ NES ゲーム',
+      coverAlt: 'NES ゲームのカバー',
+    },
+    segaGenesis: {
+      title: 'Sega Genesis ゲームをオンラインでプレイ | POKOPIE',
+      description: 'ブラウザーで Sega Genesis ゲームをプレイ。アクション、レース、格闘、スポーツの名作を探せます。',
+      schemaName: 'Sega Genesis ゲームをオンラインでプレイ',
+      breadcrumbName: 'Sega Genesis ゲーム',
+      heroTitle: 'Sega Genesis ゲームをオンラインでプレイ',
+      heroDescription: 'Sega Genesis のアクション、プラットフォーム、レース、格闘、スポーツの名作をブラウザーで楽しめます。',
+      ctaLabel: 'Sega Genesis ゲームを見る',
+      libraryTitle: 'Sega Genesis ゲームライブラリ',
+      libraryDescription: (total: number) => `POKOPIE に掲載されている Sega Genesis ゲーム ${total} 件を閲覧できます。`,
+      unavailableMessage: 'Sega Genesis ゲームは一時的に利用できません。後でもう一度お試しください。',
+      featuredLabel: 'おすすめ Sega Genesis ゲーム',
+      coverAlt: 'Sega Genesis ゲームのカバー',
+    },
+    snes: {
+      title: 'SNES ゲームをオンラインでプレイ | ダウンロード不要 | POKOPIE',
+      description: 'ブラウザーで SNES ゲームをプレイ。Super Nintendo の RPG、アクション、レース、アドベンチャーを楽しめます。',
+      schemaName: 'SNES ゲームをオンラインでプレイ',
+      breadcrumbName: 'SNES ゲーム',
+      heroTitle: 'SNES ゲームをオンラインでプレイ',
+      heroDescription: 'Super Nintendo の 16 ビット RPG、プラットフォーム、レース、アクションの名作をブラウザーで楽しめます。',
+      ctaLabel: 'SNES ゲームを見る',
+      libraryTitle: 'SNES ゲームライブラリ',
+      libraryDescription: (total: number) => `POKOPIE に掲載されている SNES ゲーム ${total} 件を閲覧できます。`,
+      unavailableMessage: 'SNES ゲームは一時的に利用できません。後でもう一度お試しください。',
+      featuredLabel: 'おすすめ SNES ゲーム',
+      coverAlt: 'SNES ゲームのカバー',
+    },
+  },
+} as const
 
 export const platformCollections = {
   gba: {
@@ -324,14 +479,51 @@ export const platformCollections = {
   },
 } satisfies Record<PlatformCollectionKey, PlatformCollectionConfig>
 
+export function getLocalizedPlatformCollection(
+  key: PlatformCollectionKey,
+  locale: Locale,
+): PlatformCollectionConfig {
+  const collection = platformCollections[key]
+
+  if (locale === 'en') {
+    return collection
+  }
+
+  const copy = localizedPlatformCopy[locale][key]
+  const routePath = `/${locale}/${localizedPlatformSlugs[key]}`
+
+  return {
+    ...collection,
+    breadcrumbName: copy.breadcrumbName,
+    description: copy.description,
+    routePath,
+    schemaName: copy.schemaName,
+    title: copy.title,
+    page: {
+      ...collection.page,
+      ...copy,
+      routePath,
+    },
+  }
+}
+
 export function PlatformGamesPage({
   collection,
   games,
+  locale = 'en',
   total,
 }: {
   collection: PlatformCollectionConfig
   games: Array<PublicGame>
+  locale?: Locale
   total: number
 }) {
-  return <GameCollectionPage config={collection.page} games={games} total={total} />
+  return (
+    <GameCollectionPage
+      config={collection.page}
+      games={games}
+      locale={locale}
+      total={total}
+    />
+  )
 }

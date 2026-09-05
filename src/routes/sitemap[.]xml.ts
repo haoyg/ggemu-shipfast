@@ -23,6 +23,16 @@ const englishCollectionPaths = [
   '/sega-genesis-games',
   '/snes-games',
 ] as const
+const localizedCollectionPaths = new Set([
+  '/gba-games',
+  '/n64-games',
+  '/nes-games',
+  '/sega-genesis-games',
+  '/snes-games',
+  '/arcade-games',
+  '/ps1-games',
+  '/ps1-compatibility',
+])
 
 type SitemapSnapshot = { xml: string | null; createdAt: number; degraded: boolean }
 const sitemapCache = new TimedAsyncCache(4)
@@ -314,14 +324,26 @@ function buildSitemapEntries(
   const entries: Array<SitemapEntry> = []
 
   for (const path of englishCollectionPaths) {
-    entries.push({
-      alternateLocales: ['en'],
-      locale: 'en',
-      loc: toAbsoluteLocalizedUrl(origin, 'en', path),
-      path,
-      changefreq: 'weekly',
-      priority: 0.9,
-    })
+    if (localizedCollectionPaths.has(path)) {
+      for (const locale of locales) {
+        entries.push({
+          locale,
+          loc: toAbsoluteLocalizedUrl(origin, locale, path),
+          path,
+          changefreq: 'weekly',
+          priority: 0.9,
+        })
+      }
+    } else {
+      entries.push({
+        alternateLocales: ['en'],
+        locale: 'en',
+        loc: toAbsoluteLocalizedUrl(origin, 'en', path),
+        path,
+        changefreq: 'weekly',
+        priority: 0.9,
+      })
+    }
   }
 
   for (const locale of locales) {

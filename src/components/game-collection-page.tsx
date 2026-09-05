@@ -5,7 +5,7 @@ import {
   gameCardPreviewHandlers,
 } from '#/components/game-card-preview'
 import { SiteLayout } from '#/components/site-layout'
-import type { PublicGame } from '#/lib/ggemu'
+import type { Locale, PublicGame } from '#/lib/ggemu'
 
 export type GameCollectionFaq = {
   question: string
@@ -43,10 +43,12 @@ export type GameCollectionPageConfig = {
 export function GameCollectionPage({
   config,
   games,
+  locale = 'en',
   total,
 }: {
   config: GameCollectionPageConfig
   games: Array<PublicGame>
+  locale?: Locale
   total: number
 }) {
   const featuredGames = games.slice(0, 4)
@@ -54,8 +56,12 @@ export function GameCollectionPage({
 
   return (
     <SiteLayout
-      locale="en"
-      localePaths={{ 'zh-CN': '/zh-CN', en: config.routePath, ja: '/ja' }}
+      locale={locale}
+      localePaths={{
+        'zh-CN': locale === 'zh-CN' ? config.routePath : '/zh-CN',
+        en: locale === 'en' ? config.routePath : '/en',
+        ja: locale === 'ja' ? config.routePath : '/ja',
+      }}
     >
       <section className="border-b border-base-300 bg-base-100">
         <div className="mx-auto grid max-w-7xl gap-10 px-4 py-14 sm:px-6 lg:grid-cols-[minmax(0,0.9fr)_minmax(28rem,1.1fr)] lg:items-center lg:px-8 lg:py-20">
@@ -80,7 +86,7 @@ export function GameCollectionPage({
             </div>
           </div>
 
-          <HeroGameCovers games={featuredGames} label={config.featuredLabel} />
+          <HeroGameCovers games={featuredGames} label={config.featuredLabel} locale={locale} />
         </div>
       </section>
 
@@ -99,6 +105,7 @@ export function GameCollectionPage({
                   game={game}
                   isPriority={index < 2}
                   key={getGameId(game)}
+                  locale={locale}
                 />
               ))}
             </div>
@@ -144,7 +151,12 @@ export function GameCollectionPage({
           <h2 className="text-center text-3xl font-semibold">{config.genresTitle}</h2>
           <div className="mt-8 grid gap-px overflow-hidden rounded-lg border border-base-300 bg-base-300 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
             {config.genres.map((genre) => (
-              <GenreLink game={findGenreGame(games, genre)} genre={genre} key={genre.name} />
+              <GenreLink
+                game={findGenreGame(games, genre)}
+                genre={genre}
+                key={genre.name}
+                locale={locale}
+              />
             ))}
           </div>
         </div>
@@ -170,7 +182,15 @@ export function GameCollectionPage({
   )
 }
 
-function HeroGameCovers({ games, label }: { games: Array<PublicGame>; label: string }) {
+function HeroGameCovers({
+  games,
+  label,
+  locale,
+}: {
+  games: Array<PublicGame>
+  label: string
+  locale: Locale
+}) {
   if (games.length === 0) {
     return (
       <div className="grid min-h-72 place-items-center rounded-xl border border-base-300 bg-base-200 text-base-content/45">
@@ -187,7 +207,7 @@ function HeroGameCovers({ games, label }: { games: Array<PublicGame>; label: str
             index % 2 === 0 ? 'lg:-translate-y-3' : 'lg:translate-y-3'
           }`}
           key={getGameId(game)}
-          params={{ gameId: getGameId(game), locale: 'en' }}
+          params={{ gameId: getGameId(game), locale }}
           to="/$locale/games/$gameId"
         >
           <div className="aspect-[4/3] overflow-hidden bg-base-300">
@@ -215,10 +235,12 @@ function GameCollectionCard({
   coverAlt,
   game,
   isPriority,
+  locale,
 }: {
   coverAlt: string
   game: PublicGame
   isPriority: boolean
+  locale: Locale
 }) {
   const gameId = getGameId(game)
 
@@ -226,7 +248,7 @@ function GameCollectionCard({
     <Link
       className="group overflow-hidden rounded-lg border border-white/10 bg-white/5 transition hover:-translate-y-1 hover:border-primary/70 hover:bg-white/10"
       {...gameCardPreviewHandlers}
-      params={{ gameId, locale: 'en' }}
+      params={{ gameId, locale }}
       search={{}}
       to="/$locale/games/$gameId"
     >
@@ -252,7 +274,15 @@ function GameCollectionCard({
   )
 }
 
-function GenreLink({ game, genre }: { game?: PublicGame; genre: GameCollectionGenre }) {
+function GenreLink({
+  game,
+  genre,
+  locale,
+}: {
+  game?: PublicGame
+  genre: GameCollectionGenre
+  locale: Locale
+}) {
   const content = (
     <>
       <CollectionIcon className="h-6 w-6 text-primary" name={genre.icon} />
@@ -268,7 +298,7 @@ function GenreLink({ game, genre }: { game?: PublicGame; genre: GameCollectionGe
   return (
     <Link
       className="grid gap-2 bg-base-100 p-5 hover:bg-base-200"
-      params={{ gameId: getGameId(game), locale: 'en' }}
+      params={{ gameId: getGameId(game), locale }}
       to="/$locale/games/$gameId"
     >
       {content}

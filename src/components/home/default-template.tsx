@@ -18,6 +18,7 @@ import {
 import { getRetroCoverFallbackLabel } from '#/lib/locale-labels'
 import { prioritizeClassicGames } from '#/lib/home-game-priority'
 import { siteConfig } from '#/lib/site-config'
+import { getPlatformCollectionPath } from '#/lib/platform-routes'
 
 import {
   HomeFaqSection,
@@ -771,7 +772,7 @@ function getPlatformChips(
     .map((platform) => ({
       label: getLocalizedPlatformLabel(platform.name, lang),
       name: platform.name,
-      seoPath: getPlatformSeoPath(platform.name),
+      seoPath: getPlatformSeoPath(platform.name, lang),
       shortLabel: getPlatformShortLabel(platform.name, lang),
     }))
     .filter((platform) => Boolean(platform.seoPath))
@@ -819,6 +820,7 @@ function getKnownPlatformShortLabel(platform: string, lang: Locale) {
   )
 }
 
-function getPlatformSeoPath(platform: string) {
-  return platformSeoPaths[platform] ?? '/en'
+function getPlatformSeoPath(platform: string, lang: Locale) {
+  const path = platformSeoPaths[platform] ?? '/en'
+  return getPlatformCollectionPath(path, lang)
 }

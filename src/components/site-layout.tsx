@@ -7,15 +7,16 @@ import { getI18n, normalizeLocale } from '#/lib/i18n'
 import { getPoweredByLabel } from '#/lib/locale-labels'
 import { siteConfig } from '#/lib/site-config'
 import { getSiteThemes, normalizeSiteTheme } from '#/lib/site-themes'
+import { getPlatformCollectionPath } from '#/lib/platform-routes'
 
 const platformNavLinks = [
-  { href: '/en/nes-games', label: 'NES' },
-  { href: '/en/snes-games', label: 'SNES' },
-  { href: '/en/gba-games', label: 'GBA' },
-  { href: '/en/ps1-games', label: 'PS1' },
-  { href: '/en/n64-games', label: 'N64' },
-  { href: '/en/arcade-games', label: 'Arcade' },
-  { href: '/en/sega-genesis-games', label: 'Sega Genesis' },
+  { path: '/nes-games', label: 'NES' },
+  { path: '/snes-games', label: 'SNES' },
+  { path: '/gba-games', label: 'GBA' },
+  { path: '/ps1-games', label: 'PS1' },
+  { path: '/n64-games', label: 'N64' },
+  { path: '/arcade-games', label: 'Arcade' },
+  { path: '/sega-genesis-games', label: 'Sega Genesis' },
 ] as const
 
 export function SiteLayout({
@@ -32,6 +33,10 @@ export function SiteLayout({
   localePaths?: Partial<Record<Locale, string>>
 }) {
   const t = getI18n(locale).layout
+  const localizedPlatformNavLinks = platformNavLinks.map((link) => ({
+    ...link,
+    href: getPlatformCollectionPath(`/en${link.path}`, locale),
+  }))
   const location = useRouterState({ select: (state) => state.location })
   const siteThemes = getSiteThemes()
   const [theme, setTheme] = useState(() => normalizeSiteTheme(null))
@@ -127,7 +132,7 @@ export function SiteLayout({
                     {t.games}
                   </Link>
                 </li>
-                {platformNavLinks.map((link) => (
+                {localizedPlatformNavLinks.map((link) => (
                   <li key={link.href}>
                     <a href={link.href} title={`Play ${link.label} games online`}>
                       {link.label}
@@ -279,7 +284,7 @@ export function SiteLayout({
               locale={locale}
               to="/$locale"
             />
-            {platformNavLinks.slice(0, 5).map((link) => (
+            {localizedPlatformNavLinks.slice(0, 5).map((link) => (
               <a
                 className="btn btn-ghost btn-sm shrink-0 gap-2 whitespace-nowrap"
                 href={link.href}
@@ -465,7 +470,7 @@ export function SiteFooter({ locale }: { locale: Locale }) {
                 <i className="ri-article-line mr-1" />
                 {t.blog}
               </Link>
-              <a className="link-hover link" href="/en/ps1-compatibility">
+              <a className="link-hover link" href={`/${locale}/ps1-compatibility`}>
                 <i className="ri-pulse-line mr-1" />
                 PS1 Compatibility
               </a>

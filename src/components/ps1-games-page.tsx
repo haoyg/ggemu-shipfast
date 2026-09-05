@@ -2,7 +2,7 @@ import {
   GameCollectionPage,
   type GameCollectionPageConfig,
 } from '#/components/game-collection-page'
-import type { PublicGame } from '#/lib/ggemu'
+import type { Locale, PublicGame } from '#/lib/ggemu'
 
 export const ps1Faqs = [
   {
@@ -27,7 +27,7 @@ export const ps1Faqs = [
   },
 ]
 
-const ps1PageConfig: GameCollectionPageConfig = {
+export const ps1PageConfig: GameCollectionPageConfig = {
   routePath: '/en/ps1-games',
   heroTitle: 'Play PS1 Games Online',
   heroDescription:
@@ -83,6 +83,26 @@ const ps1PageConfig: GameCollectionPageConfig = {
   faqs: ps1Faqs,
 }
 
-export function Ps1GamesPage({ games, total }: { games: Array<PublicGame>; total: number }) {
-  return <GameCollectionPage config={ps1PageConfig} games={games} total={total} />
+const localizedPs1Copy = {
+  'zh-CN': {
+    title: '在线玩 PS1 游戏 | 免下载 | POKOPIE', description: '在浏览器中在线玩 PS1 游戏，浏览经典 PlayStation RPG、赛车、动作和格斗游戏。', heroTitle: '在线玩 PS1 游戏', heroDescription: '在浏览器中重温经典 PlayStation 冒险、赛车、RPG 和格斗游戏，支持的游戏无需单独安装模拟器。', ctaLabel: '浏览 PS1 游戏', libraryTitle: 'PS1 游戏库', libraryDescription: (total: number) => `浏览 POKOPIE 目录中的 ${total} 款 PlayStation 1 游戏。`, unavailableMessage: 'PS1 游戏暂时不可用，请稍后再试。', featuredLabel: '精选 PS1 游戏', coverAlt: 'PS1 游戏封面',
+  },
+  ja: {
+    title: 'PS1 ゲームをオンラインでプレイ | ダウンロード不要 | POKOPIE', description: 'ブラウザーで PS1 ゲームをプレイ。PlayStation の RPG、レース、アクション、格闘の名作を楽しめます。', heroTitle: 'PS1 ゲームをオンラインでプレイ', heroDescription: 'ブラウザーで PlayStation の冒険、レース、RPG、格闘の名作を楽しめます。対応タイトルは専用エミュレーター不要です。', ctaLabel: 'PS1 ゲームを見る', libraryTitle: 'PS1 ゲームライブラリ', libraryDescription: (total: number) => `POKOPIE に掲載されている PlayStation 1 ゲーム ${total} 件を閲覧できます。`, unavailableMessage: 'PS1 ゲームは一時的に利用できません。後でもう一度お試しください。', featuredLabel: 'おすすめ PS1 ゲーム', coverAlt: 'PS1 ゲームのカバー',
+  },
+} as const
+
+export function getLocalizedPs1PageConfig(locale: Locale): GameCollectionPageConfig {
+  if (locale === 'en') return ps1PageConfig
+  return { ...ps1PageConfig, ...localizedPs1Copy[locale], routePath: `/${locale}/ps1-games`, secondaryCta: undefined }
+}
+
+export function getLocalizedPs1Collection(locale: Locale) {
+  const page = getLocalizedPs1PageConfig(locale)
+  const copy = locale === 'en' ? null : localizedPs1Copy[locale]
+  return { breadcrumbName: locale === 'ja' ? 'PS1 ゲーム' : locale === 'en' ? 'PS1 Games' : 'PS1 游戏', description: copy?.description ?? 'Play PS1 games online in your browser.', page, platform: 'PlayStation 1', routePath: page.routePath, schemaName: page.heroTitle, title: copy?.title ?? 'Play PS1 Games Online Free | No Download | POKOPIE' }
+}
+
+export function Ps1GamesPage({ games, total, locale = 'en' }: { games: Array<PublicGame>; total: number; locale?: Locale }) {
+  return <GameCollectionPage config={getLocalizedPs1PageConfig(locale)} games={games} locale={locale} total={total} />
 }

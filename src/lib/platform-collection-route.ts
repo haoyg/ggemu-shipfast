@@ -1,6 +1,6 @@
 import { searchGames } from '#/lib/ggemu'
-import type { PublicGame } from '#/lib/ggemu'
-import type { PlatformCollectionConfig } from '#/components/platform-games-page'
+import type { Locale, PublicGame } from '#/lib/ggemu'
+import type { GameCollectionPageConfig } from '#/components/game-collection-page'
 import { getSeoLinksFromCanonical, getSeoOrigin } from '#/lib/seo'
 import { siteConfig } from '#/lib/site-config'
 
@@ -15,15 +15,26 @@ export type PlatformCollectionLoaderData = {
   }
 }
 
+export type CollectionRouteConfig = {
+  breadcrumbName: string
+  description: string
+  page: GameCollectionPageConfig
+  platform: string
+  routePath: string
+  schemaName: string
+  title: string
+}
+
 export async function loadPlatformCollection(
-  collection: PlatformCollectionConfig,
+  collection: CollectionRouteConfig,
+  locale: Locale = 'en',
 ): Promise<PlatformCollectionLoaderData> {
   const [origin, result] = await Promise.all([
     getSeoOrigin(),
     searchGames({
       data: {
         limit: 24,
-        locale: 'en',
+        locale,
         page: 1,
         platform: collection.platform,
         sort: 'popular',
@@ -38,14 +49,15 @@ export async function loadPlatformCollection(
 }
 
 export function buildPlatformCollectionHead(
-  collection: PlatformCollectionConfig,
+  collection: CollectionRouteConfig,
   loaderData: PlatformCollectionLoaderData | undefined,
+  locale: Locale = 'en',
 ) {
   const canonicalUrl = `${loaderData?.origin ?? ''}${collection.routePath}`
 
   return {
     links: loaderData?.origin
-      ? getSeoLinksFromCanonical(canonicalUrl, ['en'])
+      ? getSeoLinksFromCanonical(canonicalUrl, ['zh-CN', 'en', 'ja'])
       : undefined,
     meta: [
       { title: collection.title },
@@ -59,21 +71,22 @@ export function buildPlatformCollectionHead(
       { name: 'twitter:description', content: collection.description },
     ],
     scripts: loaderData?.origin
-      ? buildStructuredDataScripts(collection, canonicalUrl, loaderData.games)
+      ? buildStructuredDataScripts(collection, canonicalUrl, loaderData.games, locale)
       : undefined,
   }
 }
 
 function buildStructuredDataScripts(
-  collection: PlatformCollectionConfig,
+  collection: CollectionRouteConfig,
   canonicalUrl: string,
   games: Array<PublicGame>,
+  locale: Locale,
 ) {
   const origin = new URL(canonicalUrl).origin
   const itemList = games.slice(0, 18).map((game, index) => ({
     '@type': 'ListItem',
     position: index + 1,
-    url: `${origin}/en/games/${encodeURIComponent(game.url_slug || game._id || '')}`,
+    url: `${origin}/${locale}/games/${encodeURIComponent(game.url_slug || game._id || '')}`,
     name: game.name,
   }))
 
@@ -108,7 +121,7 @@ function buildStructuredDataScripts(
             '@type': 'ListItem',
             position: 1,
             name: 'Home',
-            item: `${origin}/en`,
+            item: `${origin}/${locale}`,
           },
           {
             '@type': 'ListItem',

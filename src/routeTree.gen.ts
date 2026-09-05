@@ -62,11 +62,15 @@ import { Route as ApiShareImageRouteImport } from './routes/api/share-image'
 import { Route as ApiHealthRouteImport } from './routes/api/health'
 import { Route as LocaleTermsOfServiceRouteImport } from './routes/$locale.terms-of-service'
 import { Route as LocaleRandomRouteImport } from './routes/$locale.random'
+import { Route as LocalePs1GamesRouteImport } from './routes/$locale.ps1-games'
+import { Route as LocalePs1CompatibilityRouteImport } from './routes/$locale.ps1-compatibility'
 import { Route as LocalePrivacyPolicyRouteImport } from './routes/$locale.privacy-policy'
 import { Route as LocalePlayMyRomRouteImport } from './routes/$locale.play-my-rom'
 import { Route as LocaleLiveRouteImport } from './routes/$locale.live'
 import { Route as LocaleBlogRouteImport } from './routes/$locale.blog'
+import { Route as LocaleArcadeGamesRouteImport } from './routes/$locale.arcade-games'
 import { Route as LocaleAboutRouteImport } from './routes/$locale.about'
+import { Route as LocalePlatformRouteImport } from './routes/$locale.$platform'
 import { Route as LibraryGenresGenreRouteImport } from './routes/library.genres.$genre'
 import { Route as GamesGameIdPlayRouteImport } from './routes/games/$gameId/play'
 import { Route as LocaleGamesGameIdRouteImport } from './routes/$locale.games.$gameId'
@@ -340,6 +344,16 @@ const LocaleRandomRoute = LocaleRandomRouteImport.update({
   path: '/random',
   getParentRoute: () => LocaleRoute,
 } as any)
+const LocalePs1GamesRoute = LocalePs1GamesRouteImport.update({
+  id: '/ps1-games',
+  path: '/ps1-games',
+  getParentRoute: () => LocaleRoute,
+} as any)
+const LocalePs1CompatibilityRoute = LocalePs1CompatibilityRouteImport.update({
+  id: '/ps1-compatibility',
+  path: '/ps1-compatibility',
+  getParentRoute: () => LocaleRoute,
+} as any)
 const LocalePrivacyPolicyRoute = LocalePrivacyPolicyRouteImport.update({
   id: '/privacy-policy',
   path: '/privacy-policy',
@@ -360,9 +374,19 @@ const LocaleBlogRoute = LocaleBlogRouteImport.update({
   path: '/blog',
   getParentRoute: () => LocaleRoute,
 } as any)
+const LocaleArcadeGamesRoute = LocaleArcadeGamesRouteImport.update({
+  id: '/arcade-games',
+  path: '/arcade-games',
+  getParentRoute: () => LocaleRoute,
+} as any)
 const LocaleAboutRoute = LocaleAboutRouteImport.update({
   id: '/about',
   path: '/about',
+  getParentRoute: () => LocaleRoute,
+} as any)
+const LocalePlatformRoute = LocalePlatformRouteImport.update({
+  id: '/$platform',
+  path: '/$platform',
   getParentRoute: () => LocaleRoute,
 } as any)
 const LibraryGenresGenreRoute = LibraryGenresGenreRouteImport.update({
@@ -425,11 +449,15 @@ export interface FileRoutesByFullPath {
   '/snes-games': typeof SnesGamesRoute
   '/sports-games': typeof SportsGamesRoute
   '/top-idle-games': typeof TopIdleGamesRoute
+  '/$locale/$platform': typeof LocalePlatformRoute
   '/$locale/about': typeof LocaleAboutRoute
+  '/$locale/arcade-games': typeof LocaleArcadeGamesRoute
   '/$locale/blog': typeof LocaleBlogRouteWithChildren
   '/$locale/live': typeof LocaleLiveRoute
   '/$locale/play-my-rom': typeof LocalePlayMyRomRoute
   '/$locale/privacy-policy': typeof LocalePrivacyPolicyRoute
+  '/$locale/ps1-compatibility': typeof LocalePs1CompatibilityRoute
+  '/$locale/ps1-games': typeof LocalePs1GamesRoute
   '/$locale/random': typeof LocaleRandomRoute
   '/$locale/terms-of-service': typeof LocaleTermsOfServiceRoute
   '/api/health': typeof ApiHealthRoute
@@ -491,11 +519,15 @@ export interface FileRoutesByTo {
   '/snes-games': typeof SnesGamesRoute
   '/sports-games': typeof SportsGamesRoute
   '/top-idle-games': typeof TopIdleGamesRoute
+  '/$locale/$platform': typeof LocalePlatformRoute
   '/$locale/about': typeof LocaleAboutRoute
+  '/$locale/arcade-games': typeof LocaleArcadeGamesRoute
   '/$locale/blog': typeof LocaleBlogRouteWithChildren
   '/$locale/live': typeof LocaleLiveRoute
   '/$locale/play-my-rom': typeof LocalePlayMyRomRoute
   '/$locale/privacy-policy': typeof LocalePrivacyPolicyRoute
+  '/$locale/ps1-compatibility': typeof LocalePs1CompatibilityRoute
+  '/$locale/ps1-games': typeof LocalePs1GamesRoute
   '/$locale/random': typeof LocaleRandomRoute
   '/$locale/terms-of-service': typeof LocaleTermsOfServiceRoute
   '/api/health': typeof ApiHealthRoute
@@ -558,11 +590,15 @@ export interface FileRoutesById {
   '/snes-games': typeof SnesGamesRoute
   '/sports-games': typeof SportsGamesRoute
   '/top-idle-games': typeof TopIdleGamesRoute
+  '/$locale/$platform': typeof LocalePlatformRoute
   '/$locale/about': typeof LocaleAboutRoute
+  '/$locale/arcade-games': typeof LocaleArcadeGamesRoute
   '/$locale/blog': typeof LocaleBlogRouteWithChildren
   '/$locale/live': typeof LocaleLiveRoute
   '/$locale/play-my-rom': typeof LocalePlayMyRomRoute
   '/$locale/privacy-policy': typeof LocalePrivacyPolicyRoute
+  '/$locale/ps1-compatibility': typeof LocalePs1CompatibilityRoute
+  '/$locale/ps1-games': typeof LocalePs1GamesRoute
   '/$locale/random': typeof LocaleRandomRoute
   '/$locale/terms-of-service': typeof LocaleTermsOfServiceRoute
   '/api/health': typeof ApiHealthRoute
@@ -626,11 +662,15 @@ export interface FileRouteTypes {
     | '/snes-games'
     | '/sports-games'
     | '/top-idle-games'
+    | '/$locale/$platform'
     | '/$locale/about'
+    | '/$locale/arcade-games'
     | '/$locale/blog'
     | '/$locale/live'
     | '/$locale/play-my-rom'
     | '/$locale/privacy-policy'
+    | '/$locale/ps1-compatibility'
+    | '/$locale/ps1-games'
     | '/$locale/random'
     | '/$locale/terms-of-service'
     | '/api/health'
@@ -692,11 +732,15 @@ export interface FileRouteTypes {
     | '/snes-games'
     | '/sports-games'
     | '/top-idle-games'
+    | '/$locale/$platform'
     | '/$locale/about'
+    | '/$locale/arcade-games'
     | '/$locale/blog'
     | '/$locale/live'
     | '/$locale/play-my-rom'
     | '/$locale/privacy-policy'
+    | '/$locale/ps1-compatibility'
+    | '/$locale/ps1-games'
     | '/$locale/random'
     | '/$locale/terms-of-service'
     | '/api/health'
@@ -758,11 +802,15 @@ export interface FileRouteTypes {
     | '/snes-games'
     | '/sports-games'
     | '/top-idle-games'
+    | '/$locale/$platform'
     | '/$locale/about'
+    | '/$locale/arcade-games'
     | '/$locale/blog'
     | '/$locale/live'
     | '/$locale/play-my-rom'
     | '/$locale/privacy-policy'
+    | '/$locale/ps1-compatibility'
+    | '/$locale/ps1-games'
     | '/$locale/random'
     | '/$locale/terms-of-service'
     | '/api/health'
@@ -1225,6 +1273,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LocaleRandomRouteImport
       parentRoute: typeof LocaleRoute
     }
+    '/$locale/ps1-games': {
+      id: '/$locale/ps1-games'
+      path: '/ps1-games'
+      fullPath: '/$locale/ps1-games'
+      preLoaderRoute: typeof LocalePs1GamesRouteImport
+      parentRoute: typeof LocaleRoute
+    }
+    '/$locale/ps1-compatibility': {
+      id: '/$locale/ps1-compatibility'
+      path: '/ps1-compatibility'
+      fullPath: '/$locale/ps1-compatibility'
+      preLoaderRoute: typeof LocalePs1CompatibilityRouteImport
+      parentRoute: typeof LocaleRoute
+    }
     '/$locale/privacy-policy': {
       id: '/$locale/privacy-policy'
       path: '/privacy-policy'
@@ -1253,11 +1315,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LocaleBlogRouteImport
       parentRoute: typeof LocaleRoute
     }
+    '/$locale/arcade-games': {
+      id: '/$locale/arcade-games'
+      path: '/arcade-games'
+      fullPath: '/$locale/arcade-games'
+      preLoaderRoute: typeof LocaleArcadeGamesRouteImport
+      parentRoute: typeof LocaleRoute
+    }
     '/$locale/about': {
       id: '/$locale/about'
       path: '/about'
       fullPath: '/$locale/about'
       preLoaderRoute: typeof LocaleAboutRouteImport
+      parentRoute: typeof LocaleRoute
+    }
+    '/$locale/$platform': {
+      id: '/$locale/$platform'
+      path: '/$platform'
+      fullPath: '/$locale/$platform'
+      preLoaderRoute: typeof LocalePlatformRouteImport
       parentRoute: typeof LocaleRoute
     }
     '/library/genres/$genre': {
@@ -1329,22 +1405,30 @@ const LocaleGamesGameIdRouteWithChildren =
   LocaleGamesGameIdRoute._addFileChildren(LocaleGamesGameIdRouteChildren)
 
 interface LocaleRouteChildren {
+  LocalePlatformRoute: typeof LocalePlatformRoute
   LocaleAboutRoute: typeof LocaleAboutRoute
+  LocaleArcadeGamesRoute: typeof LocaleArcadeGamesRoute
   LocaleBlogRoute: typeof LocaleBlogRouteWithChildren
   LocaleLiveRoute: typeof LocaleLiveRoute
   LocalePlayMyRomRoute: typeof LocalePlayMyRomRoute
   LocalePrivacyPolicyRoute: typeof LocalePrivacyPolicyRoute
+  LocalePs1CompatibilityRoute: typeof LocalePs1CompatibilityRoute
+  LocalePs1GamesRoute: typeof LocalePs1GamesRoute
   LocaleRandomRoute: typeof LocaleRandomRoute
   LocaleTermsOfServiceRoute: typeof LocaleTermsOfServiceRoute
   LocaleGamesGameIdRoute: typeof LocaleGamesGameIdRouteWithChildren
 }
 
 const LocaleRouteChildren: LocaleRouteChildren = {
+  LocalePlatformRoute: LocalePlatformRoute,
   LocaleAboutRoute: LocaleAboutRoute,
+  LocaleArcadeGamesRoute: LocaleArcadeGamesRoute,
   LocaleBlogRoute: LocaleBlogRouteWithChildren,
   LocaleLiveRoute: LocaleLiveRoute,
   LocalePlayMyRomRoute: LocalePlayMyRomRoute,
   LocalePrivacyPolicyRoute: LocalePrivacyPolicyRoute,
+  LocalePs1CompatibilityRoute: LocalePs1CompatibilityRoute,
+  LocalePs1GamesRoute: LocalePs1GamesRoute,
   LocaleRandomRoute: LocaleRandomRoute,
   LocaleTermsOfServiceRoute: LocaleTermsOfServiceRoute,
   LocaleGamesGameIdRoute: LocaleGamesGameIdRouteWithChildren,
