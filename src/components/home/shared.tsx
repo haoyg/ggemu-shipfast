@@ -70,14 +70,14 @@ export function HomeLatestBlogPostsSection({
   }
 
   return (
-    <section className="bg-base-100">
+    <section className="bg-neutral text-neutral-content">
       <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
           <div className="max-w-3xl">
-            <h2 className="text-2xl font-semibold text-base-content">
+            <h2 className="text-2xl font-semibold text-white">
               {t.latestBlogPosts}
             </h2>
-            <p className="mt-2 text-sm leading-6 text-base-content/65">
+            <p className="mt-2 text-sm leading-6 text-white/65">
               {t.latestBlogSubtitle}
             </p>
           </div>
@@ -108,11 +108,11 @@ export function HomeFaqSection({ lang }: { lang: Locale }) {
   const faq = getHomeFaqs(lang)
 
   return (
-    <section className="bg-base-100">
+    <section className="bg-neutral text-neutral-content">
       <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
         <div className="max-w-3xl">
-          <h2 className="text-2xl font-semibold text-base-content">{faq.title}</h2>
-          <p className="mt-2 text-sm leading-6 text-base-content/65">
+          <h2 className="text-2xl font-semibold text-white">{faq.title}</h2>
+          <p className="mt-2 text-sm leading-6 text-white/65">
             {faq.subtitle}
           </p>
         </div>
@@ -120,13 +120,13 @@ export function HomeFaqSection({ lang }: { lang: Locale }) {
         <div className="mt-4 grid gap-3">
           {faq.items.map((item) => (
             <article
-              className="rounded-lg border border-base-300 bg-base-100 p-4"
+              className="rounded-lg border border-white/10 bg-white/5 p-4"
               key={item.question}
             >
-              <h3 className="text-sm font-semibold text-base-content">
+              <h3 className="text-sm font-semibold text-white">
                 {item.question}
               </h3>
-              <p className="mt-3 text-sm leading-6 text-base-content/65">
+              <p className="mt-3 text-sm leading-6 text-white/65">
                 {item.answer}
               </p>
             </article>
@@ -141,17 +141,17 @@ export function HomeSeoContentSection({ lang }: { lang: Locale }) {
   const content = getI18n(lang).homeContent
 
   return (
-    <section className="bg-base-100">
+    <section className="bg-neutral text-neutral-content">
       <div className="mx-auto grid max-w-7xl gap-5 px-4 py-8 sm:px-6 lg:grid-cols-[minmax(0,1.1fr)_minmax(20rem,0.9fr)] lg:px-8">
-        <article className="rounded-lg border border-base-300 bg-base-100 p-5 shadow-sm">
-          <h2 className="text-2xl font-semibold text-base-content">
+        <article className="rounded-lg border border-white/10 bg-white/5 p-5 shadow-sm">
+          <h2 className="text-2xl font-semibold text-white">
             {content.whyTitle}
           </h2>
-          <p className="mt-4 text-sm leading-7 text-base-content/70 sm:text-base">
+          <p className="mt-4 text-sm leading-7 text-white/70 sm:text-base">
             {content.whyBody}
           </p>
           {lang === 'en' ? (
-            <p className="mt-4 text-sm leading-6 text-base-content/65">
+            <p className="mt-4 text-sm leading-6 text-white/65">
               Trending puzzle:{' '}
               <Link
                 className="font-semibold text-primary underline-offset-4 hover:underline"
@@ -166,8 +166,8 @@ export function HomeSeoContentSection({ lang }: { lang: Locale }) {
           ) : null}
         </article>
 
-        <article className="rounded-lg border border-base-300 bg-base-100 p-5 shadow-sm">
-          <h2 className="text-2xl font-semibold text-base-content">
+        <article className="rounded-lg border border-white/10 bg-white/5 p-5 shadow-sm">
+          <h2 className="text-2xl font-semibold text-white">
             {content.howTitle}
           </h2>
           <ol className="mt-4 grid gap-4">
@@ -177,10 +177,10 @@ export function HomeSeoContentSection({ lang }: { lang: Locale }) {
                   {index + 1}
                 </span>
                 <span>
-                  <span className="block text-sm font-semibold text-base-content">
+                  <span className="block text-sm font-semibold text-white">
                     {step.title}
                   </span>
-                  <span className="mt-1 block text-sm leading-6 text-base-content/65">
+                  <span className="mt-1 block text-sm leading-6 text-white/65">
                     {step.body}
                   </span>
                 </span>

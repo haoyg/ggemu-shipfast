@@ -24,11 +24,13 @@ import { Route as Ps1GamesRouteImport } from './routes/ps1-games'
 import { Route as Ps1CompatibilityRouteImport } from './routes/ps1-compatibility'
 import { Route as Ps1RouteImport } from './routes/ps1'
 import { Route as PlaystationGamesRouteImport } from './routes/playstation-games'
+import { Route as PlaystationRouteImport } from './routes/playstation'
 import { Route as NesGamesRouteImport } from './routes/nes-games'
 import { Route as NesRouteImport } from './routes/nes'
 import { Route as N64GamesRouteImport } from './routes/n64-games'
 import { Route as N64RouteImport } from './routes/n64'
 import { Route as ManifestDotwebmanifestRouteImport } from './routes/manifest[.]webmanifest'
+import { Route as GenesisGamesRouteImport } from './routes/genesis-games'
 import { Route as GbaGamesRouteImport } from './routes/gba-games'
 import { Route as GbaRouteImport } from './routes/gba'
 import { Route as FunQuizDothtmlRouteImport } from './routes/fun-quiz[.]html'
@@ -154,6 +156,11 @@ const PlaystationGamesRoute = PlaystationGamesRouteImport.update({
   path: '/playstation-games',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PlaystationRoute = PlaystationRouteImport.update({
+  id: '/playstation',
+  path: '/playstation',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const NesGamesRoute = NesGamesRouteImport.update({
   id: '/nes-games',
   path: '/nes-games',
@@ -177,6 +184,11 @@ const N64Route = N64RouteImport.update({
 const ManifestDotwebmanifestRoute = ManifestDotwebmanifestRouteImport.update({
   id: '/manifest.webmanifest',
   path: '/manifest.webmanifest',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GenesisGamesRoute = GenesisGamesRouteImport.update({
+  id: '/genesis-games',
+  path: '/genesis-games',
   getParentRoute: () => rootRouteImport,
 } as any)
 const GbaGamesRoute = GbaGamesRouteImport.update({
@@ -436,11 +448,13 @@ export interface FileRoutesByFullPath {
   '/fun-quiz.html': typeof FunQuizDothtmlRoute
   '/gba': typeof GbaRoute
   '/gba-games': typeof GbaGamesRoute
+  '/genesis-games': typeof GenesisGamesRoute
   '/manifest.webmanifest': typeof ManifestDotwebmanifestRoute
   '/n64': typeof N64Route
   '/n64-games': typeof N64GamesRoute
   '/nes': typeof NesRoute
   '/nes-games': typeof NesGamesRoute
+  '/playstation': typeof PlaystationRoute
   '/playstation-games': typeof PlaystationGamesRoute
   '/ps1': typeof Ps1Route
   '/ps1-compatibility': typeof Ps1CompatibilityRoute
@@ -507,11 +521,13 @@ export interface FileRoutesByTo {
   '/fun-quiz.html': typeof FunQuizDothtmlRoute
   '/gba': typeof GbaRoute
   '/gba-games': typeof GbaGamesRoute
+  '/genesis-games': typeof GenesisGamesRoute
   '/manifest.webmanifest': typeof ManifestDotwebmanifestRoute
   '/n64': typeof N64Route
   '/n64-games': typeof N64GamesRoute
   '/nes': typeof NesRoute
   '/nes-games': typeof NesGamesRoute
+  '/playstation': typeof PlaystationRoute
   '/playstation-games': typeof PlaystationGamesRoute
   '/ps1': typeof Ps1Route
   '/ps1-compatibility': typeof Ps1CompatibilityRoute
@@ -579,11 +595,13 @@ export interface FileRoutesById {
   '/fun-quiz.html': typeof FunQuizDothtmlRoute
   '/gba': typeof GbaRoute
   '/gba-games': typeof GbaGamesRoute
+  '/genesis-games': typeof GenesisGamesRoute
   '/manifest.webmanifest': typeof ManifestDotwebmanifestRoute
   '/n64': typeof N64Route
   '/n64-games': typeof N64GamesRoute
   '/nes': typeof NesRoute
   '/nes-games': typeof NesGamesRoute
+  '/playstation': typeof PlaystationRoute
   '/playstation-games': typeof PlaystationGamesRoute
   '/ps1': typeof Ps1Route
   '/ps1-compatibility': typeof Ps1CompatibilityRoute
@@ -652,11 +670,13 @@ export interface FileRouteTypes {
     | '/fun-quiz.html'
     | '/gba'
     | '/gba-games'
+    | '/genesis-games'
     | '/manifest.webmanifest'
     | '/n64'
     | '/n64-games'
     | '/nes'
     | '/nes-games'
+    | '/playstation'
     | '/playstation-games'
     | '/ps1'
     | '/ps1-compatibility'
@@ -723,11 +743,13 @@ export interface FileRouteTypes {
     | '/fun-quiz.html'
     | '/gba'
     | '/gba-games'
+    | '/genesis-games'
     | '/manifest.webmanifest'
     | '/n64'
     | '/n64-games'
     | '/nes'
     | '/nes-games'
+    | '/playstation'
     | '/playstation-games'
     | '/ps1'
     | '/ps1-compatibility'
@@ -794,11 +816,13 @@ export interface FileRouteTypes {
     | '/fun-quiz.html'
     | '/gba'
     | '/gba-games'
+    | '/genesis-games'
     | '/manifest.webmanifest'
     | '/n64'
     | '/n64-games'
     | '/nes'
     | '/nes-games'
+    | '/playstation'
     | '/playstation-games'
     | '/ps1'
     | '/ps1-compatibility'
@@ -866,11 +890,13 @@ export interface RootRouteChildren {
   FunQuizDothtmlRoute: typeof FunQuizDothtmlRoute
   GbaRoute: typeof GbaRoute
   GbaGamesRoute: typeof GbaGamesRoute
+  GenesisGamesRoute: typeof GenesisGamesRoute
   ManifestDotwebmanifestRoute: typeof ManifestDotwebmanifestRoute
   N64Route: typeof N64Route
   N64GamesRoute: typeof N64GamesRoute
   NesRoute: typeof NesRoute
   NesGamesRoute: typeof NesGamesRoute
+  PlaystationRoute: typeof PlaystationRoute
   PlaystationGamesRoute: typeof PlaystationGamesRoute
   Ps1Route: typeof Ps1Route
   Ps1CompatibilityRoute: typeof Ps1CompatibilityRoute
@@ -1020,6 +1046,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PlaystationGamesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/playstation': {
+      id: '/playstation'
+      path: '/playstation'
+      fullPath: '/playstation'
+      preLoaderRoute: typeof PlaystationRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/nes-games': {
       id: '/nes-games'
       path: '/nes-games'
@@ -1053,6 +1086,13 @@ declare module '@tanstack/react-router' {
       path: '/manifest.webmanifest'
       fullPath: '/manifest.webmanifest'
       preLoaderRoute: typeof ManifestDotwebmanifestRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/genesis-games': {
+      id: '/genesis-games'
+      path: '/genesis-games'
+      fullPath: '/genesis-games'
+      preLoaderRoute: typeof GenesisGamesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/gba-games': {
@@ -1479,11 +1519,13 @@ const rootRouteChildren: RootRouteChildren = {
   FunQuizDothtmlRoute: FunQuizDothtmlRoute,
   GbaRoute: GbaRoute,
   GbaGamesRoute: GbaGamesRoute,
+  GenesisGamesRoute: GenesisGamesRoute,
   ManifestDotwebmanifestRoute: ManifestDotwebmanifestRoute,
   N64Route: N64Route,
   N64GamesRoute: N64GamesRoute,
   NesRoute: NesRoute,
   NesGamesRoute: NesGamesRoute,
+  PlaystationRoute: PlaystationRoute,
   PlaystationGamesRoute: PlaystationGamesRoute,
   Ps1Route: Ps1Route,
   Ps1CompatibilityRoute: Ps1CompatibilityRoute,

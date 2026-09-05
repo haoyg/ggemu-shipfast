@@ -154,30 +154,6 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
               {layoutCopy.games}
             </Link>
             <SideNavAnchor href="#recent-games" icon="ri-history-line" label={t.recentlyPlayed} />
-            <SideNavRoute
-              icon="ri-gamepad-line"
-              label={layoutCopy.playMyRom}
-              lang={lang}
-              to="/$locale/play-my-rom"
-            />
-            <SideNavRoute
-              icon="ri-live-line"
-              label={layoutCopy.live}
-              lang={lang}
-              to="/$locale/live"
-            />
-            <SideNavRoute
-              icon="ri-article-line"
-              label={layoutCopy.blog}
-              lang={lang}
-              to="/$locale/blog"
-            />
-            <SideNavRoute
-              icon="ri-information-line"
-              label={layoutCopy.about}
-              lang={lang}
-              to="/$locale/about"
-            />
 
             <section className="border-t border-white/10 pt-4">
               <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-white/45">
@@ -274,6 +250,38 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
               </div>
             ) : null}
 
+            <section className="mb-6 scroll-mt-24" id="recent-games">
+              <div className="mb-3 flex items-center justify-between gap-3">
+                <h2 className="text-lg font-black text-white">{t.recentlyPlayed}</h2>
+                {recentGames.length > 0 ? (
+                  <span className="text-xs text-white/45">{recentGames.length} saved</span>
+                ) : null}
+              </div>
+              {recentGames.length > 0 ? (
+                <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+                  {recentGames.slice(0, 4).map((game) => (
+                    <Link
+                      className="group grid min-w-0 grid-cols-[4.5rem_minmax(0,1fr)] gap-3 rounded-lg border border-white/10 bg-white/5 p-2 transition hover:border-primary/60 hover:bg-white/10"
+                      key={game.id}
+                      params={{ gameId: game.id, locale: lang }}
+                      search={{}}
+                      to="/$locale/games/$gameId"
+                    >
+                      <ArcadeCover alt={game.name} className="aspect-square rounded-md" cover={game.cover} lang={lang} />
+                      <div className="min-w-0 self-center">
+                        <h3 className="line-clamp-2 text-sm font-semibold text-white">{game.name}</h3>
+                        <p className="mt-1 text-xs text-white/45">{layoutCopy.games}</p>
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              ) : (
+                <div className="rounded-lg border border-white/10 bg-white/5 p-3 text-sm text-white/55">
+                  {t.subtitle}
+                </div>
+              )}
+            </section>
+
             {topGames.length > 0 ? (
               <>
                 <div className="mb-3 flex items-center justify-between gap-3">
@@ -305,38 +313,7 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
             )}
           </section>
 
-          <section className="grid gap-5 border-t border-white/10 px-4 py-5 sm:px-6 lg:px-8 xl:grid-cols-[minmax(0,1fr)_minmax(22rem,0.9fr)]">
-            <HomeRail id="recent-games" title={t.recentlyPlayed}>
-              {recentGames.length > 0 ? (
-                recentGames.map((game) => (
-                  <Link
-                    className="group grid min-w-40 grid-cols-[4.5rem_minmax(0,1fr)] gap-3 rounded-lg border border-white/10 bg-white/5 p-2 transition hover:border-primary/60 hover:bg-white/10"
-                    key={game.id}
-                    params={{ gameId: game.id, locale: lang }}
-                    search={{}}
-                    to="/$locale/games/$gameId"
-                  >
-                    <ArcadeCover
-                      alt={game.name}
-                      className="aspect-square rounded-md"
-                      cover={game.cover}
-                      lang={lang}
-                    />
-                    <div className="min-w-0 self-center">
-                      <h3 className="line-clamp-2 text-sm font-semibold text-white">
-                        {game.name}
-                      </h3>
-                      <p className="mt-1 text-xs text-white/45">{layoutCopy.games}</p>
-                    </div>
-                  </Link>
-                ))
-              ) : (
-                <div className="rounded-lg border border-white/10 bg-white/5 p-4 text-sm text-white/55">
-                  {t.subtitle}
-                </div>
-              )}
-            </HomeRail>
-
+          <section className="grid gap-5 border-t border-white/10 px-4 py-5 sm:px-6 lg:px-8">
             <HomeRail title={t.newest}>
               {newGames.length > 0 ? (
                 newGames.map((game) => (
@@ -353,13 +330,11 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
           <section className="border-t border-white/10 px-4 py-5 sm:px-6 lg:px-8">
             <div className="mb-4 flex items-end justify-between gap-3">
               <h2 className="text-xl font-black text-white">{t.allPlatforms}</h2>
-              <button
-                className="btn btn-ghost btn-sm text-white/70"
-                onClick={() => onFilterChange('platform', '')}
-                type="button"
-              >
-                {t.reset}
-              </button>
+              {filters.platform ? (
+                <button className="btn btn-ghost btn-sm text-white/70" onClick={() => onFilterChange('platform', '')} type="button">
+                  {t.reset}
+                </button>
+              ) : null}
             </div>
             <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
               {platformCards.map((platform) => (
@@ -387,7 +362,7 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
             </div>
           </section>
 
-          <div className="bg-base-100 text-base-content">
+          <div className="home-content bg-neutral text-neutral-content">
             <HomeSeoContentSection lang={lang} />
             <HomeLatestBlogPostsSection blogPosts={latestBlogPosts} lang={lang} />
             <HomeFaqSection lang={lang} />
@@ -582,34 +557,6 @@ function SideNavAnchor({
       <i className={`${icon} text-lg`} />
       {label}
     </a>
-  )
-}
-
-function SideNavRoute({
-  icon,
-  label,
-  lang,
-  to,
-}: {
-  icon: string
-  label: string
-  lang: Locale
-  to:
-    | '/$locale/about'
-    | '/$locale/blog'
-    | '/$locale/live'
-    | '/$locale/play-my-rom'
-}) {
-  return (
-    <Link
-      className="flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-white/70 transition hover:bg-white/10 hover:text-white"
-      params={{ locale: lang }}
-      reloadDocument={to !== '/$locale/blog'}
-      to={to}
-    >
-      <i className={`${icon} text-lg`} />
-      {label}
-    </Link>
   )
 }
 
