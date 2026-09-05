@@ -315,7 +315,7 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
             )}
           </section>
 
-          <section className="grid gap-5 border-t border-white/10 px-4 py-5 sm:px-6 lg:px-8">
+          <section className="grid gap-5 border-t border-white/10 px-4 py-5 sm:px-6 lg:px-8 xl:grid-cols-[minmax(0,1.1fr)_minmax(18rem,0.9fr)]">
             <HomeRail title={t.newest}>
               {newGames.length > 0 ? (
                 newGames.map((game) => (
@@ -326,6 +326,27 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
                   {t.empty}
                 </div>
               )}
+            </HomeRail>
+
+            <HomeRail title={lang === 'zh-CN' ? '本周热门' : lang === 'ja' ? '今週の人気ゲーム' : 'Hot this week'}>
+              <div className="grid w-full gap-2">
+                {topGames.slice(0, 5).map((game, index) => (
+                  <Link
+                    className="group grid min-w-0 grid-cols-[1.5rem_3.25rem_minmax(0,1fr)] items-center gap-2 rounded-lg border border-white/10 bg-white/5 p-2 transition hover:border-primary/60 hover:bg-white/10"
+                    key={`weekly-${getGameRouteId(game)}`}
+                    params={{ gameId: getGameRouteId(game), locale: lang }}
+                    search={{}}
+                    title={`Play ${game.name} online`}
+                    to="/$locale/games/$gameId"
+                  >
+                    <span className={`text-center text-sm font-black ${index === 0 ? 'text-primary' : 'text-white/45'}`}>
+                      {index + 1}
+                    </span>
+                    <ArcadeCover alt={game.name ?? 'Game cover'} className="aspect-square rounded-md" cover={game.game_cover} lang={lang} />
+                    <span className="line-clamp-2 text-sm font-semibold text-white">{game.name}</span>
+                  </Link>
+                ))}
+              </div>
             </HomeRail>
           </section>
 
