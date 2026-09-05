@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { getKeywordItems, getPosterFileName } from '#/lib/game-poster'
+import { getKeywordItems, getPosterFileName } from '#/lib/game-share-text'
 
 describe('game poster helpers', () => {
   it('normalizes keywords from supported separators', () => {

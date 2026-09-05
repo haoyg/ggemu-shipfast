@@ -1,7 +1,7 @@
 import { Link } from '@tanstack/react-router'
 import { useServerFn } from '@tanstack/react-start'
 import type { FocusEvent, ReactNode } from 'react'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import {
   GameCardPreviewVideo,
@@ -16,6 +16,7 @@ import {
   getLocalizedPlatformLabel,
 } from '#/lib/i18n'
 import { getRetroCoverFallbackLabel } from '#/lib/locale-labels'
+import { prioritizeClassicGames } from '#/lib/home-game-priority'
 import { siteConfig } from '#/lib/site-config'
 
 import {
@@ -111,7 +112,6 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
     onFilterChange,
     onQueryChange,
     onSearch,
-    pages,
     pagination,
     t,
   } = props
@@ -119,8 +119,10 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
   const recentGames = useRecentPlayedGames()
   const platformChips = getPlatformChips(filterOptions.platforms, lang)
   const sidebarCategories = filterOptions.categories.slice(0, 6)
-  const topGames = games.slice(0, 12)
-  const newGames = latestGames.slice(0, 8)
+  const hasActiveFilters = Boolean(filters.query.trim() || filters.category || filters.platform)
+  const topGames = (hasActiveFilters ? games : prioritizeClassicGames(games)).slice(0, 12)
+  const newGames = prioritizeClassicGames(latestGames).slice(0, 8)
+  const recommendationLabel = lang === 'zh-CN' ? '经典游戏优先推荐' : lang === 'ja' ? 'クラシックゲームを優先表示' : 'Classic games first'
   const platformCards = platformChips.slice(0, 6)
   const activeCategoryLabel = filters.category
     ? getLocalizedCategoryLabel(filters.category, lang)
@@ -276,7 +278,7 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
                 <div className="mb-3 flex items-center justify-between gap-3">
                   <h2 className="text-xl font-black text-white">{t.popular}</h2>
                   <span className="text-xs font-medium text-white/45">
-                    {formatCopy(t.page, { page: 1, pages })}
+                    {hasActiveFilters ? '' : recommendationLabel}
                   </span>
                 </div>
                 <div
@@ -411,7 +413,6 @@ function HomeSearchSuggest({
   t: HomeTemplateProps['t']
 }) {
   const runSearch = useServerFn(searchGames)
-  const requestIdRef = useRef(0)
   const [suggestions, setSuggestions] = useState<Array<PublicGame>>([])
   const [isSuggesting, setIsSuggesting] = useState(false)
   const [isFocused, setIsFocused] = useState(false)
@@ -426,8 +427,7 @@ function HomeSearchSuggest({
       return
     }
 
-    const requestId = requestIdRef.current + 1
-    requestIdRef.current = requestId
+    let isCurrent = true
     setIsSuggesting(true)
 
     const timeoutId = window.setTimeout(() => {
@@ -441,23 +441,26 @@ function HomeSearchSuggest({
         },
       })
         .then((result) => {
-          if (requestIdRef.current === requestId) {
+          if (isCurrent) {
             setSuggestions(result.games)
           }
         })
         .catch(() => {
-          if (requestIdRef.current === requestId) {
+          if (isCurrent) {
             setSuggestions([])
           }
         })
         .finally(() => {
-          if (requestIdRef.current === requestId) {
+          if (isCurrent) {
             setIsSuggesting(false)
           }
         })
     }, 220)
 
-    return () => window.clearTimeout(timeoutId)
+    return () => {
+      isCurrent = false
+      window.clearTimeout(timeoutId)
+    }
   }, [lang, normalizedQuery, runSearch, shouldSuggest])
 
   function handleBlur(event: FocusEvent<HTMLDivElement>) {

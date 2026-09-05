@@ -2,10 +2,7 @@ import { useEffect, useId, useRef, useState } from 'react'
 
 import { AccessibleModal } from '#/components/accessible-modal'
 import type { PublicGame } from '#/lib/ggemu'
-import {
-  createPosterDataUrl,
-  getPosterFileName,
-} from '#/lib/game-poster'
+import { getPosterFileName } from '#/lib/game-share-text'
 import { getI18n } from '#/lib/i18n'
 
 export function GameShareActions({
@@ -62,9 +59,15 @@ export function GameShareActions({
   async function handleGeneratePoster() {
     closeDropdown()
     setIsGeneratingPoster(true)
+    setShareMessage('')
 
     try {
-      setPosterUrl(await createPosterDataUrl({ cta: labels.posterScanCta, game, url: canonicalUrl }))
+      const { createPosterDataUrl } = await import('#/lib/game-poster')
+      const url = await createPosterDataUrl({ cta: labels.posterScanCta, game, url: canonicalUrl })
+      if (!url) throw new Error('Poster unavailable')
+      setPosterUrl(url)
+    } catch {
+      setShareMessage(labels.posterFailed)
     } finally {
       setIsGeneratingPoster(false)
     }
@@ -95,18 +98,18 @@ export function GameShareActions({
   }
 
   async function copyShareLink(url: string) {
-    await navigator.clipboard?.writeText(url).catch(() => undefined)
-    setShareMessage(labels.shareUnavailableCopied)
+    const copied = await copyText(url)
+    setShareMessage(copied ? labels.shareUnavailableCopied : labels.copyFailed)
   }
 
   async function handleCopyEmbedCode() {
     closeDropdown()
-    await navigator.clipboard?.writeText(buildEmbedCode({
+    const copied = await copyText(buildEmbedCode({
       canonicalUrl,
       embedUrl,
       title,
-    })).catch(() => undefined)
-    setShareMessage(labels.embedCodeCopied)
+    }))
+    setShareMessage(copied ? labels.embedCodeCopied : labels.copyFailed)
   }
 
   return (
@@ -195,8 +198,8 @@ export function GameEmbedCard({
   }, [message])
 
   async function handleCopyEmbedCode() {
-    await navigator.clipboard?.writeText(embedCode).catch(() => undefined)
-    setMessage(labels.embedCodeCopied)
+    const copied = await copyText(embedCode)
+    setMessage(copied ? labels.embedCodeCopied : labels.copyFailed)
   }
 
   return (
@@ -323,4 +326,14 @@ function PosterModal({
       </div>
     </AccessibleModal>
   )
+}
+
+async function copyText(text: string) {
+  try {
+    if (!navigator.clipboard?.writeText) return false
+    await navigator.clipboard.writeText(text)
+    return true
+  } catch {
+    return false
+  }
 }

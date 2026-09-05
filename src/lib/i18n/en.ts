@@ -104,6 +104,8 @@ export const enMessages = {
       'Desktop Chrome or Edge: use the install icon in the address bar, or open the browser menu and choose Install app.',
     installGuideClose: 'Got it',
     share: 'Share',
+    copyFailed: 'Copy failed. Please copy the page URL or select the embed code manually.',
+    posterFailed: 'Could not generate the poster. Please try again.',
     generatePoster: 'Generate Poster',
     systemShare: 'System Share',
     copyEmbedCode: 'Copy Embed Code',

@@ -1,8 +1,9 @@
+import { LatestRequestGuard } from '#/lib/latest-request-guard'
 import { trackEvent } from '#/lib/analytics'
 import { Link } from '@tanstack/react-router'
 import { useServerFn } from '@tanstack/react-start'
 import type { FormEvent } from 'react'
-import { useId, useRef, useState } from 'react'
+import { useEffect, useId, useRef, useState } from 'react'
 
 import {
   GameCardPreviewVideo,
@@ -32,6 +33,7 @@ export function HomeSearchOverlay({
   t: HomeCopy
 }) {
   const runSearch = useServerFn(searchGames)
+  const [requestGuard] = useState(() => new LatestRequestGuard())
   const titleId = useId()
   const panelRef = useRef<HTMLElement>(null)
   const searchInputRef = useRef<HTMLInputElement>(null)
@@ -47,6 +49,21 @@ export function HomeSearchOverlay({
   const searchGamesList = result?.games ?? []
   const searchPlaceholder = getSearchPlaceholder(t, gameTotal)
 
+  useEffect(() => {
+    requestGuard.invalidate()
+    setResult(null)
+    setIsSearching(false)
+    setHasSearchError(false)
+    return () => requestGuard.invalidate()
+  }, [isOpen, lang, requestGuard])
+
+  function invalidateSearch() {
+    requestGuard.invalidate()
+    setResult(null)
+    setIsSearching(false)
+    setHasSearchError(false)
+  }
+
   useModalAccessibility({
     containerRef: panelRef,
     initialFocusRef: searchInputRef,
@@ -55,6 +72,8 @@ export function HomeSearchOverlay({
   })
 
   async function searchOverlayGames(nextFilters: Filters) {
+    if (!isOpen) return
+    const request = requestGuard.begin()
     trackEvent('game_search', { source: 'overlay', has_query: Number(Boolean(nextFilters.query.trim())) })
     setIsSearching(true)
     setHasSearchError(false)
@@ -72,14 +91,16 @@ export function HomeSearchOverlay({
         },
       })
 
+      if (!requestGuard.isLatest(request)) return
       setResult(nextResult)
       trackEvent('game_search_results', { source: 'overlay', result_count: nextResult.pagination.total })
       if (nextResult.pagination.total === 0) trackEvent('game_search_empty', { source: 'overlay' })
     } catch {
+      if (!requestGuard.isLatest(request)) return
       setHasSearchError(true)
       trackEvent('game_search_error', { source: 'overlay' })
     } finally {
-      setIsSearching(false)
+      if (requestGuard.isLatest(request)) setIsSearching(false)
     }
   }
 
@@ -89,6 +110,7 @@ export function HomeSearchOverlay({
   }
 
   function updateFilter<Key extends keyof Filters>(key: Key, value: Filters[Key]) {
+    invalidateSearch()
     setFilters((current) => ({
       ...current,
       [key]: value,
@@ -96,6 +118,7 @@ export function HomeSearchOverlay({
   }
 
   function resetSearch() {
+    invalidateSearch()
     setFilters({
       query: '',
       platform: '',
@@ -148,7 +171,7 @@ export function HomeSearchOverlay({
           <FilterSelects
             filterOptions={filterOptions}
             filters={filters}
-            isLoading={isSearching}
+            isLoading={false}
             lang={lang}
             onFilterChange={updateFilter}
             onReset={resetSearch}

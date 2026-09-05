@@ -1,3 +1,4 @@
+import { prioritizeClassicGames } from '#/lib/home-game-priority'
 import { trackEvent } from '#/lib/analytics'
 import {
   Link,
@@ -49,6 +50,7 @@ import {
 import { getLocalizedSeoLinks, getSeoOrigin } from '#/lib/seo'
 
 const DEFAULT_HOME_REQUEST_SIZE = 24
+const DEFAULT_HOME_RECOMMENDATION_POOL_SIZE = 100
 const homeFallbackItems = Array.from({ length: 8 }, (_, index) => index)
 
 const FeaturesHomeTemplate = lazyHomeTemplate(
@@ -243,7 +245,7 @@ export const Route = createFileRoute('/$locale')({
       searchGames({
         data: {
           query: '',
-          limit: getHomeRequestLimit(template),
+          limit: template === 'default' ? DEFAULT_HOME_RECOMMENDATION_POOL_SIZE : getHomeRequestLimit(template),
           locale,
           page: 1,
           sort: getHomeSort(template),
@@ -252,7 +254,7 @@ export const Route = createFileRoute('/$locale')({
       searchGames({
         data: {
           query: '',
-          limit: 8,
+          limit: template === 'default' ? DEFAULT_HOME_RECOMMENDATION_POOL_SIZE : 8,
           locale,
           page: 1,
           sort: 'newest',
@@ -264,10 +266,11 @@ export const Route = createFileRoute('/$locale')({
 
     return {
       ...result,
+      games: template === 'default' ? prioritizeClassicGames(result.games).slice(0, 12) : result.games,
       filterOptions,
       layoutSeed: getPokiDailyLayoutSeed(),
       latestBlogPosts,
-      latestGames: latestGamesResult.games,
+      latestGames: template === 'default' ? prioritizeClassicGames(latestGamesResult.games).slice(0, 8) : latestGamesResult.games,
       seoOrigin,
     }
   },
@@ -451,7 +454,9 @@ function LocalizedHomePage() {
       const nextResult = await runSearch({
         data: {
           query: nextFilters.query,
-          limit: getHomeRequestLimit(currentTemplate),
+          limit: currentTemplate === 'default' && !nextFilters.query.trim() && !nextFilters.platform && !nextFilters.category
+            ? DEFAULT_HOME_RECOMMENDATION_POOL_SIZE
+            : getHomeRequestLimit(currentTemplate),
           locale: lang,
           page: nextPage,
           platform: nextFilters.platform,

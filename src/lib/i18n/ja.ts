@@ -103,6 +103,8 @@ export const jaMessages = {
       'デスクトップ版 Chrome または Edge: アドレスバーのインストールアイコン、またはブラウザーメニューから「アプリをインストール」を選びます。',
     installGuideClose: '閉じる',
     share: '共有',
+    copyFailed: 'コピーできませんでした。ページの URL または埋め込みコードを手動でコピーしてください。',
+    posterFailed: 'ポスターを生成できませんでした。もう一度お試しください。',
     generatePoster: 'ポスターを生成',
     systemShare: 'システム共有',
     copyEmbedCode: '埋め込みコードをコピー',

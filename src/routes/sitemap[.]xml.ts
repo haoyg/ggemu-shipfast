@@ -1,12 +1,15 @@
 import { createFileRoute } from '@tanstack/react-router'
 
 import type { BlogPost, Locale, PublicGame } from '#/lib/ggemu'
+import { TimedAsyncCache } from '#/lib/timed-async-cache'
 import { defaultSeoLocale } from '#/lib/seo'
 
 const GGEMU_API_BASE_URL = 'https://ggemu.com'
 const SITEMAP_PAGE_SIZE = 100
 const SITEMAP_MAX_PAGES = 50
 const SITEMAP_CACHE_TTL_MS = 1000 * 60 * 60 * 24
+const SITEMAP_RETRY_TTL_MS = 60_000
+const SITEMAP_SNAPSHOT_TTL_MS = 7 * SITEMAP_CACHE_TTL_MS
 const SITEMAP_FETCH_CONCURRENCY = 6
 const SITEMAP_REQUEST_TIMEOUT_MS = 5_000
 const locales = ['zh-CN', 'en', 'ja'] as const satisfies ReadonlyArray<Locale>
@@ -21,11 +24,8 @@ const englishCollectionPaths = [
   '/snes-games',
 ] as const
 
-let sitemapCache: {
-  createdAt: number
-  expiresAt: number
-  xml: string
-} | null = null
+type SitemapSnapshot = { xml: string | null; createdAt: number; degraded: boolean }
+const sitemapCache = new TimedAsyncCache(4)
 
 type SitemapEntry = {
   alternateLocales?: ReadonlyArray<Locale>
@@ -56,48 +56,111 @@ type BlogPostSearchResponse = {
 export const Route = createFileRoute('/sitemap.xml')({
   server: {
     handlers: {
-      GET: async ({ request }) => {
-        const origin = new URL(request.url).origin
-        const xml = await getSitemapXml(origin)
-
-        return new Response(xml, {
-          headers: {
-            'Cache-Control': 'public, max-age=3600, s-maxage=86400',
-            'Content-Type': 'application/xml; charset=utf-8',
-          },
-        })
-      },
+      GET: ({ request }) => getSitemapResponse(request),
     },
   },
 })
 
-async function getSitemapXml(origin: string) {
-  if (sitemapCache && sitemapCache.expiresAt > Date.now()) {
-    return sitemapCache.xml
+export async function getSitemapResponse(request: Request) {
+  const url = new URL(request.url)
+  const origin = ['pokopie.com', 'www.pokopie.com'].includes(url.hostname)
+    ? 'https://pokopie.com'
+    : url.origin
+  const snapshot = await getSitemapSnapshot(origin)
+
+  if (!snapshot.xml) {
+    return new Response('Sitemap temporarily unavailable. Please retry later.', {
+      status: 503,
+      headers: { 'Cache-Control': 'no-store', 'Retry-After': '60' },
+    })
   }
 
-  const [gamesResult, blogPostsResult] = await Promise.allSettled([
-    fetchSitemapGames(),
-    fetchSitemapBlogPosts(),
-  ])
-  const games = gamesResult.status === 'fulfilled' ? gamesResult.value : []
-  const blogPosts =
-    blogPostsResult.status === 'fulfilled' ? blogPostsResult.value : []
+  return new Response(snapshot.xml, {
+    headers: {
+      'Cache-Control': snapshot.degraded
+        ? 'public, max-age=60, s-maxage=60'
+        : 'public, max-age=3600, s-maxage=86400',
+      'Content-Type': 'application/xml; charset=utf-8',
+    },
+  })
+}
 
-  if ((games.length === 0 || blogPosts.length === 0) && sitemapCache) {
-    return sitemapCache.xml
+async function getSitemapSnapshot(origin: string): Promise<SitemapSnapshot> {
+  const cached = sitemapCache.get<SitemapSnapshot>(origin)
+  if (cached && cached.expiresAt > Date.now()) return cached.value
+
+  return sitemapCache.run(origin, async () => {
+    const previous = cached?.value.xml ? cached.value : await readSnapshot(origin)
+    if (previous && previous.createdAt + SITEMAP_CACHE_TTL_MS > Date.now() && !previous.degraded) {
+      rememberSnapshot(origin, previous)
+      return previous
+    }
+
+    try {
+      const [games, blogPosts] = await Promise.all([
+        fetchSitemapGames(), fetchSitemapBlogPosts(),
+      ])
+      // An empty game catalog is suspicious; never replace a known good sitemap.
+      if (!games.length) throw new Error('Empty game catalog')
+      const snapshot = {
+        xml: buildSitemapXml(buildSitemapEntries(origin, games, blogPosts)),
+        createdAt: Date.now(),
+        degraded: false,
+      }
+      rememberSnapshot(origin, snapshot)
+      await writeSnapshot(origin, snapshot)
+      return snapshot
+    } catch {
+      const snapshot = previous && previous.createdAt + SITEMAP_SNAPSHOT_TTL_MS > Date.now()
+        ? { ...previous, degraded: true }
+        : { xml: null, createdAt: Date.now(), degraded: true }
+      rememberSnapshot(origin, snapshot)
+      return snapshot
+    }
+  })
+}
+
+function rememberSnapshot(origin: string, snapshot: SitemapSnapshot) {
+  sitemapCache.set(origin, {
+    value: snapshot,
+    expiresAt: snapshot.degraded ? Date.now() + SITEMAP_RETRY_TTL_MS : snapshot.createdAt + SITEMAP_CACHE_TTL_MS,
+    staleUntil: snapshot.xml ? snapshot.createdAt + SITEMAP_SNAPSHOT_TTL_MS : Date.now() + SITEMAP_RETRY_TTL_MS,
+  })
+}
+
+function getSnapshotStore() {
+  return (globalThis.caches as (CacheStorage & { default?: Cache }) | undefined)?.default
+}
+
+function snapshotKey(origin: string) {
+  return `${origin}/__cache/sitemap-last-success-v1`
+}
+
+async function readSnapshot(origin: string): Promise<SitemapSnapshot | undefined> {
+  try {
+    const response = await getSnapshotStore()?.match(snapshotKey(origin))
+    if (!response) return
+    const createdAt = Number(response.headers.get('X-Sitemap-Created-At'))
+    if (!createdAt || createdAt + SITEMAP_SNAPSHOT_TTL_MS <= Date.now()) return
+    return { xml: await response.text(), createdAt, degraded: false }
+  } catch {
+    // Edge cache eviction or unavailability must not prevent an upstream refresh.
+    return undefined
   }
+}
 
-  const entries = buildSitemapEntries(origin, games, blogPosts)
-  const xml = buildSitemapXml(entries)
-
-  sitemapCache = {
-    createdAt: Date.now(),
-    expiresAt: Date.now() + SITEMAP_CACHE_TTL_MS,
-    xml,
+async function writeSnapshot(origin: string, snapshot: SitemapSnapshot) {
+  try {
+    await getSnapshotStore()?.put(snapshotKey(origin), new Response(snapshot.xml, {
+      headers: {
+        'Cache-Control': 'public, max-age=604800',
+        'Content-Type': 'application/xml',
+        'X-Sitemap-Created-At': String(snapshot.createdAt),
+      },
+    }))
+  } catch {
+    // Keep the successful in-memory result even if the edge cache cannot store it.
   }
-
-  return xml
 }
 
 async function fetchSitemapGames() {
@@ -120,15 +183,11 @@ async function fetchGamesPage(page: number) {
     sort: 'newest',
   })
 
-  const response = await fetchSitemapJson(
+  const result = await fetchSitemapJson<GameSearchResponse>(
     `${GGEMU_API_BASE_URL}/api/games/search?${params}`,
   )
-
-  if (!response.ok) {
-    throw new Error(`GGEMU sitemap request failed with ${response.status}`)
-  }
-
-  return response.json() as Promise<GameSearchResponse>
+  validateSitemapPage(result, result.data)
+  return result
 }
 
 async function fetchSitemapBlogPosts() {
@@ -181,33 +240,39 @@ async function fetchBlogPostsPage(page: number) {
     page: String(page),
   })
 
-  const response = await fetchSitemapJson(
+  const result = await fetchSitemapJson<BlogPostSearchResponse>(
     `${GGEMU_API_BASE_URL}/api/blog-posts?${params}`,
   )
-
-  if (!response.ok) {
-    throw new Error(`GGEMU blog sitemap request failed with ${response.status}`)
-  }
-
-  return response.json() as Promise<BlogPostSearchResponse>
+  validateSitemapPage(result, result.blogPosts)
+  return result
 }
 
-async function fetchSitemapJson(url: string) {
+async function fetchSitemapJson<T>(url: string): Promise<T> {
   const controller = new AbortController()
   const timeoutId = setTimeout(() => {
     controller.abort()
   }, SITEMAP_REQUEST_TIMEOUT_MS)
 
   try {
-    return await fetch(url, {
+    const response = await fetch(url, {
       headers: {
         Accept: 'application/json',
       },
       signal: controller.signal,
     })
+    if (!response.ok) throw new Error(`GGEMU sitemap request failed with ${response.status}`)
+    return await response.json() as T
   } finally {
     clearTimeout(timeoutId)
   }
+}
+
+function validateSitemapPage(result: { success: boolean; pagination?: { pages: number } }, items: unknown) {
+  const pages = result.pagination?.pages
+  if (!result.success || !Array.isArray(items) || !Number.isInteger(pages) || pages! < 0 || pages! > SITEMAP_MAX_PAGES) {
+    throw new Error('Invalid or oversized sitemap page')
+  }
+  if (pages! > 0 && items.length === 0) throw new Error('Unexpected empty sitemap page')
 }
 
 function dedupeGames(games: Array<PublicGame>) {

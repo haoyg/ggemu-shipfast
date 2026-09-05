@@ -102,6 +102,8 @@ export const zhCnMessages = {
       '桌面版 Chrome 或 Edge：点击地址栏里的安装图标，或打开浏览器菜单后选择“安装应用”。',
     installGuideClose: '知道了',
     share: '分享',
+    copyFailed: '复制失败，请手动复制页面地址或选取下方嵌入代码。',
+    posterFailed: '海报生成失败，请重试。',
     generatePoster: '生成海报',
     systemShare: '系统分享',
     copyEmbedCode: '复制嵌入代码',

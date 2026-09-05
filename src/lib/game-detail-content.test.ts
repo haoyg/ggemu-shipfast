@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import {
+  getBrowserPlayGuide,
   getGameDescriptionParagraphs,
   getGameHowToPlayParagraphs,
   getGameSidebarContent,
@@ -42,5 +43,14 @@ describe('game detail visible content', () => {
     expect(content.background).toContain('Contra')
     expect(content.tips).toHaveLength(3)
     expect(content.tips.join(' ')).toContain('multiplayer')
+    expect(content.tips.join(' ')).toContain('original game data')
+    expect(content.tips.join(' ')).toContain('If the player offers')
+  })
+
+  it.each(['en', 'zh-CN', 'ja'] as const)('provides localized browser guidance for %s', (locale) => {
+    const guide = getBrowserPlayGuide(locale)
+    expect(guide.title).toBeTruthy()
+    expect(guide.paragraphs).toHaveLength(3)
+    expect(guide.paragraphs.every((paragraph) => paragraph.length > 30)).toBe(true)
   })
 })

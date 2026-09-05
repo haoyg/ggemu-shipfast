@@ -1,3 +1,4 @@
+import { getKeywordItems } from '#/lib/game-share-text'
 import type { PublicGame } from '#/lib/ggemu'
 
 export async function createPosterDataUrl({
@@ -27,22 +28,6 @@ export async function createPosterDataUrl({
   drawPosterCta(context, cta)
 
   return canvas.toDataURL('image/png')
-}
-
-export function getKeywordItems(value?: string) {
-  return (
-    value
-      ?.split(/[,，、;；|/]+/)
-      .map((keyword) => keyword.trim())
-      .filter(Boolean) ?? []
-  )
-}
-
-export function getPosterFileName(title: string) {
-  return title
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/^-|-$/g, '') || 'game-poster'
 }
 
 function drawPosterBackground(context: CanvasRenderingContext2D) {
@@ -80,7 +65,7 @@ async function drawPosterCover(context: CanvasRenderingContext2D, game: PublicGa
   context.clip()
 
   if (coverUrl) {
-    const cover = await loadImage(coverUrl).catch(() => null)
+    const cover = await loadPosterImage(coverUrl).catch(() => null)
 
     if (cover) {
       drawCoverImage(context, cover, 32, 32, 656, 492)
@@ -152,7 +137,7 @@ async function drawPosterQr(context: CanvasRenderingContext2D, url: string) {
     type: 'image/png',
     width: 260,
   })
-  const qr = await loadImage(qrDataUrl)
+  const qr = await loadPosterImage(qrDataUrl)
 
   context.drawImage(qr, 246, 742, 228, 228)
 }
@@ -300,12 +285,30 @@ function roundedRect(
   context.closePath()
 }
 
-function loadImage(src: string) {
+export function loadPosterImage(src: string) {
   return new Promise<HTMLImageElement>((resolve, reject) => {
     const image = new Image()
 
-    image.onload = () => resolve(image)
-    image.onerror = reject
+    const timeout = setTimeout(() => {
+      cleanup()
+      image.src = ''
+      reject(new Error('Poster image loading timed out'))
+    }, 10_000)
+
+    function cleanup() {
+      clearTimeout(timeout)
+      image.onload = null
+      image.onerror = null
+    }
+
+    image.onload = () => {
+      cleanup()
+      resolve(image)
+    }
+    image.onerror = () => {
+      cleanup()
+      reject(new Error('Poster image could not be loaded'))
+    }
     image.src = src
   })
 }

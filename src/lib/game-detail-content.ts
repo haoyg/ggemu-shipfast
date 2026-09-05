@@ -30,6 +30,37 @@ export function getGameHowToPlayParagraphs(game: PublicGame, locale: Locale) {
   return groupSentences(guide)
 }
 
+export function getBrowserPlayGuide(locale: Locale) {
+  if (locale === 'zh-CN') {
+    return {
+      title: '浏览器操作与故障排查',
+      paragraphs: [
+        '键盘没有反应时，先点击游戏画面再操作，并在播放器的控制设置中查看实际按键。页面滚动不代表游戏已经收到方向键输入。',
+        '手机上先查看播放器是否提供触屏按钮；画面或按钮太小时可以尝试横屏或全屏。连接手柄后，在游戏画面内按一个按钮，并检查播放器是否识别到设备。',
+        '黑屏或一直加载时，先等待片刻。详情页内的播放器或独立播放页提供“重新加载播放器”和返回游戏目录的入口。重载会重新启动播放器，未保存的进度可能丢失；没有存档选项时，不要依赖刷新来保存进度。',
+      ],
+    }
+  }
+  if (locale === 'ja') {
+    return {
+      title: 'ブラウザーでの操作とトラブル対処',
+      paragraphs: [
+        'キーが反応しない場合はゲーム画面をクリックし、プレーヤーの操作設定でキー割り当てを確認してください。矢印キーでページがスクロールする場合、ゲームに入力が届いていない可能性があります。',
+        'スマートフォンではタッチ操作ボタンの有無を確認してください。表示が小さい場合は横向きや全画面表示を試せます。ゲームパッドを接続したらゲーム画面でボタンを押し、認識されているか確認してください。',
+        '黒い画面や読み込みが続く場合は少し待ってください。埋め込みプレーヤーやプレイページには再読み込みとゲーム一覧へのリンクがあります。再読み込みすると未保存の進行状況が失われる場合があります。セーブ機能がなければ、再読み込みで保存されるとは考えないでください。',
+      ],
+    }
+  }
+  return {
+    title: 'Browser controls and troubleshooting',
+    paragraphs: [
+      'If the keyboard does not respond, click the game screen first and check the actual key mappings in the player controls. Arrow keys scrolling the page can mean the game does not have input focus.',
+      'On a phone, check whether the player provides touch buttons. Try landscape or fullscreen if the controls are too small. After connecting a gamepad, press a button with the game focused and check whether the player recognizes it.',
+      'For a black screen or a stalled load, wait briefly before using Reload player or Browse games in the embedded player or play page. Reloading restarts the player and may lose unsaved progress. If no save option is available, do not rely on refreshing to preserve progress.',
+    ],
+  }
+}
+
 export function getGameSidebarContent(game: PublicGame, locale: Locale) {
   const name = game.name?.trim() || getFallbackName(locale)
   const playerTip = getPlayerTip(name, game.players, locale)
@@ -42,7 +73,7 @@ export function getGameSidebarContent(game: PublicGame, locale: Locale) {
       tips: [
         `开始 ${name} 前，先查看模拟器中的按键映射，并按自己的键盘或手柄习惯调整操作。`,
         playerTip,
-        '长时间游玩时可使用模拟器菜单保存进度；进入全屏模式前，建议先确认退出全屏的快捷键。',
+        '如果播放器提供存档或导出功能，先尝试保存并恢复一次；不要假定关闭标签页后进度仍会保留。',
       ],
     }
   }
@@ -55,7 +86,7 @@ export function getGameSidebarContent(game: PublicGame, locale: Locale) {
       tips: [
         `${name} を始める前に、エミュレーターのキー設定を確認し、キーボードやゲームパッドに合わせて調整してください。`,
         playerTip,
-        '長く遊ぶ場合はエミュレーターメニューで進行状況を保存し、全画面表示を使う前に終了キーを確認してください。',
+        'プレーヤーにセーブやエクスポート機能がある場合は、保存と読み込みを一度試してください。タブを閉じても進行状況が残るとは限りません。',
       ],
     }
   }
@@ -67,7 +98,7 @@ export function getGameSidebarContent(game: PublicGame, locale: Locale) {
     tips: [
       `Before starting ${name}, review the emulator controls and adjust the key mapping for your keyboard or controller.`,
       playerTip,
-      'For longer sessions, use the emulator menu to save your progress and check the exit shortcut before entering fullscreen mode.',
+      'If the player offers save or export controls, test saving and restoring first. Do not assume progress survives closing the tab.',
     ],
   }
 }
@@ -119,14 +150,14 @@ function getBrowserPlayText(game: PublicGame, locale: Locale) {
 function getPlayerTip(name: string, players: number | undefined, locale: Locale) {
   if ((players ?? 1) > 1) {
     if (locale === 'zh-CN') {
-      return `${name} 支持多人游玩；开始前请确认每位玩家的控制器和按键没有冲突。`
+      return `${name} 的原作资料标注为 ${players} 人游戏；浏览器版本能否多人游玩、是否轮流操作，以播放器实际提供的选项为准。`
     }
 
     if (locale === 'ja') {
-      return `${name} は複数人プレイに対応しています。開始前に各プレイヤーのコントローラーとキー設定が重複していないか確認してください。`
+      return `${name} の元の作品は ${players} 人用と記載されています。ブラウザー版の複数人プレイや交代プレイは、プレーヤーの対応状況を確認してください。`
     }
 
-    return `${name} supports multiplayer, so confirm that each player's controller and key mapping do not conflict before starting.`
+    return `${name} lists ${players} players in its original game data. Check whether this browser player offers multiplayer and whether play is simultaneous or turn-based.`
   }
 
   if (locale === 'zh-CN') {

@@ -72,6 +72,8 @@ export type I18nMessages = {
     installGuideDesktop: string
     installGuideClose: string
     share: string
+    copyFailed: string
+    posterFailed: string
     generatePoster: string
     systemShare: string
     copyEmbedCode: string

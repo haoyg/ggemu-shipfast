@@ -1,4 +1,5 @@
 import { trackEvent } from '#/lib/analytics'
+import { getBrowserPlayGuide } from '#/lib/game-detail-content'
 import {
   Link,
   Outlet,
@@ -28,7 +29,7 @@ import {
 } from '#/lib/ggemu'
 import {
   getKeywordItems,
-} from '#/lib/game-poster'
+} from '#/lib/game-share-text'
 import {
   buildGameDetailSeo,
   getGameDetailFaqs,
@@ -422,6 +423,7 @@ function LocalizedGameDetailPage() {
   const keywordText = getGameDetailKeywordText(game, lang)
   const descriptionParagraphs = getGameDescriptionParagraphs(game, lang)
   const howToPlayParagraphs = getGameHowToPlayParagraphs(game, lang)
+  const browserGuide = getBrowserPlayGuide(lang)
   const sidebarContent = getGameSidebarContent(game, lang)
   const playPath = buildGamePlayPath(lang, gameId)
   const embedUrl = buildGameEmbedUrl(canonicalUrl, lang, gameId)
@@ -562,6 +564,7 @@ function LocalizedGameDetailPage() {
             <div className="flex flex-col gap-6">
               <KeywordPanel title={t.keywords} value={keywordText} />
               <ArticlePanel paragraphs={howToPlayParagraphs} title={t.howToPlay} />
+              <ArticlePanel paragraphs={browserGuide.paragraphs} title={browserGuide.title} />
               <SeoInternalLinkSection lang={lang} links={seoInternalLinks} />
               <FaqSection items={faqItems} title={t.faq} />
               <RelatedGameSection
