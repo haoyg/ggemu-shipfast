@@ -20,7 +20,8 @@ describe('GamePlayerFrame', () => {
     expect(screen.getByTitle('Test game')).not.toBe(original)
     fireEvent.load(screen.getByTitle('Test game'))
     act(() => vi.advanceTimersByTime(20_000))
-    expect(screen.getByRole('status').textContent).toBe('')
+    expect(screen.getByRole('status').textContent).toContain('Game player loaded')
+    expect(screen.getByText('When Play Now appears: 1. Select Play Now. 2. Select Start inside the game player.')).not.toBeNull()
     expect(vi.mocked(trackEvent).mock.calls.filter(([name]) => name === 'player_load_timeout')).toHaveLength(1)
     expect(trackEvent).toHaveBeenCalledWith('player_frame_loaded', { game_id: 'test' })
   })
@@ -33,6 +34,12 @@ describe('GamePlayerFrame', () => {
     expect(screen.getByText('浏览其他游戏').getAttribute('href')).toBe('/zh-CN')
     fireEvent.load(screen.getByTitle('Test game'))
     expect(screen.getByText('重新加载播放器')).not.toBeNull()
+    expect(screen.getByText('出现“立即游玩”后：1. 选择“立即游玩”。2. 在游戏内选择“开始”。')).not.toBeNull()
+  })
+
+  it('allows the embedded player to request screen wake lock', () => {
+    render(<GamePlayerFrame {...props} allow="autoplay; gamepad" />)
+    expect(screen.getByTitle('Test game').getAttribute('allow')).toContain('screen-wake-lock')
   })
 
   it('does not start loading or the timeout before a lazy player becomes visible', () => {

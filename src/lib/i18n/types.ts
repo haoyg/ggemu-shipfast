@@ -62,6 +62,8 @@ export type I18nMessages = {
   detail: {
     home: string
     play: string
+    playPage: string
+    playPageHint: string
     install: string
     installUnavailable: string
     installDismissed: string

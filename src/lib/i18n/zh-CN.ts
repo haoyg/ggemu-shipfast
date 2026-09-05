@@ -87,6 +87,8 @@ export const zhCnMessages = {
   detail: {
     home: '游戏库',
     play: '开始游戏',
+    playPage: '在新标签页中游玩',
+    playPageHint: '游戏将在新的浏览器标签页中打开。',
     install: '下载',
     installUnavailable:
       '安装功能正在准备中。如果浏览器没有弹出安装提示，请刷新本页后重试。',

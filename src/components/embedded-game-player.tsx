@@ -5,6 +5,12 @@ import { buildGameEmbedSrc } from '#/lib/game-embed'
 import { siteConfig } from '#/lib/site-config'
 import { useCurrentSiteTheme } from '#/lib/use-site-theme'
 
+const playPageCopy = {
+  en: 'Open game page',
+  'zh-CN': '在独立页面游玩',
+  ja: '別ページでプレイ',
+}
+
 export function EmbeddedGamePlayer({
   description,
   game,
@@ -21,6 +27,7 @@ export function EmbeddedGamePlayer({
   playPath: string
 }) {
   const theme = useCurrentSiteTheme()
+  const playPageLabel = playPageCopy[locale as keyof typeof playPageCopy] ?? playPageCopy.en
   const embedSrc = buildGameEmbedSrc({
     embedId: game._id || game.url_slug || gameId,
     isPsp: false,
@@ -46,12 +53,12 @@ export function EmbeddedGamePlayer({
         <a
           className="btn btn-sm border-white/20 bg-white/10 text-white hover:bg-white/20"
           href={playPath}
-          onClick={() => trackEvent('game_play_click', { game_id: gameId, source: 'fullscreen' })}
+          onClick={() => trackEvent('game_play_click', { game_id: gameId, source: 'play_page' })}
           rel="noopener noreferrer"
           target="_blank"
         >
-          <i aria-hidden="true" className="ri-fullscreen-line" />
-          Open Fullscreen
+          <i aria-hidden="true" className="ri-external-link-line" />
+          {playPageLabel}
         </a>
       </div>
       <div className="aspect-video min-h-96 w-full min-w-0 bg-black">

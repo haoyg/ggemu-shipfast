@@ -511,19 +511,26 @@ function LocalizedGameDetailPage() {
               </div>
 
               <div className="grid gap-3 sm:flex sm:flex-row">
-                <a
-                  className="btn btn-primary btn-lg px-8 text-primary-content hover:text-primary-content sm:w-auto"
-                  href={targetedSeo ? '#play-online' : playPath}
-                  onClick={() => {
-                    saveRecentPlayedGame(game, gameId)
-                    trackEvent('game_play_click', { game_id: gameId, source: 'detail' })
-                  }}
-                  rel={targetedSeo ? undefined : 'noopener noreferrer'}
-                  target={targetedSeo ? undefined : '_blank'}
-                >
-                  <i className="ri-play-fill text-xl" />
-                  {t.play}
-                </a>
+                <div className="grid gap-1 sm:w-auto">
+                  <a
+                    className="btn btn-primary btn-lg px-8 text-primary-content hover:text-primary-content sm:w-auto"
+                    href={targetedSeo ? '#play-online' : playPath}
+                    onClick={() => {
+                      saveRecentPlayedGame(game, gameId)
+                      trackEvent('game_play_click', { game_id: gameId, source: 'detail' })
+                    }}
+                    rel={targetedSeo ? undefined : 'noopener noreferrer'}
+                    target={targetedSeo ? undefined : '_blank'}
+                  >
+                    <i className={targetedSeo ? 'ri-play-fill text-xl' : 'ri-external-link-line'} />
+                    {targetedSeo ? t.play : t.playPage}
+                  </a>
+                  {!targetedSeo ? (
+                    <p className="text-center text-xs text-base-content/65 sm:text-left">
+                      {t.playPageHint}
+                    </p>
+                  ) : null}
+                </div>
                 <div className="grid grid-cols-2 gap-3 sm:contents">
                   <GameInstallButton labels={t} manifestHref={manifestHref} />
                   <GameShareActions

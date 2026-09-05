@@ -89,6 +89,8 @@ export const enMessages = {
   detail: {
     home: 'Games',
     play: 'Play Now',
+    playPage: 'Play in new tab',
+    playPageHint: 'Opens the game player in a new browser tab.',
     install: 'Download',
     installUnavailable:
       'Install is getting ready. Refresh this page and try again if the browser does not show the prompt.',

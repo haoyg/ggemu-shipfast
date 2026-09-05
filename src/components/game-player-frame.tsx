@@ -2,9 +2,30 @@ import { useEffect, useRef, useState } from 'react'
 import { trackEvent } from '#/lib/analytics'
 
 const copy = {
-  en: { loading: 'Loading player…', slow: 'The player is taking longer than expected. You can keep waiting or retry.', retry: 'Reload player', browse: 'Browse games' },
-  'zh-CN': { loading: '正在加载播放器……', slow: '播放器加载时间较长，你可以继续等待或重试。', retry: '重新加载播放器', browse: '浏览其他游戏' },
-  ja: { loading: 'プレーヤーを読み込み中…', slow: '読み込みに時間がかかっています。そのまま待つか、再試行してください。', retry: '再読み込み', browse: 'ゲームを探す' },
+  en: {
+    loading: 'Loading game player…',
+    ready: 'Game player loaded.',
+    guide: 'When Play Now appears: 1. Select Play Now. 2. Select Start inside the game player.',
+    slow: 'The player is taking longer than expected. You can keep waiting or retry.',
+    retry: 'Reload player',
+    browse: 'Browse games',
+  },
+  'zh-CN': {
+    loading: '正在加载游戏播放器……',
+    ready: '游戏播放器已加载。',
+    guide: '出现“立即游玩”后：1. 选择“立即游玩”。2. 在游戏内选择“开始”。',
+    slow: '播放器加载时间较长，你可以继续等待或重试。',
+    retry: '重新加载播放器',
+    browse: '浏览其他游戏',
+  },
+  ja: {
+    loading: 'ゲームプレーヤーを読み込み中…',
+    ready: 'ゲームプレーヤーを読み込みました。',
+    guide: '「今すぐプレイ」が表示されたら、1.「今すぐプレイ」を選択。2. ゲーム内で「Start」を選択してください。',
+    slow: '読み込みに時間がかかっています。そのまま待つか、再試行してください。',
+    retry: '再読み込み',
+    browse: 'ゲームを探す',
+  },
 }
 
 type Props = { src: string; title: string; gameId: string; locale: string; className: string; allow?: string; lazy?: boolean }
@@ -18,7 +39,7 @@ function PlayerAttempt({ src, title, gameId, locale, className, allow = 'autopla
   const container = useRef<HTMLDivElement>(null)
   const [active, setActive] = useState(!lazy)
   const [attempt, setAttempt] = useState(0)
-  const [status, setStatus] = useState<'loading' | 'loaded' | 'timeout'>('loading')
+  const [status, setStatus] = useState<'loading' | 'ready' | 'timeout'>('loading')
   const timer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
   const reportedLoad = useRef(false)
   const t = copy[locale as keyof typeof copy] ?? copy.en
@@ -55,7 +76,12 @@ function PlayerAttempt({ src, title, gameId, locale, className, allow = 'autopla
   return (
     <div ref={container} className={`relative flex flex-col bg-black text-white ${className}`}>
       <div className="flex flex-wrap items-center justify-between gap-2 bg-neutral px-3 py-2 text-sm">
-        <span role="status">{status === 'loading' ? t.loading : status === 'timeout' ? t.slow : ''}</span>
+        <div className="min-w-0">
+          <span role="status">
+            {status === 'loading' ? t.loading : status === 'ready' ? t.ready : t.slow}
+          </span>
+          <p className="mt-1 text-xs text-white/75">{t.guide}</p>
+        </div>
         <div className="flex flex-wrap gap-3">
           <button className="underline" disabled={!active} onClick={retry}>{t.retry}</button>
           <a className="underline" href={`/${lang}`} target="_top">{t.browse}</a>
@@ -63,14 +89,14 @@ function PlayerAttempt({ src, title, gameId, locale, className, allow = 'autopla
       </div>
       {active ? <iframe
         key={attempt}
-        allow={allow}
+        allow={`${allow}; screen-wake-lock`}
         allowFullScreen
         className="min-h-0 w-full flex-1 border-0 bg-black"
         src={src}
         title={title}
         onLoad={() => {
           clearTimeout(timer.current)
-          setStatus('loaded')
+          setStatus('ready')
           if (!reportedLoad.current) {
             reportedLoad.current = true
             // A cross-origin load event does not prove that the game started.
