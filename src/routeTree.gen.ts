@@ -21,6 +21,7 @@ import { Route as RandomRouteImport } from './routes/random'
 import { Route as RacingGamesRouteImport } from './routes/racing-games'
 import { Route as PuzzleGamesRouteImport } from './routes/puzzle-games'
 import { Route as Ps1GamesRouteImport } from './routes/ps1-games'
+import { Route as Ps1CompatibilityRouteImport } from './routes/ps1-compatibility'
 import { Route as Ps1RouteImport } from './routes/ps1'
 import { Route as PlaystationGamesRouteImport } from './routes/playstation-games'
 import { Route as NesGamesRouteImport } from './routes/nes-games'
@@ -136,6 +137,11 @@ const PuzzleGamesRoute = PuzzleGamesRouteImport.update({
 const Ps1GamesRoute = Ps1GamesRouteImport.update({
   id: '/ps1-games',
   path: '/ps1-games',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const Ps1CompatibilityRoute = Ps1CompatibilityRouteImport.update({
+  id: '/ps1-compatibility',
+  path: '/ps1-compatibility',
   getParentRoute: () => rootRouteImport,
 } as any)
 const Ps1Route = Ps1RouteImport.update({
@@ -437,6 +443,7 @@ export interface FileRoutesByFullPath {
   '/nes-games': typeof NesGamesRoute
   '/playstation-games': typeof PlaystationGamesRoute
   '/ps1': typeof Ps1Route
+  '/ps1-compatibility': typeof Ps1CompatibilityRoute
   '/ps1-games': typeof Ps1GamesRoute
   '/puzzle-games': typeof PuzzleGamesRoute
   '/racing-games': typeof RacingGamesRoute
@@ -507,6 +514,7 @@ export interface FileRoutesByTo {
   '/nes-games': typeof NesGamesRoute
   '/playstation-games': typeof PlaystationGamesRoute
   '/ps1': typeof Ps1Route
+  '/ps1-compatibility': typeof Ps1CompatibilityRoute
   '/ps1-games': typeof Ps1GamesRoute
   '/puzzle-games': typeof PuzzleGamesRoute
   '/racing-games': typeof RacingGamesRoute
@@ -578,6 +586,7 @@ export interface FileRoutesById {
   '/nes-games': typeof NesGamesRoute
   '/playstation-games': typeof PlaystationGamesRoute
   '/ps1': typeof Ps1Route
+  '/ps1-compatibility': typeof Ps1CompatibilityRoute
   '/ps1-games': typeof Ps1GamesRoute
   '/puzzle-games': typeof PuzzleGamesRoute
   '/racing-games': typeof RacingGamesRoute
@@ -650,6 +659,7 @@ export interface FileRouteTypes {
     | '/nes-games'
     | '/playstation-games'
     | '/ps1'
+    | '/ps1-compatibility'
     | '/ps1-games'
     | '/puzzle-games'
     | '/racing-games'
@@ -720,6 +730,7 @@ export interface FileRouteTypes {
     | '/nes-games'
     | '/playstation-games'
     | '/ps1'
+    | '/ps1-compatibility'
     | '/ps1-games'
     | '/puzzle-games'
     | '/racing-games'
@@ -790,6 +801,7 @@ export interface FileRouteTypes {
     | '/nes-games'
     | '/playstation-games'
     | '/ps1'
+    | '/ps1-compatibility'
     | '/ps1-games'
     | '/puzzle-games'
     | '/racing-games'
@@ -861,6 +873,7 @@ export interface RootRouteChildren {
   NesGamesRoute: typeof NesGamesRoute
   PlaystationGamesRoute: typeof PlaystationGamesRoute
   Ps1Route: typeof Ps1Route
+  Ps1CompatibilityRoute: typeof Ps1CompatibilityRoute
   Ps1GamesRoute: typeof Ps1GamesRoute
   PuzzleGamesRoute: typeof PuzzleGamesRoute
   RacingGamesRoute: typeof RacingGamesRoute
@@ -984,6 +997,13 @@ declare module '@tanstack/react-router' {
       path: '/ps1-games'
       fullPath: '/ps1-games'
       preLoaderRoute: typeof Ps1GamesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ps1-compatibility': {
+      id: '/ps1-compatibility'
+      path: '/ps1-compatibility'
+      fullPath: '/ps1-compatibility'
+      preLoaderRoute: typeof Ps1CompatibilityRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/ps1': {
@@ -1466,6 +1486,7 @@ const rootRouteChildren: RootRouteChildren = {
   NesGamesRoute: NesGamesRoute,
   PlaystationGamesRoute: PlaystationGamesRoute,
   Ps1Route: Ps1Route,
+  Ps1CompatibilityRoute: Ps1CompatibilityRoute,
   Ps1GamesRoute: Ps1GamesRoute,
   PuzzleGamesRoute: PuzzleGamesRoute,
   RacingGamesRoute: RacingGamesRoute,
