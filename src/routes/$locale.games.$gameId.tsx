@@ -513,7 +513,7 @@ function LocalizedGameDetailPage() {
               <div className="grid gap-3 sm:flex sm:flex-row">
                 <div className="grid gap-1 sm:w-auto">
                   <a
-                    className="btn btn-primary btn-lg px-8 text-primary-content hover:text-primary-content sm:w-auto"
+                    className="btn btn-primary btn-lg w-full px-8 text-primary-content hover:text-primary-content sm:w-auto"
                     href={targetedSeo ? '#play-online' : playPath}
                     onClick={() => {
                       saveRecentPlayedGame(game, gameId)
@@ -584,7 +584,7 @@ function LocalizedGameDetailPage() {
               />
             </div>
 
-            <aside className="flex flex-col gap-4">
+            <aside className="flex flex-col gap-4 lg:sticky lg:top-24 lg:self-start">
               <section className="rounded-box border border-base-300 bg-base-100 p-5 shadow-sm">
                 <h2 className="text-lg font-semibold">{t.details}</h2>
                 <dl className="mt-4 grid gap-3 text-sm">
@@ -594,6 +594,18 @@ function LocalizedGameDetailPage() {
                   <Fact icon="ri-user-line" label={t.players} value={String(game.players ?? 1)} />
                 </dl>
               </section>
+
+              {browserGuide.paragraphs[0] ? (
+                <section className="rounded-box border border-primary/25 bg-primary/5 p-5 shadow-sm">
+                  <h2 className="flex items-center gap-2 text-lg font-semibold">
+                    <i className="ri-gamepad-line text-primary" />
+                    {browserGuide.title}
+                  </h2>
+                  <p className="mt-3 text-sm leading-6 text-base-content/70">
+                    {browserGuide.paragraphs[0]}
+                  </p>
+                </section>
+              ) : null}
 
               <SidebarArticle
                 icon="ri-book-open-line"

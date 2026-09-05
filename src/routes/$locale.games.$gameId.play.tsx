@@ -124,6 +124,7 @@ function LocalizedPlayGamePage() {
         className="h-[100svh] w-full border-0 bg-black"
         src={embedSrc}
         title={game.name ?? 'Retro game'}
+        backHref={`/${lang}/games/${encodeURIComponent(gameId)}`}
       />
     </main>
   )
