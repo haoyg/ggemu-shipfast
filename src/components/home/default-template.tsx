@@ -294,7 +294,7 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
                 </div>
                 <div
                   aria-busy={isLoading}
-                  className={`grid min-w-0 grid-cols-2 gap-3 sm:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-6 ${
+                  className={`grid min-w-0 grid-cols-2 gap-3 max-[360px]:grid-cols-1 sm:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-6 ${
                     isLoading ? 'opacity-60' : ''
                   }`}
                 >
