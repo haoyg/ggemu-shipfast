@@ -30,6 +30,8 @@ import { useRecentPlayedGames } from './recent-played-games'
 import type { HomeTemplateProps } from './types'
 
 const platformShortLabels: Record<string, string> = {
+  F: 'NES',
+  f: 'NES',
   ARCADE: 'Arcade',
   Arcade: 'Arcade',
   arcade: 'Arcade',
@@ -266,8 +268,8 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
                       className="group grid min-w-0 grid-cols-[4.5rem_minmax(0,1fr)] gap-3 rounded-lg border border-white/10 bg-white/5 p-2 transition hover:border-primary/60 hover:bg-white/10"
                       key={game.id}
                       params={{ gameId: game.id, locale: lang }}
-                      search={{}}
-                      to="/$locale/games/$gameId"
+                      title={`Continue playing ${game.name}`}
+                      to="/$locale/games/$gameId/play"
                     >
                       <ArcadeCover alt={game.name} className="aspect-square rounded-md" cover={game.cover} lang={lang} />
                       <div className="min-w-0 self-center">
@@ -763,7 +765,7 @@ function getPlatformBadge(game: PublicGame, lang: Locale) {
   const slug = game.platform_slug?.trim() || game.platformSlug?.trim()
 
   if (slug) {
-    return getKnownPlatformShortLabel(slug, lang) ?? slug.toUpperCase()
+    return getKnownPlatformShortLabel(slug, lang) ?? getLocalizedPlatformLabel(slug, lang)
   }
 
   const platform = game.platform?.trim()
@@ -772,11 +774,7 @@ function getPlatformBadge(game: PublicGame, lang: Locale) {
     return ''
   }
 
-  return getKnownPlatformShortLabel(platform, lang) ?? platform
-    .split(/[\s-]+/)
-    .map((part) => part.charAt(0))
-    .join('')
-    .toUpperCase()
+  return getKnownPlatformShortLabel(platform, lang) ?? getLocalizedPlatformLabel(platform, lang)
 }
 
 function getPlatformShortLabel(platform: string, lang: Locale) {

@@ -124,6 +124,7 @@ function PlayerAttempt({ src, title, gameId, locale, className, allow = 'autopla
             className={`player-status ${
               status === 'error' || status === 'unsupported' ? 'font-semibold text-error' : status === 'timeout' ? 'font-semibold text-warning' : ''
             }`}
+            aria-live="polite"
             role="status"
           >
             {status === 'loading' ? t.loading : status === 'ready' ? t.ready : status === 'timeout' ? t.slow : status === 'error' ? t.error : t.unsupported}
@@ -135,12 +136,12 @@ function PlayerAttempt({ src, title, gameId, locale, className, allow = 'autopla
           </details>
         </div>
         <div className="flex flex-wrap items-center gap-3">
-          <button className="underline" disabled={!active || unavailable} onClick={retry}>{t.retry}</button>
-          {backHref ? <a className="underline" href={backHref} target="_top">{t.backToGame}</a> : null}
-          <a className="underline" href={`/${lang}`} target="_top">{t.browse}</a>
+          <button className="min-h-10 underline sm:min-h-8" disabled={!active || unavailable} onClick={retry}>{t.retry}</button>
+          {backHref ? <a className="inline-flex min-h-10 items-center underline sm:min-h-8" href={backHref} target="_top">{t.backToGame}</a> : null}
+          <a className="inline-flex min-h-10 items-center underline sm:min-h-8" href={`/${lang}`} target="_top">{t.browse}</a>
           <button
             aria-label={isFullscreen ? t.exitFullscreen : t.fullscreen}
-            className="btn btn-xs border-white/20 bg-white/10 text-white hover:bg-white/20"
+            className="btn btn-sm min-h-10 border-white/20 bg-white/10 text-white hover:bg-white/20 sm:btn-xs sm:min-h-8"
             disabled={!active}
             onClick={() => {
               if (document.fullscreenElement) {
@@ -157,7 +158,7 @@ function PlayerAttempt({ src, title, gameId, locale, className, allow = 'autopla
         </div>
       </div>
       {status === 'unsupported' ? (
-        <div className="grid flex-1 place-items-center bg-black px-6 text-center">
+        <div aria-live="polite" className="grid flex-1 place-items-center bg-black px-6 text-center" role="status">
           <div className="max-w-md">
             <i aria-hidden="true" className="ri-gamepad-line text-4xl text-white/35" />
             <p className="mt-3 text-sm leading-6 text-white/70">{t.unsupported}</p>
@@ -165,7 +166,7 @@ function PlayerAttempt({ src, title, gameId, locale, className, allow = 'autopla
         </div>
       ) : null}
       {status === 'error' ? (
-        <div className="grid flex-1 place-items-center bg-black px-6 text-center">
+        <div aria-live="assertive" className="grid flex-1 place-items-center bg-black px-6 text-center" role="alert">
           <div className="max-w-md">
             <i aria-hidden="true" className="ri-error-warning-line text-4xl text-error" />
             <p className="mt-3 text-sm leading-6 text-white/70">{t.error}</p>

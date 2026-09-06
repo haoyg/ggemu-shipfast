@@ -71,7 +71,7 @@ export function HomeLatestBlogPostsSection({
 
   return (
     <section className="bg-neutral text-neutral-content">
-      <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl px-4 py-5 sm:px-6 lg:px-8">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
           <div className="max-w-3xl">
             <h2 className="text-2xl font-semibold text-white">
@@ -109,7 +109,7 @@ export function HomeFaqSection({ lang }: { lang: Locale }) {
 
   return (
     <section className="bg-neutral text-neutral-content">
-      <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl px-4 py-5 sm:px-6 lg:px-8">
         <div className="max-w-3xl">
           <h2 className="text-2xl font-semibold text-white">{faq.title}</h2>
           <p className="mt-2 text-sm leading-6 text-white/65">
@@ -144,8 +144,8 @@ export function HomeSeoContentSection({ lang }: { lang: Locale }) {
 
   return (
     <section className="bg-neutral text-neutral-content">
-      <div className="mx-auto grid max-w-7xl gap-5 px-4 py-8 sm:px-6 lg:grid-cols-[minmax(0,1.1fr)_minmax(20rem,0.9fr)] lg:px-8">
-        <article className="rounded-lg border border-white/10 bg-white/5 p-5 shadow-sm">
+      <div className="mx-auto grid max-w-7xl gap-4 px-4 py-6 sm:px-6 lg:grid-cols-[minmax(0,1.1fr)_minmax(20rem,0.9fr)] lg:px-8">
+        <article className="rounded-lg border border-white/10 bg-white/5 p-4 shadow-sm sm:p-5">
           <h2 className="text-2xl font-semibold text-white">
             {content.whyTitle}
           </h2>
@@ -168,7 +168,7 @@ export function HomeSeoContentSection({ lang }: { lang: Locale }) {
           ) : null}
         </article>
 
-        <article className="rounded-lg border border-white/10 bg-white/5 p-5 shadow-sm">
+        <article className="rounded-lg border border-white/10 bg-white/5 p-4 shadow-sm sm:p-5">
           <h2 className="text-2xl font-semibold text-white">
             {content.howTitle}
           </h2>
@@ -421,6 +421,7 @@ function HomeBlogPostCard({
   const id = getBlogPostRouteId(blogPost)
   const title = blogPost.title?.trim() || getI18n(lang).home.blogPostFallback
   const excerpt = getLocalizedBlogPostExcerpt(blogPost, lang)
+  const isChineseTitle = /[\u3400-\u9fff]/.test(title)
 
   return (
     <Link
@@ -448,6 +449,11 @@ function HomeBlogPostCard({
       <div className="p-4">
         <p className="text-xs text-base-content/50">
           {formatBlogDate(blogPost.created_at, lang)}
+          {lang === 'en' && isChineseTitle ? (
+            <span className="ml-2 rounded border border-base-300 px-1.5 py-0.5 text-[10px] uppercase tracking-wide text-base-content/55">
+              中文
+            </span>
+          ) : null}
         </p>
         <h3 className="mt-2 line-clamp-2 min-h-10 text-base font-semibold leading-snug text-base-content">
           {title}
