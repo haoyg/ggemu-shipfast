@@ -35,7 +35,7 @@ export function RecentPlayedGamesSection({
 }: {
   lang: Locale
 }) {
-  const games = useRecentPlayedGames()
+  const { games } = useRecentPlayedGames()
 
   if (games.length === 0) {
     return null
@@ -64,7 +64,12 @@ export function useRecentPlayedGames() {
     setGames(readRecentPlayedGames())
   }, [])
 
-  return games
+  function clear() {
+    window.localStorage.removeItem(RECENT_PLAYED_GAMES_KEY)
+    setGames([])
+  }
+
+  return { clear, games }
 }
 
 function RecentPlayedGameCard({

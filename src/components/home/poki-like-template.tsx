@@ -67,7 +67,7 @@ export function PokiLikeHomeTemplate(props: HomeTemplateProps) {
     t,
   } = props
   const [isSearchOpen, setIsSearchOpen] = useState(false)
-  const recentGames = useRecentPlayedGames()
+  const { games: recentGames } = useRecentPlayedGames()
   const tiles = useMemo(() => getPokiGameTiles(games, layoutSeed), [games, layoutSeed])
   const recentGameIds = useMemo(
     () => new Set(recentGames.map((game) => game.id)),

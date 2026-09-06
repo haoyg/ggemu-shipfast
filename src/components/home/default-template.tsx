@@ -1,7 +1,7 @@
-import { Link } from '@tanstack/react-router'
+import { Link, useNavigate } from '@tanstack/react-router'
 import { useServerFn } from '@tanstack/react-start'
 import type { FocusEvent, ReactNode } from 'react'
-import { useEffect, useState } from 'react'
+import { useEffect, useId, useState } from 'react'
 
 import {
   GameCardPreviewVideo,
@@ -119,7 +119,7 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
     t,
   } = props
   const layoutCopy = getI18n(lang).layout
-  const recentGames = useRecentPlayedGames()
+  const { clear: clearRecentGames, games: recentGames } = useRecentPlayedGames()
   const platformChips = getPlatformChips(filterOptions.platforms, lang)
   const sidebarCategories = filterOptions.categories.slice(0, 6)
   const hasActiveFilters = Boolean(filters.query.trim() || filters.category || filters.platform)
@@ -127,6 +127,8 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
   const newGames = prioritizeClassicGames(latestGames).slice(0, 8)
   const recommendationLabel = lang === 'zh-CN' ? '经典游戏优先推荐' : lang === 'ja' ? 'クラシックゲームを優先表示' : 'Classic games first'
   const continueLabel = lang === 'zh-CN' ? '继续游玩' : lang === 'ja' ? '続けてプレイ' : 'Continue playing'
+  const recentEmptyCopy = lang === 'zh-CN' ? '你还没有玩过游戏，先从热门游戏开始吧。' : lang === 'ja' ? 'まだプレイしたゲームがありません。人気ゲームから始めましょう。' : 'You have not played a game yet. Start with a popular classic.'
+  const browsePopularLabel = lang === 'zh-CN' ? '浏览热门游戏' : lang === 'ja' ? '人気ゲームを見る' : 'Browse popular games'
   const platformCards = platformChips.slice(0, 6)
   const activeCategoryLabel = filters.category
     ? getLocalizedCategoryLabel(filters.category, lang)
@@ -153,7 +155,7 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
               params={{ locale: lang }}
               to="/$locale"
             >
-              <i className="ri-home-5-line text-lg" />
+              <i aria-hidden="true" className="ri-home-5-line text-lg" />
               {layoutCopy.games}
             </Link>
             <SideNavAnchor href="#recent-games" icon="ri-history-line" label={t.recentlyPlayed} />
@@ -165,6 +167,7 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
               <div className="grid gap-1">
                 {sidebarCategories.map((category) => (
                   <button
+                    aria-pressed={filters.category === category.name}
                     className="flex items-center justify-between rounded-lg px-2 py-2 text-left text-sm text-white/70 transition hover:bg-white/10 hover:text-white"
                     key={category.name}
                     onClick={() => handleCategoryChange(category.name)}
@@ -172,6 +175,7 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
                   >
                     <span>{getLocalizedCategoryLabel(category.name, lang)}</span>
                     <i
+                      aria-hidden="true"
                       className={`text-base ${
                         filters.category === category.name
                           ? 'ri-check-line text-primary'
@@ -202,6 +206,7 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
               <div className="flex min-w-0 max-w-full gap-2 overflow-x-auto pb-1 [scrollbar-width:none] xl:pb-0 [&::-webkit-scrollbar]:hidden">
                 {platformChips.map((platform) => (
                   <button
+                    aria-pressed={filters.platform === platform.name}
                     className={`btn btn-sm min-h-11 shrink-0 border-white/15 ${
                       filters.platform === platform.name
                         ? 'btn-primary'
@@ -211,7 +216,7 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
                     onClick={() => handlePlatformChange(platform.name)}
                     type="button"
                   >
-                    <i className="ri-gamepad-line" />
+                    <i aria-hidden="true" className="ri-gamepad-line" />
                     {platform.shortLabel}
                   </button>
                 ))}
@@ -257,9 +262,14 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
               <div className="mb-3 flex items-center justify-between gap-3">
                 <h2 className="text-lg font-black text-white">{t.recentlyPlayed}</h2>
                 {recentGames.length > 0 ? (
-                  <span className="text-xs text-white/45">
-                    {recentGames.length} {lang === 'zh-CN' ? '个游戏' : lang === 'ja' ? 'ゲーム' : 'games'}
-                  </span>
+                  <div className="flex items-center gap-3">
+                    <span className="text-xs text-white/45">
+                      {recentGames.length} {lang === 'zh-CN' ? '个游戏' : lang === 'ja' ? 'ゲーム' : 'games'}
+                    </span>
+                    <button className="text-xs font-semibold text-white/55 underline underline-offset-2 hover:text-white" onClick={clearRecentGames} type="button">
+                      {lang === 'zh-CN' ? '清除记录' : lang === 'ja' ? '履歴を消去' : 'Clear history'}
+                    </button>
+                  </div>
                 ) : null}
               </div>
               {recentGames.length > 0 ? (
@@ -284,14 +294,17 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
                   ))}
                 </div>
               ) : (
-                <div className="rounded-lg border border-white/10 bg-white/5 p-3 text-sm text-white/55">
-                  {t.subtitle}
+                <div className="flex flex-wrap items-center justify-between gap-3 rounded-lg border border-white/10 bg-white/5 p-3 text-sm text-white/55">
+                  <span>{recentEmptyCopy}</span>
+                  <a className="font-semibold text-primary underline underline-offset-2" href="#popular-games">
+                    {browsePopularLabel}
+                  </a>
                 </div>
               )}
             </section>
 
             {topGames.length > 0 ? (
-              <>
+              <section className="scroll-mt-24" id="popular-games">
                 <div className="mb-3 flex items-center justify-between gap-3">
                   <h2 className="text-xl font-black text-white">{t.popular}</h2>
                   <span className="text-xs font-medium text-white/45">
@@ -313,7 +326,7 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
                     />
                   ))}
                 </div>
-              </>
+              </section>
             ) : (
               <div className="rounded-lg border border-white/10 bg-white/5 p-10 text-center text-white/60">
                 {t.empty}
@@ -385,7 +398,7 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
                       {platform.shortLabel}
                     </span>
                   </span>
-                  <i className="ri-arrow-right-s-line text-2xl text-white/40 transition group-hover:translate-x-1 group-hover:text-primary" />
+                  <i aria-hidden="true" className="ri-arrow-right-s-line text-2xl text-white/40 transition group-hover:translate-x-1 group-hover:text-primary" />
                 </a>
               ))}
             </div>
@@ -418,7 +431,10 @@ function HomeSearchSuggest({
   t: HomeTemplateProps['t']
 }) {
   const runSearch = useServerFn(searchGames)
+  const navigate = useNavigate()
+  const suggestionId = useId()
   const [suggestions, setSuggestions] = useState<Array<PublicGame>>([])
+  const [highlightedIndex, setHighlightedIndex] = useState(-1)
   const [isSuggesting, setIsSuggesting] = useState(false)
   const [isFocused, setIsFocused] = useState(false)
   const normalizedQuery = query.trim()
@@ -446,13 +462,15 @@ function HomeSearchSuggest({
         },
       })
         .then((result) => {
-          if (isCurrent) {
-            setSuggestions(result.games)
+        if (isCurrent) {
+          setSuggestions(result.games)
+          setHighlightedIndex(-1)
           }
         })
         .catch(() => {
           if (isCurrent) {
-            setSuggestions([])
+      setSuggestions([])
+      setHighlightedIndex(-1)
           }
         })
         .finally(() => {
@@ -474,16 +492,45 @@ function HomeSearchSuggest({
     }
   }
 
+  function handleSuggestionKeyDown(event: React.KeyboardEvent<HTMLInputElement>) {
+    if (event.key === 'Escape') {
+      setIsFocused(false)
+      setHighlightedIndex(-1)
+      return
+    }
+    if (!showSuggestions || suggestions.length === 0) return
+    if (event.key === 'ArrowDown') {
+      event.preventDefault()
+      setHighlightedIndex((index) => (index + 1) % suggestions.length)
+    } else if (event.key === 'ArrowUp') {
+      event.preventDefault()
+      setHighlightedIndex((index) => (index <= 0 ? suggestions.length - 1 : index - 1))
+    } else if (event.key === 'Enter' && highlightedIndex >= 0) {
+      event.preventDefault()
+      const game = suggestions[highlightedIndex]
+      if (game) {
+        void navigate({
+          to: '/$locale/games/$gameId',
+          params: { gameId: game.url_slug || game._id || '', locale: lang },
+        })
+      }
+    }
+  }
+
   return (
     <div className="relative" onBlur={handleBlur}>
       <label className="input input-md flex w-full min-w-0 max-w-full items-center gap-2 border-2 border-primary/70 bg-base-100 text-base-content shadow-[0_0_0_3px_rgba(236,72,153,0.14)] sm:input-lg sm:gap-3 sm:shadow-[0_0_0_4px_rgba(236,72,153,0.16)]">
         <i className="ri-search-line text-xl text-primary sm:text-2xl" />
         <input
+          aria-autocomplete="list"
+          aria-controls={suggestionId}
+          aria-expanded={showSuggestions}
           aria-label={t.search}
           autoComplete="off"
           className="min-w-0 flex-1 text-sm sm:text-base"
           onChange={(event) => onQueryChange(event.currentTarget.value)}
           onFocus={() => setIsFocused(true)}
+          onKeyDown={handleSuggestionKeyDown}
           placeholder={getSearchPlaceholder(t, gameTotal)}
           type="search"
           value={query}
@@ -500,7 +547,12 @@ function HomeSearchSuggest({
       </label>
 
       {showSuggestions ? (
-        <div className="absolute left-0 right-0 top-[calc(100%+0.5rem)] z-40 overflow-hidden rounded-lg border border-white/10 bg-neutral/95 shadow-2xl backdrop-blur">
+        <div
+          aria-label={t.search}
+          className="absolute left-0 right-0 top-[calc(100%+0.5rem)] z-40 overflow-hidden rounded-lg border border-white/10 bg-neutral/95 shadow-2xl backdrop-blur"
+          id={suggestionId}
+          role="listbox"
+        >
           {isSuggesting ? (
             <div className="flex items-center gap-2 px-3 py-3 text-sm text-white/65">
               <span className="loading loading-spinner loading-xs" />
@@ -509,7 +561,12 @@ function HomeSearchSuggest({
           ) : suggestions.length > 0 ? (
             <div className="max-h-[22rem] overflow-y-auto p-2">
               {suggestions.map((game) => (
-                <SearchSuggestionItem game={game} key={game._id ?? game.url_slug ?? game.name} lang={lang} />
+                <SearchSuggestionItem
+                  game={game}
+                  isHighlighted={highlightedIndex === suggestions.indexOf(game)}
+                  key={game._id ?? game.url_slug ?? game.name}
+                  lang={lang}
+                />
               ))}
             </div>
           ) : (
@@ -523,9 +580,11 @@ function HomeSearchSuggest({
 
 function SearchSuggestionItem({
   game,
+  isHighlighted,
   lang,
 }: {
   game: PublicGame
+  isHighlighted: boolean
   lang: Locale
 }) {
   const gameId = game.url_slug || game._id || ''
@@ -536,7 +595,8 @@ function SearchSuggestionItem({
 
   return (
     <Link
-      className="flex min-w-0 items-center gap-3 rounded-md px-2 py-2 text-white transition hover:bg-white/10"
+      aria-selected={isHighlighted}
+      className={`flex min-w-0 items-center gap-3 rounded-md px-2 py-2 text-white transition hover:bg-white/10 ${isHighlighted ? 'bg-white/10' : ''}`}
       params={{ gameId, locale: lang }}
       search={{}}
       title={`Play ${game.name} online`}
@@ -583,7 +643,7 @@ function SideNavAnchor({
       className="flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-white/70 transition hover:bg-white/10 hover:text-white"
       href={href}
     >
-      <i className={`${icon} text-lg`} />
+      <i aria-hidden="true" className={`${icon} text-lg`} />
       {label}
     </a>
   )
@@ -601,7 +661,12 @@ function HomeRail({
   return (
     <section className="min-w-0 scroll-mt-24" id={id}>
       <h2 className="mb-3 text-lg font-black text-white">{title}</h2>
-      <div className="flex gap-3 overflow-x-auto pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+      <div
+        aria-label={title}
+        className="flex snap-x gap-3 overflow-x-auto scroll-smooth pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        role="region"
+        tabIndex={0}
+      >
         {children}
       </div>
     </section>
@@ -622,7 +687,7 @@ function FilterBadge({
       type="button"
     >
       {label}
-      <i className="ri-close-line text-sm" />
+      <i aria-hidden="true" className="ri-close-line text-sm" />
     </button>
   )
 }
