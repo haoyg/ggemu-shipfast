@@ -8,12 +8,14 @@ import {
 } from '@tanstack/react-router'
 
 import { getGoogleConsentInitScript } from '#/lib/analytics'
+import { trackPagePerformance } from '#/lib/analytics'
 import { ThirdPartyScripts } from '#/components/third-party-scripts'
 import { getDocumentHeaders } from '#/lib/document-headers'
 import { getI18n } from '#/lib/i18n'
 import { getDocumentLang, getSeoOrigin } from '#/lib/seo'
 import { serializeSiteConfig, siteConfig } from '#/lib/site-config'
 import { getSiteThemeInitScript } from '#/lib/site-themes'
+import { useEffect } from 'react'
 import appCss from '../styles.css?url'
 
 const defaultSocialImagePath = '/og.png'
@@ -250,6 +252,23 @@ function getPageErrorMessages(locale: string) {
 function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
   const pathname = useRouterState({ select: (state) => state.location.pathname })
   const googleAnalyticsId = siteConfig.GOOGLE_ANALYTICS_ID.trim()
+
+  useEffect(() => {
+    const schedule = 'requestIdleCallback' in window
+      ? (window as Window & { requestIdleCallback: (callback: () => void) => number }).requestIdleCallback
+      : (callback: () => void) => window.setTimeout(callback, 0)
+    const id = schedule(() => trackPagePerformance(pathname))
+    return () => {
+      const cancelIdleCallback = (window as Window & {
+        cancelIdleCallback?: (handle: number) => void
+      }).cancelIdleCallback
+      if (cancelIdleCallback) {
+        cancelIdleCallback(id)
+      } else {
+        window.clearTimeout(id)
+      }
+    }
+  }, [])
 
   return (
     <html lang={getDocumentLang(pathname)} suppressHydrationWarning>
