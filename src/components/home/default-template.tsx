@@ -126,6 +126,7 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
   const topGames = (hasActiveFilters ? games : prioritizeClassicGames(games)).slice(0, 12)
   const newGames = prioritizeClassicGames(latestGames).slice(0, 8)
   const recommendationLabel = lang === 'zh-CN' ? '经典游戏优先推荐' : lang === 'ja' ? 'クラシックゲームを優先表示' : 'Classic games first'
+  const continueLabel = lang === 'zh-CN' ? '继续游玩' : lang === 'ja' ? '続けてプレイ' : 'Continue playing'
   const platformCards = platformChips.slice(0, 6)
   const activeCategoryLabel = filters.category
     ? getLocalizedCategoryLabel(filters.category, lang)
@@ -274,7 +275,10 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
                       <ArcadeCover alt={game.name} className="aspect-square rounded-md" cover={game.cover} lang={lang} />
                       <div className="min-w-0 self-center">
                         <h3 className="line-clamp-2 text-sm font-semibold text-white">{game.name}</h3>
-                        <p className="mt-1 text-xs text-white/45">{layoutCopy.games}</p>
+                        <p className="mt-1 inline-flex items-center gap-1 text-xs text-primary">
+                          <i aria-hidden="true" className="ri-play-fill" />
+                          {continueLabel}
+                        </p>
                       </div>
                     </Link>
                   ))}

@@ -852,7 +852,9 @@ function RelatedGameCard({ game, lang }: { game: PublicGame; lang: Locale }) {
           {game.name}
         </h3>
         {game.platform ? (
-          <p className="mt-2 truncate text-xs text-base-content/60">{game.platform}</p>
+          <span className="badge badge-sm badge-outline mt-2 max-w-full truncate text-xs text-base-content/60">
+            {getLocalizedPlatformLabel(game.platform, lang)}
+          </span>
         ) : null}
       </div>
     </Link>

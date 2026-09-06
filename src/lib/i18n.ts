@@ -47,7 +47,9 @@ export function getLocalizedBlogPostExcerpt(
   const excerpt = sanitizeBlogExcerpt(blogPost.excerpt)
 
   if (locale === 'en') {
-    return excerpt || getEnglishBlogPostFallback(blogPost)
+    return excerpt && !/[\u3400-\u9fff]/.test(excerpt)
+      ? excerpt
+      : getEnglishBlogPostFallback(blogPost)
   }
 
   if (excerpt && isLocalizedText(excerpt, locale)) {
