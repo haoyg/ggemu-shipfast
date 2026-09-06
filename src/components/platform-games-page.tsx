@@ -530,7 +530,7 @@ export function PlatformGamesPage({
   )
 }
 
-function getRelatedGuide(platform: string) {
+export function getRelatedGuide(platform: string) {
   if (platform === 'Famicom' || platform === 'Super Famicom') {
     return {
       href: '/en/guides/nes-vs-snes-games',

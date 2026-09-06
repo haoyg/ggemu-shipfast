@@ -430,6 +430,7 @@ function LocalizedGameDetailPage() {
   const manifestHref = buildGameManifestHref(lang)
   const targetedSeo = getTargetedGameSeo(game, lang)
   const seoInternalLinks = getGameSeoInternalLinks(game, lang)
+  const relatedGuide = lang === 'en' ? getRelatedGuideForPlatform(game.platform) : undefined
 
   if (pathname.endsWith('/play')) {
     return <Outlet />
@@ -572,6 +573,13 @@ function LocalizedGameDetailPage() {
               <KeywordPanel title={t.keywords} value={keywordText} />
               <ArticlePanel paragraphs={howToPlayParagraphs} title={t.howToPlay} />
               <ArticlePanel paragraphs={browserGuide.paragraphs} title={browserGuide.title} />
+              {relatedGuide ? (
+                <section className="rounded-box border border-primary/25 bg-primary/5 p-5 shadow-sm">
+                  <h2 className="text-lg font-semibold">Related guide</h2>
+                  <p className="mt-2 text-sm leading-6 text-base-content/70">{relatedGuide.description}</p>
+                  <a className="link link-primary mt-3 inline-block" href={relatedGuide.href}>{relatedGuide.label}</a>
+                </section>
+              ) : null}
               <SeoInternalLinkSection lang={lang} links={seoInternalLinks} />
               <FaqSection items={faqItems} title={t.faq} />
               <RelatedGameSection
@@ -626,6 +634,34 @@ function LocalizedGameDetailPage() {
       </div>
     </SiteLayout>
   )
+}
+
+function getRelatedGuideForPlatform(platform?: string) {
+  if (platform === 'Famicom' || platform === 'Super Famicom') {
+    return {
+      href: '/en/guides/nes-vs-snes-games',
+      label: 'Read: NES vs SNES Games',
+      description: 'Compare the two libraries, their controller layouts, and the kinds of sessions they suit.',
+    }
+  }
+
+  if (platform === 'Nintendo 64') {
+    return {
+      href: '/en/guides/retro-game-controller-guide',
+      label: 'Read: Retro Game Controller Guide',
+      description: 'Learn why controller setup and analog input matter for many Nintendo 64 games.',
+    }
+  }
+
+  if (platform === 'Game Boy Advance') {
+    return {
+      href: '/en/guides/how-browser-game-saves-work',
+      label: 'Read: How Browser Game Saves Work',
+      description: 'Understand the difference between in-game saves, save states, and browser storage.',
+    }
+  }
+
+  return undefined
 }
 
 function Stat({

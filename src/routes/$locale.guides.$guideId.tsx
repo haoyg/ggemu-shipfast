@@ -94,6 +94,11 @@ export const Route = createFileRoute('/$locale/guides/$guideId')({
     meta: [
       { title: loaderData.guide.title },
       { name: 'description', content: loaderData.guide.description },
+      { property: 'og:title', content: loaderData.guide.title },
+      { property: 'og:description', content: loaderData.guide.description },
+      { property: 'og:type', content: 'article' },
+      { name: 'twitter:title', content: loaderData.guide.title },
+      { name: 'twitter:description', content: loaderData.guide.description },
     ],
     links: loaderData.seoOrigin ? [{ rel: 'canonical', href: `${loaderData.seoOrigin}/${params.locale}/guides/${params.guideId}` }] : undefined,
     scripts: loaderData.seoOrigin ? [
@@ -101,13 +106,18 @@ export const Route = createFileRoute('/$locale/guides/$guideId')({
         type: 'application/ld+json',
         children: JSON.stringify({
           '@context': 'https://schema.org', '@type': 'Article',
-          author: { '@type': 'Organization', name: 'POKOPIE Editorial Team' },
+          author: { '@type': 'Organization', name: 'POKOPIE Editorial Team', url: `${loaderData.seoOrigin}/en/about` },
           dateModified: loaderData.guide.updatedAt,
           datePublished: loaderData.guide.publishedAt,
           description: loaderData.guide.description,
           headline: loaderData.guide.title,
+          inLanguage: 'en',
+          isAccessibleForFree: true,
           mainEntityOfPage: `${loaderData.seoOrigin}/${params.locale}/guides/${params.guideId}`,
-          publisher: { '@type': 'Organization', name: 'POKOPIE', url: loaderData.seoOrigin },
+          publisher: {
+            '@type': 'Organization', name: 'POKOPIE', url: loaderData.seoOrigin,
+            logo: { '@type': 'ImageObject', url: `${loaderData.seoOrigin}/logo.png` },
+          },
         }),
       },
       {
