@@ -8,30 +8,28 @@ const UPSTREAM_TIMEOUT_MS = 3_000
 export const Route = createFileRoute('/api/health')({
   server: {
     handlers: {
-      GET: async () => {
-        const ggemu = await checkGgemu()
-
-        return Response.json(
-          {
-            dependencies: {
-              ggemu,
-            },
-            ok: ggemu.ok,
-            service: siteConfig.SITE_NAME,
-            status: ggemu.ok ? 'ok' : 'degraded',
-            timestamp: new Date().toISOString(),
-          },
-          {
-            status: ggemu.ok ? 200 : 503,
-            headers: {
-              'Cache-Control': 'no-store',
-            },
-          },
-        )
-      },
+      GET: getHealthResponse,
     },
   },
 })
+
+export async function getHealthResponse() {
+  const ggemu = await checkGgemu()
+
+  return Response.json(
+    {
+      dependencies: { ggemu },
+      ok: ggemu.ok,
+      service: siteConfig.SITE_NAME,
+      status: ggemu.ok ? 'ok' : 'degraded',
+      timestamp: new Date().toISOString(),
+    },
+    {
+      status: ggemu.ok ? 200 : 503,
+      headers: { 'Cache-Control': 'no-store' },
+    },
+  )
+}
 
 async function checkGgemu() {
   const startedAt = Date.now()

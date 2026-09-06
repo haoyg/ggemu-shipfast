@@ -50,25 +50,32 @@ self.addEventListener('fetch', (event) => {
     return
   }
 
-  event.respondWith(
-    caches.match(request).then((cachedResponse) => {
-      if (cachedResponse) {
-        return cachedResponse
-      }
-
-      return fetch(request).then((response) => {
-        if (response.ok) {
-          const responseToCache = response.clone()
-          event.waitUntil(
-            caches.open(CACHE_NAME).then((cache) => cache.put(request, responseToCache)),
-          )
-        }
-
-        return response
-      })
-    }),
-  )
+  event.respondWith(updateStaticResource(request, event))
 })
+
+async function updateStaticResource(request, event) {
+  const cache = await caches.open(CACHE_NAME)
+  const cachedResponse = await cache.match(request)
+  const refresh = fetch(request).then((response) => {
+    if (response.ok) {
+      event.waitUntil(cache.put(request, response.clone()))
+    }
+    return response
+  })
+
+  // Hashed build assets are immutable; other resources get refreshed in the
+  // background so updated icons and images do not remain stale indefinitely.
+  if (cachedResponse && new URL(request.url).pathname.startsWith('/assets/')) {
+    return cachedResponse
+  }
+
+  if (cachedResponse) {
+    event.waitUntil(refresh.catch(() => undefined))
+    return cachedResponse
+  }
+
+  return refresh
+}
 
 function isStaticRequest(request, url) {
   return url.pathname.startsWith('/assets/') || [

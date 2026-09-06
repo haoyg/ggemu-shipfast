@@ -26,8 +26,8 @@ Before substantial work:
   - `npx @tanstack/intent@latest load @tanstack/react-start#react-start`
   - `npx @tanstack/intent@latest load @tanstack/router-plugin#router-plugin`
 - Stack: React 19, TanStack Start, TanStack Router, Vite, TypeScript, npm.
-- Starter choice: blank React TanStack Start app.
-- Extra integrations: none. The generated CLI output included demo UI, Tailwind, Devtools, lucide, and an about route; these were removed to satisfy the blank/no-extra-integrations requirement.
+- Starter choice: React TanStack Start app customized for the POKOPIE retro-game site.
+- Integrations currently in use: Tailwind CSS, DaisyUI, Cloudflare Workers, PWA service worker, Google consent/analytics hooks, and the GGEMU upstream API.
 - Package manager: npm. Keep `package-lock.json` in sync.
 
 ## Architecture notes
@@ -42,7 +42,7 @@ Before substantial work:
 
 ## Environment variables
 
-- No environment variables are required for the current blank app.
+- No environment variables are required for the current site configuration.
 - Client-exposed variables must use Vite's `VITE_` prefix.
 - Keep secrets server-only; do not expose them through `VITE_` variables.
 
@@ -59,9 +59,9 @@ Before substantial work:
 
 - The TanStack CLI and Intent commands require npm registry access.
 - The project root is the actual app. `my-tanstack-app` was the original CLI scaffold directory used as the source for merging.
-- Do not reintroduce Tailwind, Devtools, sample routes, or feature scaffolding unless explicitly requested.
+- Do not reintroduce Devtools or sample routes unless explicitly requested. Keep existing Tailwind and DaisyUI usage consistent with the current UI.
 
 ## Next steps
 
-- Choose a deployment target before adding platform-specific server scripts or adapter configuration.
+- Cloudflare Workers is the current deployment target; keep `wrangler.jsonc` and the Cloudflare Vite plugin aligned.
 - Add routes and server functions only as product requirements become clear.

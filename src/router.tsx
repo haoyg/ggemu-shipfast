@@ -7,7 +7,9 @@ export function getRouter() {
     routeTree,
     scrollRestoration: true,
     defaultPreload: 'intent',
-    defaultPreloadStaleTime: 0,
+    // Keep intent preloads warm briefly so pointer movement does not trigger
+    // duplicate API requests before navigation completes.
+    defaultPreloadStaleTime: 30_000,
   })
 
   return router
