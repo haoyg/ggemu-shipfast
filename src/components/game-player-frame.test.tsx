@@ -18,12 +18,28 @@ describe('GamePlayerFrame', () => {
     expect(trackEvent).toHaveBeenCalledWith('player_load_timeout', { game_id: 'test' })
     fireEvent.click(screen.getByText('Reload player'))
     expect(screen.getByTitle('Test game')).not.toBe(original)
-    fireEvent.load(screen.getByTitle('Test game'))
-    act(() => vi.advanceTimersByTime(20_000))
+    const retriedFrame = screen.getByTitle('Test game') as HTMLIFrameElement
+    fireEvent.load(retriedFrame)
+    act(() => window.dispatchEvent(new MessageEvent('message', {
+      source: retriedFrame.contentWindow,
+      data: { type: 'player-ready' },
+    })))
     expect(screen.getByRole('status').textContent).toContain('Game player loaded')
     expect(screen.getByText('When Play Now appears: 1. Select Play Now. 2. Select Start inside the game player.')).not.toBeNull()
     expect(vi.mocked(trackEvent).mock.calls.filter(([name]) => name === 'player_load_timeout')).toHaveLength(1)
     expect(trackEvent).toHaveBeenCalledWith('player_frame_loaded', { game_id: 'test' })
+  })
+
+  it('marks the game ready only after the embedded player sends a ready message', () => {
+    render(<GamePlayerFrame {...props} />)
+    const iframe = screen.getByTitle('Test game') as HTMLIFrameElement
+    fireEvent.load(iframe)
+    expect(screen.getByRole('status').textContent).toContain('waiting for the game to start')
+    act(() => window.dispatchEvent(new MessageEvent('message', {
+      source: iframe.contentWindow,
+      data: { type: 'player-ready' },
+    })))
+    expect(screen.getByRole('status').textContent).toContain('Game player loaded')
   })
 
   it('keeps recovery controls after a frame load and shows localized timeout guidance', () => {

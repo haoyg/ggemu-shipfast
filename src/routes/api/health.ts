@@ -22,6 +22,7 @@ export const Route = createFileRoute('/api/health')({
             timestamp: new Date().toISOString(),
           },
           {
+            status: ggemu.ok ? 200 : 503,
             headers: {
               'Cache-Control': 'no-store',
             },

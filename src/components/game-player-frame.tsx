@@ -4,6 +4,7 @@ import { trackEvent } from '#/lib/analytics'
 const copy = {
   en: {
     loading: 'Loading game player…',
+    loaded: 'Game player frame loaded; waiting for the game to start.',
     ready: 'Game player loaded.',
     guide: 'When Play Now appears: 1. Select Play Now. 2. Select Start inside the game player.',
     slow: 'The player is taking longer than expected. You can keep waiting or retry.',
@@ -19,6 +20,7 @@ const copy = {
   },
   'zh-CN': {
     loading: '正在加载游戏播放器……',
+    loaded: '播放器框架已加载，正在等待游戏启动。',
     ready: '游戏播放器已加载。',
     guide: '出现“立即游玩”后：1. 选择“立即游玩”。2. 在游戏内选择“开始”。',
     slow: '播放器加载时间较长，你可以继续等待或重试。',
@@ -34,6 +36,7 @@ const copy = {
   },
   ja: {
     loading: 'ゲームプレーヤーを読み込み中…',
+    loaded: 'プレーヤーを読み込みました。ゲームの開始を待っています。',
     ready: 'ゲームプレーヤーを読み込みました。',
     guide: '「今すぐプレイ」が表示されたら、1.「今すぐプレイ」を選択。2. ゲーム内で「Start」を選択してください。',
     slow: '読み込みに時間がかかっています。そのまま待つか、再試行してください。',
@@ -70,10 +73,11 @@ function PlayerAttempt({ src, title, gameId, locale, className, allow = 'autopla
   const container = useRef<HTMLDivElement>(null)
   const [active, setActive] = useState(!lazy)
   const [attempt, setAttempt] = useState(0)
-  const [status, setStatus] = useState<'loading' | 'ready' | 'timeout' | 'error' | 'unsupported'>(unavailable ? 'unsupported' : 'loading')
+  const [status, setStatus] = useState<'loading' | 'loaded' | 'ready' | 'timeout' | 'error' | 'unsupported'>(unavailable ? 'unsupported' : 'loading')
   const [isFullscreen, setIsFullscreen] = useState(false)
   const timer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
   const reportedLoad = useRef(false)
+  const iframeRef = useRef<HTMLIFrameElement>(null)
   const t = copy[locale as keyof typeof copy] ?? copy.en
   const lang = locale in copy ? locale : 'en'
 
@@ -96,6 +100,22 @@ function PlayerAttempt({ src, title, gameId, locale, className, allow = 'autopla
     }, 20_000)
     return () => clearTimeout(timer.current)
   }, [active, attempt, gameId, unavailable])
+
+  useEffect(() => {
+    if (!active || unavailable) return
+
+    function handlePlayerMessage(event: MessageEvent) {
+      if (event.source !== iframeRef.current?.contentWindow) return
+      const message = event.data
+      if (message === 'game-ready' || message?.type === 'game-ready' || message?.type === 'player-ready') {
+        clearTimeout(timer.current)
+        setStatus('ready')
+      }
+    }
+
+    window.addEventListener('message', handlePlayerMessage)
+    return () => window.removeEventListener('message', handlePlayerMessage)
+  }, [active, attempt, unavailable])
 
   useEffect(() => {
     function handleFullscreenChange() {
@@ -127,7 +147,7 @@ function PlayerAttempt({ src, title, gameId, locale, className, allow = 'autopla
             aria-live="polite"
             role="status"
           >
-            {status === 'loading' ? t.loading : status === 'ready' ? t.ready : status === 'timeout' ? t.slow : status === 'error' ? t.error : t.unsupported}
+            {status === 'loading' ? t.loading : status === 'loaded' ? t.loaded : status === 'ready' ? t.ready : status === 'timeout' ? t.slow : status === 'error' ? t.error : t.unsupported}
           </span>
           <p className="player-guide mt-1 text-xs text-white/75">{t.guide}</p>
           <details className="mt-1 text-xs text-white/60">
@@ -178,14 +198,14 @@ function PlayerAttempt({ src, title, gameId, locale, className, allow = 'autopla
       ) : null}
       {active && !unavailable && status !== 'error' ? <iframe
         key={attempt}
+        ref={iframeRef}
         allow={`${allow}; screen-wake-lock`}
         allowFullScreen
         className="min-h-0 w-full flex-1 border-0 bg-black"
         src={src}
         title={title}
         onLoad={() => {
-          clearTimeout(timer.current)
-          setStatus('ready')
+          setStatus('loaded')
           if (!reportedLoad.current) {
             reportedLoad.current = true
             // A cross-origin load event does not prove that the game started.
