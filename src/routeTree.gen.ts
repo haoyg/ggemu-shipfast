@@ -70,6 +70,7 @@ import { Route as LocalePs1CompatibilityRouteImport } from './routes/$locale.ps1
 import { Route as LocalePrivacyPolicyRouteImport } from './routes/$locale.privacy-policy'
 import { Route as LocalePlayMyRomRouteImport } from './routes/$locale.play-my-rom'
 import { Route as LocaleLiveRouteImport } from './routes/$locale.live'
+import { Route as LocaleGuidesRouteImport } from './routes/$locale.guides'
 import { Route as LocaleBlogRouteImport } from './routes/$locale.blog'
 import { Route as LocaleArcadeGamesRouteImport } from './routes/$locale.arcade-games'
 import { Route as LocaleAboutRouteImport } from './routes/$locale.about'
@@ -388,6 +389,11 @@ const LocaleLiveRoute = LocaleLiveRouteImport.update({
   path: '/live',
   getParentRoute: () => LocaleRoute,
 } as any)
+const LocaleGuidesRoute = LocaleGuidesRouteImport.update({
+  id: '/guides',
+  path: '/guides',
+  getParentRoute: () => LocaleRoute,
+} as any)
 const LocaleBlogRoute = LocaleBlogRouteImport.update({
   id: '/blog',
   path: '/blog',
@@ -419,9 +425,9 @@ const GamesGameIdPlayRoute = GamesGameIdPlayRouteImport.update({
   getParentRoute: () => GamesGameIdRoute,
 } as any)
 const LocaleGuidesGuideIdRoute = LocaleGuidesGuideIdRouteImport.update({
-  id: '/guides/$guideId',
-  path: '/guides/$guideId',
-  getParentRoute: () => LocaleRoute,
+  id: '/$guideId',
+  path: '/$guideId',
+  getParentRoute: () => LocaleGuidesRoute,
 } as any)
 const LocaleGamesGameIdRoute = LocaleGamesGameIdRouteImport.update({
   id: '/games/$gameId',
@@ -480,6 +486,7 @@ export interface FileRoutesByFullPath {
   '/$locale/about': typeof LocaleAboutRoute
   '/$locale/arcade-games': typeof LocaleArcadeGamesRoute
   '/$locale/blog': typeof LocaleBlogRouteWithChildren
+  '/$locale/guides': typeof LocaleGuidesRouteWithChildren
   '/$locale/live': typeof LocaleLiveRoute
   '/$locale/play-my-rom': typeof LocalePlayMyRomRoute
   '/$locale/privacy-policy': typeof LocalePrivacyPolicyRoute
@@ -554,6 +561,7 @@ export interface FileRoutesByTo {
   '/$locale/about': typeof LocaleAboutRoute
   '/$locale/arcade-games': typeof LocaleArcadeGamesRoute
   '/$locale/blog': typeof LocaleBlogRouteWithChildren
+  '/$locale/guides': typeof LocaleGuidesRouteWithChildren
   '/$locale/live': typeof LocaleLiveRoute
   '/$locale/play-my-rom': typeof LocalePlayMyRomRoute
   '/$locale/privacy-policy': typeof LocalePrivacyPolicyRoute
@@ -629,6 +637,7 @@ export interface FileRoutesById {
   '/$locale/about': typeof LocaleAboutRoute
   '/$locale/arcade-games': typeof LocaleArcadeGamesRoute
   '/$locale/blog': typeof LocaleBlogRouteWithChildren
+  '/$locale/guides': typeof LocaleGuidesRouteWithChildren
   '/$locale/live': typeof LocaleLiveRoute
   '/$locale/play-my-rom': typeof LocalePlayMyRomRoute
   '/$locale/privacy-policy': typeof LocalePrivacyPolicyRoute
@@ -705,6 +714,7 @@ export interface FileRouteTypes {
     | '/$locale/about'
     | '/$locale/arcade-games'
     | '/$locale/blog'
+    | '/$locale/guides'
     | '/$locale/live'
     | '/$locale/play-my-rom'
     | '/$locale/privacy-policy'
@@ -779,6 +789,7 @@ export interface FileRouteTypes {
     | '/$locale/about'
     | '/$locale/arcade-games'
     | '/$locale/blog'
+    | '/$locale/guides'
     | '/$locale/live'
     | '/$locale/play-my-rom'
     | '/$locale/privacy-policy'
@@ -853,6 +864,7 @@ export interface FileRouteTypes {
     | '/$locale/about'
     | '/$locale/arcade-games'
     | '/$locale/blog'
+    | '/$locale/guides'
     | '/$locale/live'
     | '/$locale/play-my-rom'
     | '/$locale/privacy-policy'
@@ -1380,6 +1392,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LocaleLiveRouteImport
       parentRoute: typeof LocaleRoute
     }
+    '/$locale/guides': {
+      id: '/$locale/guides'
+      path: '/guides'
+      fullPath: '/$locale/guides'
+      preLoaderRoute: typeof LocaleGuidesRouteImport
+      parentRoute: typeof LocaleRoute
+    }
     '/$locale/blog': {
       id: '/$locale/blog'
       path: '/blog'
@@ -1424,10 +1443,10 @@ declare module '@tanstack/react-router' {
     }
     '/$locale/guides/$guideId': {
       id: '/$locale/guides/$guideId'
-      path: '/guides/$guideId'
+      path: '/$guideId'
       fullPath: '/$locale/guides/$guideId'
       preLoaderRoute: typeof LocaleGuidesGuideIdRouteImport
-      parentRoute: typeof LocaleRoute
+      parentRoute: typeof LocaleGuidesRoute
     }
     '/$locale/games/$gameId': {
       id: '/$locale/games/$gameId'
@@ -1472,6 +1491,18 @@ const LocaleBlogRouteWithChildren = LocaleBlogRoute._addFileChildren(
   LocaleBlogRouteChildren,
 )
 
+interface LocaleGuidesRouteChildren {
+  LocaleGuidesGuideIdRoute: typeof LocaleGuidesGuideIdRoute
+}
+
+const LocaleGuidesRouteChildren: LocaleGuidesRouteChildren = {
+  LocaleGuidesGuideIdRoute: LocaleGuidesGuideIdRoute,
+}
+
+const LocaleGuidesRouteWithChildren = LocaleGuidesRoute._addFileChildren(
+  LocaleGuidesRouteChildren,
+)
+
 interface LocaleGamesGameIdRouteChildren {
   LocaleGamesGameIdPlayRoute: typeof LocaleGamesGameIdPlayRoute
 }
@@ -1488,6 +1519,7 @@ interface LocaleRouteChildren {
   LocaleAboutRoute: typeof LocaleAboutRoute
   LocaleArcadeGamesRoute: typeof LocaleArcadeGamesRoute
   LocaleBlogRoute: typeof LocaleBlogRouteWithChildren
+  LocaleGuidesRoute: typeof LocaleGuidesRouteWithChildren
   LocaleLiveRoute: typeof LocaleLiveRoute
   LocalePlayMyRomRoute: typeof LocalePlayMyRomRoute
   LocalePrivacyPolicyRoute: typeof LocalePrivacyPolicyRoute
@@ -1496,7 +1528,6 @@ interface LocaleRouteChildren {
   LocaleRandomRoute: typeof LocaleRandomRoute
   LocaleTermsOfServiceRoute: typeof LocaleTermsOfServiceRoute
   LocaleGamesGameIdRoute: typeof LocaleGamesGameIdRouteWithChildren
-  LocaleGuidesGuideIdRoute: typeof LocaleGuidesGuideIdRoute
 }
 
 const LocaleRouteChildren: LocaleRouteChildren = {
@@ -1504,6 +1535,7 @@ const LocaleRouteChildren: LocaleRouteChildren = {
   LocaleAboutRoute: LocaleAboutRoute,
   LocaleArcadeGamesRoute: LocaleArcadeGamesRoute,
   LocaleBlogRoute: LocaleBlogRouteWithChildren,
+  LocaleGuidesRoute: LocaleGuidesRouteWithChildren,
   LocaleLiveRoute: LocaleLiveRoute,
   LocalePlayMyRomRoute: LocalePlayMyRomRoute,
   LocalePrivacyPolicyRoute: LocalePrivacyPolicyRoute,
@@ -1512,7 +1544,6 @@ const LocaleRouteChildren: LocaleRouteChildren = {
   LocaleRandomRoute: LocaleRandomRoute,
   LocaleTermsOfServiceRoute: LocaleTermsOfServiceRoute,
   LocaleGamesGameIdRoute: LocaleGamesGameIdRouteWithChildren,
-  LocaleGuidesGuideIdRoute: LocaleGuidesGuideIdRoute,
 }
 
 const LocaleRouteWithChildren =

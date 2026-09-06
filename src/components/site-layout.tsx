@@ -162,6 +162,12 @@ export function SiteLayout({
                   </Link>
                 </li>
                 <li>
+                  <Link params={{ locale }} to="/$locale/guides">
+                    <i className="ri-book-open-line" />
+                    Guides
+                  </Link>
+                </li>
+                <li>
                   <Link params={{ locale }} reloadDocument to="/$locale/about">
                     <i className="ri-information-line" />
                     {t.about}
@@ -313,6 +319,12 @@ export function SiteLayout({
               to="/$locale/blog"
             />
             <HeaderMobileLink
+              icon="ri-book-open-line"
+              label="Guides"
+              locale={locale}
+              to="/$locale/guides"
+            />
+            <HeaderMobileLink
               icon="ri-information-line"
               label={t.about}
               locale={locale}
@@ -342,6 +354,7 @@ function HeaderMobileLink({
     | '/$locale'
     | '/$locale/about'
     | '/$locale/blog'
+    | '/$locale/guides'
     | '/$locale/live'
     | '/$locale/play-my-rom'
 }) {
@@ -351,7 +364,7 @@ function HeaderMobileLink({
       activeProps={{ className: 'btn-primary' }}
       className="btn btn-ghost btn-sm min-h-11 shrink-0 gap-2 whitespace-nowrap"
       params={{ locale }}
-      reloadDocument={to !== '/$locale' && to !== '/$locale/blog'}
+      reloadDocument={to !== '/$locale' && to !== '/$locale/blog' && to !== '/$locale/guides'}
       to={to}
     >
       <i aria-hidden="true" className={icon} />
@@ -469,6 +482,10 @@ export function SiteFooter({ locale }: { locale: Locale }) {
               <Link className="link-hover link" params={{ locale }} to="/$locale/blog">
                 <i className="ri-article-line mr-1" />
                 {t.blog}
+              </Link>
+              <Link className="link-hover link" params={{ locale }} to="/$locale/guides">
+                <i className="ri-book-open-line mr-1" />
+                Guides
               </Link>
               <a className="link-hover link" href={`/${locale}/ps1-compatibility`}>
                 <i className="ri-pulse-line mr-1" />

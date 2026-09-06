@@ -34,6 +34,7 @@ export type GameCollectionPageConfig = {
   coverAlt: string
   articleTitle: string
   articleParagraphs: Array<string>
+  relatedGuide?: { href: string; label: string; description: string }
   benefits: Array<{ icon: CollectionIconName; title: string; body: string }>
   genresTitle: string
   genres: Array<GameCollectionGenre>
@@ -128,6 +129,13 @@ export function GameCollectionPage({
                 <p key={paragraph}>{paragraph}</p>
               ))}
             </div>
+            {config.relatedGuide ? (
+              <aside className="mt-7 rounded-box border border-primary/25 bg-primary/5 p-5">
+                <h3 className="font-semibold">Related guide</h3>
+                <p className="mt-2 text-sm leading-6 text-base-content/70">{config.relatedGuide.description}</p>
+                <a className="link link-primary mt-3 inline-block" href={config.relatedGuide.href}>{config.relatedGuide.label}</a>
+              </aside>
+            ) : null}
           </article>
 
           <div className="divide-y divide-base-300 border-y border-base-300">

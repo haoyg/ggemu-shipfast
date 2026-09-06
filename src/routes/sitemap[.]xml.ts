@@ -40,6 +40,7 @@ const guideSlugs = [
   'retro-platform-comparison',
   'how-browser-game-saves-work',
 ] as const
+const guidesLastModified = '2026-09-06'
 
 type SitemapSnapshot = { xml: string | null; createdAt: number; degraded: boolean }
 const sitemapCache = new TimedAsyncCache(4)
@@ -389,16 +390,28 @@ function buildSitemapEntries(
       changefreq: 'weekly',
       priority: 0.7,
     })
-
-    for (const guideSlug of guideSlugs) {
-      const path = `/guides/${guideSlug}`
+    if (locale === 'en') {
       entries.push({
+        alternateLocales: ['en'],
         locale,
-        loc: toAbsoluteLocalizedUrl(origin, locale, path),
-        path,
-        changefreq: 'monthly',
+        loc: toAbsoluteLocalizedUrl(origin, locale, '/guides'),
+        path: '/guides',
+        changefreq: 'weekly',
         priority: 0.7,
       })
+
+      for (const guideSlug of guideSlugs) {
+        const path = `/guides/${guideSlug}`
+        entries.push({
+          alternateLocales: ['en'],
+          locale,
+          loc: toAbsoluteLocalizedUrl(origin, locale, path),
+          path,
+          changefreq: 'monthly',
+          lastmod: guidesLastModified,
+          priority: 0.7,
+        })
+      }
     }
 
     for (const game of games) {

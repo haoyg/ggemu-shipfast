@@ -518,12 +518,50 @@ export function PlatformGamesPage({
   locale?: Locale
   total: number
 }) {
+  const relatedGuide = getRelatedGuide(collection.platform)
+
   return (
     <GameCollectionPage
-      config={collection.page}
+      config={{ ...collection.page, relatedGuide }}
       games={games}
       locale={locale}
       total={total}
     />
   )
+}
+
+function getRelatedGuide(platform: string) {
+  if (platform === 'Famicom' || platform === 'Super Famicom') {
+    return {
+      href: '/en/guides/nes-vs-snes-games',
+      label: 'Read: NES vs SNES Games',
+      description: 'Compare controller layouts, game design, and which library fits the kind of session you want.',
+    }
+  }
+
+  if (platform === 'Game Boy Advance') {
+    return {
+      href: '/en/guides/retro-platform-comparison',
+      label: 'Read: Retro Platform Comparison',
+      description: 'See how GBA sessions and controls compare with home-console classics.',
+    }
+  }
+
+  if (platform === 'Nintendo 64') {
+    return {
+      href: '/en/guides/retro-game-controller-guide',
+      label: 'Read: Retro Game Controller Guide',
+      description: 'Learn why a gamepad and analog controls matter for many Nintendo 64 titles.',
+    }
+  }
+
+  if (platform === 'Genesis') {
+    return {
+      href: '/en/guides/browser-retro-gaming-guide',
+      label: 'Read: Browser Retro Gaming Guide',
+      description: 'Get practical browser, keyboard, and gamepad setup advice before starting a classic session.',
+    }
+  }
+
+  return undefined
 }

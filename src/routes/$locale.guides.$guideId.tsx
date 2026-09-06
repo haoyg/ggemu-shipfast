@@ -1,21 +1,24 @@
-import { createFileRoute, notFound } from '@tanstack/react-router'
+import { createFileRoute, notFound, redirect } from '@tanstack/react-router'
 
 import { SiteLayout } from '#/components/site-layout'
 import { getI18n, normalizeLocale } from '#/lib/i18n'
 import { getSeoOrigin } from '#/lib/seo'
 
-type Guide = {
+export type Guide = {
   title: string
   description: string
   facts: Array<string>
+  publishedAt: string
+  updatedAt: string
   sections: Array<{ heading: string; paragraphs: Array<string> }>
   links: Array<{ label: string; href: string }>
 }
 
-const guides: Record<string, Guide> = {
+export const guides: Record<string, Guide> = {
   'browser-retro-gaming-guide': {
     title: 'Browser Retro Gaming Guide: Start Playing in Minutes',
     description: 'A practical guide to choosing a platform, controller, and browser for classic games.',
+    publishedAt: '2026-09-06', updatedAt: '2026-09-06',
     facts: ['NES is an 8-bit home console family; SNES moved to a 16-bit design.', 'Game Boy Advance launched in 2001 and is designed around short portable sessions.', 'Browser support depends on the embedded player and the title, so compatibility can vary by game.'],
     sections: [
       { heading: 'Choose the right platform', paragraphs: ['Start with NES, SNES, Game Boy Advance, or arcade games when you want a short session. PlayStation 1 and Nintendo 64 games usually need more loading time and work best on a stable connection.', 'Use the platform collections to compare controls, game length, and the style of games available before opening a title.'] },
@@ -27,6 +30,7 @@ const guides: Record<string, Guide> = {
   'retro-game-controller-guide': {
     title: 'Retro Game Controller Guide for Browser Play',
     description: 'How to choose keyboard, touch, and gamepad controls for browser retro games.',
+    publishedAt: '2026-09-06', updatedAt: '2026-09-06',
     facts: ['NES and Game Boy layouts need a directional pad plus a small number of face buttons.', 'SNES adds X, Y, L, and R inputs, which makes a physical controller more useful.', 'PlayStation and N64 games rely more heavily on analog movement and benefit from a gamepad.'],
     sections: [
       { heading: 'Keyboard and touch controls', paragraphs: ['Keyboard controls are convenient for quick sessions. Use a full-size layout when a game needs shoulder buttons or several simultaneous inputs. On mobile, touch controls work best for slower games and menus.', 'Before starting a difficult level, open the player menu and confirm the button layout. Small differences between platforms can change which key maps to Start, Select, or a shoulder button.'] },
@@ -38,6 +42,7 @@ const guides: Record<string, Guide> = {
   'nes-vs-snes-games': {
     title: 'NES vs SNES Games: Which Classic Library Fits You?',
     description: 'Compare NES and SNES libraries by controls, visual style, and session length.',
+    publishedAt: '2026-09-06', updatedAt: '2026-09-06',
     facts: ['Nintendo introduced the Super Famicom in Japan in 1990; the SNES name followed in other markets.', 'SNES Game Paks could include enhancement chips such as Super FX, enabling polygon effects in selected titles.', 'The two libraries differ in controller layout, audiovisual capability, and typical game scale.'],
     sections: [
       { heading: 'What makes NES different?', paragraphs: ['NES games emphasize simple controls, readable objectives, and compact levels. They are a strong choice when you want a quick browser session or are introducing someone to 8-bit design.', 'The smaller button layout makes keyboard play straightforward, although platform games still benefit from a gamepad.'] },
@@ -49,6 +54,7 @@ const guides: Record<string, Guide> = {
   'retro-platform-comparison': {
     title: 'Retro Platform Comparison: NES, GBA, PS1, and N64',
     description: 'A practical comparison of major retro platforms available to play in a browser.',
+    publishedAt: '2026-09-06', updatedAt: '2026-09-06',
     facts: ['Game Boy Advance launched in 2001 as Nintendo’s next-generation handheld system.', 'The original PlayStation launched in Japan on December 3, 1994 and used CD-ROM software.', 'Nintendo 64 is a cartridge-based 3D platform whose analog stick is central to many games.'],
     sections: [
       { heading: 'NES and SNES', paragraphs: ['NES is best for concise 8-bit action and arcade-style challenges. SNES adds more buttons, richer audiovisual design, and longer adventures.'] },
@@ -60,6 +66,7 @@ const guides: Record<string, Guide> = {
   'how-browser-game-saves-work': {
     title: 'How Browser Game Saves Work',
     description: 'Understand save states, in-game saves, and what can remove browser game progress.',
+    publishedAt: '2026-09-06', updatedAt: '2026-09-06',
     facts: ['An in-game save is written by the game’s own save system; a save state captures emulator memory at a point in time.', 'Browser storage is scoped to a site and browser profile, so private browsing or clearing site data can remove local progress.', 'Save-state compatibility can change when the embedded emulator or game core changes.'],
     sections: [
       { heading: 'In-game saves and save states', paragraphs: ['An in-game save is created by the original game and usually appears at a checkpoint, menu, or save location. A save state captures the current emulator session and is useful before a difficult section.', 'Use in-game saves for long-term progress when possible, and save states for convenience during a single session.'] },
@@ -71,6 +78,11 @@ const guides: Record<string, Guide> = {
 }
 
 export const Route = createFileRoute('/$locale/guides/$guideId')({
+  beforeLoad: ({ params }) => {
+    if (params.locale !== 'en') {
+      throw redirect({ params: { guideId: params.guideId, locale: 'en' }, replace: true, to: '/$locale/guides/$guideId' })
+    }
+  },
   loader: async ({ params }) => {
     const guide = guides[params.guideId]
     if (!guide) throw notFound()
@@ -84,7 +96,31 @@ export const Route = createFileRoute('/$locale/guides/$guideId')({
       { name: 'description', content: loaderData.guide.description },
     ],
     links: loaderData.seoOrigin ? [{ rel: 'canonical', href: `${loaderData.seoOrigin}/${params.locale}/guides/${params.guideId}` }] : undefined,
-    scripts: loaderData.seoOrigin ? [{ type: 'application/ld+json', children: JSON.stringify({ '@context': 'https://schema.org', '@type': 'Article', headline: loaderData.guide.title, description: loaderData.guide.description, mainEntityOfPage: `${loaderData.seoOrigin}/${params.locale}/guides/${params.guideId}` }) }] : undefined,
+    scripts: loaderData.seoOrigin ? [
+      {
+        type: 'application/ld+json',
+        children: JSON.stringify({
+          '@context': 'https://schema.org', '@type': 'Article',
+          author: { '@type': 'Organization', name: 'POKOPIE Editorial Team' },
+          dateModified: loaderData.guide.updatedAt,
+          datePublished: loaderData.guide.publishedAt,
+          description: loaderData.guide.description,
+          headline: loaderData.guide.title,
+          mainEntityOfPage: `${loaderData.seoOrigin}/${params.locale}/guides/${params.guideId}`,
+          publisher: { '@type': 'Organization', name: 'POKOPIE', url: loaderData.seoOrigin },
+        }),
+      },
+      {
+        type: 'application/ld+json',
+        children: JSON.stringify({
+          '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [
+            { '@type': 'ListItem', position: 1, name: 'Home', item: `${loaderData.seoOrigin}/${params.locale}` },
+            { '@type': 'ListItem', position: 2, name: 'Guides', item: `${loaderData.seoOrigin}/${params.locale}/guides/${params.guideId}` },
+            { '@type': 'ListItem', position: 3, name: loaderData.guide.title, item: `${loaderData.seoOrigin}/${params.locale}/guides/${params.guideId}` },
+          ],
+        }),
+      },
+    ] : undefined,
     }
   },
   component: GuidePage,
@@ -101,6 +137,7 @@ function GuidePage() {
         <p className="text-sm font-semibold uppercase tracking-wide text-primary">{t.tagline}</p>
         <h1 className="mt-3 text-4xl font-semibold leading-tight sm:text-5xl">{guide.title}</h1>
         <p className="mt-5 max-w-3xl text-lg leading-8 text-base-content/70">{guide.description}</p>
+        <p className="mt-4 text-sm text-base-content/60">By POKOPIE Editorial Team · Updated {guide.updatedAt}</p>
         <ul className="mt-6 grid gap-3 rounded-box border border-base-300 bg-base-200/60 p-5 text-sm leading-6 sm:grid-cols-3">
           {guide.facts.map((fact) => <li className="list-disc pl-2 marker:text-primary" key={fact}>{fact}</li>)}
         </ul>
