@@ -3,7 +3,7 @@ import { describe, expect, it } from 'vitest'
 import { buildGameStructuredData } from './$locale.games.$gameId'
 
 describe('buildGameStructuredData', () => {
-  it('uses the game creation date as the video uploadDate', () => {
+  it('does not describe preview media as a watch-page video', () => {
     const structuredData = buildGameStructuredData({
       canonicalUrl: 'https://pokopie.com/en/games/contra-nes-1988',
       faqItems: [],
@@ -30,10 +30,6 @@ describe('buildGameStructuredData', () => {
       )
     })
 
-    expect(videoSchema).toMatchObject({
-      '@type': 'VideoObject',
-      name: 'Contra - Game Video',
-      uploadDate: '2026-03-24',
-    })
+    expect(videoSchema).toBeUndefined()
   })
 })

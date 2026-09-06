@@ -11,10 +11,6 @@ import {
 import { GameInstallButton } from '#/components/game-install-button'
 import { GameEmbedCard, GameShareActions } from '#/components/game-share-actions'
 import { EmbeddedGamePlayer } from '#/components/embedded-game-player'
-import {
-  GameCardPreviewVideo,
-  gameCardPreviewHandlers,
-} from '#/components/game-card-preview'
 import { SiteLayout } from '#/components/site-layout'
 import {
   UnavailablePage,
@@ -57,7 +53,6 @@ const removedLegacyGameIds = new Set([
   's-c-a-t-nes-1991',
   'superman-the-new-superman-adventures-n64-1999',
 ])
-const DEFAULT_VIDEO_SCHEMA_UPLOAD_DATE = '2026-08-10'
 
 export const Route = createFileRoute('/$locale/games/$gameId')({
   beforeLoad: ({ location, params }) => {
@@ -341,18 +336,6 @@ export function buildGameStructuredData({
     schemas.push(faqSchema)
   }
 
-  if (game.game_video) {
-    schemas.push({
-      '@context': 'https://schema.org',
-      '@type': 'VideoObject',
-      name: `${game.name} - Game Video`,
-      description: seo.description,
-      thumbnailUrl: game.game_cover,
-      contentUrl: game.game_video,
-      uploadDate: getVideoSchemaUploadDate(game),
-    })
-  }
-
   const howToSteps = getGameHowToPlayParagraphs(game, locale)
   if (howToSteps.length > 0) {
     schemas.push({
@@ -369,30 +352,6 @@ export function buildGameStructuredData({
   }
 
   return schemas
-}
-
-function getVideoSchemaUploadDate(game: PublicGame) {
-  return (
-    getSchemaDate(game.created_at) ??
-    getSchemaDate(game.updated_at) ??
-    DEFAULT_VIDEO_SCHEMA_UPLOAD_DATE
-  )
-}
-
-function getSchemaDate(value?: string) {
-  const trimmed = value?.trim()
-
-  if (!trimmed) {
-    return undefined
-  }
-
-  const date = new Date(trimmed)
-
-  if (Number.isNaN(date.getTime())) {
-    return undefined
-  }
-
-  return date.toISOString().slice(0, 10)
 }
 
 function removeEmptySchemaValues<T extends Record<string, unknown>>(schema: T) {
@@ -459,7 +418,6 @@ function LocalizedGameDetailPage() {
             <div className="flex min-w-0 flex-col gap-4">
               <div
                 className="group relative aspect-[4/3] w-full self-start overflow-hidden rounded-box border border-base-300 bg-base-200 shadow-sm"
-                {...gameCardPreviewHandlers}
               >
                 {game.game_cover ? (
                   <img
@@ -476,7 +434,6 @@ function LocalizedGameDetailPage() {
                     {getRetroCoverFallbackLabel(lang)}
                   </div>
                 )}
-                <GameCardPreviewVideo src={game.game_video} />
               </div>
 
               <ArticlePanel
@@ -860,7 +817,6 @@ function RelatedGameCard({ game, lang }: { game: PublicGame; lang: Locale }) {
   return (
     <Link
       className="group overflow-hidden rounded-box border border-base-300 bg-base-100 shadow-sm transition duration-200 hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-lg"
-      {...gameCardPreviewHandlers}
       params={{ gameId, locale: lang }}
       search={{}}
       to="/$locale/games/$gameId"
@@ -881,7 +837,6 @@ function RelatedGameCard({ game, lang }: { game: PublicGame; lang: Locale }) {
             {getRetroCoverFallbackLabel(lang)}
           </div>
         )}
-        <GameCardPreviewVideo src={game.game_video} />
       </div>
       <div className="p-3">
         <h3 className="line-clamp-2 min-h-10 text-sm font-semibold leading-snug">

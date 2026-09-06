@@ -518,7 +518,7 @@ export function PlatformGamesPage({
   locale?: Locale
   total: number
 }) {
-  const relatedGuide = getRelatedGuide(collection.platform)
+  const relatedGuide = locale === 'en' ? getRelatedGuide(collection.platform) : undefined
 
   return (
     <GameCollectionPage
