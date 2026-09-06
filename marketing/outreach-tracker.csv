@@ -1,11 +1,11 @@
 ﻿wave,priority,target,type,landing_page,submit_url,status,date_contacted,response,live_url,indexed,notes
 1,P1,Product Hunt,Product directory,https://pokopie.com/en/play-my-rom,https://www.producthunt.com/,todo,,,,,准备画廊图+maker评论+发布日期；主发布渠道
 1,P1,BetaList,Startup directory,https://pokopie.com/en/play-my-rom,https://betalist.com/,todo,,,,,早期工具定位
-1,P1,Uneed,Product directory,https://pokopie.com/en/play-my-rom,https://www.uneed.best/,todo,,,,,确认是否仍有免费提交
-1,P1,Fazier,Product directory,https://pokopie.com/en/play-my-rom,https://fazier.com/,todo,,,,,仅品牌锚文本
+1,P1,Uneed,Product directory,https://pokopie.com/en/play-my-rom,https://www.uneed.best/,held,,,,,免费发布队列当前关闭；不购买 Fast-track 或 Skip Queue
+1,P1,Fazier,Product directory,https://pokopie.com/en/play-my-rom,https://fazier.com/,held,,,,,免费收录要求站点展示其徽章；暂不改变站点页脚
 1,P1,AlternativeTo,Software directory,https://pokopie.com/en/play-my-rom,https://alternativeto.net/,todo,,,,,alternative=已安装的桌面模拟器
 1,P2,Sloop Web Directory,Curated web directory,https://pokopie.com/en/ps1-compatibility,https://sloop.nz/,todo,,,,,申请games/tools分类
-1,P2,Launching Next,Startup directory,https://pokopie.com/en/play-my-rom,https://www.launchingnext.com/,todo,,,,,提交后确认被index
+1,P2,Launching Next,Startup directory,https://pokopie.com/en/play-my-rom,https://www.launchingnext.com/submit/,ready_to_submit,,,,,免费人工审核队列；已准备提交文案，不购买加急
 1,P2,PitchWall,Startup directory,https://pokopie.com/en/play-my-rom,https://pitchwall.co/,todo,,,,,不买排名包
 1,P2,BetaPage,Startup directory,https://pokopie.com/en/play-my-rom,https://betapage.co/,todo,,,,,确认免费listing
 2,P1,RetroRGB,Retro editorial,https://pokopie.com/en/ps1-compatibility,https://www.retrorgb.com/,todo,,,,,editorial pitch；先读近期模拟器报道找联系人
@@ -21,3 +21,8 @@
 3,P1,Hacker News Show HN,Developer community,https://pokopie.com/en/ps1-compatibility,https://news.ycombinator.com/show,todo,,,,,生产页稳定后一次性打
 4,P1,dev.to,Developer publishing,https://pokopie.com/en/ps1-compatibility,https://dev.to/,todo,,,,,发原创技术长文，正文自然引用
 4,P1,Hashnode,Developer publishing,https://pokopie.com/en/ps1-compatibility,https://hashnode.com/,todo,,,,,带代码片段的工程write-up
+5,P1,Retro Format,Retro gaming magazine,https://pokopie.com/en/guides/nes-vs-snes-games,https://www.retro-format.com/writeforus.php,sent,2026-09-06,,,,已发送合规选题邮件；发往 editorial@retro-format.com
+5,P1,Retro Garden,Retro gaming editorial,https://pokopie.com/en/guides/retro-platform-comparison,https://www.retrogarden.co.uk/write-for-us/,held,,,,,仅接受至少 500 词并带图的游戏评测；先准备原创评测
+5,P1,SpriteFountain,Retro gaming editorial,https://pokopie.com/en/guides/browser-retro-gaming-guide,https://www.spritefountain.com/write-for-spritefountain/,ready_to_send,,,,,已完成合规选题邮件；使用其 Write for Us 页面列出的投稿邮箱
+5,P1,Rec0deD:88,Retro gaming guest post,https://pokopie.com/en/guides/how-browser-game-saves-work,https://rec0ded88.com/write-for-us-gaming-guest-post,held,,,,,编辑规则明确拒绝 AI 生成内容；不发送 AI 生成投稿
+5,P2,RETRONUKE,Retro and indie editorial,https://pokopie.com/en/guides/retro-game-controller-guide,https://retronuke.com/write-about-video-games/,sent,2026-09-06,,,,已发送合规选题邮件；发往 retronukeblog@gmail.com

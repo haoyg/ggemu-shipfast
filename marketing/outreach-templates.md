@@ -56,6 +56,28 @@ Regards,
 Hugh  
 hughhao7@gmail.com
 
+## Guide contribution pitch
+
+**Subject:** Pitch: a practical guide to [NES vs SNES / browser saves / retro controllers]
+
+Hi [Name],
+
+I enjoyed your piece on [specific article or section]. I am the developer of POKOPIE, where we publish practical browser-retro-gaming guides alongside our tools.
+
+I would like to contribute an original [600–900]-word article on [chosen angle]. It would cover concrete player questions, such as [specific question], and would be written for your readers rather than as a product announcement.
+
+For background, our related guide is here:
+
+[relevant POKOPIE guide URL]
+
+I can adapt the article to your editorial style, provide original screenshots where appropriate, and disclose my connection to POKOPIE. Would this fit your contributor calendar?
+
+Regards,
+
+Hugh
+POKOPIE
+hughhao7@gmail.com
+
 ## Directory submission copy
 
 **Name:** POKOPIE
