@@ -76,6 +76,7 @@ import { Route as LocaleAboutRouteImport } from './routes/$locale.about'
 import { Route as LocalePlatformRouteImport } from './routes/$locale.$platform'
 import { Route as LibraryGenresGenreRouteImport } from './routes/library.genres.$genre'
 import { Route as GamesGameIdPlayRouteImport } from './routes/games/$gameId/play'
+import { Route as LocaleGuidesGuideIdRouteImport } from './routes/$locale.guides.$guideId'
 import { Route as LocaleGamesGameIdRouteImport } from './routes/$locale.games.$gameId'
 import { Route as LocaleBlogBlogIdRouteImport } from './routes/$locale.blog.$blogId'
 import { Route as EmbedLocaleGamesGameIdRouteImport } from './routes/embed.$locale.games.$gameId'
@@ -417,6 +418,11 @@ const GamesGameIdPlayRoute = GamesGameIdPlayRouteImport.update({
   path: '/play',
   getParentRoute: () => GamesGameIdRoute,
 } as any)
+const LocaleGuidesGuideIdRoute = LocaleGuidesGuideIdRouteImport.update({
+  id: '/guides/$guideId',
+  path: '/guides/$guideId',
+  getParentRoute: () => LocaleRoute,
+} as any)
 const LocaleGamesGameIdRoute = LocaleGamesGameIdRouteImport.update({
   id: '/games/$gameId',
   path: '/games/$gameId',
@@ -506,6 +512,7 @@ export interface FileRoutesByFullPath {
   '/play/$gameId': typeof PlayGameIdRoute
   '/$locale/blog/$blogId': typeof LocaleBlogBlogIdRoute
   '/$locale/games/$gameId': typeof LocaleGamesGameIdRouteWithChildren
+  '/$locale/guides/$guideId': typeof LocaleGuidesGuideIdRoute
   '/games/$gameId/play': typeof GamesGameIdPlayRoute
   '/library/genres/$genre': typeof LibraryGenresGenreRoute
   '/$locale/games/$gameId/play': typeof LocaleGamesGameIdPlayRoute
@@ -579,6 +586,7 @@ export interface FileRoutesByTo {
   '/play/$gameId': typeof PlayGameIdRoute
   '/$locale/blog/$blogId': typeof LocaleBlogBlogIdRoute
   '/$locale/games/$gameId': typeof LocaleGamesGameIdRouteWithChildren
+  '/$locale/guides/$guideId': typeof LocaleGuidesGuideIdRoute
   '/games/$gameId/play': typeof GamesGameIdPlayRoute
   '/library/genres/$genre': typeof LibraryGenresGenreRoute
   '/$locale/games/$gameId/play': typeof LocaleGamesGameIdPlayRoute
@@ -653,6 +661,7 @@ export interface FileRoutesById {
   '/play/$gameId': typeof PlayGameIdRoute
   '/$locale/blog/$blogId': typeof LocaleBlogBlogIdRoute
   '/$locale/games/$gameId': typeof LocaleGamesGameIdRouteWithChildren
+  '/$locale/guides/$guideId': typeof LocaleGuidesGuideIdRoute
   '/games/$gameId/play': typeof GamesGameIdPlayRoute
   '/library/genres/$genre': typeof LibraryGenresGenreRoute
   '/$locale/games/$gameId/play': typeof LocaleGamesGameIdPlayRoute
@@ -728,6 +737,7 @@ export interface FileRouteTypes {
     | '/play/$gameId'
     | '/$locale/blog/$blogId'
     | '/$locale/games/$gameId'
+    | '/$locale/guides/$guideId'
     | '/games/$gameId/play'
     | '/library/genres/$genre'
     | '/$locale/games/$gameId/play'
@@ -801,6 +811,7 @@ export interface FileRouteTypes {
     | '/play/$gameId'
     | '/$locale/blog/$blogId'
     | '/$locale/games/$gameId'
+    | '/$locale/guides/$guideId'
     | '/games/$gameId/play'
     | '/library/genres/$genre'
     | '/$locale/games/$gameId/play'
@@ -874,6 +885,7 @@ export interface FileRouteTypes {
     | '/play/$gameId'
     | '/$locale/blog/$blogId'
     | '/$locale/games/$gameId'
+    | '/$locale/guides/$guideId'
     | '/games/$gameId/play'
     | '/library/genres/$genre'
     | '/$locale/games/$gameId/play'
@@ -1410,6 +1422,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof GamesGameIdPlayRouteImport
       parentRoute: typeof GamesGameIdRoute
     }
+    '/$locale/guides/$guideId': {
+      id: '/$locale/guides/$guideId'
+      path: '/guides/$guideId'
+      fullPath: '/$locale/guides/$guideId'
+      preLoaderRoute: typeof LocaleGuidesGuideIdRouteImport
+      parentRoute: typeof LocaleRoute
+    }
     '/$locale/games/$gameId': {
       id: '/$locale/games/$gameId'
       path: '/games/$gameId'
@@ -1477,6 +1496,7 @@ interface LocaleRouteChildren {
   LocaleRandomRoute: typeof LocaleRandomRoute
   LocaleTermsOfServiceRoute: typeof LocaleTermsOfServiceRoute
   LocaleGamesGameIdRoute: typeof LocaleGamesGameIdRouteWithChildren
+  LocaleGuidesGuideIdRoute: typeof LocaleGuidesGuideIdRoute
 }
 
 const LocaleRouteChildren: LocaleRouteChildren = {
@@ -1492,6 +1512,7 @@ const LocaleRouteChildren: LocaleRouteChildren = {
   LocaleRandomRoute: LocaleRandomRoute,
   LocaleTermsOfServiceRoute: LocaleTermsOfServiceRoute,
   LocaleGamesGameIdRoute: LocaleGamesGameIdRouteWithChildren,
+  LocaleGuidesGuideIdRoute: LocaleGuidesGuideIdRoute,
 }
 
 const LocaleRouteWithChildren =

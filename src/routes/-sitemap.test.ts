@@ -30,6 +30,7 @@ describe('sitemap availability', () => {
     expect(first.headers.get('Cache-Control')).toContain('s-maxage=86400')
     const firstXml = await first.text()
     expect(firstXml).toContain('/en/games/contra')
+    expect(firstXml).toContain('/en/guides/browser-retro-gaming-guide')
     expect(firstXml).toContain('https://pokopie.com/zh-CN/nes-games')
     expect(firstXml).toContain('hreflang="ja" href="https://pokopie.com/ja/nes-games"')
     expect(firstXml).toContain('https://pokopie.com/zh-CN/arcade-games')

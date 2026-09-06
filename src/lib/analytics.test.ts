@@ -49,4 +49,12 @@ describe('analytics bootstrap', () => {
       response_ms: 80,
     }])
   })
+
+  it('quietly skips performance reporting when navigation timing is unavailable', () => {
+    vi.spyOn(performance, 'getEntriesByType').mockReturnValue([])
+
+    expect(() => trackPagePerformance('/en')).not.toThrow()
+    const commands = initializeGoogleConsentMode().dataLayer?.map((command) => Array.from(command as ArrayLike<unknown>))
+    expect(commands?.map((command) => command[0])).toEqual(['consent', 'set'])
+  })
 })

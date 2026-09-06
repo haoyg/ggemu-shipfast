@@ -52,14 +52,15 @@ export function trackEvent(name: FunnelEvent, parameters: Record<string, string 
   } catch { /* Analytics is best effort. */ }
 }
 
-export function trackPagePerformance(pathname = window.location.pathname) {
+export function trackPagePerformance(pathname?: string) {
   if (typeof window === 'undefined' || typeof performance === 'undefined') return
 
+  const pagePath = pathname ?? window.location.pathname
   const navigation = performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming | undefined
   if (!navigation) return
 
   trackEvent('page_performance', {
-    page_path: pathname,
+    page_path: pagePath,
     dom_content_loaded_ms: Math.round(navigation.domContentLoadedEventEnd),
     load_event_ms: Math.round(navigation.loadEventEnd),
     response_ms: Math.round(navigation.responseEnd - navigation.startTime),

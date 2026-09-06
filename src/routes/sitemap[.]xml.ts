@@ -33,6 +33,13 @@ const localizedCollectionPaths = new Set([
   '/ps1-games',
   '/ps1-compatibility',
 ])
+const guideSlugs = [
+  'browser-retro-gaming-guide',
+  'retro-game-controller-guide',
+  'nes-vs-snes-games',
+  'retro-platform-comparison',
+  'how-browser-game-saves-work',
+] as const
 
 type SitemapSnapshot = { xml: string | null; createdAt: number; degraded: boolean }
 const sitemapCache = new TimedAsyncCache(4)
@@ -42,7 +49,7 @@ type SitemapEntry = {
   locale: Locale
   loc: string
   path: string
-  changefreq?: 'daily' | 'weekly'
+  changefreq?: 'daily' | 'weekly' | 'monthly'
   lastmod?: string
   priority?: number
 }
@@ -382,6 +389,17 @@ function buildSitemapEntries(
       changefreq: 'weekly',
       priority: 0.7,
     })
+
+    for (const guideSlug of guideSlugs) {
+      const path = `/guides/${guideSlug}`
+      entries.push({
+        locale,
+        loc: toAbsoluteLocalizedUrl(origin, locale, path),
+        path,
+        changefreq: 'monthly',
+        priority: 0.7,
+      })
+    }
 
     for (const game of games) {
       const gameId = encodeURIComponent(getGameRouteId(game))
