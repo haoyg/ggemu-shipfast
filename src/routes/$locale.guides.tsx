@@ -1,4 +1,4 @@
-import { Link, createFileRoute, redirect } from '@tanstack/react-router'
+import { Link, Outlet, createFileRoute, redirect, useRouterState } from '@tanstack/react-router'
 
 import { SiteLayout } from '#/components/site-layout'
 import { getI18n, normalizeLocale } from '#/lib/i18n'
@@ -24,7 +24,14 @@ export const Route = createFileRoute('/$locale/guides')({
 
 function GuidesIndexPage() {
   const locale = normalizeLocale(Route.useParams().locale)
+  const isGuideDetail = useRouterState({
+    select: (state) => state.matches.some((match) => match.routeId === '/$locale/guides/$guideId'),
+  })
   const t = getI18n(locale).layout
+
+  if (isGuideDetail) {
+    return <Outlet />
+  }
 
   return (
     <SiteLayout locale={locale}>

@@ -187,57 +187,59 @@ function GuidePage() {
 
   return (
     <SiteLayout locale={locale}>
-      <main className="mx-auto max-w-4xl px-4 py-12 sm:px-6 lg:px-8">
-        <nav aria-label="Breadcrumb" className="breadcrumbs text-sm">
+      <main className="bg-neutral text-neutral-content">
+        <div className="mx-auto max-w-4xl px-4 py-12 sm:px-6 lg:px-8">
+        <nav aria-label="Breadcrumb" className="breadcrumbs text-sm text-white/60">
           <ul>
             <li><a href="/en">Home</a></li>
             <li><a href="/en/guides">Guides</a></li>
             <li><span className="max-w-48 truncate">{guide.title}</span></li>
           </ul>
         </nav>
-        <p className="text-sm font-semibold uppercase tracking-wide text-primary">{t.tagline}</p>
-        <h1 className="mt-3 text-4xl font-semibold leading-tight sm:text-5xl">{guide.title}</h1>
-        <p className="mt-5 max-w-3xl text-lg leading-8 text-base-content/70">{guide.description}</p>
-        <p className="mt-4 text-sm text-base-content/60">By POKOPIE Editorial Team · Updated {guide.updatedAt}</p>
-        <ul className="mt-6 grid gap-3 rounded-box border border-base-300 bg-base-200/60 p-5 text-sm leading-6 sm:grid-cols-3">
+        <p className="mt-5 text-xs font-bold uppercase tracking-[0.18em] text-primary">{t.tagline}</p>
+        <h1 className="mt-3 text-4xl font-black leading-tight text-white sm:text-5xl">{guide.title}</h1>
+        <p className="mt-5 max-w-3xl text-lg leading-8 text-white/70">{guide.description}</p>
+        <p className="mt-4 text-sm text-white/60">By POKOPIE Editorial Team · Updated {guide.updatedAt}</p>
+        <ul className="mt-6 grid gap-3 rounded-xl border border-white/10 bg-white/[0.04] p-5 text-sm leading-6 text-white/75 sm:grid-cols-3">
           {guide.facts.map((fact) => <li className="list-disc pl-2 marker:text-primary" key={fact}>{fact}</li>)}
         </ul>
         <div className="mt-10 space-y-8">
           {guide.sections.map((section) => (
-            <section className="rounded-box border border-base-300 bg-base-100 p-6 shadow-sm" key={section.heading}>
-              <h2 className="text-2xl font-semibold">{section.heading}</h2>
-              {section.paragraphs.map((paragraph) => <p className="mt-4 leading-7 text-base-content/75" key={paragraph}>{paragraph}</p>)}
+            <section className="rounded-xl border border-white/10 bg-white/[0.04] p-6 shadow-sm" key={section.heading}>
+              <h2 className="text-2xl font-bold text-white">{section.heading}</h2>
+              {section.paragraphs.map((paragraph) => <p className="mt-4 leading-7 text-white/75" key={paragraph}>{paragraph}</p>)}
             </section>
           ))}
         </div>
-        <section className="mt-10 rounded-box border border-base-300 bg-base-100 p-6 shadow-sm">
-          <h2 className="text-2xl font-semibold">Frequently asked questions</h2>
-          <div className="mt-4 divide-y divide-base-300">
+        <section className="mt-10 rounded-xl border border-white/10 bg-white/[0.04] p-6 shadow-sm">
+          <h2 className="text-2xl font-bold text-white">Frequently asked questions</h2>
+          <div className="mt-4 divide-y divide-white/10">
             {guide.faqs.map((faq) => (
               <details className="py-4" key={faq.question}>
-                <summary className="cursor-pointer font-semibold">{faq.question}</summary>
-                <p className="mt-3 leading-7 text-base-content/75">{faq.answer}</p>
+                <summary className="cursor-pointer font-semibold text-white">{faq.question}</summary>
+                <p className="mt-3 leading-7 text-white/75">{faq.answer}</p>
               </details>
             ))}
           </div>
         </section>
-        <nav aria-label="Related guides" className="mt-10 rounded-box border border-primary/20 bg-primary/5 p-6">
-          <h2 className="text-lg font-semibold">Explore related pages</h2>
+        <nav aria-label="Related guides" className="mt-10 rounded-xl border border-primary/25 bg-primary/10 p-6">
+          <h2 className="text-lg font-bold text-white">Explore related pages</h2>
           <div className="mt-4 flex flex-wrap gap-3">
             {guide.links.map((link) => <a className="link link-primary" href={link.href.replace('$locale', locale)} key={link.href}>{link.label}</a>)}
           </div>
         </nav>
         {guide.sources?.length ? (
-          <section className="mt-8 text-sm leading-6 text-base-content/65">
-            <h2 className="font-semibold text-base-content">Sources</h2>
+          <section className="mt-8 text-sm leading-6 text-white/65">
+            <h2 className="font-semibold text-white">Sources</h2>
             <ul className="mt-2 list-disc pl-5">
               {guide.sources.map((source) => <li key={source.href}><a className="link" href={source.href} rel="noreferrer">{source.label}</a></li>)}
             </ul>
           </section>
         ) : null}
-        <p className="mt-6 text-xs leading-5 text-base-content/55">
+        <p className="mt-6 text-xs leading-5 text-white/55">
           Browser behavior, controls, and save support depend on the current embedded player and the individual game.
         </p>
+        </div>
       </main>
     </SiteLayout>
   )
