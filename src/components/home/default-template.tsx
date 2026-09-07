@@ -1,7 +1,7 @@
 import { Link, useNavigate } from '@tanstack/react-router'
 import { useServerFn } from '@tanstack/react-start'
 import type { FocusEvent, ReactNode } from 'react'
-import { useEffect, useId, useState } from 'react'
+import { useEffect, useId, useRef, useState } from 'react'
 
 import {
   GameCardPreviewVideo,
@@ -228,7 +228,9 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
                     </div>
                   </div>
                 </div>
-                {topGames[0] ? <FeaturedGame game={topGames[0]} lang={lang} label={t.featured} /> : null}
+                {topGames.length > 0 ? (
+                  <FeaturedGameCarousel games={topGames.slice(0, 5)} lang={lang} label={t.featured} />
+                ) : null}
               </div>
             </div>
 
@@ -720,52 +722,126 @@ function FilterBadge({
   )
 }
 
-function FeaturedGame({
-  game,
+function FeaturedGameCarousel({
+  games,
   label,
   lang,
 }: {
-  game: PublicGame
+  games: Array<PublicGame>
   label: string
   lang: Locale
 }) {
+  const [activeIndex, setActiveIndex] = useState(0)
+  const previewVideoRef = useRef<HTMLVideoElement>(null)
+  const game = games[activeIndex] ?? games[0]
+
+  useEffect(() => {
+    if (games.length < 2 || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      return
+    }
+
+    const intervalId = window.setInterval(() => {
+      setActiveIndex((index) => (index + 1) % games.length)
+    }, 6000)
+
+    return () => window.clearInterval(intervalId)
+  }, [games.length])
+
+  useEffect(() => {
+    previewVideoRef.current?.play().catch(() => {})
+  }, [activeIndex])
+
+  if (!game) {
+    return null
+  }
+
   const gameId = getGameRouteId(game)
   const gameName = game.name?.trim() || 'Game'
   const platformBadge = getPlatformBadge(game, lang)
 
   return (
-    <Link
-      className="featured-game arcade-card group grid overflow-hidden"
-      params={{ gameId, locale: lang }}
-      search={{}}
-      title={`Play ${gameName} online`}
-      to="/$locale/games/$gameId"
-    >
+    <section className="featured-game arcade-card relative grid overflow-hidden">
       <div className="flex items-center gap-3 border-b border-[#fa786b]/65 bg-[#080d1b] px-4 py-3 text-sm">
         <span className="arcade-kicker text-[#fa786b]">{label}</span>
         <span className="h-px flex-1 bg-[#fa786b]/50" />
+        {games.length > 1 ? (
+          <div className="flex items-center gap-1">
+            <button
+              aria-label="Previous featured game"
+              className="carousel-control"
+              onClick={() => setActiveIndex((index) => (index - 1 + games.length) % games.length)}
+              type="button"
+            >
+              <i aria-hidden="true" className="ri-arrow-left-s-line" />
+            </button>
+            <button
+              aria-label="Next featured game"
+              className="carousel-control"
+              onClick={() => setActiveIndex((index) => (index + 1) % games.length)}
+              type="button"
+            >
+              <i aria-hidden="true" className="ri-arrow-right-s-line" />
+            </button>
+          </div>
+        ) : null}
       </div>
-      <ArcadeCover
-        alt={gameName}
-        className="aspect-[16/9]"
-        cover={game.game_cover}
-        isPriority
-        lang={lang}
+      <Link
+        className="featured-game-link group block"
+        params={{ gameId, locale: lang }}
+        search={{}}
+        title={`Play ${gameName} online`}
+        to="/$locale/games/$gameId"
       >
-        <GameCardPreviewVideo src={game.game_video} />
-      </ArcadeCover>
-      <div className="flex items-end justify-between gap-4 bg-[#080d1b] p-4 sm:p-5">
-        <div className="min-w-0">
-          <h2 className="line-clamp-2 text-xl font-bold leading-tight text-white sm:text-2xl">{gameName}</h2>
-          {platformBadge ? (
-            <p className="mt-2 text-xs font-bold uppercase tracking-[0.14em] text-primary">{platformBadge}</p>
+        <ArcadeCover
+          alt={gameName}
+          className="aspect-[16/9]"
+          cover={game.game_cover}
+          isPriority
+          lang={lang}
+        >
+          {game.game_video?.trim() ? (
+            <video
+              aria-hidden="true"
+              autoPlay
+              className="feature-preview-video absolute inset-0 h-full w-full object-cover"
+              key={game.game_video}
+              loop
+              muted
+              playsInline
+              preload="metadata"
+              ref={previewVideoRef}
+              src={game.game_video}
+            />
           ) : null}
+        </ArcadeCover>
+        <div className="flex items-end justify-between gap-4 bg-[#080d1b] p-4 sm:p-5">
+          <div className="min-w-0">
+            <h2 className="line-clamp-2 text-xl font-bold leading-tight text-white sm:text-2xl">{gameName}</h2>
+            {platformBadge ? (
+              <p className="mt-2 text-xs font-bold uppercase tracking-[0.14em] text-primary">{platformBadge}</p>
+            ) : null}
+          </div>
+          <span className="grid h-11 w-11 shrink-0 rounded-sm border border-[#fa786b]/65 bg-[#fa786b] text-xl text-[#080d1b] transition group-hover:scale-105">
+            <i aria-hidden="true" className="m-auto ri-play-fill" />
+          </span>
         </div>
-        <span className="grid h-11 w-11 shrink-0 place-items-center rounded-sm border border-[#fa786b]/65 bg-[#fa786b] text-xl text-[#080d1b] transition group-hover:scale-105">
-          <i aria-hidden="true" className="ri-play-fill" />
-        </span>
-      </div>
-    </Link>
+      </Link>
+      {games.length > 1 ? (
+        <div aria-label={label} className="carousel-dots" role="tablist">
+          {games.map((item, index) => (
+            <button
+              aria-label={`${label} ${index + 1}: ${item.name ?? 'Game'}`}
+              aria-selected={index === activeIndex}
+              className={index === activeIndex ? 'active' : ''}
+              key={getGameRouteId(item)}
+              onClick={() => setActiveIndex(index)}
+              role="tab"
+              type="button"
+            />
+          ))}
+        </div>
+      ) : null}
+    </section>
   )
 }
 
