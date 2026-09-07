@@ -124,7 +124,7 @@ export function SiteLayout({
           </div>
 
           {hideHeaderNav ? null : (
-            <nav className="ml-8 hidden 2xl:flex">
+            <nav className="ml-6 hidden xl:flex">
               <ul className="menu menu-horizontal gap-1 px-1">
                 <li>
                   <Link activeOptions={{ exact: true }} activeProps={{ className: 'active text-primary' }} params={{ locale }} to="/$locale">
