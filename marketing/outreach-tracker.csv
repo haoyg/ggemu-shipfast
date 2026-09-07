@@ -1,10 +1,10 @@
 ﻿wave,priority,target,type,landing_page,submit_url,status,date_contacted,response,live_url,indexed,notes
-1,P1,Product Hunt,Product directory,https://pokopie.com/en/play-my-rom,https://www.producthunt.com/,todo,,,,,准备画廊图+maker评论+发布日期；主发布渠道
+1,P1,Product Hunt,Product directory,https://pokopie.com/en/ps1-compatibility,https://www.producthunt.com/launch,ready_to_draft,,,,,使用个人 maker 账号；已准备描述、缩略图、画廊图和首评，不立即上线
 1,P1,BetaList,Startup directory,https://pokopie.com/en/play-my-rom,https://betalist.com/,todo,,,,,早期工具定位
 1,P1,Uneed,Product directory,https://pokopie.com/en/play-my-rom,https://www.uneed.best/,held,,,,,免费发布队列当前关闭；不购买 Fast-track 或 Skip Queue
 1,P1,Fazier,Product directory,https://pokopie.com/en/play-my-rom,https://fazier.com/,held,,,,,免费收录要求站点展示其徽章；暂不改变站点页脚
 1,P1,AlternativeTo,Software directory,https://pokopie.com/en/play-my-rom,https://alternativeto.net/,todo,,,,,alternative=已安装的桌面模拟器
-1,P2,Sloop Web Directory,Curated web directory,https://pokopie.com/en/ps1-compatibility,https://sloop.nz/,todo,,,,,申请games/tools分类
+1,P2,Sloop Web Directory,Curated web directory,https://pokopie.com/en/ps1-compatibility,https://sloop.nz/submission/,submitted,2026-09-06,,,,由 Hugh 手动提交；等待目录审核和公开链接
 1,P2,Launching Next,Startup directory,https://pokopie.com/en/play-my-rom,https://www.launchingnext.com/submit/,ready_to_submit,,,,,免费人工审核队列；已准备提交文案，不购买加急
 1,P2,PitchWall,Startup directory,https://pokopie.com/en/play-my-rom,https://pitchwall.co/,todo,,,,,不买排名包
 1,P2,BetaPage,Startup directory,https://pokopie.com/en/play-my-rom,https://betapage.co/,todo,,,,,确认免费listing

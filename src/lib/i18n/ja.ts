@@ -28,6 +28,9 @@ export const jaMessages = {
     title: 'レトロゲームをオンラインでプレイ',
     subtitle:
       'GBA、NES、SNES、PS1、N64、Sega Genesis、アーケードなどの名作をブラウザーでそのまま遊べます。ダウンロードは不要です。',
+    heroSearchHint: 'タイトル、プラットフォーム、シリーズから名作を探せます。',
+    browsePopular: '人気ゲームを見る',
+    discovery: 'もっと探す',
     searchPlaceholder: 'ゲーム名、プラットフォーム、シリーズを検索...',
     search: '検索',
     closeSearch: '検索を閉じる',

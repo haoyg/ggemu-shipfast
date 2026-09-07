@@ -19,6 +19,9 @@ export type I18nMessages = {
   home: {
     title: string
     subtitle: string
+    heroSearchHint: string
+    browsePopular: string
+    discovery: string
     searchPlaceholder: string
     search: string
     closeSearch: string

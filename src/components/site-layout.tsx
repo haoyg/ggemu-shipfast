@@ -449,6 +449,39 @@ export function SiteFooter({ locale }: { locale: Locale }) {
                   width="200"
                 />
               </a>
+              <a
+                className="inline-flex items-center"
+                href="https://launchbuff.com/products/pokopie-uqly4x"
+                rel="noopener noreferrer"
+                target="_blank"
+                title="Featured on LaunchBuff"
+              >
+                <img
+                  alt="Featured on LaunchBuff"
+                  className="h-[40px] w-auto"
+                  decoding="async"
+                  height="80"
+                  loading="lazy"
+                  src="https://launchbuff.com/badge-featured-light.svg"
+                  width="256"
+                />
+              </a>
+              <a
+                className="inline-flex items-center"
+                href="https://www.producthunt.com/products/pokopie?embed=true&utm_source=badge-featured&utm_medium=badge&utm_campaign=badge-pokopie"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <img
+                  alt="POKOPIE - Check if your browser is ready for web PS1 emulation | Product Hunt"
+                  className="h-[40px] w-auto"
+                  decoding="async"
+                  height="54"
+                  loading="lazy"
+                  src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1242912&theme=light&t=1788774077866"
+                  width="250"
+                />
+              </a>
             </div>
           </section>
 

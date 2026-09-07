@@ -190,24 +190,59 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
         </aside>
 
         <main className="min-w-0 max-w-full overflow-x-hidden bg-[radial-gradient(circle_at_top_left,rgba(244,63,94,0.18),transparent_34rem),radial-gradient(circle_at_top_right,rgba(34,211,238,0.14),transparent_30rem)]">
-          <section className="border-b border-white/10 px-3 py-3 sm:px-6 sm:py-4 lg:px-8">
-            <div className="flex min-w-0 flex-col gap-3 xl:flex-row xl:items-center">
-              <form className="min-w-0 flex-1" onSubmit={onSearch}>
-                <HomeSearchSuggest
-                  gameTotal={pagination.total}
-                  isLoading={isLoading}
-                  lang={lang}
-                  onQueryChange={onQueryChange}
-                  query={filters.query}
-                  t={t}
-                />
-              </form>
+          <section className="border-b border-white/10 px-3 py-4 sm:px-6 sm:py-6 lg:px-8 lg:py-8">
+            <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-[linear-gradient(125deg,rgba(15,23,42,0.98),rgba(76,18,68,0.92))] px-5 py-7 shadow-2xl sm:px-8 sm:py-9">
+              <div aria-hidden="true" className="absolute -right-24 -top-28 h-64 w-64 rounded-full bg-primary/25 blur-3xl" />
+              <div aria-hidden="true" className="absolute -bottom-32 left-1/3 h-56 w-56 rounded-full bg-cyan-300/15 blur-3xl" />
+              <div className="relative grid gap-7 xl:grid-cols-[minmax(0,1fr)_minmax(22rem,0.78fr)] xl:items-end xl:gap-10">
+                <div className="min-w-0">
+                  <div className="flex flex-wrap items-center gap-3">
+                    <p className="text-xs font-bold uppercase tracking-[0.2em] text-primary">
+                      {siteConfig.SITE_NAME}
+                    </p>
+                    <span className="badge badge-outline border-white/20 text-xs font-medium text-white/70">
+                      {formatCopy(t.totalGames, { total: pagination.total })}
+                    </span>
+                  </div>
+                  <h1 className="mt-3 max-w-3xl text-3xl font-black leading-[1.08] text-white sm:text-4xl lg:text-5xl">
+                    {t.title}
+                  </h1>
+                  <p className="mt-4 max-w-2xl text-sm leading-6 text-white/70 sm:text-base sm:leading-7">
+                    {t.subtitle}
+                  </p>
+                </div>
 
-              <div className="flex min-w-0 max-w-full gap-2 overflow-x-auto pb-1 [scrollbar-width:none] xl:pb-0 [&::-webkit-scrollbar]:hidden">
+                <div className="rounded-xl border border-white/10 bg-neutral/45 p-3 shadow-lg backdrop-blur-sm sm:p-4">
+                  <form className="min-w-0" onSubmit={onSearch}>
+                    <HomeSearchSuggest
+                      gameTotal={pagination.total}
+                      isLoading={isLoading}
+                      lang={lang}
+                      onQueryChange={onQueryChange}
+                      query={filters.query}
+                      t={t}
+                    />
+                  </form>
+                  <div className="mt-3 flex flex-wrap items-center justify-between gap-3">
+                    <p className="text-xs leading-5 text-white/55">{t.heroSearchHint}</p>
+                    <a className="btn btn-ghost btn-sm min-h-10 px-3 text-white hover:bg-white/10" href="#popular-games">
+                      {t.browsePopular}
+                      <i aria-hidden="true" className="ri-arrow-down-line" />
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-4 flex min-w-0 flex-col gap-2 sm:flex-row sm:items-center">
+              <p className="shrink-0 text-xs font-semibold uppercase tracking-wide text-white/45">
+                {t.allPlatforms}
+              </p>
+              <div className="flex min-w-0 max-w-full gap-2 overflow-x-auto pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
                 {platformChips.map((platform) => (
                   <button
                     aria-pressed={filters.platform === platform.name}
-                    className={`btn btn-sm min-h-11 shrink-0 border-white/15 ${
+                    className={`btn btn-sm min-h-10 shrink-0 border-white/15 ${
                       filters.platform === platform.name
                         ? 'btn-primary'
                         : 'bg-white/8 text-white hover:bg-white/15'
@@ -224,23 +259,7 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
             </div>
           </section>
 
-          <section className="px-3 py-4 sm:px-6 sm:py-5 lg:px-8">
-            <div className="mb-3 flex min-w-0 flex-col gap-3 sm:mb-4 sm:flex-row sm:items-end sm:justify-between">
-              <div className="min-w-0">
-                <p className="text-xs font-semibold uppercase tracking-wide text-primary">
-                  {siteConfig.SITE_NAME}
-                </p>
-                <h1 className="mt-1 text-xl font-black leading-tight text-white sm:text-3xl">
-                  {t.title}
-                </h1>
-                <p className="mt-2 max-w-3xl text-sm leading-6 text-white/65 sm:text-base">
-                  {t.subtitle}
-                </p>
-              </div>
-              <span className="badge badge-outline w-fit border-white/20 text-xs text-white/70 sm:shrink-0 sm:text-sm">
-                {formatCopy(t.totalGames, { total: pagination.total })}
-              </span>
-            </div>
+          <section className="px-3 py-5 sm:px-6 sm:py-6 lg:px-8">
             {activeCategoryLabel || activePlatformLabel ? (
               <div className="mb-4 flex flex-wrap gap-2">
                 {activePlatformLabel ? (
@@ -258,9 +277,14 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
               </div>
             ) : null}
 
-            <section className="mb-6 scroll-mt-24" id="recent-games">
+            <section className="mb-8 scroll-mt-24 rounded-xl border border-white/10 bg-black/10 p-3 sm:p-4" id="recent-games">
               <div className="mb-3 flex items-center justify-between gap-3">
-                <h2 className="text-lg font-black text-white">{t.recentlyPlayed}</h2>
+                <h2 className="flex items-center gap-2 text-base font-bold text-white">
+                  <span className="grid h-7 w-7 place-items-center rounded-full bg-white/8 text-sm text-white/65">
+                    <i aria-hidden="true" className="ri-history-line" />
+                  </span>
+                  {t.recentlyPlayed}
+                </h2>
                 {recentGames.length > 0 ? (
                   <div className="flex items-center gap-3">
                     <span className="text-xs text-white/45">
@@ -276,7 +300,7 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
                 <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
                   {recentGames.slice(0, 4).map((game) => (
                     <Link
-                      className="group grid min-w-0 grid-cols-[4.5rem_minmax(0,1fr)] gap-3 rounded-lg border border-white/10 bg-white/5 p-2 transition hover:border-primary/60 hover:bg-white/10"
+                      className="group grid min-w-0 grid-cols-[4.5rem_minmax(0,1fr)] gap-3 rounded-lg border border-white/10 bg-white/[0.04] p-2 transition hover:border-primary/60 hover:bg-white/10"
                       key={game.id}
                       params={{ gameId: game.id, locale: lang }}
                       title={`Continue playing ${game.name}`}
@@ -294,7 +318,7 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
                   ))}
                 </div>
               ) : (
-                <div className="flex flex-wrap items-center justify-between gap-3 rounded-lg border border-white/10 bg-white/5 p-3 text-sm text-white/55">
+                <div className="flex flex-wrap items-center justify-between gap-3 rounded-lg border border-dashed border-white/10 bg-white/[0.03] p-3 text-sm text-white/55">
                   <span>{recentEmptyCopy}</span>
                   <a className="font-semibold text-primary underline underline-offset-2" href="#popular-games">
                     {browsePopularLabel}
@@ -305,15 +329,23 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
 
             {topGames.length > 0 ? (
               <section className="scroll-mt-24" id="popular-games">
-                <div className="mb-3 flex items-center justify-between gap-3">
-                  <h2 className="text-xl font-black text-white">{t.popular}</h2>
-                  <span className="text-xs font-medium text-white/45">
-                    {hasActiveFilters ? '' : recommendationLabel}
-                  </span>
+                <div className="mb-5 flex items-end justify-between gap-3">
+                  <div>
+                    <p className="flex items-center gap-2 text-xs font-bold uppercase tracking-[0.16em] text-primary">
+                      <i aria-hidden="true" className="ri-star-fill" />
+                      {t.featured}
+                    </p>
+                    <h2 className="mt-1 text-2xl font-black text-white sm:text-3xl">{t.popular}</h2>
+                  </div>
+                  {!hasActiveFilters ? (
+                    <span className="badge badge-outline shrink-0 border-white/15 text-xs font-medium text-white/55">
+                      {recommendationLabel}
+                    </span>
+                  ) : null}
                 </div>
                 <div
                   aria-busy={isLoading}
-                  className={`grid min-w-0 grid-cols-2 gap-3 max-[360px]:grid-cols-1 sm:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-6 ${
+                  className={`grid min-w-0 grid-cols-2 gap-3 max-[360px]:grid-cols-1 sm:grid-cols-3 sm:gap-4 xl:grid-cols-4 2xl:grid-cols-6 ${
                     isLoading ? 'opacity-60' : ''
                   }`}
                 >
@@ -334,39 +366,46 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
             )}
           </section>
 
-          <section className="grid gap-5 border-t border-white/10 px-4 py-5 sm:px-6 lg:px-8 xl:grid-cols-[minmax(0,1.1fr)_minmax(18rem,0.9fr)]">
-            <HomeRail title={t.newest}>
-              {newGames.length > 0 ? (
-                newGames.map((game) => (
-                  <ArcadeMiniCard game={game} key={getGameRouteId(game)} lang={lang} />
-                ))
-              ) : (
-                <div className="rounded-lg border border-white/10 bg-white/5 p-4 text-sm text-white/55">
-                  {t.empty}
-                </div>
-              )}
-            </HomeRail>
+          <section className="border-t border-white/10 px-4 py-5 sm:px-6 lg:px-8">
+            <div className="rounded-2xl border border-white/10 bg-black/15 p-4 sm:p-5">
+              <p className="mb-5 text-xs font-bold uppercase tracking-[0.16em] text-white/45">
+                {t.discovery}
+              </p>
+              <div className="grid gap-6 xl:grid-cols-[minmax(0,1.1fr)_minmax(18rem,0.9fr)]">
+                <HomeRail title={t.newest}>
+                  {newGames.length > 0 ? (
+                    newGames.map((game) => (
+                      <ArcadeMiniCard game={game} key={getGameRouteId(game)} lang={lang} />
+                    ))
+                  ) : (
+                    <div className="rounded-lg border border-white/10 bg-white/5 p-4 text-sm text-white/55">
+                      {t.empty}
+                    </div>
+                  )}
+                </HomeRail>
 
-            <HomeRail title={lang === 'zh-CN' ? '本周热门' : lang === 'ja' ? '今週の人気ゲーム' : 'Hot this week'}>
-              <div className="grid w-full gap-2">
-                {topGames.slice(0, 5).map((game, index) => (
-                  <Link
-                    className="group grid min-w-0 grid-cols-[1.5rem_3.25rem_minmax(0,1fr)] items-center gap-2 rounded-lg border border-white/10 bg-white/5 p-2 transition hover:border-primary/60 hover:bg-white/10"
-                    key={`weekly-${getGameRouteId(game)}`}
-                    params={{ gameId: getGameRouteId(game), locale: lang }}
-                    search={{}}
-                    title={`Play ${game.name} online`}
-                    to="/$locale/games/$gameId"
-                  >
-                    <span className={`text-center text-sm font-black ${index === 0 ? 'text-primary' : 'text-white/45'}`}>
-                      {index + 1}
-                    </span>
-                    <ArcadeCover alt={game.name ?? 'Game cover'} className="aspect-square rounded-md" cover={game.game_cover} lang={lang} />
-                    <span className="line-clamp-2 text-sm font-semibold text-white">{game.name}</span>
-                  </Link>
-                ))}
+                <HomeRail title={lang === 'zh-CN' ? '本周热门' : lang === 'ja' ? '今週の人気ゲーム' : 'Hot this week'}>
+                  <div className="grid w-full gap-2">
+                    {topGames.slice(0, 5).map((game, index) => (
+                      <Link
+                        className="group grid min-w-0 grid-cols-[1.5rem_3.25rem_minmax(0,1fr)] items-center gap-2 rounded-lg border border-white/10 bg-white/[0.04] p-2 transition hover:border-primary/60 hover:bg-white/10"
+                        key={`weekly-${getGameRouteId(game)}`}
+                        params={{ gameId: getGameRouteId(game), locale: lang }}
+                        search={{}}
+                        title={`Play ${game.name} online`}
+                        to="/$locale/games/$gameId"
+                      >
+                        <span className={`text-center text-sm font-black ${index === 0 ? 'text-primary' : 'text-white/45'}`}>
+                          {index + 1}
+                        </span>
+                        <ArcadeCover alt={game.name ?? 'Game cover'} className="aspect-square rounded-md" cover={game.game_cover} lang={lang} />
+                        <span className="line-clamp-2 text-sm font-semibold text-white">{game.name}</span>
+                      </Link>
+                    ))}
+                  </div>
+                </HomeRail>
               </div>
-            </HomeRail>
+            </div>
           </section>
 
           <section className="border-t border-white/10 px-4 py-5 sm:px-6 lg:px-8">

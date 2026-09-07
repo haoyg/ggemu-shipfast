@@ -28,6 +28,9 @@ export const zhCnMessages = {
     title: '在线游玩经典复古游戏',
     subtitle:
       '在浏览器里直接游玩 GBA、NES、SNES、PS1、N64、Sega Genesis、街机等经典游戏，无需下载。',
+    heroSearchHint: '按游戏名、平台或系列查找经典游戏。',
+    browsePopular: '浏览热门游戏',
+    discovery: '继续发现',
     searchPlaceholder: '搜索游戏名、平台或系列...',
     search: '搜索',
     closeSearch: '关闭搜索',

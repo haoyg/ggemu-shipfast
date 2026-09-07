@@ -28,6 +28,9 @@ export const enMessages = {
     title: 'Play Retro Games Online - No Download Required',
     subtitle:
       'Browse 1500+ classic games from NES, SNES, GBA, PS1, Arcade, Sega Genesis and more. Start instantly in your browser with no downloads or sign-up.',
+    heroSearchHint: 'Find a classic by title, platform, or series.',
+    browsePopular: 'Browse popular games',
+    discovery: 'More to explore',
     searchPlaceholder: 'Search by game title, platform, or series...',
     search: 'Search',
     closeSearch: 'Close search',

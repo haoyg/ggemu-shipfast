@@ -149,13 +149,14 @@ export function Ps1CompatibilityPage({ locale = 'en' }: { locale?: Locale }) {
       locale={locale}
       localePaths={{ 'zh-CN': `/${locale === 'zh-CN' ? 'zh-CN' : 'zh-CN'}/ps1-compatibility`, en: '/en/ps1-compatibility', ja: '/ja/ps1-compatibility' }}
     >
-      <section className="border-b border-base-300 bg-base-100">
+      <section className="border-b border-white/10 bg-[radial-gradient(circle_at_top_right,rgba(236,72,153,0.2),transparent_28rem),radial-gradient(circle_at_top_left,rgba(34,211,238,0.12),transparent_30rem)] bg-neutral text-neutral-content">
         <div className="mx-auto grid max-w-7xl gap-10 px-4 py-14 sm:px-6 lg:grid-cols-[minmax(0,1fr)_22rem] lg:items-end lg:px-8 lg:py-20">
           <div className="max-w-3xl">
-            <h1 className="text-4xl font-semibold leading-tight sm:text-5xl">
+            <p className="text-xs font-bold uppercase tracking-[0.18em] text-primary">POKOPIE Lab</p>
+            <h1 className="mt-3 text-4xl font-black leading-tight text-white sm:text-5xl">
               {copy.hero}
             </h1>
-            <p className="mt-5 max-w-2xl text-lg leading-8 text-base-content/70">
+            <p className="mt-5 max-w-2xl text-lg leading-8 text-white/70">
               {copy.intro}
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
@@ -163,7 +164,7 @@ export function Ps1CompatibilityPage({ locale = 'en' }: { locale?: Locale }) {
                 <i aria-hidden="true" className="ri-pulse-line" />
                 {copy.run}
               </button>
-              <Link className="btn btn-outline" to="/en/ps1-games">
+              <Link className="btn border-white/25 bg-white/5 text-white hover:border-white/45 hover:bg-white/10" to="/en/ps1-games">
                 {copy.browse}
                 <i aria-hidden="true" className="ri-arrow-right-line" />
               </Link>
@@ -174,26 +175,26 @@ export function Ps1CompatibilityPage({ locale = 'en' }: { locale?: Locale }) {
         </div>
       </section>
 
-      <section className="bg-base-200/45">
+      <section className="border-b border-white/10 bg-neutral text-neutral-content">
         <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
           <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
             <div>
-              <h2 className="text-3xl font-semibold">{copy.results}</h2>
-              <p className="mt-2 max-w-2xl leading-7 text-base-content/65">
+              <h2 className="text-3xl font-black text-white">{copy.results}</h2>
+              <p className="mt-2 max-w-2xl leading-7 text-white/65">
                 {copy.local}
               </p>
             </div>
-            <p className="text-sm text-base-content/50">Last methodology update: August 2026</p>
+            <p className="text-sm text-white/45">Last methodology update: August 2026</p>
           </div>
 
-          <div className="mt-8 overflow-hidden rounded-lg border border-base-300 bg-base-100">
-            <div className="hidden grid-cols-[minmax(12rem,0.8fr)_7rem_minmax(18rem,1.4fr)_8rem] gap-4 border-b border-base-300 bg-base-200 px-5 py-3 text-xs font-semibold uppercase text-base-content/55 md:grid">
+          <div className="mt-8 overflow-hidden rounded-xl border border-white/10 bg-white/[0.04] shadow-xl">
+            <div className="hidden grid-cols-[minmax(12rem,0.8fr)_7rem_minmax(18rem,1.4fr)_9rem] gap-4 border-b border-white/10 bg-white/[0.07] px-5 py-3.5 text-[0.7rem] font-bold uppercase tracking-[0.12em] text-white/65 md:grid">
               <span>Capability</span>
               <span>Priority</span>
               <span>Why it matters</span>
               <span>Result</span>
             </div>
-            <div className="divide-y divide-base-300">
+            <div className="divide-y divide-white/10">
               {capabilityDefinitions.map((definition) => (
                 <CapabilityRow
                   available={capabilities?.[definition.key]}
@@ -207,7 +208,7 @@ export function Ps1CompatibilityPage({ locale = 'en' }: { locale?: Locale }) {
         </div>
       </section>
 
-      <section className="border-y border-base-300 bg-neutral text-neutral-content">
+      <section className="border-y border-white/10 bg-black/20 text-neutral-content">
         <div className="mx-auto grid max-w-7xl gap-10 px-4 py-14 sm:px-6 lg:grid-cols-2 lg:px-8">
           <article>
             <h2 className="text-3xl font-semibold text-white">{copy.scoreTitle}</h2>
@@ -224,11 +225,11 @@ export function Ps1CompatibilityPage({ locale = 'en' }: { locale?: Locale }) {
         </div>
       </section>
 
-      <section className="bg-base-100">
+      <section className="bg-neutral text-neutral-content">
         <div className="mx-auto grid max-w-7xl gap-10 px-4 py-14 sm:px-6 lg:grid-cols-[minmax(0,1fr)_22rem] lg:items-start lg:px-8">
           <article className="max-w-3xl">
-            <h2 className="text-3xl font-semibold">{copy.scopeTitle}</h2>
-            <div className="mt-5 space-y-4 leading-8 text-base-content/70">
+            <h2 className="text-3xl font-black text-white">{copy.scopeTitle}</h2>
+            <div className="mt-5 space-y-4 leading-8 text-white/70">
               <p>
                 This page performs feature detection with standard browser APIs. It does not benchmark CPU or GPU speed, verify every controller model, or guarantee that every PS1 title will run at full speed.
               </p>
@@ -238,9 +239,9 @@ export function Ps1CompatibilityPage({ locale = 'en' }: { locale?: Locale }) {
             </div>
           </article>
 
-          <aside className="border-l-4 border-primary bg-base-200 p-5">
-            <h2 className="text-lg font-semibold">{copy.ownTitle}</h2>
-            <p className="mt-2 text-sm leading-6 text-base-content/65">
+          <aside className="rounded-xl border border-white/10 border-l-4 border-l-primary bg-white/[0.05] p-5 shadow-lg">
+            <h2 className="text-lg font-bold text-white">{copy.ownTitle}</h2>
+            <p className="mt-2 text-sm leading-6 text-white/65">
               {copy.ownDescription}
             </p>
             <Link
@@ -280,11 +281,11 @@ function ReadinessSummary({
         : 'text-warning'
 
   return (
-    <aside aria-live="polite" className="border-l-4 border-primary bg-base-200 p-6">
-      <p className="text-sm font-semibold text-base-content/55">{labels.browser}</p>
+    <aside aria-live="polite" className="rounded-xl border border-white/10 border-l-4 border-l-primary bg-black/20 p-6 shadow-xl backdrop-blur-sm">
+      <p className="text-sm font-semibold text-white/55">{labels.browser}</p>
       <div className="mt-2 flex items-end justify-between gap-4">
         <strong className={`text-3xl ${tone}`}>{label}</strong>
-        <span className="text-2xl font-semibold">{readiness?.score ?? '--'}/100</span>
+        <span className="text-2xl font-bold text-white">{readiness?.score ?? '--'}/100</span>
       </div>
       <progress
         aria-label="Browser compatibility score"
@@ -292,7 +293,7 @@ function ReadinessSummary({
         max="100"
         value={readiness?.score ?? 0}
       />
-      <p className="mt-3 text-xs leading-5 text-base-content/55">
+      <p className="mt-3 text-xs leading-5 text-white/55">
         {labels.score}
       </p>
     </aside>
@@ -314,35 +315,59 @@ function CapabilityRow({
       ? { checking: '確認中', available: '対応', unavailable: '未対応' }
       : { checking: 'Checking', available: 'Available', unavailable: 'Unavailable' }
   return (
-    <div className="grid gap-3 px-5 py-5 md:grid-cols-[minmax(12rem,0.8fr)_7rem_minmax(18rem,1.4fr)_8rem] md:items-center md:gap-4">
-      <div className="flex items-center gap-3 font-semibold">
-        <i aria-hidden="true" className={`${definition.icon} text-xl text-primary`} />
+    <div className="grid gap-3 px-5 py-5 md:grid-cols-[minmax(12rem,0.8fr)_7rem_minmax(18rem,1.4fr)_9rem] md:items-center md:gap-4">
+      <div className="flex items-center gap-3 text-[0.95rem] font-bold text-white">
+        <i aria-hidden="true" className={`${definition.icon} text-[1.35rem] text-primary`} />
         {definition.label}
       </div>
-      <span className="text-sm font-medium text-base-content/60">{definition.requirement}</span>
-      <p className="text-sm leading-6 text-base-content/65">{definition.description}</p>
-      <span
-        className={`inline-flex items-center gap-2 text-sm font-semibold ${
-          available === undefined
-            ? 'text-base-content/45'
-            : available
-              ? 'text-success'
-              : 'text-error'
-        }`}
-      >
-        <i
-          aria-hidden="true"
-          className={
-            available === undefined
-              ? 'ri-loader-4-line'
-              : available
-                ? 'ri-checkbox-circle-fill'
-                : 'ri-close-circle-fill'
-          }
-        />
-        {available === undefined ? status.checking : available ? status.available : status.unavailable}
+      <div className="flex flex-wrap items-center gap-2 md:hidden">
+        <span className="rounded-md border border-white/15 bg-white/[0.06] px-2.5 py-1 text-xs font-bold text-white/75">
+          <span className="text-white/45">Priority · </span>
+          {definition.requirement}
+        </span>
+        <CapabilityStatus available={available} status={status} />
+      </div>
+      <span className="hidden w-fit rounded-md border border-white/15 bg-white/[0.06] px-2.5 py-1 text-xs font-bold text-white/75 md:inline-flex">
+        <span className="sr-only">Priority: </span>
+        {definition.requirement}
       </span>
+      <p className="text-sm leading-6 text-white/75">{definition.description}</p>
+      <div className="hidden md:block">
+        <CapabilityStatus available={available} status={status} />
+      </div>
     </div>
+  )
+}
+
+function CapabilityStatus({
+  available,
+  status,
+}: {
+  available: boolean | undefined
+  status: { checking: string; available: string; unavailable: string }
+}) {
+  return (
+    <span
+      className={`w-fit inline-flex items-center gap-2 rounded-md border px-2.5 py-1.5 text-sm font-bold ${
+        available === undefined
+          ? 'border-white/15 bg-white/[0.06] text-white/75'
+          : available
+            ? 'border-success/35 bg-success/15 text-success'
+            : 'border-error/35 bg-error/15 text-error'
+      }`}
+    >
+      <i
+        aria-hidden="true"
+        className={
+          available === undefined
+            ? 'ri-loader-4-line animate-spin'
+            : available
+              ? 'ri-checkbox-circle-fill'
+              : 'ri-close-circle-fill'
+        }
+      />
+      {available === undefined ? status.checking : available ? status.available : status.unavailable}
+    </span>
   )
 }
 
