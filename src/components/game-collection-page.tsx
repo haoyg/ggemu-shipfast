@@ -64,11 +64,11 @@ export function GameCollectionPage({
         ja: locale === 'ja' ? config.routePath : '/ja',
       }}
     >
-      <section className="border-b border-white/10 bg-[radial-gradient(circle_at_top_right,rgba(236,72,153,0.2),transparent_28rem),radial-gradient(circle_at_top_left,rgba(34,211,238,0.12),transparent_30rem)] bg-neutral text-neutral-content">
-        <div className="mx-auto grid max-w-7xl gap-10 px-4 py-14 sm:px-6 lg:grid-cols-[minmax(0,0.9fr)_minmax(28rem,1.1fr)] lg:items-center lg:px-8 lg:py-20">
+      <section className="arcade-section border-b text-neutral-content">
+        <div className="arcade-hero mx-auto grid max-w-7xl gap-10 px-5 py-10 sm:mx-6 sm:px-8 sm:py-14 lg:mx-auto lg:grid-cols-[minmax(0,0.9fr)_minmax(28rem,1.1fr)] lg:items-center lg:px-10 lg:py-18">
           <div className="max-w-2xl">
-            <p className="text-xs font-bold uppercase tracking-[0.18em] text-primary">POKOPIE Collections</p>
-            <h1 className="mt-3 text-4xl font-black leading-[1.08] tracking-tight text-white sm:text-5xl lg:text-6xl">
+            <p className="arcade-kicker">POKOPIE</p>
+            <h1 className="arcade-section-title mt-3 text-4xl font-black leading-[0.98] tracking-tight text-white sm:text-5xl lg:text-6xl">
               {config.heroTitle}
             </h1>
             <p className="mt-6 max-w-xl text-lg leading-8 text-white/70">
@@ -92,9 +92,9 @@ export function GameCollectionPage({
         </div>
       </section>
 
-      <section className="bg-neutral text-neutral-content" id="game-library">
+      <section className="arcade-section text-neutral-content" id="game-library">
         <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-semibold text-white">{config.libraryTitle}</h2>
+          <h2 className="arcade-rule-title arcade-section-title text-3xl font-semibold text-white">{config.libraryTitle}</h2>
           <p className="mt-2 max-w-2xl text-sm leading-6 text-white/60">
             {config.libraryDescription(total)}
           </p>
@@ -119,7 +119,7 @@ export function GameCollectionPage({
         </div>
       </section>
 
-      <section className="border-b border-white/10 bg-black/20 text-neutral-content">
+      <section className="arcade-section arcade-editorial border-b text-neutral-content">
         <div className="mx-auto grid max-w-7xl gap-12 px-4 py-16 sm:px-6 lg:grid-cols-[minmax(0,1fr)_minmax(24rem,0.9fr)] lg:px-8">
           <article>
             <h2 className="max-w-2xl text-3xl font-black leading-tight text-white sm:text-4xl">
@@ -155,9 +155,9 @@ export function GameCollectionPage({
         </div>
       </section>
 
-      <section className="border-b border-white/10 bg-neutral text-neutral-content">
+      <section className="arcade-section border-b text-neutral-content">
         <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
-          <h2 className="text-center text-3xl font-black text-white">{config.genresTitle}</h2>
+          <h2 className="arcade-section-title text-center text-3xl font-black text-white">{config.genresTitle}</h2>
           <div className="mt-8 grid gap-px overflow-hidden rounded-xl border border-white/10 bg-white/10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
             {config.genres.map((genre) => (
               <GenreLink
@@ -171,9 +171,9 @@ export function GameCollectionPage({
         </div>
       </section>
 
-      <section className="border-t border-white/10 bg-black/20 text-neutral-content">
+      <section className="arcade-section arcade-editorial border-t text-neutral-content">
         <div className="mx-auto max-w-4xl px-4 py-16 sm:px-6 lg:px-8">
-          <h2 className="text-center text-3xl font-black text-white">Frequently Asked Questions</h2>
+          <h2 className="arcade-section-title text-center text-3xl font-black text-white">Frequently Asked Questions</h2>
           <div className="mt-8 divide-y divide-white/10 border-y border-white/10">
             {config.faqs.map((faq) => (
               <details className="group py-1" key={faq.question}>
@@ -212,7 +212,7 @@ function HeroGameCovers({
     <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 lg:grid-cols-2" aria-label={label}>
       {games.map((game, index) => (
         <Link
-          className={`group overflow-hidden rounded-lg border border-white/10 bg-white/[0.06] shadow-md transition hover:-translate-y-1 hover:border-primary/60 hover:shadow-xl ${
+          className={`arcade-card group overflow-hidden transition hover:-translate-y-1 ${
             index % 2 === 0 ? 'lg:-translate-y-3' : 'lg:translate-y-3'
           }`}
           key={getGameId(game)}
@@ -255,7 +255,7 @@ function GameCollectionCard({
 
   return (
     <Link
-      className="group overflow-hidden rounded-lg border border-white/10 bg-white/5 transition hover:-translate-y-1 hover:border-primary/70 hover:bg-white/10"
+      className="arcade-card arcade-game-card group overflow-hidden transition hover:-translate-y-1"
       {...gameCardPreviewHandlers}
       params={{ gameId, locale }}
       search={{}}

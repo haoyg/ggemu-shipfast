@@ -94,8 +94,8 @@ export function SiteLayout({
   }
 
   return (
-    <main className="min-h-screen overflow-x-hidden bg-base-100 text-base-content">
-      <header className="sticky top-0 z-40 border-b border-base-300/70 bg-base-100/90 [padding-top:env(safe-area-inset-top)] backdrop-blur">
+    <main className="site-shell min-h-screen overflow-x-hidden text-base-content">
+      <header className="site-header sticky top-0 z-40 border-b [padding-top:env(safe-area-inset-top)] backdrop-blur">
         <div className="navbar mx-auto max-w-7xl px-3 sm:px-6 lg:px-8">
           <div className="navbar-start min-w-0 flex-1">
             <Link
@@ -113,7 +113,7 @@ export function SiteLayout({
                 />
               </span>
               <span className="min-w-0 leading-tight">
-                <span className="block text-base font-semibold tracking-wide sm:text-lg">
+                <span className="site-brand-name block text-base font-semibold tracking-wide sm:text-lg">
                   {siteConfig.SITE_NAME}
                 </span>
                 <span className="hidden truncate text-xs text-base-content/55 sm:block">
@@ -293,7 +293,7 @@ export function SiteLayout({
             />
             {localizedPlatformNavLinks.slice(0, 5).map((link) => (
               <a
-                className={`btn btn-ghost btn-sm min-h-11 shrink-0 gap-2 whitespace-nowrap ${
+                className={`site-nav-link btn btn-ghost btn-sm min-h-11 shrink-0 gap-2 whitespace-nowrap ${
                   location.pathname === link.href ? 'btn-primary' : ''
                 }`}
                 href={link.href}
@@ -365,7 +365,7 @@ function HeaderMobileLink({
     <Link
       activeOptions={{ exact: to === '/$locale' }}
       activeProps={{ className: 'btn-primary' }}
-      className="btn btn-ghost btn-sm min-h-11 shrink-0 gap-2 whitespace-nowrap"
+      className="site-nav-link btn btn-ghost btn-sm min-h-11 shrink-0 gap-2 whitespace-nowrap"
       params={{ locale }}
       reloadDocument={to !== '/$locale' && to !== '/$locale/blog' && to !== '/$locale/guides'}
       to={to}
@@ -380,12 +380,12 @@ export function SiteFooter({ locale }: { locale: Locale }) {
   const t = getI18n(locale).layout
 
   return (
-    <footer className="border-t border-base-300 bg-base-100">
-      <div className="mx-auto max-w-7xl px-4 py-8 text-sm text-base-content/70 [padding-bottom:max(2rem,env(safe-area-inset-bottom))] sm:px-6 lg:px-8">
+    <footer className="site-footer border-t text-neutral-content">
+      <div className="mx-auto max-w-7xl px-4 py-8 text-sm text-white/70 [padding-bottom:max(2rem,env(safe-area-inset-bottom))] sm:px-6 lg:px-8">
         <div className="grid gap-8 md:grid-cols-[minmax(0,1fr)_auto_auto] md:items-start">
           <section className="max-w-md">
             <div className="flex items-center gap-3">
-              <span className="grid h-10 w-10 place-items-center overflow-hidden rounded-lg bg-base-100">
+              <span className="grid h-10 w-10 place-items-center overflow-hidden rounded-lg bg-white">
                 <img
                   alt={siteConfig.SITE_NAME}
                   className="h-full w-full object-contain"
@@ -397,7 +397,7 @@ export function SiteFooter({ locale }: { locale: Locale }) {
                 />
               </span>
               <div>
-                <p className="text-base font-semibold text-base-content">
+                <p className="text-base font-semibold text-white">
                   {siteConfig.SITE_NAME}
                 </p>
               </div>
@@ -405,14 +405,14 @@ export function SiteFooter({ locale }: { locale: Locale }) {
             <p className="mt-4 leading-6">{t.footer}</p>
             <div className="mt-4 flex flex-wrap gap-2">
               <a
-                className="badge badge-sm badge-outline gap-2 p-3"
+                className="badge badge-sm badge-outline gap-2 border-white/20 p-3 text-white/80"
                 href={`mailto:${siteConfig.SITE_EMAIL}`}
               >
                 <i className="ri-mail-line" />
                 {siteConfig.SITE_EMAIL}
               </a>
               <a
-                className="badge badge-sm badge-outline gap-2 p-3"
+                className="badge badge-sm badge-outline gap-2 border-white/20 p-3 text-white/80"
                 href="https://ggemu.com"
                 rel="noopener noreferrer nofollow"
                 target="_blank"
@@ -489,7 +489,7 @@ export function SiteFooter({ locale }: { locale: Locale }) {
           </section>
 
           <nav className="md:min-w-32">
-            <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-base-content/45">
+            <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-white/45">
               {t.explore}
             </p>
             <div className="flex flex-col items-start gap-2">
@@ -540,7 +540,7 @@ export function SiteFooter({ locale }: { locale: Locale }) {
           </nav>
 
           <nav className="md:min-w-40">
-            <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-base-content/45">
+            <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-white/45">
               {t.legal}
             </p>
             <div className="flex flex-col items-start gap-2">
@@ -564,9 +564,9 @@ export function SiteFooter({ locale }: { locale: Locale }) {
           </nav>
         </div>
 
-        <div className="mt-8 border-t border-base-300 pt-5">
-          <p className="font-medium text-base-content">{t.copyright}</p>
-          <p className="mt-2 max-w-5xl leading-6 text-base-content/55">
+        <div className="mt-8 border-t border-white/10 pt-5">
+          <p className="font-medium text-white">{t.copyright}</p>
+          <p className="mt-2 max-w-5xl leading-6 text-white/55">
             {t.disclaimer}
           </p>
         </div>

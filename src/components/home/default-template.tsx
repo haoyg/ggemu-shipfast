@@ -144,9 +144,9 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
   }
 
   return (
-    <div className="overflow-x-hidden bg-neutral text-neutral-content">
+    <div className="arcade-page overflow-x-hidden">
       <div className="mx-auto grid w-full max-w-[96rem] min-w-0 lg:grid-cols-[14rem_minmax(0,1fr)]">
-        <aside className="hidden border-r border-white/10 bg-neutral px-3 py-4 lg:block">
+        <aside className="hidden border-r border-white/10 bg-[#090f20]/80 px-3 py-4 lg:block">
           <nav className="sticky top-20 flex flex-col gap-5">
             <Link
               className="flex items-center gap-3 rounded-lg bg-primary px-3 py-3 text-sm font-semibold text-primary-content"
@@ -189,48 +189,46 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
           </nav>
         </aside>
 
-        <main className="min-w-0 max-w-full overflow-x-hidden bg-[radial-gradient(circle_at_top_left,rgba(244,63,94,0.18),transparent_34rem),radial-gradient(circle_at_top_right,rgba(34,211,238,0.14),transparent_30rem)]">
-          <section className="border-b border-white/10 px-3 py-4 sm:px-6 sm:py-6 lg:px-8 lg:py-8">
-            <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-[linear-gradient(125deg,rgba(15,23,42,0.98),rgba(76,18,68,0.92))] px-5 py-7 shadow-2xl sm:px-8 sm:py-9">
+        <main className="min-w-0 max-w-full overflow-x-hidden">
+          <section className="arcade-section border-b px-3 py-5 sm:px-6 sm:py-8 lg:px-8 lg:py-10">
+            <div className="arcade-hero relative overflow-hidden px-5 py-8 sm:px-8 sm:py-11">
               <div aria-hidden="true" className="absolute -right-24 -top-28 h-64 w-64 rounded-full bg-primary/25 blur-3xl" />
               <div aria-hidden="true" className="absolute -bottom-32 left-1/3 h-56 w-56 rounded-full bg-cyan-300/15 blur-3xl" />
-              <div className="relative grid gap-7 xl:grid-cols-[minmax(0,1fr)_minmax(22rem,0.78fr)] xl:items-end xl:gap-10">
+              <div className="relative grid gap-7 xl:grid-cols-[minmax(0,0.96fr)_minmax(26rem,1.04fr)] xl:items-stretch xl:gap-10">
                 <div className="min-w-0">
                   <div className="flex flex-wrap items-center gap-3">
-                    <p className="text-xs font-bold uppercase tracking-[0.2em] text-primary">
-                      {siteConfig.SITE_NAME}
-                    </p>
+                    <p className="arcade-kicker">{siteConfig.SITE_NAME}</p>
                     <span className="badge badge-outline border-white/20 text-xs font-medium text-white/70">
                       {formatCopy(t.totalGames, { total: pagination.total })}
                     </span>
                   </div>
-                  <h1 className="mt-3 max-w-3xl text-3xl font-black leading-[1.08] text-white sm:text-4xl lg:text-5xl">
+                  <h1 className="arcade-section-title mt-3 max-w-3xl text-4xl font-black leading-[0.98] text-white sm:text-5xl lg:text-6xl">
                     {t.title}
                   </h1>
                   <p className="mt-4 max-w-2xl text-sm leading-6 text-white/70 sm:text-base sm:leading-7">
                     {t.subtitle}
                   </p>
-                </div>
-
-                <div className="rounded-xl border border-white/10 bg-neutral/45 p-3 shadow-lg backdrop-blur-sm sm:p-4">
-                  <form className="min-w-0" onSubmit={onSearch}>
-                    <HomeSearchSuggest
-                      gameTotal={pagination.total}
-                      isLoading={isLoading}
-                      lang={lang}
-                      onQueryChange={onQueryChange}
-                      query={filters.query}
-                      t={t}
-                    />
-                  </form>
-                  <div className="mt-3 flex flex-wrap items-center justify-between gap-3">
-                    <p className="text-xs leading-5 text-white/55">{t.heroSearchHint}</p>
-                    <a className="btn btn-ghost btn-sm min-h-10 px-3 text-white hover:bg-white/10" href="#popular-games">
-                      {t.browsePopular}
-                      <i aria-hidden="true" className="ri-arrow-down-line" />
-                    </a>
+                  <div className="mt-7 max-w-2xl">
+                    <form className="min-w-0" onSubmit={onSearch}>
+                      <HomeSearchSuggest
+                        gameTotal={pagination.total}
+                        isLoading={isLoading}
+                        lang={lang}
+                        onQueryChange={onQueryChange}
+                        query={filters.query}
+                        t={t}
+                      />
+                    </form>
+                    <div className="mt-3 flex flex-wrap items-center justify-between gap-3">
+                      <p className="text-xs leading-5 text-white/55">{t.heroSearchHint}</p>
+                      <a className="btn btn-ghost btn-sm min-h-10 px-3 text-white hover:bg-white/10" href="#popular-games">
+                        {t.browsePopular}
+                        <i aria-hidden="true" className="ri-arrow-down-line" />
+                      </a>
+                    </div>
                   </div>
                 </div>
+                {topGames[0] ? <FeaturedGame game={topGames[0]} lang={lang} label={t.featured} /> : null}
               </div>
             </div>
 
@@ -242,7 +240,7 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
                 {platformChips.map((platform) => (
                   <button
                     aria-pressed={filters.platform === platform.name}
-                    className={`btn btn-sm min-h-10 shrink-0 border-white/15 ${
+                    className={`arcade-control btn btn-sm min-h-10 shrink-0 ${
                       filters.platform === platform.name
                         ? 'btn-primary'
                         : 'bg-white/8 text-white hover:bg-white/15'
@@ -259,7 +257,7 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
             </div>
           </section>
 
-          <section className="px-3 py-5 sm:px-6 sm:py-6 lg:px-8">
+          <section className="arcade-section px-3 py-7 sm:px-6 sm:py-9 lg:px-8">
             {activeCategoryLabel || activePlatformLabel ? (
               <div className="mb-4 flex flex-wrap gap-2">
                 {activePlatformLabel ? (
@@ -278,7 +276,7 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
             ) : null}
 
             {recentGames.length > 0 ? (
-              <section className="mb-8 scroll-mt-24 rounded-xl border border-white/10 bg-black/10 p-3 sm:p-4" id="recent-games">
+              <section className="arcade-card mb-8 scroll-mt-24 p-3 sm:p-4" id="recent-games">
                 <div className="mb-3 flex items-center justify-between gap-3">
                   <h2 className="flex items-center gap-2 text-base font-bold text-white">
                     <span className="grid h-7 w-7 place-items-center rounded-full bg-white/8 text-sm text-white/65">
@@ -298,7 +296,7 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
                 <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
                   {recentGames.slice(0, 4).map((game) => (
                     <Link
-                      className="group grid min-w-0 grid-cols-[4.5rem_minmax(0,1fr)] gap-3 rounded-lg border border-white/10 bg-white/[0.04] p-2 transition hover:border-primary/60 hover:bg-white/10"
+                      className="arcade-card group grid min-w-0 grid-cols-[4.5rem_minmax(0,1fr)] gap-3 p-2 transition"
                       key={game.id}
                       params={{ gameId: game.id, locale: lang }}
                       title={`Continue playing ${game.name}`}
@@ -326,7 +324,7 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
                       <i aria-hidden="true" className="ri-star-fill" />
                       {t.featured}
                     </p>
-                    <h2 className="mt-1 text-2xl font-black text-white sm:text-3xl">{t.popular}</h2>
+                  <h2 className="arcade-rule-title arcade-section-title mt-1 text-3xl font-black text-white sm:text-4xl">{t.popular}</h2>
                   </div>
                   {!hasActiveFilters ? (
                     <span className="badge badge-outline shrink-0 border-white/15 text-xs font-medium text-white/55">
@@ -336,7 +334,7 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
                 </div>
                 <div
                   aria-busy={isLoading}
-                  className={`grid min-w-0 grid-cols-2 gap-3 max-[360px]:grid-cols-1 sm:grid-cols-3 sm:gap-4 xl:grid-cols-4 2xl:grid-cols-6 ${
+                  className={`game-rail flex min-w-0 gap-3 overflow-x-auto pb-3 [scrollbar-width:thin] sm:gap-4 ${
                     isLoading ? 'opacity-60' : ''
                   }`}
                 >
@@ -357,8 +355,8 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
             )}
           </section>
 
-          <section className="border-t border-white/10 px-4 py-5 sm:px-6 lg:px-8">
-            <div className="rounded-2xl border border-white/10 bg-black/15 p-4 sm:p-5">
+          <section className="arcade-section border-t px-4 py-7 sm:px-6 lg:px-8">
+            <div className="arcade-card p-4 sm:p-6">
               <p className="mb-5 text-xs font-bold uppercase tracking-[0.16em] text-white/45">
                 {t.discovery}
               </p>
@@ -379,7 +377,7 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
                   <div className="grid w-full gap-2">
                     {topGames.slice(0, 5).map((game, index) => (
                       <Link
-                        className="group grid min-w-0 grid-cols-[1.5rem_3.25rem_minmax(0,1fr)] items-center gap-2 rounded-lg border border-white/10 bg-white/[0.04] p-2 transition hover:border-primary/60 hover:bg-white/10"
+                        className="arcade-card group grid min-w-0 grid-cols-[1.5rem_3.25rem_minmax(0,1fr)] items-center gap-2 p-2 transition"
                         key={`weekly-${getGameRouteId(game)}`}
                         params={{ gameId: getGameRouteId(game), locale: lang }}
                         search={{}}
@@ -399,7 +397,7 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
             </div>
           </section>
 
-          <section className="border-t border-white/10 px-4 py-5 sm:px-6 lg:px-8">
+          <section className="arcade-section border-t px-4 py-7 sm:px-6 lg:px-8">
             <div className="mb-4 flex items-end justify-between gap-3">
               <h2 className="text-xl font-black text-white">{t.allPlatforms}</h2>
               {filters.platform ? (
@@ -411,7 +409,7 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
             <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
               {platformCards.map((platform) => (
                 <a
-                  className={`group flex items-center justify-between rounded-lg border p-4 text-left transition hover:border-primary/60 hover:bg-white/10 ${
+                  className={`arcade-card group flex items-center justify-between p-4 text-left transition ${
                     filters.platform === platform.name
                       ? 'border-primary/70 bg-primary/15'
                       : 'border-white/10 bg-white/5'
@@ -434,7 +432,7 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
             </div>
           </section>
 
-          <div className="home-content bg-neutral text-neutral-content">
+          <div className="home-content arcade-editorial text-neutral-content">
             <HomeSeoContentSection lang={lang} />
             <HomeLatestBlogPostsSection blogPosts={latestBlogPosts} lang={lang} />
             <HomeFaqSection lang={lang} />
@@ -722,6 +720,56 @@ function FilterBadge({
   )
 }
 
+function FeaturedGame({
+  game,
+  label,
+  lang,
+}: {
+  game: PublicGame
+  label: string
+  lang: Locale
+}) {
+  const gameId = getGameRouteId(game)
+  const gameName = game.name?.trim() || 'Game'
+  const platformBadge = getPlatformBadge(game, lang)
+
+  return (
+    <Link
+      className="featured-game arcade-card group relative min-h-72 overflow-hidden xl:min-h-full"
+      params={{ gameId, locale: lang }}
+      search={{}}
+      title={`Play ${gameName} online`}
+      to="/$locale/games/$gameId"
+    >
+      <ArcadeCover
+        alt={gameName}
+        className="absolute inset-0"
+        cover={game.game_cover}
+        isPriority
+        lang={lang}
+      >
+        <GameCardPreviewVideo src={game.game_video} />
+        <span className="absolute inset-0 bg-[linear-gradient(180deg,rgba(6,10,21,0.05),rgba(6,10,21,0.36)_42%,rgba(6,10,21,0.96))]" />
+      </ArcadeCover>
+      <div className="absolute inset-x-0 top-0 flex items-center gap-3 border-b border-[#fa786b]/65 bg-[#080d1b]/70 px-4 py-3 text-sm backdrop-blur-sm">
+        <span className="arcade-kicker text-[#fa786b]">{label}</span>
+        <span className="h-px flex-1 bg-[#fa786b]/50" />
+      </div>
+      <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-4 p-4 sm:p-5">
+        <div className="min-w-0">
+          <h2 className="line-clamp-2 text-xl font-bold leading-tight text-white sm:text-2xl">{gameName}</h2>
+          {platformBadge ? (
+            <p className="mt-2 text-xs font-bold uppercase tracking-[0.14em] text-primary">{platformBadge}</p>
+          ) : null}
+        </div>
+        <span className="grid h-11 w-11 shrink-0 place-items-center rounded-sm border border-[#fa786b]/65 bg-[#fa786b] text-xl text-[#080d1b] transition group-hover:scale-105">
+          <i aria-hidden="true" className="ri-play-fill" />
+        </span>
+      </div>
+    </Link>
+  )
+}
+
 function ArcadeGameCard({
   game,
   isPriority,
@@ -737,7 +785,7 @@ function ArcadeGameCard({
 
   return (
     <Link
-      className="group relative min-w-0 overflow-hidden rounded-lg border border-white/10 bg-white/5 shadow-sm transition duration-200 hover:-translate-y-0.5 hover:border-primary/70 hover:shadow-xl"
+      className="arcade-card arcade-game-card group relative w-40 min-w-40 shrink-0 overflow-hidden shadow-sm transition duration-200 hover:-translate-y-1 sm:w-48 sm:min-w-48"
       {...gameCardPreviewHandlers}
       params={{ gameId, locale: lang }}
       search={{}}
@@ -779,7 +827,7 @@ function ArcadeMiniCard({ game, lang }: { game: PublicGame; lang: Locale }) {
 
   return (
     <Link
-      className="group w-48 min-w-0 shrink-0 overflow-hidden rounded-lg border border-white/10 bg-white/5 transition hover:border-primary/60 hover:bg-white/10"
+      className="arcade-card arcade-game-card group w-48 min-w-0 shrink-0 overflow-hidden transition"
       params={{ gameId, locale: lang }}
       search={{}}
       title={`Play ${gameName} online`}
