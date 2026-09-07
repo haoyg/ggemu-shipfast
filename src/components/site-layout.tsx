@@ -127,20 +127,21 @@ export function SiteLayout({
             <nav className="navbar-center hidden lg:flex">
               <ul className="menu menu-horizontal gap-1 px-1">
                 <li>
-                  <Link params={{ locale }} to="/$locale">
+                  <Link activeOptions={{ exact: true }} activeProps={{ className: 'active text-primary' }} params={{ locale }} to="/$locale">
                     <i className="ri-home-5-line" />
                     {t.games}
                   </Link>
                 </li>
                 {localizedPlatformNavLinks.map((link) => (
                   <li key={link.href}>
-                    <a href={link.href} title={`Play ${link.label} games online`}>
+                    <a className={location.pathname === link.href ? 'active text-primary' : ''} href={link.href} title={`Play ${link.label} games online`}>
                       {link.label}
                     </a>
                   </li>
                 ))}
                 <li>
                   <Link
+                    activeProps={{ className: 'active text-primary' }}
                     params={{ locale }}
                     reloadDocument
                     to="/$locale/play-my-rom"
@@ -150,25 +151,25 @@ export function SiteLayout({
                   </Link>
                 </li>
                 <li>
-                  <Link params={{ locale }} reloadDocument to="/$locale/live">
+                  <Link activeProps={{ className: 'active text-primary' }} params={{ locale }} reloadDocument to="/$locale/live">
                     <i className="ri-live-line" />
                     {t.live}
                   </Link>
                 </li>
                 <li>
-                  <Link params={{ locale }} to="/$locale/blog">
+                  <Link activeProps={{ className: 'active text-primary' }} params={{ locale }} to="/$locale/blog">
                     <i className="ri-article-line" />
                     {t.blog}
                   </Link>
                 </li>
                 <li>
-                  <Link params={{ locale }} to="/$locale/guides">
+                  <Link activeProps={{ className: 'active text-primary' }} params={{ locale }} to="/$locale/guides">
                     <i className="ri-book-open-line" />
                     Guides
                   </Link>
                 </li>
                 <li>
-                  <Link params={{ locale }} reloadDocument to="/$locale/about">
+                  <Link activeProps={{ className: 'active text-primary' }} params={{ locale }} reloadDocument to="/$locale/about">
                     <i className="ri-information-line" />
                     {t.about}
                   </Link>
@@ -292,7 +293,9 @@ export function SiteLayout({
             />
             {localizedPlatformNavLinks.slice(0, 5).map((link) => (
               <a
-                className="btn btn-ghost btn-sm min-h-11 shrink-0 gap-2 whitespace-nowrap"
+                className={`btn btn-ghost btn-sm min-h-11 shrink-0 gap-2 whitespace-nowrap ${
+                  location.pathname === link.href ? 'btn-primary' : ''
+                }`}
                 href={link.href}
                 key={link.href}
                 title={`Play ${link.label} games online`}

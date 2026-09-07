@@ -88,7 +88,7 @@ export function GameInstallButton({
   return (
     <>
       <button
-        className="btn btn-outline btn-lg w-full px-5 sm:w-auto"
+        className="btn btn-lg w-full border-white/20 bg-white/5 px-5 text-white hover:border-white/40 hover:bg-white/10 sm:w-auto"
         onClick={() => void handleInstall()}
         type="button"
       >

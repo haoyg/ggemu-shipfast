@@ -115,11 +115,11 @@ export function GameShareActions({
   return (
     <>
       <details className="dropdown" ref={dropdownRef}>
-        <summary className="btn btn-outline btn-lg w-full px-5 sm:w-auto">
+        <summary className="btn btn-lg w-full border-white/20 bg-white/5 px-5 text-white hover:border-white/40 hover:bg-white/10 sm:w-auto">
           <i aria-hidden="true" className="ri-share-line text-xl" />
           {labels.share}
         </summary>
-        <ul className="menu dropdown-content z-50 mt-2 w-44 rounded-box border border-base-300 bg-base-100 p-2 shadow-xl">
+        <ul className="menu dropdown-content z-50 mt-2 w-44 rounded-xl border border-white/10 bg-neutral p-2 text-white shadow-xl">
           <li>
             <button
               disabled={isGeneratingPoster}
@@ -203,27 +203,27 @@ export function GameEmbedCard({
   }
 
   return (
-    <section className="rounded-box border border-primary/20 bg-primary/5 p-4 sm:max-w-2xl">
+    <section className="rounded-xl border border-primary/25 bg-primary/10 p-4 sm:max-w-2xl">
       <div className="flex items-start gap-3">
         <span className="grid size-10 shrink-0 place-items-center rounded-box bg-primary text-primary-content">
           <i aria-hidden="true" className="ri-code-box-line text-xl" />
         </span>
         <div className="min-w-0">
-          <h2 className="text-base font-semibold">{labels.embedCardTitle}</h2>
-          <p className="mt-1 text-sm leading-6 text-base-content/70">
+          <h2 className="text-base font-bold text-white">{labels.embedCardTitle}</h2>
+          <p className="mt-1 text-sm leading-6 text-white/70">
             {labels.embedCardDescription}
           </p>
         </div>
       </div>
 
       <label className="label mt-3 pb-1" htmlFor="game-embed-code">
-        <span className="label-text text-xs font-medium uppercase tracking-wide text-base-content/60">
+        <span className="label-text text-xs font-medium uppercase tracking-wide text-white/60">
           {labels.embedCodeLabel}
         </span>
       </label>
       <textarea
         aria-label={labels.embedCodeLabel}
-        className="textarea textarea-bordered min-h-24 w-full resize-none bg-base-100 font-mono text-xs leading-5"
+        className="textarea min-h-24 w-full resize-none border-white/15 bg-black/25 font-mono text-xs leading-5 text-white"
         id="game-embed-code"
         onFocus={(event) => event.currentTarget.select()}
         readOnly
