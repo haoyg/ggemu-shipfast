@@ -129,17 +129,18 @@ function PlayMyRomPage() {
 
   return (
     <SiteLayout locale={lang}>
-      <section className="mx-auto flex min-h-[calc(100svh-7rem)] max-w-7xl flex-col gap-5 px-4 py-6 sm:px-6 lg:min-h-[calc(100svh-4rem)] lg:px-8">
+      <section className="mx-auto flex min-h-[calc(100svh-7rem)] max-w-7xl flex-col gap-5 bg-neutral px-4 py-6 text-neutral-content sm:px-6 lg:min-h-[calc(100svh-4rem)] lg:px-8">
         <header className="max-w-3xl">
-          <h1 className="text-3xl font-semibold leading-tight sm:text-4xl">
+          <p className="text-xs font-bold uppercase tracking-[0.18em] text-primary">POKOPIE Player</p>
+          <h1 className="mt-3 text-3xl font-black leading-tight text-white sm:text-4xl">
             {copy.title}
           </h1>
-          <p className="mt-2 text-sm leading-6 text-base-content/65 sm:text-base">
+          <p className="mt-2 text-sm leading-6 text-white/65 sm:text-base">
             {copy.description}
           </p>
         </header>
 
-        <div className="relative min-h-[32rem] flex-1 overflow-hidden rounded-lg border border-base-300 bg-base-200">
+        <div className="relative min-h-[32rem] flex-1 overflow-hidden rounded-xl border border-white/10 bg-black shadow-2xl">
           <iframe
             allow={
               isolated === 1
@@ -147,7 +148,7 @@ function PlayMyRomPage() {
                 : 'fullscreen; gamepad; autoplay'
             }
             allowFullScreen
-            className="absolute inset-0 h-full w-full border-0 bg-base-100"
+            className="absolute inset-0 h-full w-full border-0 bg-black"
             onLoad={() => setLoadedFrameSrc(iframeSrc)}
             src={iframeSrc}
             title={copy.title}
@@ -155,7 +156,7 @@ function PlayMyRomPage() {
           {isFrameLoading ? (
             <div
               aria-live="polite"
-              className="absolute inset-0 z-10 grid place-items-center bg-base-200"
+              className="absolute inset-0 z-10 grid place-items-center bg-neutral"
               role="status"
             >
               <span className="loading loading-spinner loading-lg text-primary" />

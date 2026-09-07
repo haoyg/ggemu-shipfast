@@ -185,36 +185,38 @@ function AboutPage() {
 
   return (
     <SiteLayout locale={lang}>
-      <section className="mx-auto max-w-4xl px-4 py-12 sm:px-6 lg:px-8">
-        <p className="text-sm font-semibold uppercase tracking-wide text-primary">
-          {copy.eyebrow}
-        </p>
-        <h1 className="mt-3 text-4xl font-semibold leading-tight">
-          {copy.title}
-        </h1>
-        <p className="mt-5 text-base leading-7 text-base-content/70">
-          {copy.intro}
-        </p>
-
-        <section className="mt-10">
-          <h2 className="text-2xl font-semibold">{copy.platformTitle}</h2>
-          <p className="mt-3 leading-7 text-base-content/70">
-            {copy.platformBody(platformSearchTerms)}
+      <section className="min-h-[calc(100vh-8rem)] bg-neutral text-neutral-content">
+        <div className="mx-auto max-w-4xl px-4 py-12 sm:px-6 lg:px-8">
+          <p className="text-xs font-bold uppercase tracking-[0.18em] text-primary">
+            {copy.eyebrow}
           </p>
-        </section>
+          <h1 className="mt-3 text-4xl font-black leading-tight text-white sm:text-5xl">
+            {copy.title}
+          </h1>
+          <p className="mt-5 text-base leading-7 text-white/70">
+            {copy.intro}
+          </p>
 
-        <div className="mt-10 grid gap-5">
-          {copy.sections.map((section) => (
-            <article
-              className="rounded-lg border border-base-300 bg-base-100 p-5"
-              key={section.title}
-            >
-              <h2 className="text-lg font-semibold">{section.title}</h2>
-              <p className="mt-3 leading-7 text-base-content/70">
-                {section.body}
-              </p>
-            </article>
-          ))}
+          <section className="mt-10 rounded-xl border border-primary/25 bg-primary/10 p-6">
+            <h2 className="text-2xl font-bold text-white">{copy.platformTitle}</h2>
+            <p className="mt-3 leading-7 text-white/70">
+              {copy.platformBody(platformSearchTerms)}
+            </p>
+          </section>
+
+          <div className="mt-10 grid gap-5">
+            {copy.sections.map((section) => (
+              <article
+                className="rounded-xl border border-white/10 bg-white/[0.04] p-5"
+                key={section.title}
+              >
+                <h2 className="text-lg font-bold text-white">{section.title}</h2>
+                <p className="mt-3 leading-7 text-white/70">
+                  {section.body}
+                </p>
+              </article>
+            ))}
+          </div>
         </div>
       </section>
     </SiteLayout>
