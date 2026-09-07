@@ -96,8 +96,8 @@ export function SiteLayout({
   return (
     <main className="site-shell min-h-screen overflow-x-hidden text-base-content">
       <header className="site-header sticky top-0 z-40 border-b [padding-top:env(safe-area-inset-top)] backdrop-blur">
-        <div className="navbar mx-auto max-w-7xl px-3 sm:px-6 lg:px-8">
-          <div className="navbar-start min-w-0 flex-1">
+        <div className="navbar mx-auto max-w-[96rem] px-3 sm:px-6 lg:px-8">
+          <div className="navbar-start min-w-[12rem] shrink-0 flex-none">
             <Link
               className="flex min-w-0 items-center gap-2 sm:gap-3"
               params={{ locale }}
@@ -124,7 +124,7 @@ export function SiteLayout({
           </div>
 
           {hideHeaderNav ? null : (
-            <nav className="navbar-center hidden lg:flex">
+            <nav className="navbar-center hidden 2xl:flex">
               <ul className="menu menu-horizontal gap-1 px-1">
                 <li>
                   <Link activeOptions={{ exact: true }} activeProps={{ className: 'active text-primary' }} params={{ locale }} to="/$locale">
@@ -283,7 +283,7 @@ export function SiteLayout({
         {hideHeaderNav ? null : (
           <nav
             aria-label={t.explore}
-            className="mx-auto flex max-w-7xl gap-1 overflow-x-auto px-3 pb-2 [scrollbar-width:none] sm:px-6 lg:hidden [&::-webkit-scrollbar]:hidden"
+            className="mx-auto flex max-w-7xl gap-1 overflow-x-auto px-3 pb-2 [scrollbar-width:none] sm:px-6 2xl:hidden [&::-webkit-scrollbar]:hidden"
           >
             <HeaderMobileLink
               icon="ri-home-5-line"

@@ -735,27 +735,26 @@ function FeaturedGame({
 
   return (
     <Link
-      className="featured-game arcade-card group relative min-h-72 overflow-hidden xl:min-h-full"
+      className="featured-game arcade-card group grid overflow-hidden"
       params={{ gameId, locale: lang }}
       search={{}}
       title={`Play ${gameName} online`}
       to="/$locale/games/$gameId"
     >
+      <div className="flex items-center gap-3 border-b border-[#fa786b]/65 bg-[#080d1b] px-4 py-3 text-sm">
+        <span className="arcade-kicker text-[#fa786b]">{label}</span>
+        <span className="h-px flex-1 bg-[#fa786b]/50" />
+      </div>
       <ArcadeCover
         alt={gameName}
-        className="absolute inset-0"
+        className="aspect-[16/9]"
         cover={game.game_cover}
         isPriority
         lang={lang}
       >
         <GameCardPreviewVideo src={game.game_video} />
-        <span className="absolute inset-0 bg-[linear-gradient(180deg,rgba(6,10,21,0.05),rgba(6,10,21,0.36)_42%,rgba(6,10,21,0.96))]" />
       </ArcadeCover>
-      <div className="absolute inset-x-0 top-0 flex items-center gap-3 border-b border-[#fa786b]/65 bg-[#080d1b]/70 px-4 py-3 text-sm backdrop-blur-sm">
-        <span className="arcade-kicker text-[#fa786b]">{label}</span>
-        <span className="h-px flex-1 bg-[#fa786b]/50" />
-      </div>
-      <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-4 p-4 sm:p-5">
+      <div className="flex items-end justify-between gap-4 bg-[#080d1b] p-4 sm:p-5">
         <div className="min-w-0">
           <h2 className="line-clamp-2 text-xl font-bold leading-tight text-white sm:text-2xl">{gameName}</h2>
           {platformBadge ? (
