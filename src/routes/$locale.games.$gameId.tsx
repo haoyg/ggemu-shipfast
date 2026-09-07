@@ -397,10 +397,10 @@ function LocalizedGameDetailPage() {
 
   return (
     <SiteLayout locale={lang}>
-      <div className="bg-base-100">
+      <div className="bg-neutral text-neutral-content">
         <div className="mx-auto flex max-w-7xl flex-col gap-6 px-4 py-4 sm:px-6 sm:py-8 lg:px-8">
           <section>
-            <div className="breadcrumbs text-sm">
+            <div className="breadcrumbs text-sm text-white/60">
               <ul className="min-w-0">
                 <li>
                   <Link params={{ locale: lang }} search={{}} to="/$locale">
@@ -417,7 +417,7 @@ function LocalizedGameDetailPage() {
           <section className="grid gap-4 lg:grid-cols-[minmax(320px,440px)_1fr] lg:gap-8">
             <div className="flex min-w-0 flex-col gap-4">
               <div
-                className="group relative aspect-[4/3] w-full self-start overflow-hidden rounded-box border border-base-300 bg-base-200 shadow-sm"
+                className="group relative aspect-[4/3] w-full self-start overflow-hidden rounded-xl border border-white/10 bg-white/5 shadow-xl"
               >
                 {game.game_cover ? (
                   <img
@@ -430,7 +430,7 @@ function LocalizedGameDetailPage() {
                     width="880"
                   />
                 ) : (
-                  <div className="flex h-full items-center justify-center bg-base-300 text-base-content/40">
+                  <div className="flex h-full items-center justify-center bg-white/5 text-white/40">
                     {getRetroCoverFallbackLabel(lang)}
                   </div>
                 )}
@@ -460,10 +460,10 @@ function LocalizedGameDetailPage() {
                     </span>
                   ) : null}
                 </div>
-                <h1 className="max-w-4xl text-2xl font-semibold leading-tight sm:text-4xl">
+                <h1 className="max-w-4xl text-2xl font-black leading-tight text-white sm:text-4xl">
                   {targetedSeo?.heading ?? game.name}
                 </h1>
-                <p className="mt-2 line-clamp-2 max-w-3xl text-sm leading-6 text-base-content/70 sm:mt-4 sm:line-clamp-none sm:text-lg sm:leading-7">
+                <p className="mt-2 line-clamp-2 max-w-3xl text-sm leading-6 text-white/70 sm:mt-4 sm:line-clamp-none sm:text-lg sm:leading-7">
                   {summary}
                 </p>
               </div>
@@ -484,7 +484,7 @@ function LocalizedGameDetailPage() {
                     {targetedSeo ? t.play : t.playPage}
                   </a>
                   {!targetedSeo ? (
-                    <p className="text-center text-xs text-base-content/65 sm:text-left">
+                    <p className="text-center text-xs text-white/65 sm:text-left">
                       {t.playPageHint}
                     </p>
                   ) : null}
@@ -531,9 +531,9 @@ function LocalizedGameDetailPage() {
               <ArticlePanel paragraphs={howToPlayParagraphs} title={t.howToPlay} />
               <ArticlePanel paragraphs={browserGuide.paragraphs} title={browserGuide.title} />
               {relatedGuide ? (
-                <section className="rounded-box border border-primary/25 bg-primary/5 p-5 shadow-sm">
-                  <h2 className="text-lg font-semibold">Related guide</h2>
-                  <p className="mt-2 text-sm leading-6 text-base-content/70">{relatedGuide.description}</p>
+                <section className="rounded-xl border border-primary/25 bg-primary/10 p-5 shadow-sm">
+                  <h2 className="text-lg font-bold text-white">Related guide</h2>
+                  <p className="mt-2 text-sm leading-6 text-white/70">{relatedGuide.description}</p>
                   <a className="link link-primary mt-3 inline-block" href={relatedGuide.href}>{relatedGuide.label}</a>
                 </section>
               ) : null}
@@ -550,8 +550,8 @@ function LocalizedGameDetailPage() {
             </div>
 
             <aside className="order-first flex flex-col gap-4 lg:order-none lg:sticky lg:top-24 lg:self-start">
-              <section className="rounded-box border border-base-300 bg-base-100 p-5 shadow-sm">
-                <h2 className="text-lg font-semibold">{t.details}</h2>
+              <section className="rounded-xl border border-white/10 bg-white/[0.04] p-5 shadow-sm">
+                <h2 className="text-lg font-bold text-white">{t.details}</h2>
                 <dl className="mt-4 grid gap-3 text-sm">
                   <Fact icon="ri-gamepad-line" label={t.platform} value={platformLabel} />
                   <Fact icon="ri-building-2-line" label={t.developer} value={game.developer} />
@@ -561,12 +561,12 @@ function LocalizedGameDetailPage() {
               </section>
 
               {browserGuide.paragraphs[0] ? (
-                <section className="rounded-box border border-primary/25 bg-primary/5 p-5 shadow-sm">
-                  <h2 className="flex items-center gap-2 text-lg font-semibold">
+                <section className="rounded-xl border border-primary/25 bg-primary/10 p-5 shadow-sm">
+                  <h2 className="flex items-center gap-2 text-lg font-bold text-white">
                     <i className="ri-gamepad-line text-primary" />
                     {browserGuide.title}
                   </h2>
-                  <p className="mt-3 text-sm leading-6 text-base-content/70">
+                  <p className="mt-3 text-sm leading-6 text-white/70">
                     {browserGuide.paragraphs[0]}
                   </p>
                 </section>
@@ -630,8 +630,8 @@ function Stat({
 }) {
   return (
     <div>
-      <div className="text-sm text-base-content/60">{label}</div>
-      <div className="mt-1 text-2xl font-semibold">{value}</div>
+      <div className="text-sm text-white/60">{label}</div>
+      <div className="mt-1 text-2xl font-bold text-white">{value}</div>
     </div>
   )
 }
@@ -648,12 +648,12 @@ function ArticlePanel({
   }
 
   return (
-    <article className="rounded-box border border-base-300 bg-base-100 p-4 shadow-sm sm:p-6">
-      <h2 className="flex items-center gap-2 text-xl font-semibold">
+    <article className="rounded-xl border border-white/10 bg-white/[0.04] p-4 shadow-sm sm:p-6">
+      <h2 className="flex items-center gap-2 text-xl font-bold text-white">
         <i className="ri-file-text-line text-primary" />
         {title}
       </h2>
-      <div className="mt-4 space-y-4 text-base-content/75">
+      <div className="mt-4 space-y-4 text-white/75">
         {paragraphs.map((paragraph, index) => (
           <p className="leading-7" key={`${index}-${paragraph.slice(0, 32)}`}>
             {paragraph}
@@ -674,24 +674,24 @@ function SidebarArticle({
   title: string
 }) {
   return (
-    <section className="rounded-box border border-base-300 bg-base-100 p-5 shadow-sm">
-      <h2 className="flex items-center gap-2 text-lg font-semibold">
+    <section className="rounded-xl border border-white/10 bg-white/[0.04] p-5 shadow-sm">
+      <h2 className="flex items-center gap-2 text-lg font-bold text-white">
         <i className={`${icon} text-primary`} />
         {title}
       </h2>
-      <p className="mt-3 text-sm leading-6 text-base-content/70">{text}</p>
+      <p className="mt-3 text-sm leading-6 text-white/70">{text}</p>
     </section>
   )
 }
 
 function SidebarTips({ items, title }: { items: Array<string>; title: string }) {
   return (
-    <section className="rounded-box border border-base-300 bg-base-100 p-5 shadow-sm">
-      <h2 className="flex items-center gap-2 text-lg font-semibold">
+    <section className="rounded-xl border border-white/10 bg-white/[0.04] p-5 shadow-sm">
+      <h2 className="flex items-center gap-2 text-lg font-bold text-white">
         <i className="ri-lightbulb-line text-primary" />
         {title}
       </h2>
-      <ul className="mt-3 grid gap-3 text-sm leading-6 text-base-content/70">
+      <ul className="mt-3 grid gap-3 text-sm leading-6 text-white/70">
         {items.map((item) => (
           <li className="flex gap-2" key={item}>
             <i className="ri-check-line mt-0.5 shrink-0 text-primary" />
@@ -711,14 +711,14 @@ function KeywordPanel({ title, value }: { title: string; value?: string }) {
   }
 
   return (
-    <section className="rounded-box border border-base-300 bg-base-100 p-4 shadow-sm sm:p-6">
-      <h2 className="flex items-center gap-2 text-xl font-semibold">
+    <section className="rounded-xl border border-white/10 bg-white/[0.04] p-4 shadow-sm sm:p-6">
+      <h2 className="flex items-center gap-2 text-xl font-bold text-white">
         <i className="ri-price-tag-3-line text-primary" />
         {title}
       </h2>
       <div className="mt-4 flex flex-wrap gap-2">
         {keywords.map((keyword) => (
-          <span className="badge badge-outline" key={keyword}>
+            <span className="badge badge-outline border-white/20 text-white/75" key={keyword}>
             {keyword}
           </span>
         ))}
@@ -735,13 +735,13 @@ function FaqSection({
   title: string
 }) {
   return (
-    <section className="rounded-box border border-base-300 bg-base-100 p-4 shadow-sm sm:p-6">
-      <h2 className="text-xl font-semibold">{title}</h2>
+    <section className="rounded-xl border border-white/10 bg-white/[0.04] p-4 shadow-sm sm:p-6">
+      <h2 className="text-xl font-bold text-white">{title}</h2>
       <div className="mt-4 grid gap-4">
         {items.map((item) => (
           <article key={item.question}>
-            <h3 className="text-base font-semibold">{item.question}</h3>
-            <p className="mt-2 leading-7 text-base-content/75">{item.answer}</p>
+            <h3 className="text-base font-semibold text-white">{item.question}</h3>
+            <p className="mt-2 leading-7 text-white/75">{item.answer}</p>
           </article>
         ))}
       </div>
@@ -764,7 +764,7 @@ function RelatedGameSection({
 
   return (
     <section>
-      <h2 className="text-xl font-semibold">{title}</h2>
+      <h2 className="text-xl font-bold text-white">{title}</h2>
       <div className="mt-4 grid gap-4 grid-cols-2 max-[360px]:grid-cols-1 xl:grid-cols-3">
         {games.map((game) => (
           <RelatedGameCard game={game} key={game.url_slug ?? game._id} lang={lang} />
@@ -787,7 +787,7 @@ function SeoInternalLinkSection({
 
   return (
     <section>
-      <h2 className="text-xl font-semibold">Explore related online games</h2>
+      <h2 className="text-xl font-bold text-white">Explore related online games</h2>
       <ul className="mt-3 flex flex-wrap gap-x-5 gap-y-3">
         {links.map((link) => (
           <li key={link.slug}>
@@ -816,12 +816,12 @@ function RelatedGameCard({ game, lang }: { game: PublicGame; lang: Locale }) {
 
   return (
     <Link
-      className="group overflow-hidden rounded-box border border-base-300 bg-base-100 shadow-sm transition duration-200 hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-lg"
+      className="group overflow-hidden rounded-xl border border-white/10 bg-white/[0.04] shadow-sm transition duration-200 hover:-translate-y-0.5 hover:border-primary/60 hover:bg-white/[0.08] hover:shadow-lg"
       params={{ gameId, locale: lang }}
       search={{}}
       to="/$locale/games/$gameId"
     >
-      <div className="relative aspect-[4/3] overflow-hidden bg-base-300">
+      <div className="relative aspect-[4/3] overflow-hidden bg-white/5">
         {game.game_cover ? (
           <img
             alt={game.name ?? 'Game cover'}
@@ -833,17 +833,17 @@ function RelatedGameCard({ game, lang }: { game: PublicGame; lang: Locale }) {
             width="880"
           />
         ) : (
-        <div className="flex h-full items-center justify-center text-base-content/40">
+        <div className="flex h-full items-center justify-center text-white/40">
             {getRetroCoverFallbackLabel(lang)}
           </div>
         )}
       </div>
       <div className="p-3">
-        <h3 className="line-clamp-2 min-h-10 text-sm font-semibold leading-snug">
+        <h3 className="line-clamp-2 min-h-10 text-sm font-semibold leading-snug text-white">
           {game.name}
         </h3>
         {game.platform ? (
-          <span className="badge badge-sm badge-outline mt-2 max-w-full truncate text-xs text-base-content/60">
+          <span className="badge badge-sm badge-outline mt-2 max-w-full truncate border-white/20 text-xs text-white/60">
             {getLocalizedPlatformLabel(game.platform, lang)}
           </span>
         ) : null}
@@ -862,12 +862,12 @@ function Fact({
   value?: string
 }) {
   return (
-    <div className="flex items-start justify-between gap-4 border-b border-base-300 pb-3 last:border-0 last:pb-0">
-      <dt className="flex items-center gap-2 text-base-content/55">
+    <div className="flex items-start justify-between gap-4 border-b border-white/10 pb-3 last:border-0 last:pb-0">
+      <dt className="flex items-center gap-2 text-white/55">
         <i className={icon} />
         {label}
       </dt>
-      <dd className="text-right font-medium">{value || '-'}</dd>
+      <dd className="text-right font-medium text-white">{value || '-'}</dd>
     </div>
   )
 }
@@ -882,20 +882,20 @@ function TagSection({
   title: string
 }) {
   return (
-    <section className="rounded-box border border-base-300 bg-base-100 p-5 shadow-sm">
-      <h2 className="flex items-center gap-2 text-lg font-semibold">
+    <section className="rounded-xl border border-white/10 bg-white/[0.04] p-5 shadow-sm">
+      <h2 className="flex items-center gap-2 text-lg font-bold text-white">
         <i className="ri-price-tag-3-line text-primary" />
         {title}
       </h2>
       <div className="mt-3 flex flex-wrap gap-2">
         {items.length > 0 ? (
           items.map((item) => (
-            <span className="badge badge-outline" key={item}>
+            <span className="badge badge-outline border-white/20 text-white/75" key={item}>
               {item}
             </span>
           ))
         ) : (
-          <span className="text-sm text-base-content/50">{emptyText}</span>
+          <span className="text-sm text-white/50">{emptyText}</span>
         )}
       </div>
     </section>

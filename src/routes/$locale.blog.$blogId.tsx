@@ -179,9 +179,10 @@ function BlogDetailPage() {
 
   return (
     <SiteLayout locale={lang}>
-      <section className="bg-base-100">
+      <div className="bg-neutral text-neutral-content">
+      <section className="border-b border-white/10 bg-[radial-gradient(circle_at_top_right,rgba(236,72,153,0.16),transparent_28rem)]">
         <div className="mx-auto max-w-4xl px-4 py-4 sm:px-6 lg:px-8">
-          <div className="breadcrumbs text-sm">
+          <div className="breadcrumbs text-sm text-white/60">
             <ul>
               <li>
                 <Link params={{ locale: lang }} to="/$locale/blog">
@@ -196,15 +197,15 @@ function BlogDetailPage() {
 
       <article className="mx-auto max-w-4xl px-4 py-10 sm:px-6 lg:px-8">
         <header>
-          <p className="text-sm font-semibold uppercase tracking-wide text-primary">
+          <p className="text-xs font-bold uppercase tracking-[0.18em] text-primary">
             {t.eyebrow}
           </p>
-          <h1 className="mt-3 break-words text-4xl font-semibold leading-tight sm:text-5xl">
+          <h1 className="mt-3 break-words text-4xl font-black leading-tight text-white sm:text-5xl">
             {blogPost.title}
           </h1>
-          <div className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-base-content/60">
+          <div className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-white/60">
             <Link
-              className="inline-flex items-center gap-2 font-medium text-base-content/75 hover:text-primary"
+              className="inline-flex items-center gap-2 font-medium text-white/75 hover:text-primary"
               params={{ locale: lang }}
               rel="author"
               reloadDocument
@@ -235,7 +236,7 @@ function BlogDetailPage() {
         </header>
 
         {blogPost.cover_image_url ? (
-          <div className="mt-8 aspect-[16/9] overflow-hidden rounded-box border border-base-300 bg-base-200">
+          <div className="mt-8 aspect-[16/9] overflow-hidden rounded-xl border border-white/10 bg-white/5">
             <img
               alt={blogPost.title ?? 'Blog cover'}
               className="h-full w-full object-cover"
@@ -246,7 +247,7 @@ function BlogDetailPage() {
           </div>
         ) : null}
 
-        <div className="mt-10 break-words space-y-6 text-base leading-8 text-base-content/75">
+        <div className="mt-10 break-words space-y-6 text-base leading-8 text-white/75">
           {renderContent(
             blogPost.content || '',
             lang,
@@ -254,9 +255,9 @@ function BlogDetailPage() {
           )}
         </div>
 
-        <div className="mt-8 flex flex-wrap gap-3 border-t border-base-300 pt-8">
+        <div className="mt-8 flex flex-wrap gap-3 border-t border-white/10 pt-8">
           <a
-            className="btn btn-outline btn-sm gap-2"
+            className="btn btn-sm gap-2 border-white/20 bg-white/5 text-white hover:border-white/40 hover:bg-white/10"
             href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(blogPost.title || '')}&url=${encodeURIComponent(canonicalUrl)}`}
             rel="noopener noreferrer"
             target="_blank"
@@ -265,7 +266,7 @@ function BlogDetailPage() {
             Tweet
           </a>
           <a
-            className="btn btn-outline btn-sm gap-2"
+            className="btn btn-sm gap-2 border-white/20 bg-white/5 text-white hover:border-white/40 hover:bg-white/10"
             href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(canonicalUrl)}`}
             rel="noopener noreferrer"
             target="_blank"
@@ -274,7 +275,7 @@ function BlogDetailPage() {
             Share
           </a>
           <a
-            className="btn btn-outline btn-sm gap-2"
+            className="btn btn-sm gap-2 border-white/20 bg-white/5 text-white hover:border-white/40 hover:bg-white/10"
             href={`https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(canonicalUrl)}&title=${encodeURIComponent(blogPost.title || '')}`}
             rel="noopener noreferrer"
             target="_blank"
@@ -283,7 +284,7 @@ function BlogDetailPage() {
             LinkedIn
           </a>
           <a
-            className="btn btn-outline btn-sm gap-2"
+            className="btn btn-sm gap-2 border-white/20 bg-white/5 text-white hover:border-white/40 hover:bg-white/10"
             href={`https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=${encodeURIComponent(canonicalUrl)}&title=${encodeURIComponent(blogPost.title || '')}&desc=${encodeURIComponent(description)}`}
             rel="noopener noreferrer"
             target="_blank"
@@ -293,7 +294,7 @@ function BlogDetailPage() {
             QQ
           </a>
           <button
-            className="btn btn-outline btn-sm gap-2"
+            className="btn btn-sm gap-2 border-white/20 bg-white/5 text-white hover:border-white/40 hover:bg-white/10"
             onClick={() => {
               navigator.clipboard?.writeText(canonicalUrl).catch(() => undefined)
               const el = document.getElementById('wechat-toast')
@@ -308,7 +309,7 @@ function BlogDetailPage() {
             WeChat
           </button>
           <a
-            className="btn btn-outline btn-sm gap-2"
+            className="btn btn-sm gap-2 border-white/20 bg-white/5 text-white hover:border-white/40 hover:bg-white/10"
             href={`https://www.xiaohongshu.com/explore/${encodeURIComponent(canonicalUrl)}`}
             rel="noopener noreferrer"
             target="_blank"
@@ -331,8 +332,8 @@ function BlogDetailPage() {
         </div>
 
         {relatedBlogPosts.blogPosts.length > 0 && (
-          <section className="mt-12 border-t border-base-300 pt-10">
-            <h2 className="text-2xl font-semibold">
+          <section className="mt-12 border-t border-white/10 pt-10">
+            <h2 className="text-2xl font-black text-white">
               {t.relatedPosts}
             </h2>
             <div className="mt-6 grid gap-6 md:grid-cols-2">
@@ -346,12 +347,12 @@ function BlogDetailPage() {
 
                 return (
                   <Link
-                    className="group overflow-hidden rounded-box border border-base-300 bg-base-100 transition duration-200 hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-lg"
+                    className="group overflow-hidden rounded-xl border border-white/10 bg-white/[0.04] transition duration-200 hover:-translate-y-0.5 hover:border-primary/60 hover:bg-white/[0.08] hover:shadow-lg"
                     key={postId}
                     params={{ blogId: postId, locale: lang }}
                     to="/$locale/blog/$blogId"
                   >
-                    <div className="aspect-[16/9] bg-base-300">
+                    <div className="aspect-[16/9] bg-white/5">
                       {post.cover_image_url ? (
                         <img
                           alt={post.title ?? 'Blog cover'}
@@ -361,20 +362,20 @@ function BlogDetailPage() {
                           src={post.cover_image_url}
                         />
                       ) : (
-                        <div className="flex h-full items-center justify-center text-base-content/40">
+                        <div className="flex h-full items-center justify-center text-white/40">
                           Blog
                         </div>
                       )}
                     </div>
                     <div className="p-4">
-                      <p className="text-xs text-base-content/50">
+                      <p className="text-xs text-white/50">
                         {formatDate(post.created_at, lang)}
                       </p>
-                      <h3 className="mt-2 line-clamp-2 text-lg font-semibold leading-tight">
+                      <h3 className="mt-2 line-clamp-2 text-lg font-bold leading-tight text-white">
                         {post.title}
                       </h3>
                       {postExcerpt ? (
-                        <p className="mt-2 line-clamp-2 text-sm leading-6 text-base-content/65">
+                        <p className="mt-2 line-clamp-2 text-sm leading-6 text-white/65">
                           {postExcerpt}
                         </p>
                       ) : null}
@@ -386,6 +387,7 @@ function BlogDetailPage() {
           </section>
         )}
       </article>
+      </div>
     </SiteLayout>
   )
 }
@@ -440,7 +442,7 @@ function renderBlock(
 
   if (image?.groups) {
     return (
-      <figure className="overflow-hidden rounded-box border border-base-300 bg-base-200" key={index}>
+      <figure className="overflow-hidden rounded-xl border border-white/10 bg-white/5" key={index}>
         <img
           alt={cleanBlogDisplayText(image.groups.alt) || 'Blog image'}
           className="h-full w-full object-cover"
@@ -460,7 +462,7 @@ function renderBlock(
 
   if (displayBlock.startsWith('### ')) {
     return (
-      <h3 className="pt-3 text-2xl font-semibold text-base-content" key={index}>
+      <h3 className="pt-3 text-2xl font-bold text-white" key={index}>
         {displayBlock.slice(4)}
       </h3>
     )
@@ -468,14 +470,14 @@ function renderBlock(
 
   if (displayBlock.startsWith('## ')) {
     return (
-      <h2 className="pt-4 text-3xl font-semibold text-base-content" key={index}>
+      <h2 className="pt-4 text-3xl font-black text-white" key={index}>
         {displayBlock.slice(3)}
       </h2>
     )
   }
 
   if (/^-{3,}$/.test(displayBlock)) {
-    return <hr className="border-base-300" key={index} />
+    return <hr className="border-white/10" key={index} />
   }
 
   if (hasInternalGameLink(displayBlock)) {
@@ -594,7 +596,7 @@ function renderStrongText(text: string, keyPrefix: string) {
   return text.split(/(\*\*[^*\n]+?\*\*)/g).map((part, index) => {
     if (part.startsWith('**') && part.endsWith('**')) {
       return (
-        <strong className="font-semibold text-base-content" key={`${keyPrefix}-strong-${index}`}>
+        <strong className="font-semibold text-white" key={`${keyPrefix}-strong-${index}`}>
           {part.slice(2, -2)}
         </strong>
       )
@@ -648,12 +650,12 @@ function LinkedGameCard({
 
   return (
     <Link
-      className="group grid gap-4 rounded-box border border-base-300 bg-base-100 p-4 shadow-sm transition duration-200 hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-lg sm:grid-cols-[160px_1fr]"
+      className="group grid gap-4 rounded-xl border border-white/10 bg-white/[0.04] p-4 shadow-sm transition duration-200 hover:-translate-y-0.5 hover:border-primary/60 hover:bg-white/[0.08] hover:shadow-lg sm:grid-cols-[160px_1fr]"
       {...gameCardPreviewHandlers}
       params={{ gameId, locale }}
       to="/$locale/games/$gameId"
     >
-      <div className="relative aspect-[4/3] overflow-hidden rounded-lg bg-base-300">
+      <div className="relative aspect-[4/3] overflow-hidden rounded-lg bg-white/5">
         {game?.game_cover ? (
           <img
             alt={title}
@@ -663,7 +665,7 @@ function LinkedGameCard({
             src={game.game_cover}
           />
         ) : (
-          <div className="flex h-full items-center justify-center text-sm text-base-content/45">
+          <div className="flex h-full items-center justify-center text-sm text-white/45">
             Game
           </div>
         )}
@@ -673,11 +675,11 @@ function LinkedGameCard({
         <p className="text-xs font-semibold uppercase tracking-wide text-primary">
           {labels.eyebrow}
         </p>
-        <h3 className="mt-1 line-clamp-2 text-xl font-semibold leading-tight text-base-content">
+        <h3 className="mt-1 line-clamp-2 text-xl font-bold leading-tight text-white">
           {title}
         </h3>
         {description ? (
-          <p className="mt-2 line-clamp-2 text-sm leading-6 text-base-content/65">
+          <p className="mt-2 line-clamp-2 text-sm leading-6 text-white/65">
             {description}
           </p>
         ) : null}

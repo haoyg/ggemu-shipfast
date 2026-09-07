@@ -98,38 +98,40 @@ function BlogListPage() {
 
   return (
     <SiteLayout locale={lang}>
-      <section className="bg-base-100">
+      <section className="border-b border-white/10 bg-[radial-gradient(circle_at_top_right,rgba(236,72,153,0.2),transparent_28rem),radial-gradient(circle_at_top_left,rgba(34,211,238,0.12),transparent_30rem)] bg-neutral text-neutral-content">
         <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-          <p className="text-sm font-semibold uppercase tracking-wide text-primary">
+          <p className="text-xs font-bold uppercase tracking-[0.18em] text-primary">
             {t.eyebrow}
           </p>
-          <h1 className="mt-3 max-w-3xl text-4xl font-semibold leading-tight sm:text-5xl">
+          <h1 className="mt-3 max-w-3xl text-4xl font-black leading-tight text-white sm:text-5xl">
             {t.title}
           </h1>
-          <p className="mt-5 max-w-3xl text-base leading-7 text-base-content/70">
+          <p className="mt-5 max-w-3xl text-base leading-7 text-white/70">
             {t.subtitle}
           </p>
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
-        {blogPosts.length > 0 ? (
-          <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-            {blogPosts.map((blogPost) => (
-              <BlogPostCard blogPost={blogPost} key={getBlogPostKey(blogPost)} lang={lang} />
-            ))}
-          </div>
-        ) : (
-          <div className="rounded-box border border-base-300 bg-base-100 p-8 text-center text-base-content/65">
-            {t.empty}
-          </div>
-        )}
+      <section className="bg-neutral text-neutral-content">
+        <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+          {blogPosts.length > 0 ? (
+            <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+              {blogPosts.map((blogPost) => (
+                <BlogPostCard blogPost={blogPost} key={getBlogPostKey(blogPost)} lang={lang} />
+              ))}
+            </div>
+          ) : (
+            <div className="rounded-xl border border-white/10 bg-white/[0.04] p-8 text-center text-white/65">
+              {t.empty}
+            </div>
+          )}
 
-        {pagination.pages > 1 ? (
-          <p className="mt-8 text-sm text-base-content/55">
-            {t.total.replace('{total}', String(pagination.total))}
-          </p>
-        ) : null}
+          {pagination.pages > 1 ? (
+            <p className="mt-8 text-sm text-white/55">
+              {t.total.replace('{total}', String(pagination.total))}
+            </p>
+          ) : null}
+        </div>
       </section>
     </SiteLayout>
   )
@@ -163,11 +165,11 @@ function BlogPostCard({
 
   return (
     <Link
-      className="group overflow-hidden rounded-box border border-base-300 bg-base-100 shadow-sm transition duration-200 hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-lg"
+      className="group overflow-hidden rounded-xl border border-white/10 bg-white/[0.04] shadow-sm transition duration-200 hover:-translate-y-0.5 hover:border-primary/60 hover:bg-white/[0.08] hover:shadow-lg"
       params={{ blogId: id, locale: lang }}
       to="/$locale/blog/$blogId"
     >
-      <div className="aspect-[16/9] bg-base-300">
+      <div className="aspect-[16/9] bg-white/5">
         {blogPost.cover_image_url ? (
           <img
             alt={blogPost.title ?? 'Blog cover'}
@@ -177,20 +179,20 @@ function BlogPostCard({
             src={blogPost.cover_image_url}
           />
         ) : (
-          <div className="flex h-full items-center justify-center text-base-content/40">
+          <div className="flex h-full items-center justify-center text-white/40">
             Blog
           </div>
         )}
       </div>
       <div className="p-5">
-        <p className="text-xs text-base-content/50">
+        <p className="text-xs text-white/50">
           {formatDate(blogPost.created_at, lang)}
         </p>
-        <h2 className="mt-2 line-clamp-2 min-h-14 text-xl font-semibold leading-tight">
+        <h2 className="mt-2 line-clamp-2 min-h-14 text-xl font-bold leading-tight text-white">
           {blogPost.title}
         </h2>
         {excerpt ? (
-          <p className="mt-3 line-clamp-3 leading-6 text-base-content/65">
+          <p className="mt-3 line-clamp-3 leading-6 text-white/65">
             {excerpt}
           </p>
         ) : null}
