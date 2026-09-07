@@ -64,13 +64,14 @@ export function GameCollectionPage({
         ja: locale === 'ja' ? config.routePath : '/ja',
       }}
     >
-      <section className="border-b border-base-300 bg-base-100">
+      <section className="border-b border-white/10 bg-[radial-gradient(circle_at_top_right,rgba(236,72,153,0.2),transparent_28rem),radial-gradient(circle_at_top_left,rgba(34,211,238,0.12),transparent_30rem)] bg-neutral text-neutral-content">
         <div className="mx-auto grid max-w-7xl gap-10 px-4 py-14 sm:px-6 lg:grid-cols-[minmax(0,0.9fr)_minmax(28rem,1.1fr)] lg:items-center lg:px-8 lg:py-20">
           <div className="max-w-2xl">
-            <h1 className="text-4xl font-semibold leading-[1.08] tracking-tight sm:text-5xl lg:text-6xl">
+            <p className="text-xs font-bold uppercase tracking-[0.18em] text-primary">POKOPIE Collections</p>
+            <h1 className="mt-3 text-4xl font-black leading-[1.08] tracking-tight text-white sm:text-5xl lg:text-6xl">
               {config.heroTitle}
             </h1>
-            <p className="mt-6 max-w-xl text-lg leading-8 text-base-content/70">
+            <p className="mt-6 max-w-xl text-lg leading-8 text-white/70">
               {config.heroDescription}
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
@@ -79,7 +80,7 @@ export function GameCollectionPage({
                 <i aria-hidden="true" className="ri-arrow-down-line" />
               </a>
               {config.secondaryCta ? (
-                <a className="btn btn-outline" href={config.secondaryCta.href}>
+                <a className="btn border-white/25 bg-white/5 text-white hover:border-white/45 hover:bg-white/10" href={config.secondaryCta.href}>
                   {config.secondaryCta.label}
                   <i aria-hidden="true" className="ri-pulse-line" />
                 </a>
@@ -118,35 +119,35 @@ export function GameCollectionPage({
         </div>
       </section>
 
-      <section className="border-b border-base-300 bg-base-100">
+      <section className="border-b border-white/10 bg-black/20 text-neutral-content">
         <div className="mx-auto grid max-w-7xl gap-12 px-4 py-16 sm:px-6 lg:grid-cols-[minmax(0,1fr)_minmax(24rem,0.9fr)] lg:px-8">
           <article>
-            <h2 className="max-w-2xl text-3xl font-semibold leading-tight sm:text-4xl">
+            <h2 className="max-w-2xl text-3xl font-black leading-tight text-white sm:text-4xl">
               {config.articleTitle}
             </h2>
-            <div className="mt-6 space-y-5 text-base leading-8 text-base-content/70">
+            <div className="mt-6 space-y-5 text-base leading-8 text-white/70">
               {config.articleParagraphs.map((paragraph) => (
                 <p key={paragraph}>{paragraph}</p>
               ))}
             </div>
             {config.relatedGuide ? (
-              <aside className="mt-7 rounded-box border border-primary/25 bg-primary/5 p-5">
-                <h3 className="font-semibold">Related guide</h3>
-                <p className="mt-2 text-sm leading-6 text-base-content/70">{config.relatedGuide.description}</p>
+              <aside className="mt-7 rounded-xl border border-primary/25 bg-primary/10 p-5">
+                <h3 className="font-bold text-white">Related guide</h3>
+                <p className="mt-2 text-sm leading-6 text-white/70">{config.relatedGuide.description}</p>
                 <a className="link link-primary mt-3 inline-block" href={config.relatedGuide.href}>{config.relatedGuide.label}</a>
               </aside>
             ) : null}
           </article>
 
-          <div className="divide-y divide-base-300 border-y border-base-300">
+          <div className="divide-y divide-white/10 border-y border-white/10">
             {config.benefits.map((benefit) => (
               <article className="grid grid-cols-[3rem_minmax(0,1fr)] gap-4 py-5" key={benefit.title}>
-                <span className="grid h-11 w-11 place-items-center rounded-lg border border-primary/30 text-xl text-primary">
+                <span className="grid h-11 w-11 place-items-center rounded-lg border border-primary/30 bg-primary/10 text-xl text-primary">
                   <CollectionIcon name={benefit.icon} />
                 </span>
                 <div>
-                  <h3 className="font-semibold">{benefit.title}</h3>
-                  <p className="mt-1 text-sm leading-6 text-base-content/65">{benefit.body}</p>
+                  <h3 className="font-bold text-white">{benefit.title}</h3>
+                  <p className="mt-1 text-sm leading-6 text-white/65">{benefit.body}</p>
                 </div>
               </article>
             ))}
@@ -154,10 +155,10 @@ export function GameCollectionPage({
         </div>
       </section>
 
-      <section className="bg-base-200/45">
+      <section className="border-b border-white/10 bg-neutral text-neutral-content">
         <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
-          <h2 className="text-center text-3xl font-semibold">{config.genresTitle}</h2>
-          <div className="mt-8 grid gap-px overflow-hidden rounded-lg border border-base-300 bg-base-300 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
+          <h2 className="text-center text-3xl font-black text-white">{config.genresTitle}</h2>
+          <div className="mt-8 grid gap-px overflow-hidden rounded-xl border border-white/10 bg-white/10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
             {config.genres.map((genre) => (
               <GenreLink
                 game={findGenreGame(games, genre)}
@@ -170,17 +171,17 @@ export function GameCollectionPage({
         </div>
       </section>
 
-      <section className="border-t border-base-300 bg-base-100">
+      <section className="border-t border-white/10 bg-black/20 text-neutral-content">
         <div className="mx-auto max-w-4xl px-4 py-16 sm:px-6 lg:px-8">
-          <h2 className="text-center text-3xl font-semibold">Frequently Asked Questions</h2>
-          <div className="mt-8 divide-y divide-base-300 border-y border-base-300">
+          <h2 className="text-center text-3xl font-black text-white">Frequently Asked Questions</h2>
+          <div className="mt-8 divide-y divide-white/10 border-y border-white/10">
             {config.faqs.map((faq) => (
               <details className="group py-1" key={faq.question}>
-                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 py-4 font-semibold">
+                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 py-4 font-bold text-white">
                   {faq.question}
                   <i aria-hidden="true" className="ri-add-line text-xl transition group-open:rotate-45" />
                 </summary>
-                <p className="max-w-3xl pb-5 leading-7 text-base-content/70">{faq.answer}</p>
+                <p className="max-w-3xl pb-5 leading-7 text-white/70">{faq.answer}</p>
               </details>
             ))}
           </div>
@@ -201,7 +202,7 @@ function HeroGameCovers({
 }) {
   if (games.length === 0) {
     return (
-      <div className="grid min-h-72 place-items-center rounded-xl border border-base-300 bg-base-200 text-base-content/45">
+      <div className="grid min-h-72 place-items-center rounded-xl border border-white/10 bg-white/[0.04] text-white/45">
         <i aria-hidden="true" className="ri-gamepad-line text-6xl" />
       </div>
     )
@@ -211,14 +212,14 @@ function HeroGameCovers({
     <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 lg:grid-cols-2" aria-label={label}>
       {games.map((game, index) => (
         <Link
-          className={`group overflow-hidden rounded-lg border border-base-300 bg-base-100 shadow-md transition hover:-translate-y-1 hover:shadow-xl ${
+          className={`group overflow-hidden rounded-lg border border-white/10 bg-white/[0.06] shadow-md transition hover:-translate-y-1 hover:border-primary/60 hover:shadow-xl ${
             index % 2 === 0 ? 'lg:-translate-y-3' : 'lg:translate-y-3'
           }`}
           key={getGameId(game)}
           params={{ gameId: getGameId(game), locale }}
           to="/$locale/games/$gameId"
         >
-          <div className="aspect-[4/3] overflow-hidden bg-base-300">
+          <div className="aspect-[4/3] overflow-hidden bg-white/5">
             {game.game_cover ? (
               <img
                 alt={game.name ?? label}
@@ -232,7 +233,7 @@ function HeroGameCovers({
               />
             ) : null}
           </div>
-          <p className="line-clamp-1 px-3 py-2 text-sm font-semibold">{game.name}</p>
+          <p className="line-clamp-1 px-3 py-2 text-sm font-semibold text-white">{game.name}</p>
         </Link>
       ))}
     </div>
@@ -295,17 +296,17 @@ function GenreLink({
     <>
       <CollectionIcon className="h-6 w-6 text-primary" name={genre.icon} />
       <span className="font-semibold">{genre.name}</span>
-      <span className="text-xs leading-5 text-base-content/50">{genre.description}</span>
+      <span className="text-xs leading-5 text-white/55">{genre.description}</span>
     </>
   )
 
   if (!game) {
-    return <a className="grid gap-2 bg-base-100 p-5 hover:bg-base-200" href="#game-library">{content}</a>
+    return <a className="grid gap-2 bg-white/[0.04] p-5 text-white transition hover:bg-white/10" href="#game-library">{content}</a>
   }
 
   return (
     <Link
-      className="grid gap-2 bg-base-100 p-5 hover:bg-base-200"
+      className="grid gap-2 bg-white/[0.04] p-5 text-white transition hover:bg-white/10"
       params={{ gameId: getGameId(game), locale }}
       to="/$locale/games/$gameId"
     >

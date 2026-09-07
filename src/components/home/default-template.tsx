@@ -127,8 +127,6 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
   const newGames = prioritizeClassicGames(latestGames).slice(0, 8)
   const recommendationLabel = lang === 'zh-CN' ? '经典游戏优先推荐' : lang === 'ja' ? 'クラシックゲームを優先表示' : 'Classic games first'
   const continueLabel = lang === 'zh-CN' ? '继续游玩' : lang === 'ja' ? '続けてプレイ' : 'Continue playing'
-  const recentEmptyCopy = lang === 'zh-CN' ? '你还没有玩过游戏，先从热门游戏开始吧。' : lang === 'ja' ? 'まだプレイしたゲームがありません。人気ゲームから始めましょう。' : 'You have not played a game yet. Start with a popular classic.'
-  const browsePopularLabel = lang === 'zh-CN' ? '浏览热门游戏' : lang === 'ja' ? '人気ゲームを見る' : 'Browse popular games'
   const platformCards = platformChips.slice(0, 6)
   const activeCategoryLabel = filters.category
     ? getLocalizedCategoryLabel(filters.category, lang)
@@ -158,7 +156,9 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
               <i aria-hidden="true" className="ri-home-5-line text-lg" />
               {layoutCopy.games}
             </Link>
-            <SideNavAnchor href="#recent-games" icon="ri-history-line" label={t.recentlyPlayed} />
+            {recentGames.length > 0 ? (
+              <SideNavAnchor href="#recent-games" icon="ri-history-line" label={t.recentlyPlayed} />
+            ) : null}
 
             <section className="border-t border-white/10 pt-4">
               <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-white/45">
@@ -277,15 +277,15 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
               </div>
             ) : null}
 
-            <section className="mb-8 scroll-mt-24 rounded-xl border border-white/10 bg-black/10 p-3 sm:p-4" id="recent-games">
-              <div className="mb-3 flex items-center justify-between gap-3">
-                <h2 className="flex items-center gap-2 text-base font-bold text-white">
-                  <span className="grid h-7 w-7 place-items-center rounded-full bg-white/8 text-sm text-white/65">
-                    <i aria-hidden="true" className="ri-history-line" />
-                  </span>
-                  {t.recentlyPlayed}
-                </h2>
-                {recentGames.length > 0 ? (
+            {recentGames.length > 0 ? (
+              <section className="mb-8 scroll-mt-24 rounded-xl border border-white/10 bg-black/10 p-3 sm:p-4" id="recent-games">
+                <div className="mb-3 flex items-center justify-between gap-3">
+                  <h2 className="flex items-center gap-2 text-base font-bold text-white">
+                    <span className="grid h-7 w-7 place-items-center rounded-full bg-white/8 text-sm text-white/65">
+                      <i aria-hidden="true" className="ri-history-line" />
+                    </span>
+                    {t.recentlyPlayed}
+                  </h2>
                   <div className="flex items-center gap-3">
                     <span className="text-xs text-white/45">
                       {recentGames.length} {lang === 'zh-CN' ? '个游戏' : lang === 'ja' ? 'ゲーム' : 'games'}
@@ -294,9 +294,7 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
                       {lang === 'zh-CN' ? '清除记录' : lang === 'ja' ? '履歴を消去' : 'Clear history'}
                     </button>
                   </div>
-                ) : null}
-              </div>
-              {recentGames.length > 0 ? (
+                </div>
                 <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
                   {recentGames.slice(0, 4).map((game) => (
                     <Link
@@ -317,15 +315,8 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
                     </Link>
                   ))}
                 </div>
-              ) : (
-                <div className="flex flex-wrap items-center justify-between gap-3 rounded-lg border border-dashed border-white/10 bg-white/[0.03] p-3 text-sm text-white/55">
-                  <span>{recentEmptyCopy}</span>
-                  <a className="font-semibold text-primary underline underline-offset-2" href="#popular-games">
-                    {browsePopularLabel}
-                  </a>
-                </div>
-              )}
-            </section>
+              </section>
+            ) : null}
 
             {topGames.length > 0 ? (
               <section className="scroll-mt-24" id="popular-games">
