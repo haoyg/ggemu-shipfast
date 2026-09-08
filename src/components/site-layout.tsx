@@ -471,6 +471,22 @@ export function SiteFooter({ locale }: { locale: Locale }) {
               </a>
               <a
                 className="inline-flex items-center"
+                href="https://launchstag.com/p/pokopie"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <img
+                  alt="Featured on Launchstag"
+                  className="h-[40px] w-auto"
+                  decoding="async"
+                  height="62"
+                  loading="lazy"
+                  src="https://launchstag.com/badge-light.svg"
+                  width="198"
+                />
+              </a>
+              <a
+                className="inline-flex items-center"
                 href="https://www.producthunt.com/products/pokopie?embed=true&utm_source=badge-featured&utm_medium=badge&utm_campaign=badge-pokopie"
                 rel="noopener noreferrer"
                 target="_blank"
