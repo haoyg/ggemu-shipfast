@@ -1,5 +1,5 @@
 ﻿wave,priority,target,type,landing_page,submit_url,status,date_contacted,response,live_url,indexed,notes
-1,P1,Product Hunt,Product directory,https://pokopie.com/en/ps1-compatibility,https://www.producthunt.com/launch,ready_to_draft,,,,,使用个人 maker 账号；已准备描述、缩略图、画廊图和首评，不立即上线
+1,P1,Product Hunt,Product directory,https://pokopie.com/en/ps1-compatibility?utm_source=producthunt&utm_medium=referral&utm_campaign=pokopie_launch,https://www.producthunt.com/products/pokopie,published,,公开产品页已核验,https://www.producthunt.com/products/pokopie,no,保留 PS1 compatibility 定位；官方徽章 post_id=1242912；2026-09-09 公开搜索尚未收录；更新现有产品页，不重复创建 draft
 1,P1,BetaList,Startup directory,https://pokopie.com/en/play-my-rom,https://betalist.com/,todo,,,,,早期工具定位
 1,P1,Uneed,Product directory,https://pokopie.com/en/play-my-rom,https://www.uneed.best/,held,,,,,免费发布队列当前关闭；不购买 Fast-track 或 Skip Queue
 1,P1,Fazier,Product directory,https://pokopie.com/en/play-my-rom,https://fazier.com/,held,,,,,免费收录要求站点展示其徽章；暂不改变站点页脚

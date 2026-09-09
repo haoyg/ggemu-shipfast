@@ -471,6 +471,7 @@ export function SiteFooter({ locale }: { locale: Locale }) {
               </a>
               <a
                 className="inline-flex items-center"
+<<<<<<< Updated upstream
                 href="https://launchstag.com/p/pokopie"
                 rel="noopener noreferrer"
                 target="_blank"
@@ -488,6 +489,9 @@ export function SiteFooter({ locale }: { locale: Locale }) {
               <a
                 className="inline-flex items-center"
                 href="https://www.producthunt.com/products/pokopie?embed=true&utm_source=badge-featured&utm_medium=badge&utm_campaign=badge-pokopie"
+=======
+                href="https://www.producthunt.com/products/pokopie?utm_source=badge-featured&utm_medium=badge&utm_campaign=badge-pokopie"
+>>>>>>> Stashed changes
                 rel="noopener noreferrer"
                 target="_blank"
               >
@@ -497,7 +501,7 @@ export function SiteFooter({ locale }: { locale: Locale }) {
                   decoding="async"
                   height="54"
                   loading="lazy"
-                  src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1242912&theme=light&t=1788774077866"
+                  src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1242912&theme=light"
                   width="250"
                 />
               </a>

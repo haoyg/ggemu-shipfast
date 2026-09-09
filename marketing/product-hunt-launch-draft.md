@@ -1,6 +1,13 @@
-# Product Hunt launch draft — POKOPIE
+# Product Hunt public listing — POKOPIE
 
-Prepared from Product Hunt's current launch requirements. Create a draft first; do not schedule or launch until the page and assets have been reviewed.
+The POKOPIE Product Hunt page is public. Keep this file as the approved launch copy and listing record; do not create a duplicate draft.
+
+## Public listing
+
+- **Status:** Published
+- **Product Hunt URL:** https://www.producthunt.com/products/pokopie
+- **Badge post ID:** `1242912`
+- **Tracked website URL:** https://pokopie.com/en/ps1-compatibility?utm_source=producthunt&utm_medium=referral&utm_campaign=pokopie_launch
 
 ## Product details
 
@@ -28,5 +35,6 @@ Prepared from Product Hunt's current launch requirements. Create a draft first; 
 ## Launch guardrails
 
 - Use Hugh's personal maker account; Product Hunt does not permit company accounts to post products.
-- Create a draft first. Review the rendered page and media before choosing a launch date.
+- Update the existing POKOPIE page rather than creating a duplicate product draft.
+- Review the rendered page and media before scheduling any future launch tied to this product page.
 - Do not ask people for upvotes. Invite relevant users to read and leave genuine feedback after launch.
