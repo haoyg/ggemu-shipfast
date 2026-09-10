@@ -116,6 +116,9 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
     onQueryChange,
     onSearch,
     pagination,
+    onLoadPage,
+    page,
+    pages,
     t,
   } = props
   const layoutCopy = getI18n(lang).layout
@@ -123,8 +126,15 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
   const platformChips = getPlatformChips(filterOptions.platforms, lang)
   const sidebarCategories = filterOptions.categories.slice(0, 6)
   const hasActiveFilters = Boolean(filters.query.trim() || filters.category || filters.platform)
-  const topGames = (hasActiveFilters ? games : prioritizeClassicGames(games)).slice(0, 12)
-  const newGames = prioritizeClassicGames(latestGames).slice(0, 8)
+  const [visibleCount, setVisibleCount] = useState(24)
+  useEffect(() => setVisibleCount(24), [games])
+  const rankedGames = hasActiveFilters ? games : prioritizeClassicGames(games)
+  const topGames = rankedGames.slice(0, visibleCount)
+  const recommendedIds = new Set(topGames.map(getGameRouteId))
+  const newGames = prioritizeClassicGames(latestGames)
+    .filter((game) => !recommendedIds.has(getGameRouteId(game)))
+    .slice(0, 8)
+  const loadMoreLabel = lang === 'zh-CN' ? '加载更多游戏' : lang === 'ja' ? 'ゲームをもっと見る' : 'Load more games'
   const recommendationLabel = lang === 'zh-CN' ? '经典游戏优先推荐' : lang === 'ja' ? 'クラシックゲームを優先表示' : 'Classic games first'
   const continueLabel = lang === 'zh-CN' ? '继续游玩' : lang === 'ja' ? '続けてプレイ' : 'Continue playing'
   const platformCards = platformChips.slice(0, 6)
@@ -336,7 +346,7 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
                 </div>
                 <div
                   aria-busy={isLoading}
-                  className={`game-rail flex min-w-0 gap-3 overflow-x-auto pb-3 [scrollbar-width:thin] sm:gap-4 ${
+                  className={`grid min-w-0 grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 xl:grid-cols-4 2xl:grid-cols-6 ${
                     isLoading ? 'opacity-60' : ''
                   }`}
                 >
@@ -348,6 +358,19 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
                       lang={lang}
                     />
                   ))}
+                </div>
+                <div className="mt-6 flex flex-wrap justify-center gap-3">
+                  {visibleCount < rankedGames.length ? (
+                    <button className="btn btn-primary" disabled={isLoading} onClick={() => setVisibleCount((count) => count + 24)} type="button">
+                      {loadMoreLabel}
+                    </button>
+                  ) : null}
+                  {page > 1 ? (
+                    <button className="btn btn-outline" disabled={isLoading} onClick={() => onLoadPage(page - 1)} type="button">{t.previous}</button>
+                  ) : null}
+                  {visibleCount >= rankedGames.length && page < pages ? (
+                    <button className="btn btn-outline" disabled={isLoading} onClick={() => onLoadPage(page + 1)} type="button">{isLoading ? t.loading : t.next}</button>
+                  ) : null}
                 </div>
               </section>
             ) : (
@@ -362,7 +385,7 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
               <p className="mb-5 text-xs font-bold uppercase tracking-[0.16em] text-white/45">
                 {t.discovery}
               </p>
-              <div className="grid gap-6 xl:grid-cols-[minmax(0,1.1fr)_minmax(18rem,0.9fr)]">
+              <div className="grid gap-6">
                 <HomeRail title={t.newest}>
                   {newGames.length > 0 ? (
                     newGames.map((game) => (
@@ -375,26 +398,7 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
                   )}
                 </HomeRail>
 
-                <HomeRail title={lang === 'zh-CN' ? '本周热门' : lang === 'ja' ? '今週の人気ゲーム' : 'Hot this week'}>
-                  <div className="grid w-full gap-2">
-                    {topGames.slice(0, 5).map((game, index) => (
-                      <Link
-                        className="arcade-card group grid min-w-0 grid-cols-[1.5rem_3.25rem_minmax(0,1fr)] items-center gap-2 p-2 transition"
-                        key={`weekly-${getGameRouteId(game)}`}
-                        params={{ gameId: getGameRouteId(game), locale: lang }}
-                        search={{}}
-                        title={`Play ${game.name} online`}
-                        to="/$locale/games/$gameId"
-                      >
-                        <span className={`text-center text-sm font-black ${index === 0 ? 'text-primary' : 'text-white/45'}`}>
-                          {index + 1}
-                        </span>
-                        <ArcadeCover alt={game.name ?? 'Game cover'} className="aspect-square rounded-md" cover={game.game_cover} lang={lang} />
-                        <span className="line-clamp-2 text-sm font-semibold text-white">{game.name}</span>
-                      </Link>
-                    ))}
-                  </div>
-                </HomeRail>
+
               </div>
             </div>
           </section>
@@ -436,7 +440,7 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
 
           <div className="home-content arcade-editorial text-neutral-content">
             <HomeSeoContentSection lang={lang} />
-            <HomeLatestBlogPostsSection blogPosts={latestBlogPosts} lang={lang} />
+            <HomeLatestBlogPostsSection blogPosts={latestBlogPosts} compact lang={lang} />
             <HomeFaqSection lang={lang} />
           </div>
         </main>
@@ -860,7 +864,7 @@ function ArcadeGameCard({
 
   return (
     <Link
-      className="arcade-card arcade-game-card group relative w-40 min-w-40 shrink-0 overflow-hidden shadow-sm transition duration-200 hover:-translate-y-1 sm:w-48 sm:min-w-48"
+      className="arcade-card arcade-game-card group relative min-w-0 overflow-hidden shadow-sm transition duration-200 hover:-translate-y-1"
       {...gameCardPreviewHandlers}
       params={{ gameId, locale: lang }}
       search={{}}

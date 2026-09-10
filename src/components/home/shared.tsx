@@ -56,13 +56,15 @@ const platformBadges: Record<string, string> = {
 }
 
 export function HomeLatestBlogPostsSection({
+  compact = false,
   blogPosts,
   lang,
 }: {
   blogPosts: Array<BlogPost>
+  compact?: boolean
   lang: Locale
 }) {
-  const posts = blogPosts.filter((post) => getBlogPostRouteId(post)).slice(0, HOME_BLOG_POST_LIMIT)
+  const posts = blogPosts.filter((post) => getBlogPostRouteId(post)).slice(0, compact ? 3 : HOME_BLOG_POST_LIMIT)
   const t = getI18n(lang).home
 
   if (posts.length === 0) {
@@ -90,9 +92,13 @@ export function HomeLatestBlogPostsSection({
           </Link>
         </div>
 
-        <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <div className={compact ? "mt-4 grid gap-3 md:grid-cols-3" : "mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-4"}>
           {posts.map((post) => (
-            <HomeBlogPostCard
+            compact ? (
+              <Link className="rounded-lg border border-white/10 p-4 text-sm font-semibold text-white/80 transition hover:border-primary hover:text-white" key={getBlogPostRouteId(post)} params={{ locale: lang, blogId: getBlogPostRouteId(post) }} to="/$locale/blog/$blogId">
+                <span className="line-clamp-2">{post.title?.trim() || t.blogPostFallback}</span>
+              </Link>
+            ) : <HomeBlogPostCard
               blogPost={post}
               key={getBlogPostRouteId(post)}
               lang={lang}

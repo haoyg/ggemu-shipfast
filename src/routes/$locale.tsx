@@ -266,11 +266,11 @@ export const Route = createFileRoute('/$locale')({
 
     return {
       ...result,
-      games: template === 'default' ? prioritizeClassicGames(result.games).slice(0, 12) : result.games,
+      games: template === 'default' ? prioritizeClassicGames(result.games) : result.games,
       filterOptions,
       layoutSeed: getPokiDailyLayoutSeed(),
       latestBlogPosts,
-      latestGames: template === 'default' ? prioritizeClassicGames(latestGamesResult.games).slice(0, 8) : latestGamesResult.games,
+      latestGames: template === 'default' ? prioritizeClassicGames(latestGamesResult.games) : latestGamesResult.games,
       seoOrigin,
     }
   },
