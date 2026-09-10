@@ -1,7 +1,7 @@
 import { Link, useNavigate } from '@tanstack/react-router'
 import { useServerFn } from '@tanstack/react-start'
 import type { FocusEvent, ReactNode } from 'react'
-import { useEffect, useId, useRef, useState } from 'react'
+import { useEffect, useId, useState } from 'react'
 
 import {
   GameCardPreviewVideo,
@@ -108,6 +108,7 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
     filterOptions,
     filters,
     games,
+    featureSections = [],
     isLoading,
     lang,
     latestBlogPosts,
@@ -131,9 +132,18 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
   const rankedGames = hasActiveFilters ? games : prioritizeClassicGames(games)
   const topGames = rankedGames.slice(0, visibleCount)
   const recommendedIds = new Set(topGames.map(getGameRouteId))
+  const platformSections = featureSections.map((section) => {
+    const sectionGames = section.games.filter((game) => {
+      const id = getGameRouteId(game)
+      return id && !recommendedIds.has(id)
+    }).slice(0, 8)
+    sectionGames.forEach((game) => recommendedIds.add(getGameRouteId(game)))
+    return { ...section, games: sectionGames }
+  }).filter((section) => section.games.length > 0)
   const newGames = prioritizeClassicGames(latestGames)
     .filter((game) => !recommendedIds.has(getGameRouteId(game)))
     .slice(0, 8)
+  const viewAllLabel = lang === 'zh-CN' ? '查看全部' : lang === 'ja' ? 'すべて見る' : 'View all'
   const loadMoreLabel = lang === 'zh-CN' ? '加载更多游戏' : lang === 'ja' ? 'ゲームをもっと見る' : 'Load more games'
   const recommendationLabel = lang === 'zh-CN' ? '经典游戏优先推荐' : lang === 'ja' ? 'クラシックゲームを優先表示' : 'Classic games first'
   const continueLabel = lang === 'zh-CN' ? '继续游玩' : lang === 'ja' ? '続けてプレイ' : 'Continue playing'
@@ -200,11 +210,11 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
         </aside>
 
         <main className="min-w-0 max-w-full overflow-x-hidden">
-          <section className="arcade-section border-b px-3 py-5 sm:px-6 sm:py-8 lg:px-8 lg:py-10">
-            <div className="arcade-hero relative overflow-hidden px-5 py-8 sm:px-8 sm:py-11">
+          <section className="arcade-section border-b px-3 py-4 sm:px-6 sm:py-5 lg:px-8">
+            <div className="arcade-hero relative overflow-hidden px-4 py-5 sm:px-6 sm:py-6">
               <div aria-hidden="true" className="absolute -right-24 -top-28 h-64 w-64 rounded-full bg-primary/25 blur-3xl" />
               <div aria-hidden="true" className="absolute -bottom-32 left-1/3 h-56 w-56 rounded-full bg-cyan-300/15 blur-3xl" />
-              <div className="relative grid gap-7 xl:grid-cols-[minmax(0,0.96fr)_minmax(26rem,1.04fr)] xl:items-stretch xl:gap-10">
+              <div className="relative">
                 <div className="min-w-0">
                   <div className="flex flex-wrap items-center gap-3">
                     <p className="arcade-kicker">{siteConfig.SITE_NAME}</p>
@@ -212,13 +222,13 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
                       {formatCopy(t.totalGames, { total: pagination.total })}
                     </span>
                   </div>
-                  <h1 className="arcade-section-title mt-3 max-w-3xl text-4xl font-black leading-[0.98] text-white sm:text-5xl lg:text-6xl">
+                  <h1 className="arcade-section-title mt-3 max-w-4xl text-2xl font-black leading-tight text-white sm:text-3xl lg:text-4xl">
                     {t.title}
                   </h1>
-                  <p className="mt-4 max-w-2xl text-sm leading-6 text-white/70 sm:text-base sm:leading-7">
+                  <p className="mt-2 max-w-3xl text-sm leading-6 text-white/70">
                     {t.subtitle}
                   </p>
-                  <div className="mt-7 max-w-2xl">
+                  <div className="mt-4 max-w-3xl">
                     <form className="min-w-0" onSubmit={onSearch}>
                       <HomeSearchSuggest
                         gameTotal={pagination.total}
@@ -238,9 +248,6 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
                     </div>
                   </div>
                 </div>
-                {topGames.length > 0 ? (
-                  <FeaturedGameCarousel games={topGames.slice(0, 5)} lang={lang} label={t.featured} />
-                ) : null}
               </div>
             </div>
 
@@ -380,6 +387,23 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
             )}
           </section>
 
+          {!hasActiveFilters ? platformSections.map((section) => (
+            <section className="arcade-section border-t px-4 py-6 sm:px-6 lg:px-8" key={section.title} aria-label={getLocalizedPlatformLabel(section.title, lang)}>
+              <div className="mb-4 flex items-center justify-between gap-3">
+                <h2 className="text-xl font-black text-white">{getLocalizedPlatformLabel(section.title, lang)}</h2>
+                <a className="btn btn-ghost btn-sm shrink-0 text-white/80" href={getPlatformSeoPath(section.title, lang)}>
+                  {viewAllLabel}
+                  <i aria-hidden="true" className="ri-arrow-right-line" />
+                </a>
+              </div>
+              <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 xl:grid-cols-4">
+                {section.games.map((game) => (
+                  <ArcadeGameCard game={game} isPriority={false} key={getGameRouteId(game)} lang={lang} />
+                ))}
+              </div>
+            </section>
+          )) : null}
+
           <section className="arcade-section border-t px-4 py-7 sm:px-6 lg:px-8">
             <div className="arcade-card p-4 sm:p-6">
               <p className="mb-5 text-xs font-bold uppercase tracking-[0.16em] text-white/45">
@@ -397,8 +421,6 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
                     </div>
                   )}
                 </HomeRail>
-
-
               </div>
             </div>
           </section>
@@ -723,129 +745,6 @@ function FilterBadge({
       {label}
       <i aria-hidden="true" className="ri-close-line text-sm" />
     </button>
-  )
-}
-
-function FeaturedGameCarousel({
-  games,
-  label,
-  lang,
-}: {
-  games: Array<PublicGame>
-  label: string
-  lang: Locale
-}) {
-  const [activeIndex, setActiveIndex] = useState(0)
-  const previewVideoRef = useRef<HTMLVideoElement>(null)
-  const game = games[activeIndex] ?? games[0]
-
-  useEffect(() => {
-    if (games.length < 2 || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      return
-    }
-
-    const intervalId = window.setInterval(() => {
-      setActiveIndex((index) => (index + 1) % games.length)
-    }, 6000)
-
-    return () => window.clearInterval(intervalId)
-  }, [games.length])
-
-  useEffect(() => {
-    previewVideoRef.current?.play().catch(() => {})
-  }, [activeIndex])
-
-  if (!game) {
-    return null
-  }
-
-  const gameId = getGameRouteId(game)
-  const gameName = game.name?.trim() || 'Game'
-  const platformBadge = getPlatformBadge(game, lang)
-
-  return (
-    <section className="featured-game arcade-card relative grid overflow-hidden">
-      <div className="flex items-center gap-3 border-b border-[#fa786b]/65 bg-[#080d1b] px-4 py-3 text-sm">
-        <span className="arcade-kicker text-[#fa786b]">{label}</span>
-        <span className="h-px flex-1 bg-[#fa786b]/50" />
-        {games.length > 1 ? (
-          <div className="flex items-center gap-1">
-            <button
-              aria-label="Previous featured game"
-              className="carousel-control"
-              onClick={() => setActiveIndex((index) => (index - 1 + games.length) % games.length)}
-              type="button"
-            >
-              <i aria-hidden="true" className="ri-arrow-left-s-line" />
-            </button>
-            <button
-              aria-label="Next featured game"
-              className="carousel-control"
-              onClick={() => setActiveIndex((index) => (index + 1) % games.length)}
-              type="button"
-            >
-              <i aria-hidden="true" className="ri-arrow-right-s-line" />
-            </button>
-          </div>
-        ) : null}
-      </div>
-      <Link
-        className="featured-game-link group block"
-        params={{ gameId, locale: lang }}
-        search={{}}
-        title={`Play ${gameName} online`}
-        to="/$locale/games/$gameId"
-      >
-        <ArcadeCover
-          alt={gameName}
-          className="aspect-[16/9]"
-          cover={game.game_cover}
-          isPriority
-          lang={lang}
-        >
-          {game.game_video?.trim() ? (
-            <video
-              aria-hidden="true"
-              autoPlay
-              className="feature-preview-video absolute inset-0 h-full w-full object-cover"
-              key={game.game_video}
-              loop
-              muted
-              playsInline
-              preload="metadata"
-              ref={previewVideoRef}
-              src={game.game_video}
-            />
-          ) : null}
-        </ArcadeCover>
-        <div className="flex items-end justify-between gap-4 bg-[#080d1b] p-4 sm:p-5">
-          <div className="min-w-0">
-            <h2 className="line-clamp-2 text-xl font-bold leading-tight text-white sm:text-2xl">{gameName}</h2>
-            {platformBadge ? (
-              <p className="mt-2 text-xs font-bold uppercase tracking-[0.14em] text-primary">{platformBadge}</p>
-            ) : null}
-          </div>
-          <span className="grid h-11 w-11 shrink-0 rounded-sm border border-[#fa786b]/65 bg-[#fa786b] text-xl text-[#080d1b] transition group-hover:scale-105">
-            <i aria-hidden="true" className="m-auto ri-play-fill" />
-          </span>
-        </div>
-      </Link>
-      {games.length > 1 ? (
-        <div aria-label={label} className="carousel-dots" role="tablist">
-          {games.map((item, index) => (
-            <button
-              aria-label={`${label} ${index + 1}: ${item.name ?? 'Game'}`}
-              aria-selected={index === activeIndex}
-              className={index === activeIndex ? 'active' : ''}
-              key={getGameRouteId(item)}
-              onClick={() => setActiveIndex(index)}
-              role="tab"
-              type="button"
-            />
-          ))}
-        </div>
-      ) : null}
-    </section>
   )
 }
 
