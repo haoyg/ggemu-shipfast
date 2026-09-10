@@ -82,3 +82,20 @@ describe('GamePlayerFrame', () => {
     expect(trackEvent).not.toHaveBeenCalledWith('player_load_timeout', expect.anything())
   })
 })
+
+
+it('reports readiness once per attempt and never treats iframe load as readiness', () => {
+  render(<GamePlayerFrame {...props} />)
+  const frame = screen.getByTitle('Test game') as HTMLIFrameElement
+  fireEvent.load(frame)
+  expect(trackEvent).not.toHaveBeenCalledWith('player_ready', expect.anything())
+  const ready = (source: Window | null) => act(() => window.dispatchEvent(new MessageEvent('message', { source, data: { type: 'player-ready' } })))
+  ready(window)
+  expect(trackEvent).not.toHaveBeenCalledWith('player_ready', expect.anything())
+  ready(frame.contentWindow)
+  ready(frame.contentWindow)
+  expect(vi.mocked(trackEvent).mock.calls.filter(([name]) => name === 'player_ready')).toHaveLength(1)
+  fireEvent.click(screen.getByText('Reload player'))
+  ready((screen.getByTitle('Test game') as HTMLIFrameElement).contentWindow)
+  expect(vi.mocked(trackEvent).mock.calls.filter(([name]) => name === 'player_ready')).toHaveLength(2)
+})

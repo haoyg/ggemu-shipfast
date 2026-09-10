@@ -1,12 +1,21 @@
+import { getGameEditorial } from './game-editorial'
 import type { Locale, PublicGame } from '#/lib/ggemu'
 import {
+  getGameDetailFaqs,
   getGameDetailHowToPlay,
   getGameDetailSummary,
   getLocalizedCategoryLabels,
   getLocalizedPlatformLabel,
 } from '#/lib/i18n'
 
+export function getGameFaqs(game: PublicGame, locale: Locale) {
+  const editorial = getGameEditorial(game, locale)
+  return editorial?.faq ?? getGameDetailFaqs(game, locale)
+}
+
 export function getGameDescriptionParagraphs(game: PublicGame, locale: Locale) {
+  const editorial = getGameEditorial(game, locale)
+  if (editorial) return [editorial.summary, ...editorial.description]
   const description = normalizeText(game.description) || getGameDetailSummary(game, locale)
 
   return uniqueTexts([
@@ -17,6 +26,8 @@ export function getGameDescriptionParagraphs(game: PublicGame, locale: Locale) {
 }
 
 export function getGameHowToPlayParagraphs(game: PublicGame, locale: Locale) {
+  const editorial = getGameEditorial(game, locale)
+  if (editorial) return editorial.howToPlay
   const guide = normalizeText(game.how_to_play) || getGameDetailHowToPlay(game, locale)
   const explicitParagraphs = game.how_to_play
     ?.split(/\r?\n\s*\r?\n/)
@@ -30,7 +41,17 @@ export function getGameHowToPlayParagraphs(game: PublicGame, locale: Locale) {
   return groupSentences(guide)
 }
 
-export function getBrowserPlayGuide(locale: Locale) {
+export function getBrowserPlayGuide(locale: Locale, game?: PublicGame) {
+  const editorial = game && getGameEditorial(game, locale)
+  if (editorial) {
+    return {
+      title: 'Browser controls and troubleshooting',
+      paragraphs: [
+        ...editorial.tips,
+        'If the player stalls, try Reload player or the separate game page. Reloading may lose unsaved progress; saving and controller options depend on the loaded game.',
+      ],
+    }
+  }
   if (locale === 'zh-CN') {
     return {
       title: '浏览器操作与故障排查',
@@ -62,6 +83,10 @@ export function getBrowserPlayGuide(locale: Locale) {
 }
 
 export function getGameSidebarContent(game: PublicGame, locale: Locale) {
+  const editorial = getGameEditorial(game, locale)
+  if (editorial) {
+    return { backgroundTitle: 'About this version', background: editorial.description[0], tipsTitle: 'Play tips', tips: editorial.tips }
+  }
   const name = game.name?.trim() || getFallbackName(locale)
   const playerTip = getPlayerTip(name, game.players, locale)
 

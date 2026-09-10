@@ -7,6 +7,14 @@ export type GameSeoInternalLink = {
 
 const gameSeoLinkClusters: Array<Array<GameSeoInternalLink>> = [
   [
+    { label: 'Try Murdoku deduction puzzles', slug: 'murdoku-html5-2026' },
+    { label: 'Try Onet Master tile matching', slug: 'onet-master-html5' },
+  ],
+  [
+    { label: 'Explore Three Wonders arcade games', slug: 'three-wonders-arcade-1991' },
+    { label: 'Explore Pipi and Bibis arcade action', slug: 'pipi-and-bibis-other-1991' },
+  ],
+  [
     {
       label: 'Play Geometry Dash Advance online',
       slug: 'geometry-dash-advance-gba-2025',

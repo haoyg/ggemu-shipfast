@@ -8,6 +8,18 @@ const shonenJumpOnePieceTargetSlug = 'shonen-jump-s-one-piece-gba-2005'
 const taikoWebTargetSlug = 'taiko-no-tatsujin-taiko-web-html5-2011'
 
 const targetedGameSeoBySlug = {
+  'three-wonders-arcade-1991': {
+    heading: 'Play Three Wonders Online',
+    title: 'Three Wonders Online - Midnight Wanderers & More | POKOPIE',
+    description: 'Explore Three Wonders in your browser: Midnight Wanderers, Chariot and Don’t Pull. Read the arcade controls and choose an action, shooter or puzzle game.',
+    keywords: 'Three Wonders online, Midnight Wanderers online, Chariot arcade, Don’t Pull puzzle, Capcom arcade',
+  },
+  'pipi-and-bibis-other-1991': {
+    heading: 'Play Pipi and Bibis Online',
+    title: 'Pipi and Bibis Online - Whoopee!! Arcade Game | POKOPIE',
+    description: 'Play Pipi and Bibis, also known as Whoopee!!, in your browser. Learn the bomb-planting objective, Shredder Beam controls and escape strategy.',
+    keywords: 'Pipi and Bibis online, Pipi & Bibi’s, Whoopee arcade, Toaplan arcade game',
+  },
   [contraTargetSlug]: {
     heading: 'Play Contra Game Online Free',
     title: 'Play Contra Game Online Free | NES Classic | POKOPIE',
@@ -20,7 +32,7 @@ const targetedGameSeoBySlug = {
     heading: 'Play Geometry Dash Advance Online',
     title: 'Geometry Dash Advance - Play the GBA Demake Online | POKOPIE',
     description:
-      'Play Geometry Dash Advance online in your browser. Try the GBA demake with main and custom levels, practice mode, icon customization, and endless mode.',
+      'Play Geometry Dash Advance online in your browser. Explore AleFunky’s GBA demake, read the control and practice-mode guide, and learn how it differs from the mobile game.',
     keywords:
       'Geometry Dash Advance, Geometry Dash Advance online, play Geometry Dash Advance, GBA demake, rhythm platform game',
   },
@@ -52,7 +64,7 @@ const targetedGameSeoBySlug = {
     heading: 'Play Taiko Web Online',
     title: 'Taiko Web - Play Taiko no Tatsujin Online | POKOPIE',
     description:
-      'Play Taiko Web online free in your browser. Hit red and blue drum notes to the beat, choose songs and difficulties, and use keyboard or USB controls.',
+      'Play Taiko Web online free in your browser. Hit red and blue drum notes to the beat, choose songs and difficulties, and check the keyboard controls before starting.',
     keywords:
       'Taiko Web, Taiko Web online, play Taiko Web, Taiko no Tatsujin online, browser rhythm game',
   },

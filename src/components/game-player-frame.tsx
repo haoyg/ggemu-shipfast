@@ -77,6 +77,7 @@ function PlayerAttempt({ src, title, gameId, locale, className, allow = 'autopla
   const [isFullscreen, setIsFullscreen] = useState(false)
   const timer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
   const reportedLoad = useRef(false)
+  const reportedReady = useRef(false)
   const iframeRef = useRef<HTMLIFrameElement>(null)
   const t = copy[locale as keyof typeof copy] ?? copy.en
   const lang = locale in copy ? locale : 'en'
@@ -110,12 +111,16 @@ function PlayerAttempt({ src, title, gameId, locale, className, allow = 'autopla
       if (message === 'game-ready' || message?.type === 'game-ready' || message?.type === 'player-ready') {
         clearTimeout(timer.current)
         setStatus('ready')
+        if (!reportedReady.current) {
+          reportedReady.current = true
+          trackEvent('player_ready', { game_id: gameId })
+        }
       }
     }
 
     window.addEventListener('message', handlePlayerMessage)
     return () => window.removeEventListener('message', handlePlayerMessage)
-  }, [active, attempt, unavailable])
+  }, [active, attempt, gameId, unavailable])
 
   useEffect(() => {
     function handleFullscreenChange() {
@@ -130,6 +135,7 @@ function PlayerAttempt({ src, title, gameId, locale, className, allow = 'autopla
     if (unavailable) return
     clearTimeout(timer.current)
     reportedLoad.current = false
+    reportedReady.current = false
     trackEvent('player_retry', { game_id: gameId })
     setStatus('loading')
     setAttempt((value) => value + 1)

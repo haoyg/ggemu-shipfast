@@ -40,7 +40,7 @@ export function getGoogleConsentInitScript() {
 }
 
 type FunnelEvent = 'game_play_click' | 'player_load_start' | 'player_frame_loaded'
-  | 'player_load_timeout' | 'player_retry'
+  | 'player_load_timeout' | 'player_retry' | 'player_ready'
   | 'game_search' | 'game_search_results' | 'game_search_error' | 'game_search_empty'
   | 'page_performance'
 

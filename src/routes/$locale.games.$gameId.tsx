@@ -1,3 +1,4 @@
+import { getGameEditorial } from '#/lib/game-editorial'
 import { trackEvent } from '#/lib/analytics'
 import { getBrowserPlayGuide } from '#/lib/game-detail-content'
 import {
@@ -28,7 +29,6 @@ import {
 } from '#/lib/game-share-text'
 import {
   buildGameDetailSeo,
-  getGameDetailFaqs,
   getGameDetailKeywordText,
   getGameDetailSummary,
   getI18n,
@@ -44,6 +44,7 @@ import {
 import { getTargetedGameSeo } from '#/lib/game-seo-targets'
 import {
   getGameDescriptionParagraphs,
+  getGameFaqs,
   getGameHowToPlayParagraphs,
   getGameSidebarContent,
 } from '#/lib/game-detail-content'
@@ -142,7 +143,7 @@ export const Route = createFileRoute('/$locale/games/$gameId')({
     const locale = normalizeLocale(params.locale)
     const seo = getTargetedGameSeo(game, locale) ?? buildGameDetailSeo(game, locale)
     const image = game.game_cover
-    const faqItems = getGameDetailFaqs(game, locale)
+    const faqItems = getGameFaqs(game, locale)
     const structuredData = buildGameStructuredData({
       canonicalUrl,
       faqItems,
@@ -273,7 +274,7 @@ export function buildGameStructuredData({
   seo,
 }: {
   canonicalUrl: string
-  faqItems: ReturnType<typeof getGameDetailFaqs>
+  faqItems: ReturnType<typeof getGameFaqs>
   game: PublicGame
   locale: Locale
   seo: ReturnType<typeof buildGameDetailSeo>
@@ -377,12 +378,13 @@ function LocalizedGameDetailPage() {
   const categories = getLocalizedCategoryLabels(game.categories, lang)
   const languages = game.languages ?? []
   const platformLabel = getLocalizedPlatformLabel(game.platform, lang)
-  const faqItems = getGameDetailFaqs(game, lang)
-  const summary = getGameDetailSummary(game, lang)
+  const faqItems = getGameFaqs(game, lang)
+  const editorial = getGameEditorial(game, lang)
+  const summary = editorial?.summary ?? getGameDetailSummary(game, lang)
   const keywordText = getGameDetailKeywordText(game, lang)
   const descriptionParagraphs = getGameDescriptionParagraphs(game, lang)
   const howToPlayParagraphs = getGameHowToPlayParagraphs(game, lang)
-  const browserGuide = getBrowserPlayGuide(lang)
+  const browserGuide = getBrowserPlayGuide(lang, game)
   const sidebarContent = getGameSidebarContent(game, lang)
   const playPath = buildGamePlayPath(lang, gameId)
   const embedUrl = buildGameEmbedUrl(canonicalUrl, lang, gameId)
@@ -436,13 +438,10 @@ function LocalizedGameDetailPage() {
                 )}
               </div>
 
-              <ArticlePanel
-                paragraphs={descriptionParagraphs}
-                title={t.overview}
-              />
+              {!editorial ? <ArticlePanel paragraphs={descriptionParagraphs} title={t.overview} /> : null}
             </div>
 
-            <div className="flex min-w-0 flex-col justify-center gap-3 sm:gap-6 lg:self-center">
+            <div className={`flex min-w-0 flex-col justify-center gap-3 sm:gap-6 lg:self-center ${editorial ? 'order-first lg:order-none' : ''}`}>
               <div>
                 <div className="mb-2 flex flex-wrap gap-2 sm:mb-3">
                   <span className="badge badge-sm badge-success badge-outline gap-1 sm:badge-md">
@@ -500,12 +499,14 @@ function LocalizedGameDetailPage() {
                 </div>
               </div>
 
+              {!editorial ? (
               <GameEmbedCard
                 canonicalUrl={canonicalUrl}
                 embedUrl={embedUrl}
                 labels={t}
                 title={game.name || 'POKOPIE'}
               />
+              ) : null}
 
               <div className="grid grid-cols-2 gap-4 text-left sm:max-w-md sm:gap-6">
                 <Stat label={t.plays} value={game.plays_count ?? 0} />
@@ -527,8 +528,17 @@ function LocalizedGameDetailPage() {
 
           <section className="grid gap-6 lg:grid-cols-[1fr_340px]">
             <div className="flex flex-col gap-6">
-              <KeywordPanel title={t.keywords} value={keywordText} />
+              {editorial ? <ArticlePanel paragraphs={descriptionParagraphs} title={t.overview} /> : null}
+              <KeywordPanel title={t.keywords} value={editorial && targetedSeo ? targetedSeo.keywords : keywordText} />
               <ArticlePanel paragraphs={howToPlayParagraphs} title={t.howToPlay} />
+              {editorial ? (
+                <section className="rounded-xl border border-white/10 bg-white/[0.04] p-5">
+                  <h2 className="text-lg font-bold text-white">Game references</h2>
+                  <ul className="mt-3 space-y-2">
+                    {editorial.sources.map((source) => <li key={source.href}><a className="link link-primary text-sm" href={source.href}>{source.label}</a></li>)}
+                  </ul>
+                </section>
+              ) : null}
               <ArticlePanel paragraphs={browserGuide.paragraphs} title={browserGuide.title} />
               {relatedGuide ? (
                 <section className="rounded-xl border border-primary/25 bg-primary/10 p-5 shadow-sm">
@@ -538,6 +548,7 @@ function LocalizedGameDetailPage() {
                 </section>
               ) : null}
               <SeoInternalLinkSection lang={lang} links={seoInternalLinks} />
+              {editorial ? <GameEmbedCard canonicalUrl={canonicalUrl} embedUrl={embedUrl} labels={t} title={game.name || 'POKOPIE'} /> : null}
               <FaqSection items={faqItems} title={t.faq} />
               <RelatedGameSection
                 games={getRelatedGames(
@@ -549,7 +560,7 @@ function LocalizedGameDetailPage() {
               />
             </div>
 
-            <aside className="order-first flex flex-col gap-4 lg:order-none lg:sticky lg:top-24 lg:self-start">
+            <aside className={`flex flex-col gap-4 lg:order-none lg:sticky lg:top-24 lg:self-start ${editorial ? '' : 'order-first'}`}>
               <section className="rounded-xl border border-white/10 bg-white/[0.04] p-5 shadow-sm">
                 <h2 className="text-lg font-bold text-white">{t.details}</h2>
                 <dl className="mt-4 grid gap-3 text-sm">
@@ -731,7 +742,7 @@ function FaqSection({
   items,
   title,
 }: {
-  items: ReturnType<typeof getGameDetailFaqs>
+  items: ReturnType<typeof getGameFaqs>
   title: string
 }) {
   return (
