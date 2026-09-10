@@ -1,7 +1,7 @@
 import { Link, useNavigate } from '@tanstack/react-router'
 import { useServerFn } from '@tanstack/react-start'
 import type { FocusEvent, ReactNode } from 'react'
-import { useEffect, useId, useState } from 'react'
+import { useEffect, useId, useRef, useState } from 'react'
 
 import {
   GameCardPreviewVideo,
@@ -116,6 +116,7 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
     onFilterChange,
     onQueryChange,
     onSearch,
+    onReset,
     pagination,
     onLoadPage,
     page,
@@ -128,11 +129,20 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
   const sidebarCategories = filterOptions.categories.slice(0, 6)
   const hasActiveFilters = Boolean(filters.query.trim() || filters.category || filters.platform)
   const [visibleCount, setVisibleCount] = useState(24)
+  const resultsHeadingRef = useRef<HTMLHeadingElement>(null)
+  const previousPageRef = useRef(page)
   useEffect(() => setVisibleCount(24), [games])
+  useEffect(() => {
+    if (previousPageRef.current !== page) {
+      resultsHeadingRef.current?.focus({ preventScroll: true })
+      resultsHeadingRef.current?.scrollIntoView({ block: 'start', behavior: 'instant' })
+      previousPageRef.current = page
+    }
+  }, [page])
   const rankedGames = hasActiveFilters ? games : prioritizeClassicGames(games)
   const topGames = rankedGames.slice(0, visibleCount)
   const recommendedIds = new Set(topGames.map(getGameRouteId))
-  const platformSections = featureSections.map((section) => {
+  const platformSections = (hasActiveFilters ? [] : featureSections).map((section) => {
     const sectionGames = section.games.filter((game) => {
       const id = getGameRouteId(game)
       return id && !recommendedIds.has(id)
@@ -140,9 +150,10 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
     sectionGames.forEach((game) => recommendedIds.add(getGameRouteId(game)))
     return { ...section, games: sectionGames }
   }).filter((section) => section.games.length > 0)
-  const newGames = prioritizeClassicGames(latestGames)
+  const newGames = latestGames
     .filter((game) => !recommendedIds.has(getGameRouteId(game)))
     .slice(0, 8)
+  const resultsLabel = lang === 'zh-CN' ? '搜索结果' : lang === 'ja' ? '検索結果' : 'Search results'
   const viewAllLabel = lang === 'zh-CN' ? '查看全部' : lang === 'ja' ? 'すべて見る' : 'View all'
   const loadMoreLabel = lang === 'zh-CN' ? '加载更多游戏' : lang === 'ja' ? 'ゲームをもっと見る' : 'Load more games'
   const recommendationLabel = lang === 'zh-CN' ? '经典游戏优先推荐' : lang === 'ja' ? 'クラシックゲームを優先表示' : 'Classic games first'
@@ -343,13 +354,15 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
                       <i aria-hidden="true" className="ri-star-fill" />
                       {t.featured}
                     </p>
-                  <h2 className="arcade-rule-title arcade-section-title mt-1 text-3xl font-black text-white sm:text-4xl">{t.popular}</h2>
+                  <h2 ref={resultsHeadingRef} tabIndex={-1} className="arcade-rule-title arcade-section-title mt-1 scroll-mt-24 text-3xl font-black text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary sm:text-4xl">{hasActiveFilters ? resultsLabel : t.popular}</h2>
                   </div>
                   {!hasActiveFilters ? (
                     <span className="badge badge-outline shrink-0 border-white/15 text-xs font-medium text-white/55">
                       {recommendationLabel}
                     </span>
-                  ) : null}
+                  ) : (
+                    <span className="text-sm text-white/60" role="status">{formatCopy(t.totalGames, { total: pagination.total })}</span>
+                  )}
                 </div>
                 <div
                   aria-busy={isLoading}
@@ -366,7 +379,10 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
                     />
                   ))}
                 </div>
-                <div className="mt-6 flex flex-wrap justify-center gap-3">
+                <p className="mt-4 text-center text-sm text-white/60" aria-live="polite">
+                  {isLoading ? t.loading : formatCopy(t.page, { page, pages })}
+                </p>
+                <div className="mt-3 flex flex-wrap justify-center gap-3">
                   {visibleCount < rankedGames.length ? (
                     <button className="btn btn-primary" disabled={isLoading} onClick={() => setVisibleCount((count) => count + 24)} type="button">
                       {loadMoreLabel}
@@ -381,8 +397,11 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
                 </div>
               </section>
             ) : (
-              <div className="rounded-lg border border-white/10 bg-white/5 p-10 text-center text-white/60">
-                {t.empty}
+              <div className="rounded-lg border border-white/10 bg-white/5 p-10 text-center text-white/60" role="status">
+                <p>{isLoading ? t.loading : t.empty}</p>
+                {hasActiveFilters && !isLoading ? (
+                  <button className="btn btn-primary mt-4" onClick={onReset} type="button">{t.reset}</button>
+                ) : null}
               </div>
             )}
           </section>
@@ -404,26 +423,16 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
             </section>
           )) : null}
 
-          <section className="arcade-section border-t px-4 py-7 sm:px-6 lg:px-8">
-            <div className="arcade-card p-4 sm:p-6">
-              <p className="mb-5 text-xs font-bold uppercase tracking-[0.16em] text-white/45">
-                {t.discovery}
-              </p>
-              <div className="grid gap-6">
-                <HomeRail title={t.newest}>
-                  {newGames.length > 0 ? (
-                    newGames.map((game) => (
-                      <ArcadeMiniCard game={game} key={getGameRouteId(game)} lang={lang} />
-                    ))
-                  ) : (
-                    <div className="rounded-lg border border-white/10 bg-white/5 p-4 text-sm text-white/55">
-                      {t.empty}
-                    </div>
-                  )}
-                </HomeRail>
+          {!hasActiveFilters && newGames.length > 0 ? (
+            <section className="arcade-section border-t px-4 py-6 sm:px-6 lg:px-8" aria-label={t.newest}>
+              <h2 className="mb-4 text-xl font-black text-white">{t.newest}</h2>
+              <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 xl:grid-cols-4">
+                {newGames.map((game) => (
+                  <ArcadeGameCard game={game} isPriority={false} key={getGameRouteId(game)} lang={lang} />
+                ))}
               </div>
-            </div>
-          </section>
+            </section>
+          ) : null}
 
           <section className="arcade-section border-t px-4 py-7 sm:px-6 lg:px-8">
             <div className="mb-4 flex items-end justify-between gap-3">
@@ -498,6 +507,8 @@ function HomeSearchSuggest({
   const showSuggestions = isFocused && shouldSuggest
 
   useEffect(() => {
+    setSuggestions([])
+    setHighlightedIndex(-1)
     if (!shouldSuggest) {
       setSuggestions([])
       setIsSuggesting(false)
@@ -518,15 +529,15 @@ function HomeSearchSuggest({
         },
       })
         .then((result) => {
-        if (isCurrent) {
-          setSuggestions(result.games)
-          setHighlightedIndex(-1)
+          if (isCurrent) {
+            setSuggestions(result.games)
+            setHighlightedIndex(-1)
           }
         })
         .catch(() => {
           if (isCurrent) {
-      setSuggestions([])
-      setHighlightedIndex(-1)
+            setSuggestions([])
+            setHighlightedIndex(-1)
           }
         })
         .finally(() => {
@@ -554,7 +565,7 @@ function HomeSearchSuggest({
       setHighlightedIndex(-1)
       return
     }
-    if (!showSuggestions || suggestions.length === 0) return
+    if (!showSuggestions || isSuggesting || suggestions.length === 0) return
     if (event.key === 'ArrowDown') {
       event.preventDefault()
       setHighlightedIndex((index) => (index + 1) % suggestions.length)
@@ -578,8 +589,10 @@ function HomeSearchSuggest({
       <label className="input input-md flex w-full min-w-0 max-w-full items-center gap-2 border-2 border-primary/70 bg-base-100 text-base-content shadow-[0_0_0_3px_rgba(236,72,153,0.14)] sm:input-lg sm:gap-3 sm:shadow-[0_0_0_4px_rgba(236,72,153,0.16)]">
         <i className="ri-search-line text-xl text-primary sm:text-2xl" />
         <input
+          role="combobox"
           aria-autocomplete="list"
-          aria-controls={suggestionId}
+          aria-activedescendant={showSuggestions && !isSuggesting && highlightedIndex >= 0 ? `${suggestionId}-${highlightedIndex}` : undefined}
+          aria-controls={showSuggestions ? suggestionId : undefined}
           aria-expanded={showSuggestions}
           aria-label={t.search}
           autoComplete="off"
@@ -616,10 +629,11 @@ function HomeSearchSuggest({
             </div>
           ) : suggestions.length > 0 ? (
             <div className="max-h-[22rem] overflow-y-auto p-2">
-              {suggestions.map((game) => (
+              {suggestions.map((game, index) => (
                 <SearchSuggestionItem
                   game={game}
-                  isHighlighted={highlightedIndex === suggestions.indexOf(game)}
+                  id={`${suggestionId}-${index}`}
+                  isHighlighted={highlightedIndex === index}
                   key={game._id ?? game.url_slug ?? game.name}
                   lang={lang}
                 />
@@ -636,10 +650,12 @@ function HomeSearchSuggest({
 
 function SearchSuggestionItem({
   game,
+  id,
   isHighlighted,
   lang,
 }: {
   game: PublicGame
+  id: string
   isHighlighted: boolean
   lang: Locale
 }) {
@@ -652,6 +668,9 @@ function SearchSuggestionItem({
   return (
     <Link
       aria-selected={isHighlighted}
+      id={id}
+      role="option"
+      tabIndex={-1}
       className={`flex min-w-0 items-center gap-3 rounded-md px-2 py-2 text-white transition hover:bg-white/10 ${isHighlighted ? 'bg-white/10' : ''}`}
       params={{ gameId, locale: lang }}
       search={{}}
@@ -702,30 +721,6 @@ function SideNavAnchor({
       <i aria-hidden="true" className={`${icon} text-lg`} />
       {label}
     </a>
-  )
-}
-
-function HomeRail({
-  children,
-  id,
-  title,
-}: {
-  children: ReactNode
-  id?: string
-  title: string
-}) {
-  return (
-    <section className="min-w-0 scroll-mt-24" id={id}>
-      <h2 className="mb-3 text-lg font-black text-white">{title}</h2>
-      <div
-        aria-label={title}
-        className="flex snap-x gap-3 overflow-x-auto scroll-smooth pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-        role="region"
-        tabIndex={0}
-      >
-        {children}
-      </div>
-    </section>
   )
 }
 
@@ -795,26 +790,6 @@ function ArcadeGameCard({
           {gameName}
         </h3>
       </div>
-    </Link>
-  )
-}
-
-function ArcadeMiniCard({ game, lang }: { game: PublicGame; lang: Locale }) {
-  const gameId = getGameRouteId(game)
-  const gameName = game.name?.trim() || 'Game'
-
-  return (
-    <Link
-      className="arcade-card arcade-game-card group w-48 min-w-0 shrink-0 overflow-hidden transition"
-      params={{ gameId, locale: lang }}
-      search={{}}
-      title={`Play ${gameName} online`}
-      to="/$locale/games/$gameId"
-    >
-      <ArcadeCover alt={gameName} className="aspect-[4/3]" cover={game.game_cover} lang={lang} />
-      <h3 className="line-clamp-2 min-h-10 p-2 text-sm font-semibold leading-snug text-white">
-        {gameName}
-      </h3>
     </Link>
   )
 }

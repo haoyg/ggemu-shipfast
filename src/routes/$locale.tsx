@@ -278,7 +278,7 @@ export const Route = createFileRoute('/$locale')({
       filterOptions,
       layoutSeed: getPokiDailyLayoutSeed(),
       latestBlogPosts,
-      latestGames: template === 'default' ? prioritizeClassicGames(latestGamesResult.games) : latestGamesResult.games,
+      latestGames: latestGamesResult.games,
       seoOrigin,
     }
   },
