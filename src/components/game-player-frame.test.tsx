@@ -14,7 +14,7 @@ describe('GamePlayerFrame', () => {
     render(<GamePlayerFrame {...props} />)
     const original = screen.getByTitle('Test game')
     act(() => vi.advanceTimersByTime(20_000))
-    expect(screen.getByRole('status').textContent).toContain('longer than expected')
+    expect(screen.getByRole('status').textContent).toContain('ready signal')
     expect(trackEvent).toHaveBeenCalledWith('player_load_timeout', { game_id: 'test' })
     fireEvent.click(screen.getByText('Reload player'))
     expect(screen.getByTitle('Test game')).not.toBe(original)
@@ -34,7 +34,7 @@ describe('GamePlayerFrame', () => {
     render(<GamePlayerFrame {...props} />)
     const iframe = screen.getByTitle('Test game') as HTMLIFrameElement
     fireEvent.load(iframe)
-    expect(screen.getByRole('status').textContent).toContain('waiting for the game to start')
+    expect(screen.getByRole('status').textContent).toContain('Select Play Now')
     act(() => window.dispatchEvent(new MessageEvent('message', {
       source: iframe.contentWindow,
       data: { type: 'player-ready' },
@@ -46,7 +46,7 @@ describe('GamePlayerFrame', () => {
     vi.useFakeTimers()
     render(<GamePlayerFrame {...props} locale="zh-CN" />)
     act(() => vi.advanceTimersByTime(20_000))
-    expect(screen.getByRole('status').textContent).toContain('加载时间较长')
+    expect(screen.getByRole('status').textContent).toContain('尚未收到游戏就绪信号')
     expect(screen.getByText('浏览其他游戏').getAttribute('href')).toBe('/zh-CN')
     fireEvent.load(screen.getByTitle('Test game'))
     expect(screen.getByText('重新加载播放器')).not.toBeNull()
@@ -71,6 +71,17 @@ describe('GamePlayerFrame', () => {
     expect(screen.queryByTitle('Test game')).toBeNull()
     expect(trackEvent).not.toHaveBeenCalled()
     act(() => intersect([{ isIntersecting: true }]))
+    expect(screen.getByTitle('Test game')).not.toBeNull()
+  })
+
+  it('starts a lazy player immediately when its parent requests it', () => {
+    vi.stubGlobal('IntersectionObserver', class {
+      observe() {}
+      disconnect() {}
+    })
+    const { rerender } = render(<GamePlayerFrame {...props} lazy />)
+    expect(screen.queryByTitle('Test game')).toBeNull()
+    rerender(<GamePlayerFrame {...props} lazy={false} />)
     expect(screen.getByTitle('Test game')).not.toBeNull()
   })
 

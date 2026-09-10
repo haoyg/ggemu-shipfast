@@ -1,4 +1,5 @@
 import { getGameEditorial } from '#/lib/game-editorial'
+import { useState } from 'react'
 import { trackEvent } from '#/lib/analytics'
 import { getBrowserPlayGuide } from '#/lib/game-detail-content'
 import {
@@ -371,6 +372,7 @@ function LocalizedGameDetailPage() {
   const data = Route.useLoaderData()!
   const { gameId, locale } = Route.useParams()
   const pathname = useRouterState({ select: (state) => state.location.pathname })
+  const [playerRequested, setPlayerRequested] = useState(false)
   const lang = normalizeLocale(locale)
   const t = getI18n(lang).detail
 
@@ -473,6 +475,7 @@ function LocalizedGameDetailPage() {
                     className="btn btn-primary btn-lg w-full px-8 text-primary-content hover:text-primary-content sm:w-auto"
                     href={targetedSeo ? '#play-online' : playPath}
                     onClick={() => {
+                      if (targetedSeo) setPlayerRequested(true)
                       saveRecentPlayedGame(game, gameId)
                       trackEvent('game_play_click', { game_id: gameId, source: 'detail' })
                     }}
@@ -521,6 +524,7 @@ function LocalizedGameDetailPage() {
               game={game}
               gameId={gameId}
               heading={targetedSeo.heading}
+              loadImmediately={playerRequested}
               locale={lang}
               playPath={playPath}
             />

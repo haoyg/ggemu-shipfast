@@ -4,10 +4,10 @@ import { trackEvent } from '#/lib/analytics'
 const copy = {
   en: {
     loading: 'Loading game player…',
-    loaded: 'Game player frame loaded; waiting for the game to start.',
+    loaded: 'Game player frame loaded. Select Play Now, then Start inside the game.',
     ready: 'Game player loaded.',
     guide: 'When Play Now appears: 1. Select Play Now. 2. Select Start inside the game player.',
-    slow: 'The player is taking longer than expected. You can keep waiting or retry.',
+    slow: 'We have not received a ready signal yet. If Play Now is visible, try it before reloading.',
     retry: 'Reload player',
     browse: 'Browse games',
     fullscreen: 'Fullscreen',
@@ -20,10 +20,10 @@ const copy = {
   },
   'zh-CN': {
     loading: '正在加载游戏播放器……',
-    loaded: '播放器框架已加载，正在等待游戏启动。',
+    loaded: '播放器框架已加载。请选择“立即游玩”，再在游戏中选择“开始”。',
     ready: '游戏播放器已加载。',
     guide: '出现“立即游玩”后：1. 选择“立即游玩”。2. 在游戏内选择“开始”。',
-    slow: '播放器加载时间较长，你可以继续等待或重试。',
+    slow: '尚未收到游戏就绪信号。如已显示“立即游玩”，请先尝试开始游戏，再考虑重新加载。',
     retry: '重新加载播放器',
     browse: '浏览其他游戏',
     fullscreen: '全屏',
@@ -36,10 +36,10 @@ const copy = {
   },
   ja: {
     loading: 'ゲームプレーヤーを読み込み中…',
-    loaded: 'プレーヤーを読み込みました。ゲームの開始を待っています。',
+    loaded: 'プレーヤーを読み込みました。「今すぐプレイ」を選び、ゲーム内で Start を選択してください。',
     ready: 'ゲームプレーヤーを読み込みました。',
     guide: '「今すぐプレイ」が表示されたら、1.「今すぐプレイ」を選択。2. ゲーム内で「Start」を選択してください。',
-    slow: '読み込みに時間がかかっています。そのまま待つか、再試行してください。',
+    slow: 'ゲームの準備完了シグナルをまだ受信していません。「今すぐプレイ」が見える場合は、再読み込みの前に選択してください。',
     retry: '再読み込み',
     browse: 'ゲームを探す',
     fullscreen: '全画面',
@@ -81,6 +81,10 @@ function PlayerAttempt({ src, title, gameId, locale, className, allow = 'autopla
   const iframeRef = useRef<HTMLIFrameElement>(null)
   const t = copy[locale as keyof typeof copy] ?? copy.en
   const lang = locale in copy ? locale : 'en'
+
+  useEffect(() => {
+    if (!lazy) setActive(true)
+  }, [lazy])
 
   useEffect(() => {
     if (active) return

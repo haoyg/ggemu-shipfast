@@ -16,6 +16,7 @@ export function EmbeddedGamePlayer({
   game,
   gameId,
   heading,
+  loadImmediately = false,
   locale,
   playPath,
 }: {
@@ -23,6 +24,7 @@ export function EmbeddedGamePlayer({
   game: PublicGame
   gameId: string
   heading: string
+  loadImmediately?: boolean
   locale: string
   playPath: string
 }) {
@@ -65,7 +67,7 @@ export function EmbeddedGamePlayer({
         <GamePlayerFrame
           allow="autoplay; gamepad"
           className="h-full w-full border-0 bg-black"
-          lazy
+          lazy={!loadImmediately}
           gameId={gameId}
           locale={locale}
           src={embedSrc}
