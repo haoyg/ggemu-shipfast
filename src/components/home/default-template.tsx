@@ -263,10 +263,11 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
           </nav>
         </aside>
 
-        <main className="min-w-0 max-w-full overflow-x-hidden">
-          <section className="arcade-lobby border-b border-white/10 px-3 pb-5 pt-3 sm:px-5 lg:px-12 xl:px-20">
+        <main className="min-w-0 max-w-full">
+          <section className="arcade-lobby border-b border-white/10">
             <div aria-hidden="true" className="arcade-lobby-beam arcade-lobby-beam-left" />
             <div aria-hidden="true" className="arcade-lobby-beam arcade-lobby-beam-right" />
+            <div className="arcade-lobby-content">
             <div className="relative z-10 mb-3 flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-3">
               <form className="min-w-0 flex-1" onSubmit={onSearch}>
                 <HomeSearchSuggest
@@ -349,11 +350,8 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
             ) : null}
 
             <section className="relative z-10 mt-3" aria-label={t.allPlatforms}>
-              <div className="mb-3 flex items-center justify-between gap-3">
-                <h2 className="arcade-pixel-title text-lg text-white"><i aria-hidden="true" className="ri-gamepad-line text-cyan-300" /> {t.allPlatforms}</h2>
-                <a className="text-xs font-semibold text-white/60 hover:text-cyan-300" href={selectedPlatform?.seoPath ?? `/${lang}`}>{viewAllLabel} <i aria-hidden="true" className="ri-arrow-right-line" /></a>
-              </div>
-              <div className="game-rail flex gap-3 overflow-x-auto pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+              <h2 className="sr-only">{t.allPlatforms}</h2>
+              <div className="arcade-platform-rail game-rail flex gap-3 overflow-x-auto pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
                 {platformCards.map((platform) => (
                   <button aria-pressed={lobbyPlatform === platform.name} className={`arcade-platform-tile group ${lobbyPlatform === platform.name ? 'is-active' : ''} ${isArcadePlatform(platform.shortLabel) ? 'is-arcade' : ''}`} key={platform.name} onClick={() => handleLobbyPlatformChange(platform.name)} title={`Show popular ${platform.shortLabel} games`} type="button">
                     <img
@@ -371,6 +369,7 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
                 ))}
               </div>
             </section>
+            </div>
           </section>
 
           <section className="arcade-section px-3 py-7 sm:px-6 sm:py-9 lg:px-8">
