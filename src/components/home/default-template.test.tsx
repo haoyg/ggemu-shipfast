@@ -130,42 +130,6 @@ it('does not navigate to stale suggestions while the query is changing', async (
   expect(input.getAttribute('aria-activedescendant')).toBeNull()
 })
 
-it('starts arcade music only after the user enables it', () => {
-  const close = vi.fn()
-  const parameter = {
-    exponentialRampToValueAtTime: vi.fn(),
-    setTargetAtTime: vi.fn(),
-    setValueAtTime: vi.fn(),
-  }
-  const connect = vi.fn()
-
-  class MockAudioContext {
-    currentTime = 0
-    destination = {}
-    close = close
-    createGain = () => ({ connect, gain: parameter })
-    createOscillator = () => ({
-      connect,
-      frequency: parameter,
-      start: vi.fn(),
-      stop: vi.fn(),
-      type: 'triangle',
-    })
-  }
-
-  vi.stubGlobal('AudioContext', MockAudioContext)
-  render(<DefaultHomeTemplate {...props} />)
-  const enableButton = screen.getByRole('button', { name: 'Turn arcade music on' })
-
-  expect(enableButton.getAttribute('aria-pressed')).toBe('false')
-  fireEvent.click(enableButton)
-  expect(screen.getByRole('button', { name: 'Turn arcade music off' }).getAttribute('aria-pressed')).toBe('true')
-  expect(connect).toHaveBeenCalled()
-
-  fireEvent.click(screen.getByRole('button', { name: 'Turn arcade music off' }))
-  expect(screen.getByRole('button', { name: 'Turn arcade music on' }).getAttribute('aria-pressed')).toBe('false')
-})
-
 it('switches the lobby to popular games from the selected platform', async () => {
   runSearch.mockResolvedValue({
     games: [

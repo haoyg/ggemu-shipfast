@@ -268,7 +268,7 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
             <div aria-hidden="true" className="arcade-lobby-beam arcade-lobby-beam-left" />
             <div aria-hidden="true" className="arcade-lobby-beam arcade-lobby-beam-right" />
             <div className="arcade-lobby-content">
-            <div className="relative z-10 mb-3 flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-3">
+            <div className="relative z-10 mb-3">
               <form className="min-w-0 flex-1" onSubmit={onSearch}>
                 <HomeSearchSuggest
                   gameTotal={pagination.total}
@@ -279,7 +279,6 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
                   t={t}
                 />
               </form>
-              <ArcadeAudioToggle labels={lobbyCopy} />
             </div>
 
             {featuredGame ? (
@@ -364,7 +363,6 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
                       width="160"
                     />
                     <strong>{platform.shortLabel}</strong>
-                    <span><i aria-hidden="true" className="ri-arrow-right-line" /></span>
                   </button>
                 ))}
               </div>
@@ -565,98 +563,16 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
   )
 }
 
-type ArcadeLobbyCopy = ReturnType<typeof getArcadeLobbyCopy>
-
 function getArcadeLobbyCopy(lang: Locale) {
   if (lang === 'zh-CN') {
-    return { audioOff: '开启游戏厅音乐', audioOn: '关闭游戏厅音乐', featured: '今日主打', jumpBackIn: '继续探索', playNow: '立即开玩', pressPlay: '按下开始', trending: '正在热门' }
+    return { featured: '今日主打', jumpBackIn: '继续探索', playNow: '立即开玩', pressPlay: '按下开始', trending: '正在热门' }
   }
 
   if (lang === 'ja') {
-    return { audioOff: 'ゲームセンター音楽をオン', audioOn: 'ゲームセンター音楽をオフ', featured: '本日のおすすめ', jumpBackIn: '探索を続ける', playNow: '今すぐプレイ', pressPlay: 'スタート', trending: 'トレンド' }
+    return { featured: '本日のおすすめ', jumpBackIn: '探索を続ける', playNow: '今すぐプレイ', pressPlay: 'スタート', trending: 'トレンド' }
   }
 
-  return { audioOff: 'Turn arcade music on', audioOn: 'Turn arcade music off', featured: 'Featured game', jumpBackIn: 'Jump Back In', playNow: 'Play Now', pressPlay: 'Press Play', trending: 'Trending Now' }
-}
-
-function ArcadeAudioToggle({ labels }: { labels: ArcadeLobbyCopy }) {
-  const audioRef = useRef<{
-    context: AudioContext
-    gain: GainNode
-    timer: number
-  } | null>(null)
-  const [isPlaying, setIsPlaying] = useState(false)
-
-  useEffect(() => () => stopArcadeAudio(audioRef), [])
-
-  function toggleAudio() {
-    if (audioRef.current) {
-      stopArcadeAudio(audioRef)
-      setIsPlaying(false)
-      return
-    }
-
-    const AudioContextClass = window.AudioContext
-    const context = new AudioContextClass()
-    const gain = context.createGain()
-    gain.gain.setValueAtTime(0.032, context.currentTime)
-    gain.connect(context.destination)
-    const notes = [130.81, 164.81, 196, 246.94, 196, 164.81, 146.83, 196]
-    let step = 0
-
-    const playStep = () => {
-      const now = context.currentTime
-      const oscillator = context.createOscillator()
-      const envelope = context.createGain()
-      oscillator.type = step % 4 === 0 ? 'square' : 'triangle'
-      oscillator.frequency.setValueAtTime(notes[step % notes.length] ?? notes[0], now)
-      envelope.gain.setValueAtTime(0.0001, now)
-      envelope.gain.exponentialRampToValueAtTime(0.42, now + 0.018)
-      envelope.gain.exponentialRampToValueAtTime(0.0001, now + 0.24)
-      oscillator.connect(envelope)
-      envelope.connect(gain)
-      oscillator.start(now)
-      oscillator.stop(now + 0.25)
-      step += 1
-    }
-
-    playStep()
-    const timer = window.setInterval(playStep, 290)
-    audioRef.current = { context, gain, timer }
-    setIsPlaying(true)
-  }
-
-  return (
-    <button
-      aria-label={isPlaying ? labels.audioOn : labels.audioOff}
-      aria-pressed={isPlaying}
-      className={`arcade-audio-toggle ${isPlaying ? 'is-playing' : ''}`}
-      onClick={toggleAudio}
-      title={isPlaying ? labels.audioOn : labels.audioOff}
-      type="button"
-    >
-      <i aria-hidden="true" className={isPlaying ? 'ri-volume-up-line' : 'ri-volume-mute-line'} />
-      <span className="hidden sm:inline">{isPlaying ? labels.audioOn : labels.audioOff}</span>
-      <span aria-hidden="true" className="arcade-audio-bars"><i /><i /><i /></span>
-    </button>
-  )
-}
-
-function stopArcadeAudio(ref: React.RefObject<{
-  context: AudioContext
-  gain: GainNode
-  timer: number
-} | null>) {
-  const audio = ref.current
-
-  if (!audio) {
-    return
-  }
-
-  window.clearInterval(audio.timer)
-  audio.gain.gain.setTargetAtTime(0.0001, audio.context.currentTime, 0.02)
-  window.setTimeout(() => void audio.context.close(), 80)
-  ref.current = null
+  return { featured: 'Featured game', jumpBackIn: 'Jump Back In', playNow: 'Play Now', pressPlay: 'Press Play', trending: 'Trending Now' }
 }
 
 function HomeSearchSuggest({
