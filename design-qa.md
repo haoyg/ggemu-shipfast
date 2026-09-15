@@ -1,0 +1,46 @@
+# POKOPIE 首页设计 QA
+
+- Source visual truth: `docs/design-references/pokopie-arcade-lobby-home.png`
+- Implementation screenshot: `docs/design-references/pokopie-arcade-lobby-implementation.png`
+- Combined comparison: `docs/design-references/pokopie-arcade-lobby-comparison.jpg`
+- Viewport: `1440 × 1024` CSS px，device scale factor `1`
+- Source pixels: `1487 × 1058`，归一化至 `1440 × 1024`
+- Implementation pixels: `1440 × 1024`
+- State: 英文首页，默认筛选，音乐关闭
+
+## Full-view comparison evidence
+
+实现保持了参考图的核心构图：单行顶部导航、宽搜索栏、左侧大尺寸主推游戏、右侧四项热门列表、横向游戏轨道和平台入口。内容使用线上真实游戏数据，保留了参考图的深蓝底色、青色描边、洋红灯光与黄色主按钮。
+
+## Focused region comparison evidence
+
+重点检查首屏 Hero、热门侧栏、横向游戏轨道和平台入口。主推游戏占比、文字覆盖层、CTA 位置和侧栏密度与参考图接近；真实封面比例不同，因此采用覆盖裁切和深色渐变保证标题可读。平台入口使用 7 张独立透明像素图，按 NES、SNES、GBA、PS1、N64、Arcade、Genesis 排列，并复现大图、居中标签、右侧箭头与 Arcade 洋红描边。
+
+## Findings
+
+- P3：参考图中央机台包含更完整的实体控制台外壳，实现保留了屏幕边框、扫描光和游戏厅背景，但没有复制摇杆面板，以避免它被误认为可交互控件。
+- P3：真实游戏封面的画面质量和构图不统一，Hero 对低分辨率封面会出现放大；这是数据源限制，当前使用暗色覆盖层降低视觉差异。
+- P3：背景灯光和扫描动画在 `prefers-reduced-motion` 下会自动停止，视觉动感会减少，这是必要的无障碍处理。
+
+## Comparison history
+
+1. 初始实现发现 P1：通用封面组件的定位样式将 Hero 高度撑开，标题与 CTA 掉出首屏。修复为 Hero 专用绝对定位图片后，内容全部回到首屏。
+2. 初始实现发现 P2：`1440px` 下桌面导航与移动导航同时出现。将移动导航隐藏断点调整到 `xl`，并隐藏该宽度下的低优先级 About 项后，导航恢复单行。
+3. 移动端发现 P2：长游戏标题和搜索输入发生横向裁切。降低移动标题字号、允许单词换行、限制搜索输入宽度，并把音乐开关堆叠到下一行。
+4. 首轮最终截图确认桌面首屏无结构性溢出，主要操作和真实游戏内容均可见。
+5. 用户复核发现 P2：平台入口仅使用通用线性图标，未实现参考图中的硬件像素图。新增 6 张透明 WebP 平台图，调整卡片高度、图片占比、标签和排列顺序后，再次截图确认该区域已实现。
+6. 用户补充 Sega Genesis 平台。新增对应透明像素硬件图，将平台卡片扩展为 7 项，并把 Arcade 强调样式从位置选择改为语义类名，避免新增卡片后强调错位。
+7. 用户复核发现 P1：平台卡片与上方主推内容没有交互关系，且中间游戏轨道削弱了信息层级。将平台卡片移动到主推区域正下方，改为可选择控件；选择后即时显示本地已有结果并加载该平台前 5 个热门游戏，同时提高游戏厅背景可见度。
+
+## Interaction verification
+
+- 搜索、筛选、分页、平台链接和游戏链接继续由现有组件与路由处理。
+- 新增音乐开关使用用户点击后创建的 Web Audio 音序，默认静音；开启和关闭状态由新增单元测试覆盖。
+- 全套检查通过：TypeScript、`139` 项测试和生产构建。
+
+## Follow-up polish
+
+- 可为 Hero 选用独立横版截图，进一步减少封面放大造成的画质差异。
+- 可在真实用户数据稳定后轮播 3 款主推游戏；当前保持单一焦点以减少复杂度。
+
+final result: passed
