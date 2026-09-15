@@ -45,7 +45,7 @@ describe('game embed helpers', () => {
     const seo = getTargetedGameSeo({ url_slug: 'murdoku-html5-2026' }, 'en')
 
     expect(seo?.heading).toBe('Play Murdoku Online Free')
-    expect(seo?.title).toMatch(/^Murdoku Online/)
+    expect(seo?.title).toMatch(/^Play Murdoku Online/)
     expect(seo?.description).toContain('murder mystery')
     expect(getTargetedGameSeo({ url_slug: 'murdoku-html5-2026' }, 'ja')).toBeNull()
   })
@@ -54,7 +54,7 @@ describe('game embed helpers', () => {
     const seo = getTargetedGameSeo({ url_slug: 'onet-master-html5' }, 'en')
 
     expect(seo?.heading).toBe('Play Onet Master Online Free')
-    expect(seo?.title).toMatch(/^Onet Master Online/)
+    expect(seo?.title).toMatch(/^Play Onet Master Online/)
     expect(seo?.description).toContain('Match identical tiles')
     expect(getTargetedGameSeo({ url_slug: 'onet-master-html5' }, 'zh-CN')).toBeNull()
   })

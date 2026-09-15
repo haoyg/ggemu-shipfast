@@ -38,7 +38,7 @@ const targetedGameSeoBySlug = {
   },
   [murdokuTargetSlug]: {
     heading: 'Play Murdoku Online Free',
-    title: 'Murdoku Online - Play Free Murder Mystery Sudoku | POKOPIE',
+    title: 'Play Murdoku Online Free — Murder Mystery Sudoku',
     description:
       'Play Murdoku online free in your browser. Place suspects at the crime scene, solve the Sudoku-style murder mystery, and reveal the killer. No download.',
     keywords:
@@ -46,7 +46,7 @@ const targetedGameSeoBySlug = {
   },
   [onetMasterTargetSlug]: {
     heading: 'Play Onet Master Online Free',
-    title: 'Onet Master Online - Play Free Tile Matching Game | POKOPIE',
+    title: 'Play Onet Master Online Free — Tile Matching Puzzle',
     description:
       'Play Onet Master online free in your browser. Match identical tiles, connect pairs with up to two turns, and clear the board. No download required.',
     keywords:
