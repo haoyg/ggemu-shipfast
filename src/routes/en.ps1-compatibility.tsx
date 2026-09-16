@@ -111,11 +111,6 @@ export function buildPs1CompatibilityHead(origin: string | undefined, locale: Lo
       meta: [
         { title: copy.title },
         { name: 'description', content: copy.description },
-        {
-          name: 'keywords',
-          content:
-            'PS1 browser compatibility, browser emulator test, WebAssembly emulator, WebGL 2 test, online PS1 emulator requirements',
-        },
         { property: 'og:title', content: copy.title },
         { property: 'og:description', content: copy.description },
         { property: 'og:type', content: 'website' },

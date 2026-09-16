@@ -23,8 +23,6 @@ const defaultRootSeo = {
   title: '在线玩经典复古游戏 | POKOPIE',
   description:
     '在 POKOPIE 直接用浏览器游玩 GBA、NES、SNES、PS1、N64、Sega Genesis、街机等经典复古游戏，无需下载。',
-  keywords:
-    'POKOPIE, 在线复古游戏, GBA 在线游戏, NES 在线游戏, SNES 在线游戏, PS1 在线游戏, N64 在线游戏, 街机游戏, 浏览器游戏, 免下载游戏',
 }
 
 function getDefaultSocialImage(origin?: string) {
@@ -93,10 +91,6 @@ export const Route = createRootRoute({
         {
           name: 'description',
           content: defaultRootSeo.description,
-        },
-        {
-          name: 'keywords',
-          content: defaultRootSeo.keywords,
         },
         {
           property: 'og:title',
