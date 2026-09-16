@@ -4,6 +4,8 @@ type LocalizedGameOverride = {
   name?: Partial<Record<Locale, string>>
   description?: Partial<Record<Locale, string>>
   howToPlay?: Partial<Record<Locale, string>>
+  developer?: string | null
+  releasedYear?: string | null
 }
 
 const localizedGameOverrides: Record<string, LocalizedGameOverride> = {
@@ -12,6 +14,11 @@ const localizedGameOverrides: Record<string, LocalizedGameOverride> = {
   },
   '1943-the-battle-of-midway-cn-nes-1988': {
     name: { en: '1943: The Battle of Midway — Chinese Version' },
+  },
+  '1944-cn-nes-1988': {
+    name: { en: '1944 — Unofficial 1943 ROM Hack' },
+    developer: 'Unknown (unofficial ROM hack)',
+    releasedYear: null,
   },
   'chinese-paladin-dos-1995': {
     name: { en: 'The Legend of Sword and Fairy' },
@@ -25,14 +32,46 @@ const localizedGameOverrides: Record<string, LocalizedGameOverride> = {
   'double-dragon-ii-revenge-nes-1989': {
     name: { en: 'Double Dragon II: The Revenge — Chinese Version' },
   },
+  'doudizhu-gcoin-html5-2013': {
+    name: { en: 'Dou Dizhu — GCoin Edition' },
+  },
+  'doudizhu-html5-2013': {
+    name: { en: 'Dou Dizhu' },
+  },
   'fire-emblem-the-blazing-blade-gba-2003': {
     name: { en: 'Fire Emblem: The Blazing Blade' },
   },
   'ghost-chaser-densei-snes-1994': {
     name: { en: 'Ghost Chaser Densei' },
   },
+  'flame-dragon-knight-2-dos-1995': {
+    name: { en: 'Flame Dragon Knights 2' },
+  },
+  'flame-dragon-knights-seal-of-the-evil-god-dos-1994': {
+    name: { en: 'Flame Dragon Knights: Seal of the Evil God' },
+  },
+  'hong-kong-mahjong-html5': {
+    name: { en: 'Hong Kong Mahjong' },
+  },
   'initial-d-another-stage-cn-gba-2002': {
     name: { en: 'Initial D: Another Stage — Chinese Version' },
+  },
+  'labrador-and-his-friends-nintendo-ds-2009': {
+    name: { en: 'Nintendogs: Labrador & Friends — Chinese Translation' },
+    developer: 'Nintendo',
+    releasedYear: '2005',
+  },
+  'light-and-darkness-crystal-conflict-nes-2003': {
+    name: { en: 'Light and Darkness: Crystal Conflict — Unlicensed' },
+  },
+  'jin-yong-heroes-2-enhanced-flash-2006': {
+    name: { en: 'Heroes of Jin Yong 2 — Enhanced Edition' },
+  },
+  'jin-yong-heroes-3-flash-2009': {
+    name: { en: 'Heroes of Jin Yong 3' },
+  },
+  'jin-yong-qun-xia-zhuan-dos-1996': {
+    name: { en: 'Heroes of Jin Yong' },
   },
   'magic-tower-flash-2000': {
     name: { en: 'Magic Tower 1.1' },
@@ -67,6 +106,11 @@ const localizedGameOverrides: Record<string, LocalizedGameOverride> = {
   'pokemon-ruby-gba-2002': {
     name: { en: 'Pokémon Ruby' },
   },
+  'pokemon-team-rocket-game-boy-advance-2000': {
+    name: { en: 'Pokémon Team Rocket — Unofficial ROM Hack' },
+    developer: 'Unknown (unofficial ROM hack)',
+    releasedYear: null,
+  },
   'professor-layton-and-the-curious-village-nds-2007': {
     name: { en: 'Professor Layton and the Curious Village' },
   },
@@ -94,8 +138,17 @@ const localizedGameOverrides: Record<string, LocalizedGameOverride> = {
   'satomi-hakkenden-cn-nes-1989': {
     name: { en: 'Satomi Hakkenden — Chinese Version' },
   },
+  'saiyuki-tang-sanzang-nes-1996': {
+    name: { en: 'Saiyuki: Tang Sanzang — Unlicensed' },
+  },
+  'sichuan-mahjong-html5': {
+    name: { en: 'Sichuan Mahjong: Xue Zhan Dao Di' },
+  },
   'taiko-no-tatsujin-taiko-web-html5-2011': {
     name: { en: 'Taiko Web' },
+  },
+  'taiwan-mahjong-16-tile-html5': {
+    name: { en: 'Taiwanese Mahjong — 16 Tiles' },
   },
   'the-killing-blade-arcade-1998': {
     name: { en: 'The Killing Blade' },
@@ -105,6 +158,36 @@ const localizedGameOverrides: Record<string, LocalizedGameOverride> = {
   },
   'theme-hospital-dos-1997': {
     name: { en: 'Theme Hospital' },
+  },
+  'xian-jian-qi-xia-zhuan-gba-2001': {
+    name: { en: 'The Legend of Sword and Fairy — GBA Port' },
+  },
+  'xuan-yuan-sword-dos-1990': {
+    name: { en: 'Xuan-Yuan Sword' },
+  },
+  'xuan-yuan-sword-ii-dos-1994': {
+    name: { en: 'Xuan-Yuan Sword II' },
+  },
+  'yan-loong-story-flash-2008': {
+    name: { en: 'Yan Loong Legend' },
+  },
+  'yanlong-chuanshuo-2-erdu-chongji-flash-2009': {
+    name: { en: 'Yan Loong Legend 2: 2nd Impact' },
+  },
+  'yanlong-chuanshuo-2-shuang-long-flash-2009': {
+    name: { en: 'Yan Loong Legend 2: The Double Dragon' },
+  },
+  'yanlong-chuanshuo-3-chifeng-flash-2010': {
+    name: { en: 'Yan Loong Legend 3: Phoenix' },
+  },
+  'yanlong-chuanshuo-3-shuang-yan-flash-2009': {
+    name: { en: 'Yan Loong Legend 3: Double Swallow' },
+  },
+  'chinese-mahjong-html5': {
+    name: { en: 'Chinese Standard Mahjong' },
+  },
+  'naruto-rpg-gba-2003': {
+    name: { en: 'Naruto RPG — Chinese Translation V3' },
   },
 }
 
@@ -121,6 +204,8 @@ export function localizePublicGame(game: PublicGame, locale: Locale): PublicGame
     name: override?.name?.[locale]?.trim() || game.name,
     description: getLocalizedText(game.description, override?.description?.[locale], locale),
     how_to_play: getLocalizedText(game.how_to_play, override?.howToPlay?.[locale], locale),
+    developer: getMetadataOverride(game.developer, override?.developer),
+    released_year: getMetadataOverride(game.released_year, override?.releasedYear),
     keywords: undefined,
   }
 }
@@ -169,6 +254,14 @@ function getLocalizedText(
 function countMatches(value: string, pattern: RegExp) {
   pattern.lastIndex = 0
   return value.match(pattern)?.length ?? 0
+}
+
+function getMetadataOverride(source: string | undefined, override: string | null | undefined) {
+  if (override === undefined) {
+    return source
+  }
+
+  return override?.trim() || undefined
 }
 
 function normalizeSlug(value: string | undefined) {
