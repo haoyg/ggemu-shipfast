@@ -42,9 +42,11 @@ const localizedGameOverrides: Record<string, LocalizedGameOverride> = {
   },
   'doudizhu-gcoin-html5-2013': {
     name: { en: 'Dou Dizhu — GCoin Edition' },
+    releasedYear: null,
   },
   'doudizhu-html5-2013': {
     name: { en: 'Dou Dizhu' },
+    releasedYear: null,
   },
   'fire-emblem-the-blazing-blade-gba-2003': {
     name: { en: 'Fire Emblem: The Blazing Blade' },
@@ -82,15 +84,21 @@ const localizedGameOverrides: Record<string, LocalizedGameOverride> = {
   },
   'jin-yong-heroes-2-enhanced-flash-2006': {
     name: { en: 'Heroes of Jin Yong 2 — Enhanced Edition' },
+    developer: 'Guo Lei (Half a Bottle of Vinegar)',
+    releasedYear: '2008',
   },
   'jin-yong-heroes-3-flash-2009': {
     name: { en: 'Heroes of Jin Yong 3' },
+    developer: 'Guo Lei (Half a Bottle of Vinegar)',
+    releasedYear: '2009',
   },
   'jin-yong-qun-xia-zhuan-dos-1996': {
     name: { en: 'Heroes of Jin Yong' },
   },
   'magic-tower-flash-2000': {
     name: { en: 'Magic Tower 1.1' },
+    developer: 'Fat Mouse Studio',
+    releasedYear: '2004',
   },
   'mahjong-academy-arcade-1989': {
     name: { en: 'Mahjong Academy' },

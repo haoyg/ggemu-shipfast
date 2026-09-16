@@ -1079,6 +1079,195 @@ const editorials: Record<string, GameEditorial> = {
       { label: 'Flash Museum archived Double Swallow version notes', href: 'https://flashmuseum.org/yan-loong-legend-3-double-swallow/' },
     ],
   },
+  'jin-yong-heroes-2-enhanced-flash-2006': {
+    summary: 'Heroes of Jin Yong 2 — Enhanced Edition is Guo Lei’s browser-based martial-arts RPG, published under his pen name Half a Bottle of Vinegar. Explore the jianghu, train skills and make choices that open different events.',
+    description: [
+      'This is an unofficial fan work inspired by Jin Yong’s novels, not the 1996 DOS game made by Heluo Studio. Progress depends on attributes, learned techniques and decisions made when meeting factions and characters.',
+      'The slug retains 2006 from the original game, but a contemporary portal records the Enhanced Edition itself in March 2008. The displayed year now reflects that edition rather than its predecessor.',
+    ],
+    howToPlay: [
+      'Review the starting attributes and choose which combat strengths to develop. Use the mouse-driven interface to travel, talk to characters and select actions during events.',
+      'Train useful techniques and keep recovery items before difficult encounters. Some opportunities depend on earlier choices, morality or faction membership, so one route cannot collect everything.',
+      'Save before joining a faction or making a major story decision. If a walkthrough mentions another release, confirm that it covers the Enhanced Edition rather than the original Flash build.',
+    ],
+    tips: ['Treat faction choices as route decisions, not simple upgrades.', 'Use a guide marked for the Enhanced Edition because event conditions can differ.'],
+    faq: [
+      { question: 'Who made Heroes of Jin Yong 2?', answer: 'Independent developer Guo Lei created it under the name Half a Bottle of Vinegar.' },
+      { question: 'Is this the original 1996 Heroes of Jin Yong?', answer: 'No. It is an unofficial Flash fan RPG and is separate from Heluo Studio’s licensed DOS game.' },
+      { question: 'Why does the page show 2008 instead of 2006?', answer: '2006 is associated with the earlier Flash game. A contemporary game portal published the Enhanced Edition in March 2008.' },
+    ],
+    sources: [
+      { label: 'Creator profile listing Heroes of Jin Yong 2 and 3', href: 'https://weibo.com/jygame' },
+      { label: 'Contemporary Enhanced Edition publication record', href: 'https://www.mhhf.com/game/detail/828' },
+    ],
+  },
+  'jin-yong-heroes-3-flash-2009': {
+    summary: 'Heroes of Jin Yong 3 is Guo Lei’s 2009 unofficial Flash martial-arts RPG. Create a character, join a school, learn techniques and form a party while navigating a compact open-ended jianghu.',
+    description: [
+      'The third game expands character creation, quests, items and companions. Its progression includes cultivation points and a meridian system, so improving health, internal energy and advanced skills involves more than ordinary experience levels.',
+      'This fan-made game is distinct from the official 1996 DOS title. Version numbers matter: the creator published guides for builds such as 1.08, while archived distribution posts also document earlier revisions.',
+    ],
+    howToPlay: [
+      'Create the protagonist and read what the opening answers change before assigning attributes. Early choices influence the build, but no single setup is required for every route.',
+      'Complete village activities and quests, then decide whether to join a school. Train martial arts and spend cultivation points with the requirements of later techniques in mind.',
+      'Recruit companions when party space and conditions allow. Keep multiple saves before monthly tasks, faction decisions or battles that may close another path.',
+    ],
+    tips: ['Check the loaded version before following a detailed event guide.', 'Plan meridian and cultivation spending around the techniques you want to learn.'],
+    faq: [
+      { question: 'Who developed Heroes of Jin Yong 3?', answer: 'Guo Lei, known by the pen name Half a Bottle of Vinegar, created the Flash game.' },
+      { question: 'What is the meridian system?', answer: 'Leveling can provide cultivation points that are spent to open meridian nodes, improve core stats and meet requirements for some advanced techniques.' },
+      { question: 'Is every Heroes of Jin Yong 3 guide compatible?', answer: 'Not necessarily. Public records show several revisions, so confirm the version displayed by the loaded build before following exact event conditions.' },
+    ],
+    sources: [
+      { label: 'Creator’s official guide for version 1.08', href: 'https://blog.sina.cn/dpool/blog/s/blog_3f66060e0100c7cb.html' },
+      { label: 'Archived 2009 release and version notes', href: 'https://tiexuedanxin.net/thread-413439-1-1.html' },
+    ],
+  },
+  'magic-tower-flash-2000': {
+    summary: 'Magic Tower 1.1 is Fat Mouse Studio’s 2004 expansion of the Chinese Flash strategy RPG. Climb the tower by comparing fixed combat costs and preserving keys, health, attack and defense for later floors.',
+    description: [
+      'Unlike an action RPG, battles are resolved from fixed statistics when the hero touches an enemy. The puzzle is deciding which monsters to fight, which doors to open and when an upgrade saves more health than it costs to reach.',
+      'Fat Mouse Studio released the initial 21-floor Chinese version in 2003 and expanded it to 24 floors through 2004 revisions. Because this catalog entry is specifically version 1.1, the old 2000 slug year has been corrected to 2004 without changing the URL.',
+    ],
+    howToPlay: [
+      'Inspect an enemy’s attack and defense before moving into it. Estimate the health cost, then compare that cost with the keys, gems or equipment available beyond the enemy.',
+      'Use yellow, blue and red keys carefully because an unnecessary door can block a later route. Collect attack or defense upgrades when they reduce the cost of several future battles.',
+      'Save before spending rare keys or entering a new floor. If progress becomes impossible, return to an earlier save and change the order of fights rather than trying to grind fixed enemies.',
+    ],
+    tips: ['Treat health and keys as puzzle resources.', 'A small defense increase can be more valuable when it reduces damage from many repeated attacks.'],
+    faq: [
+      { question: 'Is Magic Tower an action game?', answer: 'No. This version is a fixed-stat strategy RPG in which route planning and resource costs determine most battles.' },
+      { question: 'Who made this Chinese Flash version?', answer: 'Fat Mouse Studio created the Chinese Flash adaptation and its expanded revisions.' },
+      { question: 'Why is Magic Tower 1.1 dated 2004?', answer: 'The first Fat Mouse Studio version appeared in 2003; version 1.1 belongs to the 2004 revisions that expanded the tower beyond the original 21 floors.' },
+    ],
+    sources: [
+      { label: 'Flash archive record for Fat Mouse Studio’s Magic Tower', href: 'https://flash.homes/flash/5WB8-3BW6-TA04/download' },
+      { label: 'Magic Tower release and revision overview', href: 'https://zh.wikipedia.org/wiki/%E9%AD%94%E5%A1%94%E6%B8%B8%E6%88%8F' },
+    ],
+  },
+  'mahjong-academy-arcade-1989': {
+    summary: 'Mahjong Academy is a Japanese arcade riichi mahjong entry presented through an emulator. Read the tile controls, build a legal hand and confirm the exact title on the opening screen before using a version-specific guide.',
+    description: [
+      'The catalog name and 1989 slug are ambiguous. Public arcade records place Mahjong Gakuen: Sotsugyohen in 1988 and its sequel, Mahjong Gakuen 2: Gakuen-chou no Fukushuu, in 1989, so this page does not claim which ROM is loaded without title-screen evidence.',
+      'These arcade releases may contain adult-oriented imagery. The page should not be presented as a children’s mahjong tutorial, and the exact content depends on the emulated build.',
+    ],
+    howToPlay: [
+      'Insert a virtual credit and inspect the mahjong-panel mapping. Identify the buttons used to select a discard and to call chi, pon, kan, riichi or ron when those actions are legal.',
+      'Build four groups and a pair while watching suit structure, honor tiles and the need for at least one valid yaku. Do not call every available tile, because opening the hand removes some yaku options.',
+      'Check the title screen before following character, opponent or progression instructions. Rules and presentation can differ between the 1988 game, the 1989 sequel and later home conversions.',
+    ],
+    tips: ['Learn the emulator’s mahjong-panel mapping before the first discard.', 'Confirm the exact Japanese subtitle before using a walkthrough.'],
+    faq: [
+      { question: 'Which Mahjong Academy game is this?', answer: 'The catalog data is not enough to distinguish the 1988 Mahjong Gakuen: Sotsugyohen from its 1989 sequel. Check the loaded title screen for the Japanese subtitle.' },
+      { question: 'Does the game use Japanese mahjong rules?', answer: 'The identified arcade series uses Japanese riichi mahjong, but exact rule options should be checked in the loaded build.' },
+      { question: 'Is Mahjong Academy suitable for children?', answer: 'Some entries in this arcade series contain adult-oriented imagery, so the page should not be treated as child-focused content.' },
+    ],
+    sources: [
+      { label: 'Arcade board record for Mahjong Gakuen: Sotsugyohen', href: 'https://www.tops-game.jp/products/detail.php?product_id=4419' },
+      { label: 'Mahjong Gakuen release distinction', href: 'https://w.atwiki.jp/gcmatome/pages/1800.html' },
+    ],
+  },
+  'doudizhu-html5-2013': {
+    summary: 'Dou Dizhu, or Fight the Landlord, is a three-player Chinese climbing card game. One landlord plays against a two-player farmer team, and the first side to empty a hand wins.',
+    description: [
+      'A standard game uses 54 cards including two jokers. Bidding selects the landlord, who takes the three reserved cards and starts with 20 cards; each farmer holds 17.',
+      'Players must follow the current combination with the same type and number of cards at a higher rank, or pass. Bombs and the two-joker rocket are exceptions, but exact bidding and scoring options vary between implementations. The old 2013 date is not backed by a traceable release record, so it is no longer displayed.',
+    ],
+    howToPlay: [
+      'Bid only after checking high cards, jokers, twos and useful combinations. The winning bidder becomes the landlord and receives the three reserved cards.',
+      'When leading a trick, choose a legal single, pair, triple or sequence-based combination. When following, play a higher combination of the same structure, use a bomb or rocket when allowed, or pass.',
+      'The landlord wins by emptying the 20-card hand first. The farmers share a side, so a farmer may pass to preserve a partner’s lead instead of beating it automatically.',
+    ],
+    tips: ['Keep track of both jokers and the four twos.', 'As a farmer, judge whether helping your partner is better than taking the lead.'],
+    faq: [
+      { question: 'How many people play Dou Dizhu?', answer: 'The standard form uses three players: one landlord against two farmers who win or lose as a team.' },
+      { question: 'How many cards does the landlord receive?', answer: 'Each player begins with 17 cards and three are reserved. The landlord takes those three cards for a total of 20.' },
+      { question: 'Are all Dou Dizhu scoring systems the same?', answer: 'No. Bidding, multipliers, bombs and special rules can vary, so check the options shown by this HTML5 build.' },
+    ],
+    sources: [{ label: 'Pagat Dou Dizhu rules', href: 'https://www.pagat.com/climbing/doudizhu.html' }],
+  },
+  'doudizhu-gcoin-html5-2013': {
+    summary: 'Dou Dizhu — GCoin Edition is a browser version of the three-player Chinese climbing game. Take the landlord role against two farmers, or cooperate as a farmer to empty your team’s cards first.',
+    description: [
+      'The card game uses the familiar one-versus-two structure: bidding chooses the landlord, the landlord receives three reserved cards, and play continues with increasingly strong combinations until one hand is empty.',
+      'GCoin identifies this site-specific edition and its virtual reward layer; it does not change the basic identity of Dou Dizhu. The public catalog does not establish an original 2013 release, so that year has been removed from displayed metadata. Check the game interface for current reward and scoring behavior.',
+    ],
+    howToPlay: [
+      'Review the hand before bidding. Jokers, twos, bombs and connected combinations can support a landlord bid, but a scattered hand may be safer on the farmer side.',
+      'Match the current play with a stronger combination of the same shape, or pass. Use a bomb or the two-joker rocket only when taking control is worth the multiplier or resource cost shown in this build.',
+      'As landlord, empty the 20-card hand before either opponent. As a farmer, watch your partner’s remaining card count and avoid breaking a useful lead without a reason.',
+    ],
+    tips: ['Treat GCoin as the edition’s virtual reward label, not as part of standard Dou Dizhu rules.', 'Check the live interface before assuming rewards have monetary value or can be withdrawn.'],
+    faq: [
+      { question: 'What is the GCoin Edition?', answer: 'It is POKOPIE’s labeled browser edition of Dou Dizhu with a virtual GCoin reward layer around the card game.' },
+      { question: 'Does GCoin change the card rules?', answer: 'The underlying game remains Dou Dizhu. Reward presentation and scoring may differ, so use the loaded interface as the source for edition-specific behavior.' },
+      { question: 'Was this version released in 2013?', answer: 'The old URL contains 2013, but no reliable original release record was found. The URL remains stable while the displayed year is left blank.' },
+    ],
+    sources: [
+      { label: 'Pagat Dou Dizhu rules', href: 'https://www.pagat.com/climbing/doudizhu.html' },
+      { label: 'GGEMU public GCoin catalog', href: 'https://ggemu.com/en' },
+    ],
+  },
+  'hong-kong-mahjong-html5': {
+    summary: 'Hong Kong Mahjong is a four-player draw-and-discard game in which players build a legal hand and score it in fan. This browser version may use its own minimum-fan and payout settings.',
+    description: [
+      'A common winning structure is four groups and a pair, with groups formed as chows, pungs or kongs. Players can draw from the wall or claim eligible discards, but opening the hand affects which scoring patterns remain available.',
+      'Hong Kong mahjong is a family of closely related rules rather than one universal scoring table. Minimum fan, limit hands, flowers and payment rules can vary, so the loaded game’s rule screen takes priority over a general guide.',
+    ],
+    howToPlay: [
+      'On each turn, draw a tile and discard one unless a claim changes the sequence. Organize the hand around four groups and a pair while tracking the minimum fan required by the room.',
+      'Claim chow only from the player on the left; pung and kong claims generally use matching tiles and can interrupt turn order. Decide whether exposing a group is worth losing concealed-hand options.',
+      'Declare a win only when the hand is structurally complete and meets the configured scoring minimum. Review flowers and payout rules before the first round.',
+    ],
+    tips: ['Confirm the minimum fan before building the hand.', 'Do not assume a household scoring sheet matches this HTML5 implementation.'],
+    faq: [
+      { question: 'How many tiles are in a normal Hong Kong Mahjong hand?', answer: 'A player normally holds 13 tiles between turns and completes a standard winning hand with 14, apart from replacement draws associated with kongs or flowers.' },
+      { question: 'What is fan?', answer: 'Fan measures qualifying patterns and is used to determine the value of a winning hand under the selected scoring table.' },
+      { question: 'Does every Hong Kong Mahjong game use the same minimum fan?', answer: 'No. Table and tournament rules can set different minimums, so check this game’s settings.' },
+    ],
+    sources: [{ label: 'Hong Kong Mahjong Association rules', href: 'https://www.hkmahjong.org/rules?lang=en' }],
+  },
+  'sichuan-mahjong-html5': {
+    summary: 'Sichuan Mahjong: Xue Zhan Dao Di is a fast four-player variant built around numbered suits, a missing-suit requirement and continued play after the first winner leaves the hand.',
+    description: [
+      'The widely documented Chengdu-style form uses 108 suited tiles without winds or dragons. Players must eliminate one suit before winning, may pung or kong but not chow, and continue until three players have won or the wall ends.',
+      'Rules called “Sichuan Mahjong” still vary. Exchanging three tiles, choosing a missing suit, kong payments, ready-hand penalties and scoring caps depend on the room or implementation, so this page does not promise every regional option.',
+    ],
+    howToPlay: [
+      'If the game uses an exchange phase, choose three same-suit tiles as required. Then select the suit to discard and clear that suit before pursuing a win.',
+      'Build a legal hand from the remaining two suits. Pung and kong claims are available in common Sichuan rules, while chow is normally disabled.',
+      'After the first player wins in Xue Zhan Dao Di, the remaining players continue. Track which opponents have left and avoid reaching the wall with an unready hand if the build applies ready-hand penalties.',
+    ],
+    tips: ['Choose the missing suit from tiles that are both sparse and poorly connected.', 'Check whether the current room uses exchange-three and end-of-wall penalties.'],
+    faq: [
+      { question: 'What does Xue Zhan Dao Di mean in play?', answer: 'The hand continues after the first win; play normally ends after three players have won or the wall is exhausted.' },
+      { question: 'Can you chow in Sichuan Mahjong?', answer: 'In the commonly documented Chengdu-style rules, chow is not allowed, while pung and kong are.' },
+      { question: 'Does every Sichuan Mahjong game exchange three tiles?', answer: 'No. Exchange-three and related opening procedures depend on the selected regional or room rules.' },
+    ],
+    sources: [{ label: 'Sichuan Mahjong rules overview', href: 'https://zh.wikipedia.org/wiki/%E5%9B%9B%E5%B7%9D%E9%BA%BB%E5%B0%87' }],
+  },
+  'taiwan-mahjong-16-tile-html5': {
+    summary: 'Taiwanese Mahjong uses 16-tile hands and typically completes a standard win with five groups and a pair. This browser edition should be checked for its exact tai scoring and table options.',
+    description: [
+      'The larger hand is the clearest difference from common 13-tile variants. A player normally holds 16 tiles between turns and reaches 17 for a standard completed hand, aside from replacement draws.',
+      'Taiwanese scoring is measured in tai, but regional and household tables differ. Dealer bonuses, flowers, special hands and minimum requirements must be read from the current implementation rather than imported from Hong Kong or Japanese mahjong.',
+    ],
+    howToPlay: [
+      'Draw and discard while arranging five groups and one pair. Keep the extra group in mind when judging whether a tile is truly isolated.',
+      'Claim chows, pungs or kongs only when the move improves the hand enough to justify revealing information. Check the game’s claim buttons and timing prompts before acting.',
+      'Before declaring a win, confirm that the 17-tile structure and any configured tai requirement are satisfied. Review flower and dealer scoring at the start of the session.',
+    ],
+    tips: ['Do not use a 13-tile hand guide without adapting it for the fifth group.', 'Treat the loaded tai table as authoritative for this browser game.'],
+    faq: [
+      { question: 'Why is Taiwanese Mahjong called 16-tile mahjong?', answer: 'Players normally keep 16 tiles between turns, rather than the 13 used by many other mahjong variants.' },
+      { question: 'How many groups make a standard winning hand?', answer: 'A standard Taiwanese 17-tile win normally contains five groups and a pair.' },
+      { question: 'Is tai the same as Japanese han or Hong Kong fan?', answer: 'No. They are scoring units from different rule families, and their pattern values and payment tables should not be substituted for one another.' },
+    ],
+    sources: [
+      { label: 'University of Chicago Taiwanese 16-tile rules', href: 'https://mahjong.uchicago.edu/rules.shtml' },
+      { label: 'Four Winds Taiwanese rule collection', href: 'https://www.4windsmj.com/kb/rules/taiwanese/rules02.htm' },
+    ],
+  },
 }
 
 export function getGameEditorial(game: PublicGame, locale: Locale) {
