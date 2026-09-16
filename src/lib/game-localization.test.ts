@@ -27,6 +27,7 @@ describe('localizePublicGame', () => {
     ['ra2web-html5-2026', 'RA2WEB'],
     ['rich-man-3-dos-1996', 'Richman 3'],
     ['richman-2-dos-1993', 'Richman 2'],
+    ['mahjong-academy-arcade-1989', 'Mahjong Academy'],
   ])('uses the reviewed catalog title for %s', (url_slug, expectedName) => {
     expect(localizePublicGame({ url_slug, name: '原始名称' }, 'en').name).toBe(expectedName)
   })

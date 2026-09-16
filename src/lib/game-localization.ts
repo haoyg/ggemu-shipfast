@@ -16,6 +16,9 @@ const localizedGameOverrides: Record<string, LocalizedGameOverride> = {
   'magic-tower-flash-2000': {
     name: { en: 'Magic Tower 1.1' },
   },
+  'mahjong-academy-arcade-1989': {
+    name: { en: 'Mahjong Academy' },
+  },
   'maplestory-ds-nds-2010': {
     name: { en: 'MapleStory DS' },
   },
