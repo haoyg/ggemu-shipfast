@@ -7,8 +7,17 @@ type LocalizedGameOverride = {
 }
 
 const localizedGameOverrides: Record<string, LocalizedGameOverride> = {
+  '1942-cn-nes-1985': {
+    name: { en: '1942 — Chinese Version' },
+  },
+  '1943-the-battle-of-midway-cn-nes-1988': {
+    name: { en: '1943: The Battle of Midway — Chinese Version' },
+  },
   'chinese-paladin-dos-1995': {
     name: { en: 'The Legend of Sword and Fairy' },
+  },
+  'double-dragon-ii-revenge-nes-1989': {
+    name: { en: 'Double Dragon II: The Revenge — Chinese Version' },
   },
   'initial-d-another-stage-cn-gba-2002': {
     name: { en: 'Initial D: Another Stage — Chinese Version' },
@@ -49,8 +58,14 @@ const localizedGameOverrides: Record<string, LocalizedGameOverride> = {
   'san-guo-qun-ying-zhuan-2-html5-1998': {
     name: { en: 'Heroes of the Three Kingdoms 2' },
   },
+  'saint-seiya-ougon-densetsu-kanketsu-hen-cn-nes-1988': {
+    name: { en: 'Saint Seiya: Ougon Densetsu Kanketsu Hen — Chinese Version' },
+  },
   'sanguosha-html5-2011': {
     name: { en: 'Sanguosha' },
+  },
+  'satomi-hakkenden-cn-nes-1989': {
+    name: { en: 'Satomi Hakkenden — Chinese Version' },
   },
   'taiko-no-tatsujin-taiko-web-html5-2011': {
     name: { en: 'Taiko Web' },

@@ -28,6 +28,14 @@ describe('localizePublicGame', () => {
     ['rich-man-3-dos-1996', 'Richman 3'],
     ['richman-2-dos-1993', 'Richman 2'],
     ['mahjong-academy-arcade-1989', 'Mahjong Academy'],
+    ['1942-cn-nes-1985', '1942 — Chinese Version'],
+    ['1943-the-battle-of-midway-cn-nes-1988', '1943: The Battle of Midway — Chinese Version'],
+    ['double-dragon-ii-revenge-nes-1989', 'Double Dragon II: The Revenge — Chinese Version'],
+    [
+      'saint-seiya-ougon-densetsu-kanketsu-hen-cn-nes-1988',
+      'Saint Seiya: Ougon Densetsu Kanketsu Hen — Chinese Version',
+    ],
+    ['satomi-hakkenden-cn-nes-1989', 'Satomi Hakkenden — Chinese Version'],
   ])('uses the reviewed catalog title for %s', (url_slug, expectedName) => {
     expect(localizePublicGame({ url_slug, name: '原始名称' }, 'en').name).toBe(expectedName)
   })
