@@ -36,6 +36,16 @@ describe('localizePublicGame', () => {
       'Saint Seiya: Ougon Densetsu Kanketsu Hen — Chinese Version',
     ],
     ['satomi-hakkenden-cn-nes-1989', 'Satomi Hakkenden — Chinese Version'],
+    ['pokemon-ruby-gba-2002', 'Pokémon Ruby'],
+    ['fire-emblem-the-blazing-blade-gba-2003', 'Fire Emblem: The Blazing Blade'],
+    ['professor-layton-and-the-curious-village-nds-2007', 'Professor Layton and the Curious Village'],
+    ['mario-and-luigi-superstar-saga-gba-2003', 'Mario & Luigi: Superstar Saga'],
+    ['pokemon-mystery-dungeon-red-rescue-team-game-boy-advance-2005', 'Pokémon Mystery Dungeon: Red Rescue Team'],
+    ['pokemon-leafgreen-game-boy-advance-2004', 'Pokémon LeafGreen'],
+    ['theme-hospital-dos-1997', 'Theme Hospital'],
+    ['dad-n-me-flash-2005', "Dad 'n Me"],
+    ['ghost-chaser-densei-snes-1994', 'Ghost Chaser Densei'],
+    ['chobits-atashi-dake-no-hito-game-boy-advance-2002', 'Chobits: Atashi Dake no Hito'],
   ])('uses the reviewed catalog title for %s', (url_slug, expectedName) => {
     expect(localizePublicGame({ url_slug, name: '原始名称' }, 'en').name).toBe(expectedName)
   })

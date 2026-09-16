@@ -16,8 +16,20 @@ const localizedGameOverrides: Record<string, LocalizedGameOverride> = {
   'chinese-paladin-dos-1995': {
     name: { en: 'The Legend of Sword and Fairy' },
   },
+  'chobits-atashi-dake-no-hito-game-boy-advance-2002': {
+    name: { en: 'Chobits: Atashi Dake no Hito' },
+  },
+  'dad-n-me-flash-2005': {
+    name: { en: "Dad 'n Me" },
+  },
   'double-dragon-ii-revenge-nes-1989': {
     name: { en: 'Double Dragon II: The Revenge — Chinese Version' },
+  },
+  'fire-emblem-the-blazing-blade-gba-2003': {
+    name: { en: 'Fire Emblem: The Blazing Blade' },
+  },
+  'ghost-chaser-densei-snes-1994': {
+    name: { en: 'Ghost Chaser Densei' },
   },
   'initial-d-another-stage-cn-gba-2002': {
     name: { en: 'Initial D: Another Stage — Chinese Version' },
@@ -27,6 +39,9 @@ const localizedGameOverrides: Record<string, LocalizedGameOverride> = {
   },
   'mahjong-academy-arcade-1989': {
     name: { en: 'Mahjong Academy' },
+  },
+  'mario-and-luigi-superstar-saga-gba-2003': {
+    name: { en: 'Mario & Luigi: Superstar Saga' },
   },
   'maplestory-ds-nds-2010': {
     name: { en: 'MapleStory DS' },
@@ -42,6 +57,18 @@ const localizedGameOverrides: Record<string, LocalizedGameOverride> = {
   },
   'pokemon-firered-game-boy-advance-2004': {
     name: { en: 'Pokémon FireRed' },
+  },
+  'pokemon-leafgreen-game-boy-advance-2004': {
+    name: { en: 'Pokémon LeafGreen' },
+  },
+  'pokemon-mystery-dungeon-red-rescue-team-game-boy-advance-2005': {
+    name: { en: 'Pokémon Mystery Dungeon: Red Rescue Team' },
+  },
+  'pokemon-ruby-gba-2002': {
+    name: { en: 'Pokémon Ruby' },
+  },
+  'professor-layton-and-the-curious-village-nds-2007': {
+    name: { en: 'Professor Layton and the Curious Village' },
   },
   'ra2web-html5-2026': {
     name: { en: 'RA2WEB' },
@@ -75,6 +102,9 @@ const localizedGameOverrides: Record<string, LocalizedGameOverride> = {
   },
   'the-legend-of-sword-and-saber-arcade-2003': {
     name: { en: 'The Gladiator' },
+  },
+  'theme-hospital-dos-1997': {
+    name: { en: 'Theme Hospital' },
   },
 }
 
