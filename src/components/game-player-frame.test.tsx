@@ -14,7 +14,7 @@ describe('GamePlayerFrame', () => {
     render(<GamePlayerFrame {...props} />)
     const original = screen.getByTitle('Test game')
     act(() => vi.advanceTimersByTime(20_000))
-    expect(screen.getByRole('status').textContent).toContain('ready signal')
+    expect(screen.getByRole('status').textContent).toContain('taking longer')
     expect(trackEvent).toHaveBeenCalledWith('player_load_timeout', { game_id: 'test' })
     fireEvent.click(screen.getByText('Reload player'))
     expect(screen.getByTitle('Test game')).not.toBe(original)
@@ -22,6 +22,7 @@ describe('GamePlayerFrame', () => {
     fireEvent.load(retriedFrame)
     act(() => window.dispatchEvent(new MessageEvent('message', {
       source: retriedFrame.contentWindow,
+      origin: 'https://ggemu.com',
       data: { type: 'player-ready' },
     })))
     expect(screen.getByRole('status').textContent).toContain('Game player loaded')
@@ -37,6 +38,7 @@ describe('GamePlayerFrame', () => {
     expect(screen.getByRole('status').textContent).toContain('Select Play Now')
     act(() => window.dispatchEvent(new MessageEvent('message', {
       source: iframe.contentWindow,
+      origin: 'https://ggemu.com',
       data: { type: 'player-ready' },
     })))
     expect(screen.getByRole('status').textContent).toContain('Game player loaded')
@@ -46,7 +48,7 @@ describe('GamePlayerFrame', () => {
     vi.useFakeTimers()
     render(<GamePlayerFrame {...props} locale="zh-CN" />)
     act(() => vi.advanceTimersByTime(20_000))
-    expect(screen.getByRole('status').textContent).toContain('尚未收到游戏就绪信号')
+    expect(screen.getByRole('status').textContent).toContain('加载时间超出预期')
     expect(screen.getByText('浏览其他游戏').getAttribute('href')).toBe('/zh-CN')
     fireEvent.load(screen.getByTitle('Test game'))
     expect(screen.getByText('重新加载播放器')).not.toBeNull()
@@ -95,13 +97,15 @@ describe('GamePlayerFrame', () => {
 })
 
 
-it('reports readiness once per attempt and never treats iframe load as readiness', () => {
+it('reports readiness once per attempt, checks the origin, and never treats iframe load as readiness', () => {
   render(<GamePlayerFrame {...props} />)
   const frame = screen.getByTitle('Test game') as HTMLIFrameElement
   fireEvent.load(frame)
   expect(trackEvent).not.toHaveBeenCalledWith('player_ready', expect.anything())
-  const ready = (source: Window | null) => act(() => window.dispatchEvent(new MessageEvent('message', { source, data: { type: 'player-ready' } })))
+  const ready = (source: Window | null, origin = 'https://ggemu.com') => act(() => window.dispatchEvent(new MessageEvent('message', { source, origin, data: { type: 'player-ready' } })))
   ready(window)
+  expect(trackEvent).not.toHaveBeenCalledWith('player_ready', expect.anything())
+  ready(frame.contentWindow, 'https://example.com')
   expect(trackEvent).not.toHaveBeenCalledWith('player_ready', expect.anything())
   ready(frame.contentWindow)
   ready(frame.contentWindow)

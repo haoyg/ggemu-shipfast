@@ -12,14 +12,15 @@ export const jaMessages = {
     legal: '法的情報',
     privacyPolicy: 'プライバシーポリシー',
     termsOfService: '利用規約',
+    copyrightRemoval: '著作権と削除依頼',
     theme: 'テーマ',
     language: '言語',
     tagline: 'POKOPIEでレトロゲームをプレイ',
     get copyright() {
-      return `Copyright 2025 ${siteConfig.SITE_NAME}`
+      return `Copyright ${new Date().getUTCFullYear()} ${siteConfig.SITE_NAME}`
     },
     get disclaimer() {
-      return `すべてのゲーム ROM / プログラムはユーザー投稿またはインターネット上で収集されたものです。著作権はそれぞれの権利者に帰属します。問題がある場合は ${siteConfig.SITE_EMAIL} までご連絡ください。該当するコンテンツを削除します。`
+      return `ゲーム名、アートワーク、商標、関連素材の権利は各権利者に帰属します。権利者は著作権対応手続き、または ${siteConfig.SITE_EMAIL} へのメールで審査や削除を申請できます。`
     },
     footer:
       'クラシックなレトロゲームをブラウザーでそのままプレイ。ダウンロードは不要です。',
@@ -209,7 +210,7 @@ export const jaHomeFaqs = {
     {
       question: '著作権や削除依頼はどう扱われますか？',
       get answer() {
-        return `ゲーム ROM / プログラムはユーザー投稿またはインターネット上で収集されたもので、著作権は各権利者に帰属します。削除依頼は ${siteConfig.SITE_EMAIL} までご連絡ください。`
+        return `権利者は著作権対応手続き、または ${siteConfig.SITE_EMAIL} へのメールで審査や削除を申請できます。必要な情報がそろった通知を確認し、適切な場合は対象コンテンツを制限します。`
       },
     },
   ],

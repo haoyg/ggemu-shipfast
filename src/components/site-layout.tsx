@@ -576,6 +576,14 @@ export function SiteFooter({ locale }: { locale: Locale }) {
               >
                 {t.termsOfService}
               </Link>
+              <Link
+                className="link-hover link"
+                params={{ locale }}
+                reloadDocument
+                to="/$locale/copyright-removal"
+              >
+                {t.copyrightRemoval}
+              </Link>
             </div>
           </nav>
         </div>

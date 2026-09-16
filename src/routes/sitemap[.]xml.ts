@@ -385,6 +385,13 @@ function buildSitemapEntries(
     })
     entries.push({
       locale,
+      loc: toAbsoluteLocalizedUrl(origin, locale, '/copyright-removal'),
+      path: '/copyright-removal',
+      changefreq: 'weekly',
+      priority: 0.3,
+    })
+    entries.push({
+      locale,
       loc: toAbsoluteLocalizedUrl(origin, locale, '/blog'),
       path: '/blog',
       changefreq: 'weekly',

@@ -12,14 +12,15 @@ export const enMessages = {
     legal: 'Legal',
     privacyPolicy: 'Privacy Policy',
     termsOfService: 'Terms of Service',
+    copyrightRemoval: 'Copyright & Removal',
     theme: 'Theme',
     language: 'Language',
     tagline: 'Play Retro Games on POKOPIE',
     get copyright() {
-      return `Copyright 2025 ${siteConfig.SITE_NAME}`
+      return `Copyright ${new Date().getUTCFullYear()} ${siteConfig.SITE_NAME}`
     },
     get disclaimer() {
-      return `All the games ROM / programs are submitted by users or collected from the internet, and the copyrights belong to their respective owners. If you have any issues, please email ${siteConfig.SITE_EMAIL}, and we will remove the corresponding content.`
+      return `Game names, artwork, trademarks, and related materials belong to their respective owners. Rights holders can request review or removal through our copyright process or by emailing ${siteConfig.SITE_EMAIL}.`
     },
     footer:
       'Play classic retro games directly in your browser. No downloads required.',
@@ -242,7 +243,7 @@ export const enHomeFaqs = {
     {
       question: 'How do copyright or removal requests work?',
       get answer() {
-        return `Game ROMs and programs are submitted by users or collected from the internet, and copyrights belong to their owners. Contact ${siteConfig.SITE_EMAIL} for removal requests.`
+        return `Rights holders can request a review or removal through our copyright process or by contacting ${siteConfig.SITE_EMAIL}. We review sufficiently detailed notices and restrict disputed content when appropriate.`
       },
     },
   ],

@@ -9,6 +9,7 @@ export type I18nMessages = {
     legal: string
     privacyPolicy: string
     termsOfService: string
+    copyrightRemoval: string
     theme: string
     language: string
     tagline: string

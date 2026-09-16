@@ -7,7 +7,7 @@ const copy = {
     loaded: 'Game player frame loaded. Select Play Now, then Start inside the game.',
     ready: 'Game player loaded.',
     guide: 'When Play Now appears: 1. Select Play Now. 2. Select Start inside the game player.',
-    slow: 'We have not received a ready signal yet. If Play Now is visible, try it before reloading.',
+    slow: 'The game player is taking longer than expected to load. Reload it or browse another game.',
     retry: 'Reload player',
     browse: 'Browse games',
     fullscreen: 'Fullscreen',
@@ -23,7 +23,7 @@ const copy = {
     loaded: '播放器框架已加载。请选择“立即游玩”，再在游戏中选择“开始”。',
     ready: '游戏播放器已加载。',
     guide: '出现“立即游玩”后：1. 选择“立即游玩”。2. 在游戏内选择“开始”。',
-    slow: '尚未收到游戏就绪信号。如已显示“立即游玩”，请先尝试开始游戏，再考虑重新加载。',
+    slow: '游戏播放器加载时间超出预期。请重新加载播放器或浏览其他游戏。',
     retry: '重新加载播放器',
     browse: '浏览其他游戏',
     fullscreen: '全屏',
@@ -39,7 +39,7 @@ const copy = {
     loaded: 'プレーヤーを読み込みました。「今すぐプレイ」を選び、ゲーム内で Start を選択してください。',
     ready: 'ゲームプレーヤーを読み込みました。',
     guide: '「今すぐプレイ」が表示されたら、1.「今すぐプレイ」を選択。2. ゲーム内で「Start」を選択してください。',
-    slow: 'ゲームの準備完了シグナルをまだ受信していません。「今すぐプレイ」が見える場合は、再読み込みの前に選択してください。',
+    slow: 'ゲームプレーヤーの読み込みに時間がかかっています。再読み込みするか、別のゲームを探してください。',
     retry: '再読み込み',
     browse: 'ゲームを探す',
     fullscreen: '全画面',
@@ -81,6 +81,7 @@ function PlayerAttempt({ src, title, gameId, locale, className, allow = 'autopla
   const iframeRef = useRef<HTMLIFrameElement>(null)
   const t = copy[locale as keyof typeof copy] ?? copy.en
   const lang = locale in copy ? locale : 'en'
+  const playerOrigin = getPlayerOrigin(src)
 
   useEffect(() => {
     if (!lazy) setActive(true)
@@ -111,6 +112,7 @@ function PlayerAttempt({ src, title, gameId, locale, className, allow = 'autopla
 
     function handlePlayerMessage(event: MessageEvent) {
       if (event.source !== iframeRef.current?.contentWindow) return
+      if (playerOrigin && event.origin !== playerOrigin) return
       const message = event.data
       if (message === 'game-ready' || message?.type === 'game-ready' || message?.type === 'player-ready') {
         clearTimeout(timer.current)
@@ -124,7 +126,7 @@ function PlayerAttempt({ src, title, gameId, locale, className, allow = 'autopla
 
     window.addEventListener('message', handlePlayerMessage)
     return () => window.removeEventListener('message', handlePlayerMessage)
-  }, [active, attempt, gameId, unavailable])
+  }, [active, attempt, gameId, playerOrigin, unavailable])
 
   useEffect(() => {
     function handleFullscreenChange() {
@@ -159,7 +161,9 @@ function PlayerAttempt({ src, title, gameId, locale, className, allow = 'autopla
           >
             {status === 'loading' ? t.loading : status === 'loaded' ? t.loaded : status === 'ready' ? t.ready : status === 'timeout' ? t.slow : status === 'error' ? t.error : t.unsupported}
           </span>
-          <p className="player-guide mt-1 text-xs text-white/75">{t.guide}</p>
+          {status === 'loaded' || status === 'ready' ? (
+            <p className="player-guide mt-1 text-xs text-white/75">{t.guide}</p>
+          ) : null}
           <details className="mt-1 text-xs text-white/60">
             <summary className="cursor-pointer underline underline-offset-2">{t.controlsLabel}</summary>
             <p className="mt-1">{t.controls}</p>
@@ -215,6 +219,7 @@ function PlayerAttempt({ src, title, gameId, locale, className, allow = 'autopla
         src={src}
         title={title}
         onLoad={() => {
+          clearTimeout(timer.current)
           setStatus('loaded')
           if (!reportedLoad.current) {
             reportedLoad.current = true
@@ -229,4 +234,12 @@ function PlayerAttempt({ src, title, gameId, locale, className, allow = 'autopla
       /> : null}
     </div>
   )
+}
+
+function getPlayerOrigin(src: string) {
+  try {
+    return new URL(src).origin
+  } catch {
+    return ''
+  }
 }

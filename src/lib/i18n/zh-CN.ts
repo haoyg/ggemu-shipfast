@@ -12,14 +12,15 @@ export const zhCnMessages = {
     legal: '法律',
     privacyPolicy: '隐私政策',
     termsOfService: '服务条款',
+    copyrightRemoval: '版权与下架',
     theme: '主题',
     language: '语言',
     tagline: '在 POKOPIE 玩复古游戏',
     get copyright() {
-      return `Copyright 2025 ${siteConfig.SITE_NAME}`
+      return `Copyright ${new Date().getUTCFullYear()} ${siteConfig.SITE_NAME}`
     },
     get disclaimer() {
-      return `所有游戏 ROM / 程序均由用户提交或收集自互联网，版权归其各自权利人所有。如有任何问题，请发送邮件至 ${siteConfig.SITE_EMAIL}，我们会移除对应内容。`
+      return `游戏名称、美术素材、商标及相关内容归各自权利人所有。权利人可通过版权处理流程或发送邮件至 ${siteConfig.SITE_EMAIL} 申请审核或下架。`
     },
     footer:
       '直接在浏览器里游玩经典复古游戏，无需下载。覆盖掌机、主机、街机与更多平台。',
@@ -205,7 +206,7 @@ export const zhCnHomeFaqs = {
     {
       question: '游戏内容的版权如何处理？',
       get answer() {
-        return `游戏内容由用户提交或来自互联网收集，版权归原权利人所有。如需下架，请通过 ${siteConfig.SITE_EMAIL} 联系我们。`
+        return `权利人可通过版权处理流程或发送邮件至 ${siteConfig.SITE_EMAIL} 申请审核或下架。我们会审核信息完整的通知，并在适当情况下限制存在争议的内容。`
       },
     },
   ],

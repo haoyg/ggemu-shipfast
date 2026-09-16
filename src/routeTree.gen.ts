@@ -71,6 +71,7 @@ import { Route as LocalePrivacyPolicyRouteImport } from './routes/$locale.privac
 import { Route as LocalePlayMyRomRouteImport } from './routes/$locale.play-my-rom'
 import { Route as LocaleLiveRouteImport } from './routes/$locale.live'
 import { Route as LocaleGuidesRouteImport } from './routes/$locale.guides'
+import { Route as LocaleCopyrightRemovalRouteImport } from './routes/$locale.copyright-removal'
 import { Route as LocaleBlogRouteImport } from './routes/$locale.blog'
 import { Route as LocaleArcadeGamesRouteImport } from './routes/$locale.arcade-games'
 import { Route as LocaleAboutRouteImport } from './routes/$locale.about'
@@ -394,6 +395,11 @@ const LocaleGuidesRoute = LocaleGuidesRouteImport.update({
   path: '/guides',
   getParentRoute: () => LocaleRoute,
 } as any)
+const LocaleCopyrightRemovalRoute = LocaleCopyrightRemovalRouteImport.update({
+  id: '/copyright-removal',
+  path: '/copyright-removal',
+  getParentRoute: () => LocaleRoute,
+} as any)
 const LocaleBlogRoute = LocaleBlogRouteImport.update({
   id: '/blog',
   path: '/blog',
@@ -486,6 +492,7 @@ export interface FileRoutesByFullPath {
   '/$locale/about': typeof LocaleAboutRoute
   '/$locale/arcade-games': typeof LocaleArcadeGamesRoute
   '/$locale/blog': typeof LocaleBlogRouteWithChildren
+  '/$locale/copyright-removal': typeof LocaleCopyrightRemovalRoute
   '/$locale/guides': typeof LocaleGuidesRouteWithChildren
   '/$locale/live': typeof LocaleLiveRoute
   '/$locale/play-my-rom': typeof LocalePlayMyRomRoute
@@ -561,6 +568,7 @@ export interface FileRoutesByTo {
   '/$locale/about': typeof LocaleAboutRoute
   '/$locale/arcade-games': typeof LocaleArcadeGamesRoute
   '/$locale/blog': typeof LocaleBlogRouteWithChildren
+  '/$locale/copyright-removal': typeof LocaleCopyrightRemovalRoute
   '/$locale/guides': typeof LocaleGuidesRouteWithChildren
   '/$locale/live': typeof LocaleLiveRoute
   '/$locale/play-my-rom': typeof LocalePlayMyRomRoute
@@ -637,6 +645,7 @@ export interface FileRoutesById {
   '/$locale/about': typeof LocaleAboutRoute
   '/$locale/arcade-games': typeof LocaleArcadeGamesRoute
   '/$locale/blog': typeof LocaleBlogRouteWithChildren
+  '/$locale/copyright-removal': typeof LocaleCopyrightRemovalRoute
   '/$locale/guides': typeof LocaleGuidesRouteWithChildren
   '/$locale/live': typeof LocaleLiveRoute
   '/$locale/play-my-rom': typeof LocalePlayMyRomRoute
@@ -714,6 +723,7 @@ export interface FileRouteTypes {
     | '/$locale/about'
     | '/$locale/arcade-games'
     | '/$locale/blog'
+    | '/$locale/copyright-removal'
     | '/$locale/guides'
     | '/$locale/live'
     | '/$locale/play-my-rom'
@@ -789,6 +799,7 @@ export interface FileRouteTypes {
     | '/$locale/about'
     | '/$locale/arcade-games'
     | '/$locale/blog'
+    | '/$locale/copyright-removal'
     | '/$locale/guides'
     | '/$locale/live'
     | '/$locale/play-my-rom'
@@ -864,6 +875,7 @@ export interface FileRouteTypes {
     | '/$locale/about'
     | '/$locale/arcade-games'
     | '/$locale/blog'
+    | '/$locale/copyright-removal'
     | '/$locale/guides'
     | '/$locale/live'
     | '/$locale/play-my-rom'
@@ -1399,6 +1411,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LocaleGuidesRouteImport
       parentRoute: typeof LocaleRoute
     }
+    '/$locale/copyright-removal': {
+      id: '/$locale/copyright-removal'
+      path: '/copyright-removal'
+      fullPath: '/$locale/copyright-removal'
+      preLoaderRoute: typeof LocaleCopyrightRemovalRouteImport
+      parentRoute: typeof LocaleRoute
+    }
     '/$locale/blog': {
       id: '/$locale/blog'
       path: '/blog'
@@ -1519,6 +1538,7 @@ interface LocaleRouteChildren {
   LocaleAboutRoute: typeof LocaleAboutRoute
   LocaleArcadeGamesRoute: typeof LocaleArcadeGamesRoute
   LocaleBlogRoute: typeof LocaleBlogRouteWithChildren
+  LocaleCopyrightRemovalRoute: typeof LocaleCopyrightRemovalRoute
   LocaleGuidesRoute: typeof LocaleGuidesRouteWithChildren
   LocaleLiveRoute: typeof LocaleLiveRoute
   LocalePlayMyRomRoute: typeof LocalePlayMyRomRoute
@@ -1535,6 +1555,7 @@ const LocaleRouteChildren: LocaleRouteChildren = {
   LocaleAboutRoute: LocaleAboutRoute,
   LocaleArcadeGamesRoute: LocaleArcadeGamesRoute,
   LocaleBlogRoute: LocaleBlogRouteWithChildren,
+  LocaleCopyrightRemovalRoute: LocaleCopyrightRemovalRoute,
   LocaleGuidesRoute: LocaleGuidesRouteWithChildren,
   LocaleLiveRoute: LocaleLiveRoute,
   LocalePlayMyRomRoute: LocalePlayMyRomRoute,
