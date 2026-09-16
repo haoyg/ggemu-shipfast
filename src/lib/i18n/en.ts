@@ -149,12 +149,12 @@ export const enMessages = {
     },
   },
   blog: {
-    title: 'Blog',
+    title: 'Retro Gaming Guides, Emulator Tips & Walkthroughs',
     description:
-      'Read game guides, browser play tips, and retro gaming articles.',
+      'Read retro game walkthroughs, browser emulator tips, setup guides, and practical advice for playing classic games online.',
     subtitle:
-      'Read game guides, browser play tips, and retro gaming articles.',
-    eyebrow: 'Blog',
+      'Explore practical walkthroughs, browser play guides, emulator tips, and stories from classic gaming history.',
+    eyebrow: 'Retro Gaming Guides',
     empty: 'No posts yet',
     total: '{total} posts',
     relatedPosts: 'Related Posts',

@@ -24,19 +24,24 @@ import { getLocalizedSeoLinks, getSeoOrigin } from '#/lib/seo'
 const BLOG_PAGE_SIZE = 12
 
 export const Route = createFileRoute('/$locale/blog')({
-  loader: async () => {
+  loader: async ({ params }) => {
+    const locale = normalizeLocale(params.locale)
     const [seoOrigin, result] = await Promise.all([
       getSeoOrigin(),
       searchBlogPosts({
         data: {
-          limit: BLOG_PAGE_SIZE,
+          limit: locale === 'en' ? 100 : BLOG_PAGE_SIZE,
           page: 1,
         },
       }).catch(() => emptyBlogPostSearchResult()),
     ])
 
+    const localizedResult = locale === 'en'
+      ? filterEnglishBlogPosts(result)
+      : result
+
     return {
-      ...result,
+      ...localizedResult,
       seoOrigin,
     }
   },
@@ -135,6 +140,32 @@ function BlogListPage() {
       </section>
     </SiteLayout>
   )
+}
+
+export function isLikelyEnglishBlogPost(blogPost: BlogPost) {
+  const sample = `${blogPost.title ?? ''} ${blogPost.excerpt ?? ''}`
+  const latinCharacters = sample.match(/[A-Za-z]/g)?.length ?? 0
+  const cjkCharacters = sample.match(/[\u3400-\u9fff\u3040-\u30ff]/g)?.length ?? 0
+
+  return latinCharacters > 0 && latinCharacters >= cjkCharacters * 2
+}
+
+function filterEnglishBlogPosts(result: ReturnType<typeof emptyBlogPostSearchResult> | {
+  blogPosts: Array<BlogPost>
+  pagination: { total: number; page: number; limit: number; pages: number }
+}) {
+  const blogPosts = result.blogPosts.filter(isLikelyEnglishBlogPost).slice(0, BLOG_PAGE_SIZE)
+
+  return {
+    blogPosts,
+    pagination: {
+      ...result.pagination,
+      total: blogPosts.length,
+      page: 1,
+      limit: BLOG_PAGE_SIZE,
+      pages: blogPosts.length > 0 ? 1 : 0,
+    },
+  }
 }
 
 function emptyBlogPostSearchResult() {

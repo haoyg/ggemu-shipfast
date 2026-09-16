@@ -306,6 +306,14 @@ export function buildGameStructuredData({
     genre: game.categories,
     inLanguage: game.languages,
     numberOfPlayers: game.players,
+    dateModified: game.updated_at || game.created_at,
+    offers: {
+      '@type': 'Offer',
+      url: canonicalUrl,
+      price: '0',
+      priceCurrency: 'USD',
+      availability: 'https://schema.org/InStock',
+    },
     publisher: game.developer
       ? {
           '@type': 'Organization',
@@ -532,7 +540,7 @@ function LocalizedGameDetailPage() {
               description={targetedSeo.description}
               game={game}
               gameId={gameId}
-              heading={targetedSeo.heading}
+              heading={getEmbeddedPlayerHeading(game.name, lang)}
               loadImmediately={playerRequested}
               locale={lang}
               playPath={playPath}
@@ -616,6 +624,20 @@ function LocalizedGameDetailPage() {
       </div>
     </SiteLayout>
   )
+}
+
+function getEmbeddedPlayerHeading(gameName: string | undefined, locale: Locale) {
+  const name = gameName?.trim() || 'POKOPIE'
+
+  if (locale === 'zh-CN') {
+    return `在浏览器中开始游玩 ${name}`
+  }
+
+  if (locale === 'ja') {
+    return `${name}をブラウザーでプレイ`
+  }
+
+  return `Play ${name} in Your Browser`
 }
 
 function getRelatedGuideForPlatform(platform?: string) {

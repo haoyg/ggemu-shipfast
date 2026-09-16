@@ -260,6 +260,9 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
             <div aria-hidden="true" className="arcade-lobby-beam arcade-lobby-beam-left" />
             <div aria-hidden="true" className="arcade-lobby-beam arcade-lobby-beam-right" />
             <div className="arcade-lobby-content">
+            <h1 className="mb-4 max-w-4xl text-3xl font-black leading-tight text-white sm:text-5xl">
+              {t.title}
+            </h1>
             <div className="relative z-10 mb-3">
               <form className="min-w-0 flex-1" onSubmit={onSearch}>
                 <HomeSearchSuggest
@@ -293,9 +296,9 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
                   <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(2,7,20,0.94)_0%,rgba(2,7,20,0.74)_36%,rgba(2,7,20,0.08)_76%),linear-gradient(0deg,rgba(2,7,20,0.88),transparent_48%)]" />
                   <div className="relative z-10 flex h-full max-w-xl flex-col justify-end p-5 sm:p-8 lg:p-10">
                     <p className="arcade-kicker mb-2">{selectedPlatform ? `${selectedPlatform.shortLabel} · ${lobbyCopy.featured}` : lobbyCopy.featured}</p>
-                    <h1 className="arcade-section-title break-words text-3xl font-black leading-[0.96] text-white sm:text-6xl">
+                    <h2 className="arcade-section-title break-words text-3xl font-black leading-[0.96] text-white sm:text-6xl">
                       {featuredGame.name}
-                    </h1>
+                    </h2>
                     <div className="mt-4 flex flex-wrap gap-2">
                       {getPlatformBadge(featuredGame, lang) ? (
                         <span className="arcade-chip">{getPlatformBadge(featuredGame, lang)}</span>
