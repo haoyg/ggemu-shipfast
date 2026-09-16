@@ -197,6 +197,38 @@ const targetedGameSeoBySlug = {
     keywords:
       'Zui You Ji Tang Sanzang online, 最游记之唐三藏, unlicensed Chinese NES RPG, Nanjing Famicom game',
   },
+  'chinese-paladin-dos-1995': {
+    heading: 'Play The Legend of Sword and Fairy Online',
+    title: 'The Legend of Sword and Fairy Online | 1995 DOS RPG',
+    description:
+      'Play the original Legend of Sword and Fairy online. Follow Li Xiaoyao through Softstar’s 1995 Chinese fantasy RPG and check the DOS gameplay guide.',
+    keywords:
+      'Legend of Sword and Fairy online, Chinese Paladin DOS, play 仙劍奇俠傳, Li Xiaoyao game, Softstar RPG',
+  },
+  'xuan-yuan-sword-ii-dos-1994': {
+    heading: 'Play Xuan-Yuan Sword II Online',
+    title: 'Play Xuan-Yuan Sword II Online | 1994 DOS RPG',
+    description:
+      'Play Xuan-Yuan Sword II online. Explore Softstar’s 1994 DOS RPG, learn its elemental techniques and use the Lianyao Pot to capture and combine creatures.',
+    keywords:
+      'Xuan-Yuan Sword II online, play Xuan-Yuan Sword 2, Softstar DOS RPG, Lianyao Pot, 軒轅劍貳',
+  },
+  'flame-dragon-knights-seal-of-the-evil-god-dos-1994': {
+    heading: 'Play Flame Dragon Knights Online',
+    title: 'Flame Dragon Knights Online | 1994 DOS Tactical RPG',
+    description:
+      'Play Flame Dragon Knights: Seal of the Evil God online. Plan movement, attack ranges and party development in Han Tang’s 1994 DOS tactical RPG.',
+    keywords:
+      'Flame Dragon Knights online, Seal of the Evil God, play 炎龍騎士團, DOS tactical RPG, Han Tang game',
+  },
+  'flame-dragon-knight-2-dos-1995': {
+    heading: 'Play Flame Dragon Knights II Online',
+    title: 'Flame Dragon Knights II Online | Golden Castle DOS RPG',
+    description:
+      'Play Flame Dragon Knights II: Legend of the Golden Castle online. Plan tactical battles and learn about its hidden items, shops and optional stages.',
+    keywords:
+      'Flame Dragon Knights II online, Legend of the Golden Castle, play 炎龍騎士團2, DOS tactical RPG',
+  },
   [shonenJumpOnePieceTargetSlug]: {
     heading: "Play Shonen Jump's One Piece Online",
     title: 'Play One Piece Online - Shonen Jump GBA Game | POKOPIE',

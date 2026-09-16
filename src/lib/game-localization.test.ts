@@ -52,7 +52,7 @@ describe('localizePublicGame', () => {
     ['jin-yong-heroes-2-enhanced-flash-2006', 'Heroes of Jin Yong 2 — Enhanced Edition'],
     ['jin-yong-heroes-3-flash-2009', 'Heroes of Jin Yong 3'],
     ['flame-dragon-knights-seal-of-the-evil-god-dos-1994', 'Flame Dragon Knights: Seal of the Evil God'],
-    ['flame-dragon-knight-2-dos-1995', 'Flame Dragon Knights 2'],
+    ['flame-dragon-knight-2-dos-1995', 'Flame Dragon Knights II: Legend of the Golden Castle'],
     ['yan-loong-story-flash-2008', 'Yan Loong Legend'],
     ['yanlong-chuanshuo-2-shuang-long-flash-2009', 'Yan Loong Legend 2: The Double Dragon'],
     ['yanlong-chuanshuo-2-erdu-chongji-flash-2009', 'Yan Loong Legend 2: 2nd Impact'],
@@ -104,6 +104,19 @@ describe('localizePublicGame', () => {
     }, 'en')).toMatchObject({
       developer: 'Nanjing (unlicensed)',
       released_year: undefined,
+    })
+
+    expect(localizePublicGame({ url_slug: 'chinese-paladin-dos-1995' }, 'en')).toMatchObject({
+      developer: 'Softstar Entertainment',
+      released_year: '1995',
+    })
+    expect(localizePublicGame({ url_slug: 'xuan-yuan-sword-ii-dos-1994' }, 'en')).toMatchObject({
+      developer: 'DOMO Studio / Softstar Entertainment',
+      released_year: '1994',
+    })
+    expect(localizePublicGame({ url_slug: 'flame-dragon-knight-2-dos-1995' }, 'en')).toMatchObject({
+      developer: 'Han Tang International Information',
+      released_year: '1995',
     })
   })
 

@@ -22,6 +22,8 @@ const localizedGameOverrides: Record<string, LocalizedGameOverride> = {
   },
   'chinese-paladin-dos-1995': {
     name: { en: 'The Legend of Sword and Fairy' },
+    developer: 'Softstar Entertainment',
+    releasedYear: '1995',
   },
   'chobits-atashi-dake-no-hito-game-boy-advance-2002': {
     name: { en: 'Chobits: Atashi Dake no Hito' },
@@ -45,10 +47,14 @@ const localizedGameOverrides: Record<string, LocalizedGameOverride> = {
     name: { en: 'Ghost Chaser Densei' },
   },
   'flame-dragon-knight-2-dos-1995': {
-    name: { en: 'Flame Dragon Knights 2' },
+    name: { en: 'Flame Dragon Knights II: Legend of the Golden Castle' },
+    developer: 'Han Tang International Information',
+    releasedYear: '1995',
   },
   'flame-dragon-knights-seal-of-the-evil-god-dos-1994': {
     name: { en: 'Flame Dragon Knights: Seal of the Evil God' },
+    developer: 'Han Tang International Information',
+    releasedYear: '1994',
   },
   'hong-kong-mahjong-html5': {
     name: { en: 'Hong Kong Mahjong' },
@@ -171,6 +177,8 @@ const localizedGameOverrides: Record<string, LocalizedGameOverride> = {
   },
   'xuan-yuan-sword-ii-dos-1994': {
     name: { en: 'Xuan-Yuan Sword II' },
+    developer: 'DOMO Studio / Softstar Entertainment',
+    releasedYear: '1994',
   },
   'yan-loong-story-flash-2008': {
     name: { en: 'Yan Loong Legend' },

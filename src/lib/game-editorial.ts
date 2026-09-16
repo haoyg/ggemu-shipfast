@@ -496,6 +496,88 @@ const editorials: Record<string, GameEditorial> = {
     ],
     sources: [{ label: 'FEMOOC catalog: 最游记之唐三藏', href: 'https://www.femooc.com/game/detail?id=20229' }],
   },
+  'chinese-paladin-dos-1995': {
+    summary: 'The Legend of Sword and Fairy is Softstar’s 1995 DOS role-playing game. Follow Li Xiaoyao on a Chinese fantasy journey shaped by swordplay, mythology and the companions Zhao Ling’er, Lin Yueru and Anu.',
+    description: [
+      'Originally released as 仙劍奇俠傳, the game combines menu-based battles and world exploration with a story about Li Xiaoyao’s relationships and responsibilities. This page covers the original DOS-era game, not a later remake, television adaptation or mobile title.',
+      'The loaded version may use Traditional or Simplified Chinese and may differ from later Windows releases. Check the title screen before choosing a walkthrough, because maps, presentation and save compatibility can vary between editions.',
+    ],
+    howToPlay: [
+      'Review the DOS player’s keyboard mapping, then explore towns and field areas while speaking with characters and inspecting nearby objects. Dialogue often provides the next destination.',
+      'In battle, balance normal attacks, techniques and recovery items. Check equipment and party status before entering caves or other areas with repeated encounters.',
+      'Save in several slots and note the current location or objective. Use a guide written for the DOS edition if you need help, rather than assuming instructions for a remake will match.',
+    ],
+    tips: ['Keep recovery items available before leaving a town.', 'Confirm the edition and language on the title screen before following a version-specific guide.'],
+    faq: [
+      { question: 'Is this the original Legend of Sword and Fairy?', answer: 'This page is for the 1995 DOS game, originally titled 仙劍奇俠傳. It is not one of the later remakes or mobile adaptations.' },
+      { question: 'Who made The Legend of Sword and Fairy?', answer: 'Softstar Entertainment released the original game in 1995.' },
+      { question: 'Does the DOS game have an official English version?', answer: 'The original release is a Chinese-language RPG. The English page title identifies the game, but it does not mean the loaded build contains an official English localization.' },
+    ],
+    sources: [
+      { label: 'Softstar: Legend of Sword and Fairy 1 DOS retrospective', href: 'https://km.softstar.com.tw/topic.aspx?tid=483' },
+      { label: 'Softstar corporate history', href: 'https://www.softstar.com.tw/about/About/about_04.aspx' },
+    ],
+  },
+  'xuan-yuan-sword-ii-dos-1994': {
+    summary: 'Xuan-Yuan Sword II is DOMO Studio and Softstar’s 1994 DOS role-playing game. He Ran, Yang Kunshuo and Jiang Ruhong travel through a mythic world divided by conflict between humans and monsters.',
+    description: [
+      'The sequel expands the ideas of the first Xuan-Yuan Sword into a fuller adventure with party-based battles, elemental relationships and several categories of special techniques. Its story follows He Ran after the earlier game’s events.',
+      'The Lianyao Pot becomes both a story object and a game system: weakened enemies can be captured, then combined outside battle. The browser page covers the DOS-era title; features in the modern Steam release should not automatically be assumed here.',
+    ],
+    howToPlay: [
+      'Check the DOS keyboard controls, then speak with characters and explore each accessible route. Review the menu descriptions before spending health, technique points or materials on special abilities.',
+      'Learn the elemental relationships used by attacks and enemies. A technique that performs well in one encounter may be a poor choice against a different affinity.',
+      'After obtaining the Lianyao Pot, weaken an enemy before attempting to capture it. Save before experimenting with combinations, because the result and level requirements may not suit the current party.',
+    ],
+    tips: ['Read technique descriptions and resource costs before using them.', 'Keep a separate save before combining creatures in the Lianyao Pot.'],
+    faq: [
+      { question: 'When was Xuan-Yuan Sword II originally released?', answer: 'Softstar’s company timeline lists Xuan-Yuan Sword II in February 1994.' },
+      { question: 'What does the Lianyao Pot do?', answer: 'It can capture sufficiently weakened enemies in battle and combine captured creatures outside battle, subject to the game’s restrictions.' },
+      { question: 'Is this the modern Steam version?', answer: 'No. This page targets the DOS-era game. The official Steam release is a useful reference, but its platform features should not be assumed to exist in the browser player.' },
+    ],
+    sources: [
+      { label: 'Softstar release timeline', href: 'https://www.softstar.com.tw/about/about/about_04-1.aspx' },
+      { label: 'Official Xuan-Yuan Sword II Steam page', href: 'https://store.steampowered.com/app/1508740/XuanYuan_Sword_2/' },
+    ],
+  },
+  'flame-dragon-knights-seal-of-the-evil-god-dos-1994': {
+    summary: 'Flame Dragon Knights: Seal of the Evil God is a 1994 DOS tactical RPG developed by Taiwan’s Han Tang International Information. Move a party across grid-based battlefields and develop its fighters between encounters.',
+    description: [
+      'This is the first single-player Flame Dragon Knights game, originally titled 炎龍騎士團：邪神之封印. Combat plays out in turns, with positioning, attack range and the order of actions determining how safely the party advances.',
+      'The browser build may use a different revision from later collections or mobile rereleases. Treat its in-game menus and save files as specific to the loaded DOS version.',
+    ],
+    howToPlay: [
+      'Check the DOS controls and inspect every unit before moving. Note movement range, attack range, health and available actions before committing to a position.',
+      'Advance as a group and protect vulnerable units. Use terrain and spacing to avoid exposing several party members to the same enemy counterattack.',
+      'Save before a new battle and keep a separate earlier save. Tactical RPG campaigns can punish poor resource use or lost units over several stages rather than immediately.',
+    ],
+    tips: ['Check enemy movement and attack range before ending a turn.', 'Do not send a fast unit so far ahead that the rest of the party cannot support it.'],
+    faq: [
+      { question: 'What type of game is Flame Dragon Knights?', answer: 'It is a single-player tactical role-playing game with turn-based movement and combat on grid-based maps.' },
+      { question: 'Who developed Seal of the Evil God?', answer: 'Taiwanese developer Han Tang International Information developed the game.' },
+      { question: 'Is this Flame Dragon Knights II?', answer: 'No. Seal of the Evil God is the first game. Legend of the Golden Castle is the 1995 sequel and has its own page.' },
+    ],
+    sources: [{ label: 'Soft-World history of Flame Dragon Knights', href: 'https://www.soft-world.com/News/NewsDetail?Sn=25' }],
+  },
+  'flame-dragon-knight-2-dos-1995': {
+    summary: 'Flame Dragon Knights II: Legend of the Golden Castle is Han Tang International Information’s 1995 DOS tactical RPG. Lead a growing party through turn-based battles while searching maps for equipment, shops and optional routes.',
+    description: [
+      'The sequel expands the first game with character development choices, hidden objects and stages that require special conditions. These systems reward careful exploration, but they also make version-specific guides more useful than a general series overview.',
+      'The complete English-facing title includes Legend of the Golden Castle, corresponding to 黃金城之謎. This distinguishes the game from the first Flame Dragon Knights and from the later mobile nostalgia edition.',
+    ],
+    howToPlay: [
+      'Before moving, inspect allied and enemy ranges. Position durable units where they can protect weaker party members, then focus attacks rather than spreading damage across many targets.',
+      'Search suspicious map positions when it is safe to do so. Some items and shops are hidden, but chasing them should not leave the party exposed or cause the battle objective to fail.',
+      'Keep saves from before each stage and before major character-development decisions. Some optional content depends on conditions that cannot be reconstructed after a battle is complete.',
+    ],
+    tips: ['Balance hidden-item searches against the immediate battle objective.', 'Keep a pre-stage save so a missed condition does not require restarting the campaign.'],
+    faq: [
+      { question: 'What is the full title of Flame Dragon Knights II?', answer: 'The game is Flame Dragon Knights II: Legend of the Golden Castle, originally 炎龍騎士團II：黃金城之謎.' },
+      { question: 'Does Flame Dragon Knights II have hidden content?', answer: 'Yes. The publisher’s retrospective describes hidden items and three hidden chapters that require special conditions.' },
+      { question: 'Is this the mobile nostalgia edition?', answer: 'No. This page covers the 1995 DOS game. The later mobile version adapts the original and adds platform-specific changes.' },
+    ],
+    sources: [{ label: 'Soft-World: Flame Dragon Knights II retrospective', href: 'https://www.soft-world.com/News/NewsDetail?Sn=25' }],
+  },
 }
 
 export function getGameEditorial(game: PublicGame, locale: Locale) {
