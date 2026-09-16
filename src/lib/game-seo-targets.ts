@@ -435,6 +435,18 @@ const targetedGameSeoBySlug = {
     description: 'Play Taiwanese 16-tile Mahjong online. Build five groups and a pair, learn the 17-tile winning structure and check the game’s tai scoring.',
     keywords: 'Taiwanese Mahjong online, 16 tile mahjong, Taiwan mahjong browser game, tai scoring',
   },
+  'chinese-mahjong-html5': {
+    heading: 'Play Chinese Mahjong Online',
+    title: 'Play Chinese Mahjong Online | Browser Tile Game',
+    description: 'Play Chinese Mahjong online. Learn the draw-and-discard flow, build four groups and a pair, and check which scoring rules the HTML5 game uses.',
+    keywords: 'Chinese Mahjong online, play mahjong in browser, Chinese tile game, Mahjong Competition Rules',
+  },
+  'ra2web-html5-2026': {
+    heading: 'Play RA2WEB in Your Browser',
+    title: 'RA2WEB Online | Unofficial Browser Strategy Project',
+    description: 'Open RA2WEB in your browser and check the setup requirements for this unofficial Red Alert 2-inspired project, including original game-file import.',
+    keywords: 'RA2WEB online, Red Alert 2 browser project, unofficial RA2 web game, browser real time strategy',
+  },
   [shonenJumpOnePieceTargetSlug]: {
     heading: "Play Shonen Jump's One Piece Online",
     title: 'Play One Piece Online - Shonen Jump GBA Game | POKOPIE',

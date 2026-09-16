@@ -145,6 +145,8 @@ const localizedGameOverrides: Record<string, LocalizedGameOverride> = {
   },
   'ra2web-html5-2026': {
     name: { en: 'RA2WEB' },
+    developer: 'Unknown (unofficial browser project)',
+    releasedYear: null,
   },
   'rich-man-3-dos-1996': {
     name: { en: 'Richman 3' },
@@ -245,7 +247,7 @@ const localizedGameOverrides: Record<string, LocalizedGameOverride> = {
     releasedYear: null,
   },
   'chinese-mahjong-html5': {
-    name: { en: 'Chinese Standard Mahjong' },
+    name: { en: 'Chinese Mahjong' },
   },
   'naruto-rpg-gba-2003': {
     name: { en: 'Naruto RPG: Uketsugareshi Hi no Ishi — Chinese Translation V3' },

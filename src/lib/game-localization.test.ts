@@ -64,7 +64,7 @@ describe('localizePublicGame', () => {
     ['yanlong-chuanshuo-3-chifeng-flash-2010', 'Yan Loong Legend 3: Phenix'],
     ['xian-jian-qi-xia-zhuan-gba-2001', 'The Legend of Sword and Fairy — Unofficial GBA Port'],
     ['naruto-rpg-gba-2003', 'Naruto RPG: Uketsugareshi Hi no Ishi — Chinese Translation V3'],
-    ['chinese-mahjong-html5', 'Chinese Standard Mahjong'],
+    ['chinese-mahjong-html5', 'Chinese Mahjong'],
     ['taiwan-mahjong-16-tile-html5', 'Taiwanese Mahjong — 16 Tiles'],
     ['hong-kong-mahjong-html5', 'Hong Kong Mahjong'],
     ['sichuan-mahjong-html5', 'Sichuan Mahjong: Xue Zhan Dao Di'],

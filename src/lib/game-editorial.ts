@@ -1268,6 +1268,50 @@ const editorials: Record<string, GameEditorial> = {
       { label: 'Four Winds Taiwanese rule collection', href: 'https://www.4windsmj.com/kb/rules/taiwanese/rules02.htm' },
     ],
   },
+  'chinese-mahjong-html5': {
+    summary: 'Chinese Mahjong is a four-player tile game built around drawing, discarding and completing a legal hand. Check this HTML5 build’s scoring screen before treating it as Mahjong Competition Rules.',
+    description: [
+      'A common hand structure is four groups and a pair, with groups formed from sequences, triplets or quads. Flowers, special hands and the points needed to win depend on the selected rules.',
+      'The previous English name, “Chinese Standard Mahjong,” implied a verified implementation of the formal competition rules. That was not supported by the catalog record, so the name is now the more accurate “Chinese Mahjong.” Full Mahjong Competition Rules use 81 scoring elements and an eight-point minimum; only apply those details if the loaded game explicitly identifies that ruleset.',
+    ],
+    howToPlay: [
+      'Read the rules or scoring panel before the first hand. Confirm whether the game uses competition rules, a regional Chinese variant or a simplified house system.',
+      'Draw one tile and discard one while building four groups and a pair. Claim a discard only when the rules allow it and when exposing the group helps more than keeping the hand concealed.',
+      'Before declaring a win, check both the tile structure and any minimum-score requirement. Do not assume patterns learned from Hong Kong, Sichuan, Taiwanese or Japanese mahjong have the same value here.',
+    ],
+    tips: ['Identify the scoring system before planning a high-value hand.', 'Use the in-game pattern list because similarly named Chinese variants score differently.'],
+    faq: [
+      { question: 'Is this Chinese Official Mahjong?', answer: 'That is not established by the catalog data. Use the loaded rules screen to confirm whether it implements Mahjong Competition Rules.' },
+      { question: 'What does Mahjong Competition Rules require?', answer: 'The formal competition system uses 81 scoring elements and requires at least eight points for a legal win.' },
+      { question: 'Why was “Standard” removed from the English title?', answer: 'The generic HTML5 catalog entry did not prove compliance with the formal competition rules, so the broader title avoids a misleading promise.' },
+    ],
+    sources: [
+      { label: 'Mahjong Competition Rules text', href: 'https://zh.wikisource.org/zh/%E4%B8%AD%E5%9B%BD%E9%BA%BB%E5%B0%86%E7%AB%9E%E8%B5%9B%E8%A7%84%E5%88%99' },
+      { label: 'European Mahjong Association MCR rulebook', href: 'https://mahjong-europe.org/portal/images/docs/mcr_ENa5.pdf' },
+    ],
+  },
+  'ra2web-html5-2026': {
+    summary: 'RA2WEB is an unofficial browser project inspired by Command & Conquer: Red Alert 2. It should not be presented as an EA release, and some deployments require users to import their own game files.',
+    description: [
+      'Public projects using the RA2Web name aim to reproduce Red Alert 2-style real-time strategy in a modern browser. Players build a base, manage power and resources, produce units and attack enemy forces.',
+      'The catalog does not identify the exact deployed fork or a verified release date. One public OpenRA2 repository says its client is an unofficial reconstruction related to ChronoDivide and instructs users to import original game files. Features such as campaigns, multiplayer, mods and mobile controls must therefore be confirmed in the loaded build.',
+    ],
+    howToPlay: [
+      'Open the player and follow its setup screen. If it requests original Red Alert 2 files, import only files you are entitled to use; the browser project does not grant rights to EA game assets.',
+      'In a match, deploy the construction yard, establish power and resource income, then expand production without leaving the base undefended. Scout before committing the main force.',
+      'Check the build’s save, multiplayer and control menus directly. A feature listed by another RA2Web or ChronoDivide deployment may not exist in this version.',
+    ],
+    tips: ['Keep power generation ahead of new structures.', 'Do not assume the browser client includes licensed Red Alert 2 assets or every original campaign.'],
+    faq: [
+      { question: 'Is RA2WEB an official EA version of Red Alert 2?', answer: 'No. The available public projects describe themselves as unofficial browser efforts and are separate from EA’s original release.' },
+      { question: 'Do I need original game files?', answer: 'Some RA2Web deployments require users to import their own Red Alert 2 files. Follow the loaded setup screen and use only files you have the right to use.' },
+      { question: 'Does this page guarantee multiplayer or campaign support?', answer: 'No. The exact deployed fork is not established by the catalog record, so available modes must be checked inside the player.' },
+    ],
+    sources: [
+      { label: 'OpenRA2 RA2Web project and disclaimer', href: 'https://github.com/OpenRA2/RA2Web' },
+      { label: 'RA2WEB public legal statement', href: 'https://www.ra2web.com/' },
+    ],
+  },
 }
 
 export function getGameEditorial(game: PublicGame, locale: Locale) {
