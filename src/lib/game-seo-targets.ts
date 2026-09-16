@@ -125,6 +125,78 @@ const targetedGameSeoBySlug = {
     keywords:
       'Xuan-Yuan Sword online, play Xuan-Yuan Sword, Xuan-Yuan Sword DOS, Softstar RPG, Chinese mythology game',
   },
+  'mario-and-luigi-superstar-saga-gba-2003': {
+    heading: 'Play Mario & Luigi: Superstar Saga Online',
+    title: 'Mario & Luigi: Superstar Saga Online | GBA RPG',
+    description:
+      'Play Mario & Luigi: Superstar Saga online. Explore the Beanbean Kingdom, solve Bros. puzzles and use timed attacks in this Game Boy Advance RPG.',
+    keywords:
+      'Mario and Luigi Superstar Saga online, play Superstar Saga, Beanbean Kingdom, Mario GBA RPG',
+  },
+  'dad-n-me-flash-2005': {
+    heading: 'Play Dad ’n Me Online',
+    title: 'Play Dad ’n Me Online | Classic Newgrounds Brawler',
+    description:
+      'Play Dad ’n Me online in your browser. Use light and heavy attacks, learn combos and fight through Tom Fulp and Dan Paladin’s Flash brawler.',
+    keywords:
+      'Dad n Me online, play Dad n Me, Newgrounds brawler, Tom Fulp game, Dan Paladin game',
+  },
+  'chobits-atashi-dake-no-hito-game-boy-advance-2002': {
+    heading: 'Play Chobits: Atashi Dake no Hito Online',
+    title: 'Chobits: Atashi Dake no Hito Online | GBA Game',
+    description:
+      'Play Chobits: Atashi Dake no Hito online. Explore the Japan-only GBA story game built around conversations and Chi’s training activities.',
+    keywords:
+      'Chobits Atashi Dake no Hito online, Chobits GBA game, play Chobits online, Japanese GBA adventure',
+  },
+  'labrador-and-his-friends-nintendo-ds-2009': {
+    heading: 'Play Nintendogs: Labrador & Friends Online',
+    title: 'Nintendogs: Labrador & Friends Online | Nintendo DS',
+    description:
+      'Play Nintendogs: Labrador & Friends online. Care for a puppy, teach tricks and learn which Nintendo DS touch and microphone features may vary in a browser.',
+    keywords:
+      'Nintendogs Labrador and Friends online, play Nintendogs online, Nintendo DS dog game, Labrador and Friends',
+  },
+  'ghost-chaser-densei-snes-1994': {
+    heading: 'Play Ghost Chaser Densei Online',
+    title: 'Play Ghost Chaser Densei Online | Super Famicom',
+    description:
+      'Play Ghost Chaser Densei online. Choose a fighter, learn special moves and battle through Winkysoft and Banpresto’s 1994 beat ’em up.',
+    keywords:
+      'Ghost Chaser Densei online, play Ghost Chaser Densei, Denjin Makai SNES, Super Famicom beat em up',
+  },
+  '1944-cn-nes-1988': {
+    heading: 'Play 1944 — Unofficial 1943 ROM Hack',
+    title: 'Play 1944 Online | Unofficial 1943 NES ROM Hack',
+    description:
+      'Play the unofficial 1944 NES ROM hack online. Learn how this modified version relates to Capcom’s 1943: The Battle of Midway before starting.',
+    keywords:
+      '1944 NES hack, 1943 ROM hack, play 1944 online, unofficial NES shooter, 1943 Battle of Midway',
+  },
+  'pokemon-team-rocket-game-boy-advance-2000': {
+    heading: 'Play Pokémon Team Rocket — Unofficial ROM Hack',
+    title: 'Pokémon Team Rocket Online | Unofficial GBA ROM Hack',
+    description:
+      'Play this unofficial Pokémon Team Rocket ROM hack online. Learn why its exact creator, base game and release year must be verified from the loaded version.',
+    keywords:
+      'Pokémon Team Rocket ROM hack, play Pokémon Team Rocket online, unofficial Pokémon GBA game, Team Rocket hack',
+  },
+  'light-and-darkness-crystal-conflict-nes-2003': {
+    heading: 'Play Final Fantasy IV — Unlicensed NES Demake',
+    title: 'Final Fantasy IV Online | Unlicensed NES Demake',
+    description:
+      'Play the unlicensed Final Fantasy IV NES demake online. Read how this Nanjing-attributed 8-bit adaptation differs from the official Square RPG.',
+    keywords:
+      'Final Fantasy IV NES demake, Conflict of Light and Dark Crystals, unlicensed Famicom RPG, Nanjing game',
+  },
+  'saiyuki-tang-sanzang-nes-1996': {
+    heading: 'Play Zui You Ji: Tang Sanzang Online',
+    title: 'Zui You Ji: Tang Sanzang | Unlicensed NES RPG',
+    description:
+      'Play Zui You Ji: Tang Sanzang online. Learn about this unlicensed Chinese-language Famicom RPG without confusing it with licensed Saiyuki games.',
+    keywords:
+      'Zui You Ji Tang Sanzang online, 最游记之唐三藏, unlicensed Chinese NES RPG, Nanjing Famicom game',
+  },
   [shonenJumpOnePieceTargetSlug]: {
     heading: "Play Shonen Jump's One Piece Online",
     title: 'Play One Piece Online - Shonen Jump GBA Game | POKOPIE',

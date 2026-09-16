@@ -308,6 +308,194 @@ const editorials: Record<string, GameEditorial> = {
       { label: 'Xuan-Yuan Sword series and first-game overview', href: 'https://en.wikipedia.org/wiki/Xuan-Yuan_Sword' },
     ],
   },
+  'mario-and-luigi-superstar-saga-gba-2003': {
+    summary: 'Mario & Luigi: Superstar Saga is a Game Boy Advance action RPG set in the Beanbean Kingdom. Control both brothers to solve puzzles and recover Princess Peach’s stolen voice.',
+    description: [
+      'Mario and Luigi travel beyond the Mushroom Kingdom after Cackletta and Fawful steal Peach’s voice. Exploration uses each brother’s movement abilities, while environmental puzzles often require them to act in sequence.',
+      'Battles mix menu-based RPG commands with timed button presses. Accurate timing can strengthen attacks or help the brothers avoid damage, and Bros. techniques combine their abilities for stronger results.',
+    ],
+    howToPlay: [
+      'Check the browser player’s GBA button mapping before starting. Pay attention to which button controls Mario and which controls Luigi during exploration and timed actions.',
+      'Watch enemy movement and press the indicated brother’s button at the right moment to defend. Practice basic timing before spending Bros. Points on advanced techniques.',
+      'Use each brother’s field abilities to cross obstacles and solve puzzles. If a route appears blocked, check whether the brothers need to separate, jump in sequence or use a newly learned move.',
+    ],
+    tips: ['Keep both brothers equipped and healed, because puzzles and battles rely on the pair.', 'Learn enemy attack cues instead of pressing both buttons at random.'],
+    faq: [
+      { question: 'Where does Superstar Saga take place?', answer: 'Most of the adventure takes place in the Beanbean Kingdom, beyond the Mushroom Kingdom.' },
+      { question: 'Is combat turn-based?', answer: 'Commands are selected like a turn-based RPG, but timed button presses affect attacks and defense.' },
+      { question: 'Does this browser version support the original link features?', answer: 'Do not assume it does. Nintendo notes that some rereleases omit the original Game Boy Advance communication features, and browser-player support depends on the emulator.' },
+    ],
+    sources: [
+      { label: 'Nintendo: Mario & Luigi Superstar Saga', href: 'https://www.nintendo.com/en-gb/Games/Game-Boy-Advance/Mario-Luigi-Superstar-Saga-267024.html' },
+      { label: 'Nintendo: Classic Mario RPG adventures', href: 'https://www.nintendo.com/us/whatsnew/adventure-with-mario-in-classic-rpgs-available-with-nintendo-switch-online-expansion-pack/' },
+    ],
+  },
+  'dad-n-me-flash-2005': {
+    summary: 'Dad ’n Me is a 2005 Newgrounds side-scrolling brawler programmed by Tom Fulp with art by Dan Paladin. Fight through the neighborhood using light attacks, heavy attacks and combos.',
+    description: [
+      'The game sends its purple protagonist through short combat areas filled with groups of opponents. Movement, spacing and attack combinations matter more than simply repeating one button.',
+      'Dad ’n Me uses cartoon violence and is not presented as a children’s game. The original Flash controls use the arrow keys to move, A for a light jab and S for a heavy attack.',
+    ],
+    howToPlay: [
+      'Focus the game area, then test the current wrapper controls. The original mapping is the arrow keys for movement, A for a light jab and S for a heavy attack.',
+      'Approach enemies from an angle instead of walking directly into a group. Mix light and heavy attacks to find combos that keep opponents from responding.',
+      'Keep moving after a knockdown and avoid being surrounded. If performance is uneven, the original author notes that Q toggles the Flash quality setting, though this may differ in an emulated player.',
+    ],
+    tips: ['Use movement to line up one or two opponents instead of fighting a whole group at once.', 'Experiment with light-to-heavy attack sequences rather than holding one key.'],
+    faq: [
+      { question: 'Who made Dad ’n Me?', answer: 'The original Newgrounds page credits Tom Fulp for programming, Dan Paladin for art and Dustball for music.' },
+      { question: 'What are the original Dad ’n Me controls?', answer: 'Arrow keys move, A performs a light jab and S performs a heavy attack. The browser wrapper may remap these controls.' },
+      { question: 'Is Dad ’n Me suitable for children?', answer: 'It contains cartoon violence centered on fighting other characters, so it should not be treated as a children’s game despite its stylized artwork.' },
+    ],
+    sources: [{ label: 'Newgrounds: original Dad ’n Me release', href: 'https://www.newgrounds.com/portal/view/254456' }],
+  },
+  'chobits-atashi-dake-no-hito-game-boy-advance-2002': {
+    summary: 'Chobits: Atashi Dake no Hito is a Japan-only 2002 Game Boy Advance character-development adventure published by Marvelous Entertainment.',
+    description: [
+      'The game follows Hideki and Chi through conversations and training activities based on the Chobits series. The official product page describes three development methods: story choices, button-input imitation exercises and learning through conversations with other characters.',
+      'This Japanese release should not be confused with the later PlayStation 2 game Chobits: Chii Dake no Hito. The loaded GBA build may contain Japanese text unless it has been separately translated.',
+    ],
+    howToPlay: [
+      'Check the browser player’s GBA controls and the language shown on the opening screen. Progress through dialogue and choose responses carefully during story-based training.',
+      'Follow the on-screen button prompts during imitation exercises. These sequences are designed to teach Chi through repeated actions rather than conventional combat.',
+      'Keep more than one save if the game allows it. Conversation choices can change how training progresses, and a Japanese text-heavy adventure can be difficult to retrace without notes.',
+    ],
+    tips: ['Do not assume the loaded ROM includes an English translation.', 'Record unfamiliar menu choices before experimenting with a different response.'],
+    faq: [
+      { question: 'Was Chobits: Atashi Dake no Hito released in English?', answer: 'The original Game Boy Advance game was released in Japan. Do not assume the browser build contains an official English translation.' },
+      { question: 'What kind of game is it?', answer: 'It is a story and character-development game built around conversation choices, button-input imitation activities and interactions with other characters.' },
+      { question: 'Is this the PlayStation 2 Chobits game?', answer: 'No. This page covers the 2002 Game Boy Advance title Atashi Dake no Hito, not the later PlayStation 2 game Chii Dake no Hito.' },
+    ],
+    sources: [
+      { label: 'Marvelous: Chobits for Game Boy Advance', href: 'https://www.marv.jp/titles/cs/312/' },
+      { label: 'TBS Chobits software catalog', href: 'https://www.tbs.co.jp/chobits/old/goods/soft.html' },
+    ],
+  },
+  'labrador-and-his-friends-nintendo-ds-2009': {
+    summary: 'Nintendogs: Labrador & Friends is Nintendo’s 2005 pet simulation for Nintendo DS. Care for a puppy, teach voice commands and enter obedience or agility competitions.',
+    description: [
+      'The Labrador edition begins with a selection that includes the Labrador Retriever and other breeds. Daily play revolves around feeding, grooming, walking, training and using toys through the Nintendo DS Touch Screen and microphone.',
+      'This catalog entry is a Chinese translation of the Nintendo game, not a 2009 Ubisoft release. Its original developer and publisher are Nintendo, and the European Labrador & Friends version was released in 2005.',
+    ],
+    howToPlay: [
+      'Check how the browser player maps the Nintendo DS Touch Screen and microphone. Choose and name a puppy, then use the available care items to maintain its condition.',
+      'Repeat voice commands consistently when teaching tricks. Browser microphone support depends on the emulator, browser permissions and the loaded build, so do not assume every original feature will work.',
+      'Walk and train the dog before entering competitions. Use rewards and regular care to improve its responsiveness instead of attempting advanced commands immediately.',
+    ],
+    tips: ['Confirm microphone permission only if the current player explicitly requests it.', 'Keep feeding, water and grooming routines consistent before focusing on competitions.'],
+    faq: [
+      { question: 'Who developed Nintendogs: Labrador & Friends?', answer: 'Nintendo developed and published the original Nintendo DS game.' },
+      { question: 'Was Labrador & Friends released in 2009?', answer: 'The original Labrador & Friends edition dates to 2005. This page corrects the upstream 2009 metadata.' },
+      { question: 'Does the microphone work in the browser?', answer: 'It depends on the emulator, browser permissions and loaded build. The original DS used its built-in microphone, but browser support is not guaranteed.' },
+    ],
+    sources: [
+      { label: 'Nintendo: Nintendogs Labrador & Friends', href: 'https://www.nintendo.com/en-gb/Games/Nintendo-DS/Nintendogs-Labrador-Friends-272057.html' },
+    ],
+  },
+  'ghost-chaser-densei-snes-1994': {
+    summary: 'Ghost Chaser Densei is Winkysoft and Banpresto’s 1994 Super Famicom beat ’em up. Choose a fighter and battle through side-scrolling stages with standard attacks, special moves and throws.',
+    description: [
+      'The game is the Japan-only Super Famicom adaptation associated with the arcade title Denjin Makai. It keeps the belt-scrolling combat format while adapting the roster and action for the home console.',
+      'This release should not be confused with the unrelated 1984 computer game Ghost Chaser. The Super Famicom title was developed by Winkysoft and published by Banpresto.',
+    ],
+    howToPlay: [
+      'Check the browser player’s Super Famicom controls, then choose a character and test the normal attack, jump and special-move buttons before advancing.',
+      'Move vertically as well as horizontally to line enemies up without standing inside a group. Use throws and crowd-control attacks when several opponents close in.',
+      'Learn the selected character’s range and recovery time. Avoid repeating special moves without checking their cost or risk in the loaded version.',
+    ],
+    tips: ['Approach groups from above or below to avoid a direct line of attacks.', 'Test each character briefly, because speed, reach and special moves differ.'],
+    faq: [
+      { question: 'Is Ghost Chaser Densei related to Denjin Makai?', answer: 'Yes. Ghost Chaser Densei is the Super Famicom release associated with the arcade beat ’em up Denjin Makai.' },
+      { question: 'Was it released outside Japan?', answer: 'The Super Famicom version was a Japan-only release. Do not assume the loaded build contains an official English localization.' },
+      { question: 'Who made Ghost Chaser Densei?', answer: 'Winkysoft developed the Super Famicom game and Banpresto published it in 1994.' },
+    ],
+    sources: [
+      { label: 'Ghost Chaser Densei release details', href: 'https://gamefaqs.gamespot.com/snes/567027-ghost-chaser-densei/faqs' },
+      { label: 'Denjin Makai and Ghost Chaser Densei credits', href: 'https://www.mobygames.com/game/47335/denjinmakai/credits/arcade/' },
+    ],
+  },
+  '1944-cn-nes-1988': {
+    summary: 'This “1944” cartridge is an unofficial NES modification of Capcom’s 1943: The Battle of Midway. It is a ROM hack, not an official Capcom sequel or release.',
+    description: [
+      'The underlying game is a vertical-scrolling shooter built from the NES version of 1943. Fly over ocean stages, attack aircraft and ships, collect upgrades and manage the plane’s energy while progressing toward each target.',
+      'Hack variants can change the title screen, weapon behavior, starting upgrades or difficulty. Because copies circulate with different modifications, verify the behavior of the loaded build instead of relying on instructions for one specific cartridge.',
+    ],
+    howToPlay: [
+      'Check the browser player’s NES controls and test both action buttons. Steer with the directional pad, fire at incoming formations and watch the energy meter while avoiding concentrated shots.',
+      'Collect upgrades from enemy formations and learn what the loaded hack changes. Preserve energy during ordinary waves so that stronger attacks remain available for ships and bosses.',
+      'Treat the title as an unofficial 1943 variant. If a guide for “1944” does not match the loaded game, consult instructions for the NES version of 1943 and then account for the hack’s differences.',
+    ],
+    tips: ['Prioritize survival and energy management over chasing every target.', 'Test weapon and upgrade behavior early because different hack dumps may not behave identically.'],
+    faq: [
+      { question: 'Is 1944 an official Capcom NES game?', answer: 'No. This catalog entry is an unofficial modification of the NES version of 1943: The Battle of Midway.' },
+      { question: 'Why was the developer and year removed?', answer: 'The hack should not inherit Capcom’s developer credit or the original game’s release year as though it were a separate official release.' },
+      { question: 'Is this 1944: The Loop Master?', answer: 'No. 1944: The Loop Master is a different official arcade game. This page covers an unofficial NES hack of 1943.' },
+    ],
+    sources: [
+      { label: '1944 NES hack catalog record', href: 'https://www.vgdb.com.br/nes-nintendo-entertainment-system/jogos/1944-hack/' },
+      { label: '1943: The Battle of Midway overview', href: 'https://en.wikipedia.org/wiki/1943%3A_The_Battle_of_Midway' },
+    ],
+  },
+  'pokemon-team-rocket-game-boy-advance-2000': {
+    summary: 'This catalog entry is an unofficial Pokémon ROM hack built around Team Rocket. It is not an official Game Freak release, and the current record does not identify the exact hack version reliably.',
+    description: [
+      'Several separate fan projects use the Pokémon Team Rocket name, including hacks built from different Pokémon games. The title alone is therefore not enough to assign this copy to a particular creator, story or base ROM.',
+      'The page deliberately leaves the developer and release year unassigned. Check the loaded game’s title screen, credits and version label before using a walkthrough, because a guide for another Team Rocket hack may describe different maps and mechanics.',
+    ],
+    howToPlay: [
+      'Open the player controls and confirm the mapped Game Boy Advance buttons. On the title or save screen, record any creator name, subtitle or version number shown by the loaded build.',
+      'Use the familiar Pokémon loop of exploration, conversations, party management and turn-based battles, but follow the objectives presented by this version instead of assuming it matches an official Pokémon storyline.',
+      'Keep more than one save and choose guides only after identifying the exact hack. Fan projects with similar names can use different base games, events and compatibility requirements.',
+    ],
+    tips: ['Photograph or write down the title-screen version before looking for help.', 'Do not apply patches or save files made for a different Team Rocket hack to this browser build.'],
+    faq: [
+      { question: 'Is Pokémon Team Rocket an official Pokémon game?', answer: 'No. This catalog entry is an unofficial fan-made ROM hack and should not be attributed to Game Freak as a separate official release.' },
+      { question: 'Who created this Pokémon Team Rocket hack?', answer: 'The current catalog record does not identify the exact version reliably. Multiple unrelated fan projects use similar titles, so the loaded build’s title screen or credits are needed for a defensible attribution.' },
+      { question: 'Which Pokémon game is this hack based on?', answer: 'That cannot be confirmed from the catalog title alone. Team Rocket hacks exist for different base games; identify the version shown in the player before following a version-specific guide.' },
+    ],
+    sources: [
+      { label: 'Example Team Rocket hack based on Pokémon Emerald', href: 'https://www.pokeharbor.com/2022/02/pokemon-edicion-team-rocket/' },
+      { label: 'Separate Team Rocket Edition catalog record based on FireRed', href: 'https://thegamesdb.net/game.php?id=134396' },
+    ],
+  },
+  'light-and-darkness-crystal-conflict-nes-2003': {
+    summary: 'Final Fantasy IV: The Conflict of Light and Dark Crystals is an unlicensed 8-bit demake for Famicom-compatible hardware. It is not an official Square or NES release of Final Fantasy IV.',
+    description: [
+      'The project recreates material from Final Fantasy IV within the technical limits of an unlicensed Famicom game. Its presentation and systems are simplified, so it should not be treated as a complete port of the original Super Famicom RPG.',
+      'Public catalog records attribute the demake to Nanjing, but release dates are inconsistent. This page therefore removes the unsupported 2003 year instead of presenting it as settled fact.',
+    ],
+    howToPlay: [
+      'Check the browser player’s NES controls before starting. Explore towns and routes, speak with characters and use the menu to review the party, equipment and items.',
+      'Battles use command-based RPG decisions. Watch party health, choose targets carefully and prepare recovery items before leaving safe areas.',
+      'Save regularly and expect differences from official Final Fantasy IV versions. If a console walkthrough does not match, follow the objectives and map layout visible in this demake.',
+    ],
+    tips: ['Treat guides for the official Final Fantasy IV as general context, not exact maps.', 'Keep multiple saves because unlicensed builds can differ in stability and progression.'],
+    faq: [
+      { question: 'Is this an official NES version of Final Fantasy IV?', answer: 'No. It is an unlicensed Famicom-compatible demake and was not released by Square as an official NES title.' },
+      { question: 'Who made the demake?', answer: 'The cited catalog record attributes it to Nanjing. Because unlicensed releases can circulate under variant labels, the page states that attribution without inventing a more specific studio history.' },
+      { question: 'Why is there no release year?', answer: 'Available catalog records do not establish one consistent date. The previous 2003 label was removed rather than retained as an unsupported fact.' },
+    ],
+    sources: [{ label: 'RetroAchievements catalog: unlicensed Final Fantasy IV demake', href: 'https://retroachievements.org/game/15155' }],
+  },
+  'saiyuki-tang-sanzang-nes-1996': {
+    summary: 'Zui You Ji: Tang Sanzang is an unlicensed Chinese-language Famicom-compatible RPG catalogued under the Chinese title 最游记之唐三藏 and attributed to Nanjing.',
+    description: [
+      'The title refers to Tang Sanzang and the upstream catalog presents the game as a Journey to the West-themed role-playing game. That does not establish an official connection to any manga, anime or licensed Saiyuki release.',
+      'Public records identify it as an unlicensed Chinese RPG, but the release date is not consistent enough to preserve the old 1996 label. The romanized title avoids implying a verified English localization.',
+    ],
+    howToPlay: [
+      'Check the browser player’s NES controls and the language shown by the loaded build. Explore with the directional pad, interact with characters and inspect the menus before travelling farther.',
+      'Use the game’s turn-based commands to manage attacks, abilities, items and party health. Prepare supplies before longer routes and return to safe areas when resources run low.',
+      'Keep multiple saves and take notes if you cannot read the Chinese text. Do not rely on guides for unrelated games named Saiyuki, because this catalog entry is a separate unlicensed title.',
+    ],
+    tips: ['Confirm the loaded language and menu layout before beginning a long playthrough.', 'Search by the Chinese title 最游记之唐三藏 when looking for version-specific information.'],
+    faq: [
+      { question: 'Is Zui You Ji: Tang Sanzang an official Saiyuki game?', answer: 'No licensed manga or anime connection is established by the available catalog records. It is presented here as an unlicensed Chinese-language RPG.' },
+      { question: 'Who developed the game?', answer: 'The cited catalog record attributes the game to Nanjing, a producer of unlicensed Famicom-compatible titles.' },
+      { question: 'Why was the 1996 release year removed?', answer: 'The available public records do not provide a consistent, dependable release date, so the page no longer presents 1996 as verified.' },
+    ],
+    sources: [{ label: 'FEMOOC catalog: 最游记之唐三藏', href: 'https://www.femooc.com/game/detail?id=20229' }],
+  },
 }
 
 export function getGameEditorial(game: PublicGame, locale: Locale) {

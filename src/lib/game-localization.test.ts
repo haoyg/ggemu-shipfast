@@ -69,8 +69,8 @@ describe('localizePublicGame', () => {
     ['1944-cn-nes-1988', '1944 — Unofficial 1943 ROM Hack'],
     ['labrador-and-his-friends-nintendo-ds-2009', 'Nintendogs: Labrador & Friends — Chinese Translation'],
     ['pokemon-team-rocket-game-boy-advance-2000', 'Pokémon Team Rocket — Unofficial ROM Hack'],
-    ['light-and-darkness-crystal-conflict-nes-2003', 'Light and Darkness: Crystal Conflict — Unlicensed'],
-    ['saiyuki-tang-sanzang-nes-1996', 'Saiyuki: Tang Sanzang — Unlicensed'],
+    ['light-and-darkness-crystal-conflict-nes-2003', 'Final Fantasy IV: The Conflict of Light and Dark Crystals — Unlicensed Demake'],
+    ['saiyuki-tang-sanzang-nes-1996', 'Zui You Ji: Tang Sanzang — Unlicensed'],
   ])('uses the reviewed catalog title for %s', (url_slug, expectedName) => {
     expect(localizePublicGame({ url_slug, name: '原始名称' }, 'en').name).toBe(expectedName)
   })
@@ -93,6 +93,16 @@ describe('localizePublicGame', () => {
       released_year: '2000',
     }, 'en')).toMatchObject({
       developer: 'Unknown (unofficial ROM hack)',
+      released_year: undefined,
+    })
+
+    expect(localizePublicGame({
+      url_slug: 'light-and-darkness-crystal-conflict-nes-2003',
+      name: '光与暗·水晶纷争',
+      developer: 'WAIXING TECHNOLOGY',
+      released_year: '2003',
+    }, 'en')).toMatchObject({
+      developer: 'Nanjing (unlicensed)',
       released_year: undefined,
     })
   })

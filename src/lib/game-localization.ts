@@ -62,7 +62,9 @@ const localizedGameOverrides: Record<string, LocalizedGameOverride> = {
     releasedYear: '2005',
   },
   'light-and-darkness-crystal-conflict-nes-2003': {
-    name: { en: 'Light and Darkness: Crystal Conflict — Unlicensed' },
+    name: { en: 'Final Fantasy IV: The Conflict of Light and Dark Crystals — Unlicensed Demake' },
+    developer: 'Nanjing (unlicensed)',
+    releasedYear: null,
   },
   'jin-yong-heroes-2-enhanced-flash-2006': {
     name: { en: 'Heroes of Jin Yong 2 — Enhanced Edition' },
@@ -139,7 +141,9 @@ const localizedGameOverrides: Record<string, LocalizedGameOverride> = {
     name: { en: 'Satomi Hakkenden — Chinese Version' },
   },
   'saiyuki-tang-sanzang-nes-1996': {
-    name: { en: 'Saiyuki: Tang Sanzang — Unlicensed' },
+    name: { en: 'Zui You Ji: Tang Sanzang — Unlicensed' },
+    developer: 'Nanjing (unlicensed)',
+    releasedYear: null,
   },
   'sichuan-mahjong-html5': {
     name: { en: 'Sichuan Mahjong: Xue Zhan Dao Di' },
