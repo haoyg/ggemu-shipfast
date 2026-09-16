@@ -7,6 +7,9 @@ type LocalizedGameOverride = {
 }
 
 const localizedGameOverrides: Record<string, LocalizedGameOverride> = {
+  'chinese-paladin-dos-1995': {
+    name: { en: 'The Legend of Sword and Fairy' },
+  },
   'initial-d-another-stage-cn-gba-2002': {
     name: { en: 'Initial D: Another Stage — Chinese Version' },
   },
@@ -27,6 +30,12 @@ const localizedGameOverrides: Record<string, LocalizedGameOverride> = {
   },
   'pokemon-firered-game-boy-advance-2004': {
     name: { en: 'Pokémon FireRed' },
+  },
+  'san-guo-qun-ying-zhuan-2-html5-1998': {
+    name: { en: 'Heroes of the Three Kingdoms 2' },
+  },
+  'sanguosha-html5-2011': {
+    name: { en: 'Sanguosha' },
   },
   'taiko-no-tatsujin-taiko-web-html5-2011': {
     name: { en: 'Taiko Web' },

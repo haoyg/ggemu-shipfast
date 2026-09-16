@@ -18,6 +18,14 @@ describe('localizePublicGame', () => {
     expect(game.keywords).toBeUndefined()
   })
 
+  it.each([
+    ['chinese-paladin-dos-1995', 'The Legend of Sword and Fairy'],
+    ['san-guo-qun-ying-zhuan-2-html5-1998', 'Heroes of the Three Kingdoms 2'],
+    ['sanguosha-html5-2011', 'Sanguosha'],
+  ])('uses the reviewed catalog title for %s', (url_slug, expectedName) => {
+    expect(localizePublicGame({ url_slug, name: '原始名称' }, 'en').name).toBe(expectedName)
+  })
+
   it('drops source copy that does not match the requested locale', () => {
     const source = {
       url_slug: 'example-game',
