@@ -64,11 +64,11 @@ export const enMessages = {
   },
   homeSeo: {
     title:
-      'POKOPIE - Play Retro Games Online Free | NES, SNES, GBA, PS1, Arcade Games',
+      'Play Retro Games Online Free – NES, SNES, GBA | POKOPIE',
     description:
-      'POKOPIE is a browser-based retro games website where you can play NES, SNES, GBA, PS1, Arcade, Sega Genesis and other classic games online free with no download required.',
+      'Play NES, SNES, GBA, PS1 and arcade games online free in your browser. No downloads or sign-up required. Browse classic games and start playing on POKOPIE.',
     keywords:
-      'retro games online, play GBA games online, NES games online, SNES games online, PS1 games online, N64 games online, Sega Genesis games, arcade games online, browser emulator games, no download games',
+      'retro games online, NES games, SNES games, GBA games, PS1 games, arcade games',
   },
   homeContent: {
     whyTitle: 'Why Play Retro Games Online?',

@@ -6,6 +6,11 @@ type GameEditorial = {
   howToPlay: string[]
   tips: string[]
   faq: Array<{ question: string; answer: string }>
+  quickStart?: {
+    title: string
+    intro: string
+    entries: Array<{ label: string; detail: string; keys?: string }>
+  }
   sources: Array<{ label: string; href: string }>
 }
 
@@ -121,8 +126,19 @@ const editorials: Record<string, GameEditorial> = {
     faq: [
       { question: 'Which keys play Taiko Web notes?', answer: 'The supplied guide lists F or J for red center notes and D or K for blue rim notes. Focus the game first and check the loaded player’s controls if they do not respond.' },
       { question: 'What do red and blue notes mean in Taiko Web?', answer: 'Red notes use the drum center hit; blue notes use the rim hit. Match the correct hit as the note reaches the timing marker.' },
-      { question: 'Can I use a drum controller with Taiko Web?', answer: 'Controller and external drum support depend on the loaded player. Check its settings before assuming a device or second-player option is supported.' },
+      { question: 'How do I browse Taiko Web song categories?', answer: 'The supplied guide lists Shift + Left Arrow and Shift + Right Arrow while selecting a song. Available songs and categories can differ between player builds.' },
+      { question: 'Can I use a drum controller with Taiko Web?', answer: 'The upstream listing says compatible USB controllers are supported. Check the loaded player settings before relying on an external drum or second-player mode.' },
     ],
+    quickStart: {
+      title: 'Taiko Web controls at a glance',
+      intro: 'Focus the game before playing. These shortcuts come from the current upstream guide; song availability and settings can differ by player build.',
+      entries: [
+        { label: 'Red note · center hit', detail: 'Hit when the red note reaches the timing marker.', keys: 'F or J' },
+        { label: 'Blue note · rim hit', detail: 'Hit when the blue note reaches the timing marker.', keys: 'D or K' },
+        { label: 'Browse song categories', detail: 'Use while choosing a song.', keys: 'Shift + ← / →' },
+        { label: 'Try player modes', detail: 'Use while choosing difficulty: hold Shift for autoplay or Ctrl for 2P.', keys: 'Shift / Ctrl' },
+      ],
+    },
     sources: [{ label: 'Upstream Taiko Web game guide', href: 'https://ggemu.com/en/game/69a412bab9aa381e667b08cf' }],
   },
 }

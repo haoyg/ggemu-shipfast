@@ -17,7 +17,6 @@ import {
 } from '#/lib/i18n'
 import { getRetroCoverFallbackLabel } from '#/lib/locale-labels'
 import { prioritizeClassicGames } from '#/lib/home-game-priority'
-import { siteConfig } from '#/lib/site-config'
 import { getPlatformCollectionPath } from '#/lib/platform-routes'
 
 import {
@@ -32,11 +31,13 @@ import type { HomeTemplateProps } from './types'
 const platformShortLabels: Record<string, string> = {
   F: 'NES',
   f: 'NES',
+  Famicom: 'NES',
   ARCADE: 'Arcade',
   Arcade: 'Arcade',
   arcade: 'Arcade',
   'Game Boy Advance': 'GBA',
   'game-boy-advance': 'GBA',
+  Genesis: 'Genesis',
   N64: 'N64',
   NES: 'NES',
   n64: 'N64',
@@ -46,6 +47,7 @@ const platformShortLabels: Record<string, string> = {
   'playstation-1': 'PS1',
   PS1: 'PS1',
   ps1: 'PS1',
+  'Sega Genesis': 'Genesis',
   SNES: 'SNES',
   snes: 'SNES',
   'Super Famicom': 'SNES',
@@ -65,9 +67,9 @@ const localizedPlatformShortLabels: Partial<Record<Locale, Record<string, string
 }
 
 const preferredPlatforms = [
-  'Game Boy Advance',
   'NES',
   'SNES',
+  'Game Boy Advance',
   'PlayStation 1',
   'Nintendo 64',
   'ARCADE',
@@ -77,7 +79,7 @@ const preferredPlatforms = [
 const platformAliases: Record<string, Array<string>> = {
   ARCADE: ['ARCADE', 'Arcade'],
   'Game Boy Advance': ['Game Boy Advance', 'GBA'],
-  NES: ['NES', 'Nintendo Entertainment System'],
+  NES: ['NES', 'Nintendo Entertainment System', 'Famicom'],
   'Nintendo 64': ['Nintendo 64', 'N64'],
   'PlayStation 1': ['PlayStation 1', 'PS1', 'PlayStation'],
   'Sega Genesis': ['Sega Genesis', 'Genesis'],
@@ -129,6 +131,11 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
   const sidebarCategories = filterOptions.categories.slice(0, 6)
   const hasActiveFilters = Boolean(filters.query.trim() || filters.category || filters.platform)
   const [visibleCount, setVisibleCount] = useState(24)
+  const [lobbyPlatform, setLobbyPlatform] = useState('')
+  const [lobbyPlatformGames, setLobbyPlatformGames] = useState<Array<PublicGame>>([])
+  const [isLobbyPlatformLoading, setIsLobbyPlatformLoading] = useState(false)
+  const lobbyRequestRef = useRef(0)
+  const runPlatformSearch = useServerFn(searchGames)
   const resultsHeadingRef = useRef<HTMLHeadingElement>(null)
   const previousPageRef = useRef(page)
   useEffect(() => setVisibleCount(24), [games])
@@ -158,7 +165,21 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
   const loadMoreLabel = lang === 'zh-CN' ? '加载更多游戏' : lang === 'ja' ? 'ゲームをもっと見る' : 'Load more games'
   const recommendationLabel = lang === 'zh-CN' ? '经典游戏优先推荐' : lang === 'ja' ? 'クラシックゲームを優先表示' : 'Classic games first'
   const continueLabel = lang === 'zh-CN' ? '继续游玩' : lang === 'ja' ? '続けてプレイ' : 'Continue playing'
-  const platformCards = platformChips.slice(0, 6)
+  const platformCards = platformChips.slice(0, 7)
+  const selectedPlatform = platformCards.find((platform) => platform.name === lobbyPlatform)
+  const localPlatformGames = lobbyPlatform
+    ? uniqueGames([
+        ...topGames,
+        ...featureSections.flatMap((section) => section.games),
+        ...latestGames,
+      ]).filter((game) => gameMatchesPlatform(game, lobbyPlatform))
+    : []
+  const lobbyGames = lobbyPlatform
+    ? (lobbyPlatformGames.length > 0 ? lobbyPlatformGames : localPlatformGames)
+    : topGames
+  const featuredGame = lobbyGames[0]
+  const trendingGames = lobbyGames.slice(1, 5)
+  const lobbyCopy = getArcadeLobbyCopy(lang)
   const activeCategoryLabel = filters.category
     ? getLocalizedCategoryLabel(filters.category, lang)
     : ''
@@ -170,14 +191,36 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
     onFilterChange('category', filters.category === categoryName ? '' : categoryName)
   }
 
-  function handlePlatformChange(platformName: string) {
-    onFilterChange('platform', filters.platform === platformName ? '' : platformName)
+  function handleLobbyPlatformChange(platformName: string) {
+    const nextPlatform = lobbyPlatform === platformName ? '' : platformName
+    const requestId = lobbyRequestRef.current + 1
+    lobbyRequestRef.current = requestId
+    setLobbyPlatform(nextPlatform)
+    setLobbyPlatformGames([])
+
+    if (!nextPlatform) {
+      setIsLobbyPlatformLoading(false)
+      return
+    }
+
+    setIsLobbyPlatformLoading(true)
+    void runPlatformSearch({
+      data: { limit: 5, locale: lang, page: 1, platform: nextPlatform, sort: 'popular' },
+    }).then((result) => {
+      if (lobbyRequestRef.current === requestId) {
+        setLobbyPlatformGames(result.games)
+      }
+    }).catch(() => undefined).finally(() => {
+      if (lobbyRequestRef.current === requestId) {
+        setIsLobbyPlatformLoading(false)
+      }
+    })
   }
 
   return (
     <div className="arcade-page overflow-x-hidden">
-      <div className="mx-auto grid w-full max-w-[96rem] min-w-0 lg:grid-cols-[14rem_minmax(0,1fr)]">
-        <aside className="hidden border-r border-white/10 bg-[#090f20]/80 px-3 py-4 lg:block">
+      <div className="mx-auto grid w-full max-w-[96rem] min-w-0">
+        <aside className="hidden">
           <nav className="sticky top-20 flex flex-col gap-5">
             <Link
               className="flex items-center gap-3 rounded-lg bg-primary px-3 py-3 text-sm font-semibold text-primary-content"
@@ -220,70 +263,110 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
           </nav>
         </aside>
 
-        <main className="min-w-0 max-w-full overflow-x-hidden">
-          <section className="arcade-section border-b px-3 py-4 sm:px-6 sm:py-5 lg:px-8">
-            <div className="arcade-hero relative overflow-hidden px-4 py-5 sm:px-6 sm:py-6">
-              <div aria-hidden="true" className="absolute -right-24 -top-28 h-64 w-64 rounded-full bg-primary/25 blur-3xl" />
-              <div aria-hidden="true" className="absolute -bottom-32 left-1/3 h-56 w-56 rounded-full bg-cyan-300/15 blur-3xl" />
-              <div className="relative">
-                <div className="min-w-0">
-                  <div className="flex flex-wrap items-center gap-3">
-                    <p className="arcade-kicker">{siteConfig.SITE_NAME}</p>
-                    <span className="badge badge-outline border-white/20 text-xs font-medium text-white/70">
-                      {formatCopy(t.totalGames, { total: pagination.total })}
-                    </span>
-                  </div>
-                  <h1 className="arcade-section-title mt-3 max-w-4xl text-2xl font-black leading-tight text-white sm:text-3xl lg:text-4xl">
-                    {t.title}
-                  </h1>
-                  <p className="mt-2 max-w-3xl text-sm leading-6 text-white/70">
-                    {t.subtitle}
-                  </p>
-                  <div className="mt-4 max-w-3xl">
-                    <form className="min-w-0" onSubmit={onSearch}>
-                      <HomeSearchSuggest
-                        gameTotal={pagination.total}
-                        isLoading={isLoading}
-                        lang={lang}
-                        onQueryChange={onQueryChange}
-                        query={filters.query}
-                        t={t}
-                      />
-                    </form>
-                    <div className="mt-3 flex flex-wrap items-center justify-between gap-3">
-                      <p className="text-xs leading-5 text-white/55">{t.heroSearchHint}</p>
-                      <a className="btn btn-ghost btn-sm min-h-10 px-3 text-white hover:bg-white/10" href="#popular-games">
-                        {t.browsePopular}
-                        <i aria-hidden="true" className="ri-arrow-down-line" />
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
+        <main className="min-w-0 max-w-full">
+          <section className="arcade-lobby border-b border-white/10">
+            <div aria-hidden="true" className="arcade-lobby-beam arcade-lobby-beam-left" />
+            <div aria-hidden="true" className="arcade-lobby-beam arcade-lobby-beam-right" />
+            <div className="arcade-lobby-content">
+            <div className="relative z-10 mb-3">
+              <form className="min-w-0 flex-1" onSubmit={onSearch}>
+                <HomeSearchSuggest
+                  gameTotal={pagination.total}
+                  isLoading={isLoading}
+                  lang={lang}
+                  onQueryChange={onQueryChange}
+                  query={filters.query}
+                  t={t}
+                />
+              </form>
             </div>
 
-            <div className="mt-4 flex min-w-0 flex-col gap-2 sm:flex-row sm:items-center">
-              <p className="shrink-0 text-xs font-semibold uppercase tracking-wide text-white/45">
-                {t.allPlatforms}
-              </p>
-              <div className="flex min-w-0 max-w-full gap-2 overflow-x-auto pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-                {platformChips.map((platform) => (
-                  <button
-                    aria-pressed={filters.platform === platform.name}
-                    className={`arcade-control btn btn-sm min-h-10 shrink-0 ${
-                      filters.platform === platform.name
-                        ? 'btn-primary'
-                        : 'bg-white/8 text-white hover:bg-white/15'
-                    }`}
-                    key={platform.name}
-                    onClick={() => handlePlatformChange(platform.name)}
-                    type="button"
-                  >
-                    <i aria-hidden="true" className="ri-gamepad-line" />
-                    {platform.shortLabel}
+            {featuredGame ? (
+              <div className="grid min-w-0 gap-3 lg:grid-cols-[minmax(0,2.2fr)_minmax(17rem,0.8fr)]">
+                <article className="arcade-cabinet group relative min-h-[24rem] overflow-hidden sm:min-h-[31rem]">
+                  {featuredGame.game_cover?.trim() ? (
+                    <img
+                      alt={featuredGame.name ?? 'Featured game'}
+                      className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-[1.025]"
+                      decoding="async"
+                      fetchPriority="high"
+                      src={featuredGame.game_cover}
+                    />
+                  ) : (
+                    <div className="absolute inset-0 grid place-items-center bg-[#071128] text-sm font-black uppercase tracking-widest text-white/45">
+                      {getRetroCoverFallbackLabel(lang)}
+                    </div>
+                  )}
+                  <div aria-hidden="true" className="arcade-cabinet-scan" />
+                  <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(2,7,20,0.94)_0%,rgba(2,7,20,0.74)_36%,rgba(2,7,20,0.08)_76%),linear-gradient(0deg,rgba(2,7,20,0.88),transparent_48%)]" />
+                  <div className="relative z-10 flex h-full max-w-xl flex-col justify-end p-5 sm:p-8 lg:p-10">
+                    <p className="arcade-kicker mb-2">{selectedPlatform ? `${selectedPlatform.shortLabel} · ${lobbyCopy.featured}` : lobbyCopy.featured}</p>
+                    <h1 className="arcade-section-title break-words text-3xl font-black leading-[0.96] text-white sm:text-6xl">
+                      {featuredGame.name}
+                    </h1>
+                    <div className="mt-4 flex flex-wrap gap-2">
+                      {getPlatformBadge(featuredGame, lang) ? (
+                        <span className="arcade-chip">{getPlatformBadge(featuredGame, lang)}</span>
+                      ) : null}
+                      {featuredGame.categories?.slice(0, 2).map((category) => (
+                        <span className="arcade-chip" key={category}>{getLocalizedCategoryLabel(category, lang)}</span>
+                      ))}
+                    </div>
+                    <div className="mt-6 flex flex-wrap items-center gap-3">
+                      <Link
+                        className="arcade-play-button"
+                        params={{ gameId: getGameRouteId(featuredGame), locale: lang }}
+                        to="/$locale/games/$gameId/play"
+                      >
+                        <i aria-hidden="true" className="ri-play-fill" />
+                        {lobbyCopy.playNow}
+                      </Link>
+                      <span className="arcade-press-play"><span aria-hidden="true" />{lobbyCopy.pressPlay}</span>
+                    </div>
+                  </div>
+                  <div className="arcade-cabinet-dots" aria-hidden="true"><span /><span /><span /><span /></div>
+                </article>
+
+                <aside className={`arcade-trending-panel p-3 sm:p-4 ${isLobbyPlatformLoading ? 'is-loading' : ''}`} aria-label={lobbyCopy.trending} aria-busy={isLobbyPlatformLoading}>
+                  <div className="mb-3 flex items-center justify-between gap-3">
+                    <h2 className="arcade-pixel-title text-lg text-white"><i aria-hidden="true" className="ri-fire-fill text-pink-400" /> {lobbyCopy.trending}</h2>
+                    <a className="text-xs font-semibold text-cyan-300 hover:text-white" href={selectedPlatform?.seoPath ?? '#popular-games'}>{viewAllLabel} <i aria-hidden="true" className="ri-arrow-right-line" /></a>
+                  </div>
+                  <div className="grid gap-2">
+                    {trendingGames.map((game) => (
+                      <Link className="arcade-trending-game group" key={getGameRouteId(game)} params={{ gameId: getGameRouteId(game), locale: lang }} to="/$locale/games/$gameId">
+                        <ArcadeCover alt={game.name ?? 'Game'} className="aspect-[16/9]" cover={game.game_cover} lang={lang} />
+                        <span className="min-w-0">
+                          <strong className="line-clamp-2 text-sm text-white">{game.name}</strong>
+                          <small className="mt-1 block text-white/45">{getPlatformBadge(game, lang)}</small>
+                        </span>
+                        <i aria-hidden="true" className="ri-arrow-right-s-line text-white/30 transition group-hover:translate-x-1 group-hover:text-cyan-300" />
+                      </Link>
+                    ))}
+                  </div>
+                </aside>
+              </div>
+            ) : null}
+
+            <section className="relative z-10 mt-3" aria-label={t.allPlatforms}>
+              <h2 className="sr-only">{t.allPlatforms}</h2>
+              <div className="arcade-platform-rail game-rail flex gap-3 overflow-x-auto pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+                {platformCards.map((platform) => (
+                  <button aria-pressed={lobbyPlatform === platform.name} className={`arcade-platform-tile group ${lobbyPlatform === platform.name ? 'is-active' : ''} ${isArcadePlatform(platform.shortLabel) ? 'is-arcade' : ''}`} key={platform.name} onClick={() => handleLobbyPlatformChange(platform.name)} title={`Show popular ${platform.shortLabel} games`} type="button">
+                    <img
+                      alt=""
+                      aria-hidden="true"
+                      decoding="async"
+                      height="96"
+                      loading="lazy"
+                      src={getPlatformArtwork(platform.shortLabel)}
+                      width="160"
+                    />
+                    <strong>{platform.shortLabel}</strong>
                   </button>
                 ))}
               </div>
+            </section>
             </div>
           </section>
 
@@ -478,6 +561,18 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
       </div>
     </div>
   )
+}
+
+function getArcadeLobbyCopy(lang: Locale) {
+  if (lang === 'zh-CN') {
+    return { featured: '今日主打', jumpBackIn: '继续探索', playNow: '立即开玩', pressPlay: '按下开始', trending: '正在热门' }
+  }
+
+  if (lang === 'ja') {
+    return { featured: '本日のおすすめ', jumpBackIn: '探索を続ける', playNow: '今すぐプレイ', pressPlay: 'スタート', trending: 'トレンド' }
+  }
+
+  return { featured: 'Featured game', jumpBackIn: 'Jump Back In', playNow: 'Play Now', pressPlay: 'Press Play', trending: 'Trending Now' }
 }
 
 function HomeSearchSuggest({
@@ -861,6 +956,42 @@ function getGameRouteId(game: PublicGame) {
   return game.url_slug?.trim() || game._id?.trim() || ''
 }
 
+function uniqueGames(games: Array<PublicGame>) {
+  const seen = new Set<string>()
+
+  return games.filter((game) => {
+    const id = getGameRouteId(game)
+
+    if (!id || seen.has(id)) {
+      return false
+    }
+
+    seen.add(id)
+    return true
+  })
+}
+
+function gameMatchesPlatform(game: PublicGame, platform: string) {
+  const selectedGroup = getPlatformGroup(platform)
+  const gamePlatform = game.platform_slug?.trim() || game.platformSlug?.trim() || game.platform?.trim() || ''
+
+  return Boolean(selectedGroup && selectedGroup === getPlatformGroup(gamePlatform))
+}
+
+function getPlatformGroup(platform: string) {
+  const normalized = platform.toLowerCase().replace(/[^a-z0-9]/g, '')
+
+  if (normalized === 'f' || normalized === 'famicom' || normalized === 'nes' || normalized === 'nintendoentertainmentsystem') return 'nes'
+  if (normalized === 'superfamicom' || normalized === 'snes') return 'snes'
+  if (normalized === 'gameboyadvance' || normalized === 'gba') return 'gba'
+  if (normalized === 'playstation' || normalized === 'playstation1' || normalized === 'ps1') return 'ps1'
+  if (normalized === 'nintendo64' || normalized === 'n64') return 'n64'
+  if (normalized === 'arcade') return 'arcade'
+  if (normalized === 'segagenesis' || normalized === 'genesis' || normalized === 'megadrive') return 'genesis'
+
+  return normalized
+}
+
 function getPlatformBadge(game: PublicGame, lang: Locale) {
   const slug = game.platform_slug?.trim() || game.platformSlug?.trim()
 
@@ -879,6 +1010,20 @@ function getPlatformBadge(game: PublicGame, lang: Locale) {
 
 function getPlatformShortLabel(platform: string, lang: Locale) {
   return getKnownPlatformShortLabel(platform, lang) ?? platform
+}
+
+function getPlatformArtwork(platform: string) {
+  const slug = isArcadePlatform(platform)
+    ? 'arcade'
+    : platform.toLowerCase() === 'sega genesis'
+      ? 'genesis'
+      : platform.toLowerCase()
+
+  return `/platform-icons/${slug}.webp`
+}
+
+function isArcadePlatform(platform: string) {
+  return ['arcade', '街机', 'アーケード'].includes(platform.toLowerCase())
 }
 
 function getKnownPlatformShortLabel(platform: string, lang: Locale) {

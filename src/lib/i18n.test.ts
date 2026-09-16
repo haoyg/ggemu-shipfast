@@ -62,7 +62,7 @@ describe('i18n messages', () => {
       'Play Retro Games Online - No Download Required',
     )
     expect(getI18n('en').homeSeo.title).toBe(
-      'POKOPIE - Play Retro Games Online Free | NES, SNES, GBA, PS1, Arcade Games',
+      'Play Retro Games Online Free – NES, SNES, GBA | POKOPIE',
     )
     expect(getI18n('en').homeContent.whyTitle).toBe(
       'Why Play Retro Games Online?',

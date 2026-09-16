@@ -168,7 +168,7 @@ export function SiteLayout({
                     Guides
                   </Link>
                 </li>
-                <li>
+                <li className="hidden 2xl:block">
                   <Link activeProps={{ className: 'active text-primary' }} params={{ locale }} reloadDocument to="/$locale/about">
                     <i className="ri-information-line" />
                     {t.about}
@@ -283,7 +283,7 @@ export function SiteLayout({
         {hideHeaderNav ? null : (
           <nav
             aria-label={t.explore}
-            className="mx-auto flex max-w-7xl gap-1 overflow-x-auto px-3 pb-2 [scrollbar-width:none] sm:px-6 2xl:hidden [&::-webkit-scrollbar]:hidden"
+            className="mx-auto flex max-w-7xl gap-1 overflow-x-auto px-3 pb-2 [scrollbar-width:none] sm:px-6 xl:hidden [&::-webkit-scrollbar]:hidden"
           >
             <HeaderMobileLink
               icon="ri-home-5-line"

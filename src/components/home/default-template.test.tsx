@@ -1,5 +1,5 @@
 import type { ComponentProps } from 'react'
-import { act, cleanup, fireEvent, render, screen, within } from '@testing-library/react'
+import { act, cleanup, fireEvent, render, screen, waitFor, within } from '@testing-library/react'
 import { afterEach, beforeEach, expect, it, vi } from 'vitest'
 import { DefaultHomeTemplate } from './default-template'
 import type { HomeTemplateProps } from './types'
@@ -128,4 +128,23 @@ it('does not navigate to stale suggestions while the query is changing', async (
   expect(navigate).not.toHaveBeenCalled()
   expect(screen.queryByRole('option')).toBeNull()
   expect(input.getAttribute('aria-activedescendant')).toBeNull()
+})
+
+it('switches the lobby to popular games from the selected platform', async () => {
+  runSearch.mockResolvedValue({
+    games: [
+      { _id: 'nes-hero', name: 'NES Hero', platform: 'Famicom' },
+      { _id: 'nes-trending', name: 'NES Trending', platform: 'Famicom' },
+    ],
+  })
+  render(<DefaultHomeTemplate {...props} filterOptions={{ categories: [], platforms: [{ name: 'Famicom' }] }} />)
+
+  fireEvent.click(screen.getByRole('button', { name: 'NES' }))
+
+  expect(screen.getByRole('button', { name: 'NES' }).getAttribute('aria-pressed')).toBe('true')
+  await waitFor(() => expect(screen.getByRole('heading', { name: 'NES Hero' })).not.toBeNull())
+  expect(screen.getByText('NES Trending')).not.toBeNull()
+  expect(runSearch).toHaveBeenCalledWith({
+    data: { limit: 5, locale: 'en', page: 1, platform: 'Famicom', sort: 'popular' },
+  })
 })

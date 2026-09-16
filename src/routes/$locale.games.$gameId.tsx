@@ -530,6 +530,8 @@ function LocalizedGameDetailPage() {
             />
           ) : null}
 
+          {editorial?.quickStart ? <QuickStartCard quickStart={editorial.quickStart} /> : null}
+
           <section className="grid gap-6 lg:grid-cols-[1fr_340px]">
             <div className="flex flex-col gap-6">
               {editorial ? <ArticlePanel paragraphs={descriptionParagraphs} title={t.overview} /> : null}
@@ -676,6 +678,36 @@ function ArticlePanel({
         ))}
       </div>
     </article>
+  )
+}
+
+function QuickStartCard({
+  quickStart,
+}: {
+  quickStart: NonNullable<ReturnType<typeof getGameEditorial>>['quickStart']
+}) {
+  if (!quickStart) return null
+
+  return (
+    <section className="rounded-xl border border-primary/25 bg-primary/10 p-4 shadow-sm sm:p-6">
+      <h2 className="flex items-center gap-2 text-xl font-bold text-white">
+        <i aria-hidden="true" className="ri-drum-line text-primary" />
+        {quickStart.title}
+      </h2>
+      <p className="mt-3 max-w-3xl text-sm leading-6 text-white/75">{quickStart.intro}</p>
+      <div className="mt-4 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+        {quickStart.entries.map((entry, index) => (
+          <article className="rounded-lg border border-white/10 bg-black/20 p-4" key={entry.label}>
+            <div className="flex items-center gap-2 font-semibold text-white">
+              <span className={`grid size-3 shrink-0 place-items-center rounded-full ${index < 2 ? index === 0 ? 'bg-error' : 'bg-info' : 'bg-primary'}`} />
+              {entry.label}
+            </div>
+            <p className="mt-2 text-sm leading-6 text-white/70">{entry.detail}</p>
+            {entry.keys ? <kbd className="mt-3 inline-block rounded border border-white/20 bg-black/30 px-2 py-1 text-xs text-white/85">{entry.keys}</kbd> : null}
+          </article>
+        ))}
+      </div>
+    </section>
   )
 }
 

@@ -40,6 +40,16 @@ describe('reviewed English game content', () => {
     expect(onet.description.join(' ')).toContain('two turns')
   })
 
+  it('keeps the Taiko control card tied to the upstream guide', () => {
+    const taiko = getGameEditorial({ url_slug: 'taiko-no-tatsujin-taiko-web-html5-2011' }, 'en')!
+    expect(taiko.quickStart?.entries.map((entry) => entry.keys)).toEqual([
+      'F or J',
+      'D or K',
+      'Shift + ← / →',
+      'Shift / Ctrl',
+    ])
+  })
+
   it('adds reciprocal links without linking a game to itself', () => {
     for (const url_slug of [slugs[0], slugs[1], slugs[3], slugs[4]]) {
       const links = getGameSeoInternalLinks({ url_slug }, 'en')
