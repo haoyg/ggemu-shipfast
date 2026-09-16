@@ -62,8 +62,8 @@ describe('localizePublicGame', () => {
     ['yanlong-chuanshuo-2-erdu-chongji-flash-2009', 'Yan Loong Legend 2: 2nd Impact'],
     ['yanlong-chuanshuo-3-shuang-yan-flash-2009', 'Yan Loong Legend 3: Double Swallow'],
     ['yanlong-chuanshuo-3-chifeng-flash-2010', 'Yan Loong Legend 3: Phoenix'],
-    ['xian-jian-qi-xia-zhuan-gba-2001', 'The Legend of Sword and Fairy — GBA Port'],
-    ['naruto-rpg-gba-2003', 'Naruto RPG — Chinese Translation V3'],
+    ['xian-jian-qi-xia-zhuan-gba-2001', 'The Legend of Sword and Fairy — Unofficial GBA Port'],
+    ['naruto-rpg-gba-2003', 'Naruto RPG: Uketsugareshi Hi no Ishi — Chinese Translation V3'],
     ['chinese-mahjong-html5', 'Chinese Standard Mahjong'],
     ['taiwan-mahjong-16-tile-html5', 'Taiwanese Mahjong — 16 Tiles'],
     ['hong-kong-mahjong-html5', 'Hong Kong Mahjong'],
@@ -73,6 +73,7 @@ describe('localizePublicGame', () => {
     ['1944-cn-nes-1988', '1944 — Unofficial 1943 ROM Hack'],
     ['labrador-and-his-friends-nintendo-ds-2009', 'Nintendogs: Labrador & Friends — Chinese Translation'],
     ['pokemon-team-rocket-game-boy-advance-2000', 'Pokémon Team Rocket — Unofficial ROM Hack'],
+    ['metal-gear-2030-cn-gbc', 'Metal Gear 2030 — Unofficial Chinese Version'],
     ['light-and-darkness-crystal-conflict-nes-2003', 'Final Fantasy IV: The Conflict of Light and Dark Crystals — Unlicensed Demake'],
     ['saiyuki-tang-sanzang-nes-1996', 'Zui You Ji: Tang Sanzang — Unlicensed'],
   ])('uses the reviewed catalog title for %s', (url_slug, expectedName) => {
@@ -137,6 +138,22 @@ describe('localizePublicGame', () => {
     expect(localizePublicGame({ url_slug: 'satomi-hakkenden-cn-nes-1989' }, 'en')).toMatchObject({
       developer: 'Alpha Denshi',
       released_year: '1989',
+    })
+    expect(localizePublicGame({ url_slug: 'richman-2-dos-1993' }, 'en')).toMatchObject({
+      developer: 'Softstar Entertainment',
+      released_year: '1993',
+    })
+    expect(localizePublicGame({ url_slug: 'san-guo-qun-ying-zhuan-2-html5-1998' }, 'en')).toMatchObject({
+      developer: 'Odin Soft',
+      released_year: '1999',
+    })
+    expect(localizePublicGame({ url_slug: 'xian-jian-qi-xia-zhuan-gba-2001', developer: 'Softstar', released_year: '2001' }, 'en')).toMatchObject({
+      developer: 'Unknown (unofficial port)',
+      released_year: undefined,
+    })
+    expect(localizePublicGame({ url_slug: 'naruto-rpg-gba-2003' }, 'en')).toMatchObject({
+      developer: 'TOSE',
+      released_year: '2004',
     })
   })
 

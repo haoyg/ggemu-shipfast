@@ -104,7 +104,7 @@ const localizedGameOverrides: Record<string, LocalizedGameOverride> = {
     releasedYear: '2010',
   },
   'metal-gear-2030-cn-gbc': {
-    name: { en: 'Metal Gear 2030 — Chinese Translation' },
+    name: { en: 'Metal Gear 2030 — Unofficial Chinese Version' },
   },
   'naruto-shippuden-ultimate-impact-psp-2011': {
     name: { en: 'Naruto Shippuden: Ultimate Ninja Impact' },
@@ -140,15 +140,23 @@ const localizedGameOverrides: Record<string, LocalizedGameOverride> = {
   },
   'rich-man-3-dos-1996': {
     name: { en: 'Richman 3' },
+    developer: 'Softstar Entertainment',
+    releasedYear: '1996',
   },
   'richman-2-dos-1993': {
     name: { en: 'Richman 2' },
+    developer: 'Softstar Entertainment',
+    releasedYear: '1993',
   },
   'romance-of-the-three-kingdoms-iv-dos-1994': {
     name: { en: 'Romance of the Three Kingdoms IV: Wall of Fire' },
+    developer: 'Koei',
+    releasedYear: '1994',
   },
   'san-guo-qun-ying-zhuan-2-html5-1998': {
     name: { en: 'Heroes of the Three Kingdoms 2' },
+    developer: 'Odin Soft',
+    releasedYear: '1999',
   },
   'saint-seiya-ougon-densetsu-kanketsu-hen-cn-nes-1988': {
     name: { en: 'Saint Seiya: Ougon Densetsu Kanketsu Hen — Chinese Translation' },
@@ -179,15 +187,21 @@ const localizedGameOverrides: Record<string, LocalizedGameOverride> = {
   },
   'the-killing-blade-arcade-1998': {
     name: { en: 'The Killing Blade' },
+    developer: 'International Games System',
+    releasedYear: '1998',
   },
   'the-legend-of-sword-and-saber-arcade-2003': {
     name: { en: 'The Gladiator' },
+    developer: 'International Games System',
+    releasedYear: '2003',
   },
   'theme-hospital-dos-1997': {
     name: { en: 'Theme Hospital' },
   },
   'xian-jian-qi-xia-zhuan-gba-2001': {
-    name: { en: 'The Legend of Sword and Fairy — GBA Port' },
+    name: { en: 'The Legend of Sword and Fairy — Unofficial GBA Port' },
+    developer: 'Unknown (unofficial port)',
+    releasedYear: null,
   },
   'xuan-yuan-sword-dos-1990': {
     name: { en: 'Xuan-Yuan Sword' },
@@ -216,7 +230,9 @@ const localizedGameOverrides: Record<string, LocalizedGameOverride> = {
     name: { en: 'Chinese Standard Mahjong' },
   },
   'naruto-rpg-gba-2003': {
-    name: { en: 'Naruto RPG — Chinese Translation V3' },
+    name: { en: 'Naruto RPG: Uketsugareshi Hi no Ishi — Chinese Translation V3' },
+    developer: 'TOSE',
+    releasedYear: '2004',
   },
 }
 

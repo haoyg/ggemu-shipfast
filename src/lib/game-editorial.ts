@@ -770,6 +770,214 @@ const editorials: Record<string, GameEditorial> = {
       { label: 'SNK Famicom catalog record for Satomi Hakkenden', href: 'https://www.gavas.jp/products/detail.php?product_id=4115' },
     ],
   },
+  'richman-2-dos-1993': {
+    summary: 'Richman 2 is Softstar’s 1993 DOS board game about property, cash flow and unpredictable events. Roll the dice, buy useful spaces and outlast the other players financially.',
+    description: [
+      'Originally titled 大富翁2, the game mixes a property-trading board with cards and random events. A strong position depends on cash reserves and where opponents are likely to land, not simply owning the largest number of properties.',
+      'This is the early DOS sequel, not Richman 4 or a modern online entry. Expect a Chinese-language interface and check the loaded version before relying on instructions for a later game in the series.',
+    ],
+    howToPlay: [
+      'Check the DOS keyboard controls, choose the available players or computer opponents and read the board options before starting. Keep enough cash after purchases to survive fees and bad events.',
+      'Buy or improve valuable spaces when the price and traffic make sense. Cards can create openings or protect a lead, so learn their translated names before using them under pressure.',
+      'Watch every player’s cash and position as the board changes. Avoid spending everything on one turn when an expensive area is only a few spaces ahead.',
+    ],
+    tips: ['Keep a cash reserve instead of purchasing every available property.', 'Use DOS-era Richman 2 guides; later sequels add systems that may not exist here.'],
+    faq: [
+      { question: 'Who developed Richman 2?', answer: 'Softstar Entertainment developed the game and lists its original release in January 1993.' },
+      { question: 'What kind of game is Richman 2?', answer: 'It is a turn-based property and finance board game with dice movement, purchasable spaces, cards and random events.' },
+      { question: 'Is Richman 2 the same as Monopoly?', answer: 'It shares property-board ideas, but Richman uses its own characters, maps, events, cards and series-specific rules.' },
+    ],
+    sources: [{ label: 'Softstar official release timeline', href: 'https://www.softstar.com.tw/about/about/about_04-1.aspx' }],
+  },
+  'rich-man-3-dos-1996': {
+    summary: 'Richman 3 is Softstar’s 1996 DOS property board game. Manage money, acquire useful spaces and respond to cards and events while trying to remain solvent longer than your rivals.',
+    description: [
+      'The third main entry continues the series’ mix of dice movement, property development and disruptive items. Decisions are partly strategic and partly shaped by the board, so a flexible cash reserve often matters more than a perfect plan.',
+      'This page covers the DOS-era Richman 3, originally 大富翁3. Do not assume its maps, cards or controls match Richman 2, Richman 4 or current mobile adaptations.',
+    ],
+    howToPlay: [
+      'Review the DOS controls and match settings, then identify which spaces can be purchased or improved. Read card descriptions before using a limited item.',
+      'Balance property spending against near-term risk. A valuable upgrade can increase future income, but it can also leave too little cash for tolls or unexpected costs.',
+      'Track opponent positions and inventories. Use cards when they alter an important landing or protect you from a costly section, rather than spending them immediately.',
+    ],
+    tips: ['Plan around the next few spaces, not only the property under the current token.', 'Keep enough cash to absorb an unlucky roll or event.'],
+    faq: [
+      { question: 'When was Richman 3 released?', answer: 'Softstar’s official timeline lists Richman 3 in March 1996.' },
+      { question: 'Who made Richman 3?', answer: 'Softstar Entertainment developed the original DOS game.' },
+      { question: 'Does this page cover Richman 4?', answer: 'No. This is Richman 3 for DOS; later entries use different maps, presentation and systems.' },
+    ],
+    sources: [{ label: 'Softstar official release timeline', href: 'https://www.softstar.com.tw/about/about/about_04-1.aspx' }],
+  },
+  'romance-of-the-three-kingdoms-iv-dos-1994': {
+    summary: 'Romance of the Three Kingdoms IV: Wall of Fire is Koei’s 1994 historical strategy game. Govern cities, appoint officers, conduct diplomacy and command campaigns across ancient China.',
+    description: [
+      'A campaign combines domestic administration with warfare. Officers have different strengths, so assigning the right person to development, recruitment, diplomacy or command is as important as choosing the next target.',
+      'Battles add tactics such as pushing or pulling enemy units, along with battlefield tools including fire and defensive works. This page covers the DOS-era game, not the later Power Up Kit rerelease on Steam.',
+    ],
+    howToPlay: [
+      'Choose a ruler and scenario, then inspect each city’s officers, troops, supplies and economy. Stabilize vulnerable territory before committing the main force to a long campaign.',
+      'Assign officers according to their abilities and preserve strong commanders for important tasks. Recruitment and diplomacy can change the balance without an immediate battle.',
+      'In combat, check terrain, unit position and available tactics before advancing. Fire and other battlefield actions can be powerful, but poor placement can expose your own force.',
+    ],
+    tips: ['Build the economy and supplies that the next campaign will consume.', 'Do not leave newly captured cities without suitable officers or defenses.'],
+    faq: [
+      { question: 'What is the goal in Romance of the Three Kingdoms IV?', answer: 'Choose a ruler and expand through administration, diplomacy and war until the competing forces are brought under control.' },
+      { question: 'What does Wall of Fire add to the series?', answer: 'Koei highlights freer battlefield tactics, defensive works, fire traps and a broader set of diplomatic and military options.' },
+      { question: 'Is this the Power Up Kit version?', answer: 'The slug identifies a 1994 DOS game, so this page does not assume features exclusive to a later Power Up Kit or Steam rerelease.' },
+    ],
+    sources: [
+      { label: 'Koei Tecmo: Romance of the Three Kingdoms series history', href: 'https://www.koeitecmoamerica.com/rtk40th/us/history/' },
+      { label: 'Koei Tecmo: Romance IV with Power Up Kit archive', href: 'https://store.steampowered.com/app/521730/Romance_of_the_Three_Kingdoms_IV_with_Power_Up_Kit/' },
+    ],
+  },
+  'san-guo-qun-ying-zhuan-2-html5-1998': {
+    summary: 'Heroes of the Three Kingdoms 2 is Odin Soft’s 1999 strategy game, presented here through a browser adaptation. Manage officers and cities on the campaign map, then command large battles directly.',
+    description: [
+      'Originally titled 三國群英傳II, the sequel combines strategic movement with real-time battlefield action. Generals lead troop formations and use character-specific abilities, so army composition and timing both affect the result.',
+      'The URL retains the catalog’s older 1998 label, but that year belongs to the first game in the series. The displayed metadata is corrected to 1999; the exact creator and feature set of this HTML5 wrapper are not independently established.',
+    ],
+    howToPlay: [
+      'Check the browser controls and begin by reviewing every controlled city, officer and army. Avoid moving all capable generals away from a border that can be attacked immediately.',
+      'On the campaign map, recruit and organize forces before choosing a target. In battle, match troop types and formations to the opponent, then time general abilities for a meaningful advantage.',
+      'Save before major movements or difficult sieges. The HTML5 wrapper may handle saves and shortcuts differently from the original PC release, so verify its menu first.',
+    ],
+    tips: ['Leave enough officers and troops to defend important cities.', 'Use general abilities at decisive moments instead of spending them as soon as battle begins.'],
+    faq: [
+      { question: 'Was Heroes of the Three Kingdoms 2 released in 1998?', answer: 'The first game dates to 1998. Public release records place the sequel in 1999, which is the year displayed by this page.' },
+      { question: 'Who developed the original game?', answer: 'Odin Soft developed the original PC title before the company became part of UserJoy.' },
+      { question: 'Is this browser version identical to the original PC release?', answer: 'Do not assume so. The underlying game is identified as Heroes of the Three Kingdoms 2, but the HTML5 wrapper may change controls, saves or available features.' },
+    ],
+    sources: [
+      { label: 'UserJoy series history', href: 'https://file.uj.com.tw/PathFile/UJ_Image/PDF/20231114_slides.pdf' },
+      { label: 'Heroes of the Three Kingdoms II release record', href: 'https://bangumi.tv/subject/9659' },
+    ],
+  },
+  'sanguosha-html5-2011': {
+    summary: 'Sanguosha is a Three Kingdoms-themed strategy card game built around hidden roles, character abilities and careful card timing. This page provides an HTML5 browser implementation.',
+    description: [
+      'In the standard identity format, players receive roles such as Lord, Loyalist, Rebel or Renegade. Those roles shape the victory conditions, while the chosen character supplies a separate set of abilities.',
+      'Sanguosha has many official editions, expansions and online rule sets. The exact cards, characters, player count and computer-opponent behavior in this HTML5 build must be confirmed inside the loaded game.',
+    ],
+    howToPlay: [
+      'Read the role, character ability and current victory condition before acting. Identify which information is public and which intentions should remain hidden.',
+      'Use basic attack, defense and recovery cards with attention to distance and timing. Saving a defensive response can matter more than dealing one extra point of damage immediately.',
+      'Watch how other players target, assist or avoid one another. Update your role assessment as cards and abilities are revealed, but do not assume the browser build includes every modern rule.',
+    ],
+    tips: ['Separate a character’s ability from the hidden role’s victory condition.', 'Confirm the loaded edition before applying card limits or rulings from another Sanguosha version.'],
+    faq: [
+      { question: 'What is Sanguosha?', answer: 'It is a Three Kingdoms-themed strategy card game in which hidden roles, character abilities and card interactions determine each player’s objectives.' },
+      { question: 'Which roles are used in the identity mode?', answer: 'The established identity format uses Lord, Loyalist, Rebel and Renegade roles, although the exact player setup depends on the edition.' },
+      { question: 'Is this HTML5 build the same as Sanguosha Online?', answer: 'That is not established by the current catalog record. Treat it as a browser implementation and verify its rules, card pool and account features inside the loaded game.' },
+    ],
+    sources: [
+      { label: 'Yoka Games company and Sanguosha history', href: 'https://www.yokagames.com/about-history/' },
+      { label: 'Official Sanguosha web game notice', href: 'https://web.sanguosha.com/login/online/index' },
+    ],
+  },
+  'the-killing-blade-arcade-1998': {
+    summary: 'The Killing Blade is International Games System’s 1998 weapon-based fighting game for the PGM arcade platform. Choose a fighter, manage spacing and learn when to commit to stronger attacks.',
+    description: [
+      'Matches use one-on-one combat with character-specific normal moves, special techniques and weapons. Success depends on recognizing reach and recovery rather than pressing attacks continuously.',
+      'The browser player emulates the arcade release. Credit, start and action mappings belong to the wrapper, so check them before relying on instructions written for an original cabinet layout.',
+    ],
+    howToPlay: [
+      'Insert a virtual credit, start the game and choose a fighter. Test movement, basic attacks and the available buttons at a safe distance before attempting special-move inputs.',
+      'Control the space between the fighters. Use quick attacks to interrupt unsafe approaches and reserve slower moves for a confirmed opening.',
+      'Watch what happens after an attack is blocked or misses. Learning recovery time and reliable follow-ups is more useful than memorizing a long move list immediately.',
+    ],
+    tips: ['Learn one dependable anti-air response and one safe ground attack first.', 'Check the emulator button order before assuming an arcade notation matches your keyboard.'],
+    faq: [
+      { question: 'Who developed The Killing Blade?', answer: 'Taiwanese arcade developer International Games System, commonly known as IGS, developed and released it for PGM hardware.' },
+      { question: 'When was The Killing Blade released?', answer: 'IGS lists The Killing Blade in its 1998 company milestone.' },
+      { question: 'Is The Killing Blade a beat ’em up?', answer: 'No. It is a one-on-one fighting game. IGS also made scrolling action games, but those use a different stage-based structure.' },
+    ],
+    sources: [{ label: 'IGS official company milestones', href: 'https://www.igs.com.tw/en/about/41/' }],
+  },
+  'the-legend-of-sword-and-saber-arcade-2003': {
+    summary: 'The Gladiator is International Games System’s 2003 PGM arcade beat ’em up, also known as The Gladiator: Road of the Sword. Fight through scrolling stages with martial-arts characters and weapons.',
+    description: [
+      'This page corrects the vague upstream title “The Legend of Sword and Saber.” The game is a stage-based action title rather than a one-on-one fighter, with groups of enemies, bosses and character-specific techniques.',
+      'Arcade credit and control mappings vary by browser wrapper. Local multiplayer from the cabinet should not be interpreted as internet multiplayer unless the current player explicitly provides it.',
+    ],
+    howToPlay: [
+      'Check the credit, start and action mappings, then choose a character. Test the normal attack, jump and special-action buttons before the first crowded encounter.',
+      'Move vertically to avoid standing in the center of an enemy group. Line opponents up, complete a short attack sequence and reposition before they surround the character.',
+      'Pick up useful weapons or recovery items when the path is safe. Save stronger techniques for dense groups and bosses if they consume a limited resource.',
+    ],
+    tips: ['Approach groups from above or below instead of walking into a straight line of attacks.', 'Do not assume cabinet multiplayer means the browser build supports online co-op.'],
+    faq: [
+      { question: 'Is The Gladiator the same game as The Legend of Sword and Saber?', answer: 'The catalog’s older English label refers to the IGS arcade game The Gladiator, also subtitled Road of the Sword.' },
+      { question: 'What kind of game is The Gladiator?', answer: 'It is a scrolling arcade beat ’em up with selectable characters, martial-arts attacks, weapons and boss battles.' },
+      { question: 'Who developed The Gladiator?', answer: 'International Games System developed and released the PGM arcade game in 2003.' },
+    ],
+    sources: [{ label: 'The Gladiator arcade release record and IGS product reference', href: 'https://www.arcade-history.com/?id=4151&n=the-gladiator&page=detail' }],
+  },
+  'metal-gear-2030-cn-gbc': {
+    summary: 'Metal Gear 2030 is an unofficial Chinese-language Game Boy Color entry. The current catalog record does not identify its exact patch lineage, creator or release date reliably.',
+    description: [
+      'The title appears alongside Chinese versions associated with the Game Boy Color Metal Gear games, but “2030” is not an established official Konami release title. It may be a translated or modified build, so the page does not assign Konami as the developer of this specific version.',
+      'Check the title screen and credits inside the loaded ROM. If they identify Metal Gear Solid or Metal Gear: Ghost Babel, guides for that GBC game may help; if maps or dialogue differ, treat this build as its own unofficial version.',
+    ],
+    howToPlay: [
+      'Confirm the GBC controls and inspect the title or version screen first. In play, observe guards and move carefully instead of treating every encounter as a direct firefight.',
+      'Use walls, corners and available equipment to avoid detection. Check the translated inventory and communication screens before entering a guarded area.',
+      'Keep multiple saves and compare a guide against the loaded map before following it closely. A walkthrough for another region or revision may not match this unofficial build.',
+    ],
+    tips: ['Record any version or translator credit shown on the title screen.', 'Verify map layouts before relying on a Metal Gear Solid or Ghost Babel walkthrough.'],
+    faq: [
+      { question: 'Is Metal Gear 2030 an official Konami title?', answer: 'No official Konami game with this exact title is established. This page treats the loaded Chinese GBC build as unofficial.' },
+      { question: 'Is this Metal Gear: Ghost Babel?', answer: 'It may be related to a Chinese version of the GBC Metal Gear game, but the current catalog record is not sufficient to confirm the exact patch lineage. Check the loaded title screen and credits.' },
+      { question: 'Why is no release year shown?', answer: 'The original game date and the translation or modification date are separate facts, and this catalog entry does not verify the latter.' },
+    ],
+    sources: [
+      { label: 'Metal Gear Solid Game Boy Color instruction manual', href: 'https://www.gamesdatabase.org/Media/SYSTEM/Nintendo_Game_Boy_Color/Manual/formated/Metal_Gear_Solid_-_2000_-_Konami.pdf' },
+      { label: 'Catalog example of a Chinese-translated GBC Metal Gear ROM', href: 'https://nesninja.com/game/gbx/metal-gear-solid/roms' },
+    ],
+  },
+  'xian-jian-qi-xia-zhuan-gba-2001': {
+    summary: 'This Game Boy Advance version of The Legend of Sword and Fairy is an unofficial fan port of Softstar’s DOS RPG. It is not a licensed 2001 Softstar GBA release.',
+    description: [
+      'The port attempts to bring Li Xiaoyao’s adventure and the original game’s turn-based role-playing structure to GBA-compatible hardware. Its technical behavior, completeness and presentation may differ from the official DOS and Windows editions.',
+      'The previous catalog metadata incorrectly credited Softstar and 2001 as though this were an official product. Those fields are now cleared; Softstar created the source game, not this unidentified handheld port.',
+    ],
+    howToPlay: [
+      'Check the GBA controls and identify which volume or build is loaded. Explore towns, speak with characters and review the Chinese menu before travelling into combat areas.',
+      'Manage party health, techniques, equipment and recovery items during turn-based battles. Expect balance or scripting differences from the official DOS game.',
+      'Save often and keep more than one slot. If a DOS walkthrough does not match the map or event sequence, follow the port’s visible objectives instead of forcing the original route.',
+    ],
+    tips: ['Confirm the loaded volume or build before looking for a walkthrough.', 'Do not move saves or patches between the unofficial GBA port and official PC editions.'],
+    faq: [
+      { question: 'Is the GBA port an official Softstar release?', answer: 'No. Contemporary reference material distinguishes the GBA version from the licensed Traditional Chinese releases and identifies it as unofficial.' },
+      { question: 'Why were Softstar and 2001 removed from the metadata?', answer: 'Softstar developed the original PC game, but the available evidence does not support crediting it as developer of this GBA port or treating 2001 as a verified port release year.' },
+      { question: 'Is it identical to the DOS game?', answer: 'No. It is an unofficial handheld adaptation, so maps, events, balance, presentation and completeness may differ.' },
+    ],
+    sources: [
+      { label: 'Reference distinguishing licensed Sword and Fairy releases from GBA versions', href: 'https://forum.gamer.com.tw/G2.php?bsn=2417&sn=4804' },
+      { label: 'Softstar history of the original 1995 release', href: 'https://km.softstar.com.tw/topic.aspx?tid=483' },
+    ],
+  },
+  'naruto-rpg-gba-2003': {
+    summary: 'Naruto RPG: Uketsugareshi Hi no Ishi is TOSE’s 2004 Game Boy Advance role-playing game, published by Tomy in Japan. This catalog entry uses a Chinese translation labeled V3.',
+    description: [
+      'The game adapts early Naruto story material into exploration and turn-based party battles. It should not be confused with the later Nintendo DS localization titled Naruto: Path of the Ninja.',
+      'The old slug says 2003, but release records place the Japanese GBA game on July 22, 2004. The displayed metadata now uses 2004 while the URL remains unchanged to preserve existing links.',
+    ],
+    howToPlay: [
+      'Check the GBA control mapping and review the translated party menu. Speak with characters and follow mission objectives before moving into a new combat area.',
+      'In battle, consider turn order, health and available jutsu before choosing an action. Build a balanced party instead of spending every resource through one character.',
+      'Keep several saves and confirm that any walkthrough covers Uketsugareshi Hi no Ishi for GBA. Guides for the later DS localization can contain version differences.',
+    ],
+    tips: ['Search by the full Japanese subtitle when checking GBA-specific information.', 'Treat V3 as the translation revision, not as the third Naruto RPG game.'],
+    faq: [
+      { question: 'Was Naruto RPG released in 2003?', answer: 'No. Release records place Naruto RPG: Uketsugareshi Hi no Ishi for Game Boy Advance in Japan on July 22, 2004.' },
+      { question: 'Who developed the original game?', answer: 'TOSE developed the GBA game and Tomy published it.' },
+      { question: 'What does Chinese Translation V3 mean?', answer: 'V3 identifies the revision of the Chinese translation used by this catalog entry. It does not mean this is Naruto RPG 3.' },
+    ],
+    sources: [
+      { label: 'Naruto RPG GBA credits and release record', href: 'https://gamefaqs.gamespot.com/gba/921224-naruto-rpg-uketsugareshi-hi-no-ishi/credit' },
+      { label: 'Naruto RPG GBA and DS release comparison', href: 'https://www.mobygames.com/game/89456/naruto-path-of-the-ninja/releases/' },
+    ],
+  },
 }
 
 export function getGameEditorial(game: PublicGame, locale: Locale) {
