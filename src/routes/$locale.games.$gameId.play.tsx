@@ -44,7 +44,9 @@ export const Route = createFileRoute('/$locale/games/$gameId/play')({
     })
   },
   loader: async ({ params }) => {
-    const game = await getGameDetail({ data: { id: params.gameId } })
+    const game = await getGameDetail({
+      data: { id: params.gameId, locale: normalizeLocale(params.locale) },
+    })
 
     if (!game && removedLegacyGameIds.has(params.gameId)) {
       throw redirect({

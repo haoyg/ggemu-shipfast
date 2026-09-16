@@ -49,12 +49,14 @@ export const Route = createFileRoute('/$locale/live')({
   loaderDeps: ({ search }) => ({
     page: normalizeSearchPage(search.page),
   }),
-  loader: async ({ deps: { page } }) => {
+  loader: async ({ deps: { page }, params }) => {
+    const locale = normalizeLocale(params.locale)
     const [seoOrigin, result] = await Promise.all([
       getSeoOrigin(),
       searchLiveRooms({
         data: {
           limit: LIVE_ROOM_PAGE_SIZE,
+          locale,
           page,
         },
       }).catch(() => emptyLiveRoomSearchResult(page)),
@@ -123,6 +125,7 @@ function LiveRoomListPage() {
       const nextResult = await runSearch({
         data: {
           limit: LIVE_ROOM_PAGE_SIZE,
+          locale: lang,
           page,
         },
       })

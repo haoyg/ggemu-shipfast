@@ -240,7 +240,6 @@ export const Route = createFileRoute('/$locale')({
       latestGamesResult,
       filterOptions,
       latestBlogPosts,
-      platformSections,
     ] = await Promise.all([
       getSeoOrigin(),
       searchGames({
@@ -263,17 +262,11 @@ export const Route = createFileRoute('/$locale')({
       }).catch(() => emptyGameSearchResult(1, 8)),
       loadGameFilterOptions(),
       loadLatestBlogPosts(),
-      template === 'default'
-        ? Promise.all(['Arcade', 'Game Boy Advance', 'PlayStation 1'].map(async (platform) => {
-            const result = await loadFeatureGames(locale, 'popular', 32, platform)
-            return { title: platform, games: prioritizeClassicGames(result.games), hasHeroCard: false }
-          }))
-        : Promise.resolve([]),
     ])
 
     return {
       ...result,
-      featureSections: platformSections,
+      featureSections: [],
       games: template === 'default' ? prioritizeClassicGames(result.games) : result.games,
       filterOptions,
       layoutSeed: getPokiDailyLayoutSeed(),

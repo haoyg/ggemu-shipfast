@@ -3,6 +3,7 @@ import { getRequestUrl } from '@tanstack/react-start/server'
 
 import { TimedAsyncCache } from '#/lib/timed-async-cache'
 import { getPs1CoverFallback } from '#/lib/ps1-cover-fallbacks'
+import { localizePublicGame, localizePublicGames } from '#/lib/game-localization'
 
 const API_BASE_URL = 'https://ggemu.com'
 const PAGE_SIZE = 20
@@ -151,6 +152,7 @@ type GameDetailPayload = {
 type LiveRoomSearchPayload = {
   page?: number
   limit?: number
+  locale?: Locale
 }
 
 type RandomGamePayload = {
@@ -161,6 +163,7 @@ type RelatedGamesPayload = {
   category?: string
   currentId: string
   developer?: string
+  locale?: Locale
 }
 
 type BlogPostSearchPayload = {
@@ -619,13 +622,19 @@ export const searchGames = createServerFn({ method: 'GET' })
     addOptionalParam(params, 'category', data.category)
     addOptionalParam(params, 'sort', data.sort)
 
-    return fetchGames(params)
+    const result = await fetchGames(params)
+
+    return {
+      ...result,
+      games: localizePublicGames(result.games, data.locale),
+    }
   })
 
 export const searchLiveRooms = createServerFn({ method: 'GET' })
   .validator((payload: LiveRoomSearchPayload) => ({
     page: normalizePage(payload.page),
     limit: normalizeLimit(payload.limit),
+    locale: normalizeLocale(payload.locale),
   }))
   .handler(async ({ data }) => {
     const result = await fetchJson<LiveRoomSearchResponse>(
@@ -641,7 +650,18 @@ export const searchLiveRooms = createServerFn({ method: 'GET' })
     )
 
     return {
-      rooms: result.items.map(normalizeLiveRoom),
+      rooms: result.items.map((room) => {
+        const normalizedRoom = normalizeLiveRoom(room)
+        const localizedGame = localizePublicGame(normalizedRoom.game, data.locale)
+
+        return {
+          ...normalizedRoom,
+          game: {
+            ...normalizedRoom.game,
+            name: localizedGame.name ?? normalizedRoom.game.name,
+          },
+        }
+      }),
       pagination: result.pagination,
     } satisfies LiveRoomSearchResult
   })
@@ -687,12 +707,15 @@ export const getRandomPlayableGame = createServerFn({ method: 'GET' })
 export const getGameDetail = createServerFn({ method: 'GET' })
   .validator((payload: GameDetailPayload) => ({
     id: payload.id,
+    locale: payload.locale ? normalizeLocale(payload.locale) : undefined,
   }))
   .handler(async ({ data }) => {
     const params = new URLSearchParams({ id: data.id })
     const result = await fetchJson<GameDetailResponse>('/api/game/detail', params)
 
-    return normalizePublicGame(result.data)
+    const game = normalizePublicGame(result.data)
+
+    return data.locale ? localizePublicGame(game, data.locale) : game
   })
 
 export const getGameDetailPageData = createServerFn({ method: 'GET' })
@@ -703,7 +726,7 @@ export const getGameDetailPageData = createServerFn({ method: 'GET' })
   .handler(async ({ data }) => {
     const params = new URLSearchParams({ id: data.id })
     const result = await fetchJson<GameDetailResponse>('/api/game/detail', params)
-    const game = normalizePublicGame(result.data)
+    const game = localizePublicGame(normalizePublicGame(result.data), data.locale)
     const origin = getRequestUrl({ xForwardedHost: true }).origin
 
     return {
@@ -717,9 +740,15 @@ export const getRelatedGamePageData = createServerFn({ method: 'GET' })
     category: payload.category,
     currentId: payload.currentId,
     developer: payload.developer,
+    locale: normalizeLocale(payload.locale),
   }))
   .handler(async ({ data }) => {
-    return fetchRelatedGames(data) satisfies Promise<RelatedGamesData>
+    const result = await fetchRelatedGames(data)
+
+    return {
+      relatedByCategory: localizePublicGames(result.relatedByCategory, data.locale),
+      relatedByDeveloper: localizePublicGames(result.relatedByDeveloper, data.locale),
+    } satisfies RelatedGamesData
   })
 
 export const searchBlogPosts = createServerFn({ method: 'GET' })

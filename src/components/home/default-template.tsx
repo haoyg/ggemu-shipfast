@@ -130,7 +130,7 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
   const platformChips = getPlatformChips(filterOptions.platforms, lang)
   const sidebarCategories = filterOptions.categories.slice(0, 6)
   const hasActiveFilters = Boolean(filters.query.trim() || filters.category || filters.platform)
-  const [visibleCount, setVisibleCount] = useState(24)
+  const [visibleCount, setVisibleCount] = useState(12)
   const [lobbyPlatform, setLobbyPlatform] = useState('')
   const [lobbyPlatformGames, setLobbyPlatformGames] = useState<Array<PublicGame>>([])
   const [isLobbyPlatformLoading, setIsLobbyPlatformLoading] = useState(false)
@@ -138,7 +138,7 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
   const runPlatformSearch = useServerFn(searchGames)
   const resultsHeadingRef = useRef<HTMLHeadingElement>(null)
   const previousPageRef = useRef(page)
-  useEffect(() => setVisibleCount(24), [games])
+  useEffect(() => setVisibleCount(12), [games])
   useEffect(() => {
     if (previousPageRef.current !== page) {
       resultsHeadingRef.current?.focus({ preventScroll: true })
@@ -149,17 +149,9 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
   const rankedGames = hasActiveFilters ? games : prioritizeClassicGames(games)
   const topGames = rankedGames.slice(0, visibleCount)
   const recommendedIds = new Set(topGames.map(getGameRouteId))
-  const platformSections = (hasActiveFilters ? [] : featureSections).map((section) => {
-    const sectionGames = section.games.filter((game) => {
-      const id = getGameRouteId(game)
-      return id && !recommendedIds.has(id)
-    }).slice(0, 8)
-    sectionGames.forEach((game) => recommendedIds.add(getGameRouteId(game)))
-    return { ...section, games: sectionGames }
-  }).filter((section) => section.games.length > 0)
   const newGames = latestGames
     .filter((game) => !recommendedIds.has(getGameRouteId(game)))
-    .slice(0, 8)
+    .slice(0, 4)
   const resultsLabel = lang === 'zh-CN' ? '搜索结果' : lang === 'ja' ? '検索結果' : 'Search results'
   const viewAllLabel = lang === 'zh-CN' ? '查看全部' : lang === 'ja' ? 'すべて見る' : 'View all'
   const loadMoreLabel = lang === 'zh-CN' ? '加载更多游戏' : lang === 'ja' ? 'ゲームをもっと見る' : 'Load more games'
@@ -284,19 +276,19 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
             {featuredGame ? (
               <div className="grid min-w-0 gap-3 lg:grid-cols-[minmax(0,2.2fr)_minmax(17rem,0.8fr)]">
                 <article className="arcade-cabinet group relative min-h-[24rem] overflow-hidden sm:min-h-[31rem]">
+                  <div className="absolute inset-0 grid place-items-center bg-[#071128] text-sm font-black uppercase tracking-widest text-white/45">
+                    {getRetroCoverFallbackLabel(lang)}
+                  </div>
                   {featuredGame.game_cover?.trim() ? (
                     <img
                       alt={featuredGame.name ?? 'Featured game'}
                       className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-[1.025]"
                       decoding="async"
                       fetchPriority="high"
+                      onError={(event) => { event.currentTarget.hidden = true }}
                       src={featuredGame.game_cover}
                     />
-                  ) : (
-                    <div className="absolute inset-0 grid place-items-center bg-[#071128] text-sm font-black uppercase tracking-widest text-white/45">
-                      {getRetroCoverFallbackLabel(lang)}
-                    </div>
-                  )}
+                  ) : null}
                   <div aria-hidden="true" className="arcade-cabinet-scan" />
                   <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(2,7,20,0.94)_0%,rgba(2,7,20,0.74)_36%,rgba(2,7,20,0.08)_76%),linear-gradient(0deg,rgba(2,7,20,0.88),transparent_48%)]" />
                   <div className="relative z-10 flex h-full max-w-xl flex-col justify-end p-5 sm:p-8 lg:p-10">
@@ -467,7 +459,7 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
                 </p>
                 <div className="mt-3 flex flex-wrap justify-center gap-3">
                   {visibleCount < rankedGames.length ? (
-                    <button className="btn btn-primary" disabled={isLoading} onClick={() => setVisibleCount((count) => count + 24)} type="button">
+                    <button className="btn btn-primary" disabled={isLoading} onClick={() => setVisibleCount((count) => count + 12)} type="button">
                       {loadMoreLabel}
                     </button>
                   ) : null}
@@ -489,25 +481,8 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
             )}
           </section>
 
-          {!hasActiveFilters ? platformSections.map((section) => (
-            <section className="arcade-section border-t px-4 py-6 sm:px-6 lg:px-8" key={section.title} aria-label={getLocalizedPlatformLabel(section.title, lang)}>
-              <div className="mb-4 flex items-center justify-between gap-3">
-                <h2 className="text-xl font-black text-white">{getLocalizedPlatformLabel(section.title, lang)}</h2>
-                <a className="btn btn-ghost btn-sm shrink-0 text-white/80" href={getPlatformSeoPath(section.title, lang)}>
-                  {viewAllLabel}
-                  <i aria-hidden="true" className="ri-arrow-right-line" />
-                </a>
-              </div>
-              <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 xl:grid-cols-4">
-                {section.games.map((game) => (
-                  <ArcadeGameCard game={game} isPriority={false} key={getGameRouteId(game)} lang={lang} />
-                ))}
-              </div>
-            </section>
-          )) : null}
-
           {!hasActiveFilters && newGames.length > 0 ? (
-            <section className="arcade-section border-t px-4 py-6 sm:px-6 lg:px-8" aria-label={t.newest}>
+            <section className="arcade-section border-t px-4 py-6 [content-visibility:auto] [contain-intrinsic-size:420px] sm:px-6 lg:px-8" aria-label={t.newest}>
               <h2 className="mb-4 text-xl font-black text-white">{t.newest}</h2>
               <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 xl:grid-cols-4">
                 {newGames.map((game) => (
@@ -908,20 +883,20 @@ function ArcadeCover({
     <div
       className={`relative w-full overflow-hidden bg-[linear-gradient(135deg,rgba(244,63,94,0.22),rgba(34,211,238,0.14)),radial-gradient(circle_at_35%_30%,rgba(255,255,255,0.16),transparent_32%)] ${className}`}
     >
+      <div className="absolute inset-0 grid place-items-center px-3 text-center text-xs font-black uppercase tracking-wide text-white/45">
+        {getRetroCoverFallbackLabel(lang)}
+      </div>
       {cover?.trim() ? (
         <img
           alt={alt}
-          className="h-full w-full object-cover transition duration-300 group-hover:scale-105"
+          className="relative h-full w-full object-cover transition duration-300 group-hover:scale-105"
           decoding="async"
           fetchPriority={isPriority ? 'high' : 'auto'}
           loading={isPriority ? 'eager' : 'lazy'}
+          onError={(event) => { event.currentTarget.hidden = true }}
           src={cover}
         />
-      ) : (
-        <div className="grid h-full place-items-center px-3 text-center text-xs font-black uppercase tracking-wide text-white/45">
-          {getRetroCoverFallbackLabel(lang)}
-        </div>
-      )}
+      ) : null}
       {children}
     </div>
   )

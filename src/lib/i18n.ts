@@ -443,7 +443,7 @@ export function getGameDetailKeywordText(game: PublicGame, locale: Locale) {
       .join(', ')
   }
 
-  return game.keywords?.trim() || buildGameDetailSeo(game, locale).keywords
+  return buildGameDetailSeo(game, locale).keywords
 }
 
 export function getGameDetailHowToPlay(game: PublicGame, locale: Locale) {

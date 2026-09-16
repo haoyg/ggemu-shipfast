@@ -4,6 +4,7 @@ const contraTargetSlug = 'contra-nes-1988'
 const geometryDashAdvanceTargetSlug = 'geometry-dash-advance-gba-2025'
 const murdokuTargetSlug = 'murdoku-html5-2026'
 const onetMasterTargetSlug = 'onet-master-html5'
+const pokemonEmeraldTargetSlug = 'pokemon-emerald-gba-2004'
 const shonenJumpOnePieceTargetSlug = 'shonen-jump-s-one-piece-gba-2005'
 const taikoWebTargetSlug = 'taiko-no-tatsujin-taiko-web-html5-2011'
 
@@ -51,6 +52,14 @@ const targetedGameSeoBySlug = {
       'Play Onet Master online free in your browser. Match identical tiles, connect pairs with up to two turns, and clear the board. No download required.',
     keywords:
       'Onet Master, Onet Master online, play Onet Master, tile matching game, pair connect puzzle',
+  },
+  [pokemonEmeraldTargetSlug]: {
+    heading: 'Play Pokémon Emerald Online – Game Boy Advance',
+    title: 'Play Pokémon Emerald Online | GBA | POKOPIE',
+    description:
+      'Play Pokémon Emerald online in your browser. Explore Hoenn, challenge its Gym Leaders, encounter legendary Pokémon, and reach the Battle Frontier.',
+    keywords:
+      'Pokemon Emerald online, play Pokémon Emerald, Pokémon Emerald GBA, Hoenn game, Battle Frontier',
   },
   [shonenJumpOnePieceTargetSlug]: {
     heading: "Play Shonen Jump's One Piece Online",

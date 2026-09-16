@@ -64,7 +64,9 @@ export function HomeLatestBlogPostsSection({
   compact?: boolean
   lang: Locale
 }) {
-  const posts = blogPosts.filter((post) => getBlogPostRouteId(post)).slice(0, compact ? 3 : HOME_BLOG_POST_LIMIT)
+  const posts = blogPosts
+    .filter((post) => getBlogPostRouteId(post) && isBlogPostSuitableForLocale(post, lang))
+    .slice(0, compact ? 3 : HOME_BLOG_POST_LIMIT)
   const t = getI18n(lang).home
 
   if (posts.length === 0) {
@@ -435,22 +437,22 @@ function HomeBlogPostCard({
       params={{ blogId: id, locale: lang }}
       to="/$locale/blog/$blogId"
     >
-      <div className="aspect-[16/9] bg-base-300">
+      <div className="relative aspect-[16/9] bg-base-300">
+        <div className="absolute inset-0 grid place-items-center text-sm font-semibold text-base-content/40">
+          {getBlogCoverFallbackLabel(lang)}
+        </div>
         {blogPost.cover_image_url ? (
           <img
             alt={title}
-            className="h-full w-full object-cover transition duration-300 group-hover:scale-105"
+            className="relative h-full w-full object-cover transition duration-300 group-hover:scale-105"
             decoding="async"
             height="360"
             loading="lazy"
+            onError={(event) => { event.currentTarget.hidden = true }}
             src={blogPost.cover_image_url}
             width="640"
           />
-        ) : (
-          <div className="grid h-full place-items-center text-sm font-semibold text-base-content/40">
-            {getBlogCoverFallbackLabel(lang)}
-          </div>
-        )}
+        ) : null}
       </div>
       <div className="p-4">
         <p className="text-xs text-base-content/50">
@@ -487,6 +489,9 @@ function GameCard({ game, lang }: { game: PublicGame; lang: Locale }) {
       to="/$locale/games/$gameId"
     >
       <figure className="relative aspect-[4/3] bg-base-300">
+        <div className="absolute inset-0 flex items-center justify-center text-base-content/40">
+          {getRetroCoverFallbackLabel(lang)}
+        </div>
         {game.game_cover ? (
           <img
             alt={game.name ?? 'Game cover'}
@@ -494,14 +499,11 @@ function GameCard({ game, lang }: { game: PublicGame; lang: Locale }) {
             decoding="async"
             height="300"
             loading="lazy"
+            onError={(event) => { event.currentTarget.hidden = true }}
             src={game.game_cover}
             width="400"
           />
-        ) : (
-          <div className="flex h-full w-full items-center justify-center text-base-content/40">
-            {getRetroCoverFallbackLabel(lang)}
-          </div>
-        )}
+        ) : null}
         <GameCardPreviewVideo src={game.game_video} />
         {platformBadge ? (
           <span className="badge badge-primary badge-sm absolute left-2 top-2 max-w-[calc(100%-1rem)] truncate border-0 shadow">
@@ -520,6 +522,14 @@ function GameCard({ game, lang }: { game: PublicGame; lang: Locale }) {
 
 function getBlogPostRouteId(blogPost: BlogPost) {
   return blogPost.slug?.trim() || blogPost._id?.trim() || ''
+}
+
+function isBlogPostSuitableForLocale(blogPost: BlogPost, locale: Locale) {
+  if (locale !== 'en') {
+    return true
+  }
+
+  return !/[\u3400-\u9fff]/.test(blogPost.title?.trim() ?? '')
 }
 
 function formatBlogDate(value: string | undefined, locale: Locale) {

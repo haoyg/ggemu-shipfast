@@ -114,6 +114,7 @@ export const Route = createFileRoute('/$locale/games/$gameId')({
         category: detail.game.categories?.[0],
         currentId,
         developer: detail.game.developer,
+        locale,
       },
     }).catch(() => ({
       relatedByCategory: [],
@@ -214,6 +215,7 @@ function getNotFoundLocale(data: unknown) {
 function getRelatedGames(
   relatedByCategory: Array<PublicGame>,
   relatedByDeveloper: Array<PublicGame>,
+  currentGame: PublicGame,
 ) {
   const seen = new Set<string>()
 
@@ -228,7 +230,17 @@ function getRelatedGames(
       seen.add(id)
       return true
     })
+    .sort((left, right) => getRelatedGameScore(right, currentGame) - getRelatedGameScore(left, currentGame))
     .slice(0, 6)
+}
+
+function getRelatedGameScore(candidate: PublicGame, currentGame: PublicGame) {
+  const samePlatform = candidate.platform?.trim().toLowerCase() === currentGame.platform?.trim().toLowerCase()
+  const currentCategories = new Set(currentGame.categories?.map((category) => category.trim().toLowerCase()))
+  const sharedCategories = candidate.categories?.filter((category) => currentCategories.has(category.trim().toLowerCase())).length ?? 0
+  const sameDeveloper = Boolean(candidate.developer?.trim()) && candidate.developer?.trim().toLowerCase() === currentGame.developer?.trim().toLowerCase()
+
+  return (samePlatform ? 100 : 0) + sharedCategories * 20 + (sameDeveloper ? 10 : 0) + Math.log10((candidate.plays_count ?? 0) + 1)
 }
 
 function getGameRouteId(game: PublicGame) {
@@ -423,21 +435,21 @@ function LocalizedGameDetailPage() {
               <div
                 className="group relative aspect-[4/3] w-full self-start overflow-hidden rounded-xl border border-white/10 bg-white/5 shadow-xl"
               >
+                <div className="absolute inset-0 flex items-center justify-center bg-white/5 text-white/40">
+                  {getRetroCoverFallbackLabel(lang)}
+                </div>
                 {game.game_cover ? (
                   <img
                     alt={game.name ?? 'Game cover'}
-                    className="h-full w-full object-cover"
+                    className="relative h-full w-full object-cover"
                     decoding="async"
                     fetchPriority="high"
                     height="660"
+                    onError={(event) => { event.currentTarget.hidden = true }}
                     src={game.game_cover}
                     width="880"
                   />
-                ) : (
-                  <div className="flex h-full items-center justify-center bg-white/5 text-white/40">
-                    {getRetroCoverFallbackLabel(lang)}
-                  </div>
-                )}
+                ) : null}
               </div>
 
               {!editorial ? <ArticlePanel paragraphs={descriptionParagraphs} title={t.overview} /> : null}
@@ -503,12 +515,9 @@ function LocalizedGameDetailPage() {
               </div>
 
               {!editorial ? (
-              <GameEmbedCard
-                canonicalUrl={canonicalUrl}
-                embedUrl={embedUrl}
-                labels={t}
-                title={game.name || 'POKOPIE'}
-              />
+                <div className="hidden sm:block">
+                  <GameEmbedCard canonicalUrl={canonicalUrl} embedUrl={embedUrl} labels={t} title={game.name || 'POKOPIE'} />
+                </div>
               ) : null}
 
               <div className="grid grid-cols-2 gap-4 text-left sm:max-w-md sm:gap-6">
@@ -535,7 +544,9 @@ function LocalizedGameDetailPage() {
           <section className="grid gap-6 lg:grid-cols-[1fr_340px]">
             <div className="flex flex-col gap-6">
               {editorial ? <ArticlePanel paragraphs={descriptionParagraphs} title={t.overview} /> : null}
-              <KeywordPanel title={t.keywords} value={editorial && targetedSeo ? targetedSeo.keywords : keywordText} />
+              <div className="hidden sm:block">
+                <KeywordPanel title={t.keywords} value={editorial && targetedSeo ? targetedSeo.keywords : keywordText} />
+              </div>
               <ArticlePanel paragraphs={howToPlayParagraphs} title={t.howToPlay} />
               {editorial ? (
                 <section className="rounded-xl border border-white/10 bg-white/[0.04] p-5">
@@ -545,7 +556,9 @@ function LocalizedGameDetailPage() {
                   </ul>
                 </section>
               ) : null}
-              <ArticlePanel paragraphs={browserGuide.paragraphs} title={browserGuide.title} />
+              <div className="hidden sm:block">
+                <ArticlePanel paragraphs={browserGuide.paragraphs} title={browserGuide.title} />
+              </div>
               {relatedGuide ? (
                 <section className="rounded-xl border border-primary/25 bg-primary/10 p-5 shadow-sm">
                   <h2 className="text-lg font-bold text-white">Related guide</h2>
@@ -554,12 +567,13 @@ function LocalizedGameDetailPage() {
                 </section>
               ) : null}
               <SeoInternalLinkSection lang={lang} links={seoInternalLinks} />
-              {editorial ? <GameEmbedCard canonicalUrl={canonicalUrl} embedUrl={embedUrl} labels={t} title={game.name || 'POKOPIE'} /> : null}
+              {editorial ? <div className="hidden sm:block"><GameEmbedCard canonicalUrl={canonicalUrl} embedUrl={embedUrl} labels={t} title={game.name || 'POKOPIE'} /></div> : null}
               <FaqSection items={faqItems} title={t.faq} />
               <RelatedGameSection
                 games={getRelatedGames(
                   relatedGames.relatedByCategory,
                   relatedGames.relatedByDeveloper,
+                  game,
                 )}
                 lang={lang}
                 title={t.relatedGames}
@@ -578,7 +592,7 @@ function LocalizedGameDetailPage() {
               </section>
 
               {browserGuide.paragraphs[0] ? (
-                <section className="rounded-xl border border-primary/25 bg-primary/10 p-5 shadow-sm">
+                <section className="hidden rounded-xl border border-primary/25 bg-primary/10 p-5 shadow-sm lg:block">
                   <h2 className="flex items-center gap-2 text-lg font-bold text-white">
                     <i className="ri-gamepad-line text-primary" />
                     {browserGuide.title}
@@ -589,16 +603,10 @@ function LocalizedGameDetailPage() {
                 </section>
               ) : null}
 
-              <SidebarArticle
-                icon="ri-book-open-line"
-                text={sidebarContent.background}
-                title={sidebarContent.backgroundTitle}
-              />
-
-              <SidebarTips
-                items={sidebarContent.tips}
-                title={sidebarContent.tipsTitle}
-              />
+              <div className="hidden lg:contents">
+                <SidebarArticle icon="ri-book-open-line" text={sidebarContent.background} title={sidebarContent.backgroundTitle} />
+                <SidebarTips items={sidebarContent.tips} title={sidebarContent.tipsTitle} />
+              </div>
 
               <TagSection emptyText={t.noData} items={categories} title={t.categories} />
               <TagSection emptyText={t.noData} items={languages} title={t.languages} />
@@ -869,21 +877,21 @@ function RelatedGameCard({ game, lang }: { game: PublicGame; lang: Locale }) {
       to="/$locale/games/$gameId"
     >
       <div className="relative aspect-[4/3] overflow-hidden bg-white/5">
+        <div className="absolute inset-0 flex items-center justify-center text-white/40">
+          {getRetroCoverFallbackLabel(lang)}
+        </div>
         {game.game_cover ? (
           <img
             alt={game.name ?? 'Game cover'}
-            className="h-full w-full object-cover"
+            className="relative h-full w-full object-cover"
             decoding="async"
             height="660"
             loading="lazy"
+            onError={(event) => { event.currentTarget.hidden = true }}
             src={game.game_cover}
             width="880"
           />
-        ) : (
-        <div className="flex h-full items-center justify-center text-white/40">
-            {getRetroCoverFallbackLabel(lang)}
-          </div>
-        )}
+        ) : null}
       </div>
       <div className="p-3">
         <h3 className="line-clamp-2 min-h-10 text-sm font-semibold leading-snug text-white">

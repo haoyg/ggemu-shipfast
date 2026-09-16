@@ -55,6 +55,7 @@ export const Route = createFileRoute('/$locale/blog/$blogId')({
       kind: 'ready' as const,
       linkedGames: await loadLinkedGames(
         detail.blogPost.content || detail.blogPost.excerpt || '',
+        locale,
       ),
       relatedBlogPosts: await getRelatedBlogPosts({
         data: {
@@ -392,11 +393,11 @@ function BlogDetailPage() {
   )
 }
 
-async function loadLinkedGames(content: string) {
+async function loadLinkedGames(content: string, locale: Locale) {
   const gameIds = Array.from(extractGgemuGameIds(content))
   const entries = await Promise.all(
     gameIds.map(async (gameId) => {
-      const game = await getGameDetail({ data: { id: gameId } }).catch(() => null)
+      const game = await getGameDetail({ data: { id: gameId, locale } }).catch(() => null)
 
       return [gameId, game] as const
     }),

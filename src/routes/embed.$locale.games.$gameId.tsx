@@ -14,7 +14,7 @@ const embedHeaders = {
 } as const
 
 export const Route = createFileRoute('/embed/$locale/games/$gameId')({
-  loader: ({ params }) => getGameDetail({ data: { id: params.gameId } }),
+  loader: ({ params }) => getGameDetail({ data: { id: params.gameId, locale: normalizeLocale(params.locale) } }),
   headers: () => embedHeaders,
   head: ({ loaderData, params }) => {
     const locale = normalizeLocale(params.locale)
