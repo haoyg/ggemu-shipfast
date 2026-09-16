@@ -60,7 +60,9 @@ const localizedGameOverrides: Record<string, LocalizedGameOverride> = {
     name: { en: 'Hong Kong Mahjong' },
   },
   'initial-d-another-stage-cn-gba-2002': {
-    name: { en: 'Initial D: Another Stage — Chinese Version' },
+    name: { en: 'Initial D: Another Stage — Chinese Translation' },
+    developer: 'Sammy',
+    releasedYear: '2002',
   },
   'labrador-and-his-friends-nintendo-ds-2009': {
     name: { en: 'Nintendogs: Labrador & Friends — Chinese Translation' },
@@ -92,18 +94,23 @@ const localizedGameOverrides: Record<string, LocalizedGameOverride> = {
   },
   'maplestory-ds-nds-2010': {
     name: { en: 'MapleStory DS' },
+    developer: 'Nexon / Nintendo',
+    releasedYear: '2010',
   },
   'metal-gear-2030-cn-gbc': {
     name: { en: 'Metal Gear 2030 — Chinese Translation' },
   },
   'naruto-shippuden-ultimate-impact-psp-2011': {
     name: { en: 'Naruto Shippuden: Ultimate Ninja Impact' },
+    developer: 'CyberConnect2',
+    releasedYear: '2011',
   },
   'pokemon-emerald-gba-2004': {
     name: { en: 'Pokémon Emerald' },
   },
   'pokemon-firered-game-boy-advance-2004': {
     name: { en: 'Pokémon FireRed' },
+    releasedYear: '2004',
   },
   'pokemon-leafgreen-game-boy-advance-2004': {
     name: { en: 'Pokémon LeafGreen' },

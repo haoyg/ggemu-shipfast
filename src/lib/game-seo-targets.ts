@@ -229,6 +229,38 @@ const targetedGameSeoBySlug = {
     keywords:
       'Flame Dragon Knights II online, Legend of the Golden Castle, play 炎龍騎士團2, DOS tactical RPG',
   },
+  'pokemon-firered-game-boy-advance-2004': {
+    heading: 'Play Pokémon FireRed Online',
+    title: 'Play Pokémon FireRed Online | GBA Kanto Adventure',
+    description:
+      'Play Pokémon FireRed online. Explore Kanto, choose a starter, collect eight Gym Badges and learn which original GBA link features may not work in a browser.',
+    keywords:
+      'Pokémon FireRed online, play Pokémon FireRed, Pokémon FireRed GBA, Kanto Pokémon game, FireRed browser game',
+  },
+  'maplestory-ds-nds-2010': {
+    heading: 'Play MapleStory DS Online',
+    title: 'Play MapleStory DS Online | Nintendo DS Action RPG',
+    description:
+      'Play MapleStory DS online. Follow four connected stories as a Warrior, Thief, Archer or Magician in Nexon and Nintendo’s standalone action RPG.',
+    keywords:
+      'MapleStory DS online, play MapleStory DS, Nintendo DS action RPG, MapleStory Warrior Thief Archer Magician',
+  },
+  'naruto-shippuden-ultimate-impact-psp-2011': {
+    heading: 'Play Naruto Shippuden: Ultimate Ninja Impact Online',
+    title: 'Naruto Shippuden: Ultimate Ninja Impact Online | PSP',
+    description:
+      'Play Naruto Shippuden: Ultimate Ninja Impact online. Fight large enemy groups, complete story missions and learn how the original PSP ad hoc co-op differs.',
+    keywords:
+      'Naruto Shippuden Ultimate Ninja Impact online, play Ultimate Ninja Impact, Naruto PSP game, CyberConnect2 Naruto',
+  },
+  'initial-d-another-stage-cn-gba-2002': {
+    heading: 'Play Initial D: Another Stage — Chinese Translation',
+    title: 'Initial D: Another Stage Online | Chinese GBA Translation',
+    description:
+      'Play the Chinese translation of Initial D: Another Stage online. Explore Sammy’s 2002 GBA racing RPG and its command-based mountain-pass battles.',
+    keywords:
+      'Initial D Another Stage online, Initial D GBA Chinese translation, play Initial D GBA, racing RPG',
+  },
   [shonenJumpOnePieceTargetSlug]: {
     heading: "Play Shonen Jump's One Piece Online",
     title: 'Play One Piece Online - Shonen Jump GBA Game | POKOPIE',

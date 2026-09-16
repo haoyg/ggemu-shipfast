@@ -42,6 +42,10 @@ describe('localizePublicGame', () => {
     ['mario-and-luigi-superstar-saga-gba-2003', 'Mario & Luigi: Superstar Saga'],
     ['pokemon-mystery-dungeon-red-rescue-team-game-boy-advance-2005', 'Pokémon Mystery Dungeon: Red Rescue Team'],
     ['pokemon-leafgreen-game-boy-advance-2004', 'Pokémon LeafGreen'],
+    ['pokemon-firered-game-boy-advance-2004', 'Pokémon FireRed'],
+    ['maplestory-ds-nds-2010', 'MapleStory DS'],
+    ['naruto-shippuden-ultimate-impact-psp-2011', 'Naruto Shippuden: Ultimate Ninja Impact'],
+    ['initial-d-another-stage-cn-gba-2002', 'Initial D: Another Stage — Chinese Translation'],
     ['theme-hospital-dos-1997', 'Theme Hospital'],
     ['dad-n-me-flash-2005', "Dad 'n Me"],
     ['ghost-chaser-densei-snes-1994', 'Ghost Chaser Densei'],
@@ -117,6 +121,14 @@ describe('localizePublicGame', () => {
     expect(localizePublicGame({ url_slug: 'flame-dragon-knight-2-dos-1995' }, 'en')).toMatchObject({
       developer: 'Han Tang International Information',
       released_year: '1995',
+    })
+    expect(localizePublicGame({ url_slug: 'maplestory-ds-nds-2010' }, 'en')).toMatchObject({
+      developer: 'Nexon / Nintendo',
+      released_year: '2010',
+    })
+    expect(localizePublicGame({ url_slug: 'naruto-shippuden-ultimate-impact-psp-2011' }, 'en')).toMatchObject({
+      developer: 'CyberConnect2',
+      released_year: '2011',
     })
   })
 

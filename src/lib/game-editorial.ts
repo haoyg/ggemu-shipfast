@@ -578,6 +578,91 @@ const editorials: Record<string, GameEditorial> = {
     ],
     sources: [{ label: 'Soft-World: Flame Dragon Knights II retrospective', href: 'https://www.soft-world.com/News/NewsDetail?Sn=25' }],
   },
+  'pokemon-firered-game-boy-advance-2004': {
+    summary: 'Pokémon FireRed is a 2004 Game Boy Advance remake of the original Pokémon Red adventure. Explore Kanto, build a team, earn eight Gym Badges and confront Team Rocket.',
+    description: [
+      'The journey starts in Pallet Town with Bulbasaur, Charmander or Squirtle. FireRed retains the Kanto structure while using Game Boy Advance-era systems such as abilities, natures, held items and updated battle presentation.',
+      'FireRed and LeafGreen have different normally available Pokémon. The original cartridge also used link hardware for trading and battles; those connectivity features should not be assumed to work in this browser player.',
+    ],
+    howToPlay: [
+      'Check the browser player’s GBA controls, then choose a starter and explore each route carefully. Talk to characters, collect useful items and heal at Pokémon Centers before long areas.',
+      'Train a varied party instead of relying only on the starter. Type matchups, status effects and held items can make Gym and rival battles easier to manage.',
+      'Save before major battles or difficult captures. If completing the Pokédex matters to you, remember that some Pokémon normally require trading or another version, which may not be available here.',
+    ],
+    tips: ['Carry Poké Balls and healing items before leaving a town.', 'Check the browser player’s connectivity support before planning around trades.'],
+    faq: [
+      { question: 'Is Pokémon FireRed a remake?', answer: 'Yes. It is a 2004 Game Boy Advance remake of Pokémon Red, with updated graphics and mechanics from the GBA era.' },
+      { question: 'Which region is in Pokémon FireRed?', answer: 'The main adventure takes place in Kanto, followed by additional areas including the Sevii Islands.' },
+      { question: 'Can I trade Pokémon in the browser version?', answer: 'Do not assume so. The original game used Game Boy Advance link features, while browser connectivity depends on the current emulator.' },
+    ],
+    sources: [
+      { label: 'Nintendo: Pokémon FireRed for Game Boy Advance', href: 'https://www.nintendo.com/en-gb/Games/Game-Boy-Advance/Pokemon-FireRed-267123.html' },
+      { label: 'Nintendo: FireRed and LeafGreen version FAQ', href: 'https://en-americas-support.nintendo.com/app/answers/detail/a_id/71365/' },
+    ],
+  },
+  'maplestory-ds-nds-2010': {
+    summary: 'MapleStory DS is a 2010 single-player action RPG co-developed by Nexon and Nintendo for the Korean Nintendo DS market. Four character classes experience connected sides of the same story.',
+    description: [
+      'The four protagonists use the Warrior, Thief, Archer and Magician classes. Each follows a separate route, and their stories overlap to reveal different parts of the central events.',
+      'This is not the online PC version of MapleStory. It was designed as a standalone handheld adventure, and the original Korean release should not be assumed to contain an official English localization.',
+    ],
+    howToPlay: [
+      'Confirm the loaded language and Nintendo DS control mapping before choosing a character. Learn the selected class’s attack range and movement options in the early areas.',
+      'Explore each map for exits, characters and usable objects. Equip suitable items and use class skills deliberately rather than spending resources on every encounter.',
+      'Save regularly and try another protagonist after finishing or reaching a natural stopping point. The four routes are meant to show connected events from different perspectives.',
+    ],
+    tips: ['Choose a class whose range and pace suit you; each protagonist plays differently.', 'Do not expect progress or characters from the online MapleStory account system.'],
+    faq: [
+      { question: 'Is MapleStory DS an online game?', answer: 'No. It is a standalone single-player action RPG made for Nintendo DS, not a portable client for the MapleStory MMO.' },
+      { question: 'Which classes are playable?', answer: 'The four protagonists represent the Warrior, Thief, Archer and Magician classes.' },
+      { question: 'Was MapleStory DS released in English?', answer: 'The original 2010 release targeted South Korea. Check the loaded build’s language rather than assuming it includes an official English version.' },
+    ],
+    sources: [{ label: 'Nexon release announcement for MapleStory DS', href: 'https://www.newswire.co.kr/newsRead.php?no=458822' }],
+  },
+  'naruto-shippuden-ultimate-impact-psp-2011': {
+    summary: 'Naruto Shippuden: Ultimate Ninja Impact is CyberConnect2’s 2011 PSP action game. Control Naruto and other characters in large battles against groups of enemies and story bosses.',
+    description: [
+      'Story Battle follows events from Naruto Shippuden through mission-based stages. Combat emphasizes movement, crowd attacks, substitutions and character-specific techniques rather than the one-on-one structure of some other Ultimate Ninja games.',
+      'The original PSP release supported one player and two-player ad hoc cooperative play. A browser emulator does not automatically reproduce PSP ad hoc networking, so this page does not promise online co-op.',
+    ],
+    howToPlay: [
+      'Check the PSP button mapping before starting a mission. Practice movement, normal attacks, chakra use, guarding and substitution timing against early groups.',
+      'Avoid standing inside a crowd after completing a combo. Reposition, watch warning indicators and save stronger techniques for dense groups or tougher targets.',
+      'Review mission conditions and character setup before deployment. Upgrade or customize the available character when the game opens those options, then replay stages if you need more practice.',
+    ],
+    tips: ['Keep moving after a combo so surrounding enemies cannot attack from behind.', 'Verify emulator networking support before trying to use the original ad hoc co-op mode.'],
+    faq: [
+      { question: 'Who developed Ultimate Ninja Impact?', answer: 'CyberConnect2 developed the game and Bandai Namco Games published the original PSP release.' },
+      { question: 'What kind of combat does it use?', answer: 'It is a mission-based action game built around large groups of enemies, playable Naruto Shippuden characters and boss encounters.' },
+      { question: 'Does browser play support two-player co-op?', answer: 'It is not guaranteed. The PSP game used local ad hoc communication, which requires explicit support from the browser emulator.' },
+    ],
+    sources: [
+      { label: 'CyberConnect2: Ultimate Ninja Impact product overview', href: 'https://www.cc2.co.jp/naruto_generation/?page_id=33' },
+      { label: 'Bandai Namco: Ultimate Ninja Impact trailer and feature overview', href: 'https://www.youtube.com/watch?v=u8RFoYpdjCU' },
+    ],
+  },
+  'initial-d-another-stage-cn-gba-2002': {
+    summary: 'Initial D: Another Stage is Sammy’s 2002 Game Boy Advance racing RPG. This catalog entry contains a Chinese translation of the Japan-only original.',
+    description: [
+      'Another Stage adapts Initial D into a handheld story game in which conversations, preparation and command choices frame the mountain-pass races. It is distinct from Sega’s arcade-focused Initial D: Arcade Stage series.',
+      'Sega’s catalog confirms the original Japanese GBA release on April 26, 2002. The Chinese text belongs to the translated build loaded here; it should not be mistaken for a separate officially documented Chinese retail release.',
+    ],
+    howToPlay: [
+      'Check the GBA controls and read the current story objective before entering a race. Menus and dialogue matter because this game uses RPG-style choices rather than direct arcade steering alone.',
+      'During a battle or race sequence, watch the situation text and choose actions that fit the current distance, corner or opponent. Learn what each translated command does before committing important resources.',
+      'Keep multiple saves and do not use a guide for Initial D: Arcade Stage as though it were the same game. Search for Another Stage when checking characters, routes or command systems.',
+    ],
+    tips: ['Confirm the meaning of each translated race command in an early event.', 'Use guides written specifically for the GBA game Another Stage.'],
+    faq: [
+      { question: 'Is Initial D: Another Stage an arcade racing game?', answer: 'No. It is a Game Boy Advance racing RPG with story scenes and command-based race decisions, separate from Initial D: Arcade Stage.' },
+      { question: 'When was the original game released?', answer: 'Sega’s official catalog lists the Japanese Game Boy Advance release on April 26, 2002.' },
+      { question: 'Was the original release in Chinese?', answer: 'The documented original release was Japanese. This catalog entry is labeled as a Chinese translation, not as a separately verified Chinese retail edition.' },
+    ],
+    sources: [
+      { label: 'Sega Game Boy Advance catalog: Initial D Another Stage', href: 'https://www.sega.jp/game/gba/' },
+      { label: 'Initial D Another Stage release record', href: 'https://gamefaqs.gamespot.com/gba/565817-initial-d-another-stage/data' },
+    ],
+  },
 }
 
 export function getGameEditorial(game: PublicGame, locale: Locale) {
