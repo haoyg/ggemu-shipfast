@@ -4,7 +4,7 @@ import { getBrowserPlayGuide, getGameDescriptionParagraphs, getGameFaqs, getGame
 import { getTargetedGameSeo } from './game-seo-targets'
 import { getGameSeoInternalLinks } from './game-seo-links'
 
-const slugs = ['murdoku-html5-2026', 'onet-master-html5', 'geometry-dash-advance-gba-2025', 'three-wonders-arcade-1991', 'pipi-and-bibis-other-1991', 'taiko-no-tatsujin-taiko-web-html5-2011']
+const slugs = ['murdoku-html5-2026', 'onet-master-html5', 'geometry-dash-advance-gba-2025', 'three-wonders-arcade-1991', 'pipi-and-bibis-other-1991', 'taiko-no-tatsujin-taiko-web-html5-2011', 'pokemon-ruby-gba-2002', 'pokemon-leafgreen-game-boy-advance-2004', 'fire-emblem-the-blazing-blade-gba-2003']
 
 describe('reviewed English game content', () => {
   it.each(slugs)('replaces inaccurate upstream copy consistently for %s', (url_slug) => {

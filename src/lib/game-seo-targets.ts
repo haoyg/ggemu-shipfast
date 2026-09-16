@@ -61,6 +61,30 @@ const targetedGameSeoBySlug = {
     keywords:
       'Pokemon Emerald online, play Pokémon Emerald, Pokémon Emerald GBA, Hoenn game, Battle Frontier',
   },
+  'pokemon-ruby-gba-2002': {
+    heading: 'Play Pokémon Ruby Online',
+    title: 'Play Pokémon Ruby Online | GBA Adventure | POKOPIE',
+    description:
+      'Play Pokémon Ruby online in your browser. Explore Hoenn, choose Treecko, Torchic or Mudkip, earn Gym Badges and challenge Team Magma.',
+    keywords:
+      'Pokémon Ruby online, play Pokémon Ruby, Pokémon Ruby GBA, Hoenn Pokémon game, Team Magma',
+  },
+  'pokemon-leafgreen-game-boy-advance-2004': {
+    heading: 'Play Pokémon LeafGreen Online',
+    title: 'Play Pokémon LeafGreen Online | GBA Kanto Adventure',
+    description:
+      'Play Pokémon LeafGreen online in your browser. Explore Kanto, collect Gym Badges, complete the Pokédex and confront Team Rocket.',
+    keywords:
+      'Pokémon LeafGreen online, play Pokémon LeafGreen, Pokémon LeafGreen GBA, Kanto Pokémon game',
+  },
+  'fire-emblem-the-blazing-blade-gba-2003': {
+    heading: 'Play Fire Emblem: The Blazing Blade Online',
+    title: 'Fire Emblem: The Blazing Blade Online | GBA | POKOPIE',
+    description:
+      'Play Fire Emblem: The Blazing Blade online. Lead Lyn, Eliwood and Hector through tactical GBA battles across the continent of Elibe.',
+    keywords:
+      'Fire Emblem The Blazing Blade online, play Fire Emblem GBA, Lyn Eliwood Hector, tactical RPG',
+  },
   [shonenJumpOnePieceTargetSlug]: {
     heading: "Play Shonen Jump's One Piece Online",
     title: 'Play One Piece Online - Shonen Jump GBA Game | POKOPIE',

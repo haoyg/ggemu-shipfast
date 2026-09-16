@@ -141,6 +141,69 @@ const editorials: Record<string, GameEditorial> = {
     },
     sources: [{ label: 'Upstream Taiko Web game guide', href: 'https://ggemu.com/en/game/69a412bab9aa381e667b08cf' }],
   },
+  'pokemon-ruby-gba-2002': {
+    summary: 'Pokémon Ruby is a Game Boy Advance RPG set in Hoenn. Build a team, earn eight Gym Badges and challenge the Pokémon League while opposing Team Magma.',
+    description: [
+      'Choose Treecko, Torchic or Mudkip, then travel through Hoenn’s towns, routes, caves and waterways. Wild Pokémon can be caught and trained, while battles against other Trainers provide experience and prize money.',
+      'Ruby introduced Double Battles, Pokémon Contests and Pokéblocks alongside the main Gym challenge. It differs from Pokémon Sapphire in its version-exclusive Pokémon and Team Magma storyline.',
+    ],
+    howToPlay: [
+      'Check the browser player’s current GBA key mapping before starting. Use the directional controls to explore, the primary action button to talk or confirm, and the secondary button to cancel or return.',
+      'Choose a starter whose strengths fit your preferred approach. Keep several Pokémon with different types instead of relying on one over-levelled team member.',
+      'Explore side paths for items, heal at Pokémon Centers and save before major battles. The original cartridge’s trading and multiplayer features should not be assumed to work in the browser player.',
+    ],
+    tips: ['Carry Poké Balls and status-healing items before leaving a town.', 'Build coverage for upcoming Gyms, but avoid teaching every useful move to the same Pokémon.'],
+    faq: [
+      { question: 'Where does Pokémon Ruby take place?', answer: 'Pokémon Ruby is set in Hoenn, a region of cities, caves, lakes, sea routes and hidden areas.' },
+      { question: 'Which starter Pokémon can I choose in Ruby?', answer: 'The three starters are Treecko, Torchic and Mudkip.' },
+      { question: 'What is different between Pokémon Ruby and Sapphire?', answer: 'Ruby focuses on Team Magma and has its own version-exclusive Pokémon. Sapphire instead features Team Aqua and a different set of exclusives.' },
+    ],
+    sources: [{ label: 'Nintendo: Pokémon Ruby for Game Boy Advance', href: 'https://www.nintendo.com/en-gb/Games/Game-Boy-Advance/Pokemon-Ruby-267167.html' }],
+  },
+  'pokemon-leafgreen-game-boy-advance-2004': {
+    summary: 'Pokémon LeafGreen Version is a Game Boy Advance remake of the original Kanto adventure. Catch and train Pokémon, collect eight Gym Badges and challenge the Pokémon League.',
+    description: [
+      'The journey begins in Pallet Town with a choice of Bulbasaur, Charmander or Squirtle. From there, explore Kanto, complete the Pokédex and confront Team Rocket while preparing for the Elite Four.',
+      'LeafGreen updates the early Pokémon adventure with Game Boy Advance graphics and additional areas. It is paired with FireRed, and each version includes Pokémon that are not normally found in the other.',
+    ],
+    howToPlay: [
+      'Review the browser player’s GBA controls before leaving the title screen. Use the directional controls to move, the primary action button to confirm or interact, and the secondary button to cancel.',
+      'Catch Pokémon with different types and train more than your starter. Type advantages make Gym battles and longer routes easier to manage.',
+      'Talk to characters, inspect buildings and save before difficult battles. Trading, battling and Wireless Club features from the original hardware are not guaranteed in this browser player.',
+    ],
+    tips: ['Buy Poké Balls and healing supplies before long routes or caves.', 'Use the Pokédex and party summary to check types and moves before changing your team.'],
+    faq: [
+      { question: 'Is Pokémon LeafGreen a remake?', answer: 'Yes. Nintendo describes LeafGreen as a Game Boy Advance remake of Pokémon Green Version, known as Pokémon Blue Version in Europe.' },
+      { question: 'Which region is in Pokémon LeafGreen?', answer: 'The main adventure takes place in Kanto and later opens additional areas.' },
+      { question: 'Does browser play support trading?', answer: 'Do not assume it does. The original game used Game Boy Advance connectivity, while browser-player networking depends on the current emulator implementation.' },
+    ],
+    sources: [
+      { label: 'Nintendo: Pokémon LeafGreen Version overview', href: 'https://www.nintendo.com/fr-fr/Jeux/Jeux-a-telecharger-sur-Nintendo-Switch/Pokemon-LeafGreen-Version-3031289.html' },
+      { label: 'Nintendo Support: FireRed and LeafGreen connectivity FAQ', href: 'https://en-americas-support.nintendo.com/app/answers/detail/a_id/71365/' },
+    ],
+  },
+  'fire-emblem-the-blazing-blade-gba-2003': {
+    summary: 'Fire Emblem: The Blazing Blade is a turn-based tactical RPG set on the continent of Elibe. Direct Lyn, Eliwood, Hector and their allies across grid-based battles.',
+    description: [
+      'Each chapter places a limited group of units on a tactical map with an objective such as defeating a commander, protecting a position or reaching a destination. Character classes, weapons, terrain and support relationships affect how safely the army can advance.',
+      'The game first introduces its systems through Lyn’s story before continuing with Eliwood and Hector. Nintendo identifies it as the first Fire Emblem installment released outside Japan.',
+    ],
+    howToPlay: [
+      'Check the browser player’s GBA controls, then select a unit and choose where it should move. Review enemy movement and attack ranges before confirming an action.',
+      'Match weapons carefully: swords are effective against axes, axes against lances, and lances against swords. Bows attack at range, while magic uses its own strengths and resistances.',
+      'Protect vulnerable units and keep recovery options nearby. A defeated character may be lost for the rest of the campaign, so save only when you are comfortable with the current result.',
+    ],
+    tips: ['Check an enemy’s weapon and attack range before moving into its reach.', 'Share experience across useful units instead of letting one character take every finishing blow.'],
+    faq: [
+      { question: 'Is Fire Emblem: The Blazing Blade the same as Fire Emblem on GBA?', answer: 'Yes. Nintendo says the Game Boy Advance release titled Fire Emblem is also known as Fire Emblem: The Blazing Blade.' },
+      { question: 'Who are the main characters?', answer: 'The story follows Lyn, Eliwood and Hector, with each leading or supporting the army during different parts of the campaign.' },
+      { question: 'What happens when a unit is defeated?', answer: 'The original game uses permanent character loss for most units. Treat exposed positions carefully and verify the loaded game’s difficulty and save options.' },
+    ],
+    sources: [
+      { label: 'Nintendo: Fire Emblem for Game Boy Advance', href: 'https://www.nintendo.com/us/whatsnew/fire-emblem-for-game-boy-advance-rekindles-the-flames-of-battle-on-nintendo-switch-online-expansion-pack-june-22/' },
+      { label: 'Fire Emblem Heroes: Blazing Knight Eliwood', href: 'https://guide.fire-emblem-heroes.com/en-US/06001001000393/' },
+    ],
+  },
 }
 
 export function getGameEditorial(game: PublicGame, locale: Locale) {
