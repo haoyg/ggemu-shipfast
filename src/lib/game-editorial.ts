@@ -204,6 +204,110 @@ const editorials: Record<string, GameEditorial> = {
       { label: 'Fire Emblem Heroes: Blazing Knight Eliwood', href: 'https://guide.fire-emblem-heroes.com/en-US/06001001000393/' },
     ],
   },
+  'professor-layton-and-the-curious-village-nds-2007': {
+    summary: 'Professor Layton and the Curious Village is a Nintendo DS puzzle adventure. Explore St. Mystere with Professor Layton and Luke while investigating the secret of the Golden Apple.',
+    description: [
+      'The investigation advances through conversations, environmental clues and more than 135 logic and lateral-thinking puzzles. Solving key puzzles opens new parts of the story, while optional puzzles can be found by examining the village and speaking with its residents.',
+      'The original game was designed around the Nintendo DS Touch Screen. In a browser player, pointer or touch behavior depends on the current emulator and device, so review the player controls before starting a puzzle.',
+    ],
+    howToPlay: [
+      'Check how the browser maps the Nintendo DS stylus and buttons. Use the pointer or touch input to inspect scenes, choose dialogue options and enter puzzle answers.',
+      'Read every condition before answering. When a puzzle includes a diagram, test what the wording actually requires instead of relying only on the illustration.',
+      'Use hints sparingly when you are stuck, then revisit missed puzzles as the story progresses. The discontinued Nintendo Wi-Fi puzzle service should not be expected in this browser version.',
+    ],
+    tips: ['Tap or click around each scene for hidden hint coins and optional puzzles.', 'For counting puzzles, list the valid cases before choosing an answer.'],
+    faq: [
+      { question: 'How many puzzles are in Professor Layton and the Curious Village?', answer: 'Nintendo describes the Nintendo DS game as containing more than 135 puzzles.' },
+      { question: 'What is Professor Layton investigating?', answer: 'Layton and Luke visit St. Mystere to investigate a mysterious will and the hidden treasure called the Golden Apple.' },
+      { question: 'Do the old downloadable puzzles still work?', answer: 'Nintendo discontinued the Nintendo Wi-Fi Connection service in 2014. Do not expect its downloadable-puzzle feature to work in the browser player.' },
+    ],
+    sources: [
+      { label: 'Nintendo: Professor Layton and the Curious Village', href: 'https://www.nintendo.com/en-gb/Games/Nintendo-DS/Professor-Layton-and-the-Curious-Village-272563.html' },
+      { label: 'Nintendo: Professor Layton comes to Nintendo DS', href: 'https://www.nintendo.com/en-gb/News/2008/Professor-Layton-comes-to-Nintendo-DS-250766.html' },
+    ],
+  },
+  'theme-hospital-dos-1997': {
+    summary: 'Theme Hospital is Bullfrog Productions’ 1997 hospital-management game. Build treatment rooms, hire staff and keep the hospital functioning while handling unusual fictional illnesses.',
+    description: [
+      'Each level asks you to turn an empty building into a working hospital. Patients need reception, diagnosis and treatment, while staff require sensible workloads and access to the rooms they need.',
+      'Money, space and patient flow are connected. Expanding too quickly can leave expensive rooms idle, but too few diagnosis or treatment facilities create queues and reduce the hospital’s effectiveness.',
+    ],
+    howToPlay: [
+      'Review the browser player’s mouse and keyboard controls. Start with reception, a GP’s office and the basic facilities required by the current level rather than filling the entire building immediately.',
+      'Hire enough doctors, nurses, receptionists and handymen to keep essential rooms open. Watch queues and move or duplicate bottleneck rooms when patients wait too long.',
+      'Balance treatment income against wages, construction and equipment costs. Read the level messages and objectives before spending heavily on optional rooms.',
+    ],
+    tips: ['Keep frequently used diagnosis rooms close together to shorten patient routes.', 'Build for current demand and leave room to expand after new illnesses or machines appear.'],
+    faq: [
+      { question: 'What is the goal of Theme Hospital?', answer: 'Design and manage a hospital that diagnoses and cures patients while meeting the financial and operational goals of each level.' },
+      { question: 'Why are patients waiting so long?', answer: 'Look for queues at reception, GP offices and diagnosis rooms. Add staff or another high-demand room, and reduce unnecessary walking distance.' },
+      { question: 'Who developed Theme Hospital?', answer: 'Bullfrog Productions developed Theme Hospital, and Electronic Arts published it in 1997.' },
+    ],
+    sources: [{ label: 'Electronic Arts: Theme Hospital', href: 'https://www.ea.com/games/theme/theme-hospital' }],
+  },
+  'pokemon-mystery-dungeon-red-rescue-team-game-boy-advance-2005': {
+    summary: 'Pokémon Mystery Dungeon: Red Rescue Team is a Game Boy Advance dungeon RPG. Play as a Pokémon, form a rescue team and complete jobs in changing dungeons.',
+    description: [
+      'The story begins after the player wakes up as a Pokémon and meets a partner. Rescue requests arrive through the mailbox and notice board, sending the team into dungeons to find Pokémon, deliver items or reach specific floors.',
+      'Dungeon movement is turn-based: opponents act as the player moves or takes an action. Items, hunger, positioning and move usage all matter, especially during longer jobs where a careless step can expose the team to several enemies.',
+    ],
+    howToPlay: [
+      'Check the browser player’s GBA controls before entering a dungeon. Prepare in Pokémon Square, select a rescue request and bring suitable items in the Toolbox.',
+      'Move one tile at a time and use corridors to avoid being surrounded. Regular attacks conserve move uses, while Pokémon moves provide stronger effects when needed.',
+      'Complete the job objective and leave safely. Store important items between trips, because failing a dungeon can cost carried money or supplies depending on the situation.',
+    ],
+    tips: ['Check the mailbox and job list before choosing a dungeon.', 'Carry food and recovery items, then watch enemy positions before moving into an open room.'],
+    faq: [
+      { question: 'What do you do in Red Rescue Team?', answer: 'Form a Pokémon rescue team, accept jobs and explore dungeons to rescue Pokémon, retrieve items and progress the story.' },
+      { question: 'Is dungeon movement turn-based?', answer: 'Yes. Enemies generally act when the player moves or performs an action, allowing you to plan positioning one turn at a time.' },
+      { question: 'Where do rescue jobs come from?', answer: 'Requests arrive through the mailbox and can also be selected from the job listings before entering a dungeon.' },
+    ],
+    sources: [{ label: 'Nintendo: Pokémon Mystery Dungeon Red Rescue Team manual', href: 'https://www.nintendo.com/eu/media/downloads/games_8/emanuals/game_boy_advance_8/Manual_GameBoyAdvance_PokemonMysteryDungeonRedRescueTeam_EN.pdf' }],
+  },
+  'jin-yong-qun-xia-zhuan-dos-1996': {
+    summary: 'Heroes of Jin Yong is a 1996 DOS wuxia RPG by Heluo Studio. Explore an open-ended martial-arts world, recruit companions and search for fourteen books connected to Jin Yong’s novels.',
+    description: [
+      'The player is transported from the modern world into a jianghu setting populated by characters and locations drawn from Jin Yong’s fiction. Progress depends on exploration, conversations and quests rather than a single straight route.',
+      'Combat uses a tactical layout and character-specific martial arts. Recruiting allies, improving techniques and choosing how to handle different encounters shape the route through the game.',
+    ],
+    howToPlay: [
+      'Check the DOS player’s keyboard mapping before leaving the opening area. Speak with characters and inspect locations carefully, because quest information is often delivered through dialogue rather than a modern objective marker.',
+      'Build a party whose skills cover different ranges and situations. Before a difficult fight, review health, internal energy, equipment and the martial arts available to each character.',
+      'Keep multiple saves as you explore. Some decisions, recruitment conditions and quest sequences can affect which options remain available later.',
+    ],
+    tips: ['Write down unresolved names and locations when dialogue points to another part of the world.', 'Avoid training only one fighter; a balanced group gives you more options on tactical maps.'],
+    faq: [
+      { question: 'What is the goal in Heroes of Jin Yong?', answer: 'The central objective is to travel through the jianghu world and recover fourteen books associated with Jin Yong’s novels so the protagonist can return home.' },
+      { question: 'Is Heroes of Jin Yong a linear RPG?', answer: 'No. It is known for open-ended exploration, recruitable characters and quests that can be approached in different orders.' },
+      { question: 'Was Heroes of Jin Yong officially released in English?', answer: 'This page uses the established English catalog title, but the original 1996 DOS release was a Chinese-language game. Do not assume the loaded build contains an official English translation.' },
+    ],
+    sources: [
+      { label: 'Heroes of Jin Yong game overview', href: 'https://en.wikipedia.org/wiki/Heroes_of_Jin_Yong' },
+      { label: 'Heluo Studio official site', href: 'https://hl.cubejoy.com/' },
+    ],
+  },
+  'xuan-yuan-sword-dos-1990': {
+    summary: 'Xuan-Yuan Sword is DOMO Studio and Softstar’s 1990 DOS role-playing game. It began the long-running historical-fantasy series built around Chinese mythology.',
+    description: [
+      'The first game follows a young swordsman through a world threatened by conflict between humans and monsters. Exploration, party development and turn-based encounters provide the foundation for the series’ later games.',
+      'This is the original DOS-era entry, not Xuan-Yuan Sword VII or one of the later English releases. The interface and available language depend on the loaded build, and the 1990 release should be expected to use Chinese text.',
+    ],
+    howToPlay: [
+      'Review the DOS keyboard controls before starting. Explore towns and routes, speak with characters and check menus for party status, equipment and available commands.',
+      'Use turn-based battles to gain experience and strengthen the party. Monitor health and resources before travelling farther from safe areas.',
+      'Save regularly and keep more than one save point. Early DOS role-playing games provide fewer navigation prompts than modern entries, so record useful dialogue and unexplored routes.',
+    ],
+    tips: ['Confirm the loaded game’s language before investing time in a new save.', 'Prepare recovery supplies before exploring unfamiliar areas or entering a long sequence of battles.'],
+    faq: [
+      { question: 'Is this Xuan-Yuan Sword VII?', answer: 'No. This page covers the original Xuan-Yuan Sword released for DOS in 1990.' },
+      { question: 'Who developed the first Xuan-Yuan Sword?', answer: 'DOMO Studio developed it and Softstar Entertainment published the game.' },
+      { question: 'Does the original Xuan-Yuan Sword have an official English version?', answer: 'The series now uses the official English name Xuan-Yuan Sword, but the original 1990 game was not an English-language release. Check the loaded build’s language before playing.' },
+    ],
+    sources: [
+      { label: 'Softstar corporate overview: Xuan-Yuan Sword', href: 'https://group.softstar.com.tw/uploads/news/6111-20211020%28EN%29.pdf' },
+      { label: 'Xuan-Yuan Sword series and first-game overview', href: 'https://en.wikipedia.org/wiki/Xuan-Yuan_Sword' },
+    ],
+  },
 }
 
 export function getGameEditorial(game: PublicGame, locale: Locale) {

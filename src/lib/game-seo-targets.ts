@@ -85,6 +85,46 @@ const targetedGameSeoBySlug = {
     keywords:
       'Fire Emblem The Blazing Blade online, play Fire Emblem GBA, Lyn Eliwood Hector, tactical RPG',
   },
+  'professor-layton-and-the-curious-village-nds-2007': {
+    heading: 'Play Professor Layton and the Curious Village Online',
+    title: 'Professor Layton and the Curious Village Online | POKOPIE',
+    description:
+      'Play Professor Layton and the Curious Village online. Explore St. Mystere, solve logic puzzles and investigate the mystery of the Golden Apple.',
+    keywords:
+      'Professor Layton and the Curious Village online, play Professor Layton online, St Mystere puzzles, Golden Apple',
+  },
+  'theme-hospital-dos-1997': {
+    heading: 'Play Theme Hospital Online',
+    title: 'Play Theme Hospital Online | DOS Management Game',
+    description:
+      'Play Theme Hospital online in your browser. Build treatment rooms, hire staff, manage queues and run Bullfrog’s classic hospital simulation.',
+    keywords:
+      'Theme Hospital online, play Theme Hospital, Theme Hospital DOS, Bullfrog hospital game, management simulation',
+  },
+  'pokemon-mystery-dungeon-red-rescue-team-game-boy-advance-2005': {
+    heading: 'Play Pokémon Mystery Dungeon: Red Rescue Team Online',
+    title: 'Pokémon Mystery Dungeon: Red Rescue Team Online | GBA',
+    description:
+      'Play Pokémon Mystery Dungeon: Red Rescue Team online. Form a rescue team, accept jobs and explore turn-based dungeons on Game Boy Advance.',
+    keywords:
+      'Pokémon Mystery Dungeon Red Rescue Team online, play Red Rescue Team, Pokémon Mystery Dungeon GBA, rescue team game',
+  },
+  'jin-yong-qun-xia-zhuan-dos-1996': {
+    heading: 'Play Heroes of Jin Yong Online',
+    title: 'Play Heroes of Jin Yong Online | DOS Wuxia RPG',
+    description:
+      'Play Heroes of Jin Yong online in your browser. Explore its open-ended wuxia world, recruit companions and search for fourteen legendary books.',
+    keywords:
+      'Heroes of Jin Yong online, play Heroes of Jin Yong, Jin Yong DOS game, wuxia RPG, 金庸群侠传',
+  },
+  'xuan-yuan-sword-dos-1990': {
+    heading: 'Play Xuan-Yuan Sword Online',
+    title: 'Play Xuan-Yuan Sword Online | 1990 DOS RPG',
+    description:
+      'Play the original Xuan-Yuan Sword online. Explore Softstar and DOMO Studio’s 1990 DOS RPG inspired by Chinese mythology and fantasy.',
+    keywords:
+      'Xuan-Yuan Sword online, play Xuan-Yuan Sword, Xuan-Yuan Sword DOS, Softstar RPG, Chinese mythology game',
+  },
   [shonenJumpOnePieceTargetSlug]: {
     heading: "Play Shonen Jump's One Piece Online",
     title: 'Play One Piece Online - Shonen Jump GBA Game | POKOPIE',
