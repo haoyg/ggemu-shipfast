@@ -351,6 +351,36 @@ const targetedGameSeoBySlug = {
     description: 'Play the Chinese V3 translation of Naruto RPG: Uketsugareshi Hi no Ishi, TOSE’s 2004 GBA role-playing game with turn-based ninja battles.',
     keywords: 'Naruto RPG GBA online, Uketsugareshi Hi no Ishi, Chinese Naruto translation, Naruto turn based RPG',
   },
+  'yan-loong-story-flash-2008': {
+    heading: 'Play Yan Loong Legend Online',
+    title: 'Play Yan Loong Legend Online | Creetor Flash Game',
+    description: 'Play Yan Loong Legend online. Fight through side-scrolling stages, build combos, gain experience and learn qigong skills in Creetor’s Flash action RPG.',
+    keywords: 'Yan Loong Legend online, play Yan Loong Legend, Creetor Flash game, side scrolling action RPG',
+  },
+  'yanlong-chuanshuo-2-erdu-chongji-flash-2009': {
+    heading: 'Play Yan Loong Legend 2: 2nd Impact Online',
+    title: 'Yan Loong Legend 2: 2nd Impact Online | Flash Game',
+    description: 'Play Yan Loong Legend 2: 2nd Impact online. Build combos, level up and allocate ability points in Creetor’s side-scrolling Flash action game.',
+    keywords: 'Yan Loong Legend 2 2nd Impact online, play Yan Loong Legend 2, Creetor Flash game, ability points',
+  },
+  'yanlong-chuanshuo-2-shuang-long-flash-2009': {
+    heading: 'Play Yan Loong Legend 2: The Double Dragon Online',
+    title: 'Yan Loong Legend 2: The Double Dragon Online | Co-op',
+    description: 'Play Yan Loong Legend 2: The Double Dragon online. Use local two-player controls to fight through Creetor’s combo-driven Flash adventure together.',
+    keywords: 'Yan Loong Legend 2 Double Dragon online, Yan Loong Legend co-op, two player Flash game, Creetor',
+  },
+  'yanlong-chuanshuo-3-chifeng-flash-2010': {
+    heading: 'Play Yan Loong Legend 3: Phenix Online',
+    title: 'Yan Loong Legend 3: Phenix Online | Flash Action Game',
+    description: 'Play Yan Loong Legend 3: Phenix online. Try the Phenix character, power burst, vertical stages and expanded combat in Creetor’s Flash series.',
+    keywords: 'Yan Loong Legend 3 Phenix online, play Yan Loong Legend 3, Creetor Flash game, Phenix character',
+  },
+  'yanlong-chuanshuo-3-shuang-yan-flash-2009': {
+    heading: 'Play Yan Loong Legend 3: Double Swallow Online',
+    title: 'Yan Loong Legend 3: Double Swallow Online | Flash Game',
+    description: 'Play Yan Loong Legend 3: Double Swallow online. Use Pink Swallow, equipment and new super combos in this expanded Creetor Flash action game.',
+    keywords: 'Yan Loong Legend 3 Double Swallow online, Pink Swallow, Creetor Flash game, Yan Loong Legend equipment',
+  },
   [shonenJumpOnePieceTargetSlug]: {
     heading: "Play Shonen Jump's One Piece Online",
     title: 'Play One Piece Online - Shonen Jump GBA Game | POKOPIE',

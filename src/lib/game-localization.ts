@@ -213,18 +213,28 @@ const localizedGameOverrides: Record<string, LocalizedGameOverride> = {
   },
   'yan-loong-story-flash-2008': {
     name: { en: 'Yan Loong Legend' },
+    developer: 'Creetor',
+    releasedYear: null,
   },
   'yanlong-chuanshuo-2-erdu-chongji-flash-2009': {
     name: { en: 'Yan Loong Legend 2: 2nd Impact' },
+    developer: 'Creetor',
+    releasedYear: null,
   },
   'yanlong-chuanshuo-2-shuang-long-flash-2009': {
     name: { en: 'Yan Loong Legend 2: The Double Dragon' },
+    developer: 'Creetor',
+    releasedYear: null,
   },
   'yanlong-chuanshuo-3-chifeng-flash-2010': {
-    name: { en: 'Yan Loong Legend 3: Phoenix' },
+    name: { en: 'Yan Loong Legend 3: Phenix' },
+    developer: 'Creetor',
+    releasedYear: null,
   },
   'yanlong-chuanshuo-3-shuang-yan-flash-2009': {
     name: { en: 'Yan Loong Legend 3: Double Swallow' },
+    developer: 'Creetor',
+    releasedYear: null,
   },
   'chinese-mahjong-html5': {
     name: { en: 'Chinese Standard Mahjong' },

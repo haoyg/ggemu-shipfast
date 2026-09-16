@@ -61,7 +61,7 @@ describe('localizePublicGame', () => {
     ['yanlong-chuanshuo-2-shuang-long-flash-2009', 'Yan Loong Legend 2: The Double Dragon'],
     ['yanlong-chuanshuo-2-erdu-chongji-flash-2009', 'Yan Loong Legend 2: 2nd Impact'],
     ['yanlong-chuanshuo-3-shuang-yan-flash-2009', 'Yan Loong Legend 3: Double Swallow'],
-    ['yanlong-chuanshuo-3-chifeng-flash-2010', 'Yan Loong Legend 3: Phoenix'],
+    ['yanlong-chuanshuo-3-chifeng-flash-2010', 'Yan Loong Legend 3: Phenix'],
     ['xian-jian-qi-xia-zhuan-gba-2001', 'The Legend of Sword and Fairy — Unofficial GBA Port'],
     ['naruto-rpg-gba-2003', 'Naruto RPG: Uketsugareshi Hi no Ishi — Chinese Translation V3'],
     ['chinese-mahjong-html5', 'Chinese Standard Mahjong'],

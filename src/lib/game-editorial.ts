@@ -978,6 +978,107 @@ const editorials: Record<string, GameEditorial> = {
       { label: 'Naruto RPG GBA and DS release comparison', href: 'https://www.mobygames.com/game/89456/naruto-path-of-the-ninja/releases/' },
     ],
   },
+  'yan-loong-story-flash-2008': {
+    summary: 'Yan Loong Legend is Creetor’s side-scrolling Flash action RPG. Fight through enemy-filled stages, build experience and learn sword techniques as the opening chapter of the series.',
+    description: [
+      'Combat combines beat ’em up movement with character growth. Short combos, qigong skills, recovery items and earned levels give each run more structure than a simple arena fight.',
+      'This is the first chapter, before later versions expanded the roster and systems. The catalog slug contains 2008, but the page does not present that as a verified original release date because Creetor’s current official material does not publish a version-by-version Flash timeline.',
+    ],
+    howToPlay: [
+      'Check the keyboard mapping, then test movement, attack, jump and the skill or pause button. Learn a short safe combo before trying longer sequences in a crowd.',
+      'Approach groups from above or below and line enemies up before attacking. Pick up food or energy items when the area is safe, and use gained experience to strengthen the character.',
+      'Watch the resource cost of qigong attacks. Save stronger techniques for dense waves or bosses rather than spending everything on minor enemies.',
+    ],
+    tips: ['Keep enemies on one side whenever possible.', 'Treat guides for later Yan Loong versions cautiously because their characters and systems differ.'],
+    faq: [
+      { question: 'Who created Yan Loong Legend?', answer: 'Creetor identifies itself as the developer and publisher of the official Yan Loong Legend collection.' },
+      { question: 'Does the first game support two players?', answer: 'Creetor’s official collection says two-player mode begins with The Double Dragon, so this first chapter should not be described as a co-op release.' },
+      { question: 'Is the 2008 date confirmed?', answer: 'The existing URL contains 2008, but the current official series page does not provide an original date for each Flash build. The page therefore leaves the release-year field unset.' },
+    ],
+    sources: [{ label: 'Creetor official Yan Loong Legend 1+2 collection', href: 'https://store.steampowered.com/app/2615380/12/' }],
+  },
+  'yanlong-chuanshuo-2-erdu-chongji-flash-2009': {
+    summary: 'Yan Loong Legend 2: 2nd Impact is a Creetor Flash beat ’em up with RPG progression. Its defining addition is an ability-point system that lets players shape a character after leveling up.',
+    description: [
+      'The game keeps the series’ side-scrolling sword combat, combo experience and qigong skills while giving level gains a more deliberate role. Ability points can be allocated differently on a new run, changing how the character develops.',
+      'Do not confuse 2nd Impact with The Double Dragon. Creetor’s official description assigns ability points to 2nd Impact, while local two-player mode begins with The Double Dragon.',
+    ],
+    howToPlay: [
+      'Confirm the controls and choose the available character. Test basic attacks and movement before spending limited energy on skills.',
+      'Build combo hits when it is safe because the official collection ties higher combo counts to more experience. After leveling, open the character panel and allocate ability points with a clear priority.',
+      'Keep enemies grouped on one side and reposition after a completed combo. Preserve recovery items and qigong energy for difficult waves and bosses.',
+    ],
+    tips: ['Choose an ability-point plan instead of spreading every level evenly.', 'Do not advertise this version as the series’ first two-player build.'],
+    faq: [
+      { question: 'What did 2nd Impact add?', answer: 'Creetor says 2nd Impact introduced allocatable character ability points earned on level-up.' },
+      { question: 'Is 2nd Impact a two-player game?', answer: 'The official collection says two-player mode starts with The Double Dragon, a separate version.' },
+      { question: 'Who developed this version?', answer: 'Creetor is the developer and publisher of the Yan Loong Legend series collection.' },
+    ],
+    sources: [{ label: 'Creetor official Yan Loong Legend 1+2 features', href: 'https://store.steampowered.com/app/2615380/12/' }],
+  },
+  'yanlong-chuanshuo-2-shuang-long-flash-2009': {
+    summary: 'Yan Loong Legend 2: The Double Dragon is the Creetor series version that introduced local two-player play. Two players can share the keyboard and fight through the side-scrolling stages together.',
+    description: [
+      'The Double Dragon builds on the series’ combo combat, leveling and qigong skills with same-device cooperation. Creetor’s official collection explicitly identifies this version as the point where two-player mode began.',
+      'Local co-op does not mean internet multiplayer. The browser player must expose both sets of controls, and some keyboards may have trouble registering several simultaneous keys.',
+    ],
+    howToPlay: [
+      'Check both players’ mappings before starting and make sure each side can move, attack and jump. If several keys fail together, change the mapping or use compatible controllers if the player supports them.',
+      'Stay close enough to support one another without stacking both characters in the same enemy attack. One player can hold a group’s attention while the other approaches from a safer angle.',
+      'Share recovery items according to current health and preserve strong skills for crowded encounters. Coordinate movement before advancing the screen.',
+    ],
+    tips: ['Test simultaneous key input before committing to a co-op run.', 'Call the mode local co-op, not online co-op.'],
+    faq: [
+      { question: 'Which Yan Loong Legend version first added two-player mode?', answer: 'Creetor’s official collection identifies The Double Dragon as the first version with two-player mode.' },
+      { question: 'Can two people play online together?', answer: 'The original feature is local two-player play. Internet co-op is not implied unless the browser wrapper separately provides remote-play support.' },
+      { question: 'Who made The Double Dragon?', answer: 'Creetor developed the Yan Loong Legend series and publishes its official collection.' },
+    ],
+    sources: [{ label: 'Creetor official Yan Loong Legend 1+2 features', href: 'https://store.steampowered.com/app/2615380/12/' }],
+  },
+  'yanlong-chuanshuo-3-chifeng-flash-2010': {
+    summary: 'Yan Loong Legend 3: Phenix is a Creetor Flash action game that adds the Phenix character, vertically scrolling scenes, a power-burst mechanic and expanded stages.',
+    description: [
+      'This page uses the version title “Phenix,” the spelling preserved by public Flash archives, rather than silently normalizing it to “Phoenix.” The game continues the series’ combination of combos, qigong skills and level-based growth.',
+      'Archived descriptions identify Phenix as a new character and mention an intellect attribute, new bosses and new stages. Those records do not establish a trustworthy original release date, so the catalog’s old year is not displayed as verified metadata.',
+    ],
+    howToPlay: [
+      'Check the loaded build and controls, then choose an available character. Practice movement and a reliable short combo before using advanced skills.',
+      'Use vertical space to avoid being surrounded, especially in scenes that scroll up or down. Learn when power burst is available and save it for encounters where the temporary advantage matters.',
+      'Watch health, energy and character growth between waves. Pick up items safely and avoid spending all resources just before a boss.',
+    ],
+    tips: ['Search for the official version spelling “Phenix” when looking for build-specific help.', 'Use vertical movement rather than fighting every group head-on.'],
+    faq: [
+      { question: 'Is the title Phenix or Phoenix?', answer: 'Archived releases use “Yan Loong Legend 3: Phenix.” This page keeps that version spelling.' },
+      { question: 'What does the Phenix version add?', answer: 'Archived version notes describe the Phenix character, vertical scrolling, power burst, an intellect attribute, new stages and a new boss.' },
+      { question: 'Is 2010 a confirmed release year?', answer: 'The URL retains the catalog’s year label, but a reliable original version date was not established, so the displayed release year is left blank.' },
+    ],
+    sources: [
+      { label: 'Creetor official Yan Loong Legend collection', href: 'https://store.steampowered.com/app/2615380/12/' },
+      { label: 'Flash Museum archived Phenix version notes', href: 'https://flashmuseum.net/game/yan-loong-legend-3-phenix-1dz/' },
+    ],
+  },
+  'yanlong-chuanshuo-3-shuang-yan-flash-2009': {
+    summary: 'Yan Loong Legend 3: Double Swallow is a later Creetor Flash-series build featuring Pink Swallow, an equipment system, new super combos and expanded stages.',
+    description: [
+      'Archived version notes describe Double Swallow as the second edition of the third chapter. Alongside Pink Swallow, it adds equipment, new enemies, new stages and a higher-resolution game screen.',
+      'The archive’s 2013 date reflects its own published record and should not automatically be treated as the original Flash release. The existing 2009 URL is preserved for links, but no year is shown until a primary version timeline is available.',
+    ],
+    howToPlay: [
+      'Check the controls and available roster, then test each selected character’s basic combo and special moves. Open the equipment interface before leaving useful items unused.',
+      'Move vertically to line up groups and avoid attacks from both sides. Use new super combos when they can hit a boss or a dense wave rather than spending them on a single weak enemy.',
+      'Compare equipment effects and keep recovery resources for longer stages. In two-player play, verify both mappings and coordinate item pickups.',
+    ],
+    tips: ['Review equipment after collecting new items.', 'Do not turn a later archive upload date into an unsupported original release date.'],
+    faq: [
+      { question: 'What does Double Swallow add?', answer: 'Archived notes list Pink Swallow, new super combos, an equipment system, a larger game resolution, new enemies and new stages.' },
+      { question: 'Is the 2009 date confirmed?', answer: 'No reliable primary source for the original version date was found. The old URL remains stable, while the release-year field is intentionally unset.' },
+      { question: 'Who created the Yan Loong Legend series?', answer: 'Creetor identifies itself as the developer and publisher of the official series collection.' },
+    ],
+    sources: [
+      { label: 'Creetor official Yan Loong Legend collection', href: 'https://store.steampowered.com/app/2615380/12/' },
+      { label: 'Flash Museum archived Double Swallow version notes', href: 'https://flashmuseum.org/yan-loong-legend-3-double-swallow/' },
+    ],
+  },
 }
 
 export function getGameEditorial(game: PublicGame, locale: Locale) {
