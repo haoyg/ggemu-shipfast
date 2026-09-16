@@ -31,6 +31,18 @@ const localizedGameOverrides: Record<string, LocalizedGameOverride> = {
   'pokemon-firered-game-boy-advance-2004': {
     name: { en: 'Pokémon FireRed' },
   },
+  'ra2web-html5-2026': {
+    name: { en: 'RA2WEB' },
+  },
+  'rich-man-3-dos-1996': {
+    name: { en: 'Richman 3' },
+  },
+  'richman-2-dos-1993': {
+    name: { en: 'Richman 2' },
+  },
+  'romance-of-the-three-kingdoms-iv-dos-1994': {
+    name: { en: 'Romance of the Three Kingdoms IV: Wall of Fire' },
+  },
   'san-guo-qun-ying-zhuan-2-html5-1998': {
     name: { en: 'Heroes of the Three Kingdoms 2' },
   },
@@ -42,6 +54,9 @@ const localizedGameOverrides: Record<string, LocalizedGameOverride> = {
   },
   'the-killing-blade-arcade-1998': {
     name: { en: 'The Killing Blade' },
+  },
+  'the-legend-of-sword-and-saber-arcade-2003': {
+    name: { en: 'The Gladiator' },
   },
 }
 

@@ -22,6 +22,11 @@ describe('localizePublicGame', () => {
     ['chinese-paladin-dos-1995', 'The Legend of Sword and Fairy'],
     ['san-guo-qun-ying-zhuan-2-html5-1998', 'Heroes of the Three Kingdoms 2'],
     ['sanguosha-html5-2011', 'Sanguosha'],
+    ['romance-of-the-three-kingdoms-iv-dos-1994', 'Romance of the Three Kingdoms IV: Wall of Fire'],
+    ['the-legend-of-sword-and-saber-arcade-2003', 'The Gladiator'],
+    ['ra2web-html5-2026', 'RA2WEB'],
+    ['rich-man-3-dos-1996', 'Richman 3'],
+    ['richman-2-dos-1993', 'Richman 2'],
   ])('uses the reviewed catalog title for %s', (url_slug, expectedName) => {
     expect(localizePublicGame({ url_slug, name: '原始名称' }, 'en').name).toBe(expectedName)
   })
