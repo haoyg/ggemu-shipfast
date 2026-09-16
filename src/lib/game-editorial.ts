@@ -663,6 +663,113 @@ const editorials: Record<string, GameEditorial> = {
       { label: 'Initial D Another Stage release record', href: 'https://gamefaqs.gamespot.com/gba/565817-initial-d-another-stage/data' },
     ],
   },
+  '1942-cn-nes-1985': {
+    summary: '1942 is Capcom’s vertical-scrolling shooter, adapted for the NES in 1985. This catalog entry adds a Chinese translation to the original game rather than representing a separate Capcom release.',
+    description: [
+      'Guide the aircraft through waves of enemy planes while managing limited lives and special evasive moves. Enemy formations reward pattern recognition: chasing every target is less important than keeping a safe route open.',
+      'The original game’s combat imagery uses a fictionalized World War II setting. The translated text may change menus or labels, but the underlying developer and NES release year remain Capcom and 1985.',
+    ],
+    howToPlay: [
+      'Check the browser player’s NES mapping and test both action buttons. Keep firing while moving in controlled arcs rather than staying directly beneath incoming formations.',
+      'Use the evasive loop when a dense pattern leaves no safe path, but do not waste it on shots that can be avoided with ordinary movement. Watch for formations that provide bonuses when fully cleared.',
+      'Prioritize survival near the edges of the screen and learn where larger enemies enter. Continue only after confirming how the loaded translation handles pause, start and status information.',
+    ],
+    tips: ['Leave yourself an escape lane instead of following one enemy across the screen.', 'Treat the Chinese text as a translation layer; gameplay guides for the NES original should still apply.'],
+    faq: [
+      { question: 'Is this an official Chinese edition of 1942?', answer: 'No official Chinese retail release is established by the catalog record. This page identifies the loaded ROM as a Chinese translation of Capcom’s NES game.' },
+      { question: 'Who developed the original 1942?', answer: 'Capcom created the original game and released the NES adaptation in 1985.' },
+      { question: 'What type of game is 1942?', answer: 'It is a vertically scrolling shooter built around aircraft movement, continuous fire, enemy formations and evasive loops.' },
+    ],
+    sources: [{ label: 'Capcom 1942 NES instruction manual', href: 'https://captown.capcom.com/uploads/game/manual/44/1942_en_G.73731e07-448b-4fda-9112-abfe5e6b73b9.pdf' }],
+  },
+  '1943-the-battle-of-midway-cn-nes-1988': {
+    summary: '1943: The Battle of Midway is Capcom’s NES vertical shooter from 1988. This page uses a Chinese-translated ROM while retaining the identity of the original console game.',
+    description: [
+      'The NES version combines air combat with an energy system and permanent aircraft improvements. Its stages and progression differ substantially from the arcade release, so an arcade walkthrough will not always match this version.',
+      'The translation does not make the game a separate 1988 Chinese release. Developer and year refer to Capcom’s NES version; the translation author and date are not established by the current catalog record.',
+    ],
+    howToPlay: [
+      'Confirm the NES fire and special-action buttons, then watch both incoming shots and the aircraft’s energy. Avoid unnecessary collisions even when trying to finish an enemy formation.',
+      'Collect useful items and choose upgrades that address the current weakness, such as attack power or survivability. Permanent improvements make long-term planning more important than in a simple score run.',
+      'Learn the approach to each large target and preserve energy before the encounter. Use an NES-specific guide if needed, because the arcade stage sequence and systems are not identical.',
+    ],
+    tips: ['Protect the energy meter before boss encounters.', 'Use NES-specific upgrade advice rather than assuming the arcade version behaves the same way.'],
+    faq: [
+      { question: 'How does the NES version differ from the arcade game?', answer: 'The NES adaptation changes progression and adds permanent aircraft upgrades, making it more than a direct copy of the arcade release.' },
+      { question: 'Is the Chinese translation an official Capcom release?', answer: 'The current record does not establish an official Chinese retail edition. The page labels it as a translation of Capcom’s NES version.' },
+      { question: 'When did the NES version release?', answer: 'Capcom released the Japanese and North American NES/Famicom versions in 1988.' },
+    ],
+    sources: [
+      { label: '1943 NES release record', href: 'https://gamefaqs.gamespot.com/nes/587059-1943-the-battle-of-midway/data' },
+      { label: '1943 platform version comparison', href: 'https://strategywiki.org/wiki/1943%3A_The_Battle_of_Midway/Versions' },
+    ],
+  },
+  'double-dragon-ii-revenge-nes-1989': {
+    summary: 'Double Dragon II: The Revenge is Technōs Japan’s 1989 NES beat ’em up. This entry applies a Chinese translation to the console game and does not claim a separate official Chinese release.',
+    description: [
+      'Billy and Jimmy Lee fight through side-scrolling missions using punches, kicks, jumps and combination attacks. The NES version expands beyond the arcade structure and should be treated as its own console adaptation.',
+      'Attack direction matters: the game’s two main attack buttons strike toward different sides of the character. Test the mapping early, because the useful button changes when an enemy crosses behind you.',
+    ],
+    howToPlay: [
+      'Check which browser keys map to the NES A and B buttons. Face a lone enemy and confirm which button attacks left and which attacks right before entering a crowded area.',
+      'Use vertical movement to line enemies up, then attack without allowing opponents to surround both sides. Throws, jumping attacks and stronger techniques are safer when you understand their timing.',
+      'Treat moving platforms and hazards as part of the challenge, not only the fights. Keep a save before difficult missions if the browser player provides save-state support.',
+    ],
+    tips: ['Learn the direction-based attack buttons before trying advanced techniques.', 'Move above or below a group so enemies approach along a narrower line.'],
+    faq: [
+      { question: 'Who developed Double Dragon II on NES?', answer: 'Technōs Japan developed and published the NES game in 1989.' },
+      { question: 'Is the NES game identical to the arcade version?', answer: 'No. The NES release is a substantially adapted version with its own stages and console-specific design.' },
+      { question: 'Is this an official Chinese release?', answer: 'The catalog record identifies a Chinese translation, but it does not establish a separate official Chinese retail edition.' },
+    ],
+    sources: [
+      { label: 'Double Dragon II NES instruction manual', href: 'https://www.gamingalexandria.com/highquality/NES/Double%20Dragon%20II%20-%20The%20Revenge/Double%20Dragon%20II%20-%20The%20Revenge%20-%20Manual.pdf' },
+      { label: 'Technos Collection manual: Double Dragon II release details', href: 'https://evercade.info/wp-content/uploads/2020/10/Technos-Collection-1.pdf' },
+    ],
+  },
+  'saint-seiya-ougon-densetsu-kanketsu-hen-cn-nes-1988': {
+    summary: 'Saint Seiya: Ougon Densetsu Kanketsu Hen is a 1988 Famicom action RPG developed by TOSE and published by Bandai. This page runs a Chinese-translated version.',
+    description: [
+      'The game follows the Sanctuary and Gold Saints storyline across the Twelve Houses. It combines short action sequences with character selection, dialogue and role-playing systems rather than playing like a conventional one-on-one fighter.',
+      'Kanketsu Hen is the sequel to the earlier Ougon Densetsu game. The Chinese text helps identify commands and story scenes, but the current record does not verify an official Chinese cartridge release.',
+    ],
+    howToPlay: [
+      'Check the NES controls and read the translated status screens before choosing a Saint. Monitor both Life and Cosmo-related resources instead of treating every encounter as a basic action stage.',
+      'Learn each opponent’s pattern and avoid losing resources to repeated contact. Character choice and story conditions can matter, so pause before confirming translated menu options.',
+      'Keep saves before entering a new House. If a guide does not match, verify that it covers Kanketsu Hen rather than the first Ougon Densetsu game.',
+    ],
+    tips: ['Search for the full Kanketsu Hen subtitle when using a walkthrough.', 'Read translated dialogue and status screens before committing a character to the next battle.'],
+    faq: [
+      { question: 'Which part of Saint Seiya does Kanketsu Hen cover?', answer: 'It focuses on the Sanctuary storyline and the battles through the Twelve Houses to the final confrontation.' },
+      { question: 'Who made the original Famicom game?', answer: 'TOSE developed it and Bandai published it in Japan in 1988.' },
+      { question: 'Is this the first Ougon Densetsu game?', answer: 'No. Kanketsu Hen is the follow-up and uses a different structure while completing the Sanctuary storyline.' },
+    ],
+    sources: [
+      { label: 'Saint Seiya Kanketsu Hen release record', href: 'https://gamefaqs.gamespot.com/nes/562974-saint-seiya-ougon-densetsu-kanketsu-hen/data' },
+      { label: 'Famicom catalog overview of Kanketsu Hen', href: 'https://www.gavas.jp/products/detail.php?product_id=4103' },
+    ],
+  },
+  'satomi-hakkenden-cn-nes-1989': {
+    summary: 'Satomi Hakkenden is a 1989 Famicom RPG developed by Alpha Denshi and published by SNK. This catalog entry contains a Chinese translation of the Japan-only original.',
+    description: [
+      'The game draws from the Japanese epic Nansō Satomi Hakkenden and uses a traditional console-RPG structure of towns, field exploration, conversations and command-based battles.',
+      'Do not confuse it with Idol Hakkenden, another 1989 Famicom title with a similar word in its name. The Chinese translation is useful for play, but its author and patch date are not established by the current catalog metadata.',
+    ],
+    howToPlay: [
+      'Check the NES controls and inspect the translated menu. Talk to characters more than once when the next destination is unclear, and review equipment before leaving a town.',
+      'Use turn-based commands to manage attacks, items and recovery. Build experience steadily and avoid travelling deep into a new area when the party is already low on resources.',
+      'Keep several saves and note important names or locations from dialogue. Use guides for SNK’s Satomi Hakkenden, not Idol Hakkenden or unrelated adaptations of the novel.',
+    ],
+    tips: ['Restock and save before crossing into an unfamiliar region.', 'Include SNK or Alpha Denshi in searches to avoid similarly named games.'],
+    faq: [
+      { question: 'What kind of game is Satomi Hakkenden?', answer: 'It is a command-based Famicom role-playing game inspired by the Japanese epic Nansō Satomi Hakkenden.' },
+      { question: 'Who developed the game?', answer: 'Alpha Denshi developed it and SNK published the original Japanese release in 1989.' },
+      { question: 'Is Satomi Hakkenden the same as Idol Hakkenden?', answer: 'No. They are separate Famicom games with different developers, stories and gameplay.' },
+    ],
+    sources: [
+      { label: 'Satomi Hakkenden game and release overview', href: 'https://strategywiki.org/wiki/Satomi_Hakkenden' },
+      { label: 'SNK Famicom catalog record for Satomi Hakkenden', href: 'https://www.gavas.jp/products/detail.php?product_id=4115' },
+    ],
+  },
 }
 
 export function getGameEditorial(game: PublicGame, locale: Locale) {

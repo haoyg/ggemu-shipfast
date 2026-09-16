@@ -261,6 +261,36 @@ const targetedGameSeoBySlug = {
     keywords:
       'Initial D Another Stage online, Initial D GBA Chinese translation, play Initial D GBA, racing RPG',
   },
+  '1942-cn-nes-1985': {
+    heading: 'Play 1942 — Chinese NES Translation',
+    title: 'Play 1942 Online | Chinese NES Translation',
+    description: 'Play the Chinese translation of Capcom’s 1942 NES shooter online. Learn the controls, evasive loop and survival basics before starting.',
+    keywords: '1942 NES online, 1942 Chinese translation, play 1942 online, Capcom vertical shooter',
+  },
+  '1943-the-battle-of-midway-cn-nes-1988': {
+    heading: 'Play 1943: The Battle of Midway — Chinese Translation',
+    title: '1943: The Battle of Midway Online | Chinese NES Translation',
+    description: 'Play the Chinese translation of Capcom’s 1943 NES game online. Manage aircraft energy, collect upgrades and learn how it differs from the arcade version.',
+    keywords: '1943 Battle of Midway online, 1943 NES Chinese translation, Capcom shooter, NES aircraft upgrades',
+  },
+  'double-dragon-ii-revenge-nes-1989': {
+    heading: 'Play Double Dragon II — Chinese NES Translation',
+    title: 'Double Dragon II Online | Chinese NES Translation',
+    description: 'Play the Chinese translation of Double Dragon II: The Revenge online. Learn its direction-based attacks, movement and NES-specific stages.',
+    keywords: 'Double Dragon II online, Double Dragon 2 Chinese translation, NES beat em up, Technos Japan',
+  },
+  'saint-seiya-ougon-densetsu-kanketsu-hen-cn-nes-1988': {
+    heading: 'Play Saint Seiya: Ougon Densetsu Kanketsu Hen',
+    title: 'Saint Seiya Kanketsu Hen Online | Chinese NES Translation',
+    description: 'Play the Chinese translation of Saint Seiya: Ougon Densetsu Kanketsu Hen. Battle through the Twelve Houses in TOSE and Bandai’s 1988 action RPG.',
+    keywords: 'Saint Seiya Kanketsu Hen online, Saint Seiya NES Chinese translation, Ougon Densetsu, Twelve Houses game',
+  },
+  'satomi-hakkenden-cn-nes-1989': {
+    heading: 'Play Satomi Hakkenden — Chinese NES Translation',
+    title: 'Satomi Hakkenden Online | Chinese NES RPG Translation',
+    description: 'Play the Chinese translation of Satomi Hakkenden online. Explore Alpha Denshi and SNK’s 1989 Famicom RPG based on the Japanese epic.',
+    keywords: 'Satomi Hakkenden online, Chinese NES translation, Alpha Denshi RPG, SNK Famicom game',
+  },
   [shonenJumpOnePieceTargetSlug]: {
     heading: "Play Shonen Jump's One Piece Online",
     title: 'Play One Piece Online - Shonen Jump GBA Game | POKOPIE',

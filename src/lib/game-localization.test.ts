@@ -28,14 +28,14 @@ describe('localizePublicGame', () => {
     ['rich-man-3-dos-1996', 'Richman 3'],
     ['richman-2-dos-1993', 'Richman 2'],
     ['mahjong-academy-arcade-1989', 'Mahjong Academy'],
-    ['1942-cn-nes-1985', '1942 — Chinese Version'],
-    ['1943-the-battle-of-midway-cn-nes-1988', '1943: The Battle of Midway — Chinese Version'],
-    ['double-dragon-ii-revenge-nes-1989', 'Double Dragon II: The Revenge — Chinese Version'],
+    ['1942-cn-nes-1985', '1942 — Chinese Translation'],
+    ['1943-the-battle-of-midway-cn-nes-1988', '1943: The Battle of Midway — Chinese Translation'],
+    ['double-dragon-ii-revenge-nes-1989', 'Double Dragon II: The Revenge — Chinese Translation'],
     [
       'saint-seiya-ougon-densetsu-kanketsu-hen-cn-nes-1988',
-      'Saint Seiya: Ougon Densetsu Kanketsu Hen — Chinese Version',
+      'Saint Seiya: Ougon Densetsu Kanketsu Hen — Chinese Translation',
     ],
-    ['satomi-hakkenden-cn-nes-1989', 'Satomi Hakkenden — Chinese Version'],
+    ['satomi-hakkenden-cn-nes-1989', 'Satomi Hakkenden — Chinese Translation'],
     ['pokemon-ruby-gba-2002', 'Pokémon Ruby'],
     ['fire-emblem-the-blazing-blade-gba-2003', 'Fire Emblem: The Blazing Blade'],
     ['professor-layton-and-the-curious-village-nds-2007', 'Professor Layton and the Curious Village'],
@@ -129,6 +129,14 @@ describe('localizePublicGame', () => {
     expect(localizePublicGame({ url_slug: 'naruto-shippuden-ultimate-impact-psp-2011' }, 'en')).toMatchObject({
       developer: 'CyberConnect2',
       released_year: '2011',
+    })
+    expect(localizePublicGame({ url_slug: 'double-dragon-ii-revenge-nes-1989' }, 'en')).toMatchObject({
+      developer: 'Technōs Japan',
+      released_year: '1989',
+    })
+    expect(localizePublicGame({ url_slug: 'satomi-hakkenden-cn-nes-1989' }, 'en')).toMatchObject({
+      developer: 'Alpha Denshi',
+      released_year: '1989',
     })
   })
 

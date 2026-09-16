@@ -10,10 +10,14 @@ type LocalizedGameOverride = {
 
 const localizedGameOverrides: Record<string, LocalizedGameOverride> = {
   '1942-cn-nes-1985': {
-    name: { en: '1942 — Chinese Version' },
+    name: { en: '1942 — Chinese Translation' },
+    developer: 'Capcom',
+    releasedYear: '1985',
   },
   '1943-the-battle-of-midway-cn-nes-1988': {
-    name: { en: '1943: The Battle of Midway — Chinese Version' },
+    name: { en: '1943: The Battle of Midway — Chinese Translation' },
+    developer: 'Capcom',
+    releasedYear: '1988',
   },
   '1944-cn-nes-1988': {
     name: { en: '1944 — Unofficial 1943 ROM Hack' },
@@ -32,7 +36,9 @@ const localizedGameOverrides: Record<string, LocalizedGameOverride> = {
     name: { en: "Dad 'n Me" },
   },
   'double-dragon-ii-revenge-nes-1989': {
-    name: { en: 'Double Dragon II: The Revenge — Chinese Version' },
+    name: { en: 'Double Dragon II: The Revenge — Chinese Translation' },
+    developer: 'Technōs Japan',
+    releasedYear: '1989',
   },
   'doudizhu-gcoin-html5-2013': {
     name: { en: 'Dou Dizhu — GCoin Edition' },
@@ -145,13 +151,17 @@ const localizedGameOverrides: Record<string, LocalizedGameOverride> = {
     name: { en: 'Heroes of the Three Kingdoms 2' },
   },
   'saint-seiya-ougon-densetsu-kanketsu-hen-cn-nes-1988': {
-    name: { en: 'Saint Seiya: Ougon Densetsu Kanketsu Hen — Chinese Version' },
+    name: { en: 'Saint Seiya: Ougon Densetsu Kanketsu Hen — Chinese Translation' },
+    developer: 'TOSE',
+    releasedYear: '1988',
   },
   'sanguosha-html5-2011': {
     name: { en: 'Sanguosha' },
   },
   'satomi-hakkenden-cn-nes-1989': {
-    name: { en: 'Satomi Hakkenden — Chinese Version' },
+    name: { en: 'Satomi Hakkenden — Chinese Translation' },
+    developer: 'Alpha Denshi',
+    releasedYear: '1989',
   },
   'saiyuki-tang-sanzang-nes-1996': {
     name: { en: 'Zui You Ji: Tang Sanzang — Unlicensed' },
