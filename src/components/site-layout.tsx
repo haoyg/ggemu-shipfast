@@ -113,9 +113,7 @@ export function SiteLayout({
                 />
               </span>
               <span className="min-w-0 leading-tight">
-                <span className="site-brand-name block text-base font-semibold tracking-wide sm:text-lg">
-                  {siteConfig.SITE_NAME}
-                </span>
+                <SiteBrandWordmark />
                 <span className="hidden truncate text-xs text-base-content/55 sm:block">
                   {t.tagline}
                 </span>
@@ -397,9 +395,7 @@ export function SiteFooter({ locale }: { locale: Locale }) {
                 />
               </span>
               <div>
-                <p className="text-base font-semibold text-white">
-                  {siteConfig.SITE_NAME}
-                </p>
+                <SiteBrandWordmark />
               </div>
             </div>
             <p className="mt-4 leading-6">{t.footer}</p>
@@ -596,5 +592,19 @@ export function SiteFooter({ locale }: { locale: Locale }) {
         </div>
       </div>
     </footer>
+  )
+}
+
+function SiteBrandWordmark() {
+  return (
+    <span aria-label={siteConfig.SITE_NAME} className="site-brand-name text-base sm:text-lg">
+      <span aria-hidden="true">P</span>
+      <span aria-hidden="true" className="site-brand-o">O</span>
+      <span aria-hidden="true">K</span>
+      <span aria-hidden="true" className="site-brand-o">O</span>
+      <span aria-hidden="true">P</span>
+      <span aria-hidden="true" className="site-brand-i">I</span>
+      <span aria-hidden="true">E</span>
+    </span>
   )
 }
