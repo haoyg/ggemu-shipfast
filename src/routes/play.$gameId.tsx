@@ -1,11 +1,11 @@
 import { createFileRoute, redirect } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/play/$gameId')({
-  beforeLoad: () => {
+  beforeLoad: ({ params }) => {
     throw redirect({
-      params: { locale: 'en' },
+      params: { gameId: params.gameId, locale: 'en' },
       replace: true,
-      to: '/$locale',
+      to: '/$locale/games/$gameId',
     })
   },
 })
