@@ -112,7 +112,7 @@ export const guides: Record<string, Guide> = {
 export const Route = createFileRoute('/$locale/guides/$guideId')({
   beforeLoad: ({ params }) => {
     if (params.locale !== 'en') {
-      throw redirect({ params: { guideId: params.guideId, locale: 'en' }, replace: true, to: '/$locale/guides/$guideId' })
+      throw redirect({ params: { guideId: params.guideId, locale: 'en' }, replace: true, statusCode: 301, to: '/$locale/guides/$guideId' })
     }
   },
   loader: async ({ params }) => {

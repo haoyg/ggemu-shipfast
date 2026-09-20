@@ -8,7 +8,7 @@ import { guides } from './$locale.guides.$guideId'
 export const Route = createFileRoute('/$locale/guides')({
   beforeLoad: ({ params }) => {
     if (params.locale !== 'en') {
-      throw redirect({ params: { locale: 'en' }, replace: true, to: '/$locale/guides' })
+      throw redirect({ params: { locale: 'en' }, replace: true, statusCode: 301, to: '/$locale/guides' })
     }
   },
   loader: () => getSeoOrigin(),

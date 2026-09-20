@@ -55,6 +55,7 @@ export const Route = createFileRoute('/$locale/games/$gameId')({
       throw redirect({
         params: { gameId: params.gameId, locale: 'zh-CN' },
         replace: true,
+        statusCode: 301,
         to: '/$locale/games/$gameId',
       })
     }
@@ -66,6 +67,7 @@ export const Route = createFileRoute('/$locale/games/$gameId')({
     throw redirect({
       params,
       replace: true,
+      statusCode: 301,
       to: '/$locale/games/$gameId',
     })
   },
@@ -90,6 +92,7 @@ export const Route = createFileRoute('/$locale/games/$gameId')({
       throw redirect({
         params: { gameId: currentId, locale },
         replace: true,
+        statusCode: 301,
         to: '/$locale/games/$gameId',
       })
     }

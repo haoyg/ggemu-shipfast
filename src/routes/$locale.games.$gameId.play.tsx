@@ -1,5 +1,5 @@
 import { GamePlayerFrame } from '#/components/game-player-frame'
-import { createFileRoute, redirect } from '@tanstack/react-router'
+import { createFileRoute, notFound, redirect } from '@tanstack/react-router'
 import { useEffect } from 'react'
 
 import { getGameDetail } from '#/lib/ggemu'
@@ -18,17 +18,13 @@ const noindexHeaders = {
   'X-Robots-Tag': 'noindex, nofollow',
 } as const
 
-const removedLegacyGameIds = new Set([
-  's-c-a-t-nes-1991',
-  'superman-the-new-superman-adventures-n64-1999',
-])
-
 export const Route = createFileRoute('/$locale/games/$gameId/play')({
   beforeLoad: ({ location, params }) => {
     if (isSimplifiedChineseLocaleAlias(params.locale)) {
       throw redirect({
         params: { gameId: params.gameId, locale: 'zh-CN' },
         replace: true,
+        statusCode: 301,
         to: '/$locale/games/$gameId/play',
       })
     }
@@ -40,6 +36,7 @@ export const Route = createFileRoute('/$locale/games/$gameId/play')({
     throw redirect({
       params,
       replace: true,
+      statusCode: 301,
       to: '/$locale/games/$gameId/play',
     })
   },
@@ -48,19 +45,10 @@ export const Route = createFileRoute('/$locale/games/$gameId/play')({
       data: { id: params.gameId, locale: normalizeLocale(params.locale) },
     })
 
-    if (!game && removedLegacyGameIds.has(params.gameId)) {
-      throw redirect({
-        params: { locale: normalizeLocale(params.locale) },
-        replace: true,
-        to: '/$locale',
-      })
-    }
-
     if (!game) {
-      throw redirect({
-        params: { locale: normalizeLocale(params.locale) },
-        replace: true,
-        to: '/$locale',
+      throw notFound({
+        data: { locale: normalizeLocale(params.locale) },
+        headers: noindexHeaders,
       })
     }
 

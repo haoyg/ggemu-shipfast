@@ -162,6 +162,7 @@ export const Route = createFileRoute('/$locale')({
       throw redirect({
         href: getCanonicalRoutePlaceholderHref(location.href),
         replace: true,
+        statusCode: 301,
       })
     }
 
@@ -169,6 +170,7 @@ export const Route = createFileRoute('/$locale')({
       throw redirect({
         href: getCanonicalChineseAliasHref(location.href),
         replace: true,
+        statusCode: 301,
       })
     }
 
@@ -192,6 +194,7 @@ export const Route = createFileRoute('/$locale')({
         params: { locale: params.locale },
         replace: true,
         search: template ? { template } : {},
+        statusCode: 301,
         to: '/$locale',
       })
     }

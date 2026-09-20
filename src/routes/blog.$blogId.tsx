@@ -5,6 +5,7 @@ export const Route = createFileRoute('/blog/$blogId')({
     throw redirect({
       params: { blogId: params.blogId, locale: 'en' },
       replace: true,
+      statusCode: 301,
       to: '/$locale/blog/$blogId',
     })
   },

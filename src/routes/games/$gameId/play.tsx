@@ -1,4 +1,4 @@
-import { createFileRoute, redirect } from '@tanstack/react-router'
+import { createFileRoute, notFound, redirect } from '@tanstack/react-router'
 
 import { getGameDetail } from '#/lib/ggemu'
 
@@ -8,16 +8,13 @@ export const Route = createFileRoute('/games/$gameId/play')({
     const gameId = game?.url_slug?.trim() || game?._id?.trim()
 
     if (!gameId) {
-      throw redirect({
-        params: { locale: 'en' },
-        replace: true,
-        to: '/$locale',
-      })
+      throw notFound()
     }
 
     throw redirect({
       params: { gameId, locale: 'en' },
       replace: true,
+      statusCode: 301,
       to: '/$locale/games/$gameId',
     })
   },

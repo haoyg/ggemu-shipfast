@@ -5,6 +5,7 @@ export const Route = createFileRoute('/play/$gameId')({
     throw redirect({
       params: { gameId: params.gameId, locale: 'en' },
       replace: true,
+      statusCode: 301,
       to: '/$locale/games/$gameId',
     })
   },
