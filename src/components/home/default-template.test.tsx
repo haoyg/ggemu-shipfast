@@ -28,6 +28,22 @@ const props: HomeTemplateProps = {
 beforeEach(() => vi.stubGlobal('matchMedia', vi.fn(() => ({ matches: true }))))
 afterEach(() => { cleanup(); vi.clearAllMocks(); vi.unstubAllGlobals(); vi.useRealTimers() })
 
+it('autoplays the hero preview when motion is allowed', () => {
+  const play = vi.spyOn(HTMLMediaElement.prototype, 'play').mockResolvedValue()
+  vi.spyOn(HTMLMediaElement.prototype, 'pause').mockImplementation(() => {})
+  vi.stubGlobal('matchMedia', vi.fn(() => ({ matches: false })))
+
+  const { container } = render(
+    <DefaultHomeTemplate
+      {...props}
+      games={[{ ...games[0], game_video: 'https://cdn.example.com/hero.mp4' }, ...games.slice(1)]}
+    />,
+  )
+
+  expect(container.querySelector('video[src="https://cdn.example.com/hero.mp4"]')).not.toBeNull()
+  expect(play).toHaveBeenCalledOnce()
+})
+
 it('reveals games in batches before offering the next page', () => {
   const { container } = render(<DefaultHomeTemplate {...props} />)
   const cards = () => container.querySelectorAll('#popular-games .arcade-game-card')

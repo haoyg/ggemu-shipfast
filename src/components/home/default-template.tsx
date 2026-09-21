@@ -292,6 +292,7 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
                       src={featuredGame.game_cover}
                     />
                   ) : null}
+                  <HeroPreviewVideo src={featuredGame.game_video} />
                   <div aria-hidden="true" className="arcade-cabinet-scan" />
                   <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(2,7,20,0.94)_0%,rgba(2,7,20,0.74)_36%,rgba(2,7,20,0.08)_76%),linear-gradient(0deg,rgba(2,7,20,0.88),transparent_48%)]" />
                   <div className="relative z-10 flex h-full max-w-xl flex-col justify-end p-5 sm:p-8 lg:p-10">
@@ -538,6 +539,50 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
         </main>
       </div>
     </div>
+  )
+}
+
+function HeroPreviewVideo({ src }: { src?: string }) {
+  const videoRef = useRef<HTMLVideoElement>(null)
+  const [isReady, setIsReady] = useState(false)
+
+  useEffect(() => {
+    const video = videoRef.current
+
+    if (!video || !src?.trim()) {
+      return
+    }
+
+    const reducedMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)')
+
+    if (reducedMotion?.matches) {
+      return
+    }
+
+    setIsReady(false)
+    video.play().catch(() => {})
+
+    return () => {
+      video.pause()
+    }
+  }, [src])
+
+  if (!src?.trim()) {
+    return null
+  }
+
+  return (
+    <video
+      aria-hidden="true"
+      className={`pointer-events-none absolute inset-0 h-full w-full object-cover transition-opacity duration-500 motion-reduce:hidden ${isReady ? 'opacity-100' : 'opacity-0'}`}
+      loop
+      muted
+      onCanPlay={() => setIsReady(true)}
+      playsInline
+      preload="none"
+      ref={videoRef}
+      src={src}
+    />
   )
 }
 
