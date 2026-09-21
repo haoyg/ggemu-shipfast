@@ -40,7 +40,10 @@ import {
   getGameSeoInternalLinks,
   type GameSeoInternalLink,
 } from '#/lib/game-seo-links'
-import { getTargetedGameSeo } from '#/lib/game-seo-targets'
+import {
+  getGameSearchSeo,
+  getTargetedGameSeo,
+} from '#/lib/game-seo-targets'
 import {
   getGameDescriptionParagraphs,
   getGameFaqs,
@@ -131,7 +134,7 @@ export const Route = createFileRoute('/$locale/games/$gameId')({
 
     const { canonicalUrl, game } = loaderData
     const locale = normalizeLocale(params.locale)
-    const seo = getTargetedGameSeo(game, locale) ?? buildGameDetailSeo(game, locale)
+    const seo = getGameSearchSeo(game, locale) ?? buildGameDetailSeo(game, locale)
     const image = game.game_cover
     const faqItems = getGameFaqs(game, locale)
     const structuredData = buildGameStructuredData({
@@ -389,7 +392,8 @@ function LocalizedGameDetailPage() {
   const platformLabel = getLocalizedPlatformLabel(game.platform, lang)
   const faqItems = getGameFaqs(game, lang)
   const editorial = getGameEditorial(game, lang)
-  const summary = editorial?.summary ?? getGameDetailSummary(game, lang)
+  const searchSeo = getGameSearchSeo(game, lang)
+  const summary = editorial?.summary ?? searchSeo?.description ?? getGameDetailSummary(game, lang)
   const descriptionParagraphs = getGameDescriptionParagraphs(game, lang)
   const howToPlayParagraphs = getGameHowToPlayParagraphs(game, lang)
   const browserGuide = getBrowserPlayGuide(lang, game)
@@ -468,7 +472,7 @@ function LocalizedGameDetailPage() {
                   ) : null}
                 </div>
                 <h1 className="max-w-4xl text-2xl font-black leading-tight text-white sm:text-4xl">
-                  {targetedSeo?.heading ?? game.name}
+                  {searchSeo?.heading ?? game.name}
                 </h1>
                 <p className="mt-2 line-clamp-2 max-w-3xl text-sm leading-6 text-white/70 sm:mt-4 sm:line-clamp-none sm:text-lg sm:leading-7">
                   {summary}

@@ -8,6 +8,17 @@ const pokemonEmeraldTargetSlug = 'pokemon-emerald-gba-2004'
 const shonenJumpOnePieceTargetSlug = 'shonen-jump-s-one-piece-gba-2005'
 const taikoWebTargetSlug = 'taiko-no-tatsujin-taiko-web-html5-2011'
 
+const searchOnlyGameSeoBySlug = {
+  'pixeltris-html5-2026': {
+    heading: 'Play Pixeltris Online',
+    title: 'Pixeltris Online - Play the HTML5 Puzzle Game | POKOPIE',
+    description:
+      'Play Pixeltris online in your browser. Stack pixel blocks, clear lines and learn the controls. Free to play with no download required.',
+    keywords:
+      'Pixeltris, Pixeltris online, Pixel Tris, play Pixeltris, HTML5 puzzle game',
+  },
+} as const
+
 const targetedGameSeoBySlug = {
   'three-wonders-arcade-1991': {
     heading: 'Play Three Wonders Online',
@@ -472,6 +483,19 @@ export function getTargetedGameSeo(game: PublicGame, locale: Locale) {
 
   const slug = normalizeGameSlug(game)
   return targetedGameSeoBySlug[slug as keyof typeof targetedGameSeoBySlug] ?? null
+}
+
+export function getGameSearchSeo(game: PublicGame, locale: Locale) {
+  if (locale !== 'en') {
+    return null
+  }
+
+  const slug = normalizeGameSlug(game)
+  return (
+    targetedGameSeoBySlug[slug as keyof typeof targetedGameSeoBySlug] ??
+    searchOnlyGameSeoBySlug[slug as keyof typeof searchOnlyGameSeoBySlug] ??
+    null
+  )
 }
 
 export function isContraSeoTarget(game: PublicGame, locale: Locale) {

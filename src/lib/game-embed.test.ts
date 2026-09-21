@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 
 import { buildGameEmbedSrc, isPspGame } from './game-embed'
-import { getTargetedGameSeo } from './game-seo-targets'
+import { getGameSearchSeo, getTargetedGameSeo } from './game-seo-targets'
 
 describe('game embed helpers', () => {
   it('builds the standard embedded game URL', () => {
@@ -39,6 +39,16 @@ describe('game embed helpers', () => {
       .toBe('Play Contra Game Online Free')
     expect(getTargetedGameSeo({ url_slug: 'contra-1987-arcade-1987' }, 'en')).toBeNull()
     expect(getTargetedGameSeo({ url_slug: 'contra-nes-1988' }, 'ja')).toBeNull()
+  })
+
+  it('adds Pixeltris search copy without enabling the embedded-player flow', () => {
+    const game = { url_slug: 'pixeltris-html5-2026' }
+
+    expect(getGameSearchSeo(game, 'en')).toMatchObject({
+      heading: 'Play Pixeltris Online',
+      title: 'Pixeltris Online - Play the HTML5 Puzzle Game | POKOPIE',
+    })
+    expect(getTargetedGameSeo(game, 'en')).toBeNull()
   })
 
   it('targets the English Murdoku landing page with query-aligned metadata', () => {
