@@ -389,6 +389,39 @@ textarea,
   text-shadow: 3px 0 #080d1b, 4px 1px rgba(200, 138, 255, 0.4);
 }
 
+.arcade-page-title {
+  background: linear-gradient(100deg, #67e8f9 0%, #c88aff 48%, #fa786b 100%);
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 0 1rem rgba(103, 232, 249, 0.16));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.arcade-featured-title {
+  background: linear-gradient(100deg, #fff7bf 0%, #fde047 28%, #fa786b 66%, #f9a8d4 100%);
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 0 1.1rem rgba(250, 120, 107, 0.2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.arcade-game-title {
+  color: #bdefff;
+  font-family: var(--font-game-ui);
+  font-weight: 750;
+  letter-spacing: 0.015em;
+  text-shadow: 0 0 0.75rem rgba(103, 232, 249, 0.16);
+  transition: color 180ms ease, text-shadow 180ms ease;
+}
+
+.arcade-game-card:hover .arcade-game-title,
+.arcade-game-card:focus-visible .arcade-game-title {
+  color: #f9a8d4;
+  text-shadow: 0 0 0.9rem rgba(249, 168, 212, 0.28);
+}
+
 .arcade-kicker {
   color: #fa786b;
   font-size: 0.7rem;
