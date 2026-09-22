@@ -190,8 +190,45 @@ textarea,
 }
 
 .arcade-page {
-  background: transparent;
+  background-color: #050a18;
+  background-image:
+    linear-gradient(180deg, rgba(4, 8, 21, 0.12), rgba(4, 8, 21, 0.68)),
+    url('/arcade-hall-bg.webp');
+  background-attachment: fixed;
+  background-position: center top;
+  background-repeat: no-repeat;
+  background-size: cover;
   color: #edf1ff;
+  isolation: isolate;
+  left: 50%;
+  margin-left: -50vw;
+  min-height: 100vh;
+  overflow: hidden;
+  position: relative;
+  width: 100vw;
+}
+
+.arcade-page::before {
+  animation: arcade-machine-lights 5.8s steps(1, end) infinite;
+  background:
+    radial-gradient(circle at 7% 18%, rgba(34, 211, 238, 0.36), transparent 8%),
+    radial-gradient(circle at 93% 24%, rgba(244, 114, 182, 0.34), transparent 9%),
+    radial-gradient(circle at 13% 61%, rgba(96, 165, 250, 0.24), transparent 8%),
+    radial-gradient(circle at 88% 72%, rgba(232, 121, 249, 0.25), transparent 10%);
+  background-repeat: repeat-y;
+  background-size: 100% 52rem;
+  content: '';
+  inset: 0;
+  mix-blend-mode: screen;
+  opacity: 0.48;
+  pointer-events: none;
+  position: absolute;
+  z-index: 0;
+}
+
+.arcade-page > .grid {
+  position: relative;
+  z-index: 1;
 }
 
 .arcade-lobby {
@@ -201,13 +238,7 @@ textarea,
   overflow: hidden;
   position: relative;
   width: 100vw;
-  background-color: #050a18;
-  background-image:
-    linear-gradient(180deg, rgba(4, 8, 21, 0.12), rgba(4, 8, 21, 0.7) 74%, #050a18),
-    url('/arcade-hall-bg.webp');
-  background-position: center top;
-  background-repeat: no-repeat;
-  background-size: cover;
+  background: linear-gradient(180deg, rgba(4, 8, 21, 0.08), rgba(4, 8, 21, 0.42) 78%, transparent);
 }
 
 .arcade-lobby::before {
@@ -289,9 +320,15 @@ textarea,
   z-index: 8;
 }
 
-.arcade-cabinet-dots { bottom: 1rem; display: flex; gap: 0.45rem; position: absolute; right: 1rem; z-index: 12; }
-.arcade-cabinet-dots span { border: 1px solid rgba(255,255,255,0.55); height: 0.45rem; width: 0.45rem; }
-.arcade-cabinet-dots span:first-child { animation: arcade-status-pulse 1.8s ease-in-out infinite; background: #22d3ee; border-color: #22d3ee; box-shadow: 0 0 12px #22d3ee; width: 1.2rem; }
+.arcade-hero-image { animation: arcade-hero-reveal 520ms ease-out both; }
+
+.arcade-hero-controls { align-items: center; bottom: 1rem; display: flex; gap: 0.45rem; position: absolute; right: 1rem; z-index: 12; }
+.arcade-cabinet-dots { display: flex; gap: 0.45rem; }
+.arcade-cabinet-dots button { appearance: none; background: rgba(5, 10, 24, 0.58); border: 1px solid rgba(255,255,255,0.58); cursor: pointer; height: 0.5rem; padding: 0; transition: background 180ms ease, box-shadow 180ms ease, width 180ms ease; width: 0.5rem; }
+.arcade-cabinet-dots button:hover, .arcade-cabinet-dots button:focus-visible { border-color: #67e8f9; }
+.arcade-cabinet-dots button.is-active { animation: arcade-status-pulse 1.8s ease-in-out infinite; background: #22d3ee; border-color: #22d3ee; box-shadow: 0 0 12px #22d3ee; width: 1.2rem; }
+.arcade-hero-arrow { align-items: center; appearance: none; background: rgba(5, 10, 24, 0.54); border: 1px solid rgba(103, 232, 249, 0.26); color: rgba(255,255,255,0.68); cursor: pointer; display: inline-flex; font-size: 1.15rem; height: 1.8rem; justify-content: center; padding: 0; transition: background 180ms ease, box-shadow 180ms ease, color 180ms ease; width: 1.8rem; }
+.arcade-hero-arrow:hover, .arcade-hero-arrow:focus-visible { background: rgba(34, 211, 238, 0.18); box-shadow: 0 0 14px rgba(34, 211, 238, 0.28); color: #67e8f9; }
 
 .arcade-pixel-title {
   align-items: center;
@@ -366,6 +403,8 @@ textarea,
   .arcade-lobby form input { width: 0; }
   .arcade-cabinet { min-height: 23rem; }
   .arcade-trending-game { grid-template-columns: 7.5rem minmax(0, 1fr) auto; }
+  .arcade-hero-controls { bottom: 0.75rem; left: 50%; right: auto; transform: translateX(-50%); }
+  .arcade-hero-arrow { display: none; }
 }
 
 @keyframes arcade-marquee-sweep { to { transform: translateX(85%); } }
@@ -373,8 +412,23 @@ textarea,
 @keyframes arcade-beam-right { to { opacity: 0.32; transform: translateX(-5rem) rotate(10deg); } }
 @keyframes arcade-border-flow { to { background-position: 220% 0; } }
 @keyframes arcade-screen-scan { 0%, 18% { transform: translateY(0); } 82%, 100% { transform: translateY(580%); } }
+@keyframes arcade-hero-reveal { from { filter: brightness(0.72); opacity: 0; transform: scale(1.035); } }
 @keyframes arcade-status-pulse { 50% { opacity: 0.42; } }
 @keyframes arcade-play-glow { 50% { box-shadow: inset -3px -3px rgba(0,0,0,0.24), inset 3px 3px rgba(255,255,255,0.26), 0 0 38px rgba(250, 204, 21, 0.52); } }
+@keyframes arcade-machine-lights {
+  0%, 100% { filter: brightness(0.82); opacity: 0.34; }
+  18% { filter: brightness(1.35); opacity: 0.66; }
+  21% { filter: brightness(0.72); opacity: 0.3; }
+  24%, 58% { filter: brightness(1.08); opacity: 0.5; }
+  61% { filter: brightness(1.48); opacity: 0.72; }
+  64%, 82% { filter: brightness(0.9); opacity: 0.4; }
+  85% { filter: brightness(1.25); opacity: 0.62; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .arcade-page::before { animation: none; opacity: 0.42; }
+  .arcade-hero-image, .arcade-cabinet-dots button.is-active { animation: none; }
+}
 
 .arcade-section {
   border-color: rgba(181, 190, 255, 0.15);

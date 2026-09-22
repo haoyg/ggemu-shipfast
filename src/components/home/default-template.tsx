@@ -134,7 +134,11 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
   const [lobbyPlatform, setLobbyPlatform] = useState('')
   const [lobbyPlatformGames, setLobbyPlatformGames] = useState<Array<PublicGame>>([])
   const [isLobbyPlatformLoading, setIsLobbyPlatformLoading] = useState(false)
+  const [heroIndex, setHeroIndex] = useState(0)
+  const [isHeroPaused, setIsHeroPaused] = useState(false)
+  const [isHeroMobile, setIsHeroMobile] = useState(false)
   const lobbyRequestRef = useRef(0)
+  const heroTouchStartXRef = useRef<number | null>(null)
   const runPlatformSearch = useServerFn(searchGames)
   const resultsHeadingRef = useRef<HTMLHeadingElement>(null)
   const previousPageRef = useRef(page)
@@ -169,8 +173,11 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
   const lobbyGames = lobbyPlatform
     ? (lobbyPlatformGames.length > 0 ? lobbyPlatformGames : localPlatformGames)
     : topGames
-  const featuredGame = lobbyGames[0]
-  const trendingGames = lobbyGames.slice(1, 5)
+  const heroGames = lobbyGames.slice(0, 4)
+  const featuredGame = heroGames[heroIndex] ?? heroGames[0]
+  const trendingGames = lobbyGames
+    .filter((game) => !featuredGame || getGameRouteId(game) !== getGameRouteId(featuredGame))
+    .slice(0, 4)
   const lobbyCopy = getArcadeLobbyCopy(lang)
   const activeCategoryLabel = filters.category
     ? getLocalizedCategoryLabel(filters.category, lang)
@@ -178,6 +185,36 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
   const activePlatformLabel = filters.platform
     ? getLocalizedPlatformLabel(filters.platform, lang)
     : ''
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(max-width: 639px)')
+    const updateMobileState = () => setIsHeroMobile(mediaQuery.matches)
+    updateMobileState()
+    if (mediaQuery.addEventListener) {
+      mediaQuery.addEventListener('change', updateMobileState)
+      return () => mediaQuery.removeEventListener('change', updateMobileState)
+    }
+    if (mediaQuery.addListener) {
+      mediaQuery.addListener(updateMobileState)
+      return () => mediaQuery.removeListener(updateMobileState)
+    }
+  }, [])
+
+  useEffect(() => setHeroIndex(0), [games, lobbyPlatform, lobbyPlatformGames])
+
+  useEffect(() => {
+    if (isHeroMobile || isHeroPaused || heroGames.length < 2) return
+    const timer = window.setInterval(() => {
+      if (!document.hidden) {
+        setHeroIndex((current) => (current + 1) % heroGames.length)
+      }
+    }, 6000)
+    return () => window.clearInterval(timer)
+  }, [heroGames.length, isHeroMobile, isHeroPaused])
+
+  function showHeroGame(index: number) {
+    setHeroIndex((index + heroGames.length) % heroGames.length)
+  }
 
   function handleCategoryChange(categoryName: string) {
     onFilterChange('category', filters.category === categoryName ? '' : categoryName)
@@ -189,6 +226,7 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
     lobbyRequestRef.current = requestId
     setLobbyPlatform(nextPlatform)
     setLobbyPlatformGames([])
+    setHeroIndex(0)
 
     if (!nextPlatform) {
       setIsLobbyPlatformLoading(false)
@@ -278,17 +316,34 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
 
             {featuredGame ? (
               <div className="grid min-w-0 gap-3 lg:grid-cols-[minmax(0,2.2fr)_minmax(17rem,0.8fr)]">
-                <article className="arcade-cabinet group relative min-h-[24rem] overflow-hidden sm:min-h-[31rem]">
+                <article
+                  className="arcade-cabinet group relative min-h-[24rem] overflow-hidden sm:min-h-[31rem]"
+                  onBlur={(event) => {
+                    if (!event.currentTarget.contains(event.relatedTarget)) setIsHeroPaused(false)
+                  }}
+                  onFocus={() => setIsHeroPaused(true)}
+                  onMouseEnter={() => setIsHeroPaused(true)}
+                  onMouseLeave={() => setIsHeroPaused(false)}
+                  onTouchEnd={(event) => {
+                    const startX = heroTouchStartXRef.current
+                    heroTouchStartXRef.current = null
+                    if (startX === null || heroGames.length < 2) return
+                    const distance = event.changedTouches[0].clientX - startX
+                    if (Math.abs(distance) > 48) showHeroGame(heroIndex + (distance < 0 ? 1 : -1))
+                  }}
+                  onTouchStart={(event) => { heroTouchStartXRef.current = event.touches[0].clientX }}
+                >
                   <div className="absolute inset-0 grid place-items-center bg-[#071128] text-sm font-black uppercase tracking-widest text-white/45">
                     {getRetroCoverFallbackLabel(lang)}
                   </div>
                   {featuredGame.game_cover?.trim() ? (
                     <img
                       alt={featuredGame.name ?? 'Featured game'}
-                      className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-[1.025]"
+                      className="arcade-hero-image absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-[1.025]"
                       decoding="async"
                       fetchPriority="high"
                       onError={(event) => { event.currentTarget.hidden = true }}
+                      key={getGameRouteId(featuredGame)}
                       src={featuredGame.game_cover}
                     />
                   ) : null}
@@ -320,7 +375,17 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
                       <span className="arcade-press-play"><span aria-hidden="true" />{lobbyCopy.pressPlay}</span>
                     </div>
                   </div>
-                  <div className="arcade-cabinet-dots" aria-hidden="true"><span /><span /><span /><span /></div>
+                  {heroGames.length > 1 ? (
+                    <div className="arcade-hero-controls">
+                      <button aria-label={lobbyCopy.previousGame} className="arcade-hero-arrow" onClick={() => showHeroGame(heroIndex - 1)} type="button"><i aria-hidden="true" className="ri-arrow-left-s-line" /></button>
+                      <div className="arcade-cabinet-dots" role="group" aria-label={lobbyCopy.chooseGame}>
+                        {heroGames.map((game, index) => (
+                          <button aria-label={`${lobbyCopy.game} ${index + 1}: ${game.name}`} aria-pressed={index === heroIndex} className={index === heroIndex ? 'is-active' : ''} key={getGameRouteId(game)} onClick={() => showHeroGame(index)} type="button" />
+                        ))}
+                      </div>
+                      <button aria-label={lobbyCopy.nextGame} className="arcade-hero-arrow" onClick={() => showHeroGame(heroIndex + 1)} type="button"><i aria-hidden="true" className="ri-arrow-right-s-line" /></button>
+                    </div>
+                  ) : null}
                 </article>
 
                 <aside className={`arcade-trending-panel p-3 sm:p-4 ${isLobbyPlatformLoading ? 'is-loading' : ''}`} aria-label={lobbyCopy.trending} aria-busy={isLobbyPlatformLoading}>
@@ -588,14 +653,14 @@ function HeroPreviewVideo({ src }: { src?: string }) {
 
 function getArcadeLobbyCopy(lang: Locale) {
   if (lang === 'zh-CN') {
-    return { featured: '今日主打', jumpBackIn: '继续探索', playNow: '立即开玩', pressPlay: '按下开始', trending: '正在热门' }
+    return { chooseGame: '选择主推游戏', featured: '今日主打', game: '游戏', jumpBackIn: '继续探索', nextGame: '下一个游戏', playNow: '立即开玩', pressPlay: '按下开始', previousGame: '上一个游戏', trending: '正在热门' }
   }
 
   if (lang === 'ja') {
-    return { featured: '本日のおすすめ', jumpBackIn: '探索を続ける', playNow: '今すぐプレイ', pressPlay: 'スタート', trending: 'トレンド' }
+    return { chooseGame: 'おすすめゲームを選択', featured: '本日のおすすめ', game: 'ゲーム', jumpBackIn: '探索を続ける', nextGame: '次のゲーム', playNow: '今すぐプレイ', pressPlay: 'スタート', previousGame: '前のゲーム', trending: 'トレンド' }
   }
 
-  return { featured: 'Featured game', jumpBackIn: 'Jump Back In', playNow: 'Play Now', pressPlay: 'Press Play', trending: 'Trending Now' }
+  return { chooseGame: 'Choose featured game', featured: 'Featured game', game: 'Game', jumpBackIn: 'Jump Back In', nextGame: 'Next game', playNow: 'Play Now', pressPlay: 'Press Play', previousGame: 'Previous game', trending: 'Trending Now' }
 }
 
 function HomeSearchSuggest({

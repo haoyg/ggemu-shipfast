@@ -25,7 +25,11 @@ const props: HomeTemplateProps = {
   t: getI18n('en').home,
 }
 
-beforeEach(() => vi.stubGlobal('matchMedia', vi.fn(() => ({ matches: true }))))
+beforeEach(() => vi.stubGlobal('matchMedia', vi.fn(() => ({
+  addEventListener: vi.fn(),
+  matches: true,
+  removeEventListener: vi.fn(),
+}))))
 afterEach(() => { cleanup(); vi.clearAllMocks(); vi.unstubAllGlobals(); vi.useRealTimers() })
 
 it('autoplays the hero preview when motion is allowed', () => {
@@ -162,4 +166,28 @@ it('switches the lobby to popular games from the selected platform', async () =>
   expect(runSearch).toHaveBeenCalledWith({
     data: { limit: 5, locale: 'en', page: 1, platform: 'Famicom', sort: 'popular' },
   })
+})
+
+it('moves between featured games with the hero controls', () => {
+  render(<DefaultHomeTemplate {...props} filters={{ ...props.filters, query: 'game' }} />)
+
+  expect(screen.getByRole('heading', { level: 2, name: 'Game 0' })).not.toBeNull()
+  fireEvent.click(screen.getByRole('button', { name: 'Next game' }))
+  expect(screen.getByRole('heading', { level: 2, name: 'Game 1' })).not.toBeNull()
+  fireEvent.click(screen.getByRole('button', { name: 'Game 4: Game 3' }))
+  expect(screen.getByRole('heading', { level: 2, name: 'Game 3' })).not.toBeNull()
+})
+
+it('automatically advances the hero on desktop', () => {
+  vi.useFakeTimers()
+  vi.stubGlobal('matchMedia', vi.fn(() => ({
+    addEventListener: vi.fn(),
+    matches: false,
+    removeEventListener: vi.fn(),
+  })))
+  render(<DefaultHomeTemplate {...props} filters={{ ...props.filters, query: 'game' }} />)
+
+  expect(screen.getByRole('heading', { level: 2, name: 'Game 0' })).not.toBeNull()
+  act(() => { vi.advanceTimersByTime(6000) })
+  expect(screen.getByRole('heading', { level: 2, name: 'Game 1' })).not.toBeNull()
 })
