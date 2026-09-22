@@ -11,6 +11,7 @@ import {
   useRouterState,
 } from '@tanstack/react-router'
 import { GameInstallButton } from '#/components/game-install-button'
+import { AdsterraNativeBanner } from '#/components/adsterra-native-banner'
 import { GameEmbedCard, GameShareActions } from '#/components/game-share-actions'
 import { EmbeddedGamePlayer } from '#/components/embedded-game-player'
 import { SiteLayout } from '#/components/site-layout'
@@ -564,6 +565,7 @@ function LocalizedGameDetailPage() {
               <SeoInternalLinkSection lang={lang} links={seoInternalLinks} />
               {editorial ? <div className="hidden sm:block"><GameEmbedCard canonicalUrl={canonicalUrl} embedUrl={embedUrl} labels={t} title={game.name || 'POKOPIE'} /></div> : null}
               <FaqSection items={faqItems} title={t.faq} />
+              <AdsterraNativeBanner locale={lang} />
               <RelatedGameSection
                 games={getRelatedGames(
                   relatedGames.relatedByCategory,

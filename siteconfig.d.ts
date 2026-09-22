@@ -7,6 +7,8 @@ declare const siteConfig: {
   GGEMU_REFCODE: string
   GOOGLE_ADSENSE_CLIENT: string
   GOOGLE_ANALYTICS_ID: string
+  ADSTERRA_NATIVE_SCRIPT_URL: string
+  ADSTERRA_NATIVE_CONTAINER_ID: string
 }
 
 export default siteConfig

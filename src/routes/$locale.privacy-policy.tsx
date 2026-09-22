@@ -61,6 +61,17 @@ const privacyCopies: Record<Locale, LegalCopy> = {
         ],
       },
       {
+        title: 'Adsterra 广告',
+        body:
+          '本网站可能使用 Adsterra 展示原生广告。Adsterra 及其广告合作方可能处理 IP 地址、设备和浏览器信息、访问页面、广告展示与互动数据，并可能按照其政策使用 Cookie 或类似技术来投放、衡量和保护广告。',
+        links: [
+          {
+            href: 'https://adsterra.com/privacy-policy-managed/',
+            label: '查看 Adsterra 隐私政策',
+          },
+        ],
+      },
+      {
         title: '数据保留',
         body:
           '信息仅会在运营、法律、安全或支持目的合理需要的期限内保留。保留期限可能因信息类型和处理原因而异。',
@@ -116,6 +127,17 @@ const privacyCopies: Record<Locale, LegalCopy> = {
         ],
       },
       {
+        title: 'Adsterra advertising',
+        body:
+          'The website may use Adsterra to display native advertising. Adsterra and its advertising partners may process IP addresses, device and browser information, pages visited, ad impressions, and interaction data, and may use cookies or similar technologies according to their policies to deliver, measure, and protect advertising.',
+        links: [
+          {
+            href: 'https://adsterra.com/privacy-policy-managed/',
+            label: 'Read the Adsterra Privacy Policy',
+          },
+        ],
+      },
+      {
         title: 'Data retention',
         body:
           'Information is retained only as long as reasonably necessary for operational, legal, security, or support purposes. Retention periods may vary depending on the type of information and the reason it is processed.',
@@ -167,6 +189,17 @@ const privacyCopies: Record<Locale, LegalCopy> = {
           {
             href: 'https://adssettings.google.com/',
             label: 'Google 広告設定を管理',
+          },
+        ],
+      },
+      {
+        title: 'Adsterra 広告',
+        body:
+          '本サイトはネイティブ広告の表示に Adsterra を利用する場合があります。Adsterra および広告パートナーは、広告の配信、測定、保護のため、IP アドレス、端末やブラウザーの情報、閲覧ページ、広告表示、操作データを処理し、それぞれのポリシーに従って Cookie または類似技術を使用する場合があります。',
+        links: [
+          {
+            href: 'https://adsterra.com/privacy-policy-managed/',
+            label: 'Adsterra のプライバシーポリシーを見る',
           },
         ],
       },

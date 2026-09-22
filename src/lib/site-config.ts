@@ -20,6 +20,8 @@ const siteConfigKeys = [
   'GGEMU_REFCODE',
   'GOOGLE_ADSENSE_CLIENT',
   'GOOGLE_ANALYTICS_ID',
+  'ADSTERRA_NATIVE_SCRIPT_URL',
+  'ADSTERRA_NATIVE_CONTAINER_ID',
 ] as const satisfies readonly SiteConfigKey[]
 
 export const siteTemplates = [
