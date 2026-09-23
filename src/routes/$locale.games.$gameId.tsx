@@ -544,6 +544,7 @@ function LocalizedGameDetailPage() {
             <div className="flex flex-col gap-6">
               {editorial ? <ArticlePanel paragraphs={descriptionParagraphs} title={t.overview} /> : null}
               <ArticlePanel paragraphs={howToPlayParagraphs} title={t.howToPlay} />
+              <AdsterraNativeBanner locale={lang} />
               {editorial ? (
                 <section className="rounded-xl border border-white/10 bg-white/[0.04] p-5">
                   <h2 className="text-lg font-bold text-white">Game references</h2>
@@ -565,7 +566,6 @@ function LocalizedGameDetailPage() {
               <SeoInternalLinkSection lang={lang} links={seoInternalLinks} />
               {editorial ? <div className="hidden sm:block"><GameEmbedCard canonicalUrl={canonicalUrl} embedUrl={embedUrl} labels={t} title={game.name || 'POKOPIE'} /></div> : null}
               <FaqSection items={faqItems} title={t.faq} />
-              <AdsterraNativeBanner locale={lang} />
               <RelatedGameSection
                 games={getRelatedGames(
                   relatedGames.relatedByCategory,
