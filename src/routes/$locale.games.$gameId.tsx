@@ -513,12 +513,6 @@ function LocalizedGameDetailPage() {
                 </div>
               </div>
 
-              {!editorial ? (
-                <div className="hidden sm:block">
-                  <GameEmbedCard canonicalUrl={canonicalUrl} embedUrl={embedUrl} labels={t} title={game.name || 'POKOPIE'} />
-                </div>
-              ) : null}
-
               <div className="grid grid-cols-2 gap-4 text-left sm:max-w-md sm:gap-6">
                 <Stat label={t.plays} value={game.plays_count ?? 0} />
                 <Stat label={t.views} value={game.views_count ?? 0} />
@@ -574,7 +568,7 @@ function LocalizedGameDetailPage() {
                 title={t.relatedGames}
               />
               <FaqSection items={faqItems} title={t.faq} />
-              {editorial ? <div className="hidden sm:block"><GameEmbedCard canonicalUrl={canonicalUrl} embedUrl={embedUrl} labels={t} title={game.name || 'POKOPIE'} /></div> : null}
+              <div className="hidden sm:block"><GameEmbedCard canonicalUrl={canonicalUrl} embedUrl={embedUrl} labels={t} title={game.name || 'POKOPIE'} /></div>
             </div>
 
             <aside className={`flex flex-col gap-4 lg:order-none lg:sticky lg:top-24 lg:self-start ${editorial ? '' : 'order-first'}`}>
