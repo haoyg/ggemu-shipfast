@@ -564,8 +564,6 @@ function LocalizedGameDetailPage() {
                 </section>
               ) : null}
               <SeoInternalLinkSection lang={lang} links={seoInternalLinks} />
-              {editorial ? <div className="hidden sm:block"><GameEmbedCard canonicalUrl={canonicalUrl} embedUrl={embedUrl} labels={t} title={game.name || 'POKOPIE'} /></div> : null}
-              <FaqSection items={faqItems} title={t.faq} />
               <RelatedGameSection
                 games={getRelatedGames(
                   relatedGames.relatedByCategory,
@@ -575,6 +573,8 @@ function LocalizedGameDetailPage() {
                 lang={lang}
                 title={t.relatedGames}
               />
+              <FaqSection items={faqItems} title={t.faq} />
+              {editorial ? <div className="hidden sm:block"><GameEmbedCard canonicalUrl={canonicalUrl} embedUrl={embedUrl} labels={t} title={game.name || 'POKOPIE'} /></div> : null}
             </div>
 
             <aside className={`flex flex-col gap-4 lg:order-none lg:sticky lg:top-24 lg:self-start ${editorial ? '' : 'order-first'}`}>
