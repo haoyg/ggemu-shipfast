@@ -4,8 +4,11 @@ import type { GameCollectionPageConfig } from '#/components/game-collection-page
 import { getSeoLinksFromCanonical, getSeoOrigin } from '#/lib/seo'
 import { siteConfig } from '#/lib/site-config'
 
+export const PLATFORM_COLLECTION_PAGE_SIZE = 48
+
 export type PlatformCollectionLoaderData = {
   games: Array<PublicGame>
+  loadFailed?: boolean
   origin: string
   pagination: {
     limit: number
@@ -28,64 +31,105 @@ export type CollectionRouteConfig = {
 export async function loadPlatformCollection(
   collection: CollectionRouteConfig,
   locale: Locale = 'en',
+  page = 1,
 ): Promise<PlatformCollectionLoaderData> {
   const [origin, result] = await Promise.all([
     getSeoOrigin(),
     searchGames({
       data: {
-        limit: 24,
+        limit: PLATFORM_COLLECTION_PAGE_SIZE,
         locale,
-        page: 1,
+        page,
         platform: collection.platform,
         sort: 'popular',
       },
-    }).catch(() => ({
-      games: [],
-      pagination: { limit: 24, page: 1, pages: 0, total: 0 },
-    })),
+    }).catch(() => null),
   ])
 
-  return { origin, ...result }
+  return result
+    ? { origin, ...result }
+    : {
+        games: [],
+        loadFailed: true,
+        origin,
+        pagination: {
+          limit: PLATFORM_COLLECTION_PAGE_SIZE,
+          page,
+          pages: 0,
+          total: 0,
+        },
+      }
 }
 
 export function buildPlatformCollectionHead(
   collection: CollectionRouteConfig,
   loaderData: PlatformCollectionLoaderData | undefined,
   locale: Locale = 'en',
+  page = 1,
 ) {
-  const canonicalUrl = `${loaderData?.origin ?? ''}${collection.routePath}`
+  const pagePath = getPlatformCollectionPagePath(collection.routePath, page)
+  const canonicalUrl = `${loaderData?.origin ?? ''}${pagePath}`
+  const title = page > 1
+    ? `${collection.page.heroTitle} – Page ${page} | POKOPIE`
+    : collection.title
+  const description = page > 1
+    ? `${collection.description} Page ${page} of ${loaderData?.pagination.pages ?? page}.`
+    : collection.description
+  const links = loaderData?.origin
+    ? [
+        ...getSeoLinksFromCanonical(canonicalUrl, page > 1 ? ['en'] : ['zh-CN', 'en', 'ja']),
+        ...(locale === 'en' && page > 1
+          ? [{ rel: 'prev', href: `${loaderData.origin}${getPlatformCollectionPagePath(collection.routePath, page - 1)}` }]
+          : []),
+        ...(locale === 'en' && loaderData.pagination.pages > page
+          ? [{ rel: 'next', href: `${loaderData.origin}${getPlatformCollectionPagePath(collection.routePath, page + 1)}` }]
+          : []),
+      ]
+    : undefined
 
   return {
-    links: loaderData?.origin
-      ? getSeoLinksFromCanonical(canonicalUrl, ['zh-CN', 'en', 'ja'])
-      : undefined,
+    links,
     meta: [
-      { title: collection.title },
-      { name: 'description', content: collection.description },
-      { property: 'og:title', content: collection.title },
-      { property: 'og:description', content: collection.description },
+      { title },
+      { name: 'description', content: description },
+      { property: 'og:title', content: title },
+      { property: 'og:description', content: description },
       { property: 'og:type', content: 'website' },
       { property: 'og:url', content: canonicalUrl },
       { name: 'twitter:card', content: 'summary_large_image' },
-      { name: 'twitter:title', content: collection.title },
-      { name: 'twitter:description', content: collection.description },
+      { name: 'twitter:title', content: title },
+      { name: 'twitter:description', content: description },
     ],
     scripts: loaderData?.origin
-      ? buildStructuredDataScripts(collection, canonicalUrl, loaderData.games, locale)
+      ? buildStructuredDataScripts(collection, canonicalUrl, loaderData, locale, page)
       : undefined,
   }
+}
+
+export function getPlatformCollectionPagePath(routePath: string, page: number) {
+  return page > 1 ? `${routePath}/page/${page}` : routePath
+}
+
+export function parsePlatformCollectionPage(value: string) {
+  if (!/^[1-9]\d*$/.test(value)) {
+    return null
+  }
+
+  const page = Number(value)
+  return Number.isSafeInteger(page) ? page : null
 }
 
 function buildStructuredDataScripts(
   collection: CollectionRouteConfig,
   canonicalUrl: string,
-  games: Array<PublicGame>,
+  loaderData: PlatformCollectionLoaderData,
   locale: Locale,
+  page: number,
 ) {
   const origin = new URL(canonicalUrl).origin
-  const itemList = games.slice(0, 18).map((game, index) => ({
+  const itemList = loaderData.games.map((game, index) => ({
     '@type': 'ListItem',
-    position: index + 1,
+    position: (page - 1) * loaderData.pagination.limit + index + 1,
     url: `${origin}/${locale}/games/${encodeURIComponent(game.url_slug || game._id || '')}`,
     name: game.name,
   }))
@@ -96,8 +140,8 @@ function buildStructuredDataScripts(
       children: serializeJsonLd({
         '@context': 'https://schema.org',
         '@type': 'CollectionPage',
-        name: collection.schemaName,
-        description: collection.description,
+        name: page > 1 ? `${collection.schemaName} – Page ${page}` : collection.schemaName,
+        description: page > 1 ? `${collection.description} Page ${page}.` : collection.description,
         url: canonicalUrl,
         isPartOf: {
           '@type': 'WebSite',
@@ -126,7 +170,7 @@ function buildStructuredDataScripts(
           {
             '@type': 'ListItem',
             position: 2,
-            name: collection.breadcrumbName,
+            name: page > 1 ? `${collection.breadcrumbName} – Page ${page}` : collection.breadcrumbName,
             item: canonicalUrl,
           },
         ],

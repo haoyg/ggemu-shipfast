@@ -6,6 +6,7 @@ import {
 } from '#/components/game-card-preview'
 import { SiteLayout } from '#/components/site-layout'
 import type { Locale, PublicGame } from '#/lib/ggemu'
+import { getPlatformCollectionPagePath } from '#/lib/platform-collection-route'
 
 export type GameCollectionFaq = {
   question: string
@@ -45,15 +46,19 @@ export function GameCollectionPage({
   config,
   games,
   locale = 'en',
+  page = 1,
+  pages = 1,
   total,
 }: {
   config: GameCollectionPageConfig
   games: Array<PublicGame>
   locale?: Locale
+  page?: number
+  pages?: number
   total: number
 }) {
   const featuredGames = games.slice(0, 4)
-  const libraryGames = games.slice(0, 18)
+  const libraryGames = games
 
   return (
     <SiteLayout
@@ -97,6 +102,7 @@ export function GameCollectionPage({
           <h2 className="arcade-rule-title arcade-section-title text-3xl font-semibold text-white">{config.libraryTitle}</h2>
           <p className="mt-2 max-w-2xl text-sm leading-6 text-white/60">
             {config.libraryDescription(total)}
+            {pages > 1 ? ` Page ${page} of ${pages}.` : ''}
           </p>
 
           {libraryGames.length > 0 ? (
@@ -116,6 +122,14 @@ export function GameCollectionPage({
               {config.unavailableMessage}
             </div>
           )}
+
+          {pages > 1 ? (
+            <CollectionPagination
+              currentPage={page}
+              pages={pages}
+              routePath={config.routePath}
+            />
+          ) : null}
         </div>
       </section>
 
@@ -189,6 +203,73 @@ export function GameCollectionPage({
       </section>
     </SiteLayout>
   )
+}
+
+function CollectionPagination({
+  currentPage,
+  pages,
+  routePath,
+}: {
+  currentPage: number
+  pages: number
+  routePath: string
+}) {
+  const pageNumbers = getVisiblePageNumbers(currentPage, pages)
+
+  return (
+    <nav aria-label="Game library pagination" className="mt-10 flex flex-wrap items-center justify-center gap-2">
+      {currentPage > 1 ? (
+        <a
+          className="btn btn-sm border-white/15 bg-white/5 text-white hover:bg-white/10"
+          href={getPlatformCollectionPagePath(routePath, currentPage - 1)}
+          rel="prev"
+        >
+          <i aria-hidden="true" className="ri-arrow-left-line" />
+          Previous
+        </a>
+      ) : null}
+
+      {pageNumbers.map((pageNumber, index) => {
+        const previousPage = pageNumbers[index - 1]
+
+        return (
+          <span className="contents" key={pageNumber}>
+            {previousPage && pageNumber - previousPage > 1 ? (
+              <span aria-hidden="true" className="px-1 text-white/45">…</span>
+            ) : null}
+            <a
+              aria-current={pageNumber === currentPage ? 'page' : undefined}
+              className={`btn btn-sm min-w-10 ${
+                pageNumber === currentPage
+                  ? 'btn-primary'
+                  : 'border-white/15 bg-white/5 text-white hover:bg-white/10'
+              }`}
+              href={getPlatformCollectionPagePath(routePath, pageNumber)}
+            >
+              {pageNumber}
+            </a>
+          </span>
+        )
+      })}
+
+      {currentPage < pages ? (
+        <a
+          className="btn btn-sm border-white/15 bg-white/5 text-white hover:bg-white/10"
+          href={getPlatformCollectionPagePath(routePath, currentPage + 1)}
+          rel="next"
+        >
+          Next
+          <i aria-hidden="true" className="ri-arrow-right-line" />
+        </a>
+      ) : null}
+    </nav>
+  )
+}
+
+function getVisiblePageNumbers(currentPage: number, pages: number) {
+  return Array.from(new Set([1, currentPage - 1, currentPage, currentPage + 1, pages]))
+    .filter((page) => page >= 1 && page <= pages)
+    .sort((left, right) => left - right)
 }
 
 function HeroGameCovers({

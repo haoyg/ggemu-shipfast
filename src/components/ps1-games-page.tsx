@@ -103,6 +103,27 @@ export function getLocalizedPs1Collection(locale: Locale) {
   return { breadcrumbName: locale === 'ja' ? 'PS1 ゲーム' : locale === 'en' ? 'PS1 Games' : 'PS1 游戏', description: copy?.description ?? 'Play PS1 games online in your browser.', page, platform: 'PlayStation 1', routePath: page.routePath, schemaName: page.heroTitle, title: copy?.title ?? 'Play PS1 Games Online Free | No Download | POKOPIE' }
 }
 
-export function Ps1GamesPage({ games, total, locale = 'en' }: { games: Array<PublicGame>; total: number; locale?: Locale }) {
-  return <GameCollectionPage config={getLocalizedPs1PageConfig(locale)} games={games} locale={locale} total={total} />
+export function Ps1GamesPage({
+  games,
+  total,
+  locale = 'en',
+  page = 1,
+  pages = 1,
+}: {
+  games: Array<PublicGame>
+  total: number
+  locale?: Locale
+  page?: number
+  pages?: number
+}) {
+  return (
+    <GameCollectionPage
+      config={getLocalizedPs1PageConfig(locale)}
+      games={games}
+      locale={locale}
+      page={page}
+      pages={pages}
+      total={total}
+    />
+  )
 }

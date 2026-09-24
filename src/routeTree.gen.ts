@@ -81,6 +81,7 @@ import { Route as GamesGameIdPlayRouteImport } from './routes/games/$gameId/play
 import { Route as LocaleGuidesGuideIdRouteImport } from './routes/$locale.guides.$guideId'
 import { Route as LocaleGamesGameIdRouteImport } from './routes/$locale.games.$gameId'
 import { Route as LocaleBlogBlogIdRouteImport } from './routes/$locale.blog.$blogId'
+import { Route as EnPlatformPagePageRouteImport } from './routes/en.$platform.page.$page'
 import { Route as EmbedLocaleGamesGameIdRouteImport } from './routes/embed.$locale.games.$gameId'
 import { Route as LocaleGamesGameIdPlayRouteImport } from './routes/$locale.games.$gameId.play'
 
@@ -445,6 +446,11 @@ const LocaleBlogBlogIdRoute = LocaleBlogBlogIdRouteImport.update({
   path: '/$blogId',
   getParentRoute: () => LocaleBlogRoute,
 } as any)
+const EnPlatformPagePageRoute = EnPlatformPagePageRouteImport.update({
+  id: '/en/$platform/page/$page',
+  path: '/en/$platform/page/$page',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const EmbedLocaleGamesGameIdRoute = EmbedLocaleGamesGameIdRouteImport.update({
   id: '/embed/$locale/games/$gameId',
   path: '/embed/$locale/games/$gameId',
@@ -531,6 +537,7 @@ export interface FileRoutesByFullPath {
   '/library/genres/$genre': typeof LibraryGenresGenreRoute
   '/$locale/games/$gameId/play': typeof LocaleGamesGameIdPlayRoute
   '/embed/$locale/games/$gameId': typeof EmbedLocaleGamesGameIdRoute
+  '/en/$platform/page/$page': typeof EnPlatformPagePageRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -607,6 +614,7 @@ export interface FileRoutesByTo {
   '/library/genres/$genre': typeof LibraryGenresGenreRoute
   '/$locale/games/$gameId/play': typeof LocaleGamesGameIdPlayRoute
   '/embed/$locale/games/$gameId': typeof EmbedLocaleGamesGameIdRoute
+  '/en/$platform/page/$page': typeof EnPlatformPagePageRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -684,6 +692,7 @@ export interface FileRoutesById {
   '/library/genres/$genre': typeof LibraryGenresGenreRoute
   '/$locale/games/$gameId/play': typeof LocaleGamesGameIdPlayRoute
   '/embed/$locale/games/$gameId': typeof EmbedLocaleGamesGameIdRoute
+  '/en/$platform/page/$page': typeof EnPlatformPagePageRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -762,6 +771,7 @@ export interface FileRouteTypes {
     | '/library/genres/$genre'
     | '/$locale/games/$gameId/play'
     | '/embed/$locale/games/$gameId'
+    | '/en/$platform/page/$page'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -838,6 +848,7 @@ export interface FileRouteTypes {
     | '/library/genres/$genre'
     | '/$locale/games/$gameId/play'
     | '/embed/$locale/games/$gameId'
+    | '/en/$platform/page/$page'
   id:
     | '__root__'
     | '/'
@@ -914,6 +925,7 @@ export interface FileRouteTypes {
     | '/library/genres/$genre'
     | '/$locale/games/$gameId/play'
     | '/embed/$locale/games/$gameId'
+    | '/en/$platform/page/$page'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -973,6 +985,7 @@ export interface RootRouteChildren {
   PlayGameIdRoute: typeof PlayGameIdRoute
   LibraryGenresGenreRoute: typeof LibraryGenresGenreRoute
   EmbedLocaleGamesGameIdRoute: typeof EmbedLocaleGamesGameIdRoute
+  EnPlatformPagePageRoute: typeof EnPlatformPagePageRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -1481,6 +1494,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LocaleBlogBlogIdRouteImport
       parentRoute: typeof LocaleBlogRoute
     }
+    '/en/$platform/page/$page': {
+      id: '/en/$platform/page/$page'
+      path: '/en/$platform/page/$page'
+      fullPath: '/en/$platform/page/$page'
+      preLoaderRoute: typeof EnPlatformPagePageRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/embed/$locale/games/$gameId': {
       id: '/embed/$locale/games/$gameId'
       path: '/embed/$locale/games/$gameId'
@@ -1640,6 +1660,7 @@ const rootRouteChildren: RootRouteChildren = {
   PlayGameIdRoute: PlayGameIdRoute,
   LibraryGenresGenreRoute: LibraryGenresGenreRoute,
   EmbedLocaleGamesGameIdRoute: EmbedLocaleGamesGameIdRoute,
+  EnPlatformPagePageRoute: EnPlatformPagePageRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

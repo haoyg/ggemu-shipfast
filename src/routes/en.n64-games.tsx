@@ -20,5 +20,5 @@ export const Route = createFileRoute('/en/n64-games')({
 function N64GamesRoute() {
   const { games, pagination } = Route.useLoaderData()
 
-  return <PlatformGamesPage collection={collection} games={games} total={pagination.total} />
+  return <PlatformGamesPage collection={collection} games={games} page={1} pages={pagination.pages} total={pagination.total} />
 }

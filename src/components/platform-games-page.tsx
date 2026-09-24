@@ -511,11 +511,15 @@ export function PlatformGamesPage({
   collection,
   games,
   locale = 'en',
+  page = 1,
+  pages = 1,
   total,
 }: {
   collection: PlatformCollectionConfig
   games: Array<PublicGame>
   locale?: Locale
+  page?: number
+  pages?: number
   total: number
 }) {
   const relatedGuide = locale === 'en' ? getRelatedGuide(collection.platform) : undefined
@@ -525,6 +529,8 @@ export function PlatformGamesPage({
       config={{ ...collection.page, relatedGuide }}
       games={games}
       locale={locale}
+      page={page}
+      pages={pages}
       total={total}
     />
   )

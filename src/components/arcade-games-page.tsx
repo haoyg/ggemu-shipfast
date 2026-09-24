@@ -125,6 +125,27 @@ export function getLocalizedArcadeCollection(locale: Locale) {
   return { breadcrumbName: locale === 'ja' ? 'アーケードゲーム' : locale === 'en' ? 'Arcade Games' : '街机游戏', description: copy?.description ?? 'Play classic arcade games online in your browser.', page, platform: 'Arcade', routePath: page.routePath, schemaName: page.heroTitle, title: copy?.title ?? 'Play Classic Arcade Games Online Free | POKOPIE' }
 }
 
-export function ArcadeGamesPage({ games, total, locale = 'en' }: { games: Array<PublicGame>; total: number; locale?: Locale }) {
-  return <GameCollectionPage config={getLocalizedArcadePageConfig(locale)} games={games} locale={locale} total={total} />
+export function ArcadeGamesPage({
+  games,
+  total,
+  locale = 'en',
+  page = 1,
+  pages = 1,
+}: {
+  games: Array<PublicGame>
+  total: number
+  locale?: Locale
+  page?: number
+  pages?: number
+}) {
+  return (
+    <GameCollectionPage
+      config={getLocalizedArcadePageConfig(locale)}
+      games={games}
+      locale={locale}
+      page={page}
+      pages={pages}
+      total={total}
+    />
+  )
 }
