@@ -52,6 +52,7 @@ import {
   getGameSidebarContent,
 } from '#/lib/game-detail-content'
 import { getAlternateLinksFromCanonical } from '#/lib/seo'
+import { getCanonicalGameRouteId } from '#/lib/game-route-id'
 
 export const Route = createFileRoute('/$locale/games/$gameId')({
   beforeLoad: ({ location, params }) => {
@@ -90,7 +91,7 @@ export const Route = createFileRoute('/$locale/games/$gameId')({
       })
     }
 
-    const currentId = getGameRouteId(detail.game) || params.gameId
+    const currentId = getCanonicalGameRouteId(detail.game) || params.gameId
 
     if (currentId !== params.gameId) {
       throw redirect({

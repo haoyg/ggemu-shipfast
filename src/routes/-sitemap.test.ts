@@ -45,6 +45,25 @@ describe('sitemap availability', () => {
     expect(fetchMock).toHaveBeenCalledTimes(2)
   })
 
+  it('does not submit bare ObjectId game routes', async () => {
+    fetchMock.mockImplementation((input: string) => input.includes('/api/blog-posts')
+      ? successfulFetch(input)
+      : Promise.resolve(Response.json({
+          success: true,
+          data: [
+            { _id: '69d19a43eb21396d6195a021' },
+            { _id: 'readable-id', url_slug: 'readable-game' },
+          ],
+          pagination: { pages: 1 },
+        })))
+
+    const { getSitemapResponse } = await import('./sitemap[.]xml')
+    const xml = await (await getSitemapResponse(request())).text()
+
+    expect(xml).not.toContain('69d19a43eb21396d6195a021')
+    expect(xml).toContain('/en/games/readable-game')
+  })
+
   it('returns uncached 503 on a cold failure and recovers after the retry interval', async () => {
     fetchMock.mockRejectedValue(new Error('Offline'))
     const { getSitemapResponse } = await import('./sitemap[.]xml')

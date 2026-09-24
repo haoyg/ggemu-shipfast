@@ -3,6 +3,10 @@ import { createFileRoute } from '@tanstack/react-router'
 import type { BlogPost, Locale, PublicGame } from '#/lib/ggemu'
 import { TimedAsyncCache } from '#/lib/timed-async-cache'
 import { defaultSeoLocale } from '#/lib/seo'
+import {
+  getCanonicalGameRouteId,
+  isSitemapGameRouteId,
+} from '#/lib/game-route-id'
 
 const GGEMU_API_BASE_URL = 'https://ggemu.com'
 const SITEMAP_PAGE_SIZE = 100
@@ -317,7 +321,7 @@ function dedupeByRouteId<T>(items: Array<T>, getRouteId: (item: T) => string) {
 }
 
 function getGameRouteId(game: PublicGame) {
-  return game.url_slug?.trim() || game._id?.trim() || ''
+  return getCanonicalGameRouteId(game)
 }
 
 function getBlogPostRouteId(blogPost: BlogPost) {
@@ -422,7 +426,13 @@ function buildSitemapEntries(
     }
 
     for (const game of games) {
-      const gameId = encodeURIComponent(getGameRouteId(game))
+      const routeId = getGameRouteId(game)
+
+      if (!isSitemapGameRouteId(routeId)) {
+        continue
+      }
+
+      const gameId = encodeURIComponent(routeId)
       const path = `/games/${gameId}`
 
       entries.push({
