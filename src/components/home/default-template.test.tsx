@@ -83,6 +83,20 @@ it('uses compact platform links instead of repeating platform game grids', () =>
   expect(screen.queryByRole('region', { name: 'Arcade' })).toBeNull()
 })
 
+it.each(['Famicom', 'Famicom / NES'])(
+  'links the %s platform card to the NES collection',
+  (platformName) => {
+    render(
+      <DefaultHomeTemplate
+        {...props}
+        filterOptions={{ categories: [], platforms: [{ name: platformName }] }}
+      />,
+    )
+
+    expect(screen.getByTitle('Play NES games online').getAttribute('href')).toBe('/en/nes-games')
+  },
+)
+
 it('hides platform discovery while filtering games', () => {
   render(<DefaultHomeTemplate {...props} filters={{ ...props.filters, query: 'Mario' }} featureSections={[
     { title: 'Arcade', games: [{ _id: 'other', name: 'Other platform game' }], hasHeroCard: false },

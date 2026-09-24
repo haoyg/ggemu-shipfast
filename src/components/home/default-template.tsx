@@ -32,6 +32,7 @@ const platformShortLabels: Record<string, string> = {
   F: 'NES',
   f: 'NES',
   Famicom: 'NES',
+  'Famicom / NES': 'NES',
   ARCADE: 'Arcade',
   Arcade: 'Arcade',
   arcade: 'Arcade',
@@ -79,7 +80,7 @@ const preferredPlatforms = [
 const platformAliases: Record<string, Array<string>> = {
   ARCADE: ['ARCADE', 'Arcade'],
   'Game Boy Advance': ['Game Boy Advance', 'GBA'],
-  NES: ['NES', 'Nintendo Entertainment System', 'Famicom'],
+  NES: ['NES', 'Nintendo Entertainment System', 'Famicom', 'Famicom / NES'],
   'Nintendo 64': ['Nintendo 64', 'N64'],
   'PlayStation 1': ['PlayStation 1', 'PS1', 'PlayStation'],
   'Sega Genesis': ['Sega Genesis', 'Genesis'],
@@ -92,6 +93,8 @@ const platformSeoPaths: Record<string, string> = {
   'Game Boy Advance': '/en/gba-games',
   GBA: '/en/gba-games',
   Genesis: '/en/sega-genesis-games',
+  Famicom: '/en/nes-games',
+  'Famicom / NES': '/en/nes-games',
   NES: '/en/nes-games',
   N64: '/en/n64-games',
   'Nintendo Entertainment System': '/en/nes-games',
@@ -1069,7 +1072,7 @@ function gameMatchesPlatform(game: PublicGame, platform: string) {
 function getPlatformGroup(platform: string) {
   const normalized = platform.toLowerCase().replace(/[^a-z0-9]/g, '')
 
-  if (normalized === 'f' || normalized === 'famicom' || normalized === 'nes' || normalized === 'nintendoentertainmentsystem') return 'nes'
+  if (normalized === 'f' || normalized === 'famicom' || normalized === 'famicomnes' || normalized === 'nes' || normalized === 'nintendoentertainmentsystem') return 'nes'
   if (normalized === 'superfamicom' || normalized === 'snes') return 'snes'
   if (normalized === 'gameboyadvance' || normalized === 'gba') return 'gba'
   if (normalized === 'playstation' || normalized === 'playstation1' || normalized === 'ps1') return 'ps1'
