@@ -26,7 +26,7 @@ import {
   getSearchPlaceholder,
 } from './shared'
 import { useRecentPlayedGames } from './recent-played-games'
-import type { HomeTemplateProps } from './types'
+import type { FeatureSection, HomeTemplateProps } from './types'
 
 const platformShortLabels: Record<string, string> = {
   F: 'NES',
@@ -159,6 +159,10 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
   const newGames = latestGames
     .filter((game) => !recommendedIds.has(getGameRouteId(game)))
     .slice(0, 4)
+  const platformSections = getUniquePlatformSections(
+    featureSections,
+    [...topGames, ...newGames],
+  )
   const resultsLabel = lang === 'zh-CN' ? '搜索结果' : lang === 'ja' ? '検索結果' : 'Search results'
   const viewAllLabel = lang === 'zh-CN' ? '查看全部' : lang === 'ja' ? 'すべて見る' : 'View all'
   const loadMoreLabel = lang === 'zh-CN' ? '加载更多游戏' : lang === 'ja' ? 'ゲームをもっと見る' : 'Load more games'
@@ -552,6 +556,41 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
               </div>
             )}
           </section>
+
+          {!hasActiveFilters && platformSections.length > 0 ? (
+            <div className="border-t">
+              {platformSections.map((section) => {
+                const sectionLabel = getLocalizedPlatformLabel(section.title, lang)
+                const sectionPath = getPlatformSeoPath(section.title, lang)
+
+                return (
+                  <section
+                    aria-label={sectionLabel}
+                    className="arcade-section border-b px-4 py-7 [content-visibility:auto] [contain-intrinsic-size:420px] sm:px-6 lg:px-8"
+                    key={section.title}
+                  >
+                    <div className="mb-4 flex items-end justify-between gap-3">
+                      <h2 className="text-xl font-black text-white">{sectionLabel}</h2>
+                      <a className="text-sm font-semibold text-cyan-300 hover:text-white" href={sectionPath}>
+                        {getPlatformCollectionLinkLabel(section.title, lang, viewAllLabel)}
+                        <i aria-hidden="true" className="ri-arrow-right-line ml-1" />
+                      </a>
+                    </div>
+                    <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 xl:grid-cols-8">
+                      {section.games.map((game) => (
+                        <ArcadeGameCard
+                          game={game}
+                          isPriority={false}
+                          key={getGameRouteId(game)}
+                          lang={lang}
+                        />
+                      ))}
+                    </div>
+                  </section>
+                )
+              })}
+            </div>
+          ) : null}
 
           {!hasActiveFilters && newGames.length > 0 ? (
             <section className="arcade-section border-t px-4 py-6 [content-visibility:auto] [contain-intrinsic-size:420px] sm:px-6 lg:px-8" aria-label={t.newest}>
@@ -1062,6 +1101,30 @@ function uniqueGames(games: Array<PublicGame>) {
   })
 }
 
+function getUniquePlatformSections(
+  sections: Array<FeatureSection>,
+  excludedGames: Array<PublicGame>,
+) {
+  const seen = new Set(excludedGames.map(getGameRouteId).filter(Boolean))
+
+  return sections
+    .map((section) => {
+      const games = section.games.filter((game) => {
+        const id = getGameRouteId(game)
+
+        if (!id || seen.has(id)) {
+          return false
+        }
+
+        seen.add(id)
+        return true
+      }).slice(0, 8)
+
+      return { ...section, games }
+    })
+    .filter((section) => section.games.length > 0)
+}
+
 function gameMatchesPlatform(game: PublicGame, platform: string) {
   const selectedGroup = getPlatformGroup(platform)
   const gamePlatform = game.platform_slug?.trim() || game.platformSlug?.trim() || game.platform?.trim() || ''
@@ -1101,6 +1164,18 @@ function getPlatformBadge(game: PublicGame, lang: Locale) {
 
 function getPlatformShortLabel(platform: string, lang: Locale) {
   return getKnownPlatformShortLabel(platform, lang) ?? platform
+}
+
+function getPlatformCollectionLinkLabel(
+  platform: string,
+  lang: Locale,
+  viewAllLabel: string,
+) {
+  const shortLabel = getPlatformShortLabel(platform, lang)
+
+  if (lang === 'zh-CN') return `${viewAllLabel} ${shortLabel} 游戏`
+  if (lang === 'ja') return `${shortLabel} ゲームを${viewAllLabel}`
+  return `${viewAllLabel} ${shortLabel} games`
 }
 
 function getPlatformArtwork(platform: string) {

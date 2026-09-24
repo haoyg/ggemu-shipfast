@@ -73,14 +73,19 @@ it('resets the visible batch when results change', () => {
 })
 
 
-it('uses compact platform links instead of repeating platform game grids', () => {
-  const platformGames = Array.from({ length: 12 }, (_, index) => ({ _id: `ps1-${index}`, name: `PS1 game ${index}` }))
-  render(<DefaultHomeTemplate {...props} lang="zh-CN" featureSections={[
+it('renders unique platform game links with a collection link', () => {
+  const platformGames = Array.from({ length: 10 }, (_, index) => ({
+    _id: `ps1-${index}`,
+    name: `PS1 game ${index}`,
+  }))
+  render(<DefaultHomeTemplate {...props} featureSections={[
     { title: 'PlayStation 1', games: [games[0], ...platformGames], hasHeroCard: false },
-    { title: 'Arcade', games: [], hasHeroCard: false },
   ]} />)
-  expect(screen.queryByText('PS1 game 0')).toBeNull()
-  expect(screen.queryByRole('region', { name: 'Arcade' })).toBeNull()
+
+  const section = screen.getByRole('region', { name: 'PlayStation 1' })
+  expect(within(section).queryByText('Game 0')).toBeNull()
+  expect(within(section).getAllByRole('heading', { level: 3 })).toHaveLength(8)
+  expect(within(section).getByRole('link', { name: /View all PS1 games/ }).getAttribute('href')).toBe('/en/ps1-games')
 })
 
 it.each(['Famicom', 'Famicom / NES'])(

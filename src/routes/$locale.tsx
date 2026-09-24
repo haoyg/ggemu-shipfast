@@ -29,6 +29,7 @@ import {
   type GameSearchSort,
   type GameSearchResult,
   type Locale,
+  type PublicGame,
   getGameFilterOptions,
   searchBlogPosts,
   searchGames,
@@ -51,6 +52,15 @@ import { getLocalizedSeoLinks, getSeoOrigin } from '#/lib/seo'
 
 const DEFAULT_HOME_REQUEST_SIZE = 24
 const DEFAULT_HOME_RECOMMENDATION_POOL_SIZE = 100
+const DEFAULT_HOME_PLATFORM_GAME_LIMIT = 20
+const DEFAULT_HOME_PLATFORMS = [
+  { query: 'Famicom', title: 'Famicom' },
+  { query: 'Super Famicom', title: 'Super Famicom' },
+  { query: 'Game Boy Advance', title: 'Game Boy Advance' },
+  { query: 'Nintendo 64', title: 'Nintendo 64' },
+  { query: 'Genesis', title: 'Sega Genesis' },
+  { query: 'PlayStation 1', title: 'PlayStation 1' },
+] as const
 const homeFallbackItems = Array.from({ length: 8 }, (_, index) => index)
 
 const FeaturesHomeTemplate = lazyHomeTemplate(
@@ -241,6 +251,7 @@ export const Route = createFileRoute('/$locale')({
       seoOrigin,
       result,
       latestGamesResult,
+      platformResults,
       filterOptions,
       latestBlogPosts,
     ] = await Promise.all([
@@ -263,14 +274,27 @@ export const Route = createFileRoute('/$locale')({
           sort: 'newest',
         },
       }).catch(() => emptyGameSearchResult(1, 8)),
+      template === 'default'
+        ? loadDefaultHomePlatformGames(locale)
+        : Promise.resolve([]),
       loadGameFilterOptions(),
       loadLatestBlogPosts(),
     ])
 
+    const games = template === 'default'
+      ? prioritizeClassicGames(result.games)
+      : result.games
+
     return {
       ...result,
-      featureSections: [],
-      games: template === 'default' ? prioritizeClassicGames(result.games) : result.games,
+      featureSections: template === 'default'
+        ? getDefaultHomePlatformSections(
+            platformResults,
+            games,
+            latestGamesResult.games,
+          )
+        : [],
+      games,
       filterOptions,
       layoutSeed: getPokiDailyLayoutSeed(),
       latestBlogPosts,
@@ -677,6 +701,70 @@ async function loadFeaturePlatformGames(locale: Locale) {
       }
     }),
   )
+}
+
+async function loadDefaultHomePlatformGames(locale: Locale) {
+  return Promise.all(
+    DEFAULT_HOME_PLATFORMS.map(async ({ query, title }) => {
+      const result = await loadFeatureGames(
+        locale,
+        'popular',
+        DEFAULT_HOME_PLATFORM_GAME_LIMIT,
+        query,
+      )
+
+      return {
+        title,
+        games: result.games,
+      }
+    }),
+  )
+}
+
+function getDefaultHomePlatformSections(
+  platformResults: Array<{ games: Array<PublicGame>; title: string }>,
+  popularGames: Array<PublicGame>,
+  latestGames: Array<PublicGame>,
+) {
+  const seen = new Set(
+    popularGames.slice(0, 12).map(getGameRouteId).filter(Boolean),
+  )
+
+  let latestAdded = 0
+
+  latestGames.forEach((game) => {
+    if (latestAdded >= 4) return
+    const id = getGameRouteId(game)
+    if (!id || seen.has(id)) return
+    seen.add(id)
+    latestAdded += 1
+  })
+
+  return platformResults
+    .map((platform) => {
+      const games = platform.games.filter((game) => {
+        const id = getGameRouteId(game)
+
+        if (!id || seen.has(id)) {
+          return false
+        }
+
+        seen.add(id)
+        return true
+      }).slice(0, 8)
+
+      return {
+        games,
+        hasHeroCard: false,
+        isSingleRow: true,
+        title: platform.title,
+      }
+    })
+    .filter((section) => section.games.length > 0)
+}
+
+function getGameRouteId(game: PublicGame) {
+  return game.url_slug?.trim() || game._id?.trim() || ''
 }
 
 function emptyGameSearchResult(page: number, limit: number) {
