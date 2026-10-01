@@ -26,10 +26,10 @@ import {
   type Locale,
   type PublicGame,
 } from '#/lib/ggemu'
-import {
-} from '#/lib/game-share-text'
+import { getKeywordItems } from '#/lib/game-share-text'
 import {
   buildGameDetailSeo,
+  getGameDetailKeywordText,
   getGameDetailSummary,
   getI18n,
   getLocalizedCategoryLabels,
@@ -159,6 +159,7 @@ export const Route = createFileRoute('/$locale/games/$gameId')({
       meta: [
         { title: seo.title },
         { name: 'description', content: seo.description },
+        { name: 'keywords', content: seo.keywords },
         { property: 'og:title', content: seo.title },
         { property: 'og:description', content: seo.description },
         { property: 'og:type', content: 'website' },
@@ -396,6 +397,7 @@ function LocalizedGameDetailPage() {
   const editorial = getGameEditorial(game, lang)
   const searchSeo = getGameSearchSeo(game, lang)
   const summary = editorial?.summary ?? searchSeo?.description ?? getGameDetailSummary(game, lang)
+  const keywordText = getGameDetailKeywordText(game, lang)
   const descriptionParagraphs = getGameDescriptionParagraphs(game, lang)
   const howToPlayParagraphs = getGameHowToPlayParagraphs(game, lang)
   const browserGuide = getBrowserPlayGuide(lang, game)
@@ -538,6 +540,9 @@ function LocalizedGameDetailPage() {
           <section className="grid gap-6 lg:grid-cols-[1fr_340px]">
             <div className="flex flex-col gap-6">
               {editorial ? <ArticlePanel paragraphs={descriptionParagraphs} title={t.overview} /> : null}
+              <div className="hidden sm:block">
+                <KeywordPanel title={t.keywords} value={editorial && targetedSeo ? targetedSeo.keywords : keywordText} />
+              </div>
               <ArticlePanel paragraphs={howToPlayParagraphs} title={t.howToPlay} />
               <AdsterraNativeBanner locale={lang} />
               {editorial ? (
@@ -760,6 +765,30 @@ function SidebarTips({ items, title }: { items: Array<string>; title: string }) 
           </li>
         ))}
       </ul>
+    </section>
+  )
+}
+
+function KeywordPanel({ title, value }: { title: string; value?: string }) {
+  const keywords = getKeywordItems(value)
+
+  if (keywords.length === 0) {
+    return null
+  }
+
+  return (
+    <section className="rounded-xl border border-white/10 bg-white/[0.04] p-4 shadow-sm sm:p-6">
+      <h2 className="flex items-center gap-2 text-xl font-bold text-white">
+        <i className="ri-price-tag-3-line text-primary" />
+        {title}
+      </h2>
+      <div className="mt-4 flex flex-wrap gap-2">
+        {keywords.map((keyword) => (
+            <span className="badge badge-outline border-white/20 text-white/75" key={keyword}>
+            {keyword}
+          </span>
+        ))}
+      </div>
     </section>
   )
 }

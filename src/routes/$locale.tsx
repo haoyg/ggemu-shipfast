@@ -325,6 +325,7 @@ export const Route = createFileRoute('/$locale')({
         ? [
             { title },
             { name: 'description', content: meta.description },
+            { name: 'keywords', content: meta.keywords },
             { property: 'og:title', content: title },
             { property: 'og:description', content: meta.description },
             { property: 'og:type', content: 'website' },

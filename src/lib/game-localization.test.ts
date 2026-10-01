@@ -15,7 +15,7 @@ describe('localizePublicGame', () => {
     expect(game.name).toBe('Pokémon Emerald')
     expect(game.description).toContain('Pokémon Ruby')
     expect(game.how_to_play).toContain('Explore Hoenn')
-    expect(game.keywords).toBeUndefined()
+    expect(game.keywords).toBe('宝可梦, Pokémon Emerald')
   })
 
   it.each([

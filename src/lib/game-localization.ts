@@ -271,7 +271,6 @@ export function localizePublicGame(game: PublicGame, locale: Locale): PublicGame
     how_to_play: getLocalizedText(game.how_to_play, override?.howToPlay?.[locale], locale),
     developer: getMetadataOverride(game.developer, override?.developer),
     released_year: getMetadataOverride(game.released_year, override?.releasedYear),
-    keywords: undefined,
   }
 }
 

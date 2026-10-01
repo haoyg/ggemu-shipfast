@@ -171,6 +171,7 @@ export const Route = createFileRoute('/$locale/about')({
       meta: [
         { title: copy.title },
         { name: 'description', content: copy.description },
+        { name: 'keywords', content: copy.keywords },
       ],
     }
   },
