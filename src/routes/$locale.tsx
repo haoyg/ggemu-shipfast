@@ -214,7 +214,19 @@ export const Route = createFileRoute('/$locale')({
   loaderDeps: ({ search }): HomeSearch => ({
     template: getSearchTemplate(search),
   }),
-  loader: async ({ deps, params }): Promise<HomeLoaderData> => {
+  // This parent route also matches game and content pages.
+  shouldReload: true,
+  loader: async ({ deps, params, location }): Promise<HomeLoaderData> => {
+    if (location.pathname !== `/${params.locale}`) {
+      return {
+        ...emptyGameSearchResult(1, DEFAULT_HOME_REQUEST_SIZE),
+        filterOptions: { platforms: [], categories: [] },
+        latestBlogPosts: [],
+        latestGames: [],
+        layoutSeed: getPokiDailyLayoutSeed(),
+        seoOrigin: await getSeoOrigin(),
+      }
+    }
     const locale = normalizeLocale(params.locale)
     const template = getSiteTemplate(getSearchTemplate(deps))
 
@@ -428,7 +440,7 @@ function LocalizedHomePage() {
     setHasLoadError(false)
 
     return () => requestGuardRef.current?.invalidate()
-  }, [currentTemplate, lang])
+  }, [currentTemplate, lang, initialResult])
 
   const { games, pagination } = result
   const page = pagination.page

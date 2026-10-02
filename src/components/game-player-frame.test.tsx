@@ -9,6 +9,23 @@ const props = { src: 'https://ggemu.com/en/game/test', title: 'Test game', gameI
 afterEach(() => { cleanup(); vi.useRealTimers(); vi.clearAllMocks(); vi.unstubAllGlobals() })
 
 describe('GamePlayerFrame', () => {
+  it('offers neutral recovery guidance when a loaded frame never confirms readiness', () => {
+    vi.useFakeTimers()
+    render(<GamePlayerFrame {...props} />)
+    const frame = screen.getByTitle('Test game') as HTMLIFrameElement
+    fireEvent.load(frame)
+    act(() => vi.advanceTimersByTime(60_000))
+    expect(screen.getByRole('status').textContent).toContain('Large games can take longer to download')
+    expect(screen.getByRole('status').className).not.toContain('text-warning')
+    expect(trackEvent).not.toHaveBeenCalledWith('player_load_timeout', expect.anything())
+    act(() => window.dispatchEvent(new MessageEvent('message', {
+      source: frame.contentWindow, origin: 'https://ggemu.com', data: 'game-ready',
+    })))
+    fireEvent.load(frame)
+    act(() => vi.advanceTimersByTime(60_000))
+    expect(screen.getByRole('status').textContent).toContain('Game player loaded')
+  })
+
   it('offers retry after timeout and recovers when the next frame loads', () => {
     vi.useFakeTimers()
     render(<GamePlayerFrame {...props} />)

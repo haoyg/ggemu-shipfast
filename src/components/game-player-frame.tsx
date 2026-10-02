@@ -6,6 +6,7 @@ const copy = {
     loading: 'Loading game player…',
     loaded: 'Game player frame loaded. Select Play Now, then Start inside the game.',
     ready: 'Game player loaded.',
+    unconfirmed: 'Large games can take longer to download. Follow the player’s progress and select Start when available. If it stays stuck, try Reload player.',
     guide: 'When Play Now appears: 1. Select Play Now. 2. Select Start inside the game player.',
     slow: 'The game player is taking longer than expected to load. Reload it or browse another game.',
     retry: 'Reload player',
@@ -22,6 +23,7 @@ const copy = {
     loading: '正在加载游戏播放器……',
     loaded: '播放器框架已加载。请选择“立即游玩”，再在游戏中选择“开始”。',
     ready: '游戏播放器已加载。',
+    unconfirmed: '大型游戏下载可能需要更长时间。请查看播放器内的进度，并在可用时选择“开始”；如果长时间没有变化，可重新加载。',
     guide: '出现“立即游玩”后：1. 选择“立即游玩”。2. 在游戏内选择“开始”。',
     slow: '游戏播放器加载时间超出预期。请重新加载播放器或浏览其他游戏。',
     retry: '重新加载播放器',
@@ -38,6 +40,7 @@ const copy = {
     loading: 'ゲームプレーヤーを読み込み中…',
     loaded: 'プレーヤーを読み込みました。「今すぐプレイ」を選び、ゲーム内で Start を選択してください。',
     ready: 'ゲームプレーヤーを読み込みました。',
+    unconfirmed: '大きなゲームのダウンロードには時間がかかる場合があります。進行状況を確認し、利用可能になったら Start を選択してください。進まない場合は再読み込みしてください。',
     guide: '「今すぐプレイ」が表示されたら、1.「今すぐプレイ」を選択。2. ゲーム内で「Start」を選択してください。',
     slow: 'ゲームプレーヤーの読み込みに時間がかかっています。再読み込みするか、別のゲームを探してください。',
     retry: '再読み込み',
@@ -73,7 +76,7 @@ function PlayerAttempt({ src, title, gameId, locale, className, allow = 'autopla
   const container = useRef<HTMLDivElement>(null)
   const [active, setActive] = useState(!lazy)
   const [attempt, setAttempt] = useState(0)
-  const [status, setStatus] = useState<'loading' | 'loaded' | 'ready' | 'timeout' | 'error' | 'unsupported'>(unavailable ? 'unsupported' : 'loading')
+  const [status, setStatus] = useState<'loading' | 'loaded' | 'ready' | 'timeout' | 'unconfirmed' | 'error' | 'unsupported'>(unavailable ? 'unsupported' : 'loading')
   const [isFullscreen, setIsFullscreen] = useState(false)
   const timer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
   const reportedLoad = useRef(false)
@@ -154,14 +157,14 @@ function PlayerAttempt({ src, title, gameId, locale, className, allow = 'autopla
           <span className="block truncate font-semibold text-white">{title}</span>
           <span
             className={`player-status ${
-              status === 'error' || status === 'unsupported' ? 'font-semibold text-error' : status === 'timeout' ? 'font-semibold text-warning' : ''
+              status === 'error' || status === 'unsupported' ? 'font-semibold text-error' : status === 'timeout' ? 'font-semibold text-warning' : status === 'unconfirmed' ? 'text-white/75' : ''
             }`}
             aria-live="polite"
             role="status"
           >
-            {status === 'loading' ? t.loading : status === 'loaded' ? t.loaded : status === 'ready' ? t.ready : status === 'timeout' ? t.slow : status === 'error' ? t.error : t.unsupported}
+            {status === 'loading' ? t.loading : status === 'loaded' ? t.loaded : status === 'ready' ? t.ready : status === 'timeout' ? t.slow : status === 'unconfirmed' ? t.unconfirmed : status === 'error' ? t.error : t.unsupported}
           </span>
-          {status === 'loaded' || status === 'ready' ? (
+          {status === 'loaded' || status === 'ready' || status === 'unconfirmed' ? (
             <p className="player-guide mt-1 text-xs text-white/75">{t.guide}</p>
           ) : null}
           <details className="mt-1 text-xs text-white/60">
@@ -186,7 +189,11 @@ function PlayerAttempt({ src, title, gameId, locale, className, allow = 'autopla
             }}
             type="button"
           >
-            <i aria-hidden="true" className={isFullscreen ? 'ri-fullscreen-exit-line' : 'ri-fullscreen-line'} />
+            <svg aria-hidden="true" className="h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d={isFullscreen
+                ? 'M8 3v5H3m13-5v5h5M3 16h5v5m13-5h-5v5'
+                : 'M8 3H3v5m13-5h5v5M3 16v5h5m13-5v5h-5'} />
+            </svg>
             <span className="hidden sm:inline">{isFullscreen ? t.exitFullscreen : t.fullscreen}</span>
           </button>
         </div>
@@ -220,7 +227,11 @@ function PlayerAttempt({ src, title, gameId, locale, className, allow = 'autopla
         title={title}
         onLoad={() => {
           clearTimeout(timer.current)
-          setStatus('loaded')
+          if (!reportedReady.current) {
+            setStatus('loaded')
+            // Some upstream players never send readiness messages; avoid claiming failure.
+            timer.current = setTimeout(() => setStatus('unconfirmed'), 60_000)
+          }
           if (!reportedLoad.current) {
             reportedLoad.current = true
             // A cross-origin load event does not prove that the game started.
