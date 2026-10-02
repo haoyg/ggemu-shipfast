@@ -1,3 +1,4 @@
+import { isPspGame } from '#/lib/game-embed'
 import { getGameEditorial } from '#/lib/game-editorial'
 import { useState } from 'react'
 import { trackEvent } from '#/lib/analytics'
@@ -406,6 +407,7 @@ function LocalizedGameDetailPage() {
   const embedUrl = buildGameEmbedUrl(canonicalUrl, lang, gameId)
   const manifestHref = buildGameManifestHref(lang)
   const targetedSeo = getTargetedGameSeo(game, lang)
+  const useInlinePlayer = Boolean(targetedSeo) && !isPspGame(game)
   const seoInternalLinks = getGameSeoInternalLinks(game, lang)
   const relatedGuide = lang === 'en' ? getRelatedGuideForPlatform(game.platform) : undefined
 
@@ -487,14 +489,14 @@ function LocalizedGameDetailPage() {
                 <div className="grid gap-1 sm:w-auto">
                   <a
                     className="btn btn-primary btn-lg w-full px-8 text-primary-content hover:text-primary-content sm:w-auto"
-                    href={targetedSeo ? '#play-online' : playPath}
+                    href={useInlinePlayer ? '#play-online' : playPath}
                     onClick={() => {
-                      if (targetedSeo) setPlayerRequested(true)
+                      if (useInlinePlayer) setPlayerRequested(true)
                       saveRecentPlayedGame(game, gameId)
                       trackEvent('game_play_click', { game_id: gameId, source: 'detail' })
                     }}
-                    rel={targetedSeo ? undefined : 'noopener noreferrer'}
-                    target={targetedSeo ? undefined : '_blank'}
+                    rel={useInlinePlayer ? undefined : 'noopener noreferrer'}
+                    target={useInlinePlayer ? undefined : '_blank'}
                   >
                     <i className={targetedSeo ? 'ri-play-fill text-xl' : 'ri-external-link-line'} />
                     {targetedSeo ? t.play : t.playPage}

@@ -36,6 +36,7 @@ export function HomeSearchOverlay({
   const [requestGuard] = useState(() => new LatestRequestGuard())
   const titleId = useId()
   const panelRef = useRef<HTMLElement>(null)
+  const requestedPage = useRef(1)
   const searchInputRef = useRef<HTMLInputElement>(null)
   const [filters, setFilters] = useState<Filters>({
     query: '',
@@ -71,9 +72,10 @@ export function HomeSearchOverlay({
     onClose,
   })
 
-  async function searchOverlayGames(nextFilters: Filters) {
+  async function searchOverlayGames(nextFilters: Filters, page = 1) {
     if (!isOpen) return
     const request = requestGuard.begin()
+    requestedPage.current = page
     trackEvent('game_search', { source: 'overlay', has_query: Number(Boolean(nextFilters.query.trim())) })
     setIsSearching(true)
     setHasSearchError(false)
@@ -84,7 +86,7 @@ export function HomeSearchOverlay({
           query: nextFilters.query,
           limit: 24,
           locale: lang,
-          page: 1,
+          page,
           platform: nextFilters.platform,
           category: nextFilters.category,
           sort: nextFilters.sort,
@@ -190,7 +192,7 @@ export function HomeSearchOverlay({
               <span>{t.loadError}</span>
               <button
                 className="btn btn-sm"
-                onClick={() => void searchOverlayGames(filters)}
+                onClick={() => void searchOverlayGames(filters, requestedPage.current)}
                 type="button"
               >
                 {t.retry}
@@ -217,6 +219,15 @@ export function HomeSearchOverlay({
               {t.search}
             </div>
           )}
+          {result && result.pagination.pages > 1 ? (
+            <nav aria-label={t.search} className="mt-4 flex items-center justify-between gap-2">
+              <button className="btn btn-sm" disabled={isSearching || result.pagination.page <= 1}
+                onClick={() => void searchOverlayGames(filters, result.pagination.page - 1)} type="button">{t.previous}</button>
+              <span className="text-sm">{result.pagination.page} / {result.pagination.pages}</span>
+              <button className="btn btn-sm" disabled={isSearching || result.pagination.page >= result.pagination.pages}
+                onClick={() => void searchOverlayGames(filters, result.pagination.page + 1)} type="button">{t.next}</button>
+            </nav>
+          ) : null}
         </div>
       </aside>
     </>

@@ -1,7 +1,7 @@
 import { GamePlayerFrame } from '#/components/game-player-frame'
 import { trackEvent } from '#/lib/analytics'
 import type { PublicGame } from '#/lib/ggemu'
-import { buildGameEmbedSrc } from '#/lib/game-embed'
+import { buildGameEmbedSrc, isPspGame } from '#/lib/game-embed'
 import { siteConfig } from '#/lib/site-config'
 import { useCurrentSiteTheme } from '#/lib/use-site-theme'
 
@@ -30,6 +30,7 @@ export function EmbeddedGamePlayer({
 }) {
   const theme = useCurrentSiteTheme()
   const playPageLabel = playPageCopy[locale as keyof typeof playPageCopy] ?? playPageCopy.en
+  const isPsp = isPspGame(game)
   const embedSrc = buildGameEmbedSrc({
     embedId: game._id || game.url_slug || gameId,
     isPsp: false,
@@ -63,7 +64,7 @@ export function EmbeddedGamePlayer({
           {playPageLabel}
         </a>
       </div>
-      <div className="aspect-video min-h-96 w-full min-w-0 bg-black">
+      {!isPsp ? <div className="aspect-video min-h-96 w-full min-w-0 bg-black">
         <GamePlayerFrame
           allow="autoplay; gamepad"
           className="h-full w-full border-0 bg-black"
@@ -74,7 +75,7 @@ export function EmbeddedGamePlayer({
           title={heading}
           unavailable={game.play_online === 0}
         />
-      </div>
+      </div> : null}
     </section>
   )
 }

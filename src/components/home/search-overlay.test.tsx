@@ -34,6 +34,21 @@ function search(query: string) {
 afterEach(() => { cleanup(); vi.clearAllMocks() })
 
 describe('search request ownership', () => {
+  it('reaches later results and retries the failed page', async () => {
+    const first = { ...result('First game'), pagination: { total: 25, pages: 2, page: 1, limit: 24 } }
+    const second = { ...result('Last game'), pagination: { total: 25, pages: 2, page: 2, limit: 24 } }
+    runSearch.mockResolvedValueOnce(first).mockRejectedValueOnce(new Error('Network failure')).mockResolvedValueOnce(second)
+    render(<HomeSearchOverlay {...props} />)
+    await act(async () => search('game'))
+    await act(async () => fireEvent.click(screen.getByRole('button', { name: t.next })))
+    expect(screen.getByRole('alert')).not.toBeNull()
+    await act(async () => fireEvent.click(screen.getByRole('button', { name: t.retry })))
+    expect(runSearch.mock.calls[2][0].data.page).toBe(2)
+    expect(screen.getByText('Last game')).not.toBeNull()
+    expect(screen.queryByText('First game')).toBeNull()
+    expect((screen.getByRole('button', { name: t.next }) as HTMLButtonElement).disabled).toBe(true)
+  })
+
   it('keeps the latest result when an older request finishes later', async () => {
     const old = deferred()
     const latest = deferred()
