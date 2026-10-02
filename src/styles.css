@@ -25,7 +25,7 @@
   font-family: "POKOPIE Fusion Pixel ZH";
   font-style: normal;
   font-weight: 400;
-  src: url("/fonts/fusion-pixel-12px-zh-hans.woff2") format("woff2");
+  src: url("/fonts/fusion-pixel-12px-zh-hans.subset.woff2") format("woff2");
 }
 
 @font-face {
@@ -33,7 +33,7 @@
   font-family: "POKOPIE Fusion Pixel JA";
   font-style: normal;
   font-weight: 400;
-  src: url("/fonts/fusion-pixel-12px-ja.woff2") format("woff2");
+  src: url("/fonts/fusion-pixel-12px-ja.subset.woff2") format("woff2");
 }
 
 @plugin "daisyui/theme" {
