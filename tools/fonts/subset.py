@@ -7,7 +7,7 @@ extension blocks that this site never renders. That costs ~650 KB per font on
 every first paint for zh-CN and ja visitors.
 
 We keep GB2312 coverage so dynamically rendered text (game titles coming from
-the GGEMU API) still resolves to pixel glyphs, plus every character that
+the GGEMU API) still resolves to pixel glyphs, JIS X 0208 coverage for Japanese, plus every character that
 actually appears in the source tree. Anything outside that falls back to the
 system font instead of shipping megabytes nobody will type.
 
@@ -23,6 +23,7 @@ Usage:
 from __future__ import annotations
 
 import os
+import shutil
 import subprocess
 import sys
 from fontTools.ttLib import TTFont
@@ -76,6 +77,19 @@ def gb2312_charset() -> set[int]:
     return charset
 
 
+def japanese_charset() -> set[int]:
+    """JIS X 0208 covers common Japanese kanji, kana and symbols."""
+    charset: set[int] = set()
+    for high in range(0x21, 0x7F):
+        for low in range(0x21, 0x7F):
+            encoded = b"\x1b$B" + bytes([high, low]) + b"\x1b(B"
+            try:
+                charset.update(ord(ch) for ch in encoded.decode("iso2022_jp"))
+            except UnicodeDecodeError:
+                continue
+    return charset
+
+
 def source_charset() -> set[int]:
     """Every character literal in the app source, so UI copy never falls back."""
     charset: set[int] = set()
@@ -92,10 +106,12 @@ def source_charset() -> set[int]:
     return charset
 
 
-def keep_ranges() -> list[tuple[int, int]]:
+def keep_ranges(include_japanese: bool = False) -> list[tuple[int, int]]:
     wanted: set[int] = set()
     wanted |= gb2312_charset()
     wanted |= source_charset()
+    if include_japanese:
+        wanted |= japanese_charset()
 
     # Blocks the UI actually renders but GB2312 does not cover.
     blocks = [
@@ -139,7 +155,8 @@ def subset(name: str, source_path: str, ranges: list[tuple[int, int]]) -> tuple[
     for start, end in ranges:
         keep |= {c for c in available if start <= c <= end}
 
-    output_path = os.path.join(OUTPUT_DIR, f"{name}.subset.woff2")
+    suffix = "jis-subset" if name.endswith("-ja") else "subset"
+    output_path = os.path.join(OUTPUT_DIR, f"{name}.{suffix}.woff2")
     command = [
         sys.executable,
         "-m",
@@ -158,15 +175,17 @@ def subset(name: str, source_path: str, ranges: list[tuple[int, int]]) -> tuple[
 
 
 def main() -> None:
-    ranges = keep_ranges()
-    print(f"keep range count: {len(ranges)}")
+    os.makedirs(OUTPUT_DIR, exist_ok=True)
 
     total_before = total_after = 0
     for name, source_path in FONTS.items():
         if not os.path.exists(source_path):
             print(f"missing source font: {source_path}", file=sys.stderr)
             sys.exit(1)
+        ranges = keep_ranges(include_japanese=name.endswith("-ja"))
         before, after = subset(name, source_path, ranges)
+        # Keep original URLs working for clients with cached pre-subset CSS.
+        shutil.copyfile(source_path, os.path.join(OUTPUT_DIR, f"{name}.woff2"))
         total_before += before
         total_after += after
         print(
