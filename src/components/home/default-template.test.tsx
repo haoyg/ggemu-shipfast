@@ -210,3 +210,19 @@ it('automatically advances the hero on desktop', () => {
   act(() => { vi.advanceTimersByTime(6000) })
   expect(screen.getByRole('heading', { level: 2, name: 'Game 1' })).not.toBeNull()
 })
+
+
+it('scrolls keyboard-selected search suggestions into view', async () => {
+  vi.useFakeTimers()
+  runSearch.mockResolvedValue({ games: games.slice(0, 6) })
+  render(<DefaultHomeTemplate {...props} filters={{ ...props.filters, query: 'game' }} />)
+  const input = screen.getByRole('combobox')
+  fireEvent.focus(input)
+  await act(async () => { await vi.advanceTimersByTimeAsync(220) })
+  const options = screen.getAllByRole('option')
+  const scroll = vi.fn()
+  options[5].scrollIntoView = scroll
+  for (let index = 0; index < 6; index += 1) fireEvent.keyDown(input, { key: 'ArrowDown' })
+  expect(options[5].getAttribute('aria-selected')).toBe('true')
+  expect(scroll).toHaveBeenCalledWith({ block: 'nearest' })
+})

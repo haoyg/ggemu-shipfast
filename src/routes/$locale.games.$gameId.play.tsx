@@ -109,6 +109,7 @@ function LocalizedPlayGamePage() {
             ? 'autoplay; gamepad; fullscreen; cross-origin-isolated'
             : 'autoplay; gamepad'
         }
+        platform={game.platform}
         gameId={gameId}
         locale={lang}
         className="h-[100svh] w-full border-0 bg-black"

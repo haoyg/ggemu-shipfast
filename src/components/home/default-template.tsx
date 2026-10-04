@@ -308,7 +308,7 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
             <h1 className="arcade-page-title mb-4 max-w-4xl text-3xl font-black leading-tight text-white sm:text-5xl">
               {t.title}
             </h1>
-            <div className="relative z-10 mb-3">
+            <div className="relative z-20 mb-3">
               <form className="min-w-0 flex-1" onSubmit={onSearch}>
                 <HomeSearchSuggest
                   gameTotal={pagination.total}
@@ -723,6 +723,7 @@ function HomeSearchSuggest({
   const runSearch = useServerFn(searchGames)
   const navigate = useNavigate()
   const suggestionId = useId()
+  const suggestionListRef = useRef<HTMLDivElement>(null)
   const [suggestions, setSuggestions] = useState<Array<PublicGame>>([])
   const [highlightedIndex, setHighlightedIndex] = useState(-1)
   const [isSuggesting, setIsSuggesting] = useState(false)
@@ -777,6 +778,11 @@ function HomeSearchSuggest({
       window.clearTimeout(timeoutId)
     }
   }, [lang, normalizedQuery, runSearch, shouldSuggest])
+
+  useEffect(() => {
+    const option = suggestionListRef.current?.children[highlightedIndex] as HTMLElement | undefined
+    option?.scrollIntoView?.({ block: 'nearest' })
+  }, [highlightedIndex])
 
   function handleBlur(event: FocusEvent<HTMLDivElement>) {
     if (!event.currentTarget.contains(event.relatedTarget as Node | null)) {
@@ -853,7 +859,7 @@ function HomeSearchSuggest({
               {t.search}
             </div>
           ) : suggestions.length > 0 ? (
-            <div className="max-h-[22rem] overflow-y-auto p-2">
+            <div className="max-h-[22rem] overflow-y-auto p-2" ref={suggestionListRef}>
               {suggestions.map((game, index) => (
                 <SearchSuggestionItem
                   game={game}

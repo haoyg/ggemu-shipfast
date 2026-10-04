@@ -69,6 +69,7 @@ export function EmbeddedGamePlayer({
           allow="autoplay; gamepad"
           className="h-full w-full border-0 bg-black"
           lazy={!loadImmediately}
+          platform={game.platform}
           gameId={gameId}
           locale={locale}
           src={embedSrc}

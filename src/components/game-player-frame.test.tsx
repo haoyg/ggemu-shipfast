@@ -9,13 +9,13 @@ const props = { src: 'https://ggemu.com/en/game/test', title: 'Test game', gameI
 afterEach(() => { cleanup(); vi.useRealTimers(); vi.clearAllMocks(); vi.unstubAllGlobals() })
 
 describe('GamePlayerFrame', () => {
-  it('offers neutral recovery guidance when a loaded frame never confirms readiness', () => {
+  it('does not infer download progress or readiness from elapsed time', () => {
     vi.useFakeTimers()
     render(<GamePlayerFrame {...props} />)
     const frame = screen.getByTitle('Test game') as HTMLIFrameElement
     fireEvent.load(frame)
     act(() => vi.advanceTimersByTime(60_000))
-    expect(screen.getByRole('status').textContent).toContain('Large games can take longer to download')
+    expect(screen.getByRole('status').textContent).toContain('Player page opened')
     expect(screen.getByRole('status').className).not.toContain('text-warning')
     expect(trackEvent).not.toHaveBeenCalledWith('player_load_timeout', expect.anything())
     act(() => window.dispatchEvent(new MessageEvent('message', {
@@ -24,6 +24,21 @@ describe('GamePlayerFrame', () => {
     fireEvent.load(frame)
     act(() => vi.advanceTimersByTime(60_000))
     expect(screen.getByRole('status').textContent).toContain('Game player loaded')
+  })
+
+  it('applies N64 touch controls only after a trusted capability announcement', () => {
+    render(<GamePlayerFrame {...props} platform="Nintendo 64" />)
+    const frame = screen.getByTitle('Test game') as HTMLIFrameElement
+    const send = vi.spyOn(frame.contentWindow!, 'postMessage')
+    const data = { type: 'ggemu:embed-ready', payload: { capabilities: ['defaultGameControl'] } }
+    act(() => window.dispatchEvent(new MessageEvent('message', {
+      source: frame.contentWindow, origin: 'https://untrusted.test', data,
+    })))
+    expect(send).not.toHaveBeenCalled()
+    act(() => window.dispatchEvent(new MessageEvent('message', {
+      source: frame.contentWindow, origin: 'https://ggemu.com', data,
+    })))
+    expect(send).toHaveBeenCalledWith(expect.objectContaining({ type: 'ggemu:set-overrides' }), 'https://ggemu.com')
   })
 
   it('offers retry after timeout and recovers when the next frame loads', () => {
@@ -52,7 +67,7 @@ describe('GamePlayerFrame', () => {
     render(<GamePlayerFrame {...props} />)
     const iframe = screen.getByTitle('Test game') as HTMLIFrameElement
     fireEvent.load(iframe)
-    expect(screen.getByRole('status').textContent).toContain('Select Play Now')
+    expect(screen.getByRole('status').textContent).toContain('Player page opened')
     act(() => window.dispatchEvent(new MessageEvent('message', {
       source: iframe.contentWindow,
       origin: 'https://ggemu.com',

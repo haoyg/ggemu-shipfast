@@ -94,7 +94,7 @@ export const jaMessages = {
     play: '今すぐプレイ',
     playPage: '新しいタブでプレイ',
     playPageHint: 'ゲーム画面を新しいブラウザータブで開きます。',
-    install: 'ダウンロード',
+    install: 'アプリ追加',
     installUnavailable:
       'インストール機能を準備中です。ブラウザーに表示されない場合は、このページを更新してもう一度お試しください。',
     installDismissed: 'インストールをキャンセルしました。',

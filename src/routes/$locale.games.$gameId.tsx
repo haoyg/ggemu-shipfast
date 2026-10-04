@@ -459,7 +459,7 @@ function LocalizedGameDetailPage() {
               {!editorial ? <ArticlePanel paragraphs={descriptionParagraphs} title={t.overview} /> : null}
             </div>
 
-            <div className={`flex min-w-0 flex-col justify-center gap-3 sm:gap-6 lg:self-center ${editorial ? 'order-first lg:order-none' : ''}`}>
+            <div className="order-first flex min-w-0 flex-col justify-center gap-3 sm:gap-6 lg:order-none lg:self-center">
               <div>
                 <div className="mb-2 flex flex-wrap gap-2 sm:mb-3">
                   <span className="badge badge-sm badge-success badge-outline gap-1 sm:badge-md">
@@ -477,6 +477,11 @@ function LocalizedGameDetailPage() {
                     </span>
                   ) : null}
                 </div>
+                {languages.length > 0 ? (
+                  <p className="mb-2 text-sm text-white/75">
+                    <span className="font-semibold">{t.languages}：</span>{languages.join(' / ')}
+                  </p>
+                ) : null}
                 <h1 className="max-w-4xl text-2xl font-black leading-tight text-white sm:text-4xl">
                   {searchSeo?.heading ?? game.name}
                 </h1>
@@ -498,10 +503,10 @@ function LocalizedGameDetailPage() {
                     rel={useInlinePlayer ? undefined : 'noopener noreferrer'}
                     target={useInlinePlayer ? undefined : '_blank'}
                   >
-                    <i className={targetedSeo ? 'ri-play-fill text-xl' : 'ri-external-link-line'} />
-                    {targetedSeo ? t.play : t.playPage}
+                    <i aria-hidden="true" className="ri-play-fill text-xl" />
+                    {t.play}
                   </a>
-                  {!targetedSeo ? (
+                  {!useInlinePlayer ? (
                     <p className="text-center text-xs text-white/65 sm:text-left">
                       {t.playPageHint}
                     </p>
