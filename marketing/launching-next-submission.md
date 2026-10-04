@@ -1,17 +1,21 @@
-# Launching Next submission — POKOPIE
+# Launching Next submission
 
-Prepared for <https://www.launchingnext.com/submit/>.
+Prepared: 2026-10-03
+Status: Ready; not submitted. Browser connection failed before opening the form.
+Form: https://www.launchingnext.com/submit/
+Use the free review queue. Do not purchase the optional expedited review.
 
-- **Startup name:** POKOPIE
-- **Startup URL:** https://pokopie.com/en/play-my-rom
-- **Headline:** Play your own retro games in browser
-- **Description:** POKOPIE is a browser-based retro gaming platform for people who want to revisit games using ROM files they are legally permitted to use. Its PS1 compatibility checker tests WebAssembly, WebGL 2, local storage, controller, fullscreen, and shared-memory support before play, then explains what each result means. Players can load their own files without installing a desktop emulator.
-- **Tags:** retro gaming, browser games, emulation, WebAssembly, gamepad, PS1, NES, SNES
-- **Project type:** A bootstrapped startup
-- **Planned marketing spend:** $0
-- **Contact name:** Hugh
-- **Contact email:** hughhao7@gmail.com
-- **Newsletter opt-in:** No
-- **Quick check response:** 5
+- Startup Name: POKOPIE
+- Startup URL: https://pokopie.com/en/play-my-rom
+- Headline: Play your own retro games in browser
+- Description: POKOPIE is a browser-based retro gaming platform with a player for ROM files that users are legally permitted to use. Players can load their own files without installing a desktop emulator. A PS1 browser compatibility checker explains support for WebAssembly, WebGL 2, IndexedDB, controllers, fullscreen, and shared memory. The checker distinguishes browser capabilities from actual game performance, helping players understand browser limitations before they start.
+- Tags: retro gaming, browser games, emulation, web apps, game controllers, WebAssembly
+- Your Name: Hugh
+- Your Email Address: hughhao7@gmail.com
+- Newsletter: Leave unchecked.
 
-The copy discloses that users must supply files they are legally permitted to use. It makes no ranking, traffic, or product-performance claims.
+- Project classification: A side project
+- Marketing budget over the next 90 days: $0
+
+Confirmed by Hugh on 2026-10-03.
+A successful submission means waiting for editorial review, not a published or indexed backlink. Record the confirmation and public listing URL separately.
