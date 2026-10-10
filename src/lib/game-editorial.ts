@@ -16,6 +16,66 @@ type GameEditorial = {
 
 // Reviewed against the linked sources on 2026-09-10. Player builds may differ.
 const editorials: Record<string, GameEditorial> = {
+  'pokemon-emerald-gba-2004': {
+    summary: 'Play Pokémon Emerald in your browser. Check the listed game language before starting: the version tested on POKOPIE uses Traditional Chinese text.',
+    description: [
+      'This page launches the Game Boy Advance entry in the browser player. The English website interface does not change the language inside the game. Refer to the language shown beside the play button for the catalog version.',
+      'Browser checks on October 4, 2026 reached the new-game introduction using desktop keyboard and mobile touch controls. These checks confirm starting and basic input, rather than completion of the adventure or multiplayer support.',
+    ],
+    howToPlay: [
+      'Click Play Now on this page. If the player shows another Play Now button, select it and then select Start when available. After the title sequence, use Start to open the game menu.',
+      'On the default desktop mapping, use W/A/S/D for directions, K for A (confirm), J for B (cancel), and Enter for Start. Click inside the game before pressing keys; customized bindings may differ.',
+      'On a phone, use the directional pad and A/B buttons. Press and briefly hold a button if a quick tap is not registered. Check the player controls menu if a button behaves differently.',
+      'For saving, distinguish the game’s own save command from a player save state. Read the browser-save guide linked below before relying on progress surviving a browser reset. Export a backup if the loaded player offers that option.',
+    ],
+    tips: ['Check the game language before beginning a long play session.', 'If the screen appears inactive, focus the game and try Start before reloading. Reloading can discard unsaved progress.'],
+    faq: [
+      { question: 'Is this Pokémon Emerald version in English?', answer: 'The version tested on POKOPIE uses Traditional Chinese. The website language and the game language are separate; check the current language label before playing.' },
+      { question: 'What are the default desktop controls?', answer: 'W/A/S/D control directions, K maps to A, J maps to B, and Enter maps to Start. Focus the game first and check the player menu if bindings have been customized.' },
+      { question: 'Has browser trading been verified?', answer: 'No. The browser checks covered startup and basic input, not trading or multiplayer.' },
+    ],
+    quickStart: {
+      title: 'Before you play Pokémon Emerald',
+      intro: 'Startup and basic input checked on October 4, 2026. Game language is independent of website language.',
+      entries: [
+        { label: 'Desktop controls', detail: 'Focus the game before using the default keyboard mapping.', keys: 'W/A/S/D · K: A · J: B · Enter: Start' },
+        { label: 'Phone controls', detail: 'Use the on-screen directional pad and A/B buttons; briefly hold a button if a quick tap does not register.' },
+        { label: 'Game language', detail: 'The tested version uses Traditional Chinese. Check the current language label above the play button.' },
+        { label: 'Save before leaving', detail: 'Use the game or player save menu and check how browser storage works before clearing site data.' },
+      ],
+    },
+    sources: [{ label: 'Browser saves: game saves, save states and storage', href: '/en/guides/how-browser-game-saves-work' }],
+  },
+  '69cc9932a1f847282b35b6a5': {
+    summary: 'Play Super Mario 64 in the browser with keyboard or touch controls. Mobile controls include a directional stick, A/B, Z, L/R and C-Up/C-Down; C-Left/C-Right are not exposed by the current player.',
+    description: [
+      'Desktop and phone checks on October 4, 2026 reached a new game and the opening letter. The mobile control layout was checked for touch input, including Z, L/R and C-Up/C-Down.',
+      'The directional touch stick is not a guarantee of full analog-controller behavior. Camera controls are incomplete on the current mobile player, so check whether the available controls suit your play session before proceeding.',
+    ],
+    howToPlay: [
+      'Open the player, select Play Now if shown, and wait until Start becomes available. Follow the title screen to select a file and begin a new game.',
+      'Default desktop controls use W/A/S/D for movement, K for A, J for B and Enter for Start. Shift maps to Z, L/O to L/R, and U/I to C-Up/C-Down. Focus the game before using the keyboard and check the player bindings if customized.',
+      'On a phone, use the directional stick and labeled A, B, Z, L, R, C-Up and C-Down buttons. C-Left and C-Right are currently unavailable; the layout should not be treated as a complete N64 controller.',
+      'Use the player’s save menu where available and consult the linked browser-save guide. If input stops responding, focus the game first; reload only after protecting any unsaved progress.',
+    ],
+    tips: ['Check the mobile camera-control limitation before starting a long session.', 'If no sound plays, interact with the game and check the player mute setting before reloading.'],
+    faq: [
+      { question: 'Does mobile play have all N64 buttons?', answer: 'No. The mobile layout includes movement, A/B, Z, L/R and C-Up/C-Down, but the current player does not expose C-Left/C-Right.' },
+      { question: 'What has been tested?', answer: 'Desktop and mobile startup reached a new game and the opening letter. Mobile Z, L/R and C-Up/C-Down touch inputs were also checked. A full playthrough was not tested.' },
+    ],
+    quickStart: {
+      title: 'Super Mario 64 controls and limitations',
+      intro: 'Check the available controls before playing. Startup and mobile input checked on October 4, 2026.',
+      entries: [
+        { label: 'Move and start', detail: 'Focus the game before using desktop controls.', keys: 'W/A/S/D · Enter: Start' },
+        { label: 'Action buttons', detail: 'Default desktop mapping; check the player menu for customized bindings.', keys: 'K: A · J: B · Shift: Z' },
+        { label: 'Camera and shoulders', detail: 'Phone buttons are labeled on screen.', keys: 'U/I: C-Up/Down · L/O: L/R' },
+        { label: 'Mobile limitation', detail: 'C-Left/C-Right are unavailable. The touch stick does not guarantee full analog control.' },
+      ],
+    },
+    sources: [{ label: 'Browser saves: game saves, save states and storage', href: '/en/guides/how-browser-game-saves-work' }],
+  },
+
   'murdoku-html5-2026': {
     summary: 'Murdoku is a deduction puzzle by Manuel Garand. Use the clues to place people in a crime scene, then identify who was alone with the victim.',
     description: [
@@ -1316,5 +1376,5 @@ const editorials: Record<string, GameEditorial> = {
 
 export function getGameEditorial(game: PublicGame, locale: Locale) {
   if (locale !== 'en') return undefined
-  return editorials[game.url_slug?.trim().toLowerCase() ?? '']
+  return editorials[game.url_slug?.trim().toLowerCase() ?? ''] ?? editorials[game._id ?? '']
 }

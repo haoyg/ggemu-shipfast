@@ -181,7 +181,7 @@ export function SiteLayout({
 
             {canSwitchTheme ? (
               <details
-                className="dropdown dropdown-end hidden sm:block"
+                className="dropdown dropdown-end"
                 onToggle={(event) => setIsThemeMenuOpen(event.currentTarget.open)}
                 open={isThemeMenuOpen}
                 ref={themeMenuRef}
@@ -196,7 +196,7 @@ export function SiteLayout({
                   }}
                 >
                   <i className="ri-palette-line" />
-                  <span>{t.theme}</span>
+                  <span className="hidden sm:inline">{t.theme}</span>
                 </summary>
                 <ul className="menu dropdown-content z-50 mt-3 max-h-96 w-56 overflow-y-auto rounded-box border border-base-300 bg-base-100 p-2 shadow-xl">
                   {siteThemes.map((nextTheme) => (
@@ -210,7 +210,7 @@ export function SiteLayout({
                           className="inline-block h-3 w-3 rounded-full bg-primary"
                           data-theme={nextTheme}
                         />
-                        <span className="capitalize">{nextTheme}</span>
+                        <span>{nextTheme === 'light' ? ({ en: 'Light', 'zh-CN': '浅色', ja: 'ライト' }[locale]) : ({ en: 'Dark', 'zh-CN': '深色', ja: 'ダーク' }[locale])}</span>
                       </button>
                     </li>
                   ))}

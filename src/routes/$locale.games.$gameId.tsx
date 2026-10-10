@@ -717,7 +717,7 @@ function QuickStartCard({
   return (
     <section className="rounded-xl border border-primary/25 bg-primary/10 p-4 shadow-sm sm:p-6">
       <h2 className="flex items-center gap-2 text-xl font-bold text-white">
-        <i aria-hidden="true" className="ri-drum-line text-primary" />
+        <i aria-hidden="true" className="ri-gamepad-line text-primary" />
         {quickStart.title}
       </h2>
       <p className="mt-3 max-w-3xl text-sm leading-6 text-white/75">{quickStart.intro}</p>

@@ -158,7 +158,7 @@ function PlayerAttempt({ src, platform, title, gameId, locale, className, allow 
   }
 
   return (
-    <div ref={container} className={`relative flex flex-col bg-black text-white ${className}`}>
+    <div data-theme="dark" ref={container} className={`relative flex flex-col bg-black text-white ${className}`}>
       <div className="player-toolbar flex flex-wrap items-center justify-between gap-2 bg-neutral px-3 py-2 text-sm">
         <div className="min-w-0">
           <span className="block truncate font-semibold text-white">{title}</span>

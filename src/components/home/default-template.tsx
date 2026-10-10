@@ -302,7 +302,7 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
         </aside>
 
         <main className="min-w-0 max-w-full">
-          <section className="arcade-lobby border-b border-white/10">
+          <section data-theme="dark" className="arcade-lobby border-b border-white/10">
             <div aria-hidden="true" className="arcade-lobby-beam arcade-lobby-beam-left" />
             <div aria-hidden="true" className="arcade-lobby-beam arcade-lobby-beam-right" />
             <div className="arcade-lobby-content">

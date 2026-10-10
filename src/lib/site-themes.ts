@@ -52,7 +52,7 @@ function parseSiteThemes(value: string | null | undefined) {
 export function getSiteThemes() {
   const themes = Array.from(new Set(parseSiteThemes(siteConfig.SITE_THEMES)))
 
-  return themes.length > 0 ? themes : [defaultTheme]
+  return Array.from(new Set([...(themes.length > 0 ? themes : [defaultTheme]), 'light']))
 }
 
 export function normalizeSiteTheme(value: string | null) {
