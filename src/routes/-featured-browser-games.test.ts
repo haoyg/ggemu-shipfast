@@ -8,6 +8,8 @@ describe('featured browser game SEO', () => {
     const head = buildExternalBrowserGameHead(game, 'https://pokopie.com')
     expect(head.links).toEqual([{ rel: 'canonical', href: `https://pokopie.com${game.canonicalPath}` }])
     expect(head.meta).toContainEqual({ title: expect.stringContaining(game.title) })
+    expect(head.meta).toContainEqual({ property: 'og:image', content: `https://pokopie.com${game.imageUrl}` })
+    expect(head.meta).toContainEqual({ name: 'twitter:card', content: 'summary_large_image' })
   })
 
   it.each(Object.values(featuredBrowserGames))('renders readable FAQ data for $id', (game) => {

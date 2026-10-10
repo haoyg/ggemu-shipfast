@@ -6,6 +6,8 @@ export type FeaturedBrowserGame = {
   externalUrl: string
   faq: Array<{ answer: string; question: string }>
   id: string
+  imageAlt: string
+  imageUrl: string
   intro: string
   licenseNote: string
   sources: Array<{ href: string; label: string }>
@@ -40,6 +42,8 @@ export const featuredBrowserGames = {
       },
     ],
     id: 'quake-online',
+    imageAlt: 'Original dark stone arena artwork for Quake Online',
+    imageUrl: '/game-art/quake-online.webp',
     intro: 'LibreQuake is a free Quake-engine campaign with original maps, monsters, textures, sounds, and music. The verified browser build runs with the FTEQW WebAssembly engine on Quake.zone.',
     licenseNote: 'LibreQuake v0.09-beta identifies its assets as BSD-3-Clause and game code as GPL-2.0; FTEQW is GPL-2.0. POKOPIE links to the hosted build and does not redistribute its files.',
     sourceLabel: 'Open LibreQuake on Quake.zone',
@@ -75,6 +79,8 @@ export const featuredBrowserGames = {
       },
     ],
     id: 'cs-surf',
+    imageAlt: 'Original neon ramp artwork for CS Surf Online',
+    imageUrl: '/game-art/cs-surf.webp',
     intro: 'Surfd recreates classic Counter-Strike: Source-style surf movement in an independent browser client. Choose a course, ride angled ramps, pass checkpoints, and race your best time.',
     licenseNote: 'Surfd states that imported maps and assets retain their authors’ rights and do not carry a general reuse licence. POKOPIE does not copy those files and links to the creator-hosted beta.',
     sourceLabel: 'Open CS Surf on Surfd',

@@ -2,6 +2,7 @@ import type { FeaturedBrowserGame } from '#/lib/featured-browser-games'
 
 export function buildExternalBrowserGameHead(game: FeaturedBrowserGame, origin?: string) {
   const canonicalUrl = `${origin ?? ''}${game.canonicalPath}`
+  const imageUrl = `${origin ?? ''}${game.imageUrl}`
   const pageTitle = `${game.title} – Play in Your Browser | POKOPIE`
   const structuredData = [
     {
@@ -32,9 +33,13 @@ export function buildExternalBrowserGameHead(game: FeaturedBrowserGame, origin?:
       { property: 'og:description', content: game.description },
       { property: 'og:type', content: 'website' },
       { property: 'og:url', content: canonicalUrl },
-      { name: 'twitter:card', content: 'summary' },
+      { property: 'og:image', content: imageUrl },
+      { property: 'og:image:alt', content: game.imageAlt },
+      { name: 'twitter:card', content: 'summary_large_image' },
       { name: 'twitter:title', content: pageTitle },
       { name: 'twitter:description', content: game.description },
+      { name: 'twitter:image', content: imageUrl },
+      { name: 'twitter:image:alt', content: game.imageAlt },
     ],
     scripts: structuredData.map((data) => ({
       type: 'application/ld+json',

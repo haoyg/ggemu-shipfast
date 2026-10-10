@@ -18,22 +18,38 @@ export function ExternalBrowserGamePage({
     >
       <main className="bg-base-200">
         <section className="border-b border-white/10 bg-neutral text-neutral-content">
-          <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
-            <p className="text-xs font-black uppercase tracking-[0.2em] text-primary">Verified browser game</p>
-            <h1 className="mt-3 max-w-4xl text-4xl font-black leading-tight text-white sm:text-6xl">{game.title}</h1>
-            <p className="mt-5 max-w-3xl text-lg leading-8 text-white/70">{game.intro}</p>
-            <div className="mt-7 flex flex-wrap items-center gap-3">
-              <a
-                className="btn btn-primary"
-                href={game.externalUrl}
-                onClick={() => trackEvent('game_play_click', { game_id: game.id, source: 'external_verified_page' })}
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                {game.sourceLabel} <i aria-hidden="true" className="ri-external-link-line" />
-              </a>
-              <span className="text-sm text-white/55">Opens the creator-hosted game in a new tab</span>
+          <div className="mx-auto grid max-w-6xl items-center gap-9 px-4 py-10 sm:px-6 lg:grid-cols-[minmax(0,1fr)_minmax(22rem,0.85fr)] lg:px-8 lg:py-16">
+            <div className="min-w-0">
+              <p className="text-xs font-black uppercase tracking-[0.2em] text-primary">Verified browser game</p>
+              <h1 className="mt-3 text-4xl font-black leading-tight text-white sm:text-6xl">{game.title}</h1>
+              <p className="mt-5 max-w-3xl text-lg leading-8 text-white/70">{game.intro}</p>
+              <div className="mt-7 flex flex-wrap items-center gap-3">
+                <a
+                  className="btn btn-primary"
+                  href={game.externalUrl}
+                  onClick={() => trackEvent('game_play_click', { game_id: game.id, source: 'external_verified_page' })}
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  {game.sourceLabel} <i aria-hidden="true" className="ri-external-link-line" />
+                </a>
+                <span className="text-sm text-white/55">Opens the creator-hosted game in a new tab</span>
+              </div>
             </div>
+            <figure className="min-w-0 max-w-full overflow-hidden rounded-2xl border border-white/15 bg-black/30 shadow-2xl">
+              <img
+                alt={game.imageAlt}
+                className="aspect-video h-auto w-full object-cover"
+                decoding="async"
+                fetchPriority="high"
+                height="864"
+                src={game.imageUrl}
+                width="1536"
+              />
+              <figcaption className="border-t border-white/10 px-4 py-2 text-xs leading-5 text-white/50">
+                Original POKOPIE artwork · Gameplay opens on the creator site
+              </figcaption>
+            </figure>
           </div>
         </section>
 
