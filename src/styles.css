@@ -720,3 +720,40 @@ html[data-theme="light"] {
   --color-warning: #885c14;
   --color-warning-content: #ffffff;
 }
+
+/* Keep visible carousel dots small while giving touch users a full hit target. */
+.arcade-cabinet-dots { gap: 0; }
+.arcade-cabinet-dots button,
+.arcade-cabinet-dots button.is-active {
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  animation: none;
+}
+.arcade-cabinet-dots button::after { content: ""; width: 8px; height: 8px; border: 1px solid #cbd5e1; background: #172033; }
+.arcade-cabinet-dots button.is-active::after { width: 18px; background: #22d3ee; border-color: #22d3ee; }
+.arcade-cabinet-dots button:focus-visible { outline: 2px solid #22d3ee; outline-offset: -3px; }
+html[data-theme="light"] .arcade-trending-panel { background: #ffffff; border: 1px solid #ded9ed; }
+html[data-theme="light"] .arcade-trending-game { background: #f3f1fa; }
+html[data-theme="light"] .arcade-trending-game:hover { background: #e9e2fa; }
+html[data-theme="light"] .arcade-trending-panel [class*="text-white"] { color: #514967; }
+html[data-theme="light"] .arcade-trending-panel h2,
+html[data-theme="light"] .arcade-trending-panel strong { color: #25223b; }
+html[data-theme="light"] .arcade-trending-panel a.text-xs { color: #6940b5; }
+@media (max-width: 639px) {
+  .arcade-cabinet { min-height: 18rem; height: 18rem; }
+  .arcade-cabinet > .relative { padding: 1rem 1rem 3.5rem; }
+  .arcade-cabinet .arcade-featured-title { font-size: 1.5rem; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .arcade-cabinet .mt-6 { margin-top: 1rem; }
+  .arcade-hero-controls { bottom: 0; }
+  .arcade-trending-panel .mb-3 { margin-bottom: 0.5rem; }
+  .arcade-trending-list { display: flex; overflow-x: auto; scroll-snap-type: x proximity; padding-bottom: 0.25rem; }
+  .arcade-trending-game { flex: 0 0 16rem; grid-template-columns: 5rem minmax(0, 1fr) auto; min-height: 4rem; scroll-snap-align: start; }
+  .arcade-platform-tile { flex-basis: 5.5rem; min-height: 5rem; grid-template-rows: 3rem auto; }
+  .arcade-platform-tile img { max-height: 3rem; }
+}
+html[data-theme="light"] .arcade-platform-tile strong { color: #514967; text-shadow: none; }

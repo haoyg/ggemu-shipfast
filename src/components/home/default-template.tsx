@@ -323,7 +323,7 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
             </div>
 
             {featuredGame ? (
-              <div className="grid min-w-0 gap-3 lg:grid-cols-[minmax(0,2.2fr)_minmax(17rem,0.8fr)]">
+              <div className="grid min-w-0 grid-cols-1 gap-3 lg:grid-cols-[minmax(0,2.2fr)_minmax(17rem,0.8fr)]">
                 <article
                   className="arcade-cabinet group relative min-h-[24rem] overflow-hidden sm:min-h-[31rem]"
                   onBlur={(event) => {
@@ -396,12 +396,12 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
                   ) : null}
                 </article>
 
-                <aside className={`arcade-trending-panel p-3 sm:p-4 ${isLobbyPlatformLoading ? 'is-loading' : ''}`} aria-label={lobbyCopy.trending} aria-busy={isLobbyPlatformLoading}>
+                <aside className={`arcade-trending-panel min-w-0 p-3 sm:p-4 ${isLobbyPlatformLoading ? 'is-loading' : ''}`} aria-label={lobbyCopy.trending} aria-busy={isLobbyPlatformLoading}>
                   <div className="mb-3 flex items-center justify-between gap-3">
                     <h2 className="arcade-pixel-title text-lg text-white"><i aria-hidden="true" className="ri-fire-fill text-pink-400" /> {lobbyCopy.trending}</h2>
                     <a className="text-xs font-semibold text-cyan-300 hover:text-white" href={selectedPlatform?.seoPath ?? '#popular-games'}>{viewAllLabel} <i aria-hidden="true" className="ri-arrow-right-line" /></a>
                   </div>
-                  <div className="grid gap-2">
+                  <div className="arcade-trending-list grid gap-2">
                     {trendingGames.map((game) => (
                       <Link className="arcade-trending-game group" key={getGameRouteId(game)} params={{ gameId: getGameRouteId(game), locale: lang }} to="/$locale/games/$gameId">
                         <ArcadeCover alt={game.name ?? 'Game'} className="aspect-[16/9]" cover={game.game_cover} lang={lang} />
@@ -855,7 +855,8 @@ function HomeSearchSuggest({
           onChange={(event) => onQueryChange(event.currentTarget.value)}
           onFocus={() => setIsFocused(true)}
           onKeyDown={handleSuggestionKeyDown}
-          placeholder={getSearchPlaceholder(t, gameTotal)}
+          placeholder={t.search}
+          title={getSearchPlaceholder(t, gameTotal)}
           type="search"
           value={query}
         />
