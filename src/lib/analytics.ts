@@ -42,6 +42,7 @@ export function getGoogleConsentInitScript() {
 type FunnelEvent = 'game_play_click' | 'player_load_start' | 'player_frame_loaded'
   | 'player_load_timeout' | 'player_retry' | 'player_ready'
   | 'game_search' | 'game_search_results' | 'game_search_error' | 'game_search_empty'
+  | 'game_view' | 'game_start' | 'game_complete' | 'game_restart' | 'hint_used' | 'game_share'
   | 'page_performance'
 
 export function trackEvent(name: FunnelEvent, parameters: Record<string, string | number> = {}) {
@@ -50,6 +51,20 @@ export function trackEvent(name: FunnelEvent, parameters: Record<string, string 
     // Never let unavailable or blocked analytics interrupt gameplay.
     initializeGoogleConsentMode().gtag?.('event', name, parameters)
   } catch { /* Analytics is best effort. */ }
+}
+
+export function trackEventOnce(
+  key: string,
+  name: FunnelEvent,
+  parameters: Record<string, string | number> = {},
+) {
+  if (typeof window === 'undefined') return
+  const storageKey = `pokopie-analytics-${key}`
+  try {
+    if (window.sessionStorage.getItem(storageKey)) return
+    window.sessionStorage.setItem(storageKey, '1')
+  } catch { /* Continue without deduplication when storage is blocked. */ }
+  trackEvent(name, parameters)
 }
 
 export function trackPagePerformance(pathname?: string) {

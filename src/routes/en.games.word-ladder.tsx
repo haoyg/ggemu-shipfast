@@ -3,13 +3,15 @@ import { Link, createFileRoute } from '@tanstack/react-router'
 import { SiteLayout } from '#/components/site-layout'
 import { WordLadderGame } from '#/components/word-ladder-game'
 import { getSeoOrigin } from '#/lib/seo'
+import { originalGames } from '#/lib/original-games'
 import { getDailyPuzzle } from '#/lib/word-ladder/engine'
 import {
   WORD_LADDER_DICTIONARY_SOURCE,
   WORD_LADDER_DICTIONARY_VERSION,
 } from '#/lib/word-ladder/dictionary'
 
-const pageTitle = 'Word Ladder Challenge – Daily Word Game | POKOPIE'
+const gameMetadata = originalGames.wordLadder
+const pageTitle = `${gameMetadata.title} – Daily Word Game | POKOPIE`
 const pageDescription =
   'Play a free daily Word Ladder Challenge. Change one letter at a time, use smart hints, compare the shortest path, or keep playing in Unlimited Mode.'
 
@@ -24,7 +26,7 @@ const faqs = [
   },
   {
     question: 'How do Smart Hints work?',
-    answer: 'Hints reveal information gradually: first the remaining shortest distance, then which letter position to consider, and finally a useful next word.',
+    answer: 'Hints reveal information gradually: first the remaining shortest distance, then a useful next word, and finally the complete shortest path.',
   },
   {
     question: 'Do I need an account?',

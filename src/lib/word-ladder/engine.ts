@@ -12,8 +12,11 @@ export type WordLadderPuzzle = {
 export type WordLadderHint = {
   level: 1 | 2 | 3
   message: string
+  path?: ReadonlyArray<string>
   suggestedWord?: string
 }
+
+const DAILY_CHALLENGE_EPOCH = '2026-10-10'
 
 const puzzleSeeds = [
   ['cold', 'warm'], ['lead', 'gold'], ['head', 'tail'],
@@ -83,8 +86,6 @@ export function getSmartHint(
 
   const remainingSteps = path.length - 1
   const suggestedWord = path[1]
-  const changedIndex = findChangedIndex(current, suggestedWord)
-
   if (requestedLevel === 1) {
     return {
       level: 1,
@@ -92,13 +93,24 @@ export function getSmartHint(
     }
   }
   if (requestedLevel === 2) {
-    return { level: 2, message: `Try changing letter ${changedIndex + 1}.` }
+    return {
+      level: 2,
+      message: `A useful next word is ${suggestedWord.toUpperCase()}.`,
+      suggestedWord,
+    }
   }
   return {
     level: 3,
-    message: `A strong next move is ${suggestedWord.toUpperCase()}.`,
+    message: `Shortest path: ${path.map((word) => word.toUpperCase()).join(' → ')}.`,
+    path,
     suggestedWord,
   }
+}
+
+export function getDailyChallengeNumber(utcDate: string) {
+  const date = parseUtcDate(utcDate)
+  const epoch = parseUtcDate(DAILY_CHALLENGE_EPOCH)
+  return Math.floor((date.getTime() - epoch.getTime()) / 86_400_000) + 1
 }
 
 export function getDailyPuzzle(utcDate: string) {
@@ -149,13 +161,6 @@ function reconstructPath(previous: Map<string, string | null>, target: string) {
     current = previous.get(current) ?? null
   }
   return path.reverse()
-}
-
-function findChangedIndex(left: string, right: string) {
-  for (let index = 0; index < left.length; index += 1) {
-    if (left[index] !== right[index]) return index
-  }
-  return 0
 }
 
 function getDifficulty(steps: number): WordLadderDifficulty {

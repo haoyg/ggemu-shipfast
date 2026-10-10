@@ -22,12 +22,13 @@ export type WordLadderProgress = {
 export type WordLadderStorage = {
   history: Array<WordLadderResult>
   progress: WordLadderProgress | null
+  soundEnabled: boolean
   unlimitedIndex: number
   version: 1
 }
 
 export const emptyWordLadderStorage: WordLadderStorage = {
-  history: [], progress: null, unlimitedIndex: 0, version: WORD_LADDER_STORAGE_VERSION,
+  history: [], progress: null, soundEnabled: true, unlimitedIndex: 0, version: WORD_LADDER_STORAGE_VERSION,
 }
 
 export function loadWordLadderStorage(storage: Pick<Storage, 'getItem'>) {
@@ -53,7 +54,8 @@ export function migrateWordLadderStorage(value: unknown): WordLadderStorage {
   const history = Array.isArray(value.history) ? value.history.filter(isWordLadderResult).slice(-90) : []
   const unlimitedIndex = isNonNegativeInteger(value.unlimitedIndex) ? value.unlimitedIndex : 0
   const progress = isWordLadderProgress(value.progress) ? value.progress : null
-  return { history, progress, unlimitedIndex, version: WORD_LADDER_STORAGE_VERSION }
+  const soundEnabled = typeof value.soundEnabled === 'boolean' ? value.soundEnabled : true
+  return { history, progress, soundEnabled, unlimitedIndex, version: WORD_LADDER_STORAGE_VERSION }
 }
 
 export function getDailyStreak(history: ReadonlyArray<WordLadderResult>, today: string) {

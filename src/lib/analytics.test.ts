@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import { getGoogleConsentInitScript, initializeGoogleConsentMode, trackEvent, trackPagePerformance } from './analytics'
+import { getGoogleConsentInitScript, initializeGoogleConsentMode, trackEvent, trackEventOnce, trackPagePerformance } from './analytics'
 
 afterEach(() => {
   vi.restoreAllMocks()
@@ -7,6 +7,7 @@ afterEach(() => {
   delete target.dataLayer
   delete target.gtag
   delete target.__POKOPIE_GOOGLE_CONSENT_INITIALIZED__
+  window.sessionStorage.clear()
 })
 
 describe('analytics bootstrap', () => {
@@ -29,6 +30,13 @@ describe('analytics bootstrap', () => {
   it('does not break user actions when the analytics tag throws', () => {
     initializeGoogleConsentMode().gtag = vi.fn(() => { throw new Error('Blocked') })
     expect(() => trackEvent('player_retry')).not.toThrow()
+  })
+
+  it('deduplicates one-time gameplay events within a browser session', () => {
+    trackEventOnce('word-ladder-view', 'game_view', { game_type: 'word_ladder' })
+    trackEventOnce('word-ladder-view', 'game_view', { game_type: 'word_ladder' })
+    const commands = initializeGoogleConsentMode().dataLayer?.map((command) => Array.from(command as ArrayLike<unknown>))
+    expect(commands?.filter((command) => command[0] === 'event')).toHaveLength(1)
   })
 
   it('reports navigation timing when the browser exposes it', () => {

@@ -18,6 +18,7 @@ import {
 import { getRetroCoverFallbackLabel } from '#/lib/locale-labels'
 import { prioritizeClassicGames } from '#/lib/home-game-priority'
 import { getPlatformCollectionPath } from '#/lib/platform-routes'
+import { originalGames } from '#/lib/original-games'
 
 import {
   HomeFaqSection,
@@ -599,6 +600,19 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
                 {newGames.map((game) => (
                   <ArcadeGameCard game={game} isPriority={false} key={getGameRouteId(game)} lang={lang} />
                 ))}
+              </div>
+            </section>
+          ) : null}
+
+          {!hasActiveFilters && lang === 'en' ? (
+            <section className="arcade-section border-t px-4 py-7 sm:px-6 lg:px-8" aria-labelledby="original-games-heading">
+              <div className="arcade-card flex flex-col gap-4 border-primary/30 bg-primary/10 p-5 sm:flex-row sm:items-center sm:justify-between">
+                <div>
+                  <p className="text-xs font-black uppercase tracking-[0.18em] text-primary">POKOPIE Original</p>
+                  <h2 className="mt-1 text-2xl font-black text-white" id="original-games-heading">{originalGames.wordLadder.title}</h2>
+                  <p className="mt-2 max-w-2xl text-sm leading-6 text-white/70">{originalGames.wordLadder.description}</p>
+                </div>
+                <Link className="btn btn-primary shrink-0" to="/en/games/word-ladder">Play the daily puzzle <i aria-hidden="true" className="ri-arrow-right-line" /></Link>
               </div>
             </section>
           ) : null}

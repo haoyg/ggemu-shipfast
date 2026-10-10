@@ -1,8 +1,11 @@
 import { cleanup, fireEvent, render, screen, waitFor, within } from '@testing-library/react'
-import { afterEach, beforeEach, describe, expect, it } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
 import { WordLadderGame } from './word-ladder-game'
 import { findShortestPath, validatePuzzle, type WordLadderPuzzle } from '#/lib/word-ladder/engine'
+
+const { trackEvent } = vi.hoisted(() => ({ trackEvent: vi.fn() }))
+vi.mock('#/lib/analytics', () => ({ trackEvent, trackEventOnce: vi.fn() }))
 
 const puzzle: WordLadderPuzzle = {
   id: 'lead-gold',
@@ -12,6 +15,7 @@ const puzzle: WordLadderPuzzle = {
 }
 
 beforeEach(() => {
+  trackEvent.mockClear()
   const values = new Map<string, string>()
   const storage = {
     get length() { return values.size },
@@ -51,6 +55,40 @@ describe('WordLadderGame', () => {
 
     fireEvent.click(screen.getByRole('button', { name: /Hint 1\/3/ }))
     expect(screen.getAllByText(/shortest route needs/i)).toHaveLength(2)
+    fireEvent.click(screen.getByRole('button', { name: /Hint 2\/3/ }))
+    expect(screen.getAllByText(/useful next word/i)).toHaveLength(2)
+    fireEvent.click(screen.getByRole('button', { name: /Hint 3\/3/ }))
+    expect(screen.getAllByText(/Shortest path:/i)).toHaveLength(2)
+    expect(trackEvent).toHaveBeenCalledWith('hint_used', expect.objectContaining({ hint_level: 3 }))
+  })
+
+  it('does not create duplicate Daily results after a practice replay', async () => {
+    render(<WordLadderGame dailyDate="2026-10-10" dailyPuzzle={puzzle} />)
+
+    async function solve() {
+      const form = screen.getByLabelText('Next word').closest('form')
+      if (!form) throw new Error('Word entry form missing')
+      for (const word of findShortestPath('lead', 'gold').slice(1)) {
+        fireEvent.change(screen.getByLabelText('Next word'), { target: { value: word } })
+        fireEvent.submit(form)
+      }
+      await screen.findByText(/Ladder complete|Practice replay complete/)
+    }
+
+    await solve()
+    fireEvent.click(screen.getByRole('button', { name: /Restart/ }))
+    await solve()
+
+    const stored = JSON.parse(window.localStorage.getItem('pokopie-word-ladder-v1') ?? '{}')
+    expect(stored.history).toHaveLength(1)
+    expect(screen.getByText(/official result was already saved/i)).toBeTruthy()
+  })
+
+  it('shows the stable challenge number and supports restart', () => {
+    render(<WordLadderGame dailyDate="2026-10-10" dailyPuzzle={puzzle} />)
+    expect(screen.getByRole('heading', { name: /Daily Challenge #1/ })).toBeTruthy()
+    fireEvent.click(screen.getByRole('button', { name: /Restart/ }))
+    expect(trackEvent).toHaveBeenCalledWith('game_restart', expect.objectContaining({ mode: 'daily' }))
   })
 
   it('switches to Unlimited Mode with touch-sized controls', async () => {

@@ -38,7 +38,7 @@ describe('word ladder storage', () => {
   it('saves under a stable versioned key', () => {
     const values = new Map<string, string>()
     expect(saveWordLadderStorage({ setItem: (key, value) => values.set(key, value) }, {
-      version: 1, history: [], progress: null, unlimitedIndex: 0,
+      version: 1, history: [], progress: null, soundEnabled: true, unlimitedIndex: 0,
     })).toBe(true)
     expect(values.has(WORD_LADDER_STORAGE_KEY)).toBe(true)
   })
