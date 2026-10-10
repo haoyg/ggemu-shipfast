@@ -57,6 +57,7 @@ export function ExternalBrowserGamePage({
           <section className="grid gap-6 lg:grid-cols-[minmax(0,1.4fr)_minmax(18rem,0.6fr)]">
             <article className="rounded-2xl bg-base-100 p-6 shadow-sm">
               <h2 className="text-2xl font-black">How to play</h2>
+              <p className="mt-3 leading-7 text-base-content/70">{game.howToPlayIntro}</p>
               <ol className="mt-5 grid gap-4">
                 {game.controls.map((control, index) => (
                   <li className="flex gap-4" key={control}>

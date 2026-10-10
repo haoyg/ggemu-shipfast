@@ -8,6 +8,7 @@ export type FeaturedBrowserGame = {
   id: string
   imageAlt: string
   imageUrl: string
+  howToPlayIntro: string
   intro: string
   licenseNote: string
   sources: Array<{ href: string; label: string }>
@@ -20,9 +21,12 @@ export const featuredBrowserGames = {
   quakeOnline: {
     canonicalPath: '/en/games/quake-online',
     controls: [
-      'WASD moves your character; move the mouse to aim.',
-      'Left click fires, Space jumps, and number keys 1–8 switch weapons.',
-      'Press P for the game menu, Esc to release the mouse, and ~ for the console.',
+      'Open the LibreQuake player and wait for the WebAssembly engine and game data to finish loading. Click inside the game view when prompted so the browser can capture your mouse.',
+      'Start the single-player campaign from the in-game menu. Each level is an enclosed combat map: explore its rooms, survive enemy encounters, and locate the route to the exit.',
+      'Move with WASD and aim with the mouse. Left click fires and Space jumps. Keep moving during fights—the campaign uses fast projectiles and close-range enemies rather than cover-based combat.',
+      'Pick up health, armor, ammunition, and weapons as you explore. Number keys 1–8 select available weapons; a weapon cannot be used when its required ammunition is empty.',
+      'Look for doors, floor buttons, wall switches, lifts, and teleporters when the route appears blocked. Colored keys open their matching locked doors and let you continue through the level.',
+      'Press P to open the FTEQW game menu. Press Esc when you need to release the captured mouse, and click the game view again before resuming keyboard-and-mouse play.',
     ],
     description: 'Learn how to play a free Quake-engine FPS in your browser through the externally hosted LibreQuake build, with controls, requirements, and licensing notes.',
     deviceNote: 'A modern browser with WebGL 2 is required. Desktop keyboard and mouse are recommended; the host also provides touch controls for phones and tablets.',
@@ -44,6 +48,7 @@ export const featuredBrowserGames = {
     id: 'quake-online',
     imageAlt: 'Original dark stone arena artwork for Quake Online',
     imageUrl: '/game-art/quake-online.webp',
+    howToPlayIntro: 'These steps describe the LibreQuake campaign running in the linked FTEQW browser build, not the commercial Quake data files.',
     intro: 'LibreQuake is a free Quake-engine campaign with original maps, monsters, textures, sounds, and music. The verified browser build runs with the FTEQW WebAssembly engine on Quake.zone.',
     licenseNote: 'LibreQuake v0.09-beta identifies its assets as BSD-3-Clause and game code as GPL-2.0; FTEQW is GPL-2.0. POKOPIE links to the hosted build and does not redistribute its files.',
     sourceLabel: 'Open LibreQuake on Quake.zone',
@@ -57,9 +62,12 @@ export const featuredBrowserGames = {
   csSurf: {
     canonicalPath: '/en/games/cs-surf',
     controls: [
-      'Use A or D toward the face of a ramp; release W while surfing.',
-      'Guide your line with smooth mouse turns and preserve momentum between ramps.',
-      'Space or mouse wheel jumps, Shift ducks, R restarts, and Esc opens the menu.',
+      'Choose a course in the Surfd course browser and select Join map. The click captures the mouse, downloads the selected map if needed, and enters the course; Esc cancels entry or opens the in-game menu.',
+      'Cross the green start area to begin the timed run. The HUD tracks your speed, elapsed time, ordered checkpoints, personal best, and verified record where available.',
+      'On an angled ramp, release W and hold the strafe key toward the ramp face: A on one orientation, D on the other. Turn the mouse gently in the direction you want to travel instead of making sharp corrections.',
+      'Carry momentum off the end of one ramp and line up the next before you leave it. Space or Wheel Down jumps, while Shift ducks when a route needs lower clearance. The default ranked profile supports hold-jump auto-bhop.',
+      'Pass the course checkpoints in order and reach the gold finish area. Missing a transfer or touching a map reset area returns you according to that course’s authored route rules.',
+      'Press R to restart the run. For difficult transfers, open Practice, save a position, and reload it for repeated attempts; practice runs do not create records. Esc releases controls, but an active run can continue timing while a menu is open.',
     ],
     description: 'Play CS-style surf in your browser through the externally hosted Surfd beta, with accurate controls, device requirements, map provenance, and practical beginner tips.',
     deviceNote: 'Surfd requires a desktop browser with keyboard, mouse, WebGL, and Pointer Lock. It is not presented as a mobile game.',
@@ -81,6 +89,7 @@ export const featuredBrowserGames = {
     id: 'cs-surf',
     imageAlt: 'Original neon ramp artwork for CS Surf Online',
     imageUrl: '/game-art/cs-surf.webp',
+    howToPlayIntro: 'This guide follows the current Surfd browser client and its default Normal + Auto Bhop course rules.',
     intro: 'Surfd recreates classic Counter-Strike: Source-style surf movement in an independent browser client. Choose a course, ride angled ramps, pass checkpoints, and race your best time.',
     licenseNote: 'Surfd states that imported maps and assets retain their authors’ rights and do not carry a general reuse licence. POKOPIE does not copy those files and links to the creator-hosted beta.',
     sourceLabel: 'Open CS Surf on Surfd',

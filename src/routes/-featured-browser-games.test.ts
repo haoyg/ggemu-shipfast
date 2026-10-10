@@ -23,4 +23,10 @@ describe('featured browser game SEO', () => {
     expect(featuredBrowserGames.quakeOnline.externalUrl).toBe('https://quake.zone/play/librequake/')
     expect(featuredBrowserGames.csSurf.externalUrl).toBe('https://surfd.net/')
   })
+
+  it.each(Object.values(featuredBrowserGames))('provides a practical play sequence for $id', (game) => {
+    expect(game.howToPlayIntro.length).toBeGreaterThan(60)
+    expect(game.controls.length).toBeGreaterThanOrEqual(6)
+    expect(game.controls.every((step) => step.length > 70)).toBe(true)
+  })
 })
