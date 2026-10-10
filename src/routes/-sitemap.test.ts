@@ -30,6 +30,8 @@ describe('sitemap availability', () => {
     expect(first.headers.get('Cache-Control')).toContain('s-maxage=86400')
     const firstXml = await first.text()
     expect(firstXml).toContain('/en/games/contra')
+    expect(firstXml).toContain('/en/games/word-ladder')
+    expect(firstXml).not.toContain('/zh-CN/games/word-ladder')
     expect(firstXml).toContain('/en/guides/browser-retro-gaming-guide')
     expect(firstXml).toContain('<lastmod>2026-09-06</lastmod>')
     expect(firstXml).not.toContain('/zh-CN/guides/browser-retro-gaming-guide')

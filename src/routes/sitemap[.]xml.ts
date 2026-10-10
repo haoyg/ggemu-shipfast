@@ -405,6 +405,14 @@ function buildSitemapEntries(
       entries.push({
         alternateLocales: ['en'],
         locale,
+        loc: toAbsoluteLocalizedUrl(origin, locale, '/games/word-ladder'),
+        path: '/games/word-ladder',
+        changefreq: 'daily',
+        priority: 0.8,
+      })
+      entries.push({
+        alternateLocales: ['en'],
+        locale,
         loc: toAbsoluteLocalizedUrl(origin, locale, '/guides'),
         path: '/guides',
         changefreq: 'weekly',

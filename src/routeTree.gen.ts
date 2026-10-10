@@ -78,6 +78,7 @@ import { Route as LocaleAboutRouteImport } from './routes/$locale.about'
 import { Route as LocalePlatformRouteImport } from './routes/$locale.$platform'
 import { Route as LibraryGenresGenreRouteImport } from './routes/library.genres.$genre'
 import { Route as GamesGameIdPlayRouteImport } from './routes/games/$gameId/play'
+import { Route as EnGamesWordLadderRouteImport } from './routes/en.games.word-ladder'
 import { Route as LocaleGuidesGuideIdRouteImport } from './routes/$locale.guides.$guideId'
 import { Route as LocaleGamesGameIdRouteImport } from './routes/$locale.games.$gameId'
 import { Route as LocaleBlogBlogIdRouteImport } from './routes/$locale.blog.$blogId'
@@ -431,6 +432,11 @@ const GamesGameIdPlayRoute = GamesGameIdPlayRouteImport.update({
   path: '/play',
   getParentRoute: () => GamesGameIdRoute,
 } as any)
+const EnGamesWordLadderRoute = EnGamesWordLadderRouteImport.update({
+  id: '/en/games/word-ladder',
+  path: '/en/games/word-ladder',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const LocaleGuidesGuideIdRoute = LocaleGuidesGuideIdRouteImport.update({
   id: '/$guideId',
   path: '/$guideId',
@@ -533,6 +539,7 @@ export interface FileRoutesByFullPath {
   '/$locale/blog/$blogId': typeof LocaleBlogBlogIdRoute
   '/$locale/games/$gameId': typeof LocaleGamesGameIdRouteWithChildren
   '/$locale/guides/$guideId': typeof LocaleGuidesGuideIdRoute
+  '/en/games/word-ladder': typeof EnGamesWordLadderRoute
   '/games/$gameId/play': typeof GamesGameIdPlayRoute
   '/library/genres/$genre': typeof LibraryGenresGenreRoute
   '/$locale/games/$gameId/play': typeof LocaleGamesGameIdPlayRoute
@@ -610,6 +617,7 @@ export interface FileRoutesByTo {
   '/$locale/blog/$blogId': typeof LocaleBlogBlogIdRoute
   '/$locale/games/$gameId': typeof LocaleGamesGameIdRouteWithChildren
   '/$locale/guides/$guideId': typeof LocaleGuidesGuideIdRoute
+  '/en/games/word-ladder': typeof EnGamesWordLadderRoute
   '/games/$gameId/play': typeof GamesGameIdPlayRoute
   '/library/genres/$genre': typeof LibraryGenresGenreRoute
   '/$locale/games/$gameId/play': typeof LocaleGamesGameIdPlayRoute
@@ -688,6 +696,7 @@ export interface FileRoutesById {
   '/$locale/blog/$blogId': typeof LocaleBlogBlogIdRoute
   '/$locale/games/$gameId': typeof LocaleGamesGameIdRouteWithChildren
   '/$locale/guides/$guideId': typeof LocaleGuidesGuideIdRoute
+  '/en/games/word-ladder': typeof EnGamesWordLadderRoute
   '/games/$gameId/play': typeof GamesGameIdPlayRoute
   '/library/genres/$genre': typeof LibraryGenresGenreRoute
   '/$locale/games/$gameId/play': typeof LocaleGamesGameIdPlayRoute
@@ -767,6 +776,7 @@ export interface FileRouteTypes {
     | '/$locale/blog/$blogId'
     | '/$locale/games/$gameId'
     | '/$locale/guides/$guideId'
+    | '/en/games/word-ladder'
     | '/games/$gameId/play'
     | '/library/genres/$genre'
     | '/$locale/games/$gameId/play'
@@ -844,6 +854,7 @@ export interface FileRouteTypes {
     | '/$locale/blog/$blogId'
     | '/$locale/games/$gameId'
     | '/$locale/guides/$guideId'
+    | '/en/games/word-ladder'
     | '/games/$gameId/play'
     | '/library/genres/$genre'
     | '/$locale/games/$gameId/play'
@@ -921,6 +932,7 @@ export interface FileRouteTypes {
     | '/$locale/blog/$blogId'
     | '/$locale/games/$gameId'
     | '/$locale/guides/$guideId'
+    | '/en/games/word-ladder'
     | '/games/$gameId/play'
     | '/library/genres/$genre'
     | '/$locale/games/$gameId/play'
@@ -983,6 +995,7 @@ export interface RootRouteChildren {
   EnSnesGamesRoute: typeof EnSnesGamesRoute
   GamesGameIdRoute: typeof GamesGameIdRouteWithChildren
   PlayGameIdRoute: typeof PlayGameIdRoute
+  EnGamesWordLadderRoute: typeof EnGamesWordLadderRoute
   LibraryGenresGenreRoute: typeof LibraryGenresGenreRoute
   EmbedLocaleGamesGameIdRoute: typeof EmbedLocaleGamesGameIdRoute
   EnPlatformPagePageRoute: typeof EnPlatformPagePageRoute
@@ -1473,6 +1486,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof GamesGameIdPlayRouteImport
       parentRoute: typeof GamesGameIdRoute
     }
+    '/en/games/word-ladder': {
+      id: '/en/games/word-ladder'
+      path: '/en/games/word-ladder'
+      fullPath: '/en/games/word-ladder'
+      preLoaderRoute: typeof EnGamesWordLadderRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/$locale/guides/$guideId': {
       id: '/$locale/guides/$guideId'
       path: '/$guideId'
@@ -1658,6 +1678,7 @@ const rootRouteChildren: RootRouteChildren = {
   EnSnesGamesRoute: EnSnesGamesRoute,
   GamesGameIdRoute: GamesGameIdRouteWithChildren,
   PlayGameIdRoute: PlayGameIdRoute,
+  EnGamesWordLadderRoute: EnGamesWordLadderRoute,
   LibraryGenresGenreRoute: LibraryGenresGenreRoute,
   EmbedLocaleGamesGameIdRoute: EmbedLocaleGamesGameIdRoute,
   EnPlatformPagePageRoute: EnPlatformPagePageRoute,
