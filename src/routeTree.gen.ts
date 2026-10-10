@@ -79,6 +79,8 @@ import { Route as LocalePlatformRouteImport } from './routes/$locale.$platform'
 import { Route as LibraryGenresGenreRouteImport } from './routes/library.genres.$genre'
 import { Route as GamesGameIdPlayRouteImport } from './routes/games/$gameId/play'
 import { Route as EnGamesWordLadderRouteImport } from './routes/en.games.word-ladder'
+import { Route as EnGamesQuakeOnlineRouteImport } from './routes/en.games.quake-online'
+import { Route as EnGamesCsSurfRouteImport } from './routes/en.games.cs-surf'
 import { Route as LocaleGuidesGuideIdRouteImport } from './routes/$locale.guides.$guideId'
 import { Route as LocaleGamesGameIdRouteImport } from './routes/$locale.games.$gameId'
 import { Route as LocaleBlogBlogIdRouteImport } from './routes/$locale.blog.$blogId'
@@ -437,6 +439,16 @@ const EnGamesWordLadderRoute = EnGamesWordLadderRouteImport.update({
   path: '/en/games/word-ladder',
   getParentRoute: () => rootRouteImport,
 } as any)
+const EnGamesQuakeOnlineRoute = EnGamesQuakeOnlineRouteImport.update({
+  id: '/en/games/quake-online',
+  path: '/en/games/quake-online',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EnGamesCsSurfRoute = EnGamesCsSurfRouteImport.update({
+  id: '/en/games/cs-surf',
+  path: '/en/games/cs-surf',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const LocaleGuidesGuideIdRoute = LocaleGuidesGuideIdRouteImport.update({
   id: '/$guideId',
   path: '/$guideId',
@@ -539,6 +551,8 @@ export interface FileRoutesByFullPath {
   '/$locale/blog/$blogId': typeof LocaleBlogBlogIdRoute
   '/$locale/games/$gameId': typeof LocaleGamesGameIdRouteWithChildren
   '/$locale/guides/$guideId': typeof LocaleGuidesGuideIdRoute
+  '/en/games/cs-surf': typeof EnGamesCsSurfRoute
+  '/en/games/quake-online': typeof EnGamesQuakeOnlineRoute
   '/en/games/word-ladder': typeof EnGamesWordLadderRoute
   '/games/$gameId/play': typeof GamesGameIdPlayRoute
   '/library/genres/$genre': typeof LibraryGenresGenreRoute
@@ -617,6 +631,8 @@ export interface FileRoutesByTo {
   '/$locale/blog/$blogId': typeof LocaleBlogBlogIdRoute
   '/$locale/games/$gameId': typeof LocaleGamesGameIdRouteWithChildren
   '/$locale/guides/$guideId': typeof LocaleGuidesGuideIdRoute
+  '/en/games/cs-surf': typeof EnGamesCsSurfRoute
+  '/en/games/quake-online': typeof EnGamesQuakeOnlineRoute
   '/en/games/word-ladder': typeof EnGamesWordLadderRoute
   '/games/$gameId/play': typeof GamesGameIdPlayRoute
   '/library/genres/$genre': typeof LibraryGenresGenreRoute
@@ -696,6 +712,8 @@ export interface FileRoutesById {
   '/$locale/blog/$blogId': typeof LocaleBlogBlogIdRoute
   '/$locale/games/$gameId': typeof LocaleGamesGameIdRouteWithChildren
   '/$locale/guides/$guideId': typeof LocaleGuidesGuideIdRoute
+  '/en/games/cs-surf': typeof EnGamesCsSurfRoute
+  '/en/games/quake-online': typeof EnGamesQuakeOnlineRoute
   '/en/games/word-ladder': typeof EnGamesWordLadderRoute
   '/games/$gameId/play': typeof GamesGameIdPlayRoute
   '/library/genres/$genre': typeof LibraryGenresGenreRoute
@@ -776,6 +794,8 @@ export interface FileRouteTypes {
     | '/$locale/blog/$blogId'
     | '/$locale/games/$gameId'
     | '/$locale/guides/$guideId'
+    | '/en/games/cs-surf'
+    | '/en/games/quake-online'
     | '/en/games/word-ladder'
     | '/games/$gameId/play'
     | '/library/genres/$genre'
@@ -854,6 +874,8 @@ export interface FileRouteTypes {
     | '/$locale/blog/$blogId'
     | '/$locale/games/$gameId'
     | '/$locale/guides/$guideId'
+    | '/en/games/cs-surf'
+    | '/en/games/quake-online'
     | '/en/games/word-ladder'
     | '/games/$gameId/play'
     | '/library/genres/$genre'
@@ -932,6 +954,8 @@ export interface FileRouteTypes {
     | '/$locale/blog/$blogId'
     | '/$locale/games/$gameId'
     | '/$locale/guides/$guideId'
+    | '/en/games/cs-surf'
+    | '/en/games/quake-online'
     | '/en/games/word-ladder'
     | '/games/$gameId/play'
     | '/library/genres/$genre'
@@ -995,6 +1019,8 @@ export interface RootRouteChildren {
   EnSnesGamesRoute: typeof EnSnesGamesRoute
   GamesGameIdRoute: typeof GamesGameIdRouteWithChildren
   PlayGameIdRoute: typeof PlayGameIdRoute
+  EnGamesCsSurfRoute: typeof EnGamesCsSurfRoute
+  EnGamesQuakeOnlineRoute: typeof EnGamesQuakeOnlineRoute
   EnGamesWordLadderRoute: typeof EnGamesWordLadderRoute
   LibraryGenresGenreRoute: typeof LibraryGenresGenreRoute
   EmbedLocaleGamesGameIdRoute: typeof EmbedLocaleGamesGameIdRoute
@@ -1493,6 +1519,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EnGamesWordLadderRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/en/games/quake-online': {
+      id: '/en/games/quake-online'
+      path: '/en/games/quake-online'
+      fullPath: '/en/games/quake-online'
+      preLoaderRoute: typeof EnGamesQuakeOnlineRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/en/games/cs-surf': {
+      id: '/en/games/cs-surf'
+      path: '/en/games/cs-surf'
+      fullPath: '/en/games/cs-surf'
+      preLoaderRoute: typeof EnGamesCsSurfRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/$locale/guides/$guideId': {
       id: '/$locale/guides/$guideId'
       path: '/$guideId'
@@ -1678,6 +1718,8 @@ const rootRouteChildren: RootRouteChildren = {
   EnSnesGamesRoute: EnSnesGamesRoute,
   GamesGameIdRoute: GamesGameIdRouteWithChildren,
   PlayGameIdRoute: PlayGameIdRoute,
+  EnGamesCsSurfRoute: EnGamesCsSurfRoute,
+  EnGamesQuakeOnlineRoute: EnGamesQuakeOnlineRoute,
   EnGamesWordLadderRoute: EnGamesWordLadderRoute,
   LibraryGenresGenreRoute: LibraryGenresGenreRoute,
   EmbedLocaleGamesGameIdRoute: EmbedLocaleGamesGameIdRoute,

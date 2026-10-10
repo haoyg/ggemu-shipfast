@@ -614,6 +614,16 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
                 </div>
                 <Link className="btn btn-primary shrink-0" to="/en/games/word-ladder">Play the daily puzzle <i aria-hidden="true" className="ri-arrow-right-line" /></Link>
               </div>
+              <div className="mt-4 grid gap-3 sm:grid-cols-2">
+                <Link className="arcade-card border-white/10 bg-white/5 p-4" to="/en/games/quake-online">
+                  <span className="font-black text-white">Quake Online</span>
+                  <span className="mt-1 block text-sm text-white/60">Verified external LibreQuake browser build</span>
+                </Link>
+                <Link className="arcade-card border-white/10 bg-white/5 p-4" to="/en/games/cs-surf">
+                  <span className="font-black text-white">CS Surf Online</span>
+                  <span className="mt-1 block text-sm text-white/60">Desktop Source-style surf browser beta</span>
+                </Link>
+              </div>
             </section>
           ) : null}
 

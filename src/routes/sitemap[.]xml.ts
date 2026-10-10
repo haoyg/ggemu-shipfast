@@ -410,6 +410,16 @@ function buildSitemapEntries(
         changefreq: 'daily',
         priority: 0.8,
       })
+      for (const path of ['/games/quake-online', '/games/cs-surf']) {
+        entries.push({
+          alternateLocales: ['en'],
+          locale,
+          loc: toAbsoluteLocalizedUrl(origin, locale, path),
+          path,
+          changefreq: 'monthly',
+          priority: 0.7,
+        })
+      }
       entries.push({
         alternateLocales: ['en'],
         locale,
