@@ -105,7 +105,9 @@ function WordLadderPage() {
   return (
     <SiteLayout
       locale="en"
-      localePaths={{ 'zh-CN': '/en/games/word-ladder', en: '/en/games/word-ladder', ja: '/en/games/word-ladder' }}
+      localePaths={{
+  'zh-TW': '/en/games/word-ladder',
+  ko: '/en/games/word-ladder', 'zh-CN': '/en/games/word-ladder', en: '/en/games/word-ladder', ja: '/en/games/word-ladder' }}
     >
       <main className="bg-base-200">
         <section className="border-b border-white/10 bg-[radial-gradient(circle_at_top_right,rgba(236,72,153,0.25),transparent_28rem),radial-gradient(circle_at_top_left,rgba(34,211,238,0.2),transparent_30rem)] bg-neutral text-neutral-content">

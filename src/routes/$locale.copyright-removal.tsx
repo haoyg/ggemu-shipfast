@@ -19,6 +19,23 @@ type RemovalCopy = {
 }
 
 const removalCopies: Record<Locale, RemovalCopy> = {
+  'zh-TW': {
+    eyebrow: '法律',
+    title: '版權審核與內容下架',
+    description: 'POKOPIE 的版權審核、權利人通知與內容下架流程。',
+    intro: '如果您是權利人或其授權代表，並認為 POKOPIE 上的內容侵犯了您的權利，請提交信息完整的審核或下架通知。',
+    requirementsTitle: '通知應包含',
+    requirements: ['權利人或授權代表的姓名與聯繫方式', '需要保護的作品或權利說明', '存在爭議內容的準確 POKOPIE URL', '您認為該使用未經授權的說明', '信息真實準確且您有權提出申請的聲明'],
+    processTitle: '處理流程',
+    process: '我們會確認收到通知、核對所提供的信息，並在審核期間視情況限制相關內容。信息不足時，我們可能要求補充材料。重複、欺詐或明顯無關的請求可能不會處理。',
+    contactLabel: '發送版權審核或下架通知',
+  },
+  ko: {
+    eyebrow: '법적 안내', title: '저작권 검토 및 콘텐츠 삭제', description: 'POKOPIE의 저작권 검토, 권리자 통지 및 콘텐츠 삭제 절차입니다.',
+    intro: '권리자 또는 권한을 가진 대리인으로서 POKOPIE의 콘텐츠가 권리를 침해한다고 판단하는 경우 필요한 정보를 포함한 검토 또는 삭제 요청을 제출하세요.',
+    requirementsTitle: '통지에 필요한 정보', requirements: ['이름, 연락처 및 대리 권한', '보호 대상 저작물 또는 권리의 식별 정보', '문제가 되는 콘텐츠의 정확한 POKOPIE URL', '해당 이용이 무단이라고 판단하는 이유', '정보가 정확하고 요청을 제출할 권한이 있다는 진술'],
+    processTitle: '처리 절차', process: '통지 수신을 확인하고 제공된 정보를 검토하며, 검토 중 문제가 되는 콘텐츠를 제한할 수 있습니다. 누락된 정보의 보완을 요청할 수 있습니다. 반복적이거나 허위 또는 명백히 관련 없는 통지는 처리하지 않을 수 있습니다.', contactLabel: '저작권 검토 또는 삭제 요청 보내기',
+  },
   'zh-CN': {
     eyebrow: '法律',
     title: '版权审核与内容下架',

@@ -77,7 +77,7 @@ export function buildPlatformCollectionHead(
     : collection.description
   const links = loaderData?.origin
     ? [
-        ...getSeoLinksFromCanonical(canonicalUrl, page > 1 ? ['en'] : ['zh-CN', 'en', 'ja']),
+        ...getSeoLinksFromCanonical(canonicalUrl, page > 1 ? ['en'] : ['zh-CN', 'zh-TW', 'en', 'ja', 'ko']),
         ...(locale === 'en' && page > 1
           ? [{ rel: 'prev', href: `${loaderData.origin}${getPlatformCollectionPagePath(collection.routePath, page - 1)}` }]
           : []),

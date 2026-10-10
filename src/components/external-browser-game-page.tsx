@@ -14,7 +14,9 @@ export function ExternalBrowserGamePage({
   return (
     <SiteLayout
       locale="en"
-      localePaths={{ 'zh-CN': game.canonicalPath, en: game.canonicalPath, ja: game.canonicalPath }}
+      localePaths={{
+  'zh-TW': game.canonicalPath,
+  ko: game.canonicalPath, 'zh-CN': game.canonicalPath, en: game.canonicalPath, ja: game.canonicalPath }}
     >
       <main className="bg-base-200">
         <section className="border-b border-white/10 bg-neutral text-neutral-content">

@@ -88,7 +88,7 @@ export function SiteLayout({
   function handleLocaleChange(nextValue: string) {
     const nextLocale = normalizeLocale(nextValue)
     const nextPath = localePaths?.[nextLocale] ??
-      location.pathname.replace(/^\/(zh-CN|en|ja)(?=\/|$)/, `/${nextLocale}`)
+      location.pathname.replace(/^\/(zh-CN|zh-TW|en|ja|ko)(?=\/|$)/, `/${nextLocale}`)
 
     window.location.assign(nextPath)
   }
@@ -163,7 +163,7 @@ export function SiteLayout({
                 <li>
                   <Link activeProps={{ className: 'active text-primary' }} params={{ locale }} to="/$locale/guides">
                     <i className="ri-book-open-line" />
-                    Guides
+                    {locale === 'ko' ? '가이드 (영어)' : locale === 'zh-TW' ? '指南（英文）' : 'Guides'}
                   </Link>
                 </li>
                 <li className="hidden 2xl:block">
@@ -212,7 +212,11 @@ export function SiteLayout({
                           className="inline-block h-3 w-3 rounded-full bg-primary"
                           data-theme={nextTheme}
                         />
-                        <span>{nextTheme === 'light' ? ({ en: 'Light', 'zh-CN': '浅色', ja: 'ライト' }[locale]) : ({ en: 'Dark', 'zh-CN': '深色', ja: 'ダーク' }[locale])}</span>
+                        <span>{nextTheme === 'light' ? ({
+  'zh-TW': '淺色',
+  ko: '밝게', en: 'Light', 'zh-CN': '浅色', ja: 'ライト' }[locale]) : ({
+  'zh-TW': '深色',
+  ko: '어둡게', en: 'Dark', 'zh-CN': '深色', ja: 'ダーク' }[locale])}</span>
                       </button>
                     </li>
                   ))}
@@ -236,45 +240,16 @@ export function SiteLayout({
                 }}
               >
                 <i className="ri-global-line" />
-                <span className="sm:hidden">
-                  {locale === 'zh-CN' ? '\u4e2d' : locale === 'en' ? 'EN' : '\u65e5'}
-                </span>
-                <span className="hidden sm:inline">
-                  {locale === 'zh-CN'
-                    ? '\u4e2d\u6587'
-                    : locale === 'en'
-                      ? 'EN'
-                      : '\u65e5\u672c\u8a9e'}
-                </span>
+                <span>{({ 'zh-CN': '简中', 'zh-TW': '繁中', en: 'EN', ja: '日本語', ko: '한국어' })[locale]}</span>
               </summary>
               <ul className="menu dropdown-content z-50 mt-3 w-36 rounded-box border border-base-300 bg-base-100 p-2 shadow-xl">
-                <li>
-                  <button
-                    className={locale === 'zh-CN' ? 'active' : ''}
-                    onClick={() => handleLocaleChange('zh-CN')}
-                    type="button"
-                  >
-                    {'\u4e2d\u6587'}
-                  </button>
-                </li>
-                <li>
-                  <button
-                    className={locale === 'en' ? 'active' : ''}
-                    onClick={() => handleLocaleChange('en')}
-                    type="button"
-                  >
-                    English
-                  </button>
-                </li>
-                <li>
-                  <button
-                    className={locale === 'ja' ? 'active' : ''}
-                    onClick={() => handleLocaleChange('ja')}
-                    type="button"
-                  >
-                    {'\u65e5\u672c\u8a9e'}
-                  </button>
-                </li>
+                {(['en', 'zh-CN', 'zh-TW', 'ja', 'ko'] as const).map((nextLocale) => (
+                  <li key={nextLocale}>
+                    <button className={locale === nextLocale ? 'active' : ''} onClick={() => handleLocaleChange(nextLocale)} type="button">
+                      {({ en: 'English', 'zh-CN': '简体中文', 'zh-TW': '繁體中文', ja: '日本語', ko: '한국어' })[nextLocale]}
+                    </button>
+                  </li>
+                ))}
               </ul>
             </details>
           </div>
@@ -323,7 +298,7 @@ export function SiteLayout({
             />
             <HeaderMobileLink
               icon="ri-book-open-line"
-              label="Guides"
+              label={locale === 'ko' ? '가이드 (영어)' : locale === 'zh-TW' ? '指南（英文）' : 'Guides'}
               locale={locale}
               to="/$locale/guides"
             />
@@ -535,7 +510,7 @@ export function SiteFooter({ locale }: { locale: Locale }) {
               </Link>
               <Link className="link-hover link" params={{ locale }} to="/$locale/guides">
                 <i className="ri-book-open-line mr-1" />
-                Guides
+                {locale === 'ko' ? '가이드 (영어)' : locale === 'zh-TW' ? '指南（英文）' : 'Guides'}
               </Link>
               <a className="link-hover link" href={`/${locale}/ps1-compatibility`}>
                 <i className="ri-pulse-line mr-1" />

@@ -20,6 +20,8 @@ const localeOptions: Array<{ label: string; value: Locale }> = [
   { label: '中文', value: 'zh-CN' },
   { label: 'English', value: 'en' },
   { label: '日本語', value: 'ja' },
+  { label: '繁體中文', value: 'zh-TW' },
+  { label: '한국어', value: 'ko' },
 ]
 
 export function SidenavHomeTemplate(props: HomeTemplateProps) {
@@ -117,7 +119,7 @@ function HomeSidenav({
     setIsLocaleMenuOpen(false)
 
     const nextPath = location.pathname.replace(
-      /^\/(zh-CN|en|ja)(?=\/|$)/,
+      /^\/(zh-CN|zh-TW|en|ja|ko)(?=\/|$)/,
       `/${nextLocale}`,
     )
 
@@ -255,7 +257,7 @@ function HomeSidenav({
             >
               <i className="ri-global-line" />
               <span className="truncate">
-                {locale === 'zh-CN' ? '中文' : locale === 'en' ? 'EN' : '日本語'}
+                {locale === 'zh-TW' ? '中文' : locale === 'zh-CN' ? '中文' : locale === 'en' ? 'EN' : '日本語'}
               </span>
             </summary>
             <ul

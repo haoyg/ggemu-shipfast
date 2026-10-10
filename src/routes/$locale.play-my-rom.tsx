@@ -20,6 +20,14 @@ type PlayMyRomSearch = {
 }
 
 const playMyRomCopies: Record<Locale, { title: string; description: string }> = {
+  'zh-TW': {
+    title: '玩本地 ROM',
+    description: '通過 POKOPIE 的嵌入式播放器加載並遊玩你自己的 ROM。',
+  },
+  ko: {
+    title: '내 ROM 실행',
+    description: 'POKOPIE의 내장 플레이어로 자신의 ROM 파일을 불러와 실행하세요.',
+  },
   'zh-CN': {
     title: '玩本地 ROM',
     description: '通过 POKOPIE 的嵌入式播放器加载并游玩你自己的 ROM。',

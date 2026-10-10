@@ -52,6 +52,22 @@ export function getBrowserPlayGuide(locale: Locale, game?: PublicGame) {
       ],
     }
   }
+  if (locale === 'ko') return { title: '브라우저 조작과 문제 해결', paragraphs: [
+    '키가 반응하지 않으면 게임 화면을 먼저 클릭하고 플레이어의 키 설정을 확인하세요.',
+    '스마트폰에서는 터치 버튼이 있는지 확인하세요. 버튼이 작으면 가로 화면이나 전체 화면을 사용해 보세요. 게임패드를 연결한 후 게임에 포커스를 두고 버튼을 눌러 인식 여부를 확인하세요.',
+    '검은 화면이나 로딩이 계속되면 잠시 기다리세요. 저장하지 않은 진행 상황은 다시 불러올 때 사라질 수 있으므로 재시작 전에 저장 기능을 확인하세요.',
+  ] }
+  if (locale === 'zh-TW') {
+    return {
+      title: '瀏覽器操作與故障排查',
+      paragraphs: [
+        '鍵盤沒有反應時，先點擊遊戲畫面再操作，並在播放器的控制設置中查看實際按鍵。頁面滾動不代表遊戲已經收到方向鍵輸入。',
+        '手機上先查看播放器是否提供觸屏按鈕；畫面或按鈕太小時可以嘗試橫屏或全屏。連接手柄後，在遊戲畫面內按一個按鈕，並檢查播放器是否識別到設備。',
+        '黑屏或一直加載時，先等待片刻。詳情頁內的播放器或獨立播放頁提供“重新加載播放器”和返回遊戲目錄的入口。重載會重新啟動播放器，未保存的進度可能丟失；沒有存檔選項時，不要依賴刷新來保存進度。',
+      ],
+    }
+  }
+
   if (locale === 'zh-CN') {
     return {
       title: '浏览器操作与故障排查',
@@ -89,6 +105,20 @@ export function getGameSidebarContent(game: PublicGame, locale: Locale) {
   }
   const name = game.name?.trim() || getFallbackName(locale)
   const playerTip = getPlayerTip(name, game.players, locale)
+
+  if (locale === 'ko') return { backgroundTitle: '게임 정보', background: `${name}의 플랫폼과 출시 정보는 게임 상세 정보를 확인하세요.`, tipsTitle: '플레이 팁', tips: ['게임 화면에 포커스를 둔 후 조작하세요.', '재시작 전에 진행 상황을 저장하세요. 지원 기능은 플레이어에 따라 다릅니다.'] }
+  if (locale === 'zh-TW') {
+    return {
+      backgroundTitle: '遊戲背景',
+      background: getGameBackgroundText(game, locale),
+      tipsTitle: '遊玩技巧',
+      tips: [
+        `開始 ${name} 前，先查看模擬器中的按鍵映射，並按自己的鍵盤或手柄習慣調整操作。`,
+        playerTip,
+        '如果播放器提供存檔或導出功能，先嚐試保存並恢復一次；不要假定關閉標籤頁後進度仍會保留。',
+      ],
+    }
+  }
 
   if (locale === 'zh-CN') {
     return {
@@ -135,6 +165,15 @@ function getGameBackgroundText(game: PublicGame, locale: Locale) {
   const developer = game.developer?.trim()
   const categories = getLocalizedCategoryLabels(game.categories, locale).slice(0, 3)
 
+  if (locale === 'ko') return `${name}${platform ? ` · ${platform}` : ''}${year ? ` · ${year}` : ''}${developer ? ` · ${developer}` : ''}${categories.length ? ` · ${categories.join(', ')}` : ''}`
+  if (locale === 'zh-TW') {
+    const release = year ? `${year} 年發行` : '經典復古遊戲'
+    const platformText = platform ? `，登陸 ${platform} 平臺` : ''
+    const developerText = developer ? `，由 ${developer} 開發` : ''
+    const categoryText = categories.length > 0 ? `。遊戲類型包括${categories.join('、')}` : ''
+    return `${name} 是一款${release}的作品${platformText}${developerText}${categoryText}。`
+  }
+
   if (locale === 'zh-CN') {
     const release = year ? `${year} 年发行` : '经典复古游戏'
     const platformText = platform ? `，登陆 ${platform} 平台` : ''
@@ -161,6 +200,11 @@ function getGameBackgroundText(game: PublicGame, locale: Locale) {
 function getBrowserPlayText(game: PublicGame, locale: Locale) {
   const name = game.name?.trim() || getFallbackName(locale)
 
+  if (locale === 'ko') return `${name}을 브라우저에서 시작할 수 있습니다. 실제 조작과 저장 옵션은 플레이어 메뉴에서 확인하세요.`
+  if (locale === 'zh-TW') {
+    return `本頁面可直接在瀏覽器中啟動 ${name}，無需單獨下載遊戲客戶端。開始前可閱讀下方玩法指南，並根據設備調整鍵盤或手柄設置。`
+  }
+
   if (locale === 'zh-CN') {
     return `本页面可直接在浏览器中启动 ${name}，无需单独下载游戏客户端。开始前可阅读下方玩法指南，并根据设备调整键盘或手柄设置。`
   }
@@ -174,7 +218,11 @@ function getBrowserPlayText(game: PublicGame, locale: Locale) {
 
 function getPlayerTip(name: string, players: number | undefined, locale: Locale) {
   if ((players ?? 1) > 1) {
-    if (locale === 'zh-CN') {
+    if (locale === 'zh-TW') {
+      return `${name} 的原作資料標註為 ${players} 人遊戲；瀏覽器版本能否多人遊玩、是否輪流操作，以播放器實際提供的選項為準。`
+    }
+
+  if (locale === 'zh-CN') {
       return `${name} 的原作资料标注为 ${players} 人游戏；浏览器版本能否多人游玩、是否轮流操作，以播放器实际提供的选项为准。`
     }
 
@@ -183,6 +231,10 @@ function getPlayerTip(name: string, players: number | undefined, locale: Locale)
     }
 
     return `${name} lists ${players} players in its original game data. Check whether this browser player offers multiplayer and whether play is simultaneous or turn-based.`
+  }
+
+  if (locale === 'zh-TW') {
+    return '先熟悉移動、攻擊和暫停等基礎操作，再開始完整關卡，可以減少誤操作。'
   }
 
   if (locale === 'zh-CN') {
@@ -220,6 +272,10 @@ function uniqueTexts(values: Array<string>) {
 }
 
 function getFallbackName(locale: Locale) {
+  if (locale === 'zh-TW') {
+    return '這款遊戲'
+  }
+
   if (locale === 'zh-CN') {
     return '这款游戏'
   }

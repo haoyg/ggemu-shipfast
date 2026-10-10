@@ -14,6 +14,8 @@ const pageDescription =
   'Test whether your browser supports the WebAssembly, WebGL 2, storage, gamepad, fullscreen, and memory features used by browser-based PS1 emulation.'
 
 const compatibilityCopy = {
+  'zh-TW': { title: 'PS1 瀏覽器兼容性檢測 | POKOPIE', description: '檢測瀏覽器是否支持在線運行 PS1 遊戲所需的 WebAssembly、WebGL 2、存儲、手柄、全屏和內存功能。', hero: 'PS1 瀏覽器兼容性檢測', intro: '在加載遊戲或自己的 ROM 文件前，檢查瀏覽器是否支持 PlayStation 1 模擬器常用功能。', run: '運行兼容性檢測', browse: '瀏覽 PS1 遊戲', results: '功能檢測結果', local: '檢測結果在當前瀏覽器本地生成，不會上傳設備信息或 ROM 文件。', scoreTitle: '評分如何計算', improveTitle: '提升兼容性', scopeTitle: '檢測範圍與限制', ownTitle: '檢測自己的文件', ownDescription: '使用你依法擁有使用權的 ROM 文件，通過 POKOPIE 瀏覽器播放器進行測試。', openRom: '打開 Play My ROM', guide: ['更新到瀏覽器最新穩定版本。', '啟用硬件加速並重啟瀏覽器。', '打開遊戲播放器前連接手柄。', '性能不穩定時關閉佔用內存較多的標籤頁。'] },
+  ko: { title: 'PS1 브라우저 호환성 검사 | POKOPIE', description: '브라우저에서 PS1 에뮬레이션에 필요한 WebAssembly, WebGL 2, 저장소, 게임패드, 전체 화면 및 메모리 기능을 확인합니다.', hero: 'PS1 브라우저 호환성 검사', intro: '게임이나 자신의 ROM 파일을 불러오기 전에 PlayStation 1 에뮬레이터에 필요한 브라우저 기능을 확인하세요.', run: '호환성 검사 실행', browse: 'PS1 게임 둘러보기', results: '기능 검사 결과', local: '결과는 현재 브라우저에서 생성됩니다. 기기 정보와 ROM 파일은 업로드되지 않습니다.', scoreTitle: '점수 계산 방법', improveTitle: '호환성 개선', scopeTitle: '검사 범위 및 제한', ownTitle: '내 파일 테스트', ownDescription: '사용 권한이 있는 ROM 파일을 POKOPIE 브라우저 플레이어에서 실행하세요.', openRom: '내 ROM 실행 열기', guide: ['브라우저를 최신 안정 버전으로 업데이트하세요.', '하드웨어 가속을 활성화하고 브라우저를 다시 시작하세요.', '플레이어를 열기 전에 컨트롤러를 연결하세요.', '성능이 불안정하면 메모리를 많이 사용하는 탭을 닫으세요.'] },
   en: { title: pageTitle, description: pageDescription, hero: 'PS1 Browser Compatibility Check', intro: 'Check the browser capabilities commonly used by PlayStation 1 emulators before loading a game or your own ROM file.', run: 'Run compatibility check', browse: 'Browse PS1 games', results: 'Capability results', local: 'Results are generated locally in this browser. No device details or ROM files are uploaded.', scoreTitle: 'How the score works', improveTitle: 'Improve compatibility', scopeTitle: 'Test scope and limitations', ownTitle: 'Test your own file', ownDescription: 'Use POKOPIE’s browser player with a ROM file that you are legally permitted to use.', openRom: 'Open Play My ROM', guide: ['Update to the latest stable version of your browser.', 'Enable hardware acceleration and restart the browser.', 'Connect a controller before opening the game player.', 'Close memory-heavy tabs when performance is inconsistent.'] },
   'zh-CN': { title: 'PS1 浏览器兼容性检测 | POKOPIE', description: '检测浏览器是否支持在线运行 PS1 游戏所需的 WebAssembly、WebGL 2、存储、手柄、全屏和内存功能。', hero: 'PS1 浏览器兼容性检测', intro: '在加载游戏或自己的 ROM 文件前，检查浏览器是否支持 PlayStation 1 模拟器常用功能。', run: '运行兼容性检测', browse: '浏览 PS1 游戏', results: '功能检测结果', local: '检测结果在当前浏览器本地生成，不会上传设备信息或 ROM 文件。', scoreTitle: '评分如何计算', improveTitle: '提升兼容性', scopeTitle: '检测范围与限制', ownTitle: '检测自己的文件', ownDescription: '使用你依法拥有使用权的 ROM 文件，通过 POKOPIE 浏览器播放器进行测试。', openRom: '打开 Play My ROM', guide: ['更新到浏览器最新稳定版本。', '启用硬件加速并重启浏览器。', '打开游戏播放器前连接手柄。', '性能不稳定时关闭占用内存较多的标签页。'] },
   ja: { title: 'PS1 ブラウザー互換性チェック | POKOPIE', description: 'PS1 ゲームをブラウザーで動かすための WebAssembly、WebGL 2、ストレージ、ゲームパッド、全画面、メモリ機能を確認します。', hero: 'PS1 ブラウザー互換性チェック', intro: 'ゲームや自分の ROM ファイルを読み込む前に、PlayStation 1 エミュレーターで使われるブラウザー機能を確認します。', run: '互換性をチェック', browse: 'PS1 ゲームを見る', results: '機能チェック結果', local: '結果はこのブラウザー内で生成され、端末情報や ROM ファイルはアップロードされません。', scoreTitle: 'スコアの仕組み', improveTitle: '互換性を高める', scopeTitle: 'チェック範囲と制限', ownTitle: '自分のファイルを確認', ownDescription: '使用する権利のある ROM ファイルを POKOPIE のブラウザープレイヤーで確認できます。', openRom: 'Play My ROM を開く', guide: ['ブラウザーを最新の安定版に更新する。', 'ハードウェアアクセラレーションを有効にして再起動する。', 'ゲームプレイヤーを開く前にコントローラーを接続する。', '動作が不安定なときはメモリを使うタブを閉じる。'] },
@@ -75,6 +77,15 @@ const capabilityDefinitions: Array<CapabilityDefinition> = [
 ]
 
 const localizedCapabilities: Record<Locale, Record<string, { label: string; description: string; requirement: string }>> = {
+  'zh-TW': {
+    wasm: { label: 'WebAssembly', description: '讓模擬器核心在瀏覽器中以接近原生的速度運行。', requirement: '核心' },
+    webgl2: { label: 'WebGL 2', description: '為遊戲畫面提供硬件加速圖形。', requirement: '核心' },
+    indexedDb: { label: 'IndexedDB', description: '幫助兼容的播放器保存進度和本地遊戲數據。', requirement: '推薦' },
+    gamepad: { label: 'Gamepad API', description: '允許兼容手柄提供主機風格的輸入。', requirement: '可選' },
+    fullscreen: { label: '全屏 API', description: '允許播放器擴展到正常頁面框架之外。', requirement: '可選' },
+    sharedArrayBuffer: { label: '共享內存', description: '可為使用多線程的模擬器核心提升性能。', requirement: '推薦' },
+  },
+  ko: Object.fromEntries(capabilityDefinitions.map((item) => [item.key, item])),
   en: Object.fromEntries(capabilityDefinitions.map((item) => [item.key, item])),
   'zh-CN': {
     wasm: { label: 'WebAssembly', description: '让模拟器核心在浏览器中以接近原生的速度运行。', requirement: '核心' },
@@ -107,7 +118,7 @@ export function buildPs1CompatibilityHead(origin: string | undefined, locale: Lo
     const canonicalUrl = origin ? `${origin}${path}` : path
     const copy = compatibilityCopy[locale]
     return {
-      links: getSeoLinksFromCanonical(canonicalUrl, ['zh-CN', 'en', 'ja']),
+      links: getSeoLinksFromCanonical(canonicalUrl, ['zh-CN', 'zh-TW', 'en', 'ja', 'ko']),
       meta: [
         { title: copy.title },
         { name: 'description', content: copy.description },
@@ -147,7 +158,13 @@ export function Ps1CompatibilityPage({ locale = 'en' }: { locale?: Locale }) {
   return (
     <SiteLayout
       locale={locale}
-      localePaths={{ 'zh-CN': `/${locale === 'zh-CN' ? 'zh-CN' : 'zh-CN'}/ps1-compatibility`, en: '/en/ps1-compatibility', ja: '/ja/ps1-compatibility' }}
+      localePaths={{
+        'zh-TW': '/zh-TW/ps1-compatibility',
+        ko: '/ko/ps1-compatibility',
+        'zh-CN': '/zh-CN/ps1-compatibility',
+        en: '/en/ps1-compatibility',
+        ja: '/ja/ps1-compatibility',
+      }}
     >
       <section className="border-b border-white/10 bg-[radial-gradient(circle_at_top_right,rgba(236,72,153,0.2),transparent_28rem),radial-gradient(circle_at_top_left,rgba(34,211,238,0.12),transparent_30rem)] bg-neutral text-neutral-content">
         <div className="mx-auto grid max-w-7xl gap-10 px-4 py-14 sm:px-6 lg:grid-cols-[minmax(0,1fr)_22rem] lg:items-end lg:px-8 lg:py-20">
@@ -267,7 +284,7 @@ function ReadinessSummary({
   readiness: ReturnType<typeof evaluateBrowserReadiness> | null
   locale?: Locale
 }) {
-  const labels = locale === 'zh-CN'
+  const labels = locale === 'zh-TW' ? { checking: '檢測中', ready: '可運行', notReady: '暫不支持', browser: '瀏覽器就緒度', score: '僅供參考：實際性能取決於設備與模擬器。' } : locale === 'zh-CN'
     ? { checking: '检测中', ready: '可运行', notReady: '暂不支持', browser: '浏览器就绪度', score: '仅供参考：实际性能取决于设备与模拟器。' }
     : locale === 'ja'
       ? { checking: '確認中', ready: '準備完了', notReady: '未対応', browser: 'ブラウザーの準備状況', score: '機能チェックのみです。実際の性能は端末とエミュレーターに左右されます。' }
@@ -309,7 +326,7 @@ function CapabilityRow({
   definition: CapabilityDisplayDefinition
   locale?: Locale
 }) {
-  const status = locale === 'zh-CN'
+  const status = locale === 'zh-TW' ? { checking: '檢測中', available: '支持', unavailable: '不支持' } : locale === 'zh-CN'
     ? { checking: '检测中', available: '支持', unavailable: '不支持' }
     : locale === 'ja'
       ? { checking: '確認中', available: '対応', unavailable: '未対応' }

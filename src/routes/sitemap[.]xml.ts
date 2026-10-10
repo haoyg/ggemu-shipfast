@@ -16,7 +16,7 @@ const SITEMAP_RETRY_TTL_MS = 60_000
 const SITEMAP_SNAPSHOT_TTL_MS = 7 * SITEMAP_CACHE_TTL_MS
 const SITEMAP_FETCH_CONCURRENCY = 6
 const SITEMAP_REQUEST_TIMEOUT_MS = 5_000
-const locales = ['zh-CN', 'en', 'ja'] as const satisfies ReadonlyArray<Locale>
+const locales = ['zh-CN', 'zh-TW', 'en', 'ja', 'ko'] as const satisfies ReadonlyArray<Locale>
 const englishCollectionPaths = [
   '/arcade-games',
   '/gba-games',

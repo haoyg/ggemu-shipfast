@@ -84,6 +84,10 @@ export const ps1PageConfig: GameCollectionPageConfig = {
 }
 
 const localizedPs1Copy = {
+  ko: { title: '온라인 PS1 게임 | POKOPIE', description: '브라우저에서 클래식 PlayStation 게임을 즐기세요.', heroTitle: '온라인 PS1 게임', heroDescription: 'PlayStation의 RPG, 레이싱, 액션과 격투 게임을 찾아보세요.', ctaLabel: 'PS1 게임 보기', libraryTitle: 'PS1 게임 목록', libraryDescription: (total: number) => `PlayStation 게임 ${total}개`, unavailableMessage: '잠시 후 다시 시도하세요.', featuredLabel: '추천 PS1 게임', coverAlt: 'PS1 게임 표지' },
+  'zh-TW': {
+    title: '在線玩 PS1 遊戲 | 免下載 | POKOPIE', description: '在瀏覽器中在線玩 PS1 遊戲，瀏覽經典 PlayStation RPG、賽車、動作和格鬥遊戲。', heroTitle: '在線玩 PS1 遊戲', heroDescription: '在瀏覽器中重溫經典 PlayStation 冒險、賽車、RPG 和格鬥遊戲，支持的遊戲無需單獨安裝模擬器。', ctaLabel: '瀏覽 PS1 遊戲', libraryTitle: 'PS1 遊戲庫', libraryDescription: (total: number) => `瀏覽 POKOPIE 目錄中的 ${total} 款 PlayStation 1 遊戲。`, unavailableMessage: 'PS1 遊戲暫時不可用，請稍後再試。', featuredLabel: '精選 PS1 遊戲', coverAlt: 'PS1 遊戲封面',
+  },
   'zh-CN': {
     title: '在线玩 PS1 游戏 | 免下载 | POKOPIE', description: '在浏览器中在线玩 PS1 游戏，浏览经典 PlayStation RPG、赛车、动作和格斗游戏。', heroTitle: '在线玩 PS1 游戏', heroDescription: '在浏览器中重温经典 PlayStation 冒险、赛车、RPG 和格斗游戏，支持的游戏无需单独安装模拟器。', ctaLabel: '浏览 PS1 游戏', libraryTitle: 'PS1 游戏库', libraryDescription: (total: number) => `浏览 POKOPIE 目录中的 ${total} 款 PlayStation 1 游戏。`, unavailableMessage: 'PS1 游戏暂时不可用，请稍后再试。', featuredLabel: '精选 PS1 游戏', coverAlt: 'PS1 游戏封面',
   },
@@ -100,7 +104,7 @@ export function getLocalizedPs1PageConfig(locale: Locale): GameCollectionPageCon
 export function getLocalizedPs1Collection(locale: Locale) {
   const page = getLocalizedPs1PageConfig(locale)
   const copy = locale === 'en' ? null : localizedPs1Copy[locale]
-  return { breadcrumbName: locale === 'ja' ? 'PS1 ゲーム' : locale === 'en' ? 'PS1 Games' : 'PS1 游戏', description: copy?.description ?? 'Play PS1 games online in your browser.', page, platform: 'PlayStation 1', routePath: page.routePath, schemaName: page.heroTitle, title: copy?.title ?? 'Play PS1 Games Online Free | No Download | POKOPIE' }
+  return { breadcrumbName: locale === 'ko' ? 'PS1 게임' : locale === 'zh-TW' ? 'PS1 遊戲' : locale === 'ja' ? 'PS1 ゲーム' : locale === 'en' ? 'PS1 Games' : 'PS1 游戏', description: copy?.description ?? 'Play PS1 games online in your browser.', page, platform: 'PlayStation 1', routePath: page.routePath, schemaName: page.heroTitle, title: copy?.title ?? 'Play PS1 Games Online Free | No Download | POKOPIE' }
 }
 
 export function Ps1GamesPage({

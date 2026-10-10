@@ -54,6 +54,14 @@ export function buildArticleStructuredData({
 }
 
 export function getArticleMetaCopy(locale: Locale, siteName: string) {
+  if (locale === 'zh-TW') {
+    return {
+      author: `${siteName} 編輯團隊`,
+      published: '發佈於',
+      updated: '更新於',
+    }
+  }
+
   if (locale === 'zh-CN') {
     return {
       author: `${siteName} \u7f16\u8f91\u56e2\u961f`,

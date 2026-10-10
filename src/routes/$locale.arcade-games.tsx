@@ -6,7 +6,7 @@ import { buildPlatformCollectionHead, loadPlatformCollection } from '#/lib/platf
 
 export const Route = createFileRoute('/$locale/arcade-games')({
   loader: async ({ params }) => {
-    if (params.locale !== 'zh-CN' && params.locale !== 'ja') throw notFound()
+    if (!['zh-CN', 'zh-TW', 'ja', 'ko'].includes(params.locale)) throw notFound()
     const locale = normalizeLocale(params.locale)
     const data = await loadPlatformCollection(getLocalizedArcadeCollection(locale), locale)
     return { ...data, locale }

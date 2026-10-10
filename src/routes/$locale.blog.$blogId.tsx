@@ -694,6 +694,13 @@ function LinkedGameCard({
 }
 
 function getLinkedGameCardLabels(locale: Locale) {
+  if (locale === 'zh-TW') {
+    return {
+      action: '開始遊戲',
+      eyebrow: '相關遊戲',
+    }
+  }
+
   if (locale === 'zh-CN') {
     return {
       action: '开始游戏',

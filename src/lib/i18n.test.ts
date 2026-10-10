@@ -36,6 +36,8 @@ describe('i18n messages', () => {
     expect(isSupportedLocale('zh-CN')).toBe(true)
     expect(isSupportedLocale('en')).toBe(true)
     expect(isSupportedLocale('ja')).toBe(true)
+    expect(isSupportedLocale('zh-TW')).toBe(true)
+    expect(isSupportedLocale('ko')).toBe(true)
     expect(isSupportedLocale('x')).toBe(false)
     expect(isSupportedLocale('fr')).toBe(false)
   })
@@ -150,5 +152,15 @@ describe('i18n messages', () => {
     expect(excerpt).not.toContain('![Image]')
     expect(excerpt).not.toContain('##')
     expect(excerpt).not.toContain('**')
+  })
+})
+
+
+describe('Traditional Chinese and Korean interfaces', () => {
+  it('provides translated navigation and homepage content', () => {
+    expect(getI18n('zh-TW').layout.tagline).toContain('遊戲')
+    expect(getI18n('ko').layout.tagline).toMatch(/[가-힣]/)
+    expect(collectStrings(getI18n('ko').home).join(' ')).toMatch(/[가-힣]/)
+    expect(getI18n('zh-TW').home.title).not.toBe(getI18n('zh-CN').home.title)
   })
 })

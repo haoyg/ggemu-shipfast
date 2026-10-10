@@ -290,6 +290,8 @@ export function isTextSuitableForLocale(value: string | undefined, locale: Local
   const kanaCount = countMatches(text, kanaPattern)
   const hangulCount = countMatches(text, hangulPattern)
 
+  if (locale === 'ko') return hangulCount >= 2
+
   if (locale === 'en') {
     return latinCount >= 10 && latinCount >= (hanCount + kanaCount + hangulCount) * 3
   }

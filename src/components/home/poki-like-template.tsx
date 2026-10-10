@@ -31,6 +31,8 @@ const localeOptions: Array<{ label: string; value: Locale }> = [
   { label: '\u4e2d\u6587', value: 'zh-CN' },
   { label: 'English', value: 'en' },
   { label: '\u65e5\u672c\u8a9e', value: 'ja' },
+  { label: '繁體中文', value: 'zh-TW' },
+  { label: '한국어', value: 'ko' },
 ]
 
 type PokiTileSize = 1 | 2 | 3
@@ -265,7 +267,7 @@ function PokiControlTiles({
     setOpenMenu(null)
 
     const nextPath = location.pathname.replace(
-      /^\/(zh-CN|en|ja)(?=\/|$)/,
+      /^\/(zh-CN|zh-TW|en|ja|ko)(?=\/|$)/,
       `/${nextLocale}`,
     )
 

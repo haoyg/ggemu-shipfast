@@ -64,6 +64,8 @@ export function GameCollectionPage({
     <SiteLayout
       locale={locale}
       localePaths={{
+        'zh-TW': locale === 'zh-TW' ? config.routePath : '/zh-TW',
+        ko: locale === 'ko' ? config.routePath : '/ko',
         'zh-CN': locale === 'zh-CN' ? config.routePath : '/zh-CN',
         en: locale === 'en' ? config.routePath : '/en',
         ja: locale === 'ja' ? config.routePath : '/ja',

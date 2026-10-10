@@ -223,6 +223,12 @@ function PageErrorComponent() {
 }
 
 function getPageErrorMessages(locale: string) {
+  if (locale === 'ko') {
+    return { retry: '다시 시도', browse: '게임 둘러보기', title: '페이지를 불러올 수 없습니다', description: '연결 또는 게임 서비스를 일시적으로 사용할 수 없습니다. 다시 시도하거나 다른 게임을 선택하세요.' }
+  }
+  if (locale === 'zh-TW') {
+    return { retry: '重試', browse: '瀏覽其他遊戲', title: '頁面暫時無法載入', description: '網路或遊戲服務可能暫時無法使用，請重試或選擇其他遊戲。' }
+  }
   if (locale === 'en') {
     return {
       retry: 'Retry',

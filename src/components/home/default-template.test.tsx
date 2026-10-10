@@ -226,3 +226,8 @@ it('scrolls keyboard-selected search suggestions into view', async () => {
   expect(options[5].getAttribute('aria-selected')).toBe('true')
   expect(scroll).toHaveBeenCalledWith({ block: 'nearest' })
 })
+
+it('keeps a featured game when the popular feed is empty but another feed has games', () => {
+  render(<DefaultHomeTemplate {...props} games={[]} latestGames={[games[0]]} lang="ko" t={getI18n('ko').home} />)
+  expect(screen.getByRole('link', { name: '지금 플레이' })).toBeTruthy()
+})

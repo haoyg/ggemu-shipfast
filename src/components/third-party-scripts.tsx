@@ -14,7 +14,7 @@ export function ThirdPartyScripts({ pathname }: Readonly<{ pathname: string }>) 
 
 export function isAdSenseEligiblePath(pathname: string) {
   const localizedContentPath =
-    /^\/(?:zh-CN|en|ja)(?:\/?|\/games\/[^/]+\/?|\/blog(?:\/[^/]+)?\/?)$/
+    /^\/(?:zh-CN|zh-TW|en|ja|ko)(?:\/?|\/games\/[^/]+\/?|\/blog(?:\/[^/]+)?\/?)$/
 
   return localizedContentPath.test(pathname)
 }

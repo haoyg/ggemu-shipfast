@@ -3,6 +3,28 @@ import { n64TouchControls } from '#/lib/n64-touch-controls'
 import { trackEvent } from '#/lib/analytics'
 
 const copy = {
+  'zh-TW': {
+    loading: '正在加載遊戲播放器……',
+    loaded: '播放器頁面已打開，遊戲進度請查看播放器內的提示。',
+    ready: '遊戲播放器已加載。',
+    guide: '出現“立即遊玩”後：1. 選擇“立即遊玩”。2. 在遊戲內選擇“開始”。',
+    slow: '遊戲播放器加載時間超出預期。請重新加載播放器或瀏覽其他遊戲。',
+    retry: '重新加載播放器',
+    browse: '瀏覽其他遊戲',
+    fullscreen: '全屏',
+    exitFullscreen: '退出全屏',
+    backToGame: '返回遊戲詳情',
+    controlsLabel: '操作與存檔',
+    controls: '按鍵和存檔設置可在遊戲播放器菜單中調整。',
+    error: '遊戲播放器加載失敗，請重試。',
+    unsupported: '該遊戲目前暫不支持在瀏覽器中游玩。',
+  },
+  ko: {
+    loading: '게임 플레이어 불러오는 중…', loaded: '플레이어 페이지가 열렸습니다. 게임 진행 상태는 플레이어 안에서 확인하세요.', ready: '게임 플레이어를 불러왔습니다.',
+    guide: 'Play Now가 나타나면 선택한 다음 플레이어 안의 Start를 선택하세요.', slow: '플레이어 로딩이 오래 걸립니다. 다시 불러오거나 다른 게임을 선택하세요.',
+    retry: '플레이어 다시 불러오기', browse: '게임 둘러보기', fullscreen: '전체 화면', exitFullscreen: '전체 화면 종료', backToGame: '게임 상세 정보',
+    controlsLabel: '조작 및 저장', controls: '조작과 저장 설정은 플레이어 메뉴에서 확인할 수 있습니다.', error: '플레이어를 불러오지 못했습니다. 다시 시도하세요.', unsupported: '현재 브라우저에서 플레이할 수 없는 게임입니다.',
+  },
   en: {
     loading: 'Loading game player…',
     loaded: 'Player page opened. Game progress is shown inside the player.',

@@ -262,11 +262,15 @@ function buildGameManifestHref(locale: Locale) {
 }
 
 function toOpenGraphLocale(locale: Locale) {
+  if (locale === 'zh-TW') {
+    return 'zh_TW'
+  }
+
   if (locale === 'zh-CN') {
     return 'zh_CN'
   }
 
-  return locale
+  return locale === 'ko' ? 'ko_KR' : locale === 'ja' ? 'ja_JP' : 'en_US'
 }
 
 function serializeJsonLd(data: unknown) {
@@ -624,6 +628,10 @@ function LocalizedGameDetailPage() {
 
 function getEmbeddedPlayerHeading(gameName: string | undefined, locale: Locale) {
   const name = gameName?.trim() || 'POKOPIE'
+
+  if (locale === 'zh-TW') {
+    return `在瀏覽器中開始遊玩 ${name}`
+  }
 
   if (locale === 'zh-CN') {
     return `在浏览器中开始游玩 ${name}`
