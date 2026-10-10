@@ -231,3 +231,14 @@ it('keeps a featured game when the popular feed is empty but another feed has ga
   render(<DefaultHomeTemplate {...props} games={[]} latestGames={[games[0]]} lang="ko" t={getI18n('ko').home} />)
   expect(screen.getByRole('link', { name: '지금 플레이' })).toBeTruthy()
 })
+
+
+it('reports a failed suggestion request instead of claiming there are no matches', async () => {
+  vi.useFakeTimers()
+  runSearch.mockRejectedValueOnce(new Error('Upstream unavailable'))
+  render(<DefaultHomeTemplate {...props} lang="ko" t={getI18n('ko').home} filters={{ ...props.filters, query: 'contra' }} />)
+  fireEvent.focus(screen.getByRole('combobox'))
+  await act(async () => vi.advanceTimersByTime(250))
+  expect(screen.getByRole('alert').textContent).toBe(getI18n('ko').home.loadError)
+  expect(screen.queryByRole('option')).toBeNull()
+})

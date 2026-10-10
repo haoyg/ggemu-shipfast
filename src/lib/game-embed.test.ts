@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { buildGameEmbedSrc, isPspGame } from './game-embed'
+import { buildGameEmbedSrc, getGgemuLocale, isPspGame } from './game-embed'
 import { getGameSearchSeo, getTargetedGameSeo } from './game-seo-targets'
 
 describe('game embed helpers', () => {
@@ -98,5 +98,17 @@ describe('game embed helpers', () => {
     expect(seo?.title).toMatch(/^Play One Piece Online/)
     expect(seo?.description).toContain('2005 GBA action game')
     expect(`${seo?.title} ${seo?.description}`).not.toContain('Online 2')
+  })
+})
+
+
+describe('upstream locale compatibility', () => {
+  it('maps Traditional Chinese without changing Korean or the other supported upstream locales', () => {
+    expect(getGgemuLocale('zh-TW')).toBe('zh-HK')
+    for (const locale of ['en', 'zh-CN', 'ja', 'ko']) expect(getGgemuLocale(locale)).toBe(locale)
+    const url = new URL(buildGameEmbedSrc({ embedId: 'game', isPsp: true, locale: 'zh-TW', refcode: 'ref', theme: 'light' }))
+    expect(url.pathname).toBe('/zh-HK/game/game')
+    expect(url.searchParams.get('isolated')).toBe('1')
+    expect(url.searchParams.get('autoplay')).toBe('1')
   })
 })

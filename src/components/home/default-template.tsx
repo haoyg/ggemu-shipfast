@@ -15,7 +15,7 @@ import {
   getLocalizedCategoryLabel,
   getLocalizedPlatformLabel,
 } from '#/lib/i18n'
-import { getRetroCoverFallbackLabel } from '#/lib/locale-labels'
+import { getGamePlayLabel, getPlatformBrowseLabel, getRetroCoverFallbackLabel } from '#/lib/locale-labels'
 import { prioritizeClassicGames } from '#/lib/home-game-priority'
 import { getPlatformCollectionPath } from '#/lib/platform-routes'
 import { originalGames } from '#/lib/original-games'
@@ -429,7 +429,7 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
               <h2 className="sr-only">{t.allPlatforms}</h2>
               <div className="arcade-platform-rail game-rail flex gap-3 overflow-x-auto pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
                 {platformCards.map((platform) => (
-                  <button aria-pressed={lobbyPlatform === platform.name} className={`arcade-platform-tile group ${lobbyPlatform === platform.name ? 'is-active' : ''} ${isArcadePlatform(platform.shortLabel) ? 'is-arcade' : ''}`} key={platform.name} onClick={() => handleLobbyPlatformChange(platform.name)} title={`Show popular ${platform.shortLabel} games`} type="button">
+                  <button aria-pressed={lobbyPlatform === platform.name} className={`arcade-platform-tile group ${lobbyPlatform === platform.name ? 'is-active' : ''} ${isArcadePlatform(platform.shortLabel) ? 'is-arcade' : ''}`} key={platform.name} onClick={() => handleLobbyPlatformChange(platform.name)} title={getPlatformBrowseLabel(lang, platform.shortLabel, true)} type="button">
                     <img
                       alt=""
                       aria-hidden="true"
@@ -489,7 +489,7 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
                       className="arcade-card group grid min-w-0 grid-cols-[4.5rem_minmax(0,1fr)] gap-3 p-2 transition"
                       key={game.id}
                       params={{ gameId: game.id, locale: lang }}
-                      title={`Continue playing ${game.name}`}
+                      title={getGamePlayLabel(lang, game.name ?? getRetroCoverFallbackLabel(lang), true)}
                       to="/$locale/games/$gameId/play"
                     >
                       <ArcadeCover alt={game.name} className="aspect-square rounded-md" cover={game.cover} lang={lang} />
@@ -654,7 +654,7 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
                   }`}
                   href={platform.seoPath}
                   key={platform.name}
-                  title={`Play ${platform.shortLabel} games online`}
+                  title={getPlatformBrowseLabel(lang, platform.shortLabel)}
                 >
                   <span>
                     <span className="block text-base font-bold text-white">
@@ -765,6 +765,7 @@ function HomeSearchSuggest({
   const [suggestions, setSuggestions] = useState<Array<PublicGame>>([])
   const [highlightedIndex, setHighlightedIndex] = useState(-1)
   const [isSuggesting, setIsSuggesting] = useState(false)
+  const [suggestionFailed, setSuggestionFailed] = useState(false)
   const [isFocused, setIsFocused] = useState(false)
   const normalizedQuery = query.trim()
   const shouldSuggest = normalizedQuery.length >= 2
@@ -773,6 +774,7 @@ function HomeSearchSuggest({
   useEffect(() => {
     setSuggestions([])
     setHighlightedIndex(-1)
+    setSuggestionFailed(false)
     if (!shouldSuggest) {
       setSuggestions([])
       setIsSuggesting(false)
@@ -800,6 +802,7 @@ function HomeSearchSuggest({
         })
         .catch(() => {
           if (isCurrent) {
+            setSuggestionFailed(true)
             setSuggestions([])
             setHighlightedIndex(-1)
           }
@@ -897,6 +900,8 @@ function HomeSearchSuggest({
               <span className="loading loading-spinner loading-xs" />
               {t.search}
             </div>
+          ) : suggestionFailed ? (
+            <div className="px-3 py-3 text-sm text-white/65" role="alert">{t.loadError}</div>
           ) : suggestions.length > 0 ? (
             <div className="max-h-[22rem] overflow-y-auto p-2" ref={suggestionListRef}>
               {suggestions.map((game, index) => (
@@ -944,7 +949,7 @@ function SearchSuggestionItem({
       className={`flex min-w-0 items-center gap-3 rounded-md px-2 py-2 text-white transition hover:bg-white/10 ${isHighlighted ? 'bg-white/10' : ''}`}
       params={{ gameId, locale: lang }}
       search={{}}
-      title={`Play ${game.name} online`}
+      title={getGamePlayLabel(lang, game.name ?? getRetroCoverFallbackLabel(lang))}
       to="/$locale/games/$gameId"
     >
       <div className="h-12 w-12 shrink-0 overflow-hidden rounded-md bg-white/10">
@@ -1032,7 +1037,7 @@ function ArcadeGameCard({
       {...gameCardPreviewHandlers}
       params={{ gameId, locale: lang }}
       search={{}}
-      title={`Play ${gameName} online`}
+      title={getGamePlayLabel(lang, gameName)}
       to="/$locale/games/$gameId"
     >
       <ArcadeCover

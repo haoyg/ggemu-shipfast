@@ -43,6 +43,20 @@ export function getUnavailableCopy(
   locale: Locale,
   type: UnavailableContentType,
 ) {
+  if (locale === 'zh-TW') {
+    return {
+      action: '返回遊戲庫',
+      description: type === 'game' ? '這個遊戲暫時無法使用或已被移除。你可以繼續在 POKOPIE 瀏覽其他復古遊戲。' : '這篇文章暫時無法使用或已被移除。你可以繼續在 POKOPIE 瀏覽更多遊戲指南。',
+      title: type === 'game' ? '遊戲暫時無法使用' : '文章暫時無法使用',
+    }
+  }
+  if (locale === 'ko') {
+    return {
+      action: '게임 목록으로 돌아가기',
+      description: type === 'game' ? '이 게임은 현재 사용할 수 없거나 삭제되었습니다. POKOPIE에서 다른 레트로 게임을 찾아보세요.' : '이 글은 현재 사용할 수 없거나 삭제되었습니다. POKOPIE에서 다른 게임 가이드를 찾아보세요.',
+      title: type === 'game' ? '게임을 사용할 수 없습니다' : '글을 사용할 수 없습니다',
+    }
+  }
   if (locale === 'en') {
     return {
       action: 'Back to games',

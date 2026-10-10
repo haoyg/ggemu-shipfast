@@ -1,3 +1,4 @@
+import { getGgemuLocale } from '#/lib/game-embed'
 import {
   Link,
   Outlet,
@@ -404,7 +405,7 @@ function buildLiveRoomEmbedUrl(locale: Locale, roomId: string, theme: string) {
     theme,
   })
 
-  return `https://ggemu.com/${locale}/playing/${encodeURIComponent(roomId)}?${params}`
+  return `https://ggemu.com/${getGgemuLocale(locale)}/playing/${encodeURIComponent(roomId)}?${params}`
 }
 
 function LiveRoomError() {

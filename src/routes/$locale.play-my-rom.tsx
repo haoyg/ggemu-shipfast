@@ -1,3 +1,4 @@
+import { getGgemuLocale } from '#/lib/game-embed'
 import { createFileRoute } from '@tanstack/react-router'
 import { useEffect, useState } from 'react'
 
@@ -92,7 +93,7 @@ function PlayMyRomPage() {
   const copy = playMyRomCopies[lang]
   const theme = useCurrentSiteTheme()
   const [loadedFrameSrc, setLoadedFrameSrc] = useState<string | null>(null)
-  const iframeSrc = `${GGEMU_ORIGIN}/${lang}/play-my-rom?${buildIframeSearch(isolated === 1, theme)}`
+  const iframeSrc = `${GGEMU_ORIGIN}/${getGgemuLocale(lang)}/play-my-rom?${buildIframeSearch(isolated === 1, theme)}`
   const isFrameLoading = loadedFrameSrc !== iframeSrc
 
   useEffect(() => {

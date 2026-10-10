@@ -1,5 +1,10 @@
 import type { PublicGame } from '#/lib/ggemu'
 
+// GGEMU names its Traditional Chinese locale zh-HK; our public routes use zh-TW.
+export function getGgemuLocale(locale: string) {
+  return locale === 'zh-TW' ? 'zh-HK' : locale
+}
+
 export function buildGameEmbedSrc({
   embedId,
   isPsp,
@@ -24,7 +29,7 @@ export function buildGameEmbedSrc({
     params.set('autoplay', '1')
   }
 
-  return `https://ggemu.com/${encodeURIComponent(locale)}/game/${encodeURIComponent(embedId)}?${params.toString()}`
+  return `https://ggemu.com/${encodeURIComponent(getGgemuLocale(locale))}/game/${encodeURIComponent(embedId)}?${params.toString()}`
 }
 
 export function isPspGame(game: Pick<

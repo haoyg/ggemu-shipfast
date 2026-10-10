@@ -3,8 +3,8 @@ import { useEffect, useRef, useState } from 'react'
 import type { ReactNode } from 'react'
 
 import type { Locale } from '#/lib/ggemu'
-import { getI18n, normalizeLocale } from '#/lib/i18n'
-import { getPoweredByLabel } from '#/lib/locale-labels'
+import { getI18n, getLocalizedPlatformLabel, normalizeLocale } from '#/lib/i18n'
+import { getPlatformBrowseLabel, getPoweredByLabel } from '#/lib/locale-labels'
 import { siteConfig } from '#/lib/site-config'
 import { getSiteThemes, normalizeSiteTheme } from '#/lib/site-themes'
 import { getPlatformCollectionPath } from '#/lib/platform-routes'
@@ -35,6 +35,7 @@ export function SiteLayout({
   const t = getI18n(locale).layout
   const localizedPlatformNavLinks = platformNavLinks.map((link) => ({
     ...link,
+    label: link.label === 'Arcade' ? getLocalizedPlatformLabel(link.label, locale) : link.label,
     href: getPlatformCollectionPath(`/en${link.path}`, locale),
   }))
   const location = useRouterState({ select: (state) => state.location })
@@ -132,7 +133,7 @@ export function SiteLayout({
                 </li>
                 {localizedPlatformNavLinks.map((link) => (
                   <li key={link.href}>
-                    <a className={location.pathname === link.href ? 'active text-primary' : ''} href={link.href} title={`Play ${link.label} games online`}>
+                    <a className={location.pathname === link.href ? 'active text-primary' : ''} href={link.href} title={getPlatformBrowseLabel(locale, link.label)}>
                       {link.label}
                     </a>
                   </li>
@@ -273,7 +274,7 @@ export function SiteLayout({
                 }`}
                 href={link.href}
                 key={link.href}
-                title={`Play ${link.label} games online`}
+                title={getPlatformBrowseLabel(locale, link.label)}
               >
                 {link.label}
               </a>
@@ -514,7 +515,7 @@ export function SiteFooter({ locale }: { locale: Locale }) {
               </Link>
               <a className="link-hover link" href={`/${locale}/ps1-compatibility`}>
                 <i className="ri-pulse-line mr-1" />
-                PS1 Compatibility
+                {locale === 'ko' ? 'PS1 호환성 검사' : locale === 'zh-TW' ? 'PS1 相容性檢測' : locale === 'zh-CN' ? 'PS1 兼容性检测' : locale === 'ja' ? 'PS1 互換性チェック' : 'PS1 Compatibility'}
               </a>
               <Link
                 className="link-hover link"
