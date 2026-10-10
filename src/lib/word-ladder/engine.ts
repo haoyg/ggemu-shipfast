@@ -18,21 +18,39 @@ export type WordLadderHint = {
 
 const DAILY_CHALLENGE_EPOCH = '2026-10-10'
 
-const puzzleSeeds = [
+const dailyPuzzleSeeds = [
   ['cold', 'warm'], ['lead', 'gold'], ['head', 'tail'],
   ['same', 'cost'], ['four', 'five'], ['love', 'hate'],
   ['ship', 'dock'], ['fire', 'cold'], ['wolf', 'lion'],
   ['seed', 'team'], ['book', 'read'], ['time', 'past'],
 ] as const
 
+const unlimitedPuzzleSeeds = [
+  ...dailyPuzzleSeeds,
+  ['bake', 'bulk'], ['bash', 'cage'], ['been', 'card'], ['bird', 'chap'],
+  ['bore', 'coin'], ['burr', 'crow'], ['calm', 'damp'], ['cart', 'deaf'],
+  ['chin', 'ears'], ['clip', 'dock'], ['come', 'fair'], ['cost', 'dust'],
+  ['cups', 'firm'], ['dart', 'face'], ['diet', 'film'], ['dome', 'held'],
+  ['dual', 'fool'], ['ears', 'fuel'], ['fair', 'gone'], ['feed', 'grow'],
+  ['firm', 'leaf'], ['flow', 'herd'], ['form', 'hole'], ['game', 'hurt'],
+  ['hair', 'lamb'], ['heal', 'left'], ['hook', 'lone'], ['knob', 'seat'],
+  ['lane', 'miss'], ['live', 'pick'], ['loon', 'pole'], ['mail', 'root'],
+  ['mass', 'pear'], ['mesh', 'rest'], ['nail', 'race'], ['node', 'reed'],
+  ['pane', 'rows'], ['pick', 'same'], ['pole', 'send'], ['pray', 'stem'],
+  ['rang', 'slam'], ['rest', 'sole'], ['role', 'spin'], ['rush', 'sure'],
+  ['seam', 'wind'], ['ship', 'them'], ['sill', 'tops'], ['soon', 'vote'],
+] as const
+
 const neighborBuckets = buildNeighborBuckets(WORD_LADDER_WORDS)
 
 export const WORD_LADDER_PUZZLES: ReadonlyArray<WordLadderPuzzle> = Object.freeze(
-  puzzleSeeds.map(([start, target]) => {
+  unlimitedPuzzleSeeds.map(([start, target]) => {
     const steps = Math.max(0, findShortestPath(start, target).length - 1)
     return { id: `${start}-${target}`, start, target, difficulty: getDifficulty(steps) }
   }),
 )
+
+const dailyPuzzles = WORD_LADDER_PUZZLES.slice(0, dailyPuzzleSeeds.length)
 
 export function normalizeWord(value: string) {
   return value.trim().toLowerCase().replace(/[^a-z]/g, '')
@@ -116,7 +134,7 @@ export function getDailyChallengeNumber(utcDate: string) {
 export function getDailyPuzzle(utcDate: string) {
   const date = parseUtcDate(utcDate)
   const dayNumber = Math.floor(date.getTime() / 86_400_000)
-  return WORD_LADDER_PUZZLES[positiveModulo(dayNumber, WORD_LADDER_PUZZLES.length)]
+  return dailyPuzzles[positiveModulo(dayNumber, dailyPuzzles.length)]
 }
 
 export function getUnlimitedPuzzle(index: number) {

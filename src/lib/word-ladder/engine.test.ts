@@ -7,6 +7,7 @@ import {
   getDailyChallengeNumber,
   getDailyPuzzle,
   getSmartHint,
+  getUnlimitedPuzzle,
   isValidWord,
   validatePuzzle,
 } from './engine'
@@ -35,7 +36,13 @@ describe('word ladder engine', () => {
 
   it('maps each UTC date deterministically', () => {
     expect(getDailyPuzzle('2026-10-10')).toEqual(getDailyPuzzle('2026-10-10'))
+    expect(getDailyPuzzle('2026-10-10').id).toBe('cold-warm')
     expect(() => getDailyPuzzle('2026-02-30')).toThrow('invalid')
+  })
+
+  it('cycles through a broad Unlimited pool without early repeats', () => {
+    const ids = Array.from({ length: 48 }, (_, index) => getUnlimitedPuzzle(index).id)
+    expect(new Set(ids).size).toBe(48)
   })
 
   it('assigns a stable sequential daily challenge number', () => {
