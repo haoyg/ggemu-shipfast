@@ -87,6 +87,7 @@ import { Route as LocaleBlogBlogIdRouteImport } from './routes/$locale.blog.$blo
 import { Route as EnPlatformPagePageRouteImport } from './routes/en.$platform.page.$page'
 import { Route as EmbedLocaleGamesGameIdRouteImport } from './routes/embed.$locale.games.$gameId'
 import { Route as LocaleGamesGameIdPlayRouteImport } from './routes/$locale.games.$gameId.play'
+import { Route as LocalePlatformPagePageRouteImport } from './routes/$locale.$platform_.page.$page'
 
 const TopIdleGamesRoute = TopIdleGamesRouteImport.update({
   id: '/top-idle-games',
@@ -479,6 +480,11 @@ const LocaleGamesGameIdPlayRoute = LocaleGamesGameIdPlayRouteImport.update({
   path: '/play',
   getParentRoute: () => LocaleGamesGameIdRoute,
 } as any)
+const LocalePlatformPagePageRoute = LocalePlatformPagePageRouteImport.update({
+  id: '/$platform_/page/$page',
+  path: '/$platform/page/$page',
+  getParentRoute: () => LocaleRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -556,6 +562,7 @@ export interface FileRoutesByFullPath {
   '/en/games/word-ladder': typeof EnGamesWordLadderRoute
   '/games/$gameId/play': typeof GamesGameIdPlayRoute
   '/library/genres/$genre': typeof LibraryGenresGenreRoute
+  '/$locale/$platform/page/$page': typeof LocalePlatformPagePageRoute
   '/$locale/games/$gameId/play': typeof LocaleGamesGameIdPlayRoute
   '/embed/$locale/games/$gameId': typeof EmbedLocaleGamesGameIdRoute
   '/en/$platform/page/$page': typeof EnPlatformPagePageRoute
@@ -636,6 +643,7 @@ export interface FileRoutesByTo {
   '/en/games/word-ladder': typeof EnGamesWordLadderRoute
   '/games/$gameId/play': typeof GamesGameIdPlayRoute
   '/library/genres/$genre': typeof LibraryGenresGenreRoute
+  '/$locale/$platform/page/$page': typeof LocalePlatformPagePageRoute
   '/$locale/games/$gameId/play': typeof LocaleGamesGameIdPlayRoute
   '/embed/$locale/games/$gameId': typeof EmbedLocaleGamesGameIdRoute
   '/en/$platform/page/$page': typeof EnPlatformPagePageRoute
@@ -717,6 +725,7 @@ export interface FileRoutesById {
   '/en/games/word-ladder': typeof EnGamesWordLadderRoute
   '/games/$gameId/play': typeof GamesGameIdPlayRoute
   '/library/genres/$genre': typeof LibraryGenresGenreRoute
+  '/$locale/$platform_/page/$page': typeof LocalePlatformPagePageRoute
   '/$locale/games/$gameId/play': typeof LocaleGamesGameIdPlayRoute
   '/embed/$locale/games/$gameId': typeof EmbedLocaleGamesGameIdRoute
   '/en/$platform/page/$page': typeof EnPlatformPagePageRoute
@@ -799,6 +808,7 @@ export interface FileRouteTypes {
     | '/en/games/word-ladder'
     | '/games/$gameId/play'
     | '/library/genres/$genre'
+    | '/$locale/$platform/page/$page'
     | '/$locale/games/$gameId/play'
     | '/embed/$locale/games/$gameId'
     | '/en/$platform/page/$page'
@@ -879,6 +889,7 @@ export interface FileRouteTypes {
     | '/en/games/word-ladder'
     | '/games/$gameId/play'
     | '/library/genres/$genre'
+    | '/$locale/$platform/page/$page'
     | '/$locale/games/$gameId/play'
     | '/embed/$locale/games/$gameId'
     | '/en/$platform/page/$page'
@@ -959,6 +970,7 @@ export interface FileRouteTypes {
     | '/en/games/word-ladder'
     | '/games/$gameId/play'
     | '/library/genres/$genre'
+    | '/$locale/$platform_/page/$page'
     | '/$locale/games/$gameId/play'
     | '/embed/$locale/games/$gameId'
     | '/en/$platform/page/$page'
@@ -1575,6 +1587,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LocaleGamesGameIdPlayRouteImport
       parentRoute: typeof LocaleGamesGameIdRoute
     }
+    '/$locale/$platform_/page/$page': {
+      id: '/$locale/$platform_/page/$page'
+      path: '/$platform/page/$page'
+      fullPath: '/$locale/$platform/page/$page'
+      preLoaderRoute: typeof LocalePlatformPagePageRouteImport
+      parentRoute: typeof LocaleRoute
+    }
   }
 }
 
@@ -1628,6 +1647,7 @@ interface LocaleRouteChildren {
   LocaleRandomRoute: typeof LocaleRandomRoute
   LocaleTermsOfServiceRoute: typeof LocaleTermsOfServiceRoute
   LocaleGamesGameIdRoute: typeof LocaleGamesGameIdRouteWithChildren
+  LocalePlatformPagePageRoute: typeof LocalePlatformPagePageRoute
 }
 
 const LocaleRouteChildren: LocaleRouteChildren = {
@@ -1645,6 +1665,7 @@ const LocaleRouteChildren: LocaleRouteChildren = {
   LocaleRandomRoute: LocaleRandomRoute,
   LocaleTermsOfServiceRoute: LocaleTermsOfServiceRoute,
   LocaleGamesGameIdRoute: LocaleGamesGameIdRouteWithChildren,
+  LocalePlatformPagePageRoute: LocalePlatformPagePageRoute,
 }
 
 const LocaleRouteWithChildren =

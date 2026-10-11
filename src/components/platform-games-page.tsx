@@ -30,6 +30,37 @@ const localizedPlatformSlugs: Record<PlatformCollectionKey, string> = {
   snes: 'snes-games',
 }
 
+const chineseGbaEditorial = {
+  articleTitle: 'GBA 游戏在线玩：先选游戏，再确认操作与存档',
+  articleParagraphs: [
+    '本页集中展示 POKOPIE 目录中的 Game Boy Advance 游戏。可以从下方游戏库挑选作品，也可以按动作、角色扮演或赛车等类型继续查找。点击封面进入游戏详情页，查看游戏内语言、玩法和启动入口。',
+    '支持的游戏通过浏览器播放器启动，无需单独安装 GBA 模拟器。桌面键盘、手机触控和手柄是否可用，取决于具体游戏、播放器与设备；先检查详情页的操作说明，再开始游玩。',
+    '游戏内保存与播放器的即时存档可能是两种不同功能。开始长流程 RPG 前，查看保存和读取菜单，并确认能恢复进度。更换浏览器、清理站点数据或使用无痕窗口可能影响本地保存的数据。',
+  ],
+  benefits: [
+    { icon: 'grid', title: '按平台找游戏', body: '集中浏览 GBA 作品，从游戏封面进入详情页。' },
+    { icon: 'monitor', title: '浏览器启动', body: '支持的游戏无需单独安装模拟器，首次启动仍需加载资源。' },
+    { icon: 'platform', title: '查看操作方式', body: '开始前确认键盘、触控或手柄是否适合当前游戏。' },
+    { icon: 'puzzle', title: '先确认存档', body: '长时间游玩前测试保存和读取，避免丢失进度。' },
+  ],
+  genresTitle: '按类型查找 GBA 游戏',
+  genres: [
+    { name: '动作', description: '战斗与反应挑战', icon: 'swords', matchTerms: ['Action', '动作'] },
+    { name: '角色扮演', description: '冒险、养成与剧情', icon: 'wand', matchTerms: ['RPG', 'Role', '角色扮演'] },
+    { name: '赛车', description: '竞速与驾驶挑战', icon: 'flag', matchTerms: ['Racing', '赛车'] },
+    { name: '平台', description: '跳跃与关卡探索', icon: 'platform', matchTerms: ['Platform', '平台'] },
+    { name: '冒险', description: '探索经典掌机世界', icon: 'compass', matchTerms: ['Adventure', '冒险'] },
+    { name: '益智', description: '解谜与短局挑战', icon: 'puzzle', matchTerms: ['Puzzle', '益智'] },
+  ],
+  faqs: [
+    { question: 'GBA 游戏可以在线玩吗？', answer: '支持的 Game Boy Advance 游戏可以从详情页通过浏览器播放器启动。在本页选择游戏，再查看对应版本的玩法和设备支持。' },
+    { question: 'GBA 在线玩需要下载模拟器吗？', answer: '支持的浏览器版本无需单独安装模拟器。首次启动需要加载游戏资源，加载时间会受网络、设备和具体游戏影响。' },
+    { question: '手机可以玩 GBA 游戏吗？', answer: '部分播放器提供触控按键，但并非每个游戏和设备都已验证。先查看详情页，再确认方向键和动作键能正常响应。' },
+    { question: 'GBA 网页版怎么保存进度？', answer: '先查看游戏内保存和播放器存档菜单，并测试能否读取进度。不同播放器的保存方式可能不同，清理浏览器数据前请先确认是否可以导出备份。' },
+    { question: '中文网站上的 GBA 游戏都是中文版吗？', answer: '不是。网站界面语言与游戏内语言独立，请查看游戏详情页的语言信息。' },
+  ],
+} satisfies Pick<GameCollectionPageConfig, 'articleTitle' | 'articleParagraphs' | 'benefits' | 'genresTitle' | 'genres' | 'faqs'>
+
 const localizedPlatformCopy = {
   es: Object.fromEntries(Object.entries({ gba: 'Game Boy Advance', n64: 'Nintendo 64', nes: 'Famicom', segaGenesis: 'Sega Genesis', snes: 'Super Famicom' }).map(([key, name]) => [key, getRomanceCollectionCopy('es', name)])) as Record<PlatformCollectionKey, ReturnType<typeof getRomanceCollectionCopy>>,
   pt: Object.fromEntries(Object.entries({ gba: 'Game Boy Advance', n64: 'Nintendo 64', nes: 'Famicom', segaGenesis: 'Sega Genesis', snes: 'Super Famicom' }).map(([key, name]) => [key, getRomanceCollectionCopy('pt', name)])) as Record<PlatformCollectionKey, ReturnType<typeof getRomanceCollectionCopy>>,
@@ -111,6 +142,7 @@ const localizedPlatformCopy = {
   },
   'zh-CN': {
     gba: {
+      ...chineseGbaEditorial,
       title: '在线玩 GBA 游戏 | 免下载 | POKOPIE',
       description: '在浏览器中在线玩 GBA 游戏，浏览动作、RPG、赛车、平台和冒险类 Game Boy Advance 游戏，无需单独下载模拟器。',
       schemaName: '在线玩 GBA 游戏',

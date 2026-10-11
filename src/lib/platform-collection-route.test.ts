@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { platformCollections } from '#/components/platform-games-page'
+import { getLocalizedPlatformCollection, platformCollections } from '#/components/platform-games-page'
 import {
   buildPlatformCollectionHead,
   getPlatformCollectionPagePath,
@@ -9,6 +9,20 @@ import {
 } from '#/lib/platform-collection-route'
 
 describe('platform collection pagination', () => {
+  it('links Chinese pagination to real Chinese pages without English alternate URLs', () => {
+    const data: PlatformCollectionLoaderData = {
+      games: [{ _id: 'gba-49', name: 'GBA 49' }],
+      origin: 'https://pokopie.com',
+      pagination: { limit: 48, page: 2, pages: 4, total: 164 },
+    }
+    const head = buildPlatformCollectionHead(getLocalizedPlatformCollection('gba', 'zh-CN'), data, 'zh-CN', 2)
+    expect(head.meta).toContainEqual({ title: '在线玩 GBA 游戏 – 第 2 页 | POKOPIE' })
+    expect(head.links).toContainEqual({ rel: 'canonical', href: 'https://pokopie.com/zh-CN/gba-games/page/2' })
+    expect(head.links).toContainEqual({ rel: 'prev', href: 'https://pokopie.com/zh-CN/gba-games' })
+    expect(head.links).toContainEqual({ rel: 'next', href: 'https://pokopie.com/zh-CN/gba-games/page/3' })
+    expect(head.links).not.toContainEqual(expect.objectContaining({ hrefLang: 'en' }))
+  })
+
   it('normalizes the first page and builds clean page paths', () => {
     expect(getPlatformCollectionPagePath('/en/nes-games', 1)).toBe('/en/nes-games')
     expect(getPlatformCollectionPagePath('/en/nes-games', 2)).toBe('/en/nes-games/page/2')

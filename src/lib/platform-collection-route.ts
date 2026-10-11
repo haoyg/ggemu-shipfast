@@ -3,6 +3,7 @@ import type { Locale, PublicGame } from '#/lib/ggemu'
 import type { GameCollectionPageConfig } from '#/components/game-collection-page'
 import { getSeoLinksFromCanonical, getSeoOrigin } from '#/lib/seo'
 import { siteConfig } from '#/lib/site-config'
+import { getPlatformCollectionKey } from '#/lib/platform-routes'
 
 export const PLATFORM_COLLECTION_PAGE_SIZE = 48
 
@@ -69,19 +70,21 @@ export function buildPlatformCollectionHead(
 ) {
   const pagePath = getPlatformCollectionPagePath(collection.routePath, page)
   const canonicalUrl = `${loaderData?.origin ?? ''}${pagePath}`
+  const pageLabel = locale === 'zh-CN' ? `第 ${page} 页` : `${locale === 'es' || locale === 'pt' ? 'Página' : 'Page'} ${page}`
+  const hasPaginationRoute = locale === 'en' || Boolean(getPlatformCollectionKey(collection.routePath.split('/')[2]))
   const title = page > 1
-    ? `${collection.page.heroTitle} – ${locale === 'es' || locale === 'pt' ? 'Página' : 'Page'} ${page} | POKOPIE`
+    ? `${collection.page.heroTitle} – ${pageLabel} | POKOPIE`
     : collection.title
   const description = page > 1
-    ? `${collection.description} ${locale === 'es' || locale === 'pt' ? `Página ${page} de ${loaderData?.pagination.pages ?? page}.` : `Page ${page} of ${loaderData?.pagination.pages ?? page}.`}`
+    ? `${collection.description} ${locale === 'zh-CN' ? `第 ${page} / ${loaderData?.pagination.pages ?? page} 页。` : locale === 'es' || locale === 'pt' ? `Página ${page} de ${loaderData?.pagination.pages ?? page}.` : `Page ${page} of ${loaderData?.pagination.pages ?? page}.`}`
     : collection.description
   const links = loaderData?.origin
     ? [
-        ...getSeoLinksFromCanonical(canonicalUrl, page > 1 ? ['en'] : ['zh-CN', 'zh-TW', 'en', 'ja', 'ko', 'es', 'pt']),
-        ...(locale === 'en' && page > 1
+        ...getSeoLinksFromCanonical(canonicalUrl, page > 1 ? [locale] : ['zh-CN', 'zh-TW', 'en', 'ja', 'ko', 'es', 'pt']),
+        ...(hasPaginationRoute && page > 1
           ? [{ rel: 'prev', href: `${loaderData.origin}${getPlatformCollectionPagePath(collection.routePath, page - 1)}` }]
           : []),
-        ...(locale === 'en' && loaderData.pagination.pages > page
+        ...(hasPaginationRoute && loaderData.pagination.pages > page
           ? [{ rel: 'next', href: `${loaderData.origin}${getPlatformCollectionPagePath(collection.routePath, page + 1)}` }]
           : []),
       ]

@@ -1,4 +1,17 @@
 import type { Locale } from '#/lib/ggemu'
+import type { PlatformCollectionKey } from '#/components/platform-games-page'
+
+const platformCollectionKeys: Record<string, PlatformCollectionKey> = {
+  'gba-games': 'gba',
+  'n64-games': 'n64',
+  'nes-games': 'nes',
+  'sega-genesis-games': 'segaGenesis',
+  'snes-games': 'snes',
+}
+
+export function getPlatformCollectionKey(slug: string) {
+  return platformCollectionKeys[slug]
+}
 
 const localizedCollectionPaths = new Set([
   '/en/gba-games',

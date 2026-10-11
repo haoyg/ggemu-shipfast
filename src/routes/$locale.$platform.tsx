@@ -3,21 +3,13 @@ import { createFileRoute, notFound } from '@tanstack/react-router'
 import {
   getLocalizedPlatformCollection,
   PlatformGamesPage,
-  type PlatformCollectionKey,
 } from '#/components/platform-games-page'
 import {
   buildPlatformCollectionHead,
   loadPlatformCollection,
 } from '#/lib/platform-collection-route'
 import { normalizeLocale } from '#/lib/i18n'
-
-const platformKeys: Record<string, PlatformCollectionKey> = {
-  'gba-games': 'gba',
-  'n64-games': 'n64',
-  'nes-games': 'nes',
-  'sega-genesis-games': 'segaGenesis',
-  'snes-games': 'snes',
-}
+import { getPlatformCollectionKey } from '#/lib/platform-routes'
 
 export const Route = createFileRoute('/$locale/$platform')({
   loader: async ({ params }) => {
@@ -25,7 +17,7 @@ export const Route = createFileRoute('/$locale/$platform')({
       throw notFound()
     }
 
-    const key = platformKeys[params.platform]
+    const key = getPlatformCollectionKey(params.platform)
 
     if (!key) {
       throw notFound()
@@ -57,6 +49,8 @@ function LocalizedPlatformGamesRoute() {
       collection={collection}
       games={games}
       locale={locale}
+      page={pagination.page}
+      pages={pagination.pages}
       total={pagination.total}
     />
   )

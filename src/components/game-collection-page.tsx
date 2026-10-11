@@ -104,7 +104,7 @@ export function GameCollectionPage({
           <h2 className="arcade-rule-title arcade-section-title text-3xl font-semibold text-white">{config.libraryTitle}</h2>
           <p className="mt-2 max-w-2xl text-sm leading-6 text-white/60">
             {config.libraryDescription(total)}
-            {pages > 1 ? locale === 'es' || locale === 'pt' ? ` Página ${page} de ${pages}.` : ` Page ${page} of ${pages}.` : ''}
+            {pages > 1 ? locale === 'zh-CN' ? ` 第 ${page} / ${pages} 页。` : locale === 'es' || locale === 'pt' ? ` Página ${page} de ${pages}.` : ` Page ${page} of ${pages}.` : ''}
           </p>
 
           {libraryGames.length > 0 ? (
@@ -190,7 +190,7 @@ export function GameCollectionPage({
 
       <section className="arcade-section arcade-editorial border-t text-neutral-content">
         <div className="mx-auto max-w-4xl px-4 py-16 sm:px-6 lg:px-8">
-          <h2 className="arcade-section-title text-center text-3xl font-black text-white">{locale === 'es' ? 'Preguntas frecuentes' : locale === 'pt' ? 'Perguntas frequentes' : 'Frequently Asked Questions'}</h2>
+          <h2 className="arcade-section-title text-center text-3xl font-black text-white">{locale === 'zh-CN' ? '常见问题' : locale === 'es' ? 'Preguntas frecuentes' : locale === 'pt' ? 'Perguntas frequentes' : 'Frequently Asked Questions'}</h2>
           <div className="mt-8 divide-y divide-white/10 border-y border-white/10">
             {config.faqs.map((faq) => (
               <details className="group py-1" key={faq.question}>
@@ -222,7 +222,7 @@ function CollectionPagination({
   const pageNumbers = getVisiblePageNumbers(currentPage, pages)
 
   return (
-    <nav aria-label={locale === 'es' ? 'Paginación de juegos' : locale === 'pt' ? 'Paginação de jogos' : 'Game library pagination'} className="mt-10 flex flex-wrap items-center justify-center gap-2">
+    <nav aria-label={locale === 'zh-CN' ? '游戏库分页' : locale === 'es' ? 'Paginación de juegos' : locale === 'pt' ? 'Paginação de jogos' : 'Game library pagination'} className="mt-10 flex flex-wrap items-center justify-center gap-2">
       {currentPage > 1 ? (
         <a
           className="btn btn-sm border-white/15 bg-white/5 text-white hover:bg-white/10"
@@ -230,7 +230,7 @@ function CollectionPagination({
           rel="prev"
         >
           <i aria-hidden="true" className="ri-arrow-left-line" />
-          {locale === 'es' ? 'Anterior' : locale === 'pt' ? 'Anterior' : 'Previous'}
+          {locale === 'zh-CN' ? '上一页' : locale === 'es' ? 'Anterior' : locale === 'pt' ? 'Anterior' : 'Previous'}
         </a>
       ) : null}
 
@@ -263,7 +263,7 @@ function CollectionPagination({
           href={getPlatformCollectionPagePath(routePath, currentPage + 1)}
           rel="next"
         >
-          {locale === 'es' ? 'Siguiente' : locale === 'pt' ? 'Próxima' : 'Next'}
+          {locale === 'zh-CN' ? '下一页' : locale === 'es' ? 'Siguiente' : locale === 'pt' ? 'Próxima' : 'Next'}
           <i aria-hidden="true" className="ri-arrow-right-line" />
         </a>
       ) : null}
