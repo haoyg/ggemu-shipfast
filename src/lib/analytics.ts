@@ -44,6 +44,7 @@ type FunnelEvent = 'game_play_click' | 'player_load_start' | 'player_frame_loade
   | 'game_search' | 'game_search_results' | 'game_search_error' | 'game_search_empty'
   | 'game_view' | 'game_start' | 'game_complete' | 'game_restart' | 'hint_used' | 'game_share'
   | 'page_performance'
+  | 'game_promotion_click'
 
 export function trackEvent(name: FunnelEvent, parameters: Record<string, string | number> = {}) {
   if (typeof window === 'undefined') return

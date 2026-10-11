@@ -19,6 +19,7 @@ import { getGamePlayLabel, getPlatformBrowseLabel, getRetroCoverFallbackLabel } 
 import { prioritizeClassicGames } from '#/lib/home-game-priority'
 import { getPlatformCollectionPath } from '#/lib/platform-routes'
 import { originalGames } from '#/lib/original-games'
+import { trackEvent } from '#/lib/analytics'
 
 import {
   HomeFaqSection,
@@ -448,6 +449,25 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
           </section>
 
           <section className="arcade-section px-3 py-7 sm:px-6 sm:py-9 lg:px-8">
+            {lang === 'en' && !hasActiveFilters ? (
+              <section aria-labelledby="murdoku-promotion-title" className="arcade-card mb-8 flex flex-col gap-4 border border-cyan-300/30 p-4 sm:flex-row sm:items-center sm:justify-between sm:p-5">
+                <div className="min-w-0">
+                  <p className="arcade-kicker text-cyan-300">Puzzle spotlight</p>
+                  <h2 className="mt-2 text-xl font-bold text-white" id="murdoku-promotion-title">Murdoku: solve a murder mystery</h2>
+                  <p className="mt-2 max-w-2xl text-sm leading-6 text-white/70">Use clues and Sudoku-style logic to place the suspects and find the killer. Learn the rules, then play in your browser.</p>
+                </div>
+                <Link
+                  className="btn btn-primary min-h-11 shrink-0"
+                  onClick={() => trackEvent('game_promotion_click', { game_slug: 'murdoku-html5-2026', source: 'home_spotlight' })}
+                  params={{ gameId: 'murdoku-html5-2026', locale: lang }}
+                  search={{}}
+                  to="/$locale/games/$gameId"
+                >
+                  <i aria-hidden="true" className="ri-play-fill" />
+                  Play Murdoku
+                </Link>
+              </section>
+            ) : null}
             {activeCategoryLabel || activePlatformLabel ? (
               <div className="mb-4 flex flex-wrap gap-2">
                 {activePlatformLabel ? (
