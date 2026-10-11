@@ -13,6 +13,15 @@ export function applyResponseCachePolicy(
   response: Response,
   context: ResponseCacheContext = {},
 ) {
+  if (!context.isServerFn && response.headers.get('X-POKOPIE-Response-Status') === '503') {
+    const headers = new Headers(response.headers)
+    headers.delete('X-POKOPIE-Response-Status')
+    headers.delete(edgeCacheHeader)
+    headers.delete('CDN-Cache-Control')
+    headers.delete('X-Robots-Tag')
+    headers.set('Cache-Control', 'no-store')
+    return new Response(response.body, { headers, status: 503 })
+  }
   const shouldPreventErrorCaching =
     response.status >= 400 && response.headers.has(edgeCacheHeader)
   const shouldPreventImplicitServerFnCaching =

@@ -14,6 +14,50 @@ const pageDescription =
   'Test whether your browser supports the WebAssembly, WebGL 2, storage, gamepad, fullscreen, and memory features used by browser-based PS1 emulation.'
 
 const compatibilityCopy = {
+  es: {
+  "title": "Prueba de compatibilidad PS1 | POKOPIE",
+  "description": "Comprueba WebAssembly, WebGL 2, almacenamiento, mandos, pantalla completa y memoria para emular PS1 en el navegador.",
+  "hero": "Compatibilidad de PS1 en el navegador",
+  "intro": "Comprueba las funciones que utilizan los emuladores de PlayStation 1 antes de cargar un juego o tu archivo ROM.",
+  "run": "Comprobar compatibilidad",
+  "browse": "Ver juegos de PS1",
+  "results": "Resultados de funciones",
+  "local": "Los resultados se generan en este navegador. No se suben datos del dispositivo ni archivos ROM.",
+  "scoreTitle": "Cómo se calcula la puntuación",
+  "improveTitle": "Mejorar la compatibilidad",
+  "scopeTitle": "Alcance y limitaciones",
+  "ownTitle": "Prueba tu archivo",
+  "ownDescription": "Utiliza el reproductor de POKOPIE con un archivo ROM que tengas derecho a usar.",
+  "openRom": "Abrir Jugar mi ROM",
+  "guide": [
+    "Actualiza el navegador a su última versión estable.",
+    "Activa la aceleración por hardware y reinicia el navegador.",
+    "Conecta un mando antes de abrir el reproductor.",
+    "Cierra las pestañas que consuman mucha memoria si el rendimiento es inestable."
+  ]
+},
+  pt: {
+  "title": "Teste de compatibilidade PS1 | POKOPIE",
+  "description": "Verifique WebAssembly, WebGL 2, armazenamento, controles, tela cheia e memória para emular PS1 no navegador.",
+  "hero": "Compatibilidade de PS1 no navegador",
+  "intro": "Verifique os recursos usados pelos emuladores de PlayStation 1 antes de carregar um jogo ou seu arquivo ROM.",
+  "run": "Verificar compatibilidade",
+  "browse": "Ver jogos de PS1",
+  "results": "Resultados dos recursos",
+  "local": "Os resultados são gerados neste navegador. Dados do dispositivo e arquivos ROM não são enviados.",
+  "scoreTitle": "Como a pontuação funciona",
+  "improveTitle": "Melhorar a compatibilidade",
+  "scopeTitle": "Escopo e limitações",
+  "ownTitle": "Teste seu arquivo",
+  "ownDescription": "Use o player do POKOPIE com um arquivo ROM que você tenha direito de usar.",
+  "openRom": "Abrir Jogar minha ROM",
+  "guide": [
+    "Atualize o navegador para a versão estável mais recente.",
+    "Ative a aceleração de hardware e reinicie o navegador.",
+    "Conecte um controle antes de abrir o player.",
+    "Feche abas que consomem muita memória se o desempenho estiver instável."
+  ]
+},
   'zh-TW': { title: 'PS1 瀏覽器兼容性檢測 | POKOPIE', description: '檢測瀏覽器是否支持在線運行 PS1 遊戲所需的 WebAssembly、WebGL 2、存儲、手柄、全屏和內存功能。', hero: 'PS1 瀏覽器兼容性檢測', intro: '在加載遊戲或自己的 ROM 文件前，檢查瀏覽器是否支持 PlayStation 1 模擬器常用功能。', run: '運行兼容性檢測', browse: '瀏覽 PS1 遊戲', results: '功能檢測結果', local: '檢測結果在當前瀏覽器本地生成，不會上傳設備信息或 ROM 文件。', scoreTitle: '評分如何計算', improveTitle: '提升兼容性', scopeTitle: '檢測範圍與限制', ownTitle: '檢測自己的文件', ownDescription: '使用你依法擁有使用權的 ROM 文件，通過 POKOPIE 瀏覽器播放器進行測試。', openRom: '打開 Play My ROM', guide: ['更新到瀏覽器最新穩定版本。', '啟用硬件加速並重啟瀏覽器。', '打開遊戲播放器前連接手柄。', '性能不穩定時關閉佔用內存較多的標籤頁。'] },
   ko: { title: 'PS1 브라우저 호환성 검사 | POKOPIE', description: '브라우저에서 PS1 에뮬레이션에 필요한 WebAssembly, WebGL 2, 저장소, 게임패드, 전체 화면 및 메모리 기능을 확인합니다.', hero: 'PS1 브라우저 호환성 검사', intro: '게임이나 자신의 ROM 파일을 불러오기 전에 PlayStation 1 에뮬레이터에 필요한 브라우저 기능을 확인하세요.', run: '호환성 검사 실행', browse: 'PS1 게임 둘러보기', results: '기능 검사 결과', local: '결과는 현재 브라우저에서 생성됩니다. 기기 정보와 ROM 파일은 업로드되지 않습니다.', scoreTitle: '점수 계산 방법', improveTitle: '호환성 개선', scopeTitle: '검사 범위 및 제한', ownTitle: '내 파일 테스트', ownDescription: '사용 권한이 있는 ROM 파일을 POKOPIE 브라우저 플레이어에서 실행하세요.', openRom: '내 ROM 실행 열기', guide: ['브라우저를 최신 안정 버전으로 업데이트하세요.', '하드웨어 가속을 활성화하고 브라우저를 다시 시작하세요.', '플레이어를 열기 전에 컨트롤러를 연결하세요.', '성능이 불안정하면 메모리를 많이 사용하는 탭을 닫으세요.'] },
   en: { title: pageTitle, description: pageDescription, hero: 'PS1 Browser Compatibility Check', intro: 'Check the browser capabilities commonly used by PlayStation 1 emulators before loading a game or your own ROM file.', run: 'Run compatibility check', browse: 'Browse PS1 games', results: 'Capability results', local: 'Results are generated locally in this browser. No device details or ROM files are uploaded.', scoreTitle: 'How the score works', improveTitle: 'Improve compatibility', scopeTitle: 'Test scope and limitations', ownTitle: 'Test your own file', ownDescription: 'Use POKOPIE’s browser player with a ROM file that you are legally permitted to use.', openRom: 'Open Play My ROM', guide: ['Update to the latest stable version of your browser.', 'Enable hardware acceleration and restart the browser.', 'Connect a controller before opening the game player.', 'Close memory-heavy tabs when performance is inconsistent.'] },
@@ -22,6 +66,26 @@ const compatibilityCopy = {
 } as const
 
 const compatibilityDetails = {
+  es: {
+  "update": "Última actualización del método: agosto de 2026",
+  "capability": "Función",
+  "priority": "Prioridad",
+  "why": "Para qué sirve",
+  "result": "Resultado",
+  "score": "WebAssembly y WebGL 2 son requisitos esenciales. IndexedDB, memoria compartida, mandos y pantalla completa mejoran el guardado, rendimiento o uso. La prueba comprueba la disponibilidad de API, no la velocidad de un juego.",
+  "scope": "Esta página detecta funciones mediante API estándar del navegador. No mide la velocidad de CPU o GPU, no verifica todos los mandos ni garantiza que todos los juegos de PS1 funcionen a plena velocidad.",
+  "variability": "Los resultados reales dependen del núcleo del emulador, juego, temperatura, memoria disponible, extensiones y ahorro de energía. Usa esta prueba antes de iniciar y después prueba el juego que quieras."
+},
+  pt: {
+  "update": "Última atualização do método: agosto de 2026",
+  "capability": "Recurso",
+  "priority": "Prioridade",
+  "why": "Para que serve",
+  "result": "Resultado",
+  "score": "WebAssembly e WebGL 2 são requisitos essenciais. IndexedDB, memória compartilhada, controles e tela cheia melhoram o armazenamento, desempenho ou uso. O teste verifica a disponibilidade de APIs, não a velocidade de um jogo.",
+  "scope": "Esta página detecta recursos por APIs padrão do navegador. Não mede a velocidade da CPU ou GPU, não verifica todos os controles nem garante que todos os jogos de PS1 rodem em velocidade plena.",
+  "variability": "Os resultados reais dependem do núcleo do emulador, jogo, temperatura, memória disponível, extensões e economia de energia. Use o teste antes de iniciar e depois experimente o jogo desejado."
+},
   en: {
     update: 'Last methodology update: August 2026', capability: 'Capability', priority: 'Priority', why: 'Why it matters', result: 'Result',
     score: 'WebAssembly and WebGL 2 are treated as core requirements. IndexedDB, shared memory, controller input, and fullscreen support improve persistence, performance, or usability. The check confirms API availability, not the speed of a specific game.',
@@ -43,7 +107,7 @@ const compatibilityDetails = {
 }
 
 function getCompatibilityDetails(locale: Locale) {
-  return locale === 'zh-TW' || locale === 'ko' ? compatibilityDetails[locale] : compatibilityDetails.en
+  return locale === 'zh-TW' || locale === 'ko' || locale === 'es' || locale === 'pt' ? compatibilityDetails[locale] : compatibilityDetails.en
 }
 
 type CapabilityDefinition = {
@@ -102,6 +166,70 @@ const capabilityDefinitions: Array<CapabilityDefinition> = [
 ]
 
 const localizedCapabilities: Record<Locale, Record<string, { label: string; description: string; requirement: string }>> = {
+  es: {
+  "wasm": {
+    "label": "WebAssembly",
+    "description": "Ejecuta el núcleo del emulador en el navegador a velocidad cercana a la nativa.",
+    "requirement": "Esencial"
+  },
+  "webgl2": {
+    "label": "WebGL 2",
+    "description": "Proporciona gráficos acelerados por hardware.",
+    "requirement": "Esencial"
+  },
+  "indexedDb": {
+    "label": "IndexedDB",
+    "description": "Permite guardar partidas y datos locales en reproductores compatibles.",
+    "requirement": "Recomendado"
+  },
+  "gamepad": {
+    "label": "API de mandos",
+    "description": "Permite usar mandos compatibles para controlar el juego.",
+    "requirement": "Opcional"
+  },
+  "fullscreen": {
+    "label": "API de pantalla completa",
+    "description": "Amplía el reproductor a pantalla completa.",
+    "requirement": "Opcional"
+  },
+  "sharedArrayBuffer": {
+    "label": "Memoria compartida",
+    "description": "Puede mejorar los núcleos de emulación que utilizan varios hilos.",
+    "requirement": "Recomendado"
+  }
+},
+  pt: {
+  "wasm": {
+    "label": "WebAssembly",
+    "description": "Executa o núcleo do emulador no navegador em velocidade próxima à nativa.",
+    "requirement": "Essencial"
+  },
+  "webgl2": {
+    "label": "WebGL 2",
+    "description": "Fornece gráficos acelerados por hardware.",
+    "requirement": "Essencial"
+  },
+  "indexedDb": {
+    "label": "IndexedDB",
+    "description": "Permite salvar partidas e dados locais em players compatíveis.",
+    "requirement": "Recomendado"
+  },
+  "gamepad": {
+    "label": "API de controles",
+    "description": "Permite usar controles compatíveis para jogar.",
+    "requirement": "Opcional"
+  },
+  "fullscreen": {
+    "label": "API de tela cheia",
+    "description": "Expande o player para tela cheia.",
+    "requirement": "Opcional"
+  },
+  "sharedArrayBuffer": {
+    "label": "Memória compartilhada",
+    "description": "Pode melhorar os núcleos de emulação que usam várias threads.",
+    "requirement": "Recomendado"
+  }
+},
   'zh-TW': {
     wasm: { label: 'WebAssembly', description: '讓模擬器核心在瀏覽器中以接近原生的速度運行。', requirement: '核心' },
     webgl2: { label: 'WebGL 2', description: '為遊戲畫面提供硬件加速圖形。', requirement: '核心' },
@@ -150,7 +278,7 @@ export function buildPs1CompatibilityHead(origin: string | undefined, locale: Lo
     const canonicalUrl = origin ? `${origin}${path}` : path
     const copy = compatibilityCopy[locale]
     return {
-      links: getSeoLinksFromCanonical(canonicalUrl, ['zh-CN', 'zh-TW', 'en', 'ja', 'ko']),
+      links: getSeoLinksFromCanonical(canonicalUrl, ['zh-CN', 'zh-TW', 'en', 'ja', 'ko', 'es', 'pt']),
       meta: [
         { title: copy.title },
         { name: 'description', content: copy.description },
@@ -192,6 +320,8 @@ export function Ps1CompatibilityPage({ locale = 'en' }: { locale?: Locale }) {
     <SiteLayout
       locale={locale}
       localePaths={{
+  es: '/es/ps1-compatibility',
+  pt: '/pt/ps1-compatibility',
         'zh-TW': '/zh-TW/ps1-compatibility',
         ko: '/ko/ps1-compatibility',
         'zh-CN': '/zh-CN/ps1-compatibility',
@@ -317,7 +447,7 @@ function ReadinessSummary({
   readiness: ReturnType<typeof evaluateBrowserReadiness> | null
   locale?: Locale
 }) {
-  const labels = locale === 'ko' ? { checking: '검사 중', limited: '일부 지원', ready: '준비 완료', notReady: '지원되지 않음', browser: '브라우저 준비 상태', score: '기능 검사 결과입니다. 실제 성능은 기기와 에뮬레이터에 따라 달라집니다.' } : locale === 'zh-TW' ? { checking: '檢測中', limited: '部分支持', ready: '可運行', notReady: '暫不支持', browser: '瀏覽器就緒度', score: '僅供參考：實際性能取決於設備與模擬器。' } : locale === 'zh-CN'
+  const labels = locale === 'es' ? { checking: 'Comprobando', limited: 'Compatibilidad parcial', ready: 'Preparado', notReady: 'No compatible', browser: 'Estado del navegador', score: 'Solo comprueba funciones. El rendimiento depende del dispositivo y emulador.' } : locale === 'pt' ? { checking: 'Verificando', limited: 'Compatibilidade parcial', ready: 'Pronto', notReady: 'Não compatível', browser: 'Estado do navegador', score: 'Verifica apenas recursos. O desempenho depende do dispositivo e emulador.' } : locale === 'ko' ? { checking: '검사 중', limited: '일부 지원', ready: '준비 완료', notReady: '지원되지 않음', browser: '브라우저 준비 상태', score: '기능 검사 결과입니다. 실제 성능은 기기와 에뮬레이터에 따라 달라집니다.' } : locale === 'zh-TW' ? { checking: '檢測中', limited: '部分支持', ready: '可運行', notReady: '暫不支持', browser: '瀏覽器就緒度', score: '僅供參考：實際性能取決於設備與模擬器。' } : locale === 'zh-CN'
     ? { checking: '检测中', limited: '部分支持', ready: '可运行', notReady: '暂不支持', browser: '浏览器就绪度', score: '仅供参考：实际性能取决于设备与模拟器。' }
     : locale === 'ja'
       ? { checking: '確認中', limited: '一部対応', ready: '準備完了', notReady: '未対応', browser: 'ブラウザーの準備状況', score: '機能チェックのみです。実際の性能は端末とエミュレーターに左右されます。' }
@@ -360,7 +490,7 @@ function CapabilityRow({
   locale?: Locale
 }) {
   const priority = getCompatibilityDetails(locale).priority
-  const status = locale === 'ko' ? { checking: '검사 중', available: '지원됨', unavailable: '지원되지 않음' } : locale === 'zh-TW' ? { checking: '檢測中', available: '支持', unavailable: '不支持' } : locale === 'zh-CN'
+  const status = locale === 'es' ? { checking: 'Comprobando', available: 'Disponible', unavailable: 'No disponible' } : locale === 'pt' ? { checking: 'Verificando', available: 'Disponível', unavailable: 'Indisponível' } : locale === 'ko' ? { checking: '검사 중', available: '지원됨', unavailable: '지원되지 않음' } : locale === 'zh-TW' ? { checking: '檢測中', available: '支持', unavailable: '不支持' } : locale === 'zh-CN'
     ? { checking: '检测中', available: '支持', unavailable: '不支持' }
     : locale === 'ja'
       ? { checking: '確認中', available: '対応', unavailable: '未対応' }

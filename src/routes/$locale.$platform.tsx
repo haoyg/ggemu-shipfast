@@ -21,7 +21,7 @@ const platformKeys: Record<string, PlatformCollectionKey> = {
 
 export const Route = createFileRoute('/$locale/$platform')({
   loader: async ({ params }) => {
-    if (!['zh-CN', 'zh-TW', 'ja', 'ko'].includes(params.locale)) {
+    if (!['zh-CN', 'zh-TW', 'ja', 'ko', 'es', 'pt'].includes(params.locale)) {
       throw notFound()
     }
 

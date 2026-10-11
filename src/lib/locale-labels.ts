@@ -1,6 +1,8 @@
 import type { Locale } from '#/lib/ggemu'
 
 export function getRetroCoverFallbackLabel(locale: Locale) {
+  if (locale === 'es') return 'Retro'
+  if (locale === 'pt') return 'Retrô'
   if (locale === 'ko') return '레트로'
   if (locale === 'zh-TW') {
     return '復古'
@@ -18,6 +20,8 @@ export function getRetroCoverFallbackLabel(locale: Locale) {
 }
 
 export function getBlogCoverFallbackLabel(locale: Locale) {
+  if (locale === 'es') return 'Blog'
+  if (locale === 'pt') return 'Blog'
   if (locale === 'ko') return '블로그'
   if (locale === 'zh-TW') {
     return '博客'
@@ -35,6 +39,8 @@ export function getBlogCoverFallbackLabel(locale: Locale) {
 }
 
 export function getPoweredByLabel(locale: Locale) {
+  if (locale === 'es') return 'Ofrecido por POKOPIE'
+  if (locale === 'pt') return 'Oferecido pelo POKOPIE'
   if (locale === 'ko') return 'POKOPIE 제공'
   if (locale === 'zh-TW') {
     return '由 POKOPIE 提供'
@@ -52,6 +58,8 @@ export function getPoweredByLabel(locale: Locale) {
 }
 
 export function getLiveBadgeLabel(locale: Locale) {
+  if (locale === 'es') return 'EN DIRECTO'
+  if (locale === 'pt') return 'AO VIVO'
   if (locale === 'ko') return '방송 중'
   if (locale === 'zh-TW') {
     return '直播中'
@@ -71,9 +79,13 @@ export function getLiveBadgeLabel(locale: Locale) {
 
 export function getPlatformBrowseLabel(locale: Locale, platform: string, popular = false) {
   const name = platform === 'Arcade'
-    ? ({ 'zh-CN': '街机', 'zh-TW': '街機', en: 'Arcade', ja: 'アーケード', ko: '아케이드' }[locale])
+    ? ({
+  es: 'Arcade',
+  pt: 'Arcade', 'zh-CN': '街机', 'zh-TW': '街機', en: 'Arcade', ja: 'アーケード', ko: '아케이드' }[locale])
     : platform
   switch (locale) {
+    case 'es': return popular ? `Ver juegos populares de ${name}` : `Jugar a juegos de ${name} online`
+    case 'pt': return popular ? `Ver jogos populares de ${name}` : `Jogar jogos de ${name} online`
     case 'zh-CN': return popular ? `查看热门 ${name} 游戏` : `在线游玩 ${name} 游戏`
     case 'zh-TW': return popular ? `瀏覽熱門 ${name} 遊戲` : `線上遊玩 ${name} 遊戲`
     case 'ko': return popular ? `인기 ${name} 게임 보기` : `${name} 게임 온라인 플레이`
@@ -85,6 +97,8 @@ export function getPlatformBrowseLabel(locale: Locale, platform: string, popular
 
 export function getGamePlayLabel(locale: Locale, name: string, resume = false) {
   switch (locale) {
+    case 'es': return `${resume ? 'Seguir jugando a' : 'Jugar a'} ${name}`
+    case 'pt': return `${resume ? 'Continuar jogando' : 'Jogar'} ${name}`
     case 'zh-CN': return `${resume ? '继续游玩' : '在线游玩'} ${name}`
     case 'zh-TW': return `${resume ? '繼續遊玩' : '線上遊玩'} ${name}`
     case 'ko': return `${name} ${resume ? '계속 플레이' : '온라인 플레이'}`

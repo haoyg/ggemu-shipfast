@@ -112,3 +112,11 @@ describe('upstream locale compatibility', () => {
     expect(url.searchParams.get('autoplay')).toBe('1')
   })
 })
+
+
+describe('Spanish and Portuguese game embeds', () => {
+  it.each(['es', 'pt'] as const)('preserves upstream locale %s', (locale) => {
+    expect(getGgemuLocale(locale)).toBe(locale)
+    expect(new URL(buildGameEmbedSrc({ embedId: 'contra-nes-1988', isPsp: false, locale, refcode: 'test', theme: 'dark' })).pathname).toBe(`/${locale}/game/contra-nes-1988`)
+  })
+})

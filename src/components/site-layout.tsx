@@ -89,7 +89,7 @@ export function SiteLayout({
   function handleLocaleChange(nextValue: string) {
     const nextLocale = normalizeLocale(nextValue)
     const nextPath = localePaths?.[nextLocale] ??
-      location.pathname.replace(/^\/(zh-CN|zh-TW|en|ja|ko)(?=\/|$)/, `/${nextLocale}`)
+      location.pathname.replace(/^\/(zh-CN|zh-TW|en|ja|ko|es|pt)(?=\/|$)/, `/${nextLocale}`)
 
     window.location.assign(nextPath)
   }
@@ -164,7 +164,7 @@ export function SiteLayout({
                 <li>
                   <Link activeProps={{ className: 'active text-primary' }} params={{ locale }} to="/$locale/guides">
                     <i className="ri-book-open-line" />
-                    {locale === 'ko' ? '가이드 (영어)' : locale === 'zh-TW' ? '指南（英文）' : 'Guides'}
+                    {locale === 'es' ? 'Guías (inglés)' : locale === 'pt' ? 'Guias (inglês)' : locale === 'ko' ? '가이드 (영어)' : locale === 'zh-TW' ? '指南（英文）' : 'Guides'}
                   </Link>
                 </li>
                 <li className="hidden 2xl:block">
@@ -214,8 +214,12 @@ export function SiteLayout({
                           data-theme={nextTheme}
                         />
                         <span>{nextTheme === 'light' ? ({
+  es: "Claro",
+  pt: "Claro",
   'zh-TW': '淺色',
   ko: '밝게', en: 'Light', 'zh-CN': '浅色', ja: 'ライト' }[locale]) : ({
+  es: "Oscuro",
+  pt: "Escuro",
   'zh-TW': '深色',
   ko: '어둡게', en: 'Dark', 'zh-CN': '深色', ja: 'ダーク' }[locale])}</span>
                       </button>
@@ -241,13 +245,17 @@ export function SiteLayout({
                 }}
               >
                 <i className="ri-global-line" />
-                <span>{({ 'zh-CN': '简中', 'zh-TW': '繁中', en: 'EN', ja: '日本語', ko: '한국어' })[locale]}</span>
+                <span>{({
+  es: "ES",
+  pt: "PT", 'zh-CN': '简中', 'zh-TW': '繁中', en: 'EN', ja: '日本語', ko: '한국어' })[locale]}</span>
               </summary>
               <ul className="menu dropdown-content z-50 mt-3 w-36 rounded-box border border-base-300 bg-base-100 p-2 shadow-xl">
-                {(['en', 'zh-CN', 'zh-TW', 'ja', 'ko'] as const).map((nextLocale) => (
+                {(['en', 'zh-CN', 'zh-TW', 'ja', 'ko', 'es', 'pt'] as const).map((nextLocale) => (
                   <li key={nextLocale}>
                     <button className={locale === nextLocale ? 'active' : ''} onClick={() => handleLocaleChange(nextLocale)} type="button">
-                      {({ en: 'English', 'zh-CN': '简体中文', 'zh-TW': '繁體中文', ja: '日本語', ko: '한국어' })[nextLocale]}
+                      {({
+  es: "Español",
+  pt: "Português", en: 'English', 'zh-CN': '简体中文', 'zh-TW': '繁體中文', ja: '日本語', ko: '한국어' })[nextLocale]}
                     </button>
                   </li>
                 ))}
@@ -299,7 +307,7 @@ export function SiteLayout({
             />
             <HeaderMobileLink
               icon="ri-book-open-line"
-              label={locale === 'ko' ? '가이드 (영어)' : locale === 'zh-TW' ? '指南（英文）' : 'Guides'}
+              label={locale === 'es' ? 'Guías (inglés)' : locale === 'pt' ? 'Guias (inglês)' : locale === 'ko' ? '가이드 (영어)' : locale === 'zh-TW' ? '指南（英文）' : 'Guides'}
               locale={locale}
               to="/$locale/guides"
             />
@@ -511,11 +519,11 @@ export function SiteFooter({ locale }: { locale: Locale }) {
               </Link>
               <Link className="link-hover link" params={{ locale }} to="/$locale/guides">
                 <i className="ri-book-open-line mr-1" />
-                {locale === 'ko' ? '가이드 (영어)' : locale === 'zh-TW' ? '指南（英文）' : 'Guides'}
+                {locale === 'es' ? 'Guías (inglés)' : locale === 'pt' ? 'Guias (inglês)' : locale === 'ko' ? '가이드 (영어)' : locale === 'zh-TW' ? '指南（英文）' : 'Guides'}
               </Link>
               <a className="link-hover link" href={`/${locale}/ps1-compatibility`}>
                 <i className="ri-pulse-line mr-1" />
-                {locale === 'ko' ? 'PS1 호환성 검사' : locale === 'zh-TW' ? 'PS1 相容性檢測' : locale === 'zh-CN' ? 'PS1 兼容性检测' : locale === 'ja' ? 'PS1 互換性チェック' : 'PS1 Compatibility'}
+                {locale === 'es' ? 'Compatibilidad PS1' : locale === 'pt' ? 'Compatibilidade PS1' : locale === 'ko' ? 'PS1 호환성 검사' : locale === 'zh-TW' ? 'PS1 相容性檢測' : locale === 'zh-CN' ? 'PS1 兼容性检测' : locale === 'ja' ? 'PS1 互換性チェック' : 'PS1 Compatibility'}
               </a>
               <Link
                 className="link-hover link"

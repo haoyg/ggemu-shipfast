@@ -70,14 +70,14 @@ export function buildPlatformCollectionHead(
   const pagePath = getPlatformCollectionPagePath(collection.routePath, page)
   const canonicalUrl = `${loaderData?.origin ?? ''}${pagePath}`
   const title = page > 1
-    ? `${collection.page.heroTitle} – Page ${page} | POKOPIE`
+    ? `${collection.page.heroTitle} – ${locale === 'es' || locale === 'pt' ? 'Página' : 'Page'} ${page} | POKOPIE`
     : collection.title
   const description = page > 1
-    ? `${collection.description} Page ${page} of ${loaderData?.pagination.pages ?? page}.`
+    ? `${collection.description} ${locale === 'es' || locale === 'pt' ? `Página ${page} de ${loaderData?.pagination.pages ?? page}.` : `Page ${page} of ${loaderData?.pagination.pages ?? page}.`}`
     : collection.description
   const links = loaderData?.origin
     ? [
-        ...getSeoLinksFromCanonical(canonicalUrl, page > 1 ? ['en'] : ['zh-CN', 'zh-TW', 'en', 'ja', 'ko']),
+        ...getSeoLinksFromCanonical(canonicalUrl, page > 1 ? ['en'] : ['zh-CN', 'zh-TW', 'en', 'ja', 'ko', 'es', 'pt']),
         ...(locale === 'en' && page > 1
           ? [{ rel: 'prev', href: `${loaderData.origin}${getPlatformCollectionPagePath(collection.routePath, page - 1)}` }]
           : []),

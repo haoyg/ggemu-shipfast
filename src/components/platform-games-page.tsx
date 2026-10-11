@@ -1,3 +1,4 @@
+import { getRomanceCollectionCopy } from '#/lib/i18n/collection-copy'
 import {
   GameCollectionPage,
   type GameCollectionPageConfig,
@@ -30,6 +31,8 @@ const localizedPlatformSlugs: Record<PlatformCollectionKey, string> = {
 }
 
 const localizedPlatformCopy = {
+  es: Object.fromEntries(Object.entries({ gba: 'Game Boy Advance', n64: 'Nintendo 64', nes: 'Famicom', segaGenesis: 'Sega Genesis', snes: 'Super Famicom' }).map(([key, name]) => [key, getRomanceCollectionCopy('es', name)])) as Record<PlatformCollectionKey, ReturnType<typeof getRomanceCollectionCopy>>,
+  pt: Object.fromEntries(Object.entries({ gba: 'Game Boy Advance', n64: 'Nintendo 64', nes: 'Famicom', segaGenesis: 'Sega Genesis', snes: 'Super Famicom' }).map(([key, name]) => [key, getRomanceCollectionCopy('pt', name)])) as Record<PlatformCollectionKey, ReturnType<typeof getRomanceCollectionCopy>>,
   ko: Object.fromEntries(Object.entries({ gba: 'Game Boy Advance', n64: 'Nintendo 64', nes: 'Famicom', segaGenesis: 'Sega Genesis', snes: 'Super Famicom' }).map(([key, value]) => [key, {
     title: `${value} 온라인 게임 | POKOPIE`, description: `${value} 게임을 브라우저에서 즐기세요.`, schemaName: `${value} 게임`, breadcrumbName: `${value} 게임`,
     heroTitle: `${value} 온라인 게임`, heroDescription: '설치 없이 브라우저에서 클래식 게임을 찾아보세요.', ctaLabel: '게임 보기', libraryTitle: '게임 목록', libraryDescription: (total: number) => `게임 ${total}개`, unavailableMessage: '게임을 불러오지 못했습니다. 잠시 후 다시 시도하세요.', featuredLabel: '추천 게임', coverAlt: '게임 표지',

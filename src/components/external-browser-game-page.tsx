@@ -15,6 +15,8 @@ export function ExternalBrowserGamePage({
     <SiteLayout
       locale="en"
       localePaths={{
+  es: game.canonicalPath,
+  pt: game.canonicalPath,
   'zh-TW': game.canonicalPath,
   ko: game.canonicalPath, 'zh-CN': game.canonicalPath, en: game.canonicalPath, ja: game.canonicalPath }}
     >

@@ -6,6 +6,8 @@ import { siteConfig } from '#/lib/site-config'
 import { useCurrentSiteTheme } from '#/lib/use-site-theme'
 
 const playPageCopy = {
+  es: "Abrir página del juego",
+  pt: "Abrir página do jogo",
   'zh-TW': '在獨立頁面遊玩',
   ko: '게임 페이지 열기',
   en: 'Open game page',

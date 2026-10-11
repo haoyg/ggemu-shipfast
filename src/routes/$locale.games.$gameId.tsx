@@ -1,5 +1,7 @@
 import { isPspGame } from '#/lib/game-embed'
 import { getGameEditorial } from '#/lib/game-editorial'
+import { GameDetailLoadError, getGameDetailLoadErrorCopy } from '#/components/game-detail-load-error'
+import { temporaryGameDetailHeaders } from '#/lib/game-detail-request'
 import { useState } from 'react'
 import { trackEvent } from '#/lib/analytics'
 import { getBrowserPlayGuide } from '#/lib/game-detail-content'
@@ -81,9 +83,9 @@ export const Route = createFileRoute('/$locale/games/$gameId')({
     const locale = normalizeLocale(params.locale)
     const detail = await getGameDetailPageData({
       data: { id: params.gameId, locale },
-    }).catch(() => null)
+    }).catch(() => ({ kind: 'temporary-error' as const }))
 
-    if (!detail) {
+    if (detail.kind === 'not-found') {
       throw notFound({
         data: { locale },
         headers: {
@@ -91,6 +93,8 @@ export const Route = createFileRoute('/$locale/games/$gameId')({
         },
       })
     }
+
+    if (detail.kind === 'temporary-error') return detail
 
     const currentId = getCanonicalGameRouteId(detail.game) || params.gameId
 
@@ -122,6 +126,10 @@ export const Route = createFileRoute('/$locale/games/$gameId')({
     }
   },
   head: ({ loaderData, params }) => {
+    if (loaderData?.kind === 'temporary-error') {
+      const copy = getGameDetailLoadErrorCopy(normalizeLocale(params.locale))
+      return { meta: [{ title: copy.title }, { name: 'description', content: copy.description }] }
+    }
     if (!loaderData) {
       const locale = normalizeLocale(params.locale)
       const t = getUnavailableCopy(locale, 'game')
@@ -180,6 +188,7 @@ export const Route = createFileRoute('/$locale/games/$gameId')({
       ],
     }
   },
+  headers: ({ loaderData }) => loaderData?.kind === 'temporary-error' ? temporaryGameDetailHeaders : {},
   notFoundComponent: GameDetailNotFound,
   component: LocalizedGameDetailPage,
 })
@@ -262,6 +271,8 @@ function buildGameManifestHref(locale: Locale) {
 }
 
 function toOpenGraphLocale(locale: Locale) {
+  if (locale === 'es') return 'es_ES'
+  if (locale === 'pt') return 'pt_PT'
   if (locale === 'zh-TW') {
     return 'zh_TW'
   }
@@ -393,6 +404,8 @@ function LocalizedGameDetailPage() {
   const [playerRequested, setPlayerRequested] = useState(false)
   const lang = normalizeLocale(locale)
   const t = getI18n(lang).detail
+
+  if (data.kind === 'temporary-error') return <GameDetailLoadError locale={lang} />
 
   const { canonicalUrl, game, relatedGames } = data
   const categories = getLocalizedCategoryLabels(game.categories, lang)

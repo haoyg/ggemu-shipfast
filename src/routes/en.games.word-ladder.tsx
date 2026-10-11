@@ -106,6 +106,8 @@ function WordLadderPage() {
     <SiteLayout
       locale="en"
       localePaths={{
+  es: '/en/games/word-ladder',
+  pt: '/en/games/word-ladder',
   'zh-TW': '/en/games/word-ladder',
   ko: '/en/games/word-ladder', 'zh-CN': '/en/games/word-ladder', en: '/en/games/word-ladder', ja: '/en/games/word-ladder' }}
     >

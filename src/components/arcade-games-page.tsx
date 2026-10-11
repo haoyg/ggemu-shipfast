@@ -1,3 +1,4 @@
+import { getRomanceCollectionCopy } from '#/lib/i18n/collection-copy'
 import {
   GameCollectionPage,
   type GameCollectionPageConfig,
@@ -106,6 +107,8 @@ export const arcadePageConfig: GameCollectionPageConfig = {
 }
 
 const localizedArcadeCopy = {
+  es: getRomanceCollectionCopy('es', 'Arcade'),
+  pt: getRomanceCollectionCopy('pt', 'Arcade'),
   ko: { title: '온라인 아케이드 게임 | POKOPIE', description: '브라우저에서 클래식 아케이드 게임을 즐기세요.', heroTitle: '클래식 아케이드 게임', heroDescription: '격투, 슈팅, 퍼즐과 레이싱 게임을 찾아보세요.', ctaLabel: '아케이드 게임 보기', libraryTitle: '아케이드 게임 목록', libraryDescription: (total: number) => `게임 ${total}개`, unavailableMessage: '잠시 후 다시 시도하세요.', featuredLabel: '추천 아케이드 게임', coverAlt: '아케이드 게임 표지' },
   'zh-TW': {
     title: '在線玩經典街機遊戲 | POKOPIE', description: '在瀏覽器中在線玩經典街機遊戲，瀏覽格鬥、射擊、益智、賽車和平臺遊戲。', heroTitle: '在線玩經典街機遊戲', heroDescription: '在瀏覽器中重溫經典街機遊戲，支持的遊戲無需單獨下載模擬器。', ctaLabel: '瀏覽街機遊戲', libraryTitle: '經典街機遊戲庫', libraryDescription: (total: number) => `瀏覽 POKOPIE 目錄中的 ${total} 款街機遊戲。`, unavailableMessage: '街機遊戲暫時不可用，請稍後再試。', featuredLabel: '精選經典街機遊戲', coverAlt: '經典街機遊戲封面',
@@ -126,7 +129,7 @@ export function getLocalizedArcadePageConfig(locale: Locale): GameCollectionPage
 export function getLocalizedArcadeCollection(locale: Locale) {
   const page = getLocalizedArcadePageConfig(locale)
   const copy = locale === 'en' ? null : localizedArcadeCopy[locale]
-  return { breadcrumbName: locale === 'ko' ? '아케이드 게임' : locale === 'zh-TW' ? '街機遊戲' : locale === 'ja' ? 'アーケードゲーム' : locale === 'en' ? 'Arcade Games' : '街机游戏', description: copy?.description ?? 'Play classic arcade games online in your browser.', page, platform: 'Arcade', routePath: page.routePath, schemaName: page.heroTitle, title: copy?.title ?? 'Play Classic Arcade Games Online Free | POKOPIE' }
+  return { breadcrumbName: locale === 'es' || locale === 'pt' ? copy?.heroTitle ?? '' : locale === 'ko' ? '아케이드 게임' : locale === 'zh-TW' ? '街機遊戲' : locale === 'ja' ? 'アーケードゲーム' : locale === 'en' ? 'Arcade Games' : '街机游戏', description: copy?.description ?? 'Play classic arcade games online in your browser.', page, platform: 'Arcade', routePath: page.routePath, schemaName: page.heroTitle, title: copy?.title ?? 'Play Classic Arcade Games Online Free | POKOPIE' }
 }
 
 export function ArcadeGamesPage({

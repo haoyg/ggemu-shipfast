@@ -19,6 +19,40 @@ type RemovalCopy = {
 }
 
 const removalCopies: Record<Locale, RemovalCopy> = {
+  es: {
+  "eyebrow": "Información legal",
+  "title": "Revisión de derechos y retirada de contenido",
+  "description": "Proceso de revisión de derechos y retirada de contenido de POKOPIE.",
+  "intro": "Si eres titular de derechos o su representante autorizado y consideras que un contenido infringe tus derechos, envía una solicitud de revisión o retirada con información suficiente.",
+  "requirementsTitle": "Incluye en tu solicitud",
+  "requirements": [
+    "Tu nombre, datos de contacto y autorización para actuar",
+    "Identificación de la obra o derecho protegido",
+    "La URL exacta de POKOPIE del contenido en disputa",
+    "Por qué consideras que el uso no está autorizado",
+    "Una declaración de exactitud de la información y de tu autorización para presentar la solicitud"
+  ],
+  "processTitle": "Qué ocurre después",
+  "process": "Confirmaremos la recepción y revisaremos la información. Podemos restringir el contenido durante la revisión y solicitar datos que falten. Las solicitudes repetitivas, fraudulentas o claramente ajenas al asunto pueden no tramitarse.",
+  "contactLabel": "Enviar solicitud de revisión o retirada"
+},
+  pt: {
+  "eyebrow": "Informações legais",
+  "title": "Revisão de direitos e remoção de conteúdo",
+  "description": "Processo de revisão de direitos e remoção de conteúdo do POKOPIE.",
+  "intro": "Se você é titular de direitos ou representante autorizado e acredita que um conteúdo viola seus direitos, envie um pedido de revisão ou remoção com informações suficientes.",
+  "requirementsTitle": "Inclua no pedido",
+  "requirements": [
+    "Seu nome, contato e autorização para agir",
+    "Identificação da obra ou direito protegido",
+    "A URL exata do POKOPIE do conteúdo em disputa",
+    "Por que você acredita que o uso não está autorizado",
+    "Uma declaração de exatidão das informações e de sua autorização para apresentar o pedido"
+  ],
+  "processTitle": "O que acontece depois",
+  "process": "Confirmaremos o recebimento e analisaremos as informações. Podemos restringir o conteúdo durante a revisão e solicitar dados ausentes. Pedidos repetitivos, fraudulentos ou claramente não relacionados podem não ser processados.",
+  "contactLabel": "Enviar pedido de revisão ou remoção"
+},
   'zh-TW': {
     eyebrow: '法律',
     title: '版權審核與內容下架',

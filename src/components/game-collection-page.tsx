@@ -63,13 +63,13 @@ export function GameCollectionPage({
   return (
     <SiteLayout
       locale={locale}
-      localePaths={{
-        'zh-TW': locale === 'zh-TW' ? config.routePath : '/zh-TW',
-        ko: locale === 'ko' ? config.routePath : '/ko',
-        'zh-CN': locale === 'zh-CN' ? config.routePath : '/zh-CN',
-        en: locale === 'en' ? config.routePath : '/en',
-        ja: locale === 'ja' ? config.routePath : '/ja',
-      }}
+      localePaths={Object.fromEntries(
+        (['zh-CN', 'zh-TW', 'en', 'ja', 'ko', 'es', 'pt'] as const).map((nextLocale) => {
+          const suffix = config.routePath.split('/').slice(2).join('/')
+          const hasLocalizedRoute = /^(arcade|gba|n64|nes|ps1|sega-genesis|snes)-games$/.test(suffix)
+          return [nextLocale, hasLocalizedRoute || nextLocale === locale ? `/${nextLocale}/${suffix}` : `/${nextLocale}`]
+        }),
+      )}
     >
       <section className="arcade-section border-b text-neutral-content">
         <div className="arcade-hero mx-auto grid max-w-7xl gap-10 px-5 py-10 sm:mx-6 sm:px-8 sm:py-14 lg:mx-auto lg:grid-cols-[minmax(0,0.9fr)_minmax(28rem,1.1fr)] lg:items-center lg:px-10 lg:py-18">
@@ -87,8 +87,8 @@ export function GameCollectionPage({
                 <i aria-hidden="true" className="ri-arrow-down-line" />
               </a>
               {config.secondaryCta ? (
-                <a className="btn border-white/25 bg-white/5 text-white hover:border-white/45 hover:bg-white/10" href={config.secondaryCta.href}>
-                  {config.secondaryCta.label}
+                <a className="btn border-white/25 bg-white/5 text-white hover:border-white/45 hover:bg-white/10" href={locale === 'es' || locale === 'pt' ? config.secondaryCta.href.replace(/^\/en\//, `/${locale}/`) : config.secondaryCta.href}>
+                  {locale === 'es' ? 'Comprobar compatibilidad' : locale === 'pt' ? 'Verificar compatibilidade' : config.secondaryCta.label}
                   <i aria-hidden="true" className="ri-pulse-line" />
                 </a>
               ) : null}
@@ -104,7 +104,7 @@ export function GameCollectionPage({
           <h2 className="arcade-rule-title arcade-section-title text-3xl font-semibold text-white">{config.libraryTitle}</h2>
           <p className="mt-2 max-w-2xl text-sm leading-6 text-white/60">
             {config.libraryDescription(total)}
-            {pages > 1 ? ` Page ${page} of ${pages}.` : ''}
+            {pages > 1 ? locale === 'es' || locale === 'pt' ? ` Página ${page} de ${pages}.` : ` Page ${page} of ${pages}.` : ''}
           </p>
 
           {libraryGames.length > 0 ? (
@@ -128,6 +128,7 @@ export function GameCollectionPage({
           {pages > 1 ? (
             <CollectionPagination
               currentPage={page}
+              locale={locale}
               pages={pages}
               routePath={config.routePath}
             />
@@ -148,9 +149,9 @@ export function GameCollectionPage({
             </div>
             {config.relatedGuide ? (
               <aside className="mt-7 rounded-xl border border-primary/25 bg-primary/10 p-5">
-                <h3 className="font-bold text-white">Related guide</h3>
-                <p className="mt-2 text-sm leading-6 text-white/70">{config.relatedGuide.description}</p>
-                <a className="link link-primary mt-3 inline-block" href={config.relatedGuide.href}>{config.relatedGuide.label}</a>
+                <h3 className="font-bold text-white">{locale === 'es' ? 'Guía relacionada (inglés)' : locale === 'pt' ? 'Guia relacionado (inglês)' : 'Related guide'}</h3>
+                <p className="mt-2 text-sm leading-6 text-white/70">{locale === 'es' ? 'Lee la guía para obtener más información sobre esta plataforma.' : locale === 'pt' ? 'Leia o guia para saber mais sobre esta plataforma.' : config.relatedGuide.description}</p>
+                <a className="link link-primary mt-3 inline-block" href={config.relatedGuide.href}>{locale === 'es' ? 'Leer guía en inglés' : locale === 'pt' ? 'Ler guia em inglês' : config.relatedGuide.label}</a>
               </aside>
             ) : null}
           </article>
@@ -189,7 +190,7 @@ export function GameCollectionPage({
 
       <section className="arcade-section arcade-editorial border-t text-neutral-content">
         <div className="mx-auto max-w-4xl px-4 py-16 sm:px-6 lg:px-8">
-          <h2 className="arcade-section-title text-center text-3xl font-black text-white">Frequently Asked Questions</h2>
+          <h2 className="arcade-section-title text-center text-3xl font-black text-white">{locale === 'es' ? 'Preguntas frecuentes' : locale === 'pt' ? 'Perguntas frequentes' : 'Frequently Asked Questions'}</h2>
           <div className="mt-8 divide-y divide-white/10 border-y border-white/10">
             {config.faqs.map((faq) => (
               <details className="group py-1" key={faq.question}>
@@ -211,15 +212,17 @@ function CollectionPagination({
   currentPage,
   pages,
   routePath,
+  locale,
 }: {
   currentPage: number
+  locale: Locale
   pages: number
   routePath: string
 }) {
   const pageNumbers = getVisiblePageNumbers(currentPage, pages)
 
   return (
-    <nav aria-label="Game library pagination" className="mt-10 flex flex-wrap items-center justify-center gap-2">
+    <nav aria-label={locale === 'es' ? 'Paginación de juegos' : locale === 'pt' ? 'Paginação de jogos' : 'Game library pagination'} className="mt-10 flex flex-wrap items-center justify-center gap-2">
       {currentPage > 1 ? (
         <a
           className="btn btn-sm border-white/15 bg-white/5 text-white hover:bg-white/10"
@@ -227,7 +230,7 @@ function CollectionPagination({
           rel="prev"
         >
           <i aria-hidden="true" className="ri-arrow-left-line" />
-          Previous
+          {locale === 'es' ? 'Anterior' : locale === 'pt' ? 'Anterior' : 'Previous'}
         </a>
       ) : null}
 
@@ -260,7 +263,7 @@ function CollectionPagination({
           href={getPlatformCollectionPagePath(routePath, currentPage + 1)}
           rel="next"
         >
-          Next
+          {locale === 'es' ? 'Siguiente' : locale === 'pt' ? 'Próxima' : 'Next'}
           <i aria-hidden="true" className="ri-arrow-right-line" />
         </a>
       ) : null}

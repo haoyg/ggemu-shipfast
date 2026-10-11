@@ -6,6 +6,8 @@ import { siteConfig } from '#/lib/site-config'
 const adsterraScriptId = 'pokopie-adsterra-native-banner'
 
 const labels: Record<Locale, string> = {
+  es: "Publicidad",
+  pt: "Publicidade",
   'zh-TW': '廣告',
   ko: '광고',
   'zh-CN': '广告',

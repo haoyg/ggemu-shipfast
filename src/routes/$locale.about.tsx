@@ -50,6 +50,60 @@ type AboutCopy = {
 
 function getAboutCopies(siteName: string): Record<Locale, AboutCopy> {
   return {
+  es: {
+  "eyebrow": "Acerca de POKOPIE",
+  "title": "Acerca de POKOPIE",
+  "description": "Descubre POKOPIE: juegos clásicos de Arcade, NES, SNES, GBA, N64, PS1 y otras plataformas en el navegador.",
+  "keywords": "juegos retro online, juegos clásicos, juegos en navegador",
+  "intro": "POKOPIE facilita la búsqueda y el descubrimiento de juegos clásicos para jugar en el navegador cuando están disponibles.",
+  "platformTitle": "Plataformas compatibles",
+  "sections": [
+    {
+      "title": "Qué ofrece el sitio",
+      "body": "Explora el catálogo, busca por título, plataforma, género o serie y abre la ficha para iniciar los juegos disponibles."
+    },
+    {
+      "title": "Búsqueda de juegos",
+      "body": "Encuentra clásicos de GBA, NES, SNES, PS1, N64, Sega Genesis y Arcade sin descargar una aplicación."
+    },
+    {
+      "title": "Jugar en el navegador",
+      "body": "La disponibilidad, el rendimiento y los controles dependen del juego, navegador, dispositivo y conexión."
+    },
+    {
+      "title": "Contenido y disponibilidad",
+      "body": "La información, las imágenes y la disponibilidad pueden cambiar. Contacta con el responsable del sitio para informar de errores o solicitar una revisión."
+    }
+  ],
+platformBody: (platforms: string) => `El catálogo incluye plataformas como ${platforms}. La cobertura depende de los datos disponibles y de la compatibilidad del navegador.`
+},
+  pt: {
+  "eyebrow": "Sobre o POKOPIE",
+  "title": "Sobre o POKOPIE",
+  "description": "Conheça o POKOPIE: jogos clássicos de Arcade, NES, SNES, GBA, N64, PS1 e outras plataformas no navegador.",
+  "keywords": "jogos retrô online, jogos clássicos, jogos no navegador",
+  "intro": "O POKOPIE facilita a busca e a descoberta de jogos clássicos para jogar no navegador quando disponíveis.",
+  "platformTitle": "Plataformas compatíveis",
+  "sections": [
+    {
+      "title": "O que o site oferece",
+      "body": "Explore o catálogo, procure por título, plataforma, gênero ou série e abra a página para iniciar os jogos disponíveis."
+    },
+    {
+      "title": "Busca de jogos",
+      "body": "Encontre clássicos de GBA, NES, SNES, PS1, N64, Sega Genesis e Arcade sem baixar um aplicativo."
+    },
+    {
+      "title": "Jogar no navegador",
+      "body": "A disponibilidade, o desempenho e os controles dependem do jogo, navegador, dispositivo e conexão."
+    },
+    {
+      "title": "Conteúdo e disponibilidade",
+      "body": "As informações, imagens e a disponibilidade podem mudar. Entre em contato com o responsável pelo site para informar erros ou solicitar uma revisão."
+    }
+  ],
+platformBody: (platforms: string) => `O catálogo inclui plataformas como ${platforms}. A cobertura depende dos dados disponíveis e da compatibilidade do navegador.`
+},
   'zh-TW': {
       eyebrow: '關於',
       title: `關於 ${siteName}`,

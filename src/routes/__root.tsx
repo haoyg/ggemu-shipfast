@@ -223,6 +223,8 @@ function PageErrorComponent() {
 }
 
 function getPageErrorMessages(locale: string) {
+  if (locale === 'es') return { retry: 'Reintentar', browse: 'Ver juegos', title: 'No se pudo cargar la página', description: 'La conexión o el servicio de juegos puede no estar disponible. Inténtalo de nuevo o elige otro juego.' }
+  if (locale === 'pt') return { retry: 'Tentar novamente', browse: 'Ver jogos', title: 'Não foi possível carregar a página', description: 'A conexão ou o serviço de jogos pode estar indisponível. Tente novamente ou escolha outro jogo.' }
   if (locale === 'ko') {
     return { retry: '다시 시도', browse: '게임 둘러보기', title: '페이지를 불러올 수 없습니다', description: '연결 또는 게임 서비스를 일시적으로 사용할 수 없습니다. 다시 시도하거나 다른 게임을 선택하세요.' }
   }

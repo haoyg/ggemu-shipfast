@@ -185,3 +185,13 @@ describe('localizePublicGame', () => {
     expect(isTextSuitableForLocale('Taiko Web is based on the Japanese title 太鼓ウェブ and runs in a browser.', 'en')).toBe(true)
   })
 })
+
+
+describe('Latin-language upstream fallback', () => {
+  it.each(['es', 'pt'] as const)('does not present English descriptions as %s translations', (locale) => {
+    const game = localizePublicGame({ name: 'Contra', description: 'Run and jump through enemy territory.', how_to_play: 'Press Enter to start.', url_slug: 'contra-nes-1988' }, locale)
+    expect(game.name).toBe('Contra')
+    expect(game.description).toBeUndefined()
+    expect(game.how_to_play).toBeUndefined()
+  })
+})

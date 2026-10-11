@@ -38,6 +38,8 @@ describe('i18n messages', () => {
     expect(isSupportedLocale('ja')).toBe(true)
     expect(isSupportedLocale('zh-TW')).toBe(true)
     expect(isSupportedLocale('ko')).toBe(true)
+    expect(isSupportedLocale('es')).toBe(true)
+    expect(isSupportedLocale('pt')).toBe(true)
     expect(isSupportedLocale('x')).toBe(false)
     expect(isSupportedLocale('fr')).toBe(false)
   })

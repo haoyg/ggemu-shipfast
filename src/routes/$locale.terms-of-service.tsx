@@ -14,6 +14,70 @@ type LegalCopy = {
 }
 
 const termsCopies: Record<Locale, LegalCopy> = {
+  es: {
+  "eyebrow": "Información legal",
+  "title": "Condiciones de uso",
+  "description": "Reglas y condiciones para utilizar este sitio.",
+  "intro": "Al acceder y utilizar el sitio, aceptas estas condiciones y las leyes aplicables.",
+  "sections": [
+    {
+      "title": "Uso del sitio",
+      "body": "El sitio permite navegación y juego personales, legales y no comerciales. No debes abusar del servicio, interferir en su funcionamiento, intentar accesos no autorizados ni utilizar automatización que perjudique su disponibilidad o rendimiento."
+    },
+    {
+      "title": "Contenido de juegos",
+      "body": "La información, imágenes y juegos pueden proceder de usuarios, terceros o fuentes públicas. Su disponibilidad puede cambiar sin aviso y no se garantiza el funcionamiento en todos los navegadores, dispositivos o regiones."
+    },
+    {
+      "title": "Responsabilidad del usuario",
+      "body": "Debes cumplir las leyes aplicables y asegurarte de que tu uso está permitido en tu ubicación. Deja de usar cualquier contenido al que no tengas permiso de acceder."
+    },
+    {
+      "title": "Propiedad intelectual",
+      "body": "Las marcas, títulos, imágenes y materiales pertenecen a sus respectivos propietarios. El acceso al sitio no transfiere su propiedad ni concede derechos adicionales."
+    },
+    {
+      "title": "Sin garantías",
+      "body": "El servicio se ofrece tal como está y según disponibilidad, sin garantizar funcionamiento continuo, ausencia de errores, seguridad o compatibilidad con todos los dispositivos y navegadores."
+    },
+    {
+      "title": "Cambios de condiciones",
+      "body": "Las condiciones pueden actualizarse. Si continúas utilizando el sitio tras la publicación de cambios, las condiciones actualizadas se aplicarán a tu uso futuro."
+    }
+  ]
+},
+  pt: {
+  "eyebrow": "Informações legais",
+  "title": "Termos de uso",
+  "description": "Regras e condições para utilizar este site.",
+  "intro": "Ao acessar e utilizar o site, você concorda com estes termos e as leis aplicáveis.",
+  "sections": [
+    {
+      "title": "Uso do site",
+      "body": "O site permite navegação e jogos pessoais, legais e não comerciais. Não abuse do serviço, interfira em seu funcionamento, tente acessos não autorizados nem use automação que prejudique sua disponibilidade ou desempenho."
+    },
+    {
+      "title": "Conteúdo dos jogos",
+      "body": "Informações, imagens e jogos podem vir de usuários, terceiros ou fontes públicas. A disponibilidade pode mudar sem aviso e o funcionamento não é garantido em todos os navegadores, dispositivos ou regiões."
+    },
+    {
+      "title": "Responsabilidade do usuário",
+      "body": "Cumpra as leis aplicáveis e verifique se seu uso é permitido em sua localização. Pare de usar qualquer conteúdo ao qual não tenha permissão de acesso."
+    },
+    {
+      "title": "Propriedade intelectual",
+      "body": "Marcas, títulos, imagens e materiais pertencem aos respectivos proprietários. O acesso ao site não transfere propriedade nem concede direitos adicionais."
+    },
+    {
+      "title": "Sem garantias",
+      "body": "O serviço é oferecido como está e conforme disponibilidade, sem garantir funcionamento contínuo, ausência de erros, segurança ou compatibilidade com todos os dispositivos e navegadores."
+    },
+    {
+      "title": "Alterações dos termos",
+      "body": "Os termos podem ser atualizados. Se você continuar usando o site após a publicação das alterações, os termos atualizados serão aplicados ao uso futuro."
+    }
+  ]
+},
   'zh-TW': {
     eyebrow: '法律',
     title: '服務條款',

@@ -6,7 +6,7 @@ import { getSeoOrigin } from '#/lib/seo'
 
 export const Route = createFileRoute('/$locale/ps1-compatibility')({
   loader: async ({ params }) => {
-    if (!['zh-CN', 'zh-TW', 'ja', 'ko'].includes(params.locale)) throw notFound()
+    if (!['zh-CN', 'zh-TW', 'ja', 'ko', 'es', 'pt'].includes(params.locale)) throw notFound()
     return { locale: normalizeLocale(params.locale), origin: await getSeoOrigin() }
   },
   head: ({ loaderData }) => loaderData ? buildPs1CompatibilityHead(loaderData.origin, loaderData.locale) : {},

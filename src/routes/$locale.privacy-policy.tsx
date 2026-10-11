@@ -18,6 +18,118 @@ type LegalCopy = {
 }
 
 const privacyCopies: Record<Locale, LegalCopy> = {
+  es: {
+  "eyebrow": "Información legal",
+  "title": "Política de privacidad",
+  "description": "Cómo se recopila, utiliza y trata la información en este sitio.",
+  "intro": "Esta política explica cómo se trata la información de los visitantes. Es información general y puede actualizarse.",
+  "sections": [
+    {
+      "title": "Información recopilada",
+      "body": "Podemos recopilar el tipo de navegador, dispositivo, páginas visitadas, páginas de referencia y actividad aproximada. La información de los mensajes enviados al responsable se utiliza para atender y responder consultas."
+    },
+    {
+      "title": "Uso de la información",
+      "body": "Utilizamos la información para operar el sitio, mejorar el rendimiento, comprender tendencias de uso, prevenir abusos, responder solicitudes y mantener la seguridad y fiabilidad."
+    },
+    {
+      "title": "Cookies y tecnologías similares",
+      "body": "Las cookies y el almacenamiento local pueden recordar preferencias, facilitar análisis y mejorar la navegación. Puedes gestionar las cookies en el navegador; desactivar el almacenamiento puede afectar algunas funciones."
+    },
+    {
+      "title": "Servicios de terceros",
+      "body": "Los servicios de alojamiento, análisis, publicidad, contenido integrado o distribución de juegos pueden tratar información según sus propias políticas y condiciones."
+    },
+    {
+      "title": "Publicidad y análisis de Google",
+      "body": "Podemos utilizar Google AdSense y Google Analytics. Google y sus socios pueden usar cookies, balizas web, direcciones IP, identificadores de dispositivos, páginas visitadas y visitas anteriores a este u otros sitios para ofrecer y medir publicidad. Google aplica las opciones de consentimiento correspondientes a la personalización de anuncios.",
+      "links": [
+        {
+          "href": "https://policies.google.com/technologies/partner-sites",
+          "label": "Cómo utiliza Google la información de sus socios"
+        },
+        {
+          "href": "https://adssettings.google.com/",
+          "label": "Configuración de anuncios de Google"
+        }
+      ]
+    },
+    {
+      "title": "Publicidad de Adsterra",
+      "body": "Podemos usar Adsterra para anuncios nativos. Adsterra y sus socios pueden tratar direcciones IP, datos del dispositivo y navegador, páginas visitadas, impresiones e interacciones y usar cookies conforme a sus políticas para ofrecer, medir y proteger la publicidad.",
+      "links": [
+        {
+          "href": "https://adsterra.com/privacy-policy-managed/",
+          "label": "Política de privacidad de Adsterra"
+        }
+      ]
+    },
+    {
+      "title": "Conservación de datos",
+      "body": "Conservamos la información durante el tiempo razonablemente necesario para fines operativos, legales, de seguridad o de asistencia. El plazo depende del tipo de información y del motivo de su tratamiento."
+    },
+    {
+      "title": "Contacto",
+      "body": "Puedes enviar preguntas sobre privacidad, solicitudes de corrección o eliminación mediante los datos de contacto publicados en el sitio."
+    }
+  ]
+},
+  pt: {
+  "eyebrow": "Informações legais",
+  "title": "Política de privacidade",
+  "description": "Como as informações são coletadas, usadas e tratadas neste site.",
+  "intro": "Esta política explica o tratamento das informações dos visitantes. É uma orientação geral e pode ser atualizada.",
+  "sections": [
+    {
+      "title": "Informações coletadas",
+      "body": "Podemos coletar tipo de navegador, dispositivo, páginas visitadas, páginas de origem e atividade aproximada. As informações das mensagens enviadas ao responsável são usadas para atendimento e resposta."
+    },
+    {
+      "title": "Uso das informações",
+      "body": "Usamos as informações para operar o site, melhorar o desempenho, entender tendências de uso, prevenir abusos, responder solicitações e manter a segurança e confiabilidade."
+    },
+    {
+      "title": "Cookies e tecnologias semelhantes",
+      "body": "Cookies e armazenamento local podem lembrar preferências, apoiar análises e melhorar a navegação. Você pode controlar cookies no navegador; desativar o armazenamento pode afetar algumas funções."
+    },
+    {
+      "title": "Serviços de terceiros",
+      "body": "Serviços de hospedagem, análise, publicidade, conteúdo incorporado ou distribuição de jogos podem tratar informações conforme suas próprias políticas e termos."
+    },
+    {
+      "title": "Publicidade e análise do Google",
+      "body": "Podemos usar Google AdSense e Google Analytics. O Google e seus parceiros podem usar cookies, web beacons, endereços IP, identificadores de dispositivos, páginas visitadas e visitas anteriores a este ou outros sites para fornecer e medir publicidade. O Google aplica as escolhas de consentimento pertinentes à personalização de anúncios.",
+      "links": [
+        {
+          "href": "https://policies.google.com/technologies/partner-sites",
+          "label": "Como o Google usa informações de parceiros"
+        },
+        {
+          "href": "https://adssettings.google.com/",
+          "label": "Configurações de anúncios do Google"
+        }
+      ]
+    },
+    {
+      "title": "Publicidade da Adsterra",
+      "body": "Podemos usar a Adsterra para anúncios nativos. A Adsterra e seus parceiros podem tratar endereços IP, dados do dispositivo e navegador, páginas visitadas, impressões e interações e usar cookies conforme suas políticas para fornecer, medir e proteger a publicidade.",
+      "links": [
+        {
+          "href": "https://adsterra.com/privacy-policy-managed/",
+          "label": "Política de privacidade da Adsterra"
+        }
+      ]
+    },
+    {
+      "title": "Retenção de dados",
+      "body": "Retemos informações pelo tempo razoavelmente necessário para fins operacionais, legais, de segurança ou suporte. O prazo depende do tipo de informação e da finalidade do tratamento."
+    },
+    {
+      "title": "Contato",
+      "body": "Envie dúvidas de privacidade, pedidos de correção ou remoção pelos dados de contato publicados no site."
+    }
+  ]
+},
   'zh-TW': {
     eyebrow: '法律',
     title: '隱私政策',

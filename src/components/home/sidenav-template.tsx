@@ -22,6 +22,8 @@ const localeOptions: Array<{ label: string; value: Locale }> = [
   { label: '日本語', value: 'ja' },
   { label: '繁體中文', value: 'zh-TW' },
   { label: '한국어', value: 'ko' },
+  { label: 'Español', value: 'es' },
+  { label: 'Português', value: 'pt' },
 ]
 
 export function SidenavHomeTemplate(props: HomeTemplateProps) {
@@ -119,7 +121,7 @@ function HomeSidenav({
     setIsLocaleMenuOpen(false)
 
     const nextPath = location.pathname.replace(
-      /^\/(zh-CN|zh-TW|en|ja|ko)(?=\/|$)/,
+      /^\/(zh-CN|zh-TW|en|ja|ko|es|pt)(?=\/|$)/,
       `/${nextLocale}`,
     )
 

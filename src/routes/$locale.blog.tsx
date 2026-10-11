@@ -1,3 +1,5 @@
+import { esBlogFaqs } from '#/lib/i18n/es'
+import { ptBlogFaqs } from '#/lib/i18n/pt'
 import { koBlogFaqs } from '#/lib/i18n/ko'
 import { zhTwBlogFaqs } from '#/lib/i18n/zh-TW'
 import {
@@ -50,7 +52,7 @@ export const Route = createFileRoute('/$locale/blog')({
   head: ({ loaderData, params }) => {
     const locale = normalizeLocale(params.locale)
     const t = getI18n(locale).blog
-    const faqs = locale === 'ko' ? koBlogFaqs : locale === 'zh-TW' ? zhTwBlogFaqs : locale === 'zh-CN' ? zhCnBlogFaqs : locale === 'ja' ? jaBlogFaqs : enBlogFaqs
+    const faqs = locale === 'es' ? esBlogFaqs : locale === 'pt' ? ptBlogFaqs : locale === 'ko' ? koBlogFaqs : locale === 'zh-TW' ? zhTwBlogFaqs : locale === 'zh-CN' ? zhCnBlogFaqs : locale === 'ja' ? jaBlogFaqs : enBlogFaqs
     const seoOrigin = loaderData?.seoOrigin
     const canonicalUrl = seoOrigin
       ? `${seoOrigin}/${locale}/blog`

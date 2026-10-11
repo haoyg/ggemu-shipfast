@@ -4,6 +4,7 @@ import { getRequestUrl } from '@tanstack/react-start/server'
 import { TimedAsyncCache } from '#/lib/timed-async-cache'
 import { getPs1CoverFallback } from '#/lib/ps1-cover-fallbacks'
 import { localizePublicGame, localizePublicGames } from '#/lib/game-localization'
+import { GgemuApiError, isMissingGameError, requestGameDetail } from '#/lib/game-detail-request'
 
 const API_BASE_URL = 'https://ggemu.com'
 const PAGE_SIZE = 20
@@ -19,7 +20,7 @@ const BLOCKED_IMAGE_HOSTS = new Set([
   'emulatorgamer.com',
 ])
 
-export type Locale = 'zh-CN' | 'zh-TW' | 'en' | 'ja' | 'ko'
+export type Locale = 'zh-CN' | 'zh-TW' | 'en' | 'ja' | 'ko' | 'es' | 'pt'
 export type GameSearchSort =
   | 'newest'
   | 'popular'
@@ -102,6 +103,7 @@ export type GameFilterOptions = {
 }
 
 export type GameDetailPageData = {
+  kind: 'ready'
   canonicalUrl: string
   game: PublicGame
 }
@@ -217,6 +219,7 @@ type BlogPostDetailResponse = {
 type FetchJsonOptions = {
   cacheTtlMs?: number
   staleTtlMs?: number
+  timeoutMs?: number
 }
 
 const jsonCache = new TimedAsyncCache(GGEMU_CACHE_MAX_ENTRIES)
@@ -237,7 +240,7 @@ function normalizeLimit(limit: unknown) {
 }
 
 function normalizeLocale(locale: unknown): Locale {
-  return locale === 'en' || locale === 'ja' || locale === 'ko' || locale === 'zh-TW' ? locale : 'zh-CN'
+  return locale === 'es' || locale === 'pt' || locale === 'en' || locale === 'ja' || locale === 'ko' || locale === 'zh-TW' ? locale : 'zh-CN'
 }
 
 function normalizeSort(sort: unknown): GameSearchSort {
@@ -281,6 +284,7 @@ async function fetchJson<T>(
   {
     cacheTtlMs = GGEMU_DEFAULT_CACHE_TTL_MS,
     staleTtlMs = GGEMU_DEFAULT_STALE_TTL_MS,
+    timeoutMs = GGEMU_REQUEST_TIMEOUT_MS,
   }: FetchJsonOptions = {},
 ) {
   const cacheKey = getCacheKey(path, params)
@@ -301,7 +305,7 @@ async function fetchJson<T>(
     const controller = new AbortController()
     const timeoutId = setTimeout(() => {
       controller.abort()
-    }, GGEMU_REQUEST_TIMEOUT_MS)
+    }, timeoutMs)
 
     try {
       const response = await fetch(`${API_BASE_URL}${cacheKey}`, {
@@ -312,10 +316,17 @@ async function fetchJson<T>(
       })
 
       if (!response.ok) {
-        throw new Error(`GGEMU API request failed with ${response.status}`)
+        throw new GgemuApiError(response.status)
       }
 
       const value = await response.json() as T
+
+      if (path === '/api/game/detail' && (
+        !value || typeof value !== 'object' || !('success' in value) || value.success !== true ||
+        !('data' in value) || !value.data || typeof value.data !== 'object' || Array.isArray(value.data)
+      )) {
+        throw new Error('Invalid game detail response')
+      }
 
       if (cacheTtlMs > 0 || staleTtlMs > 0) {
         const cachedAt = Date.now()
@@ -329,7 +340,7 @@ async function fetchJson<T>(
 
       return value
     } catch (error) {
-      if (latestCached && latestCached.staleUntil > Date.now()) {
+      if (!isMissingGameError(error) && latestCached && latestCached.staleUntil > Date.now()) {
         return latestCached.value
       }
 
@@ -725,11 +736,16 @@ export const getGameDetailPageData = createServerFn({ method: 'GET' })
   }))
   .handler(async ({ data }) => {
     const params = new URLSearchParams({ id: data.id })
-    const result = await fetchJson<GameDetailResponse>('/api/game/detail', params)
+    const outcome = await requestGameDetail(() =>
+      fetchJson<GameDetailResponse>('/api/game/detail', params, { timeoutMs: 4_000 }),
+    )
+    if (outcome.kind !== 'ready') return outcome
+    const result = outcome.value
     const game = localizePublicGame(normalizePublicGame(result.data), data.locale)
     const origin = getRequestUrl({ xForwardedHost: true }).origin
 
     return {
+      kind: 'ready' as const,
       canonicalUrl: getAbsoluteGameUrl(origin, data.locale, game, data.id),
       game,
     } satisfies GameDetailPageData

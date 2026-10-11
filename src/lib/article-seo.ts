@@ -54,6 +54,9 @@ export function buildArticleStructuredData({
 }
 
 export function getArticleMetaCopy(locale: Locale, siteName: string) {
+  if (locale === 'es') return { author: `${siteName} — equipo editorial`, published: 'Publicado', updated: 'Actualizado' }
+  if (locale === 'pt') return { author: `${siteName} — equipe editorial`, published: 'Publicado', updated: 'Atualizado' }
+
   if (locale === 'zh-TW') {
     return {
       author: `${siteName} 編輯團隊`,

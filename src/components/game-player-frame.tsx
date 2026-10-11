@@ -3,6 +3,38 @@ import { n64TouchControls } from '#/lib/n64-touch-controls'
 import { trackEvent } from '#/lib/analytics'
 
 const copy = {
+  es: {
+    loading: "Cargando el reproductor…",
+    loaded: "Reproductor abierto. Consulta el progreso dentro del juego.",
+    ready: "Reproductor cargado.",
+    guide: "Selecciona Jugar ahora y después Iniciar dentro del reproductor.",
+    slow: "El reproductor tarda en cargar. Vuelve a cargarlo o elige otro juego.",
+    retry: "Recargar reproductor",
+    browse: 'Ver juegos',
+    fullscreen: "Pantalla completa",
+    exitFullscreen: "Salir de pantalla completa",
+    backToGame: "Detalles del juego",
+    controlsLabel: "Controles",
+    controls: "Los controles y las partidas guardadas están en el menú del reproductor.",
+    error: "No se pudo cargar el reproductor. Inténtalo de nuevo.",
+    unsupported: "Este juego no está disponible para jugar en el navegador.",
+  },
+  pt: {
+    loading: "Carregando o player…",
+    loaded: "Player aberto. Confira o progresso dentro do jogo.",
+    ready: "Player carregado.",
+    guide: "Selecione Jogar agora e depois Iniciar dentro do player.",
+    slow: "O player está demorando para carregar. Recarregue ou escolha outro jogo.",
+    retry: "Recarregar player",
+    browse: 'Ver jogos',
+    fullscreen: "Tela cheia",
+    exitFullscreen: "Sair da tela cheia",
+    backToGame: "Detalhes do jogo",
+    controlsLabel: "Controles",
+    controls: "Os controles e os jogos salvos estão no menu do player.",
+    error: "Não foi possível carregar o player. Tente novamente.",
+    unsupported: "Este jogo não está disponível para jogar no navegador.",
+  },
   'zh-TW': {
     loading: '正在加載遊戲播放器……',
     loaded: '播放器頁面已打開，遊戲進度請查看播放器內的提示。',

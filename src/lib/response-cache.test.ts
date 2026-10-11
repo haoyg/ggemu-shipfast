@@ -59,3 +59,18 @@ describe('response cache', () => {
     )
   })
 })
+
+it('serves temporary game detail failures as uncached 503 documents', () => {
+  const response = new Response('Retry this game', { headers: {
+    'X-POKOPIE-Response-Status': '503',
+    'Retry-After': '60',
+    'Cloudflare-CDN-Cache-Control': 'public, max-age=300',
+  } })
+  const result = applyResponseCachePolicy(response)
+  expect(result.status).toBe(503)
+  expect(result.headers.get('Retry-After')).toBe('60')
+  expect(result.headers.get('Cache-Control')).toBe('no-store')
+  expect(result.headers.has('X-Robots-Tag')).toBe(false)
+  expect(result.headers.has('X-POKOPIE-Response-Status')).toBe(false)
+  expect(result.headers.has('Cloudflare-CDN-Cache-Control')).toBe(false)
+})

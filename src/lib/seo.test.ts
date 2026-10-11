@@ -84,3 +84,14 @@ describe('seo locale links', () => {
     })
   })
 })
+
+
+describe('Spanish and Portuguese alternate links', () => {
+  it.each(['es', 'pt'] as const)('keeps the game slug and canonical locale for %s', (locale) => {
+    const links = getLocalizedSeoLinks({ locale, origin: 'https://pokopie.com', path: '/games/contra-nes-1988' })
+    expect(links).toContainEqual({ rel: 'canonical', href: `https://pokopie.com/${locale}/games/contra-nes-1988` })
+    for (const alternate of ['es', 'pt']) {
+      expect(links).toContainEqual({ rel: 'alternate', hrefLang: alternate, href: `https://pokopie.com/${alternate}/games/contra-nes-1988` })
+    }
+  })
+})

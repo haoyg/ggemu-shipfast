@@ -1,3 +1,5 @@
+import { esMessages, esHomeFaqs } from './i18n/es'
+import { ptMessages, ptHomeFaqs } from './i18n/pt'
 import { koMessages, koHomeFaqs } from './i18n/ko'
 import { zhTwMessages, zhTwHomeFaqs } from './i18n/zh-TW'
 import type { BlogPost, Locale, PublicGame } from '#/lib/ggemu'
@@ -6,11 +8,11 @@ import { jaHomeFaqs, jaMessages } from '#/lib/i18n/ja'
 import { zhCnHomeFaqs, zhCnMessages } from '#/lib/i18n/zh-CN'
 
 export function normalizeLocale(value: unknown): Locale {
-  return value === 'en' || value === 'ja' || value === 'ko' || value === 'zh-TW' ? value : 'zh-CN'
+  return value === 'es' || value === 'pt' || value === 'en' || value === 'ja' || value === 'ko' || value === 'zh-TW' ? value : 'zh-CN'
 }
 
 export function isSupportedLocale(value: unknown): value is Locale {
-  return value === 'zh-CN' || value === 'zh-TW' || value === 'en' || value === 'ja' || value === 'ko'
+  return value === 'zh-CN' || value === 'zh-TW' || value === 'es' || value === 'pt' || value === 'en' || value === 'ja' || value === 'ko'
 }
 
 export function formatCopy(
@@ -23,6 +25,8 @@ export function formatCopy(
 }
 
 export const i18n = {
+  es: esMessages,
+  pt: ptMessages,
   'zh-CN': zhCnMessages,
   'zh-TW': zhTwMessages,
   ko: koMessages,
@@ -35,6 +39,8 @@ export function getI18n(locale: Locale) {
 }
 
 const homeFaqs = {
+  es: esHomeFaqs,
+  pt: ptHomeFaqs,
   'zh-CN': zhCnHomeFaqs,
   'zh-TW': zhTwHomeFaqs,
   ko: koHomeFaqs,
@@ -52,6 +58,8 @@ export function getLocalizedBlogPostExcerpt(
 ) {
   const excerpt = sanitizeBlogExcerpt(blogPost.excerpt)
 
+  if (locale === 'es') return `Lee la guía de ${blogPost.title || 'POKOPIE'} para descubrir juegos retro y consejos para jugar en el navegador.`
+  if (locale === 'pt') return `Leia o guia de ${blogPost.title || 'POKOPIE'} para descobrir jogos retrô e dicas para jogar no navegador.`
   if (locale === 'ko') return excerpt && /[가-힣]/.test(excerpt) ? excerpt : `${blogPost.title || 'POKOPIE'}의 게임 가이드와 브라우저 플레이 팁을 읽어보세요.`
 
   if (locale === 'en') {
@@ -112,6 +120,8 @@ function isLocalizedText(value: string, locale: Locale) {
 }
 
 const localizedPlatformLabels: Record<Locale, Record<string, string>> = {
+  es: { Arcade: 'Arcade' },
+  pt: { Arcade: 'Arcade' },
   en: {},
   'zh-TW': {
     Arcade: '街機',
@@ -162,6 +172,8 @@ const localizedPlatformLabels: Record<Locale, Record<string, string>> = {
 }
 
 const localizedCategoryLabels: Record<Locale, Record<string, string>> = {
+  es: { Action: 'Acción', Adventure: 'Aventura', Cards: 'Cartas', Educational: 'Educativos', Fighting: 'Lucha', Platform: 'Plataformas', Puzzle: 'Puzles', Racing: 'Carreras', Role: 'Rol', RPG: 'Rol', Shooter: 'Disparos', Simulation: 'Simulación', Sports: 'Deportes', Strategy: 'Estrategia' },
+  pt: { Action: 'Ação', Adventure: 'Aventura', Cards: 'Cartas', Educational: 'Educativos', Fighting: 'Luta', Platform: 'Plataforma', Puzzle: 'Quebra-cabeças', Racing: 'Corrida', Role: 'RPG', RPG: 'RPG', Shooter: 'Tiro', Simulation: 'Simulação', Sports: 'Esportes', Strategy: 'Estratégia' },
   en: {},
   'zh-TW': {
     Action: '動作',
@@ -254,6 +266,7 @@ export function getGameDetailFaqs(game: PublicGame, locale: Locale) {
   const developer = game.developer?.trim()
   const category = getLocalizedCategoryLabels(game.categories, locale)[0]
 
+  if (locale === 'es' || locale === 'pt') return getHomeFaqs(locale).items.slice(0, 4)
   if (locale === 'ko') return [
     { question: `${name}을 온라인으로 플레이할 수 있나요?`, answer: '게임 페이지의 플레이 버튼을 누르면 브라우저에서 시작할 수 있습니다. 게임 내 언어는 웹사이트 언어와 다를 수 있습니다.' },
     { question: '별도 설치가 필요한가요?', answer: '별도 에뮬레이터 설치 없이 브라우저가 게임 데이터를 불러옵니다.' },
@@ -377,6 +390,8 @@ export function getGameDetailFaqs(game: PublicGame, locale: Locale) {
 }
 
 function getFallbackGameName(locale: Locale) {
+  if (locale === 'es') return 'este juego'
+  if (locale === 'pt') return 'este jogo'
   if (locale === 'zh-TW') {
     return '這款遊戲'
   }
@@ -414,6 +429,7 @@ export function buildGameDetailSeo(game: PublicGame, locale: Locale) {
   const baseDescription = game.description ? compactText(game.description) : ''
   const localizedDescription = getGameDetailSummary(game, locale)
 
+  if (locale === 'es' || locale === 'pt') return { title: `${name} online | POKOPIE`, description: getGameDetailSummary(game, locale), keywords: [name, platform, getI18n(locale).homeSeo.keywords].filter(Boolean).join(', ') }
   if (locale === 'ko') return { title: `${name} 온라인 게임 | ${platform || 'POKOPIE'}`, description: getGameDetailSummary(game, locale), keywords: [name, platform, '레트로 게임', '브라우저 게임'].filter(Boolean).join(', ') }
 
   if (locale === 'zh-TW') {
@@ -505,6 +521,8 @@ export function getGameDetailSummary(game: PublicGame, locale: Locale) {
   const year = game.released_year?.trim()
   const baseDescription = game.description ? compactText(game.description) : ''
 
+  if (locale === 'es') return `Juega a ${name}${platform ? ` (${platform})` : ''} en tu navegador. Pulsa Jugar ahora para empezar, sin instalar un emulador.`
+  if (locale === 'pt') return `Jogue ${name}${platform ? ` (${platform})` : ''} no navegador. Pressione Jogar agora para começar, sem instalar um emulador.`
   if (locale === 'ko') return `${name}${platform ? ` (${platform})` : ''}을 브라우저에서 즐기세요. 별도 설치 없이 플레이 버튼으로 시작할 수 있습니다.`
 
   if (locale === 'zh-TW') {
@@ -577,6 +595,8 @@ export function getGameDetailKeywordText(game: PublicGame, locale: Locale) {
 }
 
 export function getGameDetailHowToPlay(game: PublicGame, locale: Locale) {
+  if (locale === 'es') return 'Pulsa Jugar ahora, selecciona Iniciar en el reproductor y haz clic en la pantalla del juego para activar los controles. Consulta los botones, el mando y las opciones de guardado en el menú del reproductor.'
+  if (locale === 'pt') return 'Pressione Jogar agora, selecione Iniciar no player e clique na tela do jogo para ativar os controles. Confira os botões, o controle e as opções de salvamento no menu do player.'
   const name = game.name?.trim() || getFallbackGameName(locale)
   const platform = getLocalizedPlatformLabel(game.platform, locale)
   const baseHowToPlay = game.how_to_play ? compactText(game.how_to_play) : ''

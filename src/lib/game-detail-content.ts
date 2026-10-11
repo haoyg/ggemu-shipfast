@@ -1,3 +1,4 @@
+import { getI18n } from '#/lib/i18n'
 import { getGameEditorial } from './game-editorial'
 import type { Locale, PublicGame } from '#/lib/ggemu'
 import {
@@ -42,6 +43,8 @@ export function getGameHowToPlayParagraphs(game: PublicGame, locale: Locale) {
 }
 
 export function getBrowserPlayGuide(locale: Locale, game?: PublicGame) {
+  if (locale === 'es') return { title: 'Controles y solución de problemas', paragraphs: ['Si el teclado no responde, haz clic en la pantalla del juego y consulta los controles del reproductor.', 'En el móvil, comprueba si hay botones táctiles. Prueba la orientación horizontal o la pantalla completa. La compatibilidad con mandos depende del juego.', 'Si la carga se detiene, espera un momento y prueba a recargar el reproductor. El progreso que no hayas guardado puede perderse.'] }
+  if (locale === 'pt') return { title: 'Controles e solução de problemas', paragraphs: ['Se o teclado não responder, clique na tela do jogo e confira os controles do player.', 'No celular, confira se há botões de toque. Experimente a orientação horizontal ou a tela cheia. O suporte a controles depende do jogo.', 'Se o carregamento parar, aguarde um momento e tente recarregar o player. O progresso não salvo pode ser perdido.'] }
   const editorial = game && getGameEditorial(game, locale)
   if (editorial) {
     return {
@@ -99,6 +102,10 @@ export function getBrowserPlayGuide(locale: Locale, game?: PublicGame) {
 }
 
 export function getGameSidebarContent(game: PublicGame, locale: Locale) {
+  if (locale === 'es' || locale === 'pt') {
+    const guide = getBrowserPlayGuide(locale, game)
+    return { backgroundTitle: getI18n(locale).detail.details, background: getGameDetailSummary(game, locale), tipsTitle: guide.title, tips: guide.paragraphs }
+  }
   const editorial = getGameEditorial(game, locale)
   if (editorial) {
     return { backgroundTitle: 'About this version', background: editorial.description[0], tipsTitle: 'Play tips', tips: editorial.tips }
@@ -159,6 +166,7 @@ export function getGameSidebarContent(game: PublicGame, locale: Locale) {
 }
 
 function getGameBackgroundText(game: PublicGame, locale: Locale) {
+  if (locale === 'es' || locale === 'pt') return getGameDetailSummary(game, locale)
   const name = game.name?.trim() || getFallbackName(locale)
   const platform = getLocalizedPlatformLabel(game.platform, locale)
   const year = game.released_year?.trim()
@@ -198,6 +206,7 @@ function getGameBackgroundText(game: PublicGame, locale: Locale) {
 }
 
 function getBrowserPlayText(game: PublicGame, locale: Locale) {
+  if (locale === 'es' || locale === 'pt') return getGameDetailSummary(game, locale)
   const name = game.name?.trim() || getFallbackName(locale)
 
   if (locale === 'ko') return `${name}을 브라우저에서 시작할 수 있습니다. 실제 조작과 저장 옵션은 플레이어 메뉴에서 확인하세요.`
