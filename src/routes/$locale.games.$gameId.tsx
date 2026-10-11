@@ -413,6 +413,7 @@ function LocalizedGameDetailPage() {
   const platformLabel = getLocalizedPlatformLabel(game.platform, lang)
   const faqItems = getGameFaqs(game, lang)
   const editorial = getGameEditorial(game, lang)
+  const isMurdoku = lang === 'en' && game.url_slug === 'murdoku-html5-2026'
   const searchSeo = getGameSearchSeo(game, lang)
   const summary = editorial?.summary ?? searchSeo?.description ?? getGameDetailSummary(game, lang)
   const keywordText = getGameDetailKeywordText(game, lang)
@@ -546,6 +547,22 @@ function LocalizedGameDetailPage() {
               </div>
             </div>
           </section>
+
+          {isMurdoku && editorial?.quickStart ? (
+            <div className="flex flex-col gap-3">
+              <a className="link link-primary w-fit text-sm font-semibold" href="#game-quick-start">
+                New to Murdoku? Read the rules
+              </a>
+              {game.play_device === 1 ? (
+                <p className="rounded-lg border border-primary/25 bg-primary/10 p-3 text-sm leading-6 text-white/80" role="note">
+                  The embedded version currently supports desktop computers only. On a phone, open{' '}
+                  <a className="link link-primary" href="https://murdoku.com/play/" onClick={() => trackEvent('game_play_click', { game_id: gameId, source: 'official_site' })} rel="noopener noreferrer" target="_blank">
+                    Murdoku on the official site
+                  </a>.
+                </p>
+              ) : null}
+            </div>
+          ) : null}
 
           {targetedSeo ? (
             <EmbeddedGamePlayer
@@ -736,7 +753,7 @@ function QuickStartCard({
   if (!quickStart) return null
 
   return (
-    <section className="rounded-xl border border-primary/25 bg-primary/10 p-4 shadow-sm sm:p-6">
+    <section className="scroll-mt-24 rounded-xl border border-primary/25 bg-primary/10 p-4 shadow-sm sm:p-6" id="game-quick-start" tabIndex={-1}>
       <h2 className="flex items-center gap-2 text-xl font-bold text-white">
         <i aria-hidden="true" className="ri-gamepad-line text-primary" />
         {quickStart.title}

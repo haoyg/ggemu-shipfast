@@ -93,14 +93,16 @@ const editorials: Record<string, GameEditorial> = {
     tips: ['Treat “beside” as a horizontal or vertical neighbor in the same area, not a diagonal.', 'Use the clues and occupied rows to eliminate options before guessing.', 'Do not place a person on furniture just because it fits a clue: check the scene legend for blocked squares.', 'Avoid naming a killer from one clue. Finish the arrangement and verify the victim’s area first.'],
     quickStart: {
       title: 'Murdoku rules and first moves',
-      intro: 'Start with definite placements, eliminate impossible squares, and use the completed scene to identify the killer. Rules checked against the official Courtroom case on October 11, 2026.',
+      intro: 'Start with definite placements, eliminate impossible squares, and use the completed scene to identify the killer. Rules and a full desktop Car Repair case checked on October 11, 2026.',
       entries: [
+        { label: 'Start and choose a case', detail: 'Select Play Now in the embedded player, then Start. You can continue as a guest. For an unrevealed case, click once to reveal it and again to open the puzzle.' },
+        { label: 'Notes versus confirmed placements', detail: 'Select a suspect. A short click on the grid writes a note; press and hold to confirm that person’s location. Use Undo to reverse your last action.' },
         { label: 'One person in each row and column', detail: 'Every placement rules out that row and column for the remaining people.' },
         { label: 'Read the scene legend', detail: 'Objects can mark blocked spaces; rooms and floor markings help interpret the clues.' },
         { label: 'Check what “beside” means', detail: 'Use a neighboring square above, below, left or right, within the same area. Diagonal squares do not qualify.' },
         { label: 'Separate candidates from facts', detail: 'If several squares still fit, keep them as possibilities rather than treating a guess as a confirmed placement.' },
         { label: 'Find who was alone with the victim', detail: 'Solve the positions first, then check who shares the victim’s area with nobody else.' },
-        { label: 'Playing on a phone', detail: 'Read the loaded game’s input instructions. If the board feels cramped, try landscape orientation or full screen before placing people.' },
+        { label: 'Phone availability', detail: 'The upstream embedded version blocked phones during the October 11 check. Use a desktop here, or open the official site using the link above the player.' },
       ],
     },
     faq: [
@@ -109,6 +111,7 @@ const editorials: Record<string, GameEditorial> = {
       { question: 'Where can I find the original Murdoku rules?', answer: 'The Game references section links to Manuel Garand’s official Murdoku site and a printable case with the full rules.' },
       { question: 'Does “beside” include diagonal squares?', answer: 'No. In the official Courtroom rules, beside means a horizontal or vertical neighboring square in the same area.' },
       { question: 'Is the worked example an answer to a real case?', answer: 'No. Mira and Leo are fictional names in an original teaching example. It demonstrates elimination without revealing an official puzzle solution.' },
+      { question: 'Why will the embedded game not start on my phone?', answer: 'The upstream player currently restricts this entry to desktop computers. Use the official-site link above the player for phone play. Website language settings do not remove the upstream device restriction.' },
     ],
     sources: [{ label: 'Official Murdoku rules: The Courtroom', href: 'https://murdoku.com/pdf/the-courtroom-bw.pdf' }, { label: 'Murdoku by Manuel Garand', href: 'https://murdoku.com/?lang=en' }],
   },
