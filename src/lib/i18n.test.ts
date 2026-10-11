@@ -108,7 +108,7 @@ describe('i18n messages', () => {
       'side-scrolling',
     )
     expect(getGameDetailSummary(game, 'ja')).toContain(
-      'Pixel Quest（GBA）は2001年発売のレトロゲームです',
+      'Pixel Quest（GBA）のゲーム紹介と操作方法',
     )
     expect(getGameDetailHowToPlay(game, 'zh-CN')).toContain(
       '点击“开始游戏”即可在浏览器中启动 Pixel Quest',
@@ -165,4 +165,14 @@ describe('Traditional Chinese and Korean interfaces', () => {
     expect(collectStrings(getI18n('ko').home).join(' ')).toMatch(/[가-힣]/)
     expect(getI18n('zh-TW').home.title).not.toBe(getI18n('zh-CN').home.title)
   })
+})
+
+
+it('uses available categories without inventing retro status or missing metadata', () => {
+  const modern = { name: 'New Puzzle', platform: 'HTML5', released_year: '2026', categories: ['Puzzle'] }
+  const summary = getGameDetailSummary(modern, 'zh-CN')
+  expect(summary).toContain('益智')
+  expect(summary).not.toContain('经典复古')
+  expect(summary).not.toContain('undefined')
+  expect(getGameDetailSummary({ name: 'Unknown Game' }, 'zh-CN')).not.toContain('游戏分类：')
 })

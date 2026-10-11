@@ -548,6 +548,15 @@ function LocalizedGameDetailPage() {
             </div>
           </section>
 
+          {lang === 'zh-CN' && game.url_slug === 'murdoku-html5-2026' && game.play_device === 1 ? (
+            <p className="rounded-lg border border-primary/25 bg-primary/10 p-3 text-sm leading-6 text-white/80" role="note">
+              站内嵌入版本目前仅支持电脑。手机玩家可以前往{' '}
+              <a className="link link-primary" href="https://murdoku.com/play/" onClick={() => trackEvent('game_play_click', { game_id: gameId, source: 'official_site' })} rel="noopener noreferrer" target="_blank">
+                Murdoku 官方游玩页面
+              </a>。
+            </p>
+          ) : null}
+
           {isMurdoku && editorial?.quickStart ? (
             <div className="flex flex-col gap-3">
               <a className="link link-primary w-fit text-sm font-semibold" href="#game-quick-start">

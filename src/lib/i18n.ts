@@ -181,6 +181,7 @@ const localizedCategoryLabels: Record<Locale, Record<string, string>> = {
     Arcade: '街機',
     Cards: '卡牌',
     Educational: '教育',
+    Kids: '兒童',
     Fighting: '格鬥',
     Platform: '平臺跳躍',
     Puzzle: '益智',
@@ -199,6 +200,7 @@ const localizedCategoryLabels: Record<Locale, Record<string, string>> = {
     Arcade: '街机',
     Cards: '卡牌',
     Educational: '教育',
+    Kids: '儿童',
     Fighting: '格斗',
     Platform: '平台跳跃',
     Puzzle: '益智',
@@ -216,6 +218,7 @@ const localizedCategoryLabels: Record<Locale, Record<string, string>> = {
     Arcade: 'アーケード',
     Cards: 'カード',
     Educational: '教育',
+    Kids: 'キッズ',
     Fighting: '格闘',
     Platform: 'プラットフォーム',
     Puzzle: 'パズル',
@@ -518,8 +521,8 @@ export function buildGameDetailSeo(game: PublicGame, locale: Locale) {
 export function getGameDetailSummary(game: PublicGame, locale: Locale) {
   const name = game.name?.trim() || getFallbackGameName(locale)
   const platform = getLocalizedPlatformLabel(game.platform, locale)
-  const year = game.released_year?.trim()
   const baseDescription = game.description ? compactText(game.description) : ''
+  const categories = getLocalizedCategoryLabels(game.categories, locale).slice(0, 2)
 
   if (locale === 'es') return `Juega a ${name}${platform ? ` (${platform})` : ''} en tu navegador. Pulsa Jugar ahora para empezar, sin instalar un emulador.`
   if (locale === 'pt') return `Jogue ${name}${platform ? ` (${platform})` : ''} no navegador. Pressione Jogar agora para começar, sem instalar um emulador.`
@@ -527,19 +530,19 @@ export function getGameDetailSummary(game: PublicGame, locale: Locale) {
 
   if (locale === 'zh-TW') {
     return compactText(
-      `在線遊玩 ${name}${platform ? `（${platform}）` : ''}${year ? `，這是一款 ${year} 年發佈的經典復古遊戲` : ' 經典復古遊戲'}。瀏覽器直接啟動，無需下載。`,
+      `在線遊玩 ${name}${platform ? `（${platform}）` : ''}。${categories.length ? `遊戲分類：${categories.join('、')}。` : ''}查看遊戲介紹、操作說明與相關作品，從頁面的遊玩入口在瀏覽器啟動支援的遊戲。裝置與功能支援以實際播放器為準。`,
     )
   }
 
   if (locale === 'zh-CN') {
     return compactText(
-      `在线游玩 ${name}${platform ? `（${platform}）` : ''}${year ? `，这是一款 ${year} 年发布的经典复古游戏` : ' 经典复古游戏'}。浏览器直接启动，无需下载。`,
+      `在线游玩 ${name}${platform ? `（${platform}）` : ''}。${categories.length ? `游戏分类：${categories.join('、')}。` : ''}查看游戏介绍、操作说明与相关作品，从页面的游玩入口在浏览器启动支持的游戏。设备与功能支持以实际播放器为准。`,
     )
   }
 
   if (locale === 'ja') {
     return compactText(
-      `${name}${platform ? `（${platform}）` : ''}${year ? `は${year}年発売のレトロゲームです` : 'をオンラインでプレイできます'}。ブラウザーでそのまま遊べて、ダウンロードは不要です。`,
+      `${name}${platform ? `（${platform}）` : ''}のゲーム紹介と操作方法を確認できます。${categories.length ? `ジャンル：${categories.join('・')}。` : ''}対応ゲームはページのプレイ入口からブラウザーで起動できます。関連タイトルも探せます。端末や機能への対応は実際のプレイヤーで確認してください。`,
     )
   }
 

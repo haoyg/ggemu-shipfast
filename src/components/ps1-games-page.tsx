@@ -107,7 +107,7 @@ export function getLocalizedPs1PageConfig(locale: Locale): GameCollectionPageCon
 export function getLocalizedPs1Collection(locale: Locale) {
   const page = getLocalizedPs1PageConfig(locale)
   const copy = locale === 'en' ? null : localizedPs1Copy[locale]
-  return { breadcrumbName: locale === 'es' || locale === 'pt' ? copy?.heroTitle ?? '' : locale === 'ko' ? 'PS1 게임' : locale === 'zh-TW' ? 'PS1 遊戲' : locale === 'ja' ? 'PS1 ゲーム' : locale === 'en' ? 'PS1 Games' : 'PS1 游戏', description: copy?.description ?? 'Play PS1 games online in your browser.', page, platform: 'PlayStation 1', routePath: page.routePath, schemaName: page.heroTitle, title: copy?.title ?? 'Play PS1 Games Online Free | No Download | POKOPIE' }
+  return { breadcrumbName: locale === 'es' || locale === 'pt' ? copy?.heroTitle ?? '' : locale === 'ko' ? 'PS1 게임' : locale === 'zh-TW' ? 'PS1 遊戲' : locale === 'ja' ? 'PS1 ゲーム' : locale === 'en' ? 'PS1 Games' : 'PS1 游戏', description: copy?.description ?? 'Explore PS1 RPGs, racing, action and fighting games on POKOPIE. Read browser controls, compatibility notes and game details before playing supported titles.', page, platform: 'PlayStation 1', routePath: page.routePath, schemaName: page.heroTitle, title: copy?.title ?? 'Play PS1 Games Online Free | No Download | POKOPIE' }
 }
 
 export function Ps1GamesPage({

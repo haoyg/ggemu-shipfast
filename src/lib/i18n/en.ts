@@ -161,7 +161,7 @@ export const enMessages = {
   },
   live: {
     title: 'Game Live',
-    description: 'Discover classic games and rooms that are live right now.',
+    description: 'Browse live retro game streams and active rooms on POKOPIE. Open a room to watch the broadcast, see the game being played and explore more live sessions.',
     subtitle: 'See which classic games people are streaming and find your next game.',
     eyebrow: 'Live Now',
     empty: 'No games are live right now',

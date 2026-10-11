@@ -512,6 +512,15 @@ export function getTargetedGameSeo(game: PublicGame, locale: Locale) {
 }
 
 export function getGameSearchSeo(game: PublicGame, locale: Locale) {
+  if (locale === 'zh-CN' && normalizeGameSlug(game) === murdokuTargetSlug) {
+    return {
+      heading: 'Murdoku 在线玩',
+      title: 'Murdoku 在线玩｜数独式凶案推理游戏｜POKOPIE',
+      description: `Murdoku 将数独式逻辑推理与凶案调查结合：根据线索安排嫌疑人的位置，逐步找出凶手。本页提供浏览器游玩入口${game.play_device === 1 ? '；站内嵌入版本仅支持电脑，手机玩家可前往官方游玩页面。' : '。启动前请确认播放器的设备支持和操作方式。'}`,
+      keywords: 'Murdoku，Murdoku 在线玩，凶案推理游戏，数独逻辑游戏',
+    }
+  }
+
   if (locale !== 'en') {
     return getTargetedGameSeo(game, locale)
   }

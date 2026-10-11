@@ -84,3 +84,14 @@ describe('reviewed English game content', () => {
     }
   })
 })
+
+
+it('describes Chinese Murdoku accurately without enabling another inline player', () => {
+  const game = { url_slug: 'murdoku-html5-2026', play_device: 1 }
+  const seo = getGameSearchSeo(game, 'zh-CN')!
+  expect(seo.description).toContain('数独式逻辑推理')
+  expect(seo.description).toContain('仅支持电脑')
+  expect(seo.description).not.toContain('经典复古')
+  expect(getGameSearchSeo({ ...game, play_device: undefined }, 'zh-CN')?.description).not.toContain('仅支持电脑')
+  expect(getTargetedGameSeo(game, 'zh-CN')).toBeNull()
+})

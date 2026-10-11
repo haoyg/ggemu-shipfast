@@ -15,7 +15,7 @@ export const Route = createFileRoute('/$locale/guides')({
   head: ({ loaderData, params }) => ({
     meta: [
       { title: 'Retro Game Guides | POKOPIE' },
-      { name: 'description', content: 'Practical guides for choosing platforms, controllers, saves, and browser retro games.' },
+      { name: 'description', content: 'Read POKOPIE guides to retro game platforms, keyboard and controller setup, browser saves and compatibility. Compare options before choosing your next game.' },
     ],
     links: loaderData ? [{ rel: 'canonical', href: `${loaderData}/${params.locale}/guides` }] : undefined,
   }),
