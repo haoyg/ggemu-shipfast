@@ -269,7 +269,7 @@ function PokiControlTiles({
     setOpenMenu(null)
 
     const nextPath = location.pathname.replace(
-      /^\/(zh-CN|zh-TW|en|ja|ko|es|pt)(?=\/|$)/,
+      /^\/(zh-CN|zh-TW|en|ja|ko|es|pt|fr|de)(?=\/|$)/,
       `/${nextLocale}`,
     )
 

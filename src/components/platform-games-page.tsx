@@ -1,3 +1,4 @@
+import { getEuropeanCollectionCopy } from '#/lib/i18n/european-collection'
 import { getRomanceCollectionCopy } from '#/lib/i18n/collection-copy'
 import { chineseCollectionEditorials } from '#/lib/i18n/zh-CN-collection-editorial'
 import {
@@ -603,7 +604,7 @@ export function getLocalizedPlatformCollection(
     return collection
   }
 
-  const copy = localizedPlatformCopy[locale][key]
+  const copy = locale === 'fr' || locale === 'de' ? getEuropeanCollectionCopy(locale, collection.platform) : localizedPlatformCopy[locale][key]
   const routePath = `/${locale}/${localizedPlatformSlugs[key]}`
 
   return {

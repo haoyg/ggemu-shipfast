@@ -17,6 +17,7 @@ import {
 } from '#/lib/ggemu'
 import {
   getI18n,
+  getHomeFaqs,
   getLocalizedBlogPostExcerpt,
   normalizeLocale,
 } from '#/lib/i18n'
@@ -52,7 +53,7 @@ export const Route = createFileRoute('/$locale/blog')({
   head: ({ loaderData, params }) => {
     const locale = normalizeLocale(params.locale)
     const t = getI18n(locale).blog
-    const faqs = locale === 'es' ? esBlogFaqs : locale === 'pt' ? ptBlogFaqs : locale === 'ko' ? koBlogFaqs : locale === 'zh-TW' ? zhTwBlogFaqs : locale === 'zh-CN' ? zhCnBlogFaqs : locale === 'ja' ? jaBlogFaqs : enBlogFaqs
+    const faqs = locale === 'fr' || locale === 'de' ? getHomeFaqs(locale) : locale === 'es' ? esBlogFaqs : locale === 'pt' ? ptBlogFaqs : locale === 'ko' ? koBlogFaqs : locale === 'zh-TW' ? zhTwBlogFaqs : locale === 'zh-CN' ? zhCnBlogFaqs : locale === 'ja' ? jaBlogFaqs : enBlogFaqs
     const seoOrigin = loaderData?.seoOrigin
     const canonicalUrl = seoOrigin
       ? `${seoOrigin}/${locale}/blog`

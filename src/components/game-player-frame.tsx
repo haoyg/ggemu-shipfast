@@ -3,6 +3,9 @@ import { n64TouchControls } from '#/lib/n64-touch-controls'
 import { trackEvent } from '#/lib/analytics'
 
 const copy = {
+  fr: {"loading": "Chargement du lecteur…", "loaded": "Lecteur ouvert. Consultez la progression dans le jeu.", "ready": "Lecteur chargé.", "guide": "Sélectionnez Jouer, puis Démarrer dans le lecteur.", "slow": "Le chargement prend du temps. Rechargez ou choisissez un autre jeu.", "retry": "Recharger le lecteur", "browse": "Voir les jeux", "fullscreen": "Plein écran", "exitFullscreen": "Quitter le plein écran", "backToGame": "Informations sur le jeu", "controlsLabel": "Commandes", "controls": "Les commandes et sauvegardes sont dans le menu du lecteur.", "error": "Impossible de charger le lecteur. Réessayez.", "unsupported": "Ce jeu n’est pas disponible dans le navigateur."},
+  de: {"loading": "Spieler wird geladen…", "loaded": "Spieler geöffnet. Der Fortschritt wird im Spiel angezeigt.", "ready": "Spieler geladen.", "guide": "Wähle Jetzt spielen und dann Start im Spieler.", "slow": "Das Laden dauert länger. Lade neu oder wähle ein anderes Spiel.", "retry": "Spieler neu laden", "browse": "Spiele ansehen", "fullscreen": "Vollbild", "exitFullscreen": "Vollbild verlassen", "backToGame": "Spielinformationen", "controlsLabel": "Steuerung", "controls": "Steuerung und Speicheroptionen findest du im Spielermenü.", "error": "Spieler konnte nicht geladen werden. Versuche es erneut.", "unsupported": "Dieses Spiel ist derzeit nicht im Browser verfügbar."},
+
   es: {
     loading: "Cargando el reproductor…",
     loaded: "Reproductor abierto. Consulta el progreso dentro del juego.",

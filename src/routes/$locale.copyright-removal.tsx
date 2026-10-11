@@ -1,4 +1,4 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute, redirect } from '@tanstack/react-router'
 
 import { SiteLayout } from '#/components/site-layout'
 import type { Locale } from '#/lib/ggemu'
@@ -18,7 +18,7 @@ type RemovalCopy = {
   contactLabel: string
 }
 
-const removalCopies: Record<Locale, RemovalCopy> = {
+const removalCopies: Record<Exclude<Locale, 'fr' | 'de'>, RemovalCopy> = {
   es: {
   "eyebrow": "Información legal",
   "title": "Revisión de derechos y retirada de contenido",
@@ -106,10 +106,13 @@ const removalCopies: Record<Locale, RemovalCopy> = {
 }
 
 export const Route = createFileRoute('/$locale/copyright-removal')({
+  beforeLoad: ({ params }) => {
+    if (params.locale === 'fr' || params.locale === 'de') throw redirect({ href: '/en/copyright-removal', statusCode: 302 })
+  },
   loader: () => getSeoOrigin(),
   head: ({ loaderData, params }) => {
     const locale = normalizeLocale(params.locale)
-    const copy = removalCopies[locale]
+    const copy = removalCopies[locale === 'fr' || locale === 'de' ? 'en' : locale]
     return {
       links: loaderData ? getLocalizedSeoLinks({ locale, origin: loaderData, path: '/copyright-removal' }) : undefined,
       meta: [
@@ -124,7 +127,7 @@ export const Route = createFileRoute('/$locale/copyright-removal')({
 function CopyrightRemovalPage() {
   const { locale } = Route.useParams()
   const lang = normalizeLocale(locale)
-  const copy = removalCopies[lang]
+  const copy = removalCopies[lang === 'fr' || lang === 'de' ? 'en' : lang]
   const subject = encodeURIComponent('POKOPIE copyright review / removal notice')
 
   return (

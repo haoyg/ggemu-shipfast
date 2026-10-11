@@ -6,6 +6,8 @@ import type { Locale } from '#/lib/ggemu'
 import { getI18n } from '#/lib/i18n'
 
 const titles: Record<Locale, string> = {
+  fr: 'Impossible de charger ce jeu pour le moment',
+  de: 'Spiel kann derzeit nicht geladen werden',
   'zh-CN': '暂时无法加载游戏',
   'zh-TW': '暫時無法載入遊戲',
   en: 'Unable to load this game right now',

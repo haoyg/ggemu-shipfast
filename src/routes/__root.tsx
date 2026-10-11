@@ -223,6 +223,8 @@ function PageErrorComponent() {
 }
 
 function getPageErrorMessages(locale: string) {
+  if (locale === 'fr') return { retry: 'Réessayer', browse: 'Voir les jeux', title: 'Page temporairement indisponible', description: 'Vérifiez votre connexion ou réessayez plus tard.' }
+  if (locale === 'de') return { retry: 'Erneut versuchen', browse: 'Spiele ansehen', title: 'Seite vorübergehend nicht verfügbar', description: 'Prüfe deine Verbindung oder versuche es später erneut.' }
   if (locale === 'es') return { retry: 'Reintentar', browse: 'Ver juegos', title: 'No se pudo cargar la página', description: 'La conexión o el servicio de juegos puede no estar disponible. Inténtalo de nuevo o elige otro juego.' }
   if (locale === 'pt') return { retry: 'Tentar novamente', browse: 'Ver jogos', title: 'Não foi possível carregar a página', description: 'A conexão ou o serviço de jogos pode estar indisponível. Tente novamente ou escolha outro jogo.' }
   if (locale === 'ko') {

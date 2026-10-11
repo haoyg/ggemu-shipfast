@@ -1,3 +1,4 @@
+import { getI18n } from '#/lib/i18n'
 import { Link } from '@tanstack/react-router'
 
 import {
@@ -64,7 +65,7 @@ export function GameCollectionPage({
     <SiteLayout
       locale={locale}
       localePaths={Object.fromEntries(
-        (['zh-CN', 'zh-TW', 'en', 'ja', 'ko', 'es', 'pt'] as const).map((nextLocale) => {
+        (['zh-CN', 'zh-TW', 'en', 'ja', 'ko', 'es', 'pt', 'fr', 'de'] as const).map((nextLocale) => {
           const suffix = config.routePath.split('/').slice(2).join('/')
           const hasLocalizedRoute = /^(arcade|gba|n64|nes|ps1|sega-genesis|snes)-games$/.test(suffix)
           return [nextLocale, hasLocalizedRoute || nextLocale === locale ? `/${nextLocale}/${suffix}` : `/${nextLocale}`]
@@ -104,7 +105,7 @@ export function GameCollectionPage({
           <h2 className="arcade-rule-title arcade-section-title text-3xl font-semibold text-white">{config.libraryTitle}</h2>
           <p className="mt-2 max-w-2xl text-sm leading-6 text-white/60">
             {config.libraryDescription(total)}
-            {pages > 1 ? locale === 'zh-CN' ? ` 第 ${page} / ${pages} 页。` : locale === 'es' || locale === 'pt' ? ` Página ${page} de ${pages}.` : ` Page ${page} of ${pages}.` : ''}
+            {pages > 1 ? locale === 'fr' ? ` Page ${page} sur ${pages}.` : locale === 'de' ? ` Seite ${page} von ${pages}.` : locale === 'zh-CN' ? ` 第 ${page} / ${pages} 页。` : locale === 'es' || locale === 'pt' ? ` Página ${page} de ${pages}.` : ` Page ${page} of ${pages}.` : ''}
           </p>
 
           {libraryGames.length > 0 ? (
@@ -149,9 +150,9 @@ export function GameCollectionPage({
             </div>
             {config.relatedGuide ? (
               <aside className="mt-7 rounded-xl border border-primary/25 bg-primary/10 p-5">
-                <h3 className="font-bold text-white">{locale === 'es' ? 'Guía relacionada (inglés)' : locale === 'pt' ? 'Guia relacionado (inglês)' : 'Related guide'}</h3>
-                <p className="mt-2 text-sm leading-6 text-white/70">{locale === 'es' ? 'Lee la guía para obtener más información sobre esta plataforma.' : locale === 'pt' ? 'Leia o guia para saber mais sobre esta plataforma.' : config.relatedGuide.description}</p>
-                <a className="link link-primary mt-3 inline-block" href={config.relatedGuide.href}>{locale === 'es' ? 'Leer guía en inglés' : locale === 'pt' ? 'Ler guia em inglês' : config.relatedGuide.label}</a>
+                <h3 className="font-bold text-white">{locale === 'fr' ? 'Guide associé (anglais)' : locale === 'de' ? 'Weiterführende Anleitung (Englisch)' : locale === 'es' ? 'Guía relacionada (inglés)' : locale === 'pt' ? 'Guia relacionado (inglês)' : 'Related guide'}</h3>
+                <p className="mt-2 text-sm leading-6 text-white/70">{locale === 'fr' ? 'Consultez le guide en anglais pour en savoir plus.' : locale === 'de' ? 'Lies die englische Anleitung für weitere Informationen.' : locale === 'es' ? 'Lee la guía para obtener más información sobre esta plataforma.' : locale === 'pt' ? 'Leia o guia para saber mais sobre esta plataforma.' : config.relatedGuide.description}</p>
+                <a className="link link-primary mt-3 inline-block" href={config.relatedGuide.href}>{locale === 'fr' ? 'Lire le guide en anglais' : locale === 'de' ? 'Englische Anleitung lesen' : locale === 'es' ? 'Leer guía en inglés' : locale === 'pt' ? 'Ler guia em inglês' : config.relatedGuide.label}</a>
               </aside>
             ) : null}
           </article>
@@ -190,7 +191,7 @@ export function GameCollectionPage({
 
       <section className="arcade-section arcade-editorial border-t text-neutral-content">
         <div className="mx-auto max-w-4xl px-4 py-16 sm:px-6 lg:px-8">
-          <h2 className="arcade-section-title text-center text-3xl font-black text-white">{locale === 'zh-CN' ? '常见问题' : locale === 'es' ? 'Preguntas frecuentes' : locale === 'pt' ? 'Perguntas frequentes' : 'Frequently Asked Questions'}</h2>
+          <h2 className="arcade-section-title text-center text-3xl font-black text-white">{locale === 'fr' || locale === 'de' ? getI18n(locale).detail.faq : locale === 'zh-CN' ? '常见问题' : locale === 'es' ? 'Preguntas frecuentes' : locale === 'pt' ? 'Perguntas frequentes' : 'Frequently Asked Questions'}</h2>
           <div className="mt-8 divide-y divide-white/10 border-y border-white/10">
             {config.faqs.map((faq) => (
               <details className="group py-1" key={faq.question}>
@@ -222,7 +223,7 @@ function CollectionPagination({
   const pageNumbers = getVisiblePageNumbers(currentPage, pages)
 
   return (
-    <nav aria-label={locale === 'zh-CN' ? '游戏库分页' : locale === 'es' ? 'Paginación de juegos' : locale === 'pt' ? 'Paginação de jogos' : 'Game library pagination'} className="mt-10 flex flex-wrap items-center justify-center gap-2">
+    <nav aria-label={locale === 'fr' || locale === 'de' ? getI18n(locale).home.page : locale === 'zh-CN' ? '游戏库分页' : locale === 'es' ? 'Paginación de juegos' : locale === 'pt' ? 'Paginação de jogos' : 'Game library pagination'} className="mt-10 flex flex-wrap items-center justify-center gap-2">
       {currentPage > 1 ? (
         <a
           className="btn btn-sm border-white/15 bg-white/5 text-white hover:bg-white/10"
@@ -230,7 +231,7 @@ function CollectionPagination({
           rel="prev"
         >
           <i aria-hidden="true" className="ri-arrow-left-line" />
-          {locale === 'zh-CN' ? '上一页' : locale === 'es' ? 'Anterior' : locale === 'pt' ? 'Anterior' : 'Previous'}
+          {locale === 'fr' || locale === 'de' ? getI18n(locale).home.previous : locale === 'zh-CN' ? '上一页' : locale === 'es' ? 'Anterior' : locale === 'pt' ? 'Anterior' : 'Previous'}
         </a>
       ) : null}
 
@@ -263,7 +264,7 @@ function CollectionPagination({
           href={getPlatformCollectionPagePath(routePath, currentPage + 1)}
           rel="next"
         >
-          {locale === 'zh-CN' ? '下一页' : locale === 'es' ? 'Siguiente' : locale === 'pt' ? 'Próxima' : 'Next'}
+          {locale === 'fr' || locale === 'de' ? getI18n(locale).home.next : locale === 'zh-CN' ? '下一页' : locale === 'es' ? 'Siguiente' : locale === 'pt' ? 'Próxima' : 'Next'}
           <i aria-hidden="true" className="ri-arrow-right-line" />
         </a>
       ) : null}

@@ -4,8 +4,14 @@ import { getRequestUrl } from '@tanstack/react-start/server'
 import type { Locale } from '#/lib/ggemu'
 import { normalizeLocale } from '#/lib/i18n'
 
-export const seoLocales = ['zh-CN', 'zh-TW', 'en', 'ja', 'ko', 'es', 'pt'] as const satisfies ReadonlyArray<Locale>
+export const seoLocales = ['zh-CN', 'zh-TW', 'en', 'ja', 'ko', 'es', 'pt', 'fr', 'de'] as const satisfies ReadonlyArray<Locale>
 export const defaultSeoLocale = 'en' satisfies Locale
+
+export function getAvailableSeoLocales(path: string, locales: ReadonlyArray<Locale> = seoLocales) {
+  const englishFallback = ['/privacy-policy', '/terms-of-service', '/copyright-removal', '/ps1-compatibility'].includes(path)
+  return englishFallback ? locales.filter(locale => locale !== 'fr' && locale !== 'de') : locales
+}
+
 
 export const getSeoOrigin = createServerFn({ method: 'GET' }).handler(() => {
   return getRequestUrl({ xForwardedHost: true }).origin
@@ -66,7 +72,7 @@ function getLocalizedAlternateLinks(
   alternateLocales: ReadonlyArray<Locale>,
 ) {
   const availableLocales = Array.from(
-    new Set([...alternateLocales, currentLocale]),
+    new Set(getAvailableSeoLocales(path, [...alternateLocales, currentLocale])),
   )
   const xDefaultLocale = availableLocales.includes(defaultSeoLocale)
     ? defaultSeoLocale

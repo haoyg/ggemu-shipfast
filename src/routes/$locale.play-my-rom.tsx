@@ -21,6 +21,8 @@ type PlayMyRomSearch = {
 }
 
 const playMyRomCopies: Record<Locale, { title: string; description: string }> = {
+  fr: { title: 'Jouer à ma ROM', description: 'Ouvrez votre propre fichier ROM dans le lecteur intégré de POKOPIE.' },
+  de: { title: 'Meine ROM spielen', description: 'Öffne deine eigene ROM-Datei im integrierten Spieler von POKOPIE.' },
   es: {
   "title": "Jugar mi ROM",
   "description": "Carga y juega tu propio archivo ROM en el reproductor integrado de POKOPIE."

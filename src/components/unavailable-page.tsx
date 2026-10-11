@@ -43,6 +43,8 @@ export function getUnavailableCopy(
   locale: Locale,
   type: UnavailableContentType,
 ) {
+  if (locale === 'fr') return { action: 'Voir les jeux', title: 'Contenu indisponible', description: 'Ce contenu est indisponible ou a été retiré. Découvrez d’autres jeux sur POKOPIE.' }
+  if (locale === 'de') return { action: 'Spiele ansehen', title: 'Inhalt nicht verfügbar', description: 'Dieser Inhalt ist nicht verfügbar oder wurde entfernt. Entdecke weitere Spiele auf POKOPIE.' }
   if (locale === 'es' || locale === 'pt') {
     const spanish = locale === 'es'
     return { action: spanish ? 'Volver a los juegos' : 'Voltar aos jogos', title: type === 'game' ? (spanish ? 'Juego no disponible' : 'Jogo indisponível') : (spanish ? 'Artículo no disponible' : 'Artigo indisponível'), description: spanish ? 'Este contenido no está disponible o se ha retirado. Explora otros juegos y guías en POKOPIE.' : 'Este conteúdo está indisponível ou foi removido. Explore outros jogos e guias no POKOPIE.' }

@@ -89,7 +89,7 @@ export function SiteLayout({
   function handleLocaleChange(nextValue: string) {
     const nextLocale = normalizeLocale(nextValue)
     const nextPath = localePaths?.[nextLocale] ??
-      location.pathname.replace(/^\/(zh-CN|zh-TW|en|ja|ko|es|pt)(?=\/|$)/, `/${nextLocale}`)
+      location.pathname.replace(/^\/(zh-CN|zh-TW|en|ja|ko|es|pt|fr|de)(?=\/|$)/, `/${nextLocale}`)
 
     window.location.assign(nextPath)
   }
@@ -214,10 +214,12 @@ export function SiteLayout({
                           data-theme={nextTheme}
                         />
                         <span>{nextTheme === 'light' ? ({
+  fr: "Clair", de: "Hell",
   es: "Claro",
   pt: "Claro",
   'zh-TW': '淺色',
   ko: '밝게', en: 'Light', 'zh-CN': '浅色', ja: 'ライト' }[locale]) : ({
+  fr: "Sombre", de: "Dunkel",
   es: "Oscuro",
   pt: "Escuro",
   'zh-TW': '深色',
@@ -246,14 +248,17 @@ export function SiteLayout({
               >
                 <i className="ri-global-line" />
                 <span>{({
+  fr: "FR", de: "DE",
   es: "ES",
   pt: "PT", 'zh-CN': '简中', 'zh-TW': '繁中', en: 'EN', ja: '日本語', ko: '한국어' })[locale]}</span>
               </summary>
               <ul className="menu dropdown-content z-50 mt-3 w-36 rounded-box border border-base-300 bg-base-100 p-2 shadow-xl">
-                {(['en', 'zh-CN', 'zh-TW', 'ja', 'ko', 'es', 'pt'] as const).map((nextLocale) => (
+                {(['en', 'zh-CN', 'zh-TW', 'ja', 'ko', 'es', 'pt', 'fr', 'de'] as const).map((nextLocale) => (
                   <li key={nextLocale}>
                     <button className={locale === nextLocale ? 'active' : ''} onClick={() => handleLocaleChange(nextLocale)} type="button">
                       {({
+  fr: "Français",
+  de: "Deutsch",
   es: "Español",
   pt: "Português", en: 'English', 'zh-CN': '简体中文', 'zh-TW': '繁體中文', ja: '日本語', ko: '한국어' })[nextLocale]}
                     </button>

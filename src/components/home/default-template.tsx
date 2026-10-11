@@ -171,11 +171,11 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
     featureSections,
     [...topGames, ...newGames],
   )
-  const resultsLabel = lang === 'es' ? 'Resultados de búsqueda' : lang === 'pt' ? 'Resultados da busca' : lang === 'ko' ? '검색 결과' : lang === 'zh-TW' ? '搜索結果' : lang === 'zh-CN' ? '搜索结果' : lang === 'ja' ? '検索結果' : 'Search results'
-  const viewAllLabel = lang === 'es' ? 'Ver todo' : lang === 'pt' ? 'Ver tudo' : lang === 'ko' ? '모두 보기' : lang === 'zh-TW' ? '查看全部' : lang === 'zh-CN' ? '查看全部' : lang === 'ja' ? 'すべて見る' : 'View all'
-  const loadMoreLabel = lang === 'es' ? 'Ver más juegos' : lang === 'pt' ? 'Ver mais jogos' : lang === 'ko' ? '게임 더 보기' : lang === 'zh-TW' ? '加載更多遊戲' : lang === 'zh-CN' ? '加载更多游戏' : lang === 'ja' ? 'ゲームをもっと見る' : 'Load more games'
-  const recommendationLabel = lang === 'es' ? 'Clásicos primero' : lang === 'pt' ? 'Clássicos primeiro' : lang === 'ko' ? '클래식 게임 우선 추천' : lang === 'zh-TW' ? '經典遊戲優先推薦' : lang === 'zh-CN' ? '经典游戏优先推荐' : lang === 'ja' ? 'クラシックゲームを優先表示' : 'Classic games first'
-  const continueLabel = lang === 'es' ? 'Continuar jugando' : lang === 'pt' ? 'Continuar jogando' : lang === 'ko' ? '계속 플레이' : lang === 'zh-TW' ? '繼續遊玩' : lang === 'zh-CN' ? '继续游玩' : lang === 'ja' ? '続けてプレイ' : 'Continue playing'
+  const resultsLabel = lang === 'fr' ? 'Résultats de recherche' : lang === 'de' ? 'Suchergebnisse' : lang === 'es' ? 'Resultados de búsqueda' : lang === 'pt' ? 'Resultados da busca' : lang === 'ko' ? '검색 결과' : lang === 'zh-TW' ? '搜索結果' : lang === 'zh-CN' ? '搜索结果' : lang === 'ja' ? '検索結果' : 'Search results'
+  const viewAllLabel = lang === 'fr' ? 'Tout voir' : lang === 'de' ? 'Alle ansehen' : lang === 'es' ? 'Ver todo' : lang === 'pt' ? 'Ver tudo' : lang === 'ko' ? '모두 보기' : lang === 'zh-TW' ? '查看全部' : lang === 'zh-CN' ? '查看全部' : lang === 'ja' ? 'すべて見る' : 'View all'
+  const loadMoreLabel = lang === 'fr' ? 'Voir plus de jeux' : lang === 'de' ? 'Mehr Spiele laden' : lang === 'es' ? 'Ver más juegos' : lang === 'pt' ? 'Ver mais jogos' : lang === 'ko' ? '게임 더 보기' : lang === 'zh-TW' ? '加載更多遊戲' : lang === 'zh-CN' ? '加载更多游戏' : lang === 'ja' ? 'ゲームをもっと見る' : 'Load more games'
+  const recommendationLabel = lang === 'fr' ? 'Les classiques en priorité' : lang === 'de' ? 'Klassiker zuerst' : lang === 'es' ? 'Clásicos primero' : lang === 'pt' ? 'Clássicos primeiro' : lang === 'ko' ? '클래식 게임 우선 추천' : lang === 'zh-TW' ? '經典遊戲優先推薦' : lang === 'zh-CN' ? '经典游戏优先推荐' : lang === 'ja' ? 'クラシックゲームを優先表示' : 'Classic games first'
+  const continueLabel = lang === 'fr' ? 'Continuer à jouer' : lang === 'de' ? 'Weiterspielen' : lang === 'es' ? 'Continuar jugando' : lang === 'pt' ? 'Continuar jogando' : lang === 'ko' ? '계속 플레이' : lang === 'zh-TW' ? '繼續遊玩' : lang === 'zh-CN' ? '继续游玩' : lang === 'ja' ? '続けてプレイ' : 'Continue playing'
   const platformCards = platformChips.slice(0, 7)
   const selectedPlatform = platformCards.find((platform) => platform.name === lobbyPlatform)
   const localPlatformGames = lobbyPlatform
@@ -496,10 +496,10 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
                   </h2>
                   <div className="flex items-center gap-3">
                     <span className="text-xs text-white/45">
-                      {recentGames.length} {lang === 'es' ? 'juegos' : lang === 'pt' ? 'jogos' : lang === 'ko' ? '개 게임' : lang === 'zh-TW' ? '個遊戲' : lang === 'zh-CN' ? '个游戏' : lang === 'ja' ? 'ゲーム' : 'games'}
+                      {recentGames.length} {lang === 'fr' ? 'jeux' : lang === 'de' ? 'Spiele' : lang === 'es' ? 'juegos' : lang === 'pt' ? 'jogos' : lang === 'ko' ? '개 게임' : lang === 'zh-TW' ? '個遊戲' : lang === 'zh-CN' ? '个游戏' : lang === 'ja' ? 'ゲーム' : 'games'}
                     </span>
                     <button className="text-xs font-semibold text-white/55 underline underline-offset-2 hover:text-white" onClick={clearRecentGames} type="button">
-                      {lang === 'es' ? 'Borrar historial' : lang === 'pt' ? 'Limpar histórico' : lang === 'ko' ? '기록 지우기' : lang === 'zh-TW' ? '清除記錄' : lang === 'zh-CN' ? '清除记录' : lang === 'ja' ? '履歴を消去' : 'Clear history'}
+                      {lang === 'fr' ? 'Effacer l’historique' : lang === 'de' ? 'Verlauf löschen' : lang === 'es' ? 'Borrar historial' : lang === 'pt' ? 'Limpar histórico' : lang === 'ko' ? '기록 지우기' : lang === 'zh-TW' ? '清除記錄' : lang === 'zh-CN' ? '清除记录' : lang === 'ja' ? '履歴を消去' : 'Clear history'}
                     </button>
                   </div>
                 </div>
@@ -746,6 +746,9 @@ function HeroPreviewVideo({ src }: { src?: string }) {
 }
 
 function getArcadeLobbyCopy(lang: Locale) {
+  if (lang === 'fr') return { chooseGame: 'Choisir le jeu à la une', featured: 'À la une', game: 'Jeu', jumpBackIn: 'Continuer à découvrir', nextGame: 'Jeu suivant', playNow: 'Jouer', pressPlay: 'Lancer le jeu', previousGame: 'Jeu précédent', trending: 'Populaires' }
+  if (lang === 'de') return { chooseGame: 'Empfohlenes Spiel auswählen', featured: 'Empfohlen', game: 'Spiel', jumpBackIn: 'Weiter entdecken', nextGame: 'Nächstes Spiel', playNow: 'Jetzt spielen', pressPlay: 'Spiel starten', previousGame: 'Vorheriges Spiel', trending: 'Beliebt' }
+
   if (lang === 'es') return { chooseGame: 'Elegir juego destacado', featured: 'Juego destacado', game: 'Juego', jumpBackIn: 'Sigue explorando', nextGame: 'Siguiente juego', playNow: 'Jugar ahora', pressPlay: 'Empieza a jugar', previousGame: 'Juego anterior', trending: 'Populares' }
   if (lang === 'pt') return { chooseGame: 'Escolher jogo em destaque', featured: 'Jogo em destaque', game: 'Jogo', jumpBackIn: 'Continue explorando', nextGame: 'Próximo jogo', playNow: 'Jogar agora', pressPlay: 'Comece a jogar', previousGame: 'Jogo anterior', trending: 'Populares' }
 
@@ -1249,6 +1252,7 @@ function getPlatformCollectionLinkLabel(
   if (lang === 'zh-TW') return `${viewAllLabel} ${shortLabel} 遊戲`
 
   if (lang === 'zh-CN') return `${viewAllLabel} ${shortLabel} 游戏`
+  if (lang === 'fr' || lang === 'de') return `${viewAllLabel}: ${shortLabel}`
   if (lang === 'es') return `${viewAllLabel} los juegos ${shortLabel}`
   if (lang === 'pt') return `${viewAllLabel} os jogos ${shortLabel}`
   if (lang === 'ko') return `${shortLabel} 게임 ${viewAllLabel}`

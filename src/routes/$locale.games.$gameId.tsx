@@ -281,7 +281,7 @@ function toOpenGraphLocale(locale: Locale) {
     return 'zh_CN'
   }
 
-  return locale === 'ko' ? 'ko_KR' : locale === 'ja' ? 'ja_JP' : 'en_US'
+  return locale === 'fr' ? 'fr_FR' : locale === 'de' ? 'de_DE' : locale === 'ko' ? 'ko_KR' : locale === 'ja' ? 'ja_JP' : 'en_US'
 }
 
 function serializeJsonLd(data: unknown) {

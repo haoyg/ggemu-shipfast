@@ -165,7 +165,7 @@ const capabilityDefinitions: Array<CapabilityDefinition> = [
   },
 ]
 
-const localizedCapabilities: Record<Locale, Record<string, { label: string; description: string; requirement: string }>> = {
+const localizedCapabilities: Record<Exclude<Locale, 'fr' | 'de'>, Record<string, { label: string; description: string; requirement: string }>> = {
   es: {
   "wasm": {
     "label": "WebAssembly",
@@ -276,9 +276,9 @@ export const Route = createFileRoute('/en/ps1-compatibility')({
 export function buildPs1CompatibilityHead(origin: string | undefined, locale: Locale) {
     const path = `/${locale}/ps1-compatibility`
     const canonicalUrl = origin ? `${origin}${path}` : path
-    const copy = compatibilityCopy[locale]
+    const copy = compatibilityCopy[locale === 'fr' || locale === 'de' ? 'en' : locale]
     return {
-      links: getSeoLinksFromCanonical(canonicalUrl, ['zh-CN', 'zh-TW', 'en', 'ja', 'ko', 'es', 'pt']),
+      links: getSeoLinksFromCanonical(canonicalUrl, ['zh-CN', 'zh-TW', 'en', 'ja', 'ko', 'es', 'pt', 'fr', 'de']),
       meta: [
         { title: copy.title },
         { name: 'description', content: copy.description },
@@ -299,9 +299,9 @@ export function buildPs1CompatibilityHead(origin: string | undefined, locale: Lo
 }
 
 export function Ps1CompatibilityPage({ locale = 'en' }: { locale?: Locale }) {
-  const copy = compatibilityCopy[locale]
+  const copy = compatibilityCopy[locale === 'fr' || locale === 'de' ? 'en' : locale]
   const details = getCompatibilityDetails(locale)
-  const capabilitiesCopy = localizedCapabilities[locale]
+  const capabilitiesCopy = localizedCapabilities[locale === 'fr' || locale === 'de' ? 'en' : locale]
   const [capabilities, setCapabilities] = useState<BrowserCapabilityFlags | null>(null)
 
   function runCheck() {

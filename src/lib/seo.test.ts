@@ -1,3 +1,4 @@
+import { getAvailableSeoLocales } from './seo'
 import { describe, expect, it } from 'vitest'
 
 import {
@@ -94,4 +95,12 @@ describe('Spanish and Portuguese alternate links', () => {
       expect(links).toContainEqual({ rel: 'alternate', hrefLang: alternate, href: `https://pokopie.com/${alternate}/games/contra-nes-1988` })
     }
   })
+})
+
+
+it('advertises new languages only on routes with translated content', () => {
+  expect(getAvailableSeoLocales('/games/test')).toContain('fr')
+  expect(getAvailableSeoLocales('/')).toContain('de')
+  expect(getAvailableSeoLocales('/privacy-policy')).not.toContain('fr')
+  expect(getAvailableSeoLocales('/ps1-compatibility')).not.toContain('de')
 })

@@ -81,7 +81,7 @@ export function buildPlatformCollectionHead(
 ) {
   const pagePath = getPlatformCollectionPagePath(collection.routePath, page)
   const canonicalUrl = `${loaderData?.origin ?? ''}${pagePath}`
-  const pageLabel = locale === 'zh-CN' ? `第 ${page} 页` : `${locale === 'es' || locale === 'pt' ? 'Página' : 'Page'} ${page}`
+  const pageLabel = locale === 'fr' ? `Page ${page}` : locale === 'de' ? `Seite ${page}` : locale === 'zh-CN' ? `第 ${page} 页` : `${locale === 'es' || locale === 'pt' ? 'Página' : 'Page'} ${page}`
   const platformSlug = collection.routePath.split('/')[2]
   const hasPaginationRoute = locale === 'en' || platformSlug === 'arcade-games' || Boolean(getPlatformCollectionKey(platformSlug))
   const title = page > 1
@@ -92,7 +92,7 @@ export function buildPlatformCollectionHead(
     : collection.description
   const links = loaderData?.origin
     ? [
-        ...getSeoLinksFromCanonical(canonicalUrl, page > 1 ? [locale] : ['zh-CN', 'zh-TW', 'en', 'ja', 'ko', 'es', 'pt']),
+        ...getSeoLinksFromCanonical(canonicalUrl, page > 1 ? [locale] : ['zh-CN', 'zh-TW', 'en', 'ja', 'ko', 'es', 'pt', 'fr', 'de']),
         ...(hasPaginationRoute && page > 1
           ? [{ rel: 'prev', href: `${loaderData.origin}${getPlatformCollectionPagePath(collection.routePath, page - 1)}` }]
           : []),

@@ -50,6 +50,8 @@ type AboutCopy = {
 
 function getAboutCopies(siteName: string): Record<Locale, AboutCopy> {
   return {
+  fr: { eyebrow: 'À propos', title: `À propos de ${siteName}`, description: 'Un catalogue de jeux dans le navigateur.', keywords: 'jeux rétro, navigateur', intro: 'Découvrez les jeux classiques et les titres jouables dans votre navigateur.', platformTitle: 'Plateformes', platformBody: platforms => `Parcourez ces plateformes : ${platforms}. La compatibilité varie selon le jeu.`, sections: [{ title: 'Comment jouer', body: 'Ouvrez une fiche, consultez les commandes et lancez un titre compatible. La langue du jeu dépend de sa version.' }] },
+  de: { eyebrow: 'Über uns', title: `Über ${siteName}`, description: 'Ein Spielekatalog für den Browser.', keywords: 'Retrospiele, Browser', intro: 'Entdecke klassische Spiele und Titel für deinen Browser.', platformTitle: 'Plattformen', platformBody: platforms => `Durchsuche diese Plattformen: ${platforms}. Die Kompatibilität variiert je nach Spiel.`, sections: [{ title: 'So spielst du', body: 'Öffne eine Spielseite, lies die Steuerung und starte einen unterstützten Titel. Die Spielsprache hängt von der Version ab.' }] },
   es: {
   "eyebrow": "Acerca de POKOPIE",
   "title": "Acerca de POKOPIE",

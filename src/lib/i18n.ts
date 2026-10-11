@@ -1,3 +1,5 @@
+import { frMessages, frHomeFaqs } from './i18n/fr'
+import { deMessages, deHomeFaqs } from './i18n/de'
 import { esMessages, esHomeFaqs } from './i18n/es'
 import { ptMessages, ptHomeFaqs } from './i18n/pt'
 import { koMessages, koHomeFaqs } from './i18n/ko'
@@ -8,11 +10,11 @@ import { jaHomeFaqs, jaMessages } from '#/lib/i18n/ja'
 import { zhCnHomeFaqs, zhCnMessages } from '#/lib/i18n/zh-CN'
 
 export function normalizeLocale(value: unknown): Locale {
-  return value === 'es' || value === 'pt' || value === 'en' || value === 'ja' || value === 'ko' || value === 'zh-TW' ? value : 'zh-CN'
+  return value === 'es' || value === 'pt' || value === 'fr' || value === 'de' || value === 'en' || value === 'ja' || value === 'ko' || value === 'zh-TW' ? value : 'zh-CN'
 }
 
 export function isSupportedLocale(value: unknown): value is Locale {
-  return value === 'zh-CN' || value === 'zh-TW' || value === 'es' || value === 'pt' || value === 'en' || value === 'ja' || value === 'ko'
+  return value === 'zh-CN' || value === 'zh-TW' || value === 'es' || value === 'pt' || value === 'fr' || value === 'de' || value === 'en' || value === 'ja' || value === 'ko'
 }
 
 export function formatCopy(
@@ -25,6 +27,8 @@ export function formatCopy(
 }
 
 export const i18n = {
+  fr: frMessages,
+  de: deMessages,
   es: esMessages,
   pt: ptMessages,
   'zh-CN': zhCnMessages,
@@ -39,6 +43,8 @@ export function getI18n(locale: Locale) {
 }
 
 const homeFaqs = {
+  fr: frHomeFaqs,
+  de: deHomeFaqs,
   es: esHomeFaqs,
   pt: ptHomeFaqs,
   'zh-CN': zhCnHomeFaqs,
@@ -58,6 +64,8 @@ export function getLocalizedBlogPostExcerpt(
 ) {
   const excerpt = sanitizeBlogExcerpt(blogPost.excerpt)
 
+  if (locale === 'fr') return `Découvrez ${blogPost.title || 'POKOPIE'} : guides et conseils pour jouer dans le navigateur.`
+  if (locale === 'de') return `Entdecke ${blogPost.title || 'POKOPIE'}: Anleitungen und Tipps zum Spielen im Browser.`
   if (locale === 'es') return `Lee la guía de ${blogPost.title || 'POKOPIE'} para descubrir juegos retro y consejos para jugar en el navegador.`
   if (locale === 'pt') return `Leia o guia de ${blogPost.title || 'POKOPIE'} para descobrir jogos retrô e dicas para jogar no navegador.`
   if (locale === 'ko') return excerpt && /[가-힣]/.test(excerpt) ? excerpt : `${blogPost.title || 'POKOPIE'}의 게임 가이드와 브라우저 플레이 팁을 읽어보세요.`
@@ -122,6 +130,8 @@ function isLocalizedText(value: string, locale: Locale) {
 const localizedPlatformLabels: Record<Locale, Record<string, string>> = {
   es: { Arcade: 'Arcade' },
   pt: { Arcade: 'Arcade' },
+  fr: { Arcade: 'Arcade' },
+  de: { Arcade: 'Arcade' },
   en: {},
   'zh-TW': {
     Arcade: '街機',
@@ -174,6 +184,8 @@ const localizedPlatformLabels: Record<Locale, Record<string, string>> = {
 const localizedCategoryLabels: Record<Locale, Record<string, string>> = {
   es: { Action: 'Acción', Adventure: 'Aventura', Cards: 'Cartas', Educational: 'Educativos', Fighting: 'Lucha', Platform: 'Plataformas', Puzzle: 'Puzles', Racing: 'Carreras', Role: 'Rol', RPG: 'Rol', Shooter: 'Disparos', Simulation: 'Simulación', Sports: 'Deportes', Strategy: 'Estrategia' },
   pt: { Action: 'Ação', Adventure: 'Aventura', Cards: 'Cartas', Educational: 'Educativos', Fighting: 'Luta', Platform: 'Plataforma', Puzzle: 'Quebra-cabeças', Racing: 'Corrida', Role: 'RPG', RPG: 'RPG', Shooter: 'Tiro', Simulation: 'Simulação', Sports: 'Esportes', Strategy: 'Estratégia' },
+  fr: { Action: 'Action', Adventure: 'Aventure', Puzzle: 'Réflexion', Racing: 'Course', Simulation: 'Simulation', Sports: 'Sport', Strategy: 'Stratégie', Shooter: 'Tir', Fighting: 'Combat', Educational: 'Éducatif', Kids: 'Enfants', RPG: 'Jeu de rôle', Role: 'Jeu de rôle', Cards: 'Cartes', Platform: 'Plateforme' },
+  de: { Action: 'Action', Adventure: 'Abenteuer', Puzzle: 'Rätsel', Racing: 'Rennen', Simulation: 'Simulation', Sports: 'Sport', Strategy: 'Strategie', Shooter: 'Shooter', Fighting: 'Kampf', Educational: 'Lernspiele', Kids: 'Kinder', RPG: 'Rollenspiel', Role: 'Rollenspiel', Cards: 'Karten', Platform: 'Jump-and-Run' },
   en: {},
   'zh-TW': {
     Action: '動作',
@@ -269,6 +281,7 @@ export function getGameDetailFaqs(game: PublicGame, locale: Locale) {
   const developer = game.developer?.trim()
   const category = getLocalizedCategoryLabels(game.categories, locale)[0]
 
+  if (locale === 'fr' || locale === 'de') return getHomeFaqs(locale).items
   if (locale === 'es' || locale === 'pt') return getHomeFaqs(locale).items.slice(0, 4)
   if (locale === 'ko') return [
     { question: `${name}을 온라인으로 플레이할 수 있나요?`, answer: '게임 페이지의 플레이 버튼을 누르면 브라우저에서 시작할 수 있습니다. 게임 내 언어는 웹사이트 언어와 다를 수 있습니다.' },
@@ -432,6 +445,7 @@ export function buildGameDetailSeo(game: PublicGame, locale: Locale) {
   const baseDescription = game.description ? compactText(game.description) : ''
   const localizedDescription = getGameDetailSummary(game, locale)
 
+  if (locale === 'fr' || locale === 'de') return { title: `${name} ${locale === 'fr' ? 'en ligne' : 'online'} | POKOPIE`, description: localizedDescription, keywords: [name, platform, categoryText].filter(Boolean).join(', ') }
   if (locale === 'es' || locale === 'pt') return { title: `${name} online | POKOPIE`, description: getGameDetailSummary(game, locale), keywords: [name, platform, getI18n(locale).homeSeo.keywords].filter(Boolean).join(', ') }
   if (locale === 'ko') return { title: `${name} 온라인 게임 | ${platform || 'POKOPIE'}`, description: getGameDetailSummary(game, locale), keywords: [name, platform, '레트로 게임', '브라우저 게임'].filter(Boolean).join(', ') }
 
@@ -524,6 +538,8 @@ export function getGameDetailSummary(game: PublicGame, locale: Locale) {
   const baseDescription = game.description ? compactText(game.description) : ''
   const categories = getLocalizedCategoryLabels(game.categories, locale).slice(0, 2)
 
+  if (locale === 'fr') return `Jouez à ${name}${platform ? ` (${platform})` : ''} dans votre navigateur. ${categories.length ? `Genres : ${categories.join(', ')}. ` : ''}Consultez la présentation, les commandes et les jeux similaires. La compatibilité dépend du lecteur et de votre appareil.`
+  if (locale === 'de') return `Spiele ${name}${platform ? ` (${platform})` : ''} im Browser. ${categories.length ? `Genres: ${categories.join(', ')}. ` : ''}Lies die Spielbeschreibung und Steuerung und entdecke ähnliche Titel. Die Kompatibilität hängt vom Spieler und deinem Gerät ab.`
   if (locale === 'es') return `Juega a ${name}${platform ? ` (${platform})` : ''} en tu navegador. Pulsa Jugar ahora para empezar, sin instalar un emulador.`
   if (locale === 'pt') return `Jogue ${name}${platform ? ` (${platform})` : ''} no navegador. Pressione Jogar agora para começar, sem instalar um emulador.`
   if (locale === 'ko') return `${name}${platform ? ` (${platform})` : ''}을 브라우저에서 즐기세요. 별도 설치 없이 플레이 버튼으로 시작할 수 있습니다.`
@@ -598,6 +614,8 @@ export function getGameDetailKeywordText(game: PublicGame, locale: Locale) {
 }
 
 export function getGameDetailHowToPlay(game: PublicGame, locale: Locale) {
+  if (locale === 'fr') return 'Cliquez sur Jouer, puis sur la zone du jeu. Consultez les commandes dans le menu du lecteur. Les fonctions disponibles dépendent du jeu.'
+  if (locale === 'de') return 'Klicke auf Jetzt spielen und dann in das Spielfenster. Prüfe die Steuerung im Spielermenü. Verfügbare Funktionen hängen vom Spiel ab.'
   if (locale === 'es') return 'Pulsa Jugar ahora, selecciona Iniciar en el reproductor y haz clic en la pantalla del juego para activar los controles. Consulta los botones, el mando y las opciones de guardado en el menú del reproductor.'
   if (locale === 'pt') return 'Pressione Jogar agora, selecione Iniciar no player e clique na tela do jogo para ativar os controles. Confira os botões, o controle e as opções de salvamento no menu do player.'
   const name = game.name?.trim() || getFallbackGameName(locale)

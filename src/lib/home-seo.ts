@@ -58,7 +58,7 @@ export function buildHomeStructuredData({
       {
         '@id': websiteId,
         '@type': 'WebSite',
-        inLanguage: ['zh-CN', 'zh-TW', 'en', 'ja', 'ko', 'es', 'pt'],
+        inLanguage: ['zh-CN', 'zh-TW', 'en', 'ja', 'ko', 'es', 'pt', 'fr', 'de'],
         name: siteName,
         publisher: { '@id': organizationId },
         url: origin,

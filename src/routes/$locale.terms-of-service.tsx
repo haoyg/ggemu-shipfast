@@ -1,4 +1,4 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute, redirect } from '@tanstack/react-router'
 
 import { SiteLayout } from '#/components/site-layout'
 import type { Locale } from '#/lib/ggemu'
@@ -13,7 +13,7 @@ type LegalCopy = {
   sections: Array<{ title: string; body: string }>
 }
 
-const termsCopies: Record<Locale, LegalCopy> = {
+const termsCopies: Record<Exclude<Locale, 'fr' | 'de'>, LegalCopy> = {
   es: {
   "eyebrow": "Información legal",
   "title": "Condiciones de uso",
@@ -250,10 +250,13 @@ const termsCopies: Record<Locale, LegalCopy> = {
 }
 
 export const Route = createFileRoute('/$locale/terms-of-service')({
+  beforeLoad: ({ params }) => {
+    if (params.locale === 'fr' || params.locale === 'de') throw redirect({ href: '/en/terms-of-service', statusCode: 302 })
+  },
   loader: () => getSeoOrigin(),
   head: ({ loaderData, params }) => {
     const locale = normalizeLocale(params.locale)
-    const copy = termsCopies[locale]
+    const copy = termsCopies[locale === 'fr' || locale === 'de' ? 'en' : locale]
 
     return {
       links: loaderData
@@ -275,7 +278,7 @@ export const Route = createFileRoute('/$locale/terms-of-service')({
 function TermsOfServicePage() {
   const { locale } = Route.useParams()
   const lang = normalizeLocale(locale)
-  const copy = termsCopies[lang]
+  const copy = termsCopies[lang === 'fr' || lang === 'de' ? 'en' : lang]
 
   return (
     <SiteLayout locale={lang}>

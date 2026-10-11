@@ -121,7 +121,7 @@ function HomeSidenav({
     setIsLocaleMenuOpen(false)
 
     const nextPath = location.pathname.replace(
-      /^\/(zh-CN|zh-TW|en|ja|ko|es|pt)(?=\/|$)/,
+      /^\/(zh-CN|zh-TW|en|ja|ko|es|pt|fr|de)(?=\/|$)/,
       `/${nextLocale}`,
     )
 

@@ -41,7 +41,8 @@ describe('i18n messages', () => {
     expect(isSupportedLocale('es')).toBe(true)
     expect(isSupportedLocale('pt')).toBe(true)
     expect(isSupportedLocale('x')).toBe(false)
-    expect(isSupportedLocale('fr')).toBe(false)
+    expect(isSupportedLocale('fr')).toBe(true)
+    expect(isSupportedLocale('de')).toBe(true)
   })
 
   it('does not include known mojibake markers in zh-CN or ja messages', () => {
@@ -175,4 +176,17 @@ it('uses available categories without inventing retro status or missing metadata
   expect(summary).not.toContain('经典复古')
   expect(summary).not.toContain('undefined')
   expect(getGameDetailSummary({ name: 'Unknown Game' }, 'zh-CN')).not.toContain('游戏分类：')
+})
+
+
+it.each(['fr', 'de'] as const)('keeps complete message keys and interpolation tokens for %s', locale => {
+  const english = getI18n('en')
+  const translated = getI18n(locale)
+  for (const key of Object.keys(english) as Array<keyof typeof english>) {
+    expect(Object.keys(translated[key]).sort()).toEqual(Object.keys(english[key]).sort())
+  }
+  expect(translated.home.page).toContain('{page}')
+  expect(translated.home.page).toContain('{pages}')
+  expect(translated.home.totalGames).toContain('{total}')
+  expect(buildGameDetailSeo({ name: 'Test', categories: ['Puzzle'] }, locale).description).not.toContain('undefined')
 })

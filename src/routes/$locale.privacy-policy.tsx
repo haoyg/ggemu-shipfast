@@ -1,4 +1,4 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute, redirect } from '@tanstack/react-router'
 
 import { SiteLayout } from '#/components/site-layout'
 import type { Locale } from '#/lib/ggemu'
@@ -17,7 +17,7 @@ type LegalCopy = {
   }>
 }
 
-const privacyCopies: Record<Locale, LegalCopy> = {
+const privacyCopies: Record<Exclude<Locale, 'fr' | 'de'>, LegalCopy> = {
   es: {
   "eyebrow": "Información legal",
   "title": "Política de privacidad",
@@ -411,10 +411,13 @@ const privacyCopies: Record<Locale, LegalCopy> = {
 }
 
 export const Route = createFileRoute('/$locale/privacy-policy')({
+  beforeLoad: ({ params }) => {
+    if (params.locale === 'fr' || params.locale === 'de') throw redirect({ href: '/en/privacy-policy', statusCode: 302 })
+  },
   loader: () => getSeoOrigin(),
   head: ({ loaderData, params }) => {
     const locale = normalizeLocale(params.locale)
-    const copy = privacyCopies[locale]
+    const copy = privacyCopies[locale === 'fr' || locale === 'de' ? 'en' : locale]
 
     return {
       links: loaderData
@@ -436,7 +439,7 @@ export const Route = createFileRoute('/$locale/privacy-policy')({
 function PrivacyPolicyPage() {
   const { locale } = Route.useParams()
   const lang = normalizeLocale(locale)
-  const copy = privacyCopies[lang]
+  const copy = privacyCopies[lang === 'fr' || lang === 'de' ? 'en' : lang]
 
   return (
     <SiteLayout locale={lang}>

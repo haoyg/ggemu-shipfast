@@ -2,7 +2,7 @@ import { createFileRoute } from '@tanstack/react-router'
 
 import type { BlogPost, Locale, PublicGame } from '#/lib/ggemu'
 import { TimedAsyncCache } from '#/lib/timed-async-cache'
-import { defaultSeoLocale } from '#/lib/seo'
+import { defaultSeoLocale, getAvailableSeoLocales } from '#/lib/seo'
 import {
   getCanonicalGameRouteId,
   isSitemapGameRouteId,
@@ -16,7 +16,7 @@ const SITEMAP_RETRY_TTL_MS = 60_000
 const SITEMAP_SNAPSHOT_TTL_MS = 7 * SITEMAP_CACHE_TTL_MS
 const SITEMAP_FETCH_CONCURRENCY = 6
 const SITEMAP_REQUEST_TIMEOUT_MS = 5_000
-const locales = ['zh-CN', 'zh-TW', 'en', 'ja', 'ko', 'es', 'pt'] as const satisfies ReadonlyArray<Locale>
+const locales = ['zh-CN', 'zh-TW', 'en', 'ja', 'ko', 'es', 'pt', 'fr', 'de'] as const satisfies ReadonlyArray<Locale>
 const englishCollectionPaths = [
   '/arcade-games',
   '/gba-games',
@@ -477,7 +477,7 @@ function buildSitemapEntries(
     }
   }
 
-  return entries
+  return entries.filter(entry => getAvailableSeoLocales(entry.path).includes(entry.locale))
 }
 
 function toAbsoluteLocalizedUrl(origin: string, locale: Locale, path: string) {
@@ -500,7 +500,7 @@ ${urls.join('\n')}
 
 function formatSitemapAlternateLinks(entry: SitemapEntry) {
   const origin = new URL(entry.loc).origin
-  const alternateLocales = entry.alternateLocales ?? locales
+  const alternateLocales = getAvailableSeoLocales(entry.path, entry.alternateLocales ?? locales)
   const links = [
     ...alternateLocales.map((locale) => ({
       href: toAbsoluteLocalizedUrl(origin, locale, entry.path),

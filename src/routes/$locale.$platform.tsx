@@ -13,7 +13,7 @@ import { getPlatformCollectionKey } from '#/lib/platform-routes'
 
 export const Route = createFileRoute('/$locale/$platform')({
   loader: async ({ params }) => {
-    if (!['zh-CN', 'zh-TW', 'ja', 'ko', 'es', 'pt'].includes(params.locale)) {
+    if (!['zh-CN', 'zh-TW', 'ja', 'ko', 'es', 'pt', 'fr', 'de'].includes(params.locale)) {
       throw notFound()
     }
 
