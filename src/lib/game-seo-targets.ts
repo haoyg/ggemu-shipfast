@@ -476,8 +476,26 @@ const targetedGameSeoBySlug = {
   },
 } as const
 
+const localizedTaikoSeo = {
+  'zh-CN': {
+    heading: '太鼓 Web 在线玩',
+    title: '太鼓 Web 在线玩｜太鼓达人网页版与按键说明｜POKOPIE',
+    description: '在浏览器中游玩太鼓 Web（Taiko Web），无需下载。了解红蓝音符、F/J 与 D/K 按键、选曲和难度设置，查看无声或按键无响应时的处理方法。',
+    keywords: '太鼓web，太鼓 Web 在线玩，太鼓达人网页版，Taiko Web，太鼓按键说明',
+  },
+  ja: {
+    heading: '太鼓ウェブ（Taiko Web）をオンラインで遊ぶ',
+    title: '太鼓ウェブ（Taiko Web）｜遊び方・操作方法｜POKOPIE',
+    description: 'ブラウザで太鼓ウェブ（Taiko Web）をプレイ。ダウンロード不要。赤・青の音符、F/J・D/K の操作、選曲と難易度、音が出ない場合やキーが反応しない場合の対処方法を紹介します。',
+    keywords: '太鼓ウェブ, Taiko Web, 太鼓web, 太鼓ウェブ 遊び方, 太鼓ウェブ 操作方法',
+  },
+} as const
+
 export function getTargetedGameSeo(game: PublicGame, locale: Locale) {
   if (locale !== 'en') {
+    if (normalizeGameSlug(game) === taikoWebTargetSlug && (locale === 'zh-CN' || locale === 'ja')) {
+      return localizedTaikoSeo[locale]
+    }
     return null
   }
 
@@ -487,7 +505,7 @@ export function getTargetedGameSeo(game: PublicGame, locale: Locale) {
 
 export function getGameSearchSeo(game: PublicGame, locale: Locale) {
   if (locale !== 'en') {
-    return null
+    return getTargetedGameSeo(game, locale)
   }
 
   const slug = normalizeGameSlug(game)
