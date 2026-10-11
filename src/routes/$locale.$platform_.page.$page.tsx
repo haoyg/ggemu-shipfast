@@ -1,6 +1,9 @@
 import { createFileRoute, notFound, redirect } from '@tanstack/react-router'
 
-import { getLocalizedPlatformCollection, PlatformGamesPage } from '#/components/platform-games-page'
+import { getLocalizedPlatformCollection } from '#/components/platform-games-page'
+import { getLocalizedArcadeCollection } from '#/components/arcade-games-page'
+import { GameCollectionPage } from '#/components/game-collection-page'
+import type { Locale } from '#/lib/ggemu'
 import { isSupportedLocale } from '#/lib/i18n'
 import { buildPlatformCollectionHead, loadPlatformCollection, parsePlatformCollectionPage } from '#/lib/platform-collection-route'
 import { getPlatformCollectionKey } from '#/lib/platform-routes'
@@ -8,36 +11,36 @@ import { getPlatformCollectionKey } from '#/lib/platform-routes'
 export const Route = createFileRoute('/$locale/$platform_/page/$page')({
   loader: async ({ params }) => {
     const locale = params.locale
-    const key = getPlatformCollectionKey(params.platform)
     const page = parsePlatformCollectionPage(params.page)
-    if (!isSupportedLocale(locale) || locale === 'en' || !key || !page) {
+    if (!isSupportedLocale(locale) || locale === 'en' || !page) {
       throw notFound()
     }
-    const collection = getLocalizedPlatformCollection(key, locale)
+    const collection = getCollection(params.platform, locale)
+    if (!collection) throw notFound()
     if (page === 1) {
       throw redirect({ href: collection.routePath, replace: true, statusCode: 301 })
     }
     const data = await loadPlatformCollection(collection, locale, page)
     if (data.loadFailed) throw new Error(`Unable to load ${collection.platform} games`)
     if (data.pagination.pages < page) throw notFound()
-    return { ...data, key, locale }
+    return { ...data, platform: params.platform, locale }
   },
-  head: ({ loaderData }) => loaderData
-    ? buildPlatformCollectionHead(
-        getLocalizedPlatformCollection(loaderData.key, loaderData.locale),
-        loaderData,
-        loaderData.locale,
-        loaderData.pagination.page,
-      )
-    : {},
+  head: ({ loaderData }) => {
+    const collection = loaderData && getCollection(loaderData.platform, loaderData.locale)
+    return collection && loaderData
+      ? buildPlatformCollectionHead(collection, loaderData, loaderData.locale, loaderData.pagination.page)
+      : {}
+  },
   component: LocalizedPaginatedPlatformGamesRoute,
 })
 
 function LocalizedPaginatedPlatformGamesRoute() {
-  const { games, key, locale, pagination } = Route.useLoaderData()
+  const { games, platform, locale, pagination } = Route.useLoaderData()
+  const collection = getCollection(platform, locale)
+  if (!collection) return null
   return (
-    <PlatformGamesPage
-      collection={getLocalizedPlatformCollection(key, locale)}
+    <GameCollectionPage
+      config={collection.page}
       games={games}
       locale={locale}
       page={pagination.page}
@@ -45,4 +48,10 @@ function LocalizedPaginatedPlatformGamesRoute() {
       total={pagination.total}
     />
   )
+}
+
+function getCollection(platform: string, locale: Locale) {
+  if (platform === 'arcade-games') return getLocalizedArcadeCollection(locale)
+  const key = getPlatformCollectionKey(platform)
+  return key ? getLocalizedPlatformCollection(key, locale) : undefined
 }

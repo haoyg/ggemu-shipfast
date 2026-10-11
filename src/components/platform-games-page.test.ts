@@ -1,8 +1,24 @@
 import { describe, expect, it } from 'vitest'
 
 import { getLocalizedPlatformCollection, getRelatedGuide } from './platform-games-page'
+import { getLocalizedArcadePageConfig } from './arcade-games-page'
 
 describe('platform guide links', () => {
+  it.each(['nes', 'snes'] as const)('localizes the complete Chinese %s editorial sections', (key) => {
+    const page = getLocalizedPlatformCollection(key, 'zh-CN').page
+    expect(page.articleTitle).toContain('在线玩')
+    expect(page.genres.every((genre) => genre.matchTerms?.length)).toBe(true)
+    expect(page.faqs.some((faq) => faq.question.includes('保存') || faq.question.includes('存档'))).toBe(true)
+    expect(getLocalizedPlatformCollection(key, 'en').page.faqs).not.toEqual(page.faqs)
+  })
+
+  it('provides Chinese arcade coin, input and multiplayer guidance', () => {
+    const page = getLocalizedArcadePageConfig('zh-CN')
+    expect(page.articleTitle).toContain('投币')
+    expect(page.faqs.some((faq) => faq.question.includes('在线联机'))).toBe(true)
+    expect(page.genres.find((genre) => genre.name === '射击')?.matchTerms).toContain('Shoot')
+  })
+
   it('provides Chinese GBA editorial content while preserving the English collection', () => {
     const chinese = getLocalizedPlatformCollection('gba', 'zh-CN')
     const english = getLocalizedPlatformCollection('gba', 'en')

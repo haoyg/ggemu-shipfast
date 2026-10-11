@@ -174,6 +174,17 @@ export function HomeSeoContentSection({ lang }: { lang: Locale }) {
               and solve a Sudoku-style murder mystery in your browser.
             </p>
           ) : null}
+          {lang === 'zh-CN' ? (
+            <nav aria-label="按平台发现老游戏" className="mt-4 flex flex-wrap gap-x-5 gap-y-3 text-sm">
+              {[
+                { label: '红白机 NES 游戏', href: '/zh-CN/nes-games' },
+                { label: '超级任天堂 SNES 游戏', href: '/zh-CN/snes-games' },
+                { label: '经典街机游戏', href: '/zh-CN/arcade-games' },
+              ].map((link) => (
+                <a className="font-semibold text-primary underline-offset-4 hover:underline" href={link.href} key={link.href}>{link.label}</a>
+              ))}
+            </nav>
+          ) : null}
         </article>
 
         <article className="rounded-lg border border-white/10 bg-white/5 p-4 shadow-sm sm:p-5">

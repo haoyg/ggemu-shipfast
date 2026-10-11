@@ -17,5 +17,5 @@ export const Route = createFileRoute('/$locale/arcade-games')({
 
 function LocalizedArcadeGamesRoute() {
   const { games, locale, pagination } = Route.useLoaderData()
-  return <ArcadeGamesPage games={games} locale={locale} total={pagination.total} />
+  return <ArcadeGamesPage games={games} locale={locale} page={pagination.page} pages={pagination.pages} total={pagination.total} />
 }

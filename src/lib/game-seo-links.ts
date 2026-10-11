@@ -62,13 +62,36 @@ const gameSeoLinkClusters: Array<Array<GameSeoInternalLink>> = [
   ],
 ]
 
+const chineseGameSeoLinkClusters: Array<Array<GameSeoInternalLink>> = [
+  [
+    { label: '太鼓 Web 网页版玩法', slug: 'taiko-no-tatsujin-taiko-web-html5-2011' },
+    { label: '太鼓达人 DS 游戏详情', slug: 'taiko-no-tatsujin-ds-touch-de-dokodon-nds-2005' },
+    { label: '节奏天国 DS 游戏详情', slug: 'rhythm-heaven-nds-2008' },
+  ],
+  [
+    { label: '三国群英传 2 在线玩与存档说明', slug: 'san-guo-qun-ying-zhuan-2-html5-1998' },
+    { label: '三国志 IV 游戏详情', slug: 'romance-of-the-three-kingdoms-iv-dos-1994' },
+    { label: '三国杀网页版游戏详情', slug: 'sanguosha-html5-2011' },
+  ],
+  [
+    { label: '魂斗罗 NES 游戏详情', slug: 'contra-nes-1988' },
+    { label: '双截龙 II NES 游戏详情', slug: 'double-dragon-ii-revenge-nes-1989' },
+  ],
+  [
+    { label: '宝可梦绿宝石 GBA 游戏详情', slug: 'pokemon-emerald-gba-2004' },
+    { label: '宝可梦红宝石 GBA 游戏详情', slug: 'pokemon-ruby-gba-2002' },
+    { label: '宝可梦叶绿 GBA 游戏详情', slug: 'pokemon-leafgreen-game-boy-advance-2004' },
+  ],
+]
+
 export function getGameSeoInternalLinks(game: PublicGame, locale: Locale) {
-  if (locale !== 'en') {
+  if (locale !== 'en' && locale !== 'zh-CN') {
     return []
   }
 
   const currentSlug = game.url_slug?.trim().toLowerCase()
-  const cluster = gameSeoLinkClusters.find((links) =>
+  const clusters = locale === 'zh-CN' ? chineseGameSeoLinkClusters : gameSeoLinkClusters
+  const cluster = clusters.find((links) =>
     links.some((link) => link.slug === currentSlug),
   )
 

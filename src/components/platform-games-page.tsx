@@ -1,4 +1,5 @@
 import { getRomanceCollectionCopy } from '#/lib/i18n/collection-copy'
+import { chineseCollectionEditorials } from '#/lib/i18n/zh-CN-collection-editorial'
 import {
   GameCollectionPage,
   type GameCollectionPageConfig,
@@ -171,6 +172,7 @@ const localizedPlatformCopy = {
       coverAlt: 'N64 游戏封面',
     },
     nes: {
+      ...chineseCollectionEditorials.nes,
       title: '在线玩 NES 游戏 | 免下载 | POKOPIE',
       description: '在浏览器中在线玩 NES 游戏，浏览经典 Nintendo 动作、平台、益智、体育和冒险游戏，无需单独下载模拟器。',
       schemaName: '在线玩 NES 游戏',
@@ -199,6 +201,7 @@ const localizedPlatformCopy = {
       coverAlt: 'Sega Genesis 游戏封面',
     },
     snes: {
+      ...chineseCollectionEditorials.snes,
       title: '在线玩 SNES 游戏 | 免下载 | POKOPIE',
       description: '在浏览器中在线玩 SNES 游戏，浏览 Super Nintendo 的 RPG、平台、赛车、动作和冒险经典，无需单独下载模拟器。',
       schemaName: '在线玩 SNES 游戏',

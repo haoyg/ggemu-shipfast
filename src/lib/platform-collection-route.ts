@@ -71,7 +71,8 @@ export function buildPlatformCollectionHead(
   const pagePath = getPlatformCollectionPagePath(collection.routePath, page)
   const canonicalUrl = `${loaderData?.origin ?? ''}${pagePath}`
   const pageLabel = locale === 'zh-CN' ? `第 ${page} 页` : `${locale === 'es' || locale === 'pt' ? 'Página' : 'Page'} ${page}`
-  const hasPaginationRoute = locale === 'en' || Boolean(getPlatformCollectionKey(collection.routePath.split('/')[2]))
+  const platformSlug = collection.routePath.split('/')[2]
+  const hasPaginationRoute = locale === 'en' || platformSlug === 'arcade-games' || Boolean(getPlatformCollectionKey(platformSlug))
   const title = page > 1
     ? `${collection.page.heroTitle} – ${pageLabel} | POKOPIE`
     : collection.title

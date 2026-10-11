@@ -898,7 +898,7 @@ function SeoInternalLinkSection({
 
   return (
     <section>
-      <h2 className="text-xl font-bold text-white">Explore related online games</h2>
+      <h2 className="text-xl font-bold text-white">{lang === 'zh-CN' ? '继续发现相关游戏' : 'Explore related online games'}</h2>
       <ul className="mt-3 flex flex-wrap gap-x-5 gap-y-3">
         {links.map((link) => (
           <li key={link.slug}>
