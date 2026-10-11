@@ -41,5 +41,6 @@ describe('home SEO', () => {
         },
       ],
     })
+    expect(structuredData['@graph'][1]).not.toHaveProperty('potentialAction')
   })
 })

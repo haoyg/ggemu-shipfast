@@ -62,14 +62,6 @@ export function buildHomeStructuredData({
         name: siteName,
         publisher: { '@id': organizationId },
         url: origin,
-        potentialAction: {
-          '@type': 'SearchAction',
-          target: {
-            '@type': 'EntryPoint',
-            urlTemplate: `${origin}/{search_term_string}`,
-          },
-          'query-input': 'required name=search_term_string',
-        },
       },
       {
         '@id': webpageId,

@@ -12,7 +12,7 @@ import { useServerFn } from '@tanstack/react-start'
 import type { ComponentType, FormEvent, ReactNode } from 'react'
 import { Suspense, lazy, useEffect, useRef, useState } from 'react'
 
-import { DefaultHomeTemplate } from '#/components/home/default-template'
+import type { DefaultHomeTemplate as DefaultHomeTemplateComponent } from '#/components/home/default-template'
 import {
   FEATURE_NEW_ARRIVAL_LIMIT,
   FEATURE_PLATFORM_LIMIT,
@@ -63,6 +63,10 @@ const DEFAULT_HOME_PLATFORMS = [
 ] as const
 const homeFallbackItems = Array.from({ length: 8 }, (_, index) => index)
 
+const DefaultHomeTemplate = lazyHomeTemplate(
+  () => import('#/components/home/default-template'),
+  'DefaultHomeTemplate',
+)
 const FeaturesHomeTemplate = lazyHomeTemplate(
   () => import('#/components/home/features-template'),
   'FeaturesHomeTemplate',
@@ -93,7 +97,7 @@ function lazyHomeTemplate<
   }))
 }
 
-type HomeLoaderTemplateProps = Parameters<typeof DefaultHomeTemplate>[0]
+type HomeLoaderTemplateProps = Parameters<typeof DefaultHomeTemplateComponent>[0]
 
 function validateHomeSearch(search: Record<string, unknown>): HomeSearch {
   return {
@@ -576,7 +580,9 @@ function LocalizedHomePage() {
   } else {
     content = (
       <SiteLayout locale={lang}>
-        <DefaultHomeTemplate {...templateProps} />
+        <Suspense fallback={<HomeTemplateFallback embedded label={t.loading} />}>
+          <DefaultHomeTemplate {...templateProps} />
+        </Suspense>
       </SiteLayout>
     )
   }
