@@ -1,8 +1,11 @@
 import { describe, expect, it } from 'vitest'
+import { applyResponseCachePolicy } from './response-cache'
 
 import { getLocalizedPlatformCollection, platformCollections } from '#/components/platform-games-page'
 import {
   buildPlatformCollectionHead,
+  getPlatformCollectionHeaders,
+  validatePlatformCollectionPage,
   getPlatformCollectionPagePath,
   parsePlatformCollectionPage,
   type PlatformCollectionLoaderData,
@@ -77,5 +80,35 @@ describe('platform collection pagination', () => {
       expect.objectContaining({ position: 49 }),
       expect.objectContaining({ position: 50 }),
     ])
+  })
+})
+
+
+describe('temporary collection failures', () => {
+  const failed: PlatformCollectionLoaderData = {
+    games: [], loadFailed: true, origin: 'https://pokopie.com',
+    pagination: { limit: 48, page: 2, pages: 0, total: 0 },
+  }
+
+  it('keeps upstream failures recoverable instead of treating empty pagination as missing', () => {
+    expect(validatePlatformCollectionPage(failed, 2)).toBe(failed)
+    expect(() => validatePlatformCollectionPage({ ...failed, loadFailed: false }, 2)).toThrow()
+  })
+
+  it('serves failed documents as uncached 503 with a retry interval', () => {
+    const response = applyResponseCachePolicy(new Response('Retry', {
+      headers: getPlatformCollectionHeaders(failed),
+    }))
+    expect(response.status).toBe(503)
+    expect(response.headers.get('Retry-After')).toBe('60')
+    expect(response.headers.get('Cache-Control')).toBe('no-store')
+    expect(response.headers.has('X-Robots-Tag')).toBe(false)
+    expect(getPlatformCollectionHeaders({ ...failed, loadFailed: false })).toEqual({})
+  })
+
+  it('does not publish an empty ItemList as healthy content during an outage', () => {
+    const head = buildPlatformCollectionHead(platformCollections.nes, failed, 'en', 2)
+    expect(head.scripts).toBeUndefined()
+    expect(head.links).toContainEqual({ rel: 'canonical', href: 'https://pokopie.com/en/nes-games/page/2' })
   })
 })

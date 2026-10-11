@@ -1,3 +1,5 @@
+import { notFound } from '@tanstack/react-router'
+import { temporaryGameDetailHeaders } from '#/lib/game-detail-request'
 import { searchGames } from '#/lib/ggemu'
 import type { Locale, PublicGame } from '#/lib/ggemu'
 import type { GameCollectionPageConfig } from '#/components/game-collection-page'
@@ -62,6 +64,15 @@ export async function loadPlatformCollection(
       }
 }
 
+export function validatePlatformCollectionPage(data: PlatformCollectionLoaderData, page: number) {
+  if (!data.loadFailed && data.pagination.pages < page) throw notFound()
+  return data
+}
+
+export function getPlatformCollectionHeaders(data: PlatformCollectionLoaderData | undefined) {
+  return data?.loadFailed ? temporaryGameDetailHeaders : {}
+}
+
 export function buildPlatformCollectionHead(
   collection: CollectionRouteConfig,
   loaderData: PlatformCollectionLoaderData | undefined,
@@ -104,7 +115,7 @@ export function buildPlatformCollectionHead(
       { name: 'twitter:title', content: title },
       { name: 'twitter:description', content: description },
     ],
-    scripts: loaderData?.origin
+    scripts: loaderData?.origin && !loaderData.loadFailed
       ? buildStructuredDataScripts(collection, canonicalUrl, loaderData, locale, page)
       : undefined,
   }

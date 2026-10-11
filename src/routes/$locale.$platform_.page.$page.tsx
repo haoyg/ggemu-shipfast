@@ -1,3 +1,4 @@
+import { TemporaryPageLoadError } from '#/components/game-detail-load-error'
 import { createFileRoute, notFound, redirect } from '@tanstack/react-router'
 
 import { getLocalizedPlatformCollection } from '#/components/platform-games-page'
@@ -5,7 +6,7 @@ import { getLocalizedArcadeCollection } from '#/components/arcade-games-page'
 import { GameCollectionPage } from '#/components/game-collection-page'
 import type { Locale } from '#/lib/ggemu'
 import { isSupportedLocale } from '#/lib/i18n'
-import { buildPlatformCollectionHead, loadPlatformCollection, parsePlatformCollectionPage } from '#/lib/platform-collection-route'
+import { buildPlatformCollectionHead, getPlatformCollectionHeaders, validatePlatformCollectionPage, loadPlatformCollection, parsePlatformCollectionPage } from '#/lib/platform-collection-route'
 import { getPlatformCollectionKey } from '#/lib/platform-routes'
 
 export const Route = createFileRoute('/$locale/$platform_/page/$page')({
@@ -21,8 +22,7 @@ export const Route = createFileRoute('/$locale/$platform_/page/$page')({
       throw redirect({ href: collection.routePath, replace: true, statusCode: 301 })
     }
     const data = await loadPlatformCollection(collection, locale, page)
-    if (data.loadFailed) throw new Error(`Unable to load ${collection.platform} games`)
-    if (data.pagination.pages < page) throw notFound()
+    validatePlatformCollectionPage(data, page)
     return { ...data, platform: params.platform, locale }
   },
   head: ({ loaderData }) => {
@@ -31,13 +31,15 @@ export const Route = createFileRoute('/$locale/$platform_/page/$page')({
       ? buildPlatformCollectionHead(collection, loaderData, loaderData.locale, loaderData.pagination.page)
       : {}
   },
+  headers: ({ loaderData }) => getPlatformCollectionHeaders(loaderData),
   component: LocalizedPaginatedPlatformGamesRoute,
 })
 
 function LocalizedPaginatedPlatformGamesRoute() {
-  const { games, platform, locale, pagination } = Route.useLoaderData()
+  const { games, platform, locale, pagination, loadFailed } = Route.useLoaderData()
   const collection = getCollection(platform, locale)
   if (!collection) return null
+  if (loadFailed) return <TemporaryPageLoadError locale={locale} title={collection.page.heroTitle} />
   return (
     <GameCollectionPage
       config={collection.page}

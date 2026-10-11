@@ -20,15 +20,18 @@ export function getGameDetailLoadErrorCopy(locale: Locale) {
 }
 
 export function GameDetailLoadError({ locale }: { locale: Locale }) {
+  return <TemporaryPageLoadError locale={locale} title={titles[locale]} />
+}
+
+export function TemporaryPageLoadError({ locale, title }: { locale: Locale; title: string }) {
   const [retrying, setRetrying] = useState(false)
   const t = getI18n(locale)
-  const copy = getGameDetailLoadErrorCopy(locale)
 
   return (
     <SiteLayout locale={locale}>
       <section className="mx-auto flex min-h-[60vh] max-w-2xl flex-col items-center justify-center px-4 py-20 text-center sm:px-6">
-        <h1 className="text-3xl font-semibold leading-tight">{copy.title}</h1>
-        <p className="mt-4 text-base leading-7 text-base-content/70">{copy.description}</p>
+        <h1 className="text-3xl font-semibold leading-tight">{title}</h1>
+        <p className="mt-4 text-base leading-7 text-base-content/70">{t.home.loadError}</p>
         <div className="mt-8 flex flex-wrap justify-center gap-3">
           <button className="btn btn-primary" disabled={retrying} onClick={() => {
             setRetrying(true)

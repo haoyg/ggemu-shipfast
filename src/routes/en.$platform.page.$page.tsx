@@ -1,3 +1,4 @@
+import { TemporaryPageLoadError } from '#/components/game-detail-load-error'
 import { createFileRoute, notFound, redirect } from '@tanstack/react-router'
 
 import { getLocalizedArcadeCollection } from '#/components/arcade-games-page'
@@ -9,6 +10,8 @@ import {
 import { getLocalizedPs1Collection } from '#/components/ps1-games-page'
 import {
   buildPlatformCollectionHead,
+  getPlatformCollectionHeaders,
+  validatePlatformCollectionPage,
   type CollectionRouteConfig,
   loadPlatformCollection,
   parsePlatformCollectionPage,
@@ -39,13 +42,7 @@ export const Route = createFileRoute('/en/$platform/page/$page')({
 
     const data = await loadPlatformCollection(collection, 'en', page)
 
-    if (data.loadFailed) {
-      throw new Error(`Unable to load ${collection.platform} games`)
-    }
-
-    if (data.pagination.pages < page) {
-      throw notFound()
-    }
+    validatePlatformCollectionPage(data, page)
 
     return data
   },
@@ -57,11 +54,12 @@ export const Route = createFileRoute('/en/$platform/page/$page')({
       ? buildPlatformCollectionHead(collection, loaderData, 'en', page)
       : {}
   },
+  headers: ({ loaderData }) => getPlatformCollectionHeaders(loaderData),
   component: PaginatedPlatformGamesRoute,
 })
 
 function PaginatedPlatformGamesRoute() {
-  const { games, pagination } = Route.useLoaderData()
+  const { games, pagination, loadFailed } = Route.useLoaderData()
   const { page: pageParam, platform } = Route.useParams()
   const collection = getEnglishPlatformCollection(platform)
   const page = parsePlatformCollectionPage(pageParam)
@@ -69,6 +67,8 @@ function PaginatedPlatformGamesRoute() {
   if (!collection || !page) {
     return null
   }
+
+  if (loadFailed) return <TemporaryPageLoadError locale="en" title={collection.page.heroTitle} />
 
   return (
     <GameCollectionPage
