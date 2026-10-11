@@ -1457,8 +1457,46 @@ const localizedTaikoEditorial: Partial<Record<Locale, GameEditorial>> = {
   },
 }
 
+const chineseThreeKingdomsEditorial: GameEditorial = {
+  summary: '三国群英传 2 是以三国时代为背景的策略游戏。本页提供浏览器版本入口：在大地图上管理城池和武将，在战场上指挥部队并使用武将技。',
+  description: [
+    '原作《三國群英傳 II》由奥汀科技开发，于 1999 年推出，结合城池经营、行军和即时战斗。选择进攻目标时，需要兼顾守城兵力、武将状态和部队配置。',
+    '本页使用 HTML5 浏览器版本。页面地址保留了上游目录中的 1998 年标记，但原作二代的发行年份为 1999 年。网页版的制作方、快捷键和存档实现尚未独立确认，请以当前游戏菜单为准。',
+  ],
+  howToPlay: [
+    '点击立即开玩，按播放器提示启动游戏。进入游戏后，先查看己方城池、武将与部队，熟悉当前版本的操作菜单，再选择出征目标。',
+    '出征前保留守城部队，避免把主要武将全部调离边境。根据敌方兵力调整出征阵容，在战斗中观察兵种和阵形，再选择武将技的使用时机。',
+    '重大行军或攻城前先查看游戏的存档菜单。尝试保存并确认可以读取，再开始长时间游玩；不要假定网页版使用原作的存档路径或快捷键。',
+  ],
+  tips: ['优先守住重要城池，再逐步扩大势力范围。', '武将技留到能改变战局的时机使用，避免刚开战就全部消耗。', '刷新页面或清理浏览器数据前，先确认当前版本如何保存进度。'],
+  faq: [
+    { question: '三国群英传 2 可以在线玩吗？', answer: '本页提供浏览器版本入口，可以通过播放器启动。实际操作方式和可用功能以加载后的游戏为准。' },
+    { question: '三国群英传 2 网页版怎么操作？', answer: '进入游戏后先查看操作菜单，再管理城池、安排武将出征和指挥战斗。本页尚未核实该 HTML5 版本的具体快捷键，因此不直接套用原版 PC 键位。' },
+    { question: '三国群英传 2 网页版怎么存档？', answer: '先查看游戏或播放器的保存、读取菜单，并验证保存后的进度能否恢复。不同浏览器版本的存档实现可能不同，不能保证刷新或清理浏览器数据后仍保留进度。' },
+    { question: '三国群英传 2 是 1998 年还是 1999 年发行的？', answer: '二代原作发行于 1999 年，1998 年对应系列第一代。本页地址沿用上游旧标记，展示信息以二代为准。' },
+    { question: '网页版和原版 PC 游戏完全一样吗？', answer: '不能保证。浏览器封装可能改变控制、存档和可用功能，请查看当前版本的菜单。' },
+  ],
+  quickStart: {
+    title: '三国群英传 2 新手上手',
+    intro: '先熟悉当前浏览器版本的菜单，再安排出征和长时间游玩。',
+    entries: [
+      { label: '查看势力', detail: '先检查城池、武将和兵力，确定需要防守的边境。' },
+      { label: '安排出征', detail: '保留守城力量，再选择进攻目标和部队阵容。' },
+      { label: '指挥战斗', detail: '观察敌方部队，在关键时机使用武将技。' },
+      { label: '确认存档', detail: '检查保存和读取菜单，确认进度能恢复后再继续。' },
+    ],
+  },
+  sources: [
+    { label: '宇峻奥汀系列历史', href: 'https://file.uj.com.tw/PathFile/UJ_Image/PDF/20231114_slides.pdf' },
+    { label: '发行商《三國群英傳 2》游戏介绍', href: 'https://store.steampowered.com/app/1437830/?l=tchinese' },
+  ],
+}
+
 export function getGameEditorial(game: PublicGame, locale: Locale) {
   if (locale !== 'en') {
+    if (locale === 'zh-CN' && game.url_slug?.trim().toLowerCase() === 'san-guo-qun-ying-zhuan-2-html5-1998') {
+      return chineseThreeKingdomsEditorial
+    }
     return game.url_slug?.trim().toLowerCase() === 'taiko-no-tatsujin-taiko-web-html5-2011'
       ? localizedTaikoEditorial[locale]
       : undefined
