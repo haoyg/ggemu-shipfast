@@ -336,9 +336,9 @@ export function Ps1CompatibilityPage({ locale = 'en' }: { locale?: Locale }) {
     >
       <section className="border-b border-white/10 bg-[radial-gradient(circle_at_top_right,rgba(236,72,153,0.2),transparent_28rem),radial-gradient(circle_at_top_left,rgba(34,211,238,0.12),transparent_30rem)] bg-neutral text-neutral-content">
         <div className="mx-auto grid max-w-7xl gap-10 px-4 py-14 sm:px-6 lg:grid-cols-[minmax(0,1fr)_22rem] lg:items-end lg:px-8 lg:py-20">
-          <div className="max-w-3xl">
+          <div className="min-w-0 max-w-3xl">
             <p className="text-xs font-bold uppercase tracking-[0.18em] text-primary">POKOPIE Lab</p>
-            <h1 className="mt-3 text-4xl font-black leading-tight text-white sm:text-5xl">
+            <h1 className="mt-3 break-words text-4xl font-black leading-tight text-white [overflow-wrap:anywhere] sm:text-5xl">
               {copy.hero}
             </h1>
             <p className="mt-5 max-w-2xl text-lg leading-8 text-white/70">
