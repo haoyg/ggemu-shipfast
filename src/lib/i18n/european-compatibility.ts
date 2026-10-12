@@ -23,7 +23,7 @@ export const europeanCompatibilityPage = {
   },
   "de": {
     "title": "PS1-Browserkompatibilität — POKOPIE",
-    "hero": "PS1-Browserkompatibilität",
+    "hero": "PS1 im Browser testen",
     "description": "Prüfe WebAssembly, WebGL 2, Speicher, Gamepads, Vollbild und gemeinsamen Speicher für PS1-Emulatoren in deinem Browser.",
     "intro": "Prüfe die Browserfunktionen vor dem Start eines PlayStation-1-Spiels oder deiner ROM-Datei.",
     "run": "Kompatibilität prüfen",
