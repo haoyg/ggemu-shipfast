@@ -8,7 +8,7 @@ export const seoLocales = ['zh-CN', 'zh-TW', 'en', 'ja', 'ko', 'es', 'pt', 'fr',
 export const defaultSeoLocale = 'en' satisfies Locale
 
 export function getAvailableSeoLocales(path: string, locales: ReadonlyArray<Locale> = seoLocales) {
-  const englishFallback = ['/privacy-policy', '/terms-of-service', '/copyright-removal', '/ps1-compatibility'].includes(path)
+  const englishFallback = ['/privacy-policy', '/terms-of-service', '/copyright-removal'].includes(path)
   return englishFallback ? locales.filter(locale => locale !== 'fr' && locale !== 'de') : locales
 }
 

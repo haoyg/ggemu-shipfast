@@ -34,7 +34,7 @@ describe('sitemap availability', () => {
     expect(firstXml).toContain('hreflang="fr"')
     expect(firstXml).toContain('hreflang="de"')
     expect(firstXml).not.toContain('/fr/privacy-policy')
-    expect(firstXml).not.toContain('/de/ps1-compatibility')
+    expect(firstXml).toContain('/de/ps1-compatibility')
     expect(firstXml).toContain('/en/games/contra')
     expect(firstXml).toContain('/en/games/word-ladder')
     expect(firstXml).toContain('/en/games/quake-online')

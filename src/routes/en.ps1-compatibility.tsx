@@ -1,3 +1,4 @@
+import { europeanCompatibilityPage, europeanCompatibilityDetails, europeanCompatibilityReadiness, europeanCompatibilityStatus, europeanCompatibilityCapabilities } from '#/lib/i18n/european-compatibility'
 import { Link, createFileRoute } from '@tanstack/react-router'
 import { useEffect, useState } from 'react'
 
@@ -14,6 +15,7 @@ const pageDescription =
   'Test whether your browser supports the WebAssembly, WebGL 2, storage, gamepad, fullscreen, and memory features used by browser-based PS1 emulation.'
 
 const compatibilityCopy = {
+  ...europeanCompatibilityPage,
   es: {
   "title": "Prueba de compatibilidad PS1 | POKOPIE",
   "description": "Comprueba WebAssembly, WebGL 2, almacenamiento, mandos, pantalla completa y memoria para emular PS1 en el navegador.",
@@ -66,6 +68,7 @@ const compatibilityCopy = {
 } as const
 
 const compatibilityDetails = {
+  ...europeanCompatibilityDetails,
   es: {
   "update": "Última actualización del método: agosto de 2026",
   "capability": "Función",
@@ -107,7 +110,7 @@ const compatibilityDetails = {
 }
 
 function getCompatibilityDetails(locale: Locale) {
-  return locale === 'zh-TW' || locale === 'ko' || locale === 'es' || locale === 'pt' ? compatibilityDetails[locale] : compatibilityDetails.en
+  return locale === 'fr' || locale === 'de' ? europeanCompatibilityDetails[locale] : locale === 'zh-TW' || locale === 'ko' || locale === 'es' || locale === 'pt' ? compatibilityDetails[locale] : compatibilityDetails.en
 }
 
 type CapabilityDefinition = {
@@ -165,7 +168,8 @@ const capabilityDefinitions: Array<CapabilityDefinition> = [
   },
 ]
 
-const localizedCapabilities: Record<Exclude<Locale, 'fr' | 'de'>, Record<string, { label: string; description: string; requirement: string }>> = {
+const localizedCapabilities: Record<Locale, Record<string, { label: string; description: string; requirement: string }>> = {
+  ...europeanCompatibilityCapabilities,
   es: {
   "wasm": {
     "label": "WebAssembly",
@@ -276,7 +280,7 @@ export const Route = createFileRoute('/en/ps1-compatibility')({
 export function buildPs1CompatibilityHead(origin: string | undefined, locale: Locale) {
     const path = `/${locale}/ps1-compatibility`
     const canonicalUrl = origin ? `${origin}${path}` : path
-    const copy = compatibilityCopy[locale === 'fr' || locale === 'de' ? 'en' : locale]
+    const copy = compatibilityCopy[locale]
     return {
       links: getSeoLinksFromCanonical(canonicalUrl, ['zh-CN', 'zh-TW', 'en', 'ja', 'ko', 'es', 'pt', 'fr', 'de']),
       meta: [
@@ -299,9 +303,9 @@ export function buildPs1CompatibilityHead(origin: string | undefined, locale: Lo
 }
 
 export function Ps1CompatibilityPage({ locale = 'en' }: { locale?: Locale }) {
-  const copy = compatibilityCopy[locale === 'fr' || locale === 'de' ? 'en' : locale]
+  const copy = compatibilityCopy[locale]
   const details = getCompatibilityDetails(locale)
-  const capabilitiesCopy = localizedCapabilities[locale === 'fr' || locale === 'de' ? 'en' : locale]
+  const capabilitiesCopy = localizedCapabilities[locale]
   const [capabilities, setCapabilities] = useState<BrowserCapabilityFlags | null>(null)
 
   function runCheck() {
@@ -320,6 +324,7 @@ export function Ps1CompatibilityPage({ locale = 'en' }: { locale?: Locale }) {
     <SiteLayout
       locale={locale}
       localePaths={{
+        fr: '/fr/ps1-compatibility', de: '/de/ps1-compatibility',
   es: '/es/ps1-compatibility',
   pt: '/pt/ps1-compatibility',
         'zh-TW': '/zh-TW/ps1-compatibility',
@@ -447,7 +452,7 @@ function ReadinessSummary({
   readiness: ReturnType<typeof evaluateBrowserReadiness> | null
   locale?: Locale
 }) {
-  const labels = locale === 'es' ? { checking: 'Comprobando', limited: 'Compatibilidad parcial', ready: 'Preparado', notReady: 'No compatible', browser: 'Estado del navegador', score: 'Solo comprueba funciones. El rendimiento depende del dispositivo y emulador.' } : locale === 'pt' ? { checking: 'Verificando', limited: 'Compatibilidade parcial', ready: 'Pronto', notReady: 'Não compatível', browser: 'Estado do navegador', score: 'Verifica apenas recursos. O desempenho depende do dispositivo e emulador.' } : locale === 'ko' ? { checking: '검사 중', limited: '일부 지원', ready: '준비 완료', notReady: '지원되지 않음', browser: '브라우저 준비 상태', score: '기능 검사 결과입니다. 실제 성능은 기기와 에뮬레이터에 따라 달라집니다.' } : locale === 'zh-TW' ? { checking: '檢測中', limited: '部分支持', ready: '可運行', notReady: '暫不支持', browser: '瀏覽器就緒度', score: '僅供參考：實際性能取決於設備與模擬器。' } : locale === 'zh-CN'
+  const labels = locale === 'fr' || locale === 'de' ? europeanCompatibilityReadiness[locale] : locale === 'es' ? { checking: 'Comprobando', limited: 'Compatibilidad parcial', ready: 'Preparado', notReady: 'No compatible', browser: 'Estado del navegador', score: 'Solo comprueba funciones. El rendimiento depende del dispositivo y emulador.' } : locale === 'pt' ? { checking: 'Verificando', limited: 'Compatibilidade parcial', ready: 'Pronto', notReady: 'Não compatível', browser: 'Estado do navegador', score: 'Verifica apenas recursos. O desempenho depende do dispositivo e emulador.' } : locale === 'ko' ? { checking: '검사 중', limited: '일부 지원', ready: '준비 완료', notReady: '지원되지 않음', browser: '브라우저 준비 상태', score: '기능 검사 결과입니다. 실제 성능은 기기와 에뮬레이터에 따라 달라집니다.' } : locale === 'zh-TW' ? { checking: '檢測中', limited: '部分支持', ready: '可運行', notReady: '暫不支持', browser: '瀏覽器就緒度', score: '僅供參考：實際性能取決於設備與模擬器。' } : locale === 'zh-CN'
     ? { checking: '检测中', limited: '部分支持', ready: '可运行', notReady: '暂不支持', browser: '浏览器就绪度', score: '仅供参考：实际性能取决于设备与模拟器。' }
     : locale === 'ja'
       ? { checking: '確認中', limited: '一部対応', ready: '準備完了', notReady: '未対応', browser: 'ブラウザーの準備状況', score: '機能チェックのみです。実際の性能は端末とエミュレーターに左右されます。' }
@@ -490,7 +495,7 @@ function CapabilityRow({
   locale?: Locale
 }) {
   const priority = getCompatibilityDetails(locale).priority
-  const status = locale === 'es' ? { checking: 'Comprobando', available: 'Disponible', unavailable: 'No disponible' } : locale === 'pt' ? { checking: 'Verificando', available: 'Disponível', unavailable: 'Indisponível' } : locale === 'ko' ? { checking: '검사 중', available: '지원됨', unavailable: '지원되지 않음' } : locale === 'zh-TW' ? { checking: '檢測中', available: '支持', unavailable: '不支持' } : locale === 'zh-CN'
+  const status = locale === 'fr' || locale === 'de' ? europeanCompatibilityStatus[locale] : locale === 'es' ? { checking: 'Comprobando', available: 'Disponible', unavailable: 'No disponible' } : locale === 'pt' ? { checking: 'Verificando', available: 'Disponível', unavailable: 'Indisponível' } : locale === 'ko' ? { checking: '검사 중', available: '지원됨', unavailable: '지원되지 않음' } : locale === 'zh-TW' ? { checking: '檢測中', available: '支持', unavailable: '不支持' } : locale === 'zh-CN'
     ? { checking: '检测中', available: '支持', unavailable: '不支持' }
     : locale === 'ja'
       ? { checking: '確認中', available: '対応', unavailable: '未対応' }
