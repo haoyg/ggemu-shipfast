@@ -1,8 +1,9 @@
+import { TemporaryPageLoadError } from '#/components/game-detail-load-error'
 import { createFileRoute, notFound } from '@tanstack/react-router'
 
 import { getLocalizedPs1Collection, Ps1GamesPage } from '#/components/ps1-games-page'
 import { normalizeLocale } from '#/lib/i18n'
-import { buildPlatformCollectionHead, loadPlatformCollection } from '#/lib/platform-collection-route'
+import { buildPlatformCollectionHead, loadPlatformCollection, getPlatformCollectionHeaders } from '#/lib/platform-collection-route'
 
 export const Route = createFileRoute('/$locale/ps1-games')({
   loader: async ({ params }) => {
@@ -12,10 +13,12 @@ export const Route = createFileRoute('/$locale/ps1-games')({
     return { ...data, locale }
   },
   head: ({ loaderData }) => loaderData ? buildPlatformCollectionHead(getLocalizedPs1Collection(loaderData.locale), loaderData, loaderData.locale) : {},
+  headers: ({ loaderData }) => getPlatformCollectionHeaders(loaderData),
   component: LocalizedPs1GamesRoute,
 })
 
 function LocalizedPs1GamesRoute() {
-  const { games, locale, pagination } = Route.useLoaderData()
+  const { games, locale, pagination, loadFailed } = Route.useLoaderData()
+  if (loadFailed) return <TemporaryPageLoadError locale={locale} title={getLocalizedPs1Collection(locale).page.heroTitle} />
   return <Ps1GamesPage games={games} locale={locale} total={pagination.total} />
 }

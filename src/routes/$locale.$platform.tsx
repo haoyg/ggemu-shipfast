@@ -1,3 +1,4 @@
+import { TemporaryPageLoadError } from '#/components/game-detail-load-error'
 import { createFileRoute, notFound } from '@tanstack/react-router'
 
 import {
@@ -7,6 +8,7 @@ import {
 import {
   buildPlatformCollectionHead,
   loadPlatformCollection,
+  getPlatformCollectionHeaders,
 } from '#/lib/platform-collection-route'
 import { normalizeLocale } from '#/lib/i18n'
 import { getPlatformCollectionKey } from '#/lib/platform-routes'
@@ -37,12 +39,14 @@ export const Route = createFileRoute('/$locale/$platform')({
           loaderData.locale,
         )
       : {},
+  headers: ({ loaderData }) => getPlatformCollectionHeaders(loaderData),
   component: LocalizedPlatformGamesRoute,
 })
 
 function LocalizedPlatformGamesRoute() {
-  const { games, key, locale, pagination } = Route.useLoaderData()
+  const { games, key, locale, pagination, loadFailed } = Route.useLoaderData()
   const collection = getLocalizedPlatformCollection(key, locale)
+  if (loadFailed) return <TemporaryPageLoadError locale={locale} title={collection.page.heroTitle} />
 
   return (
     <PlatformGamesPage
