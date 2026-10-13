@@ -156,7 +156,7 @@ function getSnapshotStore() {
 }
 
 function snapshotKey(origin: string) {
-  return `${origin}/__cache/sitemap-last-success-v2`
+  return `${origin}/__cache/sitemap-last-success-v3`
 }
 
 async function readSnapshot(origin: string): Promise<SitemapSnapshot | undefined> {
