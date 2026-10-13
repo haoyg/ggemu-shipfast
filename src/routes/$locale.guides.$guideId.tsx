@@ -6,10 +6,15 @@ import { getSeoOrigin } from '#/lib/seo'
 
 export type Guide = {
   title: string
+  seoTitle?: string
   description: string
   facts: Array<string>
   faqs: Array<{ question: string; answer: string }>
   sources?: Array<{ label: string; href: string }>
+  heroImage?: { alt: string; src: string }
+  notice?: string
+  externalLink?: { href: string; label: string }
+  comparison?: Array<{ item: string; officialDescription: string; practicalNote: string }>
   publishedAt: string
   updatedAt: string
   sections: Array<{ heading: string; paragraphs: Array<string> }>
@@ -107,6 +112,103 @@ export const guides: Record<string, Guide> = {
     ],
     links: [{ label: 'Play GBA games', href: '/$locale/gba-games' }, { label: 'Play PS1 games', href: '/$locale/ps1-games' }, { label: 'Return to the retro gaming guide', href: '/$locale/guides/browser-retro-gaming-guide' }],
   },
+  'wasm-arcade-review': {
+    title: 'WASM Arcade Review: Games, Compatibility, and Alternatives',
+    seoTitle: 'WASM Arcade Review: Games, Compatibility & Alternatives | POKOPIE',
+    description: 'Independent WASM Arcade review covering its game catalog, browser compatibility, local saves, advertising, limitations, and POKOPIE alternatives.',
+    publishedAt: '2026-10-13', updatedAt: '2026-10-13',
+    heroImage: {
+      alt: 'Original illustration of WebAssembly games running in a desktop browser',
+      src: '/guide-art/wasm-arcade-review.webp',
+    },
+    notice: 'Independent editorial page. POKOPIE is not affiliated with, endorsed by, or sponsored by WASM Arcade. This page does not host or embed its games.',
+    externalLink: { href: 'https://wasmarcade.com/', label: 'Visit the official WASM Arcade website' },
+    facts: [
+      'WASM Arcade describes itself as a free, unofficial browser-game archive rather than a store or official publisher service.',
+      'On October 13, 2026, its public catalog reported 1,082 entries across PC, Neo Geo, Capcom arcade, arcade classics, and Flash collections.',
+      'Catalog totals, individual builds, advertising behavior, and browser support can change; check the official pages before relying on a specific game.',
+    ],
+    comparison: [
+      { item: 'PC games', officialDescription: 'Five entries were listed: GTA V, GTA: Vice City, GTA III, The Simpsons: Hit & Run, and Minecraft.', practicalNote: 'These are the most demanding listings and are presented primarily for current desktop browsers.' },
+      { item: 'Neo Geo', officialDescription: 'The catalog reported 90 games.', practicalNote: 'This section is organized as an emulated arcade collection rather than a set of native PC ports.' },
+      { item: 'Capcom arcade', officialDescription: 'The catalog reported 62 CPS1, CPS2, and CPS3 titles.', practicalNote: 'Controls and performance depend on the browser, device, and emulator configuration.' },
+      { item: 'Arcade classics', officialDescription: 'The catalog reported 75 games from several arcade hardware families.', practicalNote: 'A keyboard may work, but many arcade games are more comfortable with a controller.' },
+      { item: 'Flash games', officialDescription: 'The catalog reported 850 games running through Ruffle.', practicalNote: 'Ruffle compatibility varies because some original Flash features are not implemented in every game.' },
+    ],
+    sections: [
+      {
+        heading: 'What is WASM Arcade?',
+        paragraphs: [
+          'WASM Arcade is a third-party website that groups several kinds of browser-playable games under one catalog. The name refers to WebAssembly, a browser technology that can run compiled code inside a web page. The site says its collection includes native or reimplemented game engines, arcade emulation, and Flash games running through Ruffle.',
+          'That distinction matters. Not every listing uses the same technical approach: the PC section names projects such as re3, reVC, EaglercraftX, and other WebAssembly builds, while the arcade catalog uses EmulatorJS with FinalBurn Neo and the Flash section uses Ruffle. “WASM Arcade” is therefore the name of the website, not one universal emulator or game engine.',
+        ],
+      },
+      {
+        heading: 'Which games are listed on WASM Arcade?',
+        paragraphs: [
+          'The official catalog reported 1,082 entries when this page was reviewed on October 13, 2026. Most were Flash games, followed by Neo Geo, Capcom, and other arcade titles. The smaller PC section drew attention by listing well-known 3D and sandbox games.',
+          'Treat those figures as a dated snapshot, not a permanent promise. The site was changing during review: different official pages briefly showed different totals, and its catalog can add, remove, or reclassify games. Use the official collection page for the current list rather than assuming every title named here will remain available.',
+        ],
+      },
+      {
+        heading: 'Browser compatibility and device requirements',
+        paragraphs: [
+          'The official PC collection recommends a current version of Chrome, Edge, or Firefox on a desktop or laptop, with keyboard and mouse or a gamepad. Its about page also mentions Safari 15.4 or later for general WebAssembly and WebGL 2 support, but it describes desktop Chrome, Edge, and Firefox as the better fit for the GTA builds.',
+          'Actual performance cannot be predicted from browser support alone. A page may pass a WebAssembly check and still run slowly because of CPU speed, graphics drivers, available memory, thermal limits, extensions, or the size of the game data. POKOPIE has not independently benchmarked the WASM Arcade builds, so this review does not assign frame-rate or loading-speed scores.',
+        ],
+      },
+      {
+        heading: 'Loading, caching, and local save behavior',
+        paragraphs: [
+          'WASM Arcade says game data can stream and cache in the browser, which means the first visit may wait for more data than a return visit. There is no single reliable loading-time figure because game size, server conditions, connection speed, cache state, and device performance all affect the result.',
+          'According to the site’s privacy and about pages, saves are stored in browser storage and some game pages provide a Save Manager for export and import. Clearing site data, using a different browser profile, or switching devices can remove access to local progress. Export important saves when that option is available instead of treating browser storage as a permanent backup.',
+        ],
+      },
+      {
+        heading: 'Advertising and privacy trade-offs',
+        paragraphs: [
+          'No account is required to browse or play, according to the site. Its privacy policy says it uses advertising to support hosting and identifies Google AdSense and Monetag as partners. It also states that pressing Play may open a sponsor page in another tab and that browsing pages may open an advertising tab after a click.',
+          'This behavior is relevant before opening a game, especially on a shared device. Review the current privacy policy, keep the browser’s pop-up controls enabled, and close any unexpected sponsor tab rather than entering information into it. POKOPIE cannot verify or control third-party ads shown by another website.',
+        ],
+      },
+      {
+        heading: 'Ownership, ports, and availability',
+        paragraphs: [
+          'WASM Arcade states that it is unofficial, does not own the listed games, and is not affiliated with their publishers or rights holders. It also publishes a copyright and takedown process. Open-source engine work does not automatically make a game’s original artwork, audio, maps, or other data freely redistributable.',
+          'For visitors, the practical rule is simple: do not assume that browser availability settles ownership or licensing questions. Follow the requirements shown for the individual build, use files only when you have the right to use them, and expect listings to disappear if a maintainer or rights holder changes availability.',
+        ],
+      },
+      {
+        heading: 'WASM Arcade alternatives on POKOPIE',
+        paragraphs: [
+          'POKOPIE does not mirror the WASM Arcade library. It offers a different route to browser gaming: platform collections for NES, SNES, GBA, PS1, N64, Genesis, and arcade titles, plus separate verified links for LibreQuake and Surfd and an original Word Ladder game.',
+          'Choose WASM Arcade when you specifically want to inspect its current PC, arcade, or Flash catalog. Choose POKOPIE when you want platform-based discovery, individual game information, compatibility guidance, and related retro-game recommendations. Neither catalog should be treated as a substitute for an official commercial release when one is required.',
+        ],
+      },
+    ],
+    faqs: [
+      { question: 'Is WASM Arcade part of POKOPIE?', answer: 'No. WASM Arcade is a separate third-party website. POKOPIE does not operate it, host its catalog, or control its availability and advertising.' },
+      { question: 'Can I play WASM Arcade games on mobile?', answer: 'Support varies by game. The site recommends desktop Chrome, Edge, or Firefox for its PC collection, although it says some GTA builds provide touch controls. A phone supporting WebAssembly does not guarantee smooth performance.' },
+      { question: 'Does WASM Arcade require a download?', answer: 'The site presents its games as browser-playable without a traditional installer. Game data still has to transfer to the browser and may be cached locally, so “no download” does not mean zero network data or storage use.' },
+      { question: 'Where are WASM Arcade saves stored?', answer: 'The site says saves are stored in the browser, primarily through IndexedDB, with local storage used for some settings. Clearing site data can remove saves, so use the provided export feature when available.' },
+      { question: 'Is every game on WASM Arcade a native WebAssembly port?', answer: 'No. The catalog combines several approaches, including engine ports or reimplementations, arcade emulation through EmulatorJS and FinalBurn Neo, and Flash playback through Ruffle.' },
+      { question: 'Has POKOPIE tested every WASM Arcade game?', answer: 'No. This page reviews the public catalog and official documentation as of October 13, 2026. It does not claim independent performance testing of every game build.' },
+    ],
+    sources: [
+      { label: 'WASM Arcade official home and current catalog', href: 'https://wasmarcade.com/' },
+      { label: 'WASM Arcade PC games collection', href: 'https://wasmarcade.com/pc-games' },
+      { label: 'WASM Arcade about and technical overview', href: 'https://wasmarcade.com/about' },
+      { label: 'WASM Arcade privacy policy', href: 'https://wasmarcade.com/privacy' },
+      { label: 'WASM Arcade terms of service', href: 'https://wasmarcade.com/terms' },
+      { label: 'Google people-first content guidance', href: 'https://developers.google.com/search/docs/fundamentals/creating-helpful-content' },
+    ],
+    links: [
+      { label: 'Browse POKOPIE arcade games', href: '/$locale/arcade-games' },
+      { label: 'Read the browser retro gaming guide', href: '/$locale/guides/browser-retro-gaming-guide' },
+      { label: 'Check browser compatibility', href: '/$locale/ps1-compatibility' },
+      { label: 'View Quake Online', href: '/en/games/quake-online' },
+    ],
+  },
 }
 
 export const Route = createFileRoute('/$locale/guides/$guideId')({
@@ -124,7 +226,7 @@ export const Route = createFileRoute('/$locale/guides/$guideId')({
     if (!loaderData) return {}
     return {
     meta: [
-      { title: loaderData.guide.title },
+      { title: loaderData.guide.seoTitle ?? loaderData.guide.title },
       { name: 'description', content: loaderData.guide.description },
       { property: 'og:title', content: loaderData.guide.title },
       { property: 'og:description', content: loaderData.guide.description },
@@ -133,6 +235,13 @@ export const Route = createFileRoute('/$locale/guides/$guideId')({
       { property: 'article:modified_time', content: loaderData.guide.updatedAt },
       { name: 'twitter:title', content: loaderData.guide.title },
       { name: 'twitter:description', content: loaderData.guide.description },
+      ...(loaderData.guide.heroImage && loaderData.seoOrigin ? [
+        { property: 'og:image', content: `${loaderData.seoOrigin}${loaderData.guide.heroImage.src}` },
+        { property: 'og:image:alt', content: loaderData.guide.heroImage.alt },
+        { name: 'twitter:card', content: 'summary_large_image' },
+        { name: 'twitter:image', content: `${loaderData.seoOrigin}${loaderData.guide.heroImage.src}` },
+        { name: 'twitter:image:alt', content: loaderData.guide.heroImage.alt },
+      ] : []),
     ],
     links: loaderData.seoOrigin ? [{ rel: 'canonical', href: `${loaderData.seoOrigin}/${params.locale}/guides/${params.guideId}` }] : undefined,
     scripts: loaderData.seoOrigin ? [
@@ -145,6 +254,7 @@ export const Route = createFileRoute('/$locale/guides/$guideId')({
           datePublished: loaderData.guide.publishedAt,
           description: loaderData.guide.description,
           headline: loaderData.guide.title,
+          ...(loaderData.guide.heroImage ? { image: `${loaderData.seoOrigin}${loaderData.guide.heroImage.src}` } : {}),
           inLanguage: 'en',
           isAccessibleForFree: true,
           mainEntityOfPage: `${loaderData.seoOrigin}/${params.locale}/guides/${params.guideId}`,
@@ -187,8 +297,8 @@ function GuidePage() {
 
   return (
     <SiteLayout locale={locale}>
-      <main className="bg-neutral text-neutral-content">
-        <div className="mx-auto max-w-4xl px-4 py-12 sm:px-6 lg:px-8">
+      <main className="min-w-0 max-w-[100vw] bg-neutral text-neutral-content">
+        <div className="mx-auto w-screen min-w-0 max-w-4xl px-4 py-12 sm:px-6 lg:px-8">
         <nav aria-label="Breadcrumb" className="breadcrumbs text-sm text-white/60">
           <ul>
             <li><a href="/en">Home</a></li>
@@ -197,12 +307,27 @@ function GuidePage() {
           </ul>
         </nav>
         <p className="mt-5 text-xs font-bold uppercase tracking-[0.18em] text-primary">{t.tagline}</p>
-        <h1 className="mt-3 text-4xl font-black leading-tight text-white sm:text-5xl">{guide.title}</h1>
-        <p className="mt-5 max-w-3xl text-lg leading-8 text-white/70">{guide.description}</p>
+        <h1 className="mt-3 break-words text-4xl font-black leading-tight text-white sm:text-5xl">{guide.title}</h1>
+        <p className="mt-5 max-w-3xl break-words text-lg leading-8 text-white/70">{guide.description}</p>
         <p className="mt-4 text-sm text-white/60">By POKOPIE Editorial Team · Updated {guide.updatedAt}</p>
+        {guide.heroImage ? (
+          <img alt={guide.heroImage.alt} className="mt-8 aspect-video w-full rounded-xl border border-white/10 object-cover shadow-2xl" decoding="async" fetchPriority="high" height="900" src={guide.heroImage.src} width="1600" />
+        ) : null}
+        {guide.notice ? <p className="mt-6 rounded-xl border border-warning/30 bg-warning/10 p-4 text-sm leading-6 text-white/80">{guide.notice}</p> : null}
         <ul className="mt-6 grid gap-3 rounded-xl border border-white/10 bg-white/[0.04] p-5 text-sm leading-6 text-white/75 sm:grid-cols-3">
           {guide.facts.map((fact) => <li className="list-disc pl-2 marker:text-primary" key={fact}>{fact}</li>)}
         </ul>
+        {guide.comparison?.length ? (
+          <section className="mt-8 overflow-hidden rounded-xl border border-white/10 bg-white/[0.04] shadow-sm" aria-labelledby="guide-catalog-overview">
+            <div className="border-b border-white/10 p-6"><h2 className="text-2xl font-bold text-white" id="guide-catalog-overview">Catalog snapshot</h2><p className="mt-2 text-sm leading-6 text-white/65">Official public listings checked on {guide.updatedAt}. Counts and availability may change.</p></div>
+            <div className="overflow-x-auto">
+              <table className="table">
+                <thead><tr><th>Collection</th><th>Official listing</th><th>Practical note</th></tr></thead>
+                <tbody>{guide.comparison.map((row) => <tr key={row.item}><th className="align-top text-white">{row.item}</th><td className="min-w-56 align-top text-white/75">{row.officialDescription}</td><td className="min-w-64 align-top text-white/65">{row.practicalNote}</td></tr>)}</tbody>
+              </table>
+            </div>
+          </section>
+        ) : null}
         <div className="mt-10 space-y-8">
           {guide.sections.map((section) => (
             <section className="rounded-xl border border-white/10 bg-white/[0.04] p-6 shadow-sm" key={section.heading}>
@@ -211,6 +336,7 @@ function GuidePage() {
             </section>
           ))}
         </div>
+        {guide.externalLink ? <a className="btn btn-outline mt-8" href={guide.externalLink.href} rel="noopener noreferrer nofollow" target="_blank">{guide.externalLink.label}<i aria-hidden="true" className="ri-external-link-line" /></a> : null}
         <section className="mt-10 rounded-xl border border-white/10 bg-white/[0.04] p-6 shadow-sm">
           <h2 className="text-2xl font-bold text-white">Frequently asked questions</h2>
           <div className="mt-4 divide-y divide-white/10">

@@ -43,6 +43,7 @@ const guideSlugs = [
   'nes-vs-snes-games',
   'retro-platform-comparison',
   'how-browser-game-saves-work',
+  'wasm-arcade-review',
 ] as const
 const guidesLastModified = '2026-09-06'
 
@@ -437,7 +438,7 @@ function buildSitemapEntries(
           loc: toAbsoluteLocalizedUrl(origin, locale, path),
           path,
           changefreq: 'monthly',
-          lastmod: guidesLastModified,
+          lastmod: guideSlug === 'wasm-arcade-review' ? '2026-10-13' : guidesLastModified,
           priority: 0.7,
         })
       }
