@@ -39,6 +39,7 @@ describe('sitemap availability', () => {
     expect(firstXml).toContain('/en/games/word-ladder')
     expect(firstXml).toContain('/en/games/quake-online')
     expect(firstXml).toContain('/en/games/cs-surf')
+    expect(firstXml).toContain('/en/games/freedoom-online')
     expect(firstXml).not.toContain('/zh-CN/games/word-ladder')
     expect(firstXml).toContain('/en/guides/browser-retro-gaming-guide')
     expect(firstXml).toContain('/en/guides/wasm-arcade-review')

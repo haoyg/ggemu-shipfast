@@ -203,10 +203,10 @@ export const guides: Record<string, Guide> = {
       { label: 'Google people-first content guidance', href: 'https://developers.google.com/search/docs/fundamentals/creating-helpful-content' },
     ],
     links: [
+      { label: 'Play Freedoom Online', href: '/en/games/freedoom-online' },
       { label: 'Browse POKOPIE arcade games', href: '/$locale/arcade-games' },
       { label: 'Read the browser retro gaming guide', href: '/$locale/guides/browser-retro-gaming-guide' },
       { label: 'Check browser compatibility', href: '/$locale/ps1-compatibility' },
-      { label: 'View Quake Online', href: '/en/games/quake-online' },
     ],
   },
 }
