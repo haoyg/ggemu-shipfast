@@ -80,6 +80,7 @@ import { Route as LibraryGenresGenreRouteImport } from './routes/library.genres.
 import { Route as GamesGameIdPlayRouteImport } from './routes/games/$gameId/play'
 import { Route as EnGamesWordLadderRouteImport } from './routes/en.games.word-ladder'
 import { Route as EnGamesQuakeOnlineRouteImport } from './routes/en.games.quake-online'
+import { Route as EnGamesFreedoomOnlineRouteImport } from './routes/en.games.freedoom-online'
 import { Route as EnGamesCsSurfRouteImport } from './routes/en.games.cs-surf'
 import { Route as LocaleGuidesGuideIdRouteImport } from './routes/$locale.guides.$guideId'
 import { Route as LocaleGamesGameIdRouteImport } from './routes/$locale.games.$gameId'
@@ -445,6 +446,11 @@ const EnGamesQuakeOnlineRoute = EnGamesQuakeOnlineRouteImport.update({
   path: '/en/games/quake-online',
   getParentRoute: () => rootRouteImport,
 } as any)
+const EnGamesFreedoomOnlineRoute = EnGamesFreedoomOnlineRouteImport.update({
+  id: '/en/games/freedoom-online',
+  path: '/en/games/freedoom-online',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const EnGamesCsSurfRoute = EnGamesCsSurfRouteImport.update({
   id: '/en/games/cs-surf',
   path: '/en/games/cs-surf',
@@ -558,6 +564,7 @@ export interface FileRoutesByFullPath {
   '/$locale/games/$gameId': typeof LocaleGamesGameIdRouteWithChildren
   '/$locale/guides/$guideId': typeof LocaleGuidesGuideIdRoute
   '/en/games/cs-surf': typeof EnGamesCsSurfRoute
+  '/en/games/freedoom-online': typeof EnGamesFreedoomOnlineRoute
   '/en/games/quake-online': typeof EnGamesQuakeOnlineRoute
   '/en/games/word-ladder': typeof EnGamesWordLadderRoute
   '/games/$gameId/play': typeof GamesGameIdPlayRoute
@@ -639,6 +646,7 @@ export interface FileRoutesByTo {
   '/$locale/games/$gameId': typeof LocaleGamesGameIdRouteWithChildren
   '/$locale/guides/$guideId': typeof LocaleGuidesGuideIdRoute
   '/en/games/cs-surf': typeof EnGamesCsSurfRoute
+  '/en/games/freedoom-online': typeof EnGamesFreedoomOnlineRoute
   '/en/games/quake-online': typeof EnGamesQuakeOnlineRoute
   '/en/games/word-ladder': typeof EnGamesWordLadderRoute
   '/games/$gameId/play': typeof GamesGameIdPlayRoute
@@ -721,6 +729,7 @@ export interface FileRoutesById {
   '/$locale/games/$gameId': typeof LocaleGamesGameIdRouteWithChildren
   '/$locale/guides/$guideId': typeof LocaleGuidesGuideIdRoute
   '/en/games/cs-surf': typeof EnGamesCsSurfRoute
+  '/en/games/freedoom-online': typeof EnGamesFreedoomOnlineRoute
   '/en/games/quake-online': typeof EnGamesQuakeOnlineRoute
   '/en/games/word-ladder': typeof EnGamesWordLadderRoute
   '/games/$gameId/play': typeof GamesGameIdPlayRoute
@@ -804,6 +813,7 @@ export interface FileRouteTypes {
     | '/$locale/games/$gameId'
     | '/$locale/guides/$guideId'
     | '/en/games/cs-surf'
+    | '/en/games/freedoom-online'
     | '/en/games/quake-online'
     | '/en/games/word-ladder'
     | '/games/$gameId/play'
@@ -885,6 +895,7 @@ export interface FileRouteTypes {
     | '/$locale/games/$gameId'
     | '/$locale/guides/$guideId'
     | '/en/games/cs-surf'
+    | '/en/games/freedoom-online'
     | '/en/games/quake-online'
     | '/en/games/word-ladder'
     | '/games/$gameId/play'
@@ -966,6 +977,7 @@ export interface FileRouteTypes {
     | '/$locale/games/$gameId'
     | '/$locale/guides/$guideId'
     | '/en/games/cs-surf'
+    | '/en/games/freedoom-online'
     | '/en/games/quake-online'
     | '/en/games/word-ladder'
     | '/games/$gameId/play'
@@ -1032,6 +1044,7 @@ export interface RootRouteChildren {
   GamesGameIdRoute: typeof GamesGameIdRouteWithChildren
   PlayGameIdRoute: typeof PlayGameIdRoute
   EnGamesCsSurfRoute: typeof EnGamesCsSurfRoute
+  EnGamesFreedoomOnlineRoute: typeof EnGamesFreedoomOnlineRoute
   EnGamesQuakeOnlineRoute: typeof EnGamesQuakeOnlineRoute
   EnGamesWordLadderRoute: typeof EnGamesWordLadderRoute
   LibraryGenresGenreRoute: typeof LibraryGenresGenreRoute
@@ -1538,6 +1551,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EnGamesQuakeOnlineRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/en/games/freedoom-online': {
+      id: '/en/games/freedoom-online'
+      path: '/en/games/freedoom-online'
+      fullPath: '/en/games/freedoom-online'
+      preLoaderRoute: typeof EnGamesFreedoomOnlineRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/en/games/cs-surf': {
       id: '/en/games/cs-surf'
       path: '/en/games/cs-surf'
@@ -1740,6 +1760,7 @@ const rootRouteChildren: RootRouteChildren = {
   GamesGameIdRoute: GamesGameIdRouteWithChildren,
   PlayGameIdRoute: PlayGameIdRoute,
   EnGamesCsSurfRoute: EnGamesCsSurfRoute,
+  EnGamesFreedoomOnlineRoute: EnGamesFreedoomOnlineRoute,
   EnGamesQuakeOnlineRoute: EnGamesQuakeOnlineRoute,
   EnGamesWordLadderRoute: EnGamesWordLadderRoute,
   LibraryGenresGenreRoute: LibraryGenresGenreRoute,

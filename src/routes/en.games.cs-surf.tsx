@@ -15,8 +15,8 @@ export const Route = createFileRoute('/en/games/cs-surf')({
 
 function CsSurfPage() {
   return <ExternalBrowserGamePage game={game} relatedGames={[
+    { title: 'Freedoom Online', description: 'Play a complete free Doom-engine-compatible campaign inside POKOPIE.', href: '/en/games/freedoom-online' },
     { title: 'Quake Online', description: 'Launch a free Quake-engine campaign through the verified external player.', href: '/en/games/quake-online' },
     { title: 'Quake for Nintendo 64', description: 'Explore the separate console conversion already in the POKOPIE catalog.', href: '/en/games/quake-n64-1998' },
-    { title: 'Word Ladder Challenge', description: 'Try POKOPIE’s original daily word puzzle.', href: '/en/games/word-ladder' },
   ]} />
 }

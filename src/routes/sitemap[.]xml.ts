@@ -43,6 +43,7 @@ const guideSlugs = [
   'nes-vs-snes-games',
   'retro-platform-comparison',
   'how-browser-game-saves-work',
+  'wasm-arcade-review',
 ] as const
 const guidesLastModified = '2026-09-06'
 
@@ -155,7 +156,7 @@ function getSnapshotStore() {
 }
 
 function snapshotKey(origin: string) {
-  return `${origin}/__cache/sitemap-last-success-v2`
+  return `${origin}/__cache/sitemap-last-success-v3`
 }
 
 async function readSnapshot(origin: string): Promise<SitemapSnapshot | undefined> {
@@ -410,7 +411,7 @@ function buildSitemapEntries(
         changefreq: 'daily',
         priority: 0.8,
       })
-      for (const path of ['/games/quake-online', '/games/cs-surf']) {
+      for (const path of ['/games/freedoom-online', '/games/quake-online', '/games/cs-surf']) {
         entries.push({
           alternateLocales: ['en'],
           locale,
@@ -437,7 +438,7 @@ function buildSitemapEntries(
           loc: toAbsoluteLocalizedUrl(origin, locale, path),
           path,
           changefreq: 'monthly',
-          lastmod: guidesLastModified,
+          lastmod: guideSlug === 'wasm-arcade-review' ? '2026-10-13' : guidesLastModified,
           priority: 0.7,
         })
       }
