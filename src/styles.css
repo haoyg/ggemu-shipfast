@@ -176,6 +176,7 @@ textarea,
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
+  transition-property: background-color, box-shadow;
 }
 .site-header .menu a:hover, .site-header .menu a.active, .site-nav-link:hover, .site-nav-link.btn-primary {
   background: transparent;
