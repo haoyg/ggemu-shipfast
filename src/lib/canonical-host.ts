@@ -7,7 +7,9 @@ export function getCanonicalHostRedirect(request: Request) {
   const isLegacyHost = url.hostname === legacyHost
   const isRootPath = url.pathname === '/'
 
-  if (!isLegacyHost && !(isCanonicalHost && isRootPath)) {
+  const needsHttps = isCanonicalHost && url.protocol !== 'https:'
+
+  if (!isLegacyHost && !(isCanonicalHost && isRootPath) && !needsHttps) {
     return undefined
   }
 
@@ -27,4 +29,11 @@ export function getCanonicalHostRedirect(request: Request) {
     },
     status: 301,
   })
+}
+
+
+export function getCanonicalOrigin(value: string | URL) {
+  const url = new URL(value)
+  if (url.hostname === canonicalHost || url.hostname === legacyHost) return `https://${canonicalHost}`
+  return url.origin
 }

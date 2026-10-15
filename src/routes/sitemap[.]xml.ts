@@ -1,3 +1,4 @@
+import { getCanonicalOrigin } from '#/lib/canonical-host'
 import { createFileRoute } from '@tanstack/react-router'
 
 import type { BlogPost, Locale, PublicGame } from '#/lib/ggemu'
@@ -86,9 +87,7 @@ export const Route = createFileRoute('/sitemap.xml')({
 
 export async function getSitemapResponse(request: Request) {
   const url = new URL(request.url)
-  const origin = ['pokopie.com', 'www.pokopie.com'].includes(url.hostname)
-    ? 'https://pokopie.com'
-    : url.origin
+  const origin = getCanonicalOrigin(url)
   const snapshot = await getSitemapSnapshot(origin)
 
   if (!snapshot.xml) {

@@ -1,3 +1,4 @@
+import { getCanonicalOrigin } from '#/lib/canonical-host'
 import { createServerFn } from '@tanstack/react-start'
 import { getRequestUrl } from '@tanstack/react-start/server'
 
@@ -742,7 +743,7 @@ export const getGameDetailPageData = createServerFn({ method: 'GET' })
     if (outcome.kind !== 'ready') return outcome
     const result = outcome.value
     const game = localizePublicGame(normalizePublicGame(result.data), data.locale)
-    const origin = getRequestUrl({ xForwardedHost: true }).origin
+    const origin = getCanonicalOrigin(getRequestUrl({ xForwardedHost: false }))
 
     return {
       kind: 'ready' as const,
@@ -799,7 +800,7 @@ export const getBlogPostDetailPageData = createServerFn({ method: 'GET' })
       `/api/blog-posts/${encodeURIComponent(data.id)}`,
       new URLSearchParams(),
     )
-    const origin = getRequestUrl({ xForwardedHost: true }).origin
+    const origin = getCanonicalOrigin(getRequestUrl({ xForwardedHost: false }))
 
     return {
       blogPost: result.blogPost,

@@ -1,3 +1,4 @@
+import { getCanonicalOrigin } from '#/lib/canonical-host'
 import { createServerFn } from '@tanstack/react-start'
 import { getRequestUrl } from '@tanstack/react-start/server'
 
@@ -14,7 +15,7 @@ export function getAvailableSeoLocales(path: string, locales: ReadonlyArray<Loca
 
 
 export const getSeoOrigin = createServerFn({ method: 'GET' }).handler(() => {
-  return getRequestUrl({ xForwardedHost: true }).origin
+  return getCanonicalOrigin(getRequestUrl({ xForwardedHost: false }))
 })
 
 export function getDocumentLang(pathname: string) {
