@@ -79,3 +79,23 @@ describe('production HTTPS URLs', () => {
     expect(getCanonicalOrigin('https://preview.example/game')).toBe('https://preview.example')
   })
 })
+
+
+it('respects the HTTPS protocol forwarded by the production proxy without looping', () => {
+  expect(getCanonicalHostRedirect(new Request('http://pokopie.com/zh-CN/games/demo', {
+    headers: { 'X-Forwarded-Proto': 'https' },
+  }))).toBeUndefined()
+  expect(getCanonicalHostRedirect(new Request('http://pokopie.com/zh-CN/games/demo', {
+    headers: { 'X-Forwarded-Proto': 'http' },
+  }))?.headers.get('Location')).toBe('https://pokopie.com/zh-CN/games/demo')
+})
+
+
+it('uses the Cloudflare visitor scheme before the internal proxy protocol', () => {
+  expect(getCanonicalHostRedirect(new Request('http://pokopie.com/en/games/demo', {
+    headers: { 'CF-Visitor': '{"scheme":"https"}', 'X-Forwarded-Proto': 'http' },
+  }))).toBeUndefined()
+  expect(getCanonicalHostRedirect(new Request('http://pokopie.com/en/games/demo', {
+    headers: { 'CF-Visitor': '{"scheme":"http"}', 'X-Forwarded-Proto': 'https' },
+  }))?.status).toBe(301)
+})
