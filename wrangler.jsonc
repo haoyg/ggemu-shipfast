@@ -6,7 +6,8 @@
   "compatibility_flags": ["nodejs_compat"],
   "main": "@tanstack/react-start/server-entry",
   "cache": {
-    "enabled": true
+    "enabled": false,
+    "cross_version_cache": false
   },
   "observability": {
     "enabled": true,

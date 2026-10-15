@@ -35,8 +35,8 @@ export function getCanonicalHostRedirect(request: Request) {
 
   return new Response(null, {
     headers: {
-      'Cache-Control': 'public, max-age=3600',
-      'Cloudflare-CDN-Cache-Control': 'public, max-age=86400',
+      'Cache-Control': 'no-store',
+      'Cloudflare-CDN-Cache-Control': 'no-store',
       Location: url.toString(),
     },
     status: 301,

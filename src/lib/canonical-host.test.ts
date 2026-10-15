@@ -13,10 +13,10 @@ describe('canonical host redirect', () => {
       'https://pokopie.com/en/games/demo?ref=home',
     )
     expect(response?.headers.get('Cache-Control')).toBe(
-      'public, max-age=3600',
+      'no-store',
     )
     expect(response?.headers.get('Cloudflare-CDN-Cache-Control')).toBe(
-      'public, max-age=86400',
+      'no-store',
     )
   })
 
