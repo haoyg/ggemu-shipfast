@@ -597,7 +597,7 @@ function LocalizedGameDetailPage() {
               <AdsterraNativeBanner locale={lang} />
               {editorial ? (
                 <section className="rounded-xl border border-white/10 bg-white/[0.04] p-5">
-                  <h2 className="text-lg font-bold text-white">Game references</h2>
+                  <h2 className="text-lg font-bold text-white">{lang === 'zh-CN' ? '资料来源' : 'Game references'}</h2>
                   <ul className="mt-3 space-y-2">
                     {editorial.sources.map((source) => <li key={source.href}><a className="link link-primary text-sm" href={source.href}>{source.label}</a></li>)}
                   </ul>

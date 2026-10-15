@@ -47,7 +47,7 @@ describe('reviewed English game content', () => {
 
   it('preserves other games and untranslated content', () => {
     expect(getGameEditorial({ url_slug: 'unrelated-game' }, 'en')).toBeUndefined()
-    for (const locale of ['ja', 'zh-CN'] as const) {
+    for (const locale of ['ja', 'zh-TW'] as const) {
       const game = { url_slug: slugs[0], description: 'Original localized copy', how_to_play: 'Original localized instructions' }
       expect(getGameEditorial(game, locale)).toBeUndefined()
       expect(getGameDescriptionParagraphs(game, locale)[0]).toBe(game.description)
@@ -94,4 +94,9 @@ it('describes Chinese Murdoku accurately without enabling another inline player'
   expect(seo.description).not.toContain('经典复古')
   expect(getGameSearchSeo({ ...game, play_device: undefined }, 'zh-CN')?.description).not.toContain('仅支持电脑')
   expect(getTargetedGameSeo(game, 'zh-CN')).toBeNull()
+  const editorial = getGameEditorial(game, 'zh-CN')!
+  expect(getGameDescriptionParagraphs(game, 'zh-CN')).toEqual([editorial.summary, ...editorial.description])
+  expect(getGameFaqs(game, 'zh-CN')).toEqual(editorial.faq)
+  expect(getGameHowToPlayParagraphs(game, 'zh-CN')).toEqual(editorial.howToPlay)
+  expect(editorial.quickStart?.title).toBe('Murdoku 新手规则与操作')
 })
