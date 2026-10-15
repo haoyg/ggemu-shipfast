@@ -1,4 +1,5 @@
 import { esBlogFaqs } from '#/lib/i18n/es'
+import { prependEditorialBlogPosts } from '#/lib/editorial-blog-index'
 import { ptBlogFaqs } from '#/lib/i18n/pt'
 import { koBlogFaqs } from '#/lib/i18n/ko'
 import { zhTwBlogFaqs } from '#/lib/i18n/zh-TW'
@@ -42,7 +43,7 @@ export const Route = createFileRoute('/$locale/blog')({
     ])
 
     const localizedResult = locale === 'en'
-      ? filterEnglishBlogPosts(result)
+      ? filterEnglishBlogPosts({ ...result, blogPosts: prependEditorialBlogPosts(result.blogPosts) })
       : result
 
     return {
@@ -50,7 +51,8 @@ export const Route = createFileRoute('/$locale/blog')({
       seoOrigin,
     }
   },
-  head: ({ loaderData, params }) => {
+  head: ({ loaderData, params, matches }) => {
+    if (matches.some(match => String(match.routeId) === '/$locale/blog/$blogId')) return {}
     const locale = normalizeLocale(params.locale)
     const t = getI18n(locale).blog
     const faqs = locale === 'fr' || locale === 'de' ? getHomeFaqs(locale) : locale === 'es' ? esBlogFaqs : locale === 'pt' ? ptBlogFaqs : locale === 'ko' ? koBlogFaqs : locale === 'zh-TW' ? zhTwBlogFaqs : locale === 'zh-CN' ? zhCnBlogFaqs : locale === 'ja' ? jaBlogFaqs : enBlogFaqs

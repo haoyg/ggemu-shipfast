@@ -1,4 +1,5 @@
 import { getCanonicalOrigin } from '#/lib/canonical-host'
+import { isEditorialBlogPost } from '#/lib/editorial-blog-index'
 import { createServerFn } from '@tanstack/react-start'
 import { getRequestUrl } from '@tanstack/react-start/server'
 
@@ -9,6 +10,7 @@ export const seoLocales = ['zh-CN', 'zh-TW', 'en', 'ja', 'ko', 'es', 'pt', 'fr',
 export const defaultSeoLocale = 'en' satisfies Locale
 
 export function getAvailableSeoLocales(path: string, locales: ReadonlyArray<Locale> = seoLocales) {
+  if (path.startsWith('/blog/') && isEditorialBlogPost(path.slice('/blog/'.length))) return ['en'] satisfies Locale[]
   const englishFallback = ['/privacy-policy', '/terms-of-service', '/copyright-removal'].includes(path)
   return englishFallback ? locales.filter(locale => locale !== 'fr' && locale !== 'de') : locales
 }

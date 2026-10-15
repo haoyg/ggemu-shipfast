@@ -562,6 +562,9 @@ function LocalizedGameDetailPage() {
               <a className="link link-primary w-fit text-sm font-semibold" href="#game-quick-start">
                 New to Murdoku? Read the rules
               </a>
+              <Link className="link link-primary w-fit text-sm" params={{ locale: 'en', blogId: 'murdoku-beginner-solving-guide' }} to="/$locale/blog/$blogId">
+                Follow a worked Murdoku deduction example
+              </Link>
               {game.play_device === 1 ? (
                 <p className="rounded-lg border border-primary/25 bg-primary/10 p-3 text-sm leading-6 text-white/80" role="note">
                   The embedded version currently supports desktop computers only. On a phone, open{' '}

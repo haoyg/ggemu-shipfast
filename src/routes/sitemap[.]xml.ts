@@ -1,4 +1,5 @@
 import { getCanonicalOrigin } from '#/lib/canonical-host'
+import { prependEditorialBlogPosts } from '#/lib/editorial-blog-index'
 import { createFileRoute } from '@tanstack/react-router'
 
 import type { BlogPost, Locale, PublicGame } from '#/lib/ggemu'
@@ -155,7 +156,7 @@ function getSnapshotStore() {
 }
 
 function snapshotKey(origin: string) {
-  return `${origin}/__cache/sitemap-last-success-v3`
+  return `${origin}/__cache/sitemap-last-success-v4`
 }
 
 async function readSnapshot(origin: string): Promise<SitemapSnapshot | undefined> {
@@ -462,7 +463,7 @@ function buildSitemapEntries(
       })
     }
 
-    for (const blogPost of blogPosts) {
+    for (const blogPost of locale === 'en' ? prependEditorialBlogPosts(blogPosts) : blogPosts) {
       const blogPostId = encodeURIComponent(getBlogPostRouteId(blogPost))
       const path = `/blog/${blogPostId}`
 

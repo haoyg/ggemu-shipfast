@@ -1,4 +1,5 @@
-import { Link, createFileRoute, notFound } from '@tanstack/react-router'
+import { Link, createFileRoute, notFound, redirect } from '@tanstack/react-router'
+import { isEditorialBlogPost } from '#/lib/editorial-blog-index'
 import type { ReactNode } from 'react'
 
 import {
@@ -32,6 +33,11 @@ import { getAlternateLinksFromCanonical } from '#/lib/seo'
 import { siteConfig } from '#/lib/site-config'
 
 export const Route = createFileRoute('/$locale/blog/$blogId')({
+  beforeLoad: ({ params }) => {
+    if (params.locale !== 'en' && isEditorialBlogPost(params.blogId)) {
+      throw redirect({ to: '/$locale/blog/$blogId', params: { ...params, locale: 'en' }, statusCode: 301 })
+    }
+  },
   loader: async ({ params }) => {
     const locale = normalizeLocale(params.locale)
     const detail = await getBlogPostDetailPageData({
@@ -608,13 +614,14 @@ function renderStrongText(text: string, keyPrefix: string) {
 }
 
 function renderExternalLink(urlValue: string, index: number) {
+  const isSiteLink = urlValue.startsWith('https://pokopie.com/')
   return (
     <a
       className="link link-primary"
       href={urlValue}
       key={`${urlValue}-${index}`}
-      rel="noopener noreferrer nofollow"
-      target="_blank"
+      rel={isSiteLink ? undefined : 'noopener noreferrer nofollow'}
+      target={isSiteLink ? undefined : '_blank'}
     >
       {getExternalLinkLabel(urlValue)}
     </a>

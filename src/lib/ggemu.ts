@@ -796,6 +796,15 @@ export const getBlogPostDetailPageData = createServerFn({ method: 'GET' })
     locale: normalizeLocale(payload.locale),
   }))
   .handler(async ({ data }) => {
+    const { getEditorialBlogPost } = await import('./editorial-blog-posts')
+    const editorialPost = getEditorialBlogPost(data.id)
+    if (editorialPost) {
+      const origin = getCanonicalOrigin(getRequestUrl({ xForwardedHost: false }))
+      return {
+        blogPost: editorialPost,
+        canonicalUrl: getAbsoluteBlogPostUrl(origin, 'en', editorialPost, data.id),
+      } satisfies BlogPostDetailPageData
+    }
     const result = await fetchJson<BlogPostDetailResponse>(
       `/api/blog-posts/${encodeURIComponent(data.id)}`,
       new URLSearchParams(),
