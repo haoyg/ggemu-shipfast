@@ -497,7 +497,7 @@ export function getTargetedGameSeo(game: PublicGame, locale: Locale) {
       return {
         heading: '三国群英传 2 在线玩',
         title: '三国群英传 2 在线玩｜网页版玩法与存档说明｜POKOPIE',
-        description: '在浏览器中启动三国群英传 2，了解城池管理、武将出征和即时战斗。查看网页版操作与存档注意事项，熟悉游戏后再安排征战。',
+        description: '三国群英传 2 在线玩：在浏览器中体验城池管理、武将出征与即时战斗。本页介绍内政、行军和交战的基本流程，提供游玩入口、操作与存档注意事项，帮助你熟悉网页版后再安排征战。',
         keywords: '三国群英传2，三国群英传 2 在线玩，三国群英传2网页版，三國群英傳 II，三国策略游戏',
       }
     }

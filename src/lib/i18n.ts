@@ -211,6 +211,11 @@ const localizedCategoryLabels: Record<Locale, Record<string, string>> = {
     Adventure: '冒险',
     Arcade: '街机',
     Cards: '卡牌',
+    Card: '卡牌',
+    Casino: '棋牌',
+    Casual: '休闲',
+    Roleplaying: '角色扮演',
+    Trivia: '问答',
     Educational: '教育',
     Kids: '儿童',
     Fighting: '格斗',
@@ -537,6 +542,7 @@ export function getGameDetailSummary(game: PublicGame, locale: Locale) {
   const platform = getLocalizedPlatformLabel(game.platform, locale)
   const baseDescription = game.description ? compactText(game.description) : ''
   const categories = getLocalizedCategoryLabels(game.categories, locale).slice(0, 2)
+  const year = game.released_year?.trim()
 
   if (locale === 'fr') return `Jouez à ${name}${platform ? ` (${platform})` : ''} dans votre navigateur. ${categories.length ? `Genres : ${categories.join(', ')}. ` : ''}Consultez la présentation, les commandes et les jeux similaires. La compatibilité dépend du lecteur et de votre appareil.`
   if (locale === 'de') return `Spiele ${name}${platform ? ` (${platform})` : ''} im Browser. ${categories.length ? `Genres: ${categories.join(', ')}. ` : ''}Lies die Spielbeschreibung und Steuerung und entdecke ähnliche Titel. Die Kompatibilität hängt vom Spieler und deinem Gerät ab.`
@@ -552,7 +558,7 @@ export function getGameDetailSummary(game: PublicGame, locale: Locale) {
 
   if (locale === 'zh-CN') {
     return compactText(
-      `在线游玩 ${name}${platform ? `（${platform}）` : ''}。${categories.length ? `游戏分类：${categories.join('、')}。` : ''}查看游戏介绍、操作说明与相关作品，从页面的游玩入口在浏览器启动支持的游戏。设备与功能支持以实际播放器为准。`,
+      `在线游玩 ${name}${platform ? `（${platform}）` : ''}。${year && /^\d{4}$/.test(year) ? `发行年份：${year}。` : ''}${categories.length ? `游戏分类：${categories.join('、')}。` : ''}查看游戏介绍、操作说明与相关作品，从页面的游玩入口在浏览器启动支持的游戏。设备与功能支持以实际播放器为准。`,
     )
   }
 
