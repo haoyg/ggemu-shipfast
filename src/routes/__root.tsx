@@ -8,7 +8,7 @@ import {
 } from '@tanstack/react-router'
 
 import { getGoogleConsentInitScript } from '#/lib/analytics'
-import { trackPagePerformance } from '#/lib/analytics'
+import { observeCoreWebVitals, trackPagePerformance } from '#/lib/analytics'
 import { ThirdPartyScripts } from '#/components/third-party-scripts'
 import { getDocumentHeaders } from '#/lib/document-headers'
 import { getI18n } from '#/lib/i18n'
@@ -279,6 +279,8 @@ function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
       }
     }
   }, [])
+
+  useEffect(() => observeCoreWebVitals(pathname), [pathname])
 
   return (
     <html lang={getDocumentLang(pathname)} suppressHydrationWarning>

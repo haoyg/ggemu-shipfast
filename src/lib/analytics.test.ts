@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import { getGoogleConsentInitScript, initializeGoogleConsentMode, trackEvent, trackEventOnce, trackPagePerformance } from './analytics'
+import { buildWebVitalsParameters, getGoogleConsentInitScript, initializeGoogleConsentMode, trackEvent, trackEventOnce, trackPagePerformance } from './analytics'
 
 afterEach(() => {
   vi.restoreAllMocks()
@@ -64,5 +64,18 @@ describe('analytics bootstrap', () => {
     expect(() => trackPagePerformance('/en')).not.toThrow()
     const commands = initializeGoogleConsentMode().dataLayer?.map((command) => Array.from(command as ArrayLike<unknown>))
     expect(commands?.map((command) => command[0])).toEqual(['consent', 'set'])
+  })
+
+  it('normalizes core web vitals for analytics reporting', () => {
+    expect(buildWebVitalsParameters('/en/games/contra', {
+      cls: 0.1234,
+      inp: 187.6,
+      lcp: 2345.4,
+    })).toEqual({
+      page_path: '/en/games/contra',
+      cls_milli: 123,
+      inp_ms: 188,
+      lcp_ms: 2345,
+    })
   })
 })
