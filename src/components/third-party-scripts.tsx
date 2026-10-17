@@ -4,12 +4,41 @@ import { initializeGoogleConsentMode } from '#/lib/analytics'
 import { siteConfig } from '#/lib/site-config'
 
 const googleAdsenseScriptId = 'pokopie-google-adsense'
+const googleAnalyticsScriptId = 'pokopie-google-analytics'
+
 export function ThirdPartyScripts({ pathname }: Readonly<{ pathname: string }>) {
   const isPrivacyPolicy = isPrivacyPolicyPath(pathname)
 
+  useGoogleAnalytics(isPrivacyPolicy)
   useGoogleAdsense(isPrivacyPolicy || !isAdSenseEligiblePath(pathname))
 
   return null
+}
+
+function useGoogleAnalytics(disabled: boolean) {
+  const analyticsId = siteConfig.GOOGLE_ANALYTICS_ID.trim()
+
+  useEffect(() => {
+    if (
+      disabled ||
+      !analyticsId ||
+      document.getElementById(googleAnalyticsScriptId)
+    ) {
+      return
+    }
+
+    return scheduleWhenIdle(() => {
+      if (document.getElementById(googleAnalyticsScriptId)) return
+
+      const googleWindow = initializeGoogleConsentMode()
+      appendAsyncScript(
+        googleAnalyticsScriptId,
+        `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(analyticsId)}`,
+      )
+      googleWindow.gtag?.('js', new Date())
+      googleWindow.gtag?.('config', analyticsId)
+    })
+  }, [analyticsId, disabled])
 }
 
 export function isAdSenseEligiblePath(pathname: string) {
@@ -55,4 +84,23 @@ function appendAsyncScript(
   }
 
   document.head.append(script)
+}
+
+function scheduleWhenIdle(callback: () => void) {
+  const idleWindow = window as Window & {
+      cancelIdleCallback?: (handle: number) => void
+      requestIdleCallback?: (
+        callback: () => void,
+        options?: { timeout: number },
+      ) => number
+  }
+
+  if (idleWindow.requestIdleCallback) {
+    const handle = idleWindow.requestIdleCallback(callback, { timeout: 2_000 })
+
+    return () => idleWindow.cancelIdleCallback?.(handle)
+  }
+
+  const handle = window.setTimeout(callback, 0)
+  return () => window.clearTimeout(handle)
 }
