@@ -2,6 +2,7 @@ import { Link, createFileRoute } from '@tanstack/react-router'
 
 import { FreedoomPlayer } from '#/components/freedoom-player'
 import { SiteLayout } from '#/components/site-layout'
+import { SocialShareActions } from '#/components/social-share-actions'
 import { freedoomGame } from '#/lib/freedoom-game'
 import { getSeoOrigin } from '#/lib/seo'
 
@@ -73,6 +74,13 @@ function FreedoomOnlinePage() {
             <p className="mt-5 max-w-3xl text-lg leading-8 text-white/70">
               Play the independently created Freedoom: Phase 1 campaign in a Chocolate Doom WebAssembly player. No installer and no proprietary Doom game data are included.
             </p>
+            <SocialShareActions
+              canonicalPath={freedoomGame.canonicalPath}
+              gameId={freedoomGame.id}
+              text="Play Freedoom Online, a free open-source browser FPS on POKOPIE."
+              title={freedoomGame.title}
+              tone="dark"
+            />
           </div>
         </section>
 
