@@ -3,7 +3,7 @@ import { useState } from 'react'
 
 import { MemoryCardGame } from '#/components/memory-card-game'
 import { SiteLayout } from '#/components/site-layout'
-import { filterMCardGames, mCardGames, mCardGamesCheckedAt, type CardGameCategory } from '#/lib/m-card-games'
+import { cardDeckLabels, filterMCardGames, getCardGamePlayerLabel, mCardGames, mCardGamesCheckedAt, type CardDeckType, type CardGameCategory } from '#/lib/m-card-games'
 import { getSeoOrigin, seoLocales } from '#/lib/seo'
 import { siteConfig } from '#/lib/site-config'
 
@@ -60,8 +60,11 @@ export function buildMCardGamesHead(origin?: string) {
 function MCardGamesPage() {
   const [query, setQuery] = useState('')
   const [category, setCategory] = useState<CardGameCategory | 'All'>('All')
-  const games = filterMCardGames(query, category)
-  function resetFilters() { setQuery(''); setCategory('All') }
+  const [players, setPlayers] = useState('All')
+  const [deckType, setDeckType] = useState<CardDeckType | 'All'>('All')
+  const games = filterMCardGames(query, category, { players: players === 'All' ? undefined : Number(players), deckType })
+  const hasFilters = Boolean(query || category !== 'All' || players !== 'All' || deckType !== 'All')
+  function resetFilters() { setQuery(''); setCategory('All'); setPlayers('All'); setDeckType('All') }
 
   return (
     <SiteLayout locale="en" localePaths={localePaths}>
@@ -80,12 +83,10 @@ function MCardGamesPage() {
           <p className="mt-3 text-sm text-base-content/65">POKOPIE Editorial Team · Sources checked October 18, 2026</p>
         </header>
 
-        <MemoryCardGame />
-
         <section aria-labelledby="find-a-game" className="my-8 rounded-xl border border-base-300 bg-base-100 p-5 sm:p-6">
           <h2 id="find-a-game" className="text-xl font-bold">Find a game</h2>
-          <div className="mt-4 grid gap-4 sm:grid-cols-[1fr_14rem]">
-            <label className="grid gap-2 text-sm font-medium">Search names, aliases or gameplay
+          <div className="mt-4 grid grid-cols-2 gap-4 lg:grid-cols-4">
+            <label className="col-span-2 grid gap-2 text-sm font-medium lg:col-span-1">Search names, aliases or gameplay
               <input className="input input-bordered w-full" onChange={event => setQuery(event.target.value)} placeholder="Try Mao, MTG or Marias" type="search" value={query} />
             </label>
             <div className="grid gap-2 text-sm font-medium">
@@ -94,12 +95,48 @@ function MCardGamesPage() {
                 {categories.map(value => <option key={value} value={value}>{value === 'Published' ? 'Published card games' : value}</option>)}
               </select>
             </div>
+            <div className="grid gap-2 text-sm font-medium">
+              <label htmlFor="m-card-players">Players</label>
+              <select className="select select-bordered w-full" id="m-card-players" onChange={event => setPlayers(event.target.value)} value={players}>
+                <option value="All">Any number</option>
+                {[1, 2, 3, 4, 5, 6, 7, 8].map(count => <option key={count} value={count}>{count === 1 ? '1 (solo)' : `${count} players`}</option>)}
+              </select>
+            </div>
+            <div className="grid gap-2 text-sm font-medium">
+              <label htmlFor="m-card-deck">Cards available</label>
+              <select className="select select-bordered w-full" id="m-card-deck" onChange={event => setDeckType(event.target.value as CardDeckType | 'All')} value={deckType}>
+                <option value="All">Any cards</option>
+                {Object.entries(cardDeckLabels).map(([value, label]) => <option key={value} value={value}>{label}</option>)}
+              </select>
+            </div>
           </div>
+          <p className="mt-4 text-sm leading-6 text-base-content/65">Choose 1 (solo) to find single-player options. Counts refer to the documented versions, not every house rule. Games with an unspecified player count are excluded when you choose a number. Standard deck(s) can mean multiple packs or jokers; see each entry for exact cards.</p>
           <div className="mt-4 flex flex-wrap items-center justify-between gap-3">
             <p aria-live="polite" role="status" className="text-sm text-base-content/70">{games.length} of {mCardGames.length} games shown · A–Z</p>
-            {query || category !== 'All' ? <button className="btn btn-ghost btn-sm" onClick={resetFilters} type="button">Clear filters</button> : null}
+            {hasFilters ? <button className="btn btn-ghost btn-sm" onClick={resetFilters} type="button">Clear filters</button> : null}
           </div>
         </section>
+
+        <section aria-labelledby="quick-list-title" className="my-8">
+          <h2 className="text-2xl font-bold" id="quick-list-title">M card games at a glance</h2>
+          <p className="mt-3 text-sm leading-6 text-base-content/70">Compare the names, player counts and cards below. Select a name for its introduction and sourced rules. Only Memory is playable on POKOPIE.</p>
+          <p className="mt-2 text-sm leading-6 text-base-content/65">Traditional player counts follow the <a className="link link-primary" href="https://www.pagat.com/alpha/#m" rel="noopener noreferrer" target="_blank">Pagat index</a> or the named rules version. Published games follow their publisher; see each introduction for edition notes.</p>
+          <div aria-label="M card game comparison" className="mt-5 overflow-x-auto rounded-xl border border-base-300 focus-visible:outline-2 focus-visible:outline-primary" role="region" tabIndex={0}>
+            <table className="table w-full min-w-[32rem] bg-base-100">
+              <caption className="sr-only">Filtered M card games: names, documented player counts, required deck types and play availability</caption>
+              <thead><tr><th scope="col">Game</th><th scope="col">Players</th><th scope="col">Cards</th><th scope="col">On POKOPIE</th></tr></thead>
+              <tbody>{games.map(game => <tr key={game.id}>
+                <th scope="row"><a className="link link-primary" href={`#${game.id}`}>{game.name}</a></th>
+                <td>{getCardGamePlayerLabel(game)}{game.players.includes(1) ? <span className="mt-1 block text-xs text-base-content/65">Solo supported</span> : null}</td>
+                <td>{cardDeckLabels[game.deckType]}</td>
+                <td>{game.id === 'memory' ? <a className="link link-primary font-semibold" href="#play-memory">Play Memory</a> : 'Rules only'}</td>
+              </tr>)}</tbody>
+            </table>
+            {!games.length ? <p className="p-5 text-sm">No games match these filters. Try another combination or clear the filters above.</p> : null}
+          </div>
+        </section>
+
+        <MemoryCardGame />
 
         <section aria-labelledby="game-list-title">
           <h2 className="text-2xl font-bold" id="game-list-title">Alphabetical list of M card games</h2>
@@ -117,9 +154,11 @@ function MCardGamesPage() {
                     </div>
                     <div>
                       <p className="leading-7 text-base-content/85">{game.description}</p>
+                      <p className="mt-3 text-sm leading-6 text-base-content/70"><strong className="font-semibold text-base-content">Players:</strong> {getCardGamePlayerLabel(game)}{game.playerNote ? ` · ${game.playerNote}` : ''}</p>
                       <p className="mt-3 text-sm leading-6 text-base-content/70"><strong className="font-semibold text-base-content">Cards needed:</strong> {game.deck}</p>
                       {game.id === 'memory' ? <a className="btn btn-primary btn-sm mt-3 mr-4" href="#play-memory">Play Memory</a> : null}
                       <a aria-label={`Read ${game.name} rules — ${game.source}`} className="link link-primary mt-3 inline-block text-sm font-semibold" href={game.rulesUrl} rel="noopener noreferrer" target="_blank">Rules: {game.source}<span aria-hidden="true"> ↗</span></a>
+                      {game.playerSourceUrl ? <a className="link link-primary mt-3 block text-sm" href={game.playerSourceUrl} rel="noopener noreferrer" target="_blank">Publisher player-count reference ↗</a> : null}
                     </div>
                   </article>
                 </li>
