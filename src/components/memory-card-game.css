@@ -35,6 +35,12 @@
 .memory-preview span:first-child { transform: translateX(-2.8rem) rotate(-17deg); background: #fffdf7; color: #203248; }
 .memory-preview span:nth-child(2) { transform: translateY(-.5rem); z-index: 1; background: repeating-linear-gradient(45deg, #263b66 0 8px, #415075 8px 9px); color: #f3dcad; }
 .memory-preview span:last-child { transform: translateX(2.8rem) rotate(17deg); background: #fffdf7; color: #b73348; }
+.memory-example-board { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: .5rem; margin-top: 1rem; padding: .75rem; border-radius: .5rem; background: #133f3b; }
+.memory-example-position { display: grid; justify-items: center; gap: .4rem; color: #d4d9bb; font: .65rem system-ui, sans-serif; }
+.memory-example-card { display: grid; place-items: center; width: 100%; aspect-ratio: 3/4; border: 2px solid #efe5d1; border-radius: .3rem; background: repeating-linear-gradient(45deg, #263b66 0 8px, #415075 8px 9px); color: #f3dcad; font: 1.2rem Georgia, serif; }
+.memory-example-card.is-face-up { background: #fffdf7; color: #203248; }
+.memory-example-card.is-red { color: #b73348; }
+.memory-example-card.is-matched { box-shadow: 0 0 0 2px #c4d7a3; }
 @media (hover: hover) {
   .memory-card:not(:disabled):not(.is-revealed):hover .memory-card-inner { transform: translateY(-4px) rotate(-1deg); box-shadow: 0 8px 12px #061b2b70; }
 }

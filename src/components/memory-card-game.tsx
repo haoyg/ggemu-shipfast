@@ -54,6 +54,7 @@ export function MemoryCardGame() {
       <p className="text-sm font-semibold text-primary">Play here · Free browser game</p>
       <h2 className="mt-2 text-2xl font-bold" id="play-memory-title">Play Memory online</h2>
       <p className="mt-3 max-w-3xl leading-7 text-base-content/80">Turn over two cards per move. Match the same rank, such as A♠ and A♥, to keep a pair face up. Different ranks turn back after one second. Find all 6 pairs to win this short, single-player version.</p>
+      <a className="link link-primary mt-3 inline-block text-sm" href="#memory-rules">New to Memory? See the illustrated rules</a>
       <div className="memory-toolbar">
         <button className="btn btn-primary" onClick={start} type="button">{cards.length ? 'New game' : 'Start Memory'}</button>
         <p aria-live="polite" role="status" className={won ? 'memory-score memory-score-won' : 'memory-score'}>{won ? `You won in ${moves} moves!` : `Pairs: ${matched.length} / 6 · Moves: ${moves}`}</p>

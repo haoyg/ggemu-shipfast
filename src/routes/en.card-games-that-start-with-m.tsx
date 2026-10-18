@@ -2,6 +2,7 @@ import { Link, createFileRoute } from '@tanstack/react-router'
 import { useState } from 'react'
 
 import { MemoryCardGame } from '#/components/memory-card-game'
+import { MemoryCardRules } from '#/components/memory-card-rules'
 import { SiteLayout } from '#/components/site-layout'
 import { cardDeckLabels, filterMCardGames, getCardGamePlayerLabel, mCardGames, mCardGamesCheckedAt, type CardDeckType, type CardGameCategory } from '#/lib/m-card-games'
 import { getSeoOrigin, seoLocales } from '#/lib/seo'
@@ -16,7 +17,7 @@ const faqs = [
   { question: 'What are some card games that start with M?', answer: 'Mao, Mau-Mau, Memory, Machiavelli, Magic: The Gathering, Mille Bornes, Monopoly Deal and Munchkin are examples. This directory includes traditional games, published card games, digital games and solitaire.' },
   { question: 'Which M card games use ordinary playing cards?', answer: 'Memory, Mao, Machiavelli and Mizerka use standard playing cards, although the number of packs and house rules vary. Others need a shortened pack, regional suits or a dedicated commercial deck; check each entry’s deck note.' },
   { question: 'Are Mao and Mau-Mau the same game?', answer: 'No. They are related shedding games, but Mao is known for rules that players discover through observation and penalties. Mau-Mau generally starts with an explained matching rule and agreed special-card effects.' },
-  { question: 'Which card games beginning with M can I play alone?', answer: 'Monte Carlo and Miss Milligan are solitaire games. Marvel Champions also supports solo play using its dedicated deck and scenario cards. Follow the linked rules for the specific version.' },
+  { question: 'Which card games beginning with M can I play alone?', answer: 'Memory is playable here as a six-pair solo game. Monte Carlo and Miss Milligan are solitaire games. Marvel Champions also supports solo play using its dedicated deck and scenario cards. Follow the linked rules for the specific version.' },
   { question: 'Are Mahjong and Murdoku card games?', answer: 'Traditional Mahjong uses tiles, and Murdoku is a crime-scene deduction puzzle rather than a card game. They are not counted in this directory. Card-based adaptations of tile games should be identified by their specific title and rules.' },
   { question: 'Is this every card game beginning with M?', answer: 'No universal list covers every regional name, house-rule variant and commercial edition. This is a curated directory of 40 sourced titles and variants, with alternate names grouped under their main entry. It is not a list of every expansion or casino poker variant.' },
 ] as const
@@ -137,6 +138,7 @@ function MCardGamesPage() {
         </section>
 
         <MemoryCardGame />
+        <MemoryCardRules />
 
         <section aria-labelledby="game-list-title">
           <h2 className="text-2xl font-bold" id="game-list-title">Alphabetical list of M card games</h2>

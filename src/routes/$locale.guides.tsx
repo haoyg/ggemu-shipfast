@@ -46,8 +46,9 @@ function GuidesIndexPage() {
         <div className="mx-auto max-w-5xl px-4 py-10 sm:px-6 lg:px-8">
           <section className="mb-6 rounded-xl border border-primary/30 bg-base-100 p-6 text-base-content">
             <h2 className="text-xl font-bold">Card games that start with M</h2>
-            <p className="mt-3 leading-7 text-base-content/75">Browse 40 names and variants, compare the cards needed, and find external rules for traditional games, published titles and solitaire.</p>
+            <p className="mt-3 leading-7 text-base-content/75">Compare 40 names and variants by player count and cards needed. Play Memory in your browser, learn with an illustrated example, or follow sourced rules for other games.</p>
             <Link className="link link-primary mt-4 inline-block font-semibold" to="/en/card-games-that-start-with-m">Browse the M card game list</Link>
+            <Link className="link link-primary mt-3 block font-semibold" hash="play-memory" to="/en/card-games-that-start-with-m">Play Memory and learn the rules</Link>
           </section>
           <div className="grid gap-5 md:grid-cols-2">
             {Object.entries(guides).map(([guideId, guide]) => (
