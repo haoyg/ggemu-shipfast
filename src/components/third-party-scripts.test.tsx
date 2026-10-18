@@ -44,7 +44,7 @@ describe('ThirdPartyScripts', () => {
 
     expect(analyticsScript.async).toBe(true)
     expect(analyticsScript.src).toContain(
-      `id=${encodeURIComponent('G-VF74ZFN6E7')}`,
+      `id=${encodeURIComponent('G-LZVYEMVMZB')}`,
     )
     expect(commands.map((command) => command[0])).toEqual([
       'consent',
@@ -52,7 +52,7 @@ describe('ThirdPartyScripts', () => {
       'js',
       'config',
     ])
-    expect(Array.from(commands[3])).toEqual(['config', 'G-VF74ZFN6E7'])
+    expect(Array.from(commands[3])).toEqual(['config', 'G-LZVYEMVMZB'])
 
     rerender(<ThirdPartyScripts pathname="/en" />)
     expect(document.querySelectorAll(`#${analyticsScriptId}`)).toHaveLength(1)
