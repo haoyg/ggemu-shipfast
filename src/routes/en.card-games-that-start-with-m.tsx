@@ -1,6 +1,7 @@
 import { Link, createFileRoute } from '@tanstack/react-router'
 import { useState } from 'react'
 
+import { MemoryCardGame } from '#/components/memory-card-game'
 import { SiteLayout } from '#/components/site-layout'
 import { filterMCardGames, mCardGames, mCardGamesCheckedAt, type CardGameCategory } from '#/lib/m-card-games'
 import { getSeoOrigin, seoLocales } from '#/lib/seo'
@@ -9,7 +10,7 @@ import { siteConfig } from '#/lib/site-config'
 const pagePath = '/en/card-games-that-start-with-m'
 const localePaths = Object.fromEntries(seoLocales.map(locale => [locale, pagePath]))
 const title = 'Card Games That Start With M: 40 Names & Rules | POKOPIE'
-const description = 'Find 40 card games that start with M, from Mao and Memory to Magic and Monopoly Deal. Browse alphabetically, compare decks and follow links to game rules.'
+const description = 'Explore 40 card games that start with M, from Mao to Monopoly Deal. Play Memory free in your browser, compare decks and find sourced rules for each game.'
 const categories = ['All', 'Traditional', 'Published', 'Digital', 'Solitaire'] as const
 const faqs = [
   { question: 'What are some card games that start with M?', answer: 'Mao, Mau-Mau, Memory, Machiavelli, Magic: The Gathering, Mille Bornes, Monopoly Deal and Munchkin are examples. This directory includes traditional games, published card games, digital games and solitaire.' },
@@ -70,12 +71,16 @@ function MCardGamesPage() {
           <span aria-hidden="true"> / </span><span>Card games beginning with M</span>
         </nav>
         <header className="max-w-4xl">
-          <p className="text-sm font-semibold uppercase tracking-widest text-primary">Names, decks &amp; rules</p>
+          <p className="text-sm font-semibold uppercase tracking-widest text-primary">Play Memory · Browse names &amp; rules</p>
           <h1 className="mt-3 text-3xl font-black leading-tight sm:text-5xl">Card Games That Start With M</h1>
           <p className="mt-5 text-lg leading-8 text-base-content/85">Mao, Mau-Mau, Memory, Magic: The Gathering, Mille Bornes, Monopoly Deal and Munchkin all start with M. Find these and more in the alphabetical list below, with a short explanation and a link to the rules for each game.</p>
           <p className="mt-4 text-sm leading-6 text-base-content/65">40 sourced titles and variants. Alternate names are grouped with their main entry. Rules and editions vary; this directory does not claim to cover every regional name or expansion. Currently available in English.</p>
+          <p className="mt-4 font-medium">Memory is playable here. The other 39 entries provide introductions and external rules, not playable games.</p>
+          <a className="btn btn-primary mt-4" href="#play-memory">Play Memory now</a>
           <p className="mt-3 text-sm text-base-content/65">POKOPIE Editorial Team · Sources checked October 18, 2026</p>
         </header>
+
+        <MemoryCardGame />
 
         <section aria-labelledby="find-a-game" className="my-8 rounded-xl border border-base-300 bg-base-100 p-5 sm:p-6">
           <h2 id="find-a-game" className="text-xl font-bold">Find a game</h2>
@@ -107,11 +112,13 @@ function MCardGamesPage() {
                     <div>
                       <h3 className="text-xl font-bold"><a className="hover:underline" href={`#${game.id}`}>{game.name}</a></h3>
                       <span className="badge badge-outline mt-2 text-xs">{game.category}</span>
+                      <p className="mt-2 text-sm text-base-content/65">{game.id === 'memory' ? 'Playable on POKOPIE' : 'Rules & introduction only'}</p>
                       {game.aliases?.length ? <p className="mt-3 text-sm leading-6 text-base-content/65">Also called: {game.aliases.join(', ')}</p> : null}
                     </div>
                     <div>
                       <p className="leading-7 text-base-content/85">{game.description}</p>
                       <p className="mt-3 text-sm leading-6 text-base-content/70"><strong className="font-semibold text-base-content">Cards needed:</strong> {game.deck}</p>
+                      {game.id === 'memory' ? <a className="btn btn-primary btn-sm mt-3 mr-4" href="#play-memory">Play Memory</a> : null}
                       <a aria-label={`Read ${game.name} rules — ${game.source}`} className="link link-primary mt-3 inline-block text-sm font-semibold" href={game.rulesUrl} rel="noopener noreferrer" target="_blank">Rules: {game.source}<span aria-hidden="true"> ↗</span></a>
                     </div>
                   </article>
