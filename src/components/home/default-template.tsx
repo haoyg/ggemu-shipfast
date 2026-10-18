@@ -362,6 +362,8 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
                       onError={(event) => { event.currentTarget.hidden = true }}
                       key={getGameRouteId(featuredGame)}
                       src={featuredGame.game_cover}
+                      height={800}
+                      width={1200}
                     />
                   ) : null}
                   <HeroPreviewVideo src={featuredGame.game_video} />
@@ -899,6 +901,7 @@ function HomeSearchSuggest({
           onFocus={() => setIsFocused(true)}
           onKeyDown={handleSuggestionKeyDown}
           placeholder={t.search}
+          name="game-search"
           title={getSearchPlaceholder(t, gameTotal)}
           type="search"
           value={query}
@@ -1126,6 +1129,8 @@ function ArcadeCover({
           loading={isPriority ? 'eager' : 'lazy'}
           onError={(event) => { event.currentTarget.hidden = true }}
           src={cover}
+          height={640}
+          width={480}
         />
       ) : null}
       {children}

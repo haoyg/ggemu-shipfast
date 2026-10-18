@@ -1,6 +1,6 @@
 import type { Locale, PublicGame } from './ggemu'
 
-type GameEditorial = {
+export type GameEditorial = {
   summary: string
   description: string[]
   howToPlay: string[]

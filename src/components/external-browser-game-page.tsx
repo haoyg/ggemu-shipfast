@@ -1,6 +1,7 @@
 import { Link } from '@tanstack/react-router'
 
 import { SiteLayout } from '#/components/site-layout'
+import { SocialShareActions } from '#/components/social-share-actions'
 import type { FeaturedBrowserGame } from '#/lib/featured-browser-games'
 import { trackEvent } from '#/lib/analytics'
 
@@ -39,6 +40,13 @@ export function ExternalBrowserGamePage({
                 </a>
                 <span className="text-sm text-white/55">Opens the creator-hosted game in a new tab</span>
               </div>
+              <SocialShareActions
+                canonicalPath={game.canonicalPath}
+                gameId={game.id}
+                text={`Play ${game.title} online with POKOPIE's verified browser game guide.`}
+                title={game.title}
+                tone="dark"
+              />
             </div>
             <figure className="min-w-0 max-w-full overflow-hidden rounded-2xl border border-white/15 bg-black/30 shadow-2xl">
               <img

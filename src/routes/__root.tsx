@@ -8,7 +8,7 @@ import {
 } from '@tanstack/react-router'
 
 import { getGoogleConsentInitScript } from '#/lib/analytics'
-import { trackPagePerformance } from '#/lib/analytics'
+import { observeCoreWebVitals, trackPagePerformance } from '#/lib/analytics'
 import { ThirdPartyScripts } from '#/components/third-party-scripts'
 import { getDocumentHeaders } from '#/lib/document-headers'
 import { getI18n } from '#/lib/i18n'
@@ -56,16 +56,6 @@ function getPwaInstallInitScript() {
         },{once:true});
       }
     }
-  `
-}
-
-function getGoogleTagInitScript(analyticsId: string) {
-  return `
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', ${JSON.stringify(analyticsId)});
   `
 }
 
@@ -261,7 +251,6 @@ function getPageErrorMessages(locale: string) {
 
 function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
   const pathname = useRouterState({ select: (state) => state.location.pathname })
-  const googleAnalyticsId = siteConfig.GOOGLE_ANALYTICS_ID.trim()
 
   useEffect(() => {
     const schedule = 'requestIdleCallback' in window
@@ -280,23 +269,12 @@ function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
     }
   }, [])
 
+  useEffect(() => observeCoreWebVitals(pathname), [pathname])
+
   return (
     <html lang={getDocumentLang(pathname)} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: getGoogleConsentInitScript() }} />
-        {googleAnalyticsId ? (
-          <>
-            <script
-              async
-              src={`https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(googleAnalyticsId)}`}
-            />
-            <script
-              dangerouslySetInnerHTML={{
-                __html: getGoogleTagInitScript(googleAnalyticsId),
-              }}
-            />
-          </>
-        ) : null}
         <script
           dangerouslySetInnerHTML={{
             __html: getSiteThemeInitScript(),

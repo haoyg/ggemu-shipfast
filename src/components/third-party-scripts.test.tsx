@@ -30,6 +30,34 @@ afterEach(() => {
 })
 
 describe('ThirdPartyScripts', () => {
+  it('loads Analytics once after hydration and queues its configuration', async () => {
+    const { rerender } = render(<ThirdPartyScripts pathname="/en/about" />)
+
+    await waitFor(() => {
+      expect(document.getElementById(analyticsScriptId)).not.toBeNull()
+    })
+
+    const analyticsScript = document.getElementById(
+      analyticsScriptId,
+    ) as HTMLScriptElement
+    const commands = (window as GoogleTagWindow).dataLayer ?? []
+
+    expect(analyticsScript.async).toBe(true)
+    expect(analyticsScript.src).toContain(
+      `id=${encodeURIComponent('G-VF74ZFN6E7')}`,
+    )
+    expect(commands.map((command) => command[0])).toEqual([
+      'consent',
+      'set',
+      'js',
+      'config',
+    ])
+    expect(Array.from(commands[3])).toEqual(['config', 'G-VF74ZFN6E7'])
+
+    rerender(<ThirdPartyScripts pathname="/en" />)
+    expect(document.querySelectorAll(`#${analyticsScriptId}`)).toHaveLength(1)
+  })
+
   it('loads AdSense after hydration on content pages', async () => {
     render(<ThirdPartyScripts pathname="/en" />)
 

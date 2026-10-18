@@ -1,5 +1,5 @@
 import { isPspGame } from '#/lib/game-embed'
-import { getGameEditorial } from '#/lib/game-editorial'
+import type { GameEditorial } from '#/lib/game-editorial'
 import { GameDetailLoadError, getGameDetailLoadErrorCopy } from '#/components/game-detail-load-error'
 import { temporaryGameDetailHeaders } from '#/lib/game-detail-request'
 import { useState } from 'react'
@@ -44,10 +44,6 @@ import {
   getGameSeoInternalLinks,
   type GameSeoInternalLink,
 } from '#/lib/game-seo-links'
-import {
-  getGameSearchSeo,
-  getTargetedGameSeo,
-} from '#/lib/game-seo-targets'
 import {
   getGameDescriptionParagraphs,
   getGameFaqs,
@@ -107,22 +103,31 @@ export const Route = createFileRoute('/$locale/games/$gameId')({
       })
     }
 
-    const relatedGames = await getRelatedGamePageData({
-      data: {
-        category: detail.game.categories?.[0],
-        currentId,
-        developer: detail.game.developer,
-        locale,
-      },
-    }).catch(() => ({
-      relatedByCategory: [],
-      relatedByDeveloper: [],
-    }))
+    const [relatedGames, { getGameEditorial }, gameSeo] = await Promise.all([
+      getRelatedGamePageData({
+        data: {
+          category: detail.game.categories?.[0],
+          currentId,
+          developer: detail.game.developer,
+          locale,
+        },
+      }).catch(() => ({
+        relatedByCategory: [],
+        relatedByDeveloper: [],
+      })),
+      import('#/lib/game-editorial'),
+      import('#/lib/game-seo-targets'),
+    ])
+
+    const editorial = getGameEditorial(detail.game, locale)
 
     return {
       ...detail,
+      editorial,
       kind: 'ready' as const,
       relatedGames,
+      searchSeo: gameSeo.getGameSearchSeo(detail.game, locale),
+      targetedSeo: gameSeo.getTargetedGameSeo(detail.game, locale),
     }
   },
   head: ({ loaderData, params }) => {
@@ -143,13 +148,14 @@ export const Route = createFileRoute('/$locale/games/$gameId')({
       }
     }
 
-    const { canonicalUrl, game } = loaderData
+    const { canonicalUrl, editorial, game, searchSeo } = loaderData
     const locale = normalizeLocale(params.locale)
-    const seo = getGameSearchSeo(game, locale) ?? buildGameDetailSeo(game, locale)
+    const seo = searchSeo ?? buildGameDetailSeo(game, locale)
     const image = game.game_cover
-    const faqItems = getGameFaqs(game, locale)
+    const faqItems = getGameFaqs(game, locale, editorial)
     const structuredData = buildGameStructuredData({
       canonicalUrl,
+      editorial,
       faqItems,
       game,
       locale,
@@ -290,12 +296,14 @@ function serializeJsonLd(data: unknown) {
 
 export function buildGameStructuredData({
   canonicalUrl,
+  editorial,
   faqItems,
   game,
   locale,
   seo,
 }: {
   canonicalUrl: string
+  editorial?: GameEditorial
   faqItems: ReturnType<typeof getGameFaqs>
   game: PublicGame
   locale: Locale
@@ -367,7 +375,7 @@ export function buildGameStructuredData({
     schemas.push(faqSchema)
   }
 
-  const howToSteps = getGameHowToPlayParagraphs(game, locale)
+  const howToSteps = getGameHowToPlayParagraphs(game, locale, editorial)
   if (howToSteps.length > 0) {
     schemas.push({
       '@context': 'https://schema.org',
@@ -407,24 +415,28 @@ function LocalizedGameDetailPage() {
 
   if (data.kind === 'temporary-error') return <GameDetailLoadError locale={lang} />
 
-  const { canonicalUrl, game, relatedGames } = data
+  const {
+    canonicalUrl,
+    editorial,
+    game,
+    relatedGames,
+    searchSeo,
+    targetedSeo,
+  } = data
   const categories = getLocalizedCategoryLabels(game.categories, lang)
   const languages = game.languages ?? []
   const platformLabel = getLocalizedPlatformLabel(game.platform, lang)
-  const faqItems = getGameFaqs(game, lang)
-  const editorial = getGameEditorial(game, lang)
+  const faqItems = getGameFaqs(game, lang, editorial)
   const isMurdoku = lang === 'en' && game.url_slug === 'murdoku-html5-2026'
-  const searchSeo = getGameSearchSeo(game, lang)
   const summary = editorial?.summary ?? searchSeo?.description ?? getGameDetailSummary(game, lang)
   const keywordText = getGameDetailKeywordText(game, lang)
-  const descriptionParagraphs = getGameDescriptionParagraphs(game, lang)
-  const howToPlayParagraphs = getGameHowToPlayParagraphs(game, lang)
-  const browserGuide = getBrowserPlayGuide(lang, game)
-  const sidebarContent = getGameSidebarContent(game, lang)
+  const descriptionParagraphs = getGameDescriptionParagraphs(game, lang, editorial)
+  const howToPlayParagraphs = getGameHowToPlayParagraphs(game, lang, editorial)
+  const browserGuide = getBrowserPlayGuide(lang, game, editorial)
+  const sidebarContent = getGameSidebarContent(game, lang, editorial)
   const playPath = buildGamePlayPath(lang, gameId)
   const embedUrl = buildGameEmbedUrl(canonicalUrl, lang, gameId)
   const manifestHref = buildGameManifestHref(lang)
-  const targetedSeo = getTargetedGameSeo(game, lang)
   const useInlinePlayer = Boolean(targetedSeo) && !isPspGame(game)
   const seoInternalLinks = getGameSeoInternalLinks(game, lang)
   const relatedGuide = lang === 'en' ? getRelatedGuideForPlatform(game.platform) : undefined
@@ -760,7 +772,7 @@ function ArticlePanel({
 function QuickStartCard({
   quickStart,
 }: {
-  quickStart: NonNullable<ReturnType<typeof getGameEditorial>>['quickStart']
+  quickStart: GameEditorial['quickStart']
 }) {
   if (!quickStart) return null
 

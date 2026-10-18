@@ -2,6 +2,7 @@ import { Link, createFileRoute } from '@tanstack/react-router'
 
 import { SiteLayout } from '#/components/site-layout'
 import { WordLadderGame } from '#/components/word-ladder-game'
+import { SocialShareActions } from '#/components/social-share-actions'
 import { getSeoOrigin } from '#/lib/seo'
 import { originalGames } from '#/lib/original-games'
 import { getDailyPuzzle } from '#/lib/word-ladder/engine'
@@ -122,6 +123,13 @@ function WordLadderPage() {
               <span className="badge badge-outline badge-lg border-white/25 text-white">Unlimited Play</span>
               <span className="badge badge-outline badge-lg border-white/25 text-white">Smart Hints</span>
             </div>
+            <SocialShareActions
+              canonicalPath="/en/games/word-ladder"
+              gameId="word-ladder"
+              text="Play the free daily Word Ladder Challenge on POKOPIE."
+              title="Word Ladder Challenge"
+              tone="dark"
+            />
           </div>
         </section>
 

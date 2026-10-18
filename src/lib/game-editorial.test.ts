@@ -11,8 +11,8 @@ describe('reviewed English game content', () => {
     const game = { url_slug: 'san-guo-qun-ying-zhuan-2-html5-1998', description: 'Original localized copy' }
     const editorial = getGameEditorial(game, 'zh-CN')!
     expect(getGameSearchSeo(game, 'zh-CN')?.title).toContain('三国群英传 2 在线玩')
-    expect(getGameDescriptionParagraphs(game, 'zh-CN')).toEqual([editorial.summary, ...editorial.description])
-    expect(getGameFaqs(game, 'zh-CN')).toEqual(editorial.faq)
+    expect(getGameDescriptionParagraphs(game, 'zh-CN', editorial)).toEqual([editorial.summary, ...editorial.description])
+    expect(getGameFaqs(game, 'zh-CN', editorial)).toEqual(editorial.faq)
     expect(editorial.description.join(' ')).toContain('1999')
     expect(getGameEditorial(game, 'ja')).toBeUndefined()
     expect(getGameSearchSeo(game, 'ja')).toBeNull()
@@ -23,10 +23,10 @@ describe('reviewed English game content', () => {
     const editorial = getGameEditorial(game, locale)!
     const seo = getGameSearchSeo(game, locale)!
     expect(seo.title).toContain(locale === 'ja' ? '太鼓ウェブ' : '太鼓 Web')
-    expect(getGameDescriptionParagraphs(game, locale)).toEqual([editorial.summary, ...editorial.description])
-    expect(getGameHowToPlayParagraphs(game, locale)).toEqual(editorial.howToPlay)
-    expect(getGameFaqs(game, locale)).toEqual(editorial.faq)
-    expect(getGameSidebarContent(game, locale).tips).toEqual(editorial.tips)
+    expect(getGameDescriptionParagraphs(game, locale, editorial)).toEqual([editorial.summary, ...editorial.description])
+    expect(getGameHowToPlayParagraphs(game, locale, editorial)).toEqual(editorial.howToPlay)
+    expect(getGameFaqs(game, locale, editorial)).toEqual(editorial.faq)
+    expect(getGameSidebarContent(game, locale, editorial).tips).toEqual(editorial.tips)
     expect(getTargetedGameSeo(game, locale)).toEqual(seo)
     expect(getGameSearchSeo(game, 'ko')).toBeNull()
     expect(getGameEditorial(game, 'ko')).toBeUndefined()
@@ -35,11 +35,11 @@ describe('reviewed English game content', () => {
   it.each(slugs)('replaces inaccurate upstream copy consistently for %s', (url_slug) => {
     const game = { url_slug, description: 'Incorrect upstream description', how_to_play: 'Incorrect upstream guide' }
     const editorial = getGameEditorial(game, 'en')!
-    expect(getGameDescriptionParagraphs(game, 'en')).toEqual([editorial.summary, ...editorial.description])
-    expect(getGameHowToPlayParagraphs(game, 'en')).toEqual(editorial.howToPlay)
-    expect(getGameSidebarContent(game, 'en').tips).toEqual(editorial.tips)
-    expect(getGameFaqs(game, 'en')).toEqual(editorial.faq)
-    expect(getBrowserPlayGuide('en', game).paragraphs).toEqual(expect.arrayContaining(editorial.tips))
+    expect(getGameDescriptionParagraphs(game, 'en', editorial)).toEqual([editorial.summary, ...editorial.description])
+    expect(getGameHowToPlayParagraphs(game, 'en', editorial)).toEqual(editorial.howToPlay)
+    expect(getGameSidebarContent(game, 'en', editorial).tips).toEqual(editorial.tips)
+    expect(getGameFaqs(game, 'en', editorial)).toEqual(editorial.faq)
+    expect(getBrowserPlayGuide('en', game, editorial).paragraphs).toEqual(expect.arrayContaining(editorial.tips))
     expect(getTargetedGameSeo(game, 'en')).not.toBeNull()
     expect(editorial.sources.length).toBeGreaterThan(0)
     expect(editorial.sources.every((source) => new URL(source.href).protocol === 'https:')).toBe(true)
@@ -95,8 +95,8 @@ it('describes Chinese Murdoku accurately without enabling another inline player'
   expect(getGameSearchSeo({ ...game, play_device: undefined }, 'zh-CN')?.description).not.toContain('仅支持电脑')
   expect(getTargetedGameSeo(game, 'zh-CN')).toBeNull()
   const editorial = getGameEditorial(game, 'zh-CN')!
-  expect(getGameDescriptionParagraphs(game, 'zh-CN')).toEqual([editorial.summary, ...editorial.description])
-  expect(getGameFaqs(game, 'zh-CN')).toEqual(editorial.faq)
-  expect(getGameHowToPlayParagraphs(game, 'zh-CN')).toEqual(editorial.howToPlay)
+  expect(getGameDescriptionParagraphs(game, 'zh-CN', editorial)).toEqual([editorial.summary, ...editorial.description])
+  expect(getGameFaqs(game, 'zh-CN', editorial)).toEqual(editorial.faq)
+  expect(getGameHowToPlayParagraphs(game, 'zh-CN', editorial)).toEqual(editorial.howToPlay)
   expect(editorial.quickStart?.title).toBe('Murdoku 新手规则与操作')
 })
