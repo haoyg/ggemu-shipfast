@@ -1,6 +1,6 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
-import { initializeGoogleConsentMode } from '#/lib/analytics'
+import { analyticsConsentEvent, analyticsConsentKey, getAnalyticsConsent, initializeGoogleConsentMode, readAnalyticsConsent, setAnalyticsConsent, type AnalyticsConsent } from '#/lib/analytics'
 import { siteConfig } from '#/lib/site-config'
 
 const googleAdsenseScriptId = 'pokopie-google-adsense'
@@ -17,10 +17,27 @@ export function ThirdPartyScripts({ pathname }: Readonly<{ pathname: string }>) 
 
 function useGoogleAnalytics(disabled: boolean) {
   const analyticsId = siteConfig.GOOGLE_ANALYTICS_ID.trim()
+  const [consent, setConsent] = useState<AnalyticsConsent | null>(null)
 
   useEffect(() => {
+    setConsent(getAnalyticsConsent())
+    const onChange = (event: Event) => setConsent((event as CustomEvent<AnalyticsConsent>).detail)
+    const onStorage = (event: StorageEvent) => {
+      if (event.key === analyticsConsentKey || event.key === null) setAnalyticsConsent(readAnalyticsConsent() ?? 'denied', false)
+    }
+    window.addEventListener(analyticsConsentEvent, onChange)
+    window.addEventListener('storage', onStorage)
+    return () => {
+      window.removeEventListener(analyticsConsentEvent, onChange)
+      window.removeEventListener('storage', onStorage)
+    }
+  }, [])
+
+  useEffect(() => {
+    Object.assign(window, { [`ga-disable-${analyticsId}`]: consent !== 'granted' })
     if (
       disabled ||
+      consent !== 'granted' ||
       !analyticsId ||
       document.getElementById(googleAnalyticsScriptId)
     ) {
@@ -38,7 +55,7 @@ function useGoogleAnalytics(disabled: boolean) {
       googleWindow.gtag?.('js', new Date())
       googleWindow.gtag?.('config', analyticsId)
     })
-  }, [analyticsId, disabled])
+  }, [analyticsId, consent, disabled])
 }
 
 export function isAdSenseEligiblePath(pathname: string) {

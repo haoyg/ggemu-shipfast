@@ -1,4 +1,4 @@
-import { cleanup, render, waitFor } from '@testing-library/react'
+import { act, cleanup, render, waitFor } from '@testing-library/react'
 import { afterEach, describe, expect, it } from 'vitest'
 
 import {
@@ -6,6 +6,8 @@ import {
   isAdSenseEligiblePath,
   isPrivacyPolicyPath,
 } from './third-party-scripts'
+
+import { analyticsConsentKey, setAnalyticsConsent } from '#/lib/analytics'
 
 const adsenseScriptId = 'pokopie-google-adsense'
 const analyticsScriptId = 'pokopie-google-analytics'
@@ -27,10 +29,13 @@ afterEach(() => {
   delete googleWindow.dataLayer
   delete googleWindow.gtag
   delete googleWindow[googleConsentInitializedKey]
+  delete (window as unknown as Record<string, unknown>).__POKOPIE_ANALYTICS_CHOICE__
+  window.localStorage.clear()
 })
 
 describe('ThirdPartyScripts', () => {
   it('loads Analytics once after hydration and queues its configuration', async () => {
+    window.localStorage.setItem(analyticsConsentKey, 'granted')
     const { rerender } = render(<ThirdPartyScripts pathname="/en/about" />)
 
     await waitFor(() => {
@@ -49,12 +54,26 @@ describe('ThirdPartyScripts', () => {
     expect(commands.map((command) => command[0])).toEqual([
       'consent',
       'set',
+      'consent',
       'js',
       'config',
     ])
-    expect(Array.from(commands[3])).toEqual(['config', 'G-LZVYEMVMZB'])
+    expect(Array.from(commands[4])).toEqual(['config', 'G-LZVYEMVMZB'])
 
     rerender(<ThirdPartyScripts pathname="/en" />)
+    expect(document.querySelectorAll(`#${analyticsScriptId}`)).toHaveLength(1)
+  })
+
+  it('does not load Analytics until allowed and disables it after withdrawal', async () => {
+    render(<ThirdPartyScripts pathname="/en/about" />)
+    expect(document.getElementById(analyticsScriptId)).toBeNull()
+    act(() => setAnalyticsConsent('denied'))
+    expect(document.getElementById(analyticsScriptId)).toBeNull()
+    act(() => setAnalyticsConsent('granted'))
+    await waitFor(() => expect(document.getElementById(analyticsScriptId)).not.toBeNull())
+    act(() => setAnalyticsConsent('denied'))
+    expect((window as unknown as Record<string, unknown>)['ga-disable-G-LZVYEMVMZB']).toBe(true)
+    act(() => setAnalyticsConsent('granted'))
     expect(document.querySelectorAll(`#${analyticsScriptId}`)).toHaveLength(1)
   })
 

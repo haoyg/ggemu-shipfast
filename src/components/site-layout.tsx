@@ -5,6 +5,7 @@ import type { ReactNode } from 'react'
 import type { Locale } from '#/lib/ggemu'
 import { getI18n, getLocalizedPlatformLabel, normalizeLocale } from '#/lib/i18n'
 import { getPlatformBrowseLabel, getPoweredByLabel } from '#/lib/locale-labels'
+import { AnalyticsConsentControls } from '#/components/analytics-consent'
 import { siteConfig } from '#/lib/site-config'
 import { getSiteThemes, normalizeSiteTheme } from '#/lib/site-themes'
 import { getPlatformCollectionPath } from '#/lib/platform-routes'
@@ -576,7 +577,8 @@ export function SiteFooter({ locale }: { locale: Locale }) {
         </div>
 
         <div className="mt-8 border-t border-white/10 pt-5">
-          <p className="font-medium text-white">{t.copyright}</p>
+          <AnalyticsConsentControls locale={locale} />
+          <p className="mt-4 font-medium text-white">{t.copyright}</p>
           <p className="mt-2 max-w-5xl leading-6 text-white/55">
             {t.disclaimer}
           </p>

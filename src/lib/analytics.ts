@@ -1,7 +1,41 @@
+import { siteConfig } from '#/lib/site-config'
+
+export type AnalyticsConsent = 'granted' | 'denied'
+export const analyticsConsentKey = 'pokopie-analytics-consent-v1'
+export const analyticsConsentEvent = 'pokopie-analytics-consent-change'
+
 type GoogleTagWindow = Window & {
   dataLayer?: unknown[]
   gtag?: (...args: unknown[]) => void
   __POKOPIE_GOOGLE_CONSENT_INITIALIZED__?: boolean
+  __POKOPIE_ANALYTICS_CHOICE__?: AnalyticsConsent
+}
+
+export function readAnalyticsConsent(): AnalyticsConsent | null {
+  if (typeof window === 'undefined') return null
+  try {
+    const value = window.localStorage.getItem(analyticsConsentKey)
+    return value === 'granted' || value === 'denied' ? value : null
+  } catch { return null }
+}
+
+export function getAnalyticsConsent(): AnalyticsConsent | null {
+  if (typeof window === 'undefined') return null
+  return (window as GoogleTagWindow).__POKOPIE_ANALYTICS_CHOICE__ ?? readAnalyticsConsent()
+}
+
+export function setAnalyticsConsent(choice: AnalyticsConsent, persist = true) {
+  const target = window as GoogleTagWindow
+  target.__POKOPIE_ANALYTICS_CHOICE__ = choice
+  Object.assign(target, { [`ga-disable-${siteConfig.GOOGLE_ANALYTICS_ID}`]: choice !== 'granted' })
+  try { initializeGoogleConsentMode().gtag?.('consent', 'update', {
+    analytics_storage: choice,
+    ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied',
+  }) } catch { /* Consent controls remain usable if analytics is blocked. */ }
+  if (persist) {
+    try { window.localStorage.setItem(analyticsConsentKey, choice) } catch { /* Keep this page's choice when storage is unavailable. */ }
+  }
+  window.dispatchEvent(new CustomEvent(analyticsConsentEvent, { detail: choice }))
 }
 
 const consentDefaults = {
@@ -22,6 +56,11 @@ export function initializeGoogleConsentMode() {
     target.gtag('consent', 'default', consentDefaults)
     target.gtag('set', 'ads_data_redaction', true)
     target.__POKOPIE_GOOGLE_CONSENT_INITIALIZED__ = true
+    const choice = getAnalyticsConsent()
+    if (choice) {
+      target.__POKOPIE_ANALYTICS_CHOICE__ = choice
+      target.gtag('consent', 'update', { analytics_storage: choice })
+    }
   }
   return target
 }
@@ -35,6 +74,13 @@ export function getGoogleConsentInitScript() {
       window.gtag('consent', 'default', ${JSON.stringify(consentDefaults)});
       window.gtag('set', 'ads_data_redaction', true);
       window.__POKOPIE_GOOGLE_CONSENT_INITIALIZED__ = true;
+      try {
+        var choice = window.localStorage.getItem(${JSON.stringify(analyticsConsentKey)});
+        if (choice === 'granted' || choice === 'denied') {
+          window.__POKOPIE_ANALYTICS_CHOICE__ = choice;
+          window.gtag('consent', 'update', {analytics_storage: choice});
+        }
+      } catch (e) {}
     }
   `
 }
@@ -64,7 +110,7 @@ type WebVitalsState = {
 }
 
 export function trackEvent(name: FunnelEvent, parameters: Record<string, string | number> = {}) {
-  if (typeof window === 'undefined') return
+  if (typeof window === 'undefined' || getAnalyticsConsent() !== 'granted') return
   try {
     // Never let unavailable or blocked analytics interrupt gameplay.
     initializeGoogleConsentMode().gtag?.('event', name, parameters)
@@ -76,7 +122,7 @@ export function trackEventOnce(
   name: FunnelEvent,
   parameters: Record<string, string | number> = {},
 ) {
-  if (typeof window === 'undefined') return
+  if (typeof window === 'undefined' || getAnalyticsConsent() !== 'granted') return
   const storageKey = `pokopie-analytics-${key}`
   try {
     if (window.sessionStorage.getItem(storageKey)) return
