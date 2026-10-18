@@ -439,7 +439,7 @@ function LocalizedGameDetailPage() {
   const manifestHref = buildGameManifestHref(lang)
   const useInlinePlayer = Boolean(targetedSeo) && !isPspGame(game)
   const seoInternalLinks = getGameSeoInternalLinks(game, lang)
-  const relatedGuide = lang === 'en' ? getRelatedGuideForPlatform(game.platform) : undefined
+  const relatedGuide = lang === 'en' ? getRelatedGuideForGame(game) : undefined
 
   if (pathname.endsWith('/play')) {
     return <Outlet />
@@ -698,7 +698,22 @@ function getEmbeddedPlayerHeading(gameName: string | undefined, locale: Locale) 
   return `Play ${name} in Your Browser`
 }
 
-function getRelatedGuideForPlatform(platform?: string) {
+const cardGuideGameSlugs = new Set([
+  'doudizhu-html5-2013',
+  'spider-solitaire-gcoin-html5-2012',
+  'yu-gi-oh-duel-monsters-7-kettou-toshi-densetsu-gba-2001',
+])
+
+export function getRelatedGuideForGame(game: Pick<PublicGame, 'platform' | 'url_slug'>) {
+  if (game.url_slug && cardGuideGameSlugs.has(game.url_slug)) {
+    return {
+      href: '/en/card-games-that-start-with-m',
+      label: 'Explore card games that start with M',
+      description: 'Compare 40 card-game names and variants by player count and cards needed, follow sourced rules, or play a short Memory game here.',
+    }
+  }
+
+  const platform = game.platform
   if (platform === 'Famicom' || platform === 'Super Famicom') {
     return {
       href: '/en/guides/nes-vs-snes-games',

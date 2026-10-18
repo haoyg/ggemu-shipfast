@@ -1,6 +1,21 @@
 import { describe, expect, it } from 'vitest'
 
-import { buildGameStructuredData } from './$locale.games.$gameId'
+import { buildGameStructuredData, getRelatedGuideForGame } from './$locale.games.$gameId'
+
+describe('game-related guides', () => {
+  it('links verified card games to the directory even when the upstream genre is inaccurate', () => {
+    for (const url_slug of ['doudizhu-html5-2013', 'spider-solitaire-gcoin-html5-2012', 'yu-gi-oh-duel-monsters-7-kettou-toshi-densetsu-gba-2001']) {
+      expect(getRelatedGuideForGame({ url_slug, platform: 'Game Boy Advance' })?.href).toBe('/en/card-games-that-start-with-m')
+    }
+  })
+
+  it('preserves platform guides and does not recommend the card directory for tile or action games', () => {
+    expect(getRelatedGuideForGame({ url_slug: 'contra-nes-1988', platform: 'Famicom' })?.href).toBe('/en/guides/nes-vs-snes-games')
+    expect(getRelatedGuideForGame({ url_slug: 'pokemon-emerald-gba-2004', platform: 'Game Boy Advance' })?.href).toBe('/en/guides/how-browser-game-saves-work')
+    expect(getRelatedGuideForGame({ url_slug: 'xiangqi-mahjong-tian-jiang-shen-bing-arcade-1997', platform: 'HTML5' })).toBeUndefined()
+    expect(getRelatedGuideForGame({ platform: 'HTML5' })).toBeUndefined()
+  })
+})
 
 describe('buildGameStructuredData', () => {
   it('describes the canonical playable page as a free offer with an update date', () => {
