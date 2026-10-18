@@ -20,6 +20,7 @@ const SITEMAP_FETCH_CONCURRENCY = 6
 const SITEMAP_REQUEST_TIMEOUT_MS = 5_000
 const locales = ['zh-CN', 'zh-TW', 'en', 'ja', 'ko', 'es', 'pt', 'fr', 'de'] as const satisfies ReadonlyArray<Locale>
 const englishCollectionPaths = [
+  '/card-games-that-start-with-m',
   '/arcade-games',
   '/gba-games',
   '/n64-games',
@@ -156,7 +157,7 @@ function getSnapshotStore() {
 }
 
 function snapshotKey(origin: string) {
-  return `${origin}/__cache/sitemap-last-success-v4`
+  return `${origin}/__cache/sitemap-last-success-v5`
 }
 
 async function readSnapshot(origin: string): Promise<SitemapSnapshot | undefined> {

@@ -44,6 +44,11 @@ function GuidesIndexPage() {
           </div>
         </section>
         <div className="mx-auto max-w-5xl px-4 py-10 sm:px-6 lg:px-8">
+          <section className="mb-6 rounded-xl border border-primary/30 bg-base-100 p-6 text-base-content">
+            <h2 className="text-xl font-bold">Card games that start with M</h2>
+            <p className="mt-3 leading-7 text-base-content/75">Browse 40 names and variants, compare the cards needed, and find external rules for traditional games, published titles and solitaire.</p>
+            <Link className="link link-primary mt-4 inline-block font-semibold" to="/en/card-games-that-start-with-m">Browse the M card game list</Link>
+          </section>
           <div className="grid gap-5 md:grid-cols-2">
             {Object.entries(guides).map(([guideId, guide]) => (
               <article className="rounded-xl border border-white/10 bg-white/[0.04] p-6 shadow-sm transition hover:-translate-y-0.5 hover:border-primary/60 hover:bg-white/[0.08] hover:shadow-lg" key={guideId}>

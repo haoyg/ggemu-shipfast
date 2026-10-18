@@ -56,6 +56,7 @@ import { Route as EnN64GamesRouteImport } from './routes/en.n64-games'
 import { Route as EnGenesisGamesRouteImport } from './routes/en.genesis-games'
 import { Route as EnGbaGamesRouteImport } from './routes/en.gba-games'
 import { Route as EnGbaRouteImport } from './routes/en.gba'
+import { Route as EnCardGamesThatStartWithMRouteImport } from './routes/en.card-games-that-start-with-m'
 import { Route as EnArcadeGamesRouteImport } from './routes/en.arcade-games'
 import { Route as EnArcadeRouteImport } from './routes/en.arcade'
 import { Route as BlogBlogIdRouteImport } from './routes/blog.$blogId'
@@ -325,6 +326,12 @@ const EnGbaRoute = EnGbaRouteImport.update({
   path: '/en/gba',
   getParentRoute: () => rootRouteImport,
 } as any)
+const EnCardGamesThatStartWithMRoute =
+  EnCardGamesThatStartWithMRouteImport.update({
+    id: '/en/card-games-that-start-with-m',
+    path: '/en/card-games-that-start-with-m',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const EnArcadeGamesRoute = EnArcadeGamesRouteImport.update({
   id: '/en/arcade-games',
   path: '/en/arcade-games',
@@ -544,6 +551,7 @@ export interface FileRoutesByFullPath {
   '/blog/$blogId': typeof BlogBlogIdRoute
   '/en/arcade': typeof EnArcadeRoute
   '/en/arcade-games': typeof EnArcadeGamesRoute
+  '/en/card-games-that-start-with-m': typeof EnCardGamesThatStartWithMRoute
   '/en/gba': typeof EnGbaRoute
   '/en/gba-games': typeof EnGbaGamesRoute
   '/en/genesis-games': typeof EnGenesisGamesRoute
@@ -626,6 +634,7 @@ export interface FileRoutesByTo {
   '/blog/$blogId': typeof BlogBlogIdRoute
   '/en/arcade': typeof EnArcadeRoute
   '/en/arcade-games': typeof EnArcadeGamesRoute
+  '/en/card-games-that-start-with-m': typeof EnCardGamesThatStartWithMRoute
   '/en/gba': typeof EnGbaRoute
   '/en/gba-games': typeof EnGbaGamesRoute
   '/en/genesis-games': typeof EnGenesisGamesRoute
@@ -709,6 +718,7 @@ export interface FileRoutesById {
   '/blog/$blogId': typeof BlogBlogIdRoute
   '/en/arcade': typeof EnArcadeRoute
   '/en/arcade-games': typeof EnArcadeGamesRoute
+  '/en/card-games-that-start-with-m': typeof EnCardGamesThatStartWithMRoute
   '/en/gba': typeof EnGbaRoute
   '/en/gba-games': typeof EnGbaGamesRoute
   '/en/genesis-games': typeof EnGenesisGamesRoute
@@ -793,6 +803,7 @@ export interface FileRouteTypes {
     | '/blog/$blogId'
     | '/en/arcade'
     | '/en/arcade-games'
+    | '/en/card-games-that-start-with-m'
     | '/en/gba'
     | '/en/gba-games'
     | '/en/genesis-games'
@@ -875,6 +886,7 @@ export interface FileRouteTypes {
     | '/blog/$blogId'
     | '/en/arcade'
     | '/en/arcade-games'
+    | '/en/card-games-that-start-with-m'
     | '/en/gba'
     | '/en/gba-games'
     | '/en/genesis-games'
@@ -957,6 +969,7 @@ export interface FileRouteTypes {
     | '/blog/$blogId'
     | '/en/arcade'
     | '/en/arcade-games'
+    | '/en/card-games-that-start-with-m'
     | '/en/gba'
     | '/en/gba-games'
     | '/en/genesis-games'
@@ -1027,6 +1040,7 @@ export interface RootRouteChildren {
   BlogBlogIdRoute: typeof BlogBlogIdRoute
   EnArcadeRoute: typeof EnArcadeRoute
   EnArcadeGamesRoute: typeof EnArcadeGamesRoute
+  EnCardGamesThatStartWithMRoute: typeof EnCardGamesThatStartWithMRoute
   EnGbaRoute: typeof EnGbaRoute
   EnGbaGamesRoute: typeof EnGbaGamesRoute
   EnGenesisGamesRoute: typeof EnGenesisGamesRoute
@@ -1381,6 +1395,13 @@ declare module '@tanstack/react-router' {
       path: '/en/gba'
       fullPath: '/en/gba'
       preLoaderRoute: typeof EnGbaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/en/card-games-that-start-with-m': {
+      id: '/en/card-games-that-start-with-m'
+      path: '/en/card-games-that-start-with-m'
+      fullPath: '/en/card-games-that-start-with-m'
+      preLoaderRoute: typeof EnCardGamesThatStartWithMRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/en/arcade-games': {
@@ -1743,6 +1764,7 @@ const rootRouteChildren: RootRouteChildren = {
   BlogBlogIdRoute: BlogBlogIdRoute,
   EnArcadeRoute: EnArcadeRoute,
   EnArcadeGamesRoute: EnArcadeGamesRoute,
+  EnCardGamesThatStartWithMRoute: EnCardGamesThatStartWithMRoute,
   EnGbaRoute: EnGbaRoute,
   EnGbaGamesRoute: EnGbaGamesRoute,
   EnGenesisGamesRoute: EnGenesisGamesRoute,
