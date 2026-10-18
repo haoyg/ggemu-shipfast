@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import './memory-card-game.css'
+import { trackEvent } from '#/lib/analytics'
 
 const ranks = ['A', '2', '3', '4', '5', '6']
 type Card = { rank: string; suit: string }
@@ -28,6 +29,8 @@ export function MemoryCardGame() {
   }, [open])
 
   function start() {
+    if (cards.length) trackEvent('game_restart', { game_type: 'memory', moves, pairs_found: matched.length })
+    trackEvent('game_start', { game_type: 'memory', total_pairs: ranks.length })
     setCards(shuffledDeck())
     setOpen([])
     setMatched([])
@@ -42,6 +45,7 @@ export function MemoryCardGame() {
     }
     setMoves(value => value + 1)
     if (cards[open[0]].rank === cards[index].rank) {
+      if (matched.length === ranks.length - 1) trackEvent('game_complete', { game_type: 'memory', moves: moves + 1, total_pairs: ranks.length })
       setMatched(value => [...value, cards[index].rank])
       setOpen([])
     } else {

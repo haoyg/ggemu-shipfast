@@ -1,8 +1,11 @@
 import { act, cleanup, fireEvent, render, screen } from '@testing-library/react'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { MemoryCardGame } from './memory-card-game'
+import { trackEvent } from '#/lib/analytics'
 
-afterEach(() => { cleanup(); vi.restoreAllMocks(); vi.useRealTimers() })
+vi.mock('#/lib/analytics', () => ({ trackEvent: vi.fn() }))
+
+afterEach(() => { cleanup(); vi.restoreAllMocks(); vi.clearAllMocks(); vi.useRealTimers() })
 
 describe('Memory card game', () => {
   it('locks mismatches, hides them after a second, and cancels the old timeout on restart', () => {
@@ -29,10 +32,15 @@ describe('Memory card game', () => {
     vi.spyOn(Math, 'random').mockReturnValue(0.999)
     render(<MemoryCardGame />)
     fireEvent.click(screen.getByRole('button', { name: 'Start Memory' }))
+    expect(trackEvent).toHaveBeenCalledWith('game_start', { game_type: 'memory', total_pairs: 6 })
     for (let i = 1; i <= 12; i++) fireEvent.click(screen.getByRole('button', { name: `Card ${i}: face down` }))
     expect(screen.getByRole('status').textContent).toBe('You won in 6 moves!')
     expect(screen.getAllByRole('button', { name: /matched/ })).toHaveLength(12)
+    expect(vi.mocked(trackEvent).mock.calls.filter(([name]) => name === 'game_complete')).toEqual([
+      ['game_complete', { game_type: 'memory', moves: 6, total_pairs: 6 }],
+    ])
     fireEvent.click(screen.getByRole('button', { name: 'New game' }))
+    expect(trackEvent).toHaveBeenCalledWith('game_restart', { game_type: 'memory', moves: 6, pairs_found: 6 })
     expect(screen.getAllByRole('button', { name: /face down/ })).toHaveLength(12)
     expect(screen.getByRole('status').textContent).toContain('Moves: 0')
   })

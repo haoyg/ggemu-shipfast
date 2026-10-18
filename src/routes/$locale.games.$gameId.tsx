@@ -625,7 +625,9 @@ function LocalizedGameDetailPage() {
                 <section className="rounded-xl border border-primary/25 bg-primary/10 p-5 shadow-sm">
                   <h2 className="text-lg font-bold text-white">Related guide</h2>
                   <p className="mt-2 text-sm leading-6 text-white/70">{relatedGuide.description}</p>
-                  <a className="link link-primary mt-3 inline-block" href={relatedGuide.href}>{relatedGuide.label}</a>
+                  <a className="link link-primary mt-3 inline-block" href={relatedGuide.href} onClick={() => {
+                    if (relatedGuide.href === '/en/card-games-that-start-with-m') trackEvent('guide_click', { source_game: gameId, guide_id: 'm_card_games' })
+                  }}>{relatedGuide.label}</a>
                 </section>
               ) : null}
               <SeoInternalLinkSection lang={lang} links={seoInternalLinks} />

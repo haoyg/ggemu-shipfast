@@ -6,6 +6,7 @@ import { MemoryCardRules } from '#/components/memory-card-rules'
 import { SiteLayout } from '#/components/site-layout'
 import { cardDeckLabels, filterMCardGames, getCardGamePlayerLabel, mCardGames, mCardGamesCheckedAt, type CardDeckType, type CardGameCategory } from '#/lib/m-card-games'
 import { getSeoOrigin, seoLocales } from '#/lib/seo'
+import { trackEvent } from '#/lib/analytics'
 import { siteConfig } from '#/lib/site-config'
 
 const pagePath = '/en/card-games-that-start-with-m'
@@ -65,7 +66,10 @@ function MCardGamesPage() {
   const [deckType, setDeckType] = useState<CardDeckType | 'All'>('All')
   const games = filterMCardGames(query, category, { players: players === 'All' ? undefined : Number(players), deckType })
   const hasFilters = Boolean(query || category !== 'All' || players !== 'All' || deckType !== 'All')
-  function resetFilters() { setQuery(''); setCategory('All'); setPlayers('All'); setDeckType('All') }
+  function resetFilters() {
+    trackEvent('card_directory_filter', { filter_name: 'reset', filter_value: 'All' })
+    setQuery(''); setCategory('All'); setPlayers('All'); setDeckType('All')
+  }
 
   return (
     <SiteLayout locale="en" localePaths={localePaths}>
@@ -92,20 +96,20 @@ function MCardGamesPage() {
             </label>
             <div className="grid gap-2 text-sm font-medium">
               <label htmlFor="m-card-game-type">Game type</label>
-              <select className="select select-bordered w-full" id="m-card-game-type" onChange={event => setCategory(event.target.value as CardGameCategory | 'All')} value={category}>
+              <select className="select select-bordered w-full" id="m-card-game-type" onChange={event => { setCategory(event.target.value as CardGameCategory | 'All'); trackEvent('card_directory_filter', { filter_name: 'game_type', filter_value: event.target.value }) }} value={category}>
                 {categories.map(value => <option key={value} value={value}>{value === 'Published' ? 'Published card games' : value}</option>)}
               </select>
             </div>
             <div className="grid gap-2 text-sm font-medium">
               <label htmlFor="m-card-players">Players</label>
-              <select className="select select-bordered w-full" id="m-card-players" onChange={event => setPlayers(event.target.value)} value={players}>
+              <select className="select select-bordered w-full" id="m-card-players" onChange={event => { setPlayers(event.target.value); trackEvent('card_directory_filter', { filter_name: 'players', filter_value: event.target.value }) }} value={players}>
                 <option value="All">Any number</option>
                 {[1, 2, 3, 4, 5, 6, 7, 8].map(count => <option key={count} value={count}>{count === 1 ? '1 (solo)' : `${count} players`}</option>)}
               </select>
             </div>
             <div className="grid gap-2 text-sm font-medium">
               <label htmlFor="m-card-deck">Cards available</label>
-              <select className="select select-bordered w-full" id="m-card-deck" onChange={event => setDeckType(event.target.value as CardDeckType | 'All')} value={deckType}>
+              <select className="select select-bordered w-full" id="m-card-deck" onChange={event => { setDeckType(event.target.value as CardDeckType | 'All'); trackEvent('card_directory_filter', { filter_name: 'deck_type', filter_value: event.target.value }) }} value={deckType}>
                 <option value="All">Any cards</option>
                 {Object.entries(cardDeckLabels).map(([value, label]) => <option key={value} value={value}>{label}</option>)}
               </select>
