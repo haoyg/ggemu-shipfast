@@ -604,7 +604,7 @@ function LocalizedGameDetailPage() {
 
           <section className="grid gap-6 lg:grid-cols-[1fr_340px]">
             <div className="flex flex-col gap-6">
-              {editorial ? <ArticlePanel paragraphs={descriptionParagraphs} title={t.overview} /> : null}
+              {editorial ? <ArticlePanel paragraphs={descriptionParagraphs.filter((paragraph) => paragraph !== summary)} title={t.overview} /> : null}
               <div className="hidden sm:block">
                 <KeywordPanel title={t.keywords} value={editorial && targetedSeo ? targetedSeo.keywords : keywordText} />
               </div>
@@ -618,9 +618,7 @@ function LocalizedGameDetailPage() {
                   </ul>
                 </section>
               ) : null}
-              <div className="hidden sm:block">
-                <ArticlePanel paragraphs={browserGuide.paragraphs} title={browserGuide.title} />
-              </div>
+              <ArticlePanel paragraphs={browserGuide.paragraphs} title={browserGuide.title} />
               {relatedGuide ? (
                 <section className="rounded-xl border border-primary/25 bg-primary/10 p-5 shadow-sm">
                   <h2 className="text-lg font-bold text-white">Related guide</h2>
@@ -655,20 +653,8 @@ function LocalizedGameDetailPage() {
                 </dl>
               </section>
 
-              {browserGuide.paragraphs[0] ? (
-                <section className="hidden rounded-xl border border-primary/25 bg-primary/10 p-5 shadow-sm lg:block">
-                  <h2 className="flex items-center gap-2 text-lg font-bold text-white">
-                    <i className="ri-gamepad-line text-primary" />
-                    {browserGuide.title}
-                  </h2>
-                  <p className="mt-3 text-sm leading-6 text-white/70">
-                    {browserGuide.paragraphs[0]}
-                  </p>
-                </section>
-              ) : null}
-
-              <div className="hidden lg:contents">
-                <SidebarArticle icon="ri-book-open-line" text={sidebarContent.background} title={sidebarContent.backgroundTitle} />
+              <div className={editorial ? 'contents' : 'hidden lg:contents'}>
+                {!editorial ? <SidebarArticle icon="ri-book-open-line" text={sidebarContent.background} title={sidebarContent.backgroundTitle} /> : null}
                 <SidebarTips items={sidebarContent.tips} title={sidebarContent.tipsTitle} />
               </div>
 

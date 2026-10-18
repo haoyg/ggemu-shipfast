@@ -39,7 +39,7 @@ describe('reviewed English game content', () => {
     expect(getGameHowToPlayParagraphs(game, 'en', editorial)).toEqual(editorial.howToPlay)
     expect(getGameSidebarContent(game, 'en', editorial).tips).toEqual(editorial.tips)
     expect(getGameFaqs(game, 'en', editorial)).toEqual(editorial.faq)
-    expect(getBrowserPlayGuide('en', game, editorial).paragraphs).toEqual(expect.arrayContaining(editorial.tips))
+    expect(getBrowserPlayGuide('en', game, editorial).paragraphs.join(' ')).toContain('input focus')
     expect(getTargetedGameSeo(game, 'en')).not.toBeNull()
     expect(editorial.sources.length).toBeGreaterThan(0)
     expect(editorial.sources.every((source) => new URL(source.href).protocol === 'https:')).toBe(true)

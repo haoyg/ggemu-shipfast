@@ -41,21 +41,12 @@ export function getGameHowToPlayParagraphs(game: PublicGame, locale: Locale, edi
   return groupSentences(guide)
 }
 
-export function getBrowserPlayGuide(locale: Locale, _game?: PublicGame, editorial?: GameEditorial) {
+export function getBrowserPlayGuide(locale: Locale, _game?: PublicGame, _editorial?: GameEditorial) {
   if (locale === 'fr') return { title: 'Commandes et dépannage', paragraphs: ['Cliquez dans le jeu si le clavier ne répond pas, puis vérifiez les commandes du lecteur.', 'Sur téléphone, vérifiez la présence de commandes tactiles. Le support des manettes dépend du jeu.', 'Si le chargement reste bloqué, réessayez. Sauvegardez avant de recharger : la progression non enregistrée peut être perdue.'] }
   if (locale === 'de') return { title: 'Steuerung und Fehlerbehebung', paragraphs: ['Klicke in das Spiel, falls die Tastatur nicht reagiert, und prüfe die Steuerung im Spieler.', 'Prüfe auf dem Smartphone die Touch-Steuerung. Gamepad-Unterstützung hängt vom Spiel ab.', 'Bei Ladeproblemen versuche es erneut. Speichere vor dem Neuladen: Ungespeicherter Fortschritt kann verloren gehen.'] }
 
   if (locale === 'es') return { title: 'Controles y solución de problemas', paragraphs: ['Si el teclado no responde, haz clic en la pantalla del juego y consulta los controles del reproductor.', 'En el móvil, comprueba si hay botones táctiles. Prueba la orientación horizontal o la pantalla completa. La compatibilidad con mandos depende del juego.', 'Si la carga se detiene, espera un momento y prueba a recargar el reproductor. El progreso que no hayas guardado puede perderse.'] }
   if (locale === 'pt') return { title: 'Controles e solução de problemas', paragraphs: ['Se o teclado não responder, clique na tela do jogo e confira os controles do player.', 'No celular, confira se há botões de toque. Experimente a orientação horizontal ou a tela cheia. O suporte a controles depende do jogo.', 'Se o carregamento parar, aguarde um momento e tente recarregar o player. O progresso não salvo pode ser perdido.'] }
-  if (editorial) {
-    return {
-      title: 'Browser controls and troubleshooting',
-      paragraphs: [
-        ...editorial.tips,
-        'If the player stalls, try Reload player or the separate game page. Reloading may lose unsaved progress; saving and controller options depend on the loaded game.',
-      ],
-    }
-  }
   if (locale === 'ko') return { title: '브라우저 조작과 문제 해결', paragraphs: [
     '키가 반응하지 않으면 게임 화면을 먼저 클릭하고 플레이어의 키 설정을 확인하세요.',
     '스마트폰에서는 터치 버튼이 있는지 확인하세요. 버튼이 작으면 가로 화면이나 전체 화면을 사용해 보세요. 게임패드를 연결한 후 게임에 포커스를 두고 버튼을 눌러 인식 여부를 확인하세요.',
