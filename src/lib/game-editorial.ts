@@ -134,6 +134,26 @@ const editorials: Record<string, GameEditorial> = {
     ],
     sources: [{ label: 'Onet Master published rules and controls', href: 'https://poki.com/en/g/onet-master' }],
   },
+  'gals-panic-arcade': {
+    summary: 'Gals Panic is Kaneko’s 1990 arcade area-capture game. Draw lines to enclose sections of the playfield while avoiding enemies.',
+    description: [
+      'The core mechanic is drawing and enclosing areas, not firing projectiles upward or clearing colored blocks. Move along an established boundary, then draw a route through open space and reconnect it to a boundary.',
+      'The original game contains adult imagery. The browser player’s button assignments can differ from the arcade cabinet, so check the control menu before starting.',
+    ],
+    howToPlay: [
+      'Open the player controls and identify the directional inputs, draw button, credit and start mappings. The original cabinet uses a four-way joystick and one draw button.',
+      'Move along a boundary and use the draw control to trace into the open playfield. Reconnect to a boundary to close off an area.',
+      'Avoid enemies while drawing. Contact with your marker or its unfinished line can cost a life; favor shorter routes when enemies approach.',
+      'Keep enclosing sections until the required area target is reached. The original game advances after 80 percent of the screen is captured.',
+    ],
+    tips: ['Plan where your line will reconnect before leaving a boundary.', 'Use the on-screen progress indicator to judge how much area remains.'],
+    faq: [
+      { question: 'How do you play Gals Panic?', answer: 'Draw lines that reconnect to a boundary and enclose areas. Avoid enemies touching your marker or unfinished line, and reach the stage’s area target.' },
+      { question: 'Is Gals Panic a block-breaking game?', answer: 'No. Its main mechanic is capturing areas by drawing lines, rather than firing upward to break blocks.' },
+      { question: 'Is Gals Panic suitable for children?', answer: 'The original arcade game contains adult imagery. Consider that content before choosing the game for children.' },
+    ],
+    sources: [{ label: 'Museum of the Game: Gals Panic controls and gameplay', href: 'https://www.arcade-museum.com/Videogame/gals-panic' }],
+  },
   'geometry-dash-advance-gba-2025': {
     summary: 'Geometry Dash Advance is AleFunky’s GBA demake of Geometry Dash. It adapts the obstacle-timing platform game to Game Boy Advance hardware.',
     description: [

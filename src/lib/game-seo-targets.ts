@@ -20,6 +20,12 @@ const searchOnlyGameSeoBySlug = {
 } as const
 
 const targetedGameSeoBySlug = {
+  'gals-panic-arcade': {
+    heading: 'Play Gals Panic Online',
+    title: 'Gals Panic Online - Arcade Area-Capture Game | POKOPIE',
+    description: 'Play Gals Panic online. Learn the arcade area-capture rules, draw lines to enclose territory, avoid enemies and check the browser player controls before starting.',
+    keywords: 'Gals Panic, Gals Panic online, Kaneko arcade, area capture game',
+  },
   'three-wonders-arcade-1991': {
     heading: 'Play Three Wonders Online',
     title: 'Three Wonders Online - Midnight Wanderers & More | POKOPIE',
