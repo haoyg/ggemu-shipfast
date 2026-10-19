@@ -1,0 +1,52 @@
+[
+  {
+    "id": "quake-ii",
+    "name": "Quake II",
+    "status": "reported-running",
+    "fps": "~25-45 FPS (reported dips below 20)",
+    "testDate": "2026-09-08",
+    "sourceUrl": "https://www.engadget.com/2286776/xbox-series-x-users-can-play-playstation-5-games-ps5x-emulator-issues/",
+    "sourceType": "media-report",
+    "notes": "Booted in the developer's Xbox Series X Developer Mode demo. Input latency and unstable frame rates reported. Not independently re-tested by POKOPIE."
+  },
+  {
+    "id": "gex-trilogy",
+    "name": "GEX Trilogy",
+    "status": "reported-running",
+    "fps": null,
+    "testDate": "2026-09-08",
+    "sourceUrl": "https://www.slashgear.com/2280925/playstation-5-games-on-xbox-series-x-kityps5-emulator/",
+    "sourceType": "media-report",
+    "notes": "Shown booting with an Xbox controller in the developer's demo. Frame rate not stated in the source. Not independently re-tested."
+  },
+  {
+    "id": "hellboy-web-of-wyrd",
+    "name": "Hellboy: Web of Wyrd",
+    "status": "reported-running",
+    "fps": null,
+    "testDate": "2026-09-08",
+    "sourceUrl": "https://www.slashgear.com/2280925/playstation-5-games-on-xbox-series-x-kityps5-emulator/",
+    "sourceType": "media-report",
+    "notes": "Shown running in the developer's demo. Audio worked on only some titles. Frame rate not stated. Not independently re-tested."
+  },
+  {
+    "id": "marvel-cosmic-invasion",
+    "name": "Marvel Cosmic Invasion",
+    "status": "reported-running",
+    "fps": null,
+    "testDate": "2026-09-08",
+    "sourceUrl": "https://dataconomy.com/2026/10/19/developer-demonstrates-ps5-emulation-on-xbox-series-x/",
+    "sourceType": "media-report",
+    "notes": "Shown running in the developer's demo. Performance not quantified in the source. Not independently re-tested."
+  },
+  {
+    "id": "astro-bot",
+    "name": "Astro Bot",
+    "status": "boots-only",
+    "fps": "~10 FPS",
+    "testDate": "2026-09-08",
+    "sourceUrl": "https://dataconomy.com/2026/10/19/developer-demonstrates-ps5-emulation-on-xbox-series-x/",
+    "sourceType": "media-report",
+    "notes": "Boots on Xbox Series X but is reported at roughly 10 FPS, far below playable. The PC KytyPS5 build runs the same title above 60 FPS."
+  }
+]

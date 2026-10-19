@@ -1,0 +1,14 @@
+[
+  {
+    "date": "2026-10-19",
+    "title": "Press coverage: PS5X boots four non-exclusive PS5 titles in Developer Mode",
+    "summary": "Multiple outlets report that PS5X has booted Quake II, GEX Trilogy, Hellboy: Web of Wyrd and Marvel Cosmic Invasion on Xbox Series X, with Astro Bot running near 10 FPS. No public download has been released.",
+    "sourceUrl": "https://dataconomy.com/2026/10/19/developer-demonstrates-ps5-emulation-on-xbox-series-x/"
+  },
+  {
+    "date": "2026-09-08",
+    "title": "PS5X proof-of-concept demo boots Quake II on Xbox Series X",
+    "summary": "Developer Devran Cosmo Uenal demonstrates a port of the open-source KytyPS5 emulator running the PS5 version of Quake II in Xbox Developer Mode, played with an Xbox controller.",
+    "sourceUrl": "https://www.engadget.com/2286776/xbox-series-x-users-can-play-playstation-5-games-ps5x-emulator-issues/"
+  }
+]
