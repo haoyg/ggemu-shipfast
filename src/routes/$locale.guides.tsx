@@ -50,6 +50,11 @@ function GuidesIndexPage() {
             <Link className="link link-primary mt-4 inline-block font-semibold" to="/en/card-games-that-start-with-m">Browse the M card game list</Link>
             <Link className="link link-primary mt-3 block font-semibold" hash="play-memory" to="/en/card-games-that-start-with-m">Play Memory and learn the rules</Link>
           </section>
+          <section className="mb-6 rounded-xl border border-primary/30 bg-base-100 p-6 text-base-content">
+            <h2 className="text-xl font-bold">PS5 games on Xbox Series X</h2>
+            <p className="mt-3 leading-7 text-base-content/75">See what the experimental PS5X project can actually run on Xbox hardware, with reported FPS, download status and a source for every claim.</p>
+            <Link className="link link-primary mt-4 inline-block font-semibold" to="/en/ps5-games-on-xbox-series-x">Check PS5 game compatibility</Link>
+          </section>
           <div className="grid gap-5 md:grid-cols-2">
             {Object.entries(guides).map(([guideId, guide]) => (
               <article className="rounded-xl border border-white/10 bg-white/[0.04] p-6 shadow-sm transition hover:-translate-y-0.5 hover:border-primary/60 hover:bg-white/[0.08] hover:shadow-lg" key={guideId}>
