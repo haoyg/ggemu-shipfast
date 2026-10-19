@@ -6,6 +6,12 @@
     "sourceUrl": "https://dataconomy.com/2026/10/19/developer-demonstrates-ps5-emulation-on-xbox-series-x/"
   },
   {
+    "date": "2026-10-11",
+    "title": "Experimental KytyPS5 for Xbox build published on GitHub",
+    "summary": "The developer published an unsigned experimental Xbox build (KytyPS5 for Xbox 1.1.26284.1505) that requires Xbox Developer Mode and an AVX2-capable CPU. It installs through the Xbox Device Portal; Xbox One is not supported.",
+    "sourceUrl": "https://github.com/Cosmo/KytyPS5/releases/tag/xbox-1.1.26284.1505"
+  },
+  {
     "date": "2026-09-08",
     "title": "PS5X proof-of-concept demo boots Quake II on Xbox Series X",
     "summary": "Developer Devran Cosmo Uenal demonstrates a port of the open-source KytyPS5 emulator running the PS5 version of Quake II in Xbox Developer Mode, played with an Xbox controller.",

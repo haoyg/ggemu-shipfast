@@ -29,6 +29,11 @@ export type Ps5xUpdate = {
 // The date the compatibility data and page copy were last reviewed against sources.
 export const ps5xCheckedAt = '2026-10-19'
 
+// The developer's verified channels. Only these are linked as downloads/evidence.
+export const ps5xRepoUrl = 'https://github.com/Cosmo/KytyPS5'
+export const ps5xGitHubReleaseUrl =
+  'https://github.com/Cosmo/KytyPS5/releases/tag/xbox-1.1.26284.1505'
+
 export const ps5xStatusOrder = [
   'verified-running',
   'reported-running',
@@ -130,7 +135,7 @@ export const ps5xFaqs = [
   {
     question: 'Can I download PS5X?',
     answer:
-      'No verified public build is available. The developer has not released the project publicly and describes it as research software. Any site offering a "PS5X" download should be treated as unverified and potentially unsafe; scam sites have used similar names to distribute malware.',
+      'An experimental build is available from the developer\'s GitHub release (tag xbox-1.1.26284.1505). It is unsigned research software that requires Xbox Developer Mode and an AVX2-capable CPU, so Xbox One is not supported. Download only from the developer\'s verified GitHub. Security researchers have warned of impersonation scams under similar names, including PCS5X (pcs5x.org), which distribute malware.',
   },
   {
     question: 'Does PS5X work on Xbox Series S?',

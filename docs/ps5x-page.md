@@ -65,7 +65,13 @@ newest first. Keep each entry tied to a real, dated source.
 
 ## Pending verification / known caveats
 
-- No public PS5X build exists; the page intentionally has no install tutorial.
+- There **is** an experimental GitHub release (`Cosmo/KytyPS5`, tag
+  `xbox-1.1.26284.1505`). It is unsigned research software requiring Developer Mode and an
+  AVX2-capable CPU. The page links it but presents installation as manual and caveated, not
+  as a supported consumer flow. URLs live in `ps5xRepoUrl` / `ps5xGitHubReleaseUrl`
+  (`src/lib/ps5x.ts`) — update both if the tag moves.
+- Security researchers warn of impersonation scams under similar names, including PCS5X
+  (`pcs5x.org`). The page names it so users download only from the developer's GitHub.
 - All compatibility statuses trace to the developer's demo and media reports — none are
   independently verified. Do not upgrade any to `verified-running` without new evidence.
 - The hero is an original SVG illustration (no licensed console photography). If product

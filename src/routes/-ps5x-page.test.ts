@@ -56,7 +56,7 @@ describe('buildPs5xHead', () => {
       href: 'https://pokopie.com/en/ps5-games-on-xbox-series-x',
     })
     expect(head.meta).toContainEqual({
-      title: 'PS5 Games Running on Xbox Hardware? PS5X Explained (2026)',
+      title: 'PS5 Games Running on Xbox Hardware: What PS5X Can Actually Do',
     })
     expect(head.meta).toContainEqual({ name: 'description', content: expect.any(String) })
 

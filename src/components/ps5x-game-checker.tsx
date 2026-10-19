@@ -30,6 +30,7 @@ function formatSourceType(sourceType: string) {
 
 export function Ps5xGameChecker() {
   const [query, setQuery] = useState('')
+  const [game, setGame] = useState('')
   const [status, setStatus] = useState<Ps5xStatusFilter>('all')
   const games = useMemo(() => filterPs5xGames(query, status), [query, status])
   const hasFilters = query.trim() !== '' || status !== 'all'
@@ -37,21 +38,45 @@ export function Ps5xGameChecker() {
   function resetFilters() {
     trackEvent('ps5x_checker_filter', { filter_name: 'reset', filter_value: 'all' })
     setQuery('')
+    setGame('')
     setStatus('all')
   }
 
   return (
     <div>
-      <div className="grid gap-4 sm:grid-cols-[1fr_auto]">
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-[1fr_auto_auto]">
         <label className="grid gap-2 text-sm font-medium">
           Search a game
           <input
             className="input input-bordered w-full"
-            onChange={(event) => setQuery(event.target.value)}
+            onChange={(event) => {
+              setQuery(event.target.value)
+              setGame('')
+            }}
             placeholder="Try Quake II or Astro Bot"
             type="search"
             value={query}
           />
+        </label>
+        <label className="grid gap-2 text-sm font-medium">
+          Choose a game
+          <select
+            className="select select-bordered w-full lg:w-48"
+            onChange={(event) => {
+              const next = event.target.value
+              setGame(next)
+              setQuery(next)
+              trackEvent('ps5x_checker_filter', { filter_name: 'game', filter_value: next || 'all' })
+            }}
+            value={game}
+          >
+            <option value="">All games</option>
+            {ps5xGames.map((item) => (
+              <option key={item.id} value={item.name}>
+                {item.name}
+              </option>
+            ))}
+          </select>
         </label>
         <label className="grid gap-2 text-sm font-medium">
           Compatibility status
