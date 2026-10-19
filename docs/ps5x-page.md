@@ -74,8 +74,9 @@ newest first. Keep each entry tied to a real, dated source.
   (`pcs5x.org`). The page names it so users download only from the developer's GitHub.
 - All compatibility statuses trace to the developer's demo and media reports — none are
   independently verified. Do not upgrade any to `verified-running` without new evidence.
-- The hero is an original SVG illustration (no licensed console photography). If product
-  photos are wanted, source a licensed asset before replacing it.
+- The hero is a Clubic editorial photo (`public/guide-art/ps5x-hero.jpg`, 1600×901), credited
+  to `© Clubic` with a link back to the article. It is a third-party copyrighted image used
+  with attribution only — swap it for a licensed asset if this ever becomes a concern.
 - Confirm the current Xbox Developer Mode activation process/fee before asserting specifics;
   the page currently keeps that detail general.
 

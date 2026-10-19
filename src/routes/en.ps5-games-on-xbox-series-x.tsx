@@ -177,83 +177,35 @@ function Hero() {
           <span className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-2.5 py-1 text-xs font-semibold text-base-content/80">
             POKOPIE Editorial Team
           </span>
-          Sources reviewed {ps5xCheckedAt}
+          <span className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-2.5 py-1 text-xs font-semibold text-base-content/80">
+            Last updated <time dateTime={ps5xCheckedAt}>{ps5xCheckedAt}</time>
+          </span>
         </p>
       </div>
-      <div>
-        <Ps5xHeroVisual />
-        <p className="mt-3 text-center text-xs text-base-content/55">
-          Visual concept illustration — not a real PS5X gameplay screenshot.
-        </p>
-      </div>
+      <figure className="ps5x-hero-visual mx-auto w-full max-w-md">
+        <div className="overflow-hidden rounded-2xl border border-white/10 bg-[#0B1020] shadow-2xl shadow-black/40">
+          <img
+            alt="An Xbox Series X running PS5 games through the experimental PS5X emulator"
+            className="w-full object-cover"
+            height={901}
+            loading="eager"
+            src="/guide-art/ps5x-hero.jpg"
+            width={1600}
+          />
+        </div>
+        <figcaption className="mt-3 text-center text-xs leading-5 text-base-content/55">
+          Image:{' '}
+          <a
+            className="link link-primary"
+            href="https://www.clubic.com/actualite-630697-une-xbox-series-x-qui-emule-des-jeux-ps5-cette-demo-montre-que-ce-n-est-plus-totalement-de-la-science-fiction.html"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            © Clubic
+          </a>
+        </figcaption>
+      </figure>
     </header>
-  )
-}
-
-function Ps5xHeroVisual() {
-  return (
-    <div aria-hidden="true" className="ps5x-hero-visual relative mx-auto w-full max-w-md">
-      <svg className="w-full" viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <linearGradient id="ps5x-xbox" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0" stopColor="#75D58B" stopOpacity="0.28" />
-            <stop offset="1" stopColor="#75D58B" stopOpacity="0.02" />
-          </linearGradient>
-          <linearGradient id="ps5x-ps" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0" stopColor="#4776F5" stopOpacity="0.28" />
-            <stop offset="1" stopColor="#4776F5" stopOpacity="0.02" />
-          </linearGradient>
-          <radialGradient id="ps5x-xbox-glow" cx="0.5" cy="0.5" r="0.5">
-            <stop offset="0" stopColor="#75D58B" stopOpacity="0.35" />
-            <stop offset="1" stopColor="#75D58B" stopOpacity="0" />
-          </radialGradient>
-          <radialGradient id="ps5x-ps-glow" cx="0.5" cy="0.5" r="0.5">
-            <stop offset="0" stopColor="#4776F5" stopOpacity="0.35" />
-            <stop offset="1" stopColor="#4776F5" stopOpacity="0" />
-          </radialGradient>
-          <linearGradient id="ps5x-divider" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0" stopColor="rgba(181,190,255,0)" />
-            <stop offset="0.5" stopColor="rgba(181,190,255,0.4)" />
-            <stop offset="1" stopColor="rgba(181,190,255,0)" />
-          </linearGradient>
-        </defs>
-
-        <rect x="0.5" y="0.5" width="399" height="299" rx="20" fill="#0B1020" stroke="rgba(181,190,255,0.16)" />
-
-        <circle cx="108" cy="150" r="86" fill="url(#ps5x-xbox-glow)" />
-        <circle cx="292" cy="150" r="86" fill="url(#ps5x-ps-glow)" />
-
-        {/* Xbox Series X tower */}
-        <rect x="62" y="66" width="92" height="172" rx="14" fill="url(#ps5x-xbox)" stroke="#75D58B" strokeOpacity="0.65" strokeWidth="1.5" />
-        <circle cx="108" cy="94" r="15" stroke="#75D58B" strokeOpacity="0.85" strokeWidth="1.5" />
-        <circle cx="108" cy="94" r="4.5" fill="#75D58B" />
-        <path d="M108 122v72" stroke="#75D58B" strokeOpacity="0.3" strokeWidth="1.5" />
-        <rect x="80" y="206" width="56" height="6" rx="3" fill="#75D58B" fillOpacity="0.5" />
-        <rect x="80" y="218" width="38" height="6" rx="3" fill="#75D58B" fillOpacity="0.28" />
-        <text x="108" y="256" textAnchor="middle" fill="#75D58B" fillOpacity="0.95" fontSize="11" fontWeight="700" letterSpacing="1.5" fontFamily="monospace">
-          SERIES X
-        </text>
-
-        {/* PlayStation 5 silhouette */}
-        <rect x="246" y="66" width="92" height="172" rx="14" fill="url(#ps5x-ps)" stroke="#4776F5" strokeOpacity="0.65" strokeWidth="1.5" />
-        <rect x="256" y="80" width="72" height="22" rx="11" fill="#4776F5" fillOpacity="0.8" />
-        <rect x="256" y="110" width="48" height="6" rx="3" fill="#4776F5" fillOpacity="0.45" />
-        <circle cx="292" cy="150" r="14" stroke="#4776F5" strokeOpacity="0.7" strokeWidth="1.5" />
-        <circle cx="292" cy="150" r="4" fill="#4776F5" />
-        <rect x="256" y="206" width="56" height="6" rx="3" fill="#4776F5" fillOpacity="0.5" />
-        <rect x="256" y="218" width="38" height="6" rx="3" fill="#4776F5" fillOpacity="0.28" />
-        <text x="292" y="256" textAnchor="middle" fill="#4776F5" fillOpacity="0.95" fontSize="13" fontWeight="700" letterSpacing="1.5" fontFamily="monospace">
-          PS5
-        </text>
-
-        {/* divider */}
-        <rect x="199" y="92" width="2" height="120" rx="1" fill="url(#ps5x-divider)" />
-        <rect x="182" y="146" width="36" height="24" rx="12" fill="rgba(181,190,255,0.08)" stroke="rgba(181,190,255,0.35)" strokeWidth="1" />
-        <text x="200" y="162" textAnchor="middle" fill="#edf1ff" fillOpacity="0.9" fontSize="11" fontWeight="800" letterSpacing="1" fontFamily="monospace">
-          VS
-        </text>
-      </svg>
-    </div>
   )
 }
 
@@ -283,6 +235,15 @@ function QuickAnswer() {
         requires an AVX2-capable CPU. Treat any &ldquo;PS5X&rdquo; installer outside the
         developer&apos;s GitHub as unverified.
       </p>
+      <div className="mt-5 max-w-3xl rounded-xl border border-primary/30 bg-base-100 p-5">
+        <p className="text-sm font-bold uppercase tracking-wide text-primary">Bottom line</p>
+        <p className="mt-2 leading-7 text-base-content/85">
+          A normal Xbox owner cannot play PS5 games today. PS5X is early research that boots a
+          handful of non-exclusive titles in Developer Mode only, at frame rates far below
+          playable. Nothing here is a retail-mode app, and no title is verified as comfortably
+          playable.
+        </p>
+      </div>
     </section>
   )
 }
@@ -298,6 +259,15 @@ function GameCheckerSection() {
         Pick a title or search the games shown so far in the PS5X demonstrations. Every entry
         links to a source. Status reflects what has been <em>reported</em> — none of these
         titles have been independently verified as comfortably playable.
+      </p>
+      <p className="mt-4 max-w-3xl leading-7 text-base-content/85">
+        Five PS5 builds have been shown so far: <strong className="font-semibold text-base-content">Quake II</strong>{' '}
+        (reported running, ~25&ndash;45 FPS), <strong className="font-semibold text-base-content">GEX Trilogy</strong>,{' '}
+        <strong className="font-semibold text-base-content">Hellboy: Web of Wyrd</strong> and{' '}
+        <strong className="font-semibold text-base-content">Marvel Cosmic Invasion</strong>{' '}
+        (reported running, FPS not stated), and{' '}
+        <strong className="font-semibold text-base-content">Astro Bot</strong> (boots only, ~10 FPS).
+        No PS5 exclusive has been demonstrated, and none is verified as comfortably playable.
       </p>
       <div className="mt-6 rounded-xl border border-base-300 bg-base-100 p-5 sm:p-6">
         <Ps5xGameChecker />

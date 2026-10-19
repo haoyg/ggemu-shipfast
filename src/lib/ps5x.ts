@@ -138,6 +138,11 @@ export const ps5xFaqs = [
       'An experimental build is available from the developer\'s GitHub release (tag xbox-1.1.26284.1505). It is unsigned research software that requires Xbox Developer Mode and an AVX2-capable CPU, so Xbox One is not supported. Download only from the developer\'s verified GitHub. Security researchers have warned of impersonation scams under similar names, including PCS5X (pcs5x.org), which distribute malware.',
   },
   {
+    question: 'Is PS5X safe and legal?',
+    answer:
+      'PS5X is legal research software: it contains no PS5 firmware or decryption keys, and it runs only in Xbox Developer Mode, outside retail mode. The main risk is downloads — the only verified source is the developer\'s GitHub. Impersonation scams under similar names (including PCS5X) distribute malware, so avoid any "PS5X" installer found anywhere else.',
+  },
+  {
     question: 'Does PS5X work on Xbox Series S?',
     answer:
       'The developer’s demonstration was on Xbox Series X. Series S support has not been demonstrated, and its smaller memory and GPU budget would make the already-tight 5GB Developer Mode cap more restrictive. Treat Series S compatibility as unconfirmed.',
