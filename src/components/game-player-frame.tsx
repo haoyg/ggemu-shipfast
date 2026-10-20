@@ -3,8 +3,8 @@ import { n64TouchControls } from '#/lib/n64-touch-controls'
 import { trackEvent } from '#/lib/analytics'
 
 const copy = {
-  fr: {"loading": "Chargement du lecteur…", "loaded": "Lecteur ouvert. Consultez la progression dans le jeu.", "ready": "Lecteur chargé.", "guide": "Sélectionnez Jouer, puis Démarrer dans le lecteur.", "slow": "Le chargement prend du temps. Rechargez ou choisissez un autre jeu.", "retry": "Recharger le lecteur", "browse": "Voir les jeux", "fullscreen": "Plein écran", "exitFullscreen": "Quitter le plein écran", "backToGame": "Informations sur le jeu", "controlsLabel": "Commandes", "controls": "Les commandes et sauvegardes sont dans le menu du lecteur.", "error": "Impossible de charger le lecteur. Réessayez.", "unsupported": "Ce jeu n’est pas disponible dans le navigateur."},
-  de: {"loading": "Spieler wird geladen…", "loaded": "Spieler geöffnet. Der Fortschritt wird im Spiel angezeigt.", "ready": "Spieler geladen.", "guide": "Wähle Jetzt spielen und dann Start im Spieler.", "slow": "Das Laden dauert länger. Lade neu oder wähle ein anderes Spiel.", "retry": "Spieler neu laden", "browse": "Spiele ansehen", "fullscreen": "Vollbild", "exitFullscreen": "Vollbild verlassen", "backToGame": "Spielinformationen", "controlsLabel": "Steuerung", "controls": "Steuerung und Speicheroptionen findest du im Spielermenü.", "error": "Spieler konnte nicht geladen werden. Versuche es erneut.", "unsupported": "Dieses Spiel ist derzeit nicht im Browser verfügbar."},
+  fr: {"loading": "Chargement du lecteur…", "loaded": "Lecteur ouvert. Consultez la progression dans le jeu.", "ready": "Lecteur chargé.", "guide": "Sélectionnez Jouer, puis Démarrer dans le lecteur.", "slow": "Le chargement prend du temps. Rechargez ou choisissez un autre jeu.", "retry": "Recharger le lecteur", "browse": "Voir les jeux", "fullscreen": "Plein écran", "exitFullscreen": "Quitter le plein écran", "backToGame": "Informations sur le jeu", "controlsLabel": "Commandes", "controls": "Consultez les commandes du lecteur. La sauvegarde dépend du jeu et du lecteur ; actualiser peut perdre la progression non enregistrée.", "error": "Impossible de charger le lecteur. Réessayez.", "unsupported": "Ce jeu n’est pas disponible dans le navigateur."},
+  de: {"loading": "Spieler wird geladen…", "loaded": "Spieler geöffnet. Der Fortschritt wird im Spiel angezeigt.", "ready": "Spieler geladen.", "guide": "Wähle Jetzt spielen und dann Start im Spieler.", "slow": "Das Laden dauert länger. Lade neu oder wähle ein anderes Spiel.", "retry": "Spieler neu laden", "browse": "Spiele ansehen", "fullscreen": "Vollbild", "exitFullscreen": "Vollbild verlassen", "backToGame": "Spielinformationen", "controlsLabel": "Steuerung", "controls": "Prüfe die Steuerung im Spieler. Speichern und Laden hängen vom Spiel und Spieler ab; beim Neuladen kann ungespeicherter Fortschritt verloren gehen.", "error": "Spieler konnte nicht geladen werden. Versuche es erneut.", "unsupported": "Dieses Spiel ist derzeit nicht im Browser verfügbar."},
 
   es: {
     loading: "Cargando el reproductor…",
@@ -18,7 +18,7 @@ const copy = {
     exitFullscreen: "Salir de pantalla completa",
     backToGame: "Detalles del juego",
     controlsLabel: "Controles",
-    controls: "Los controles y las partidas guardadas están en el menú del reproductor.",
+    controls: "Consulta los controles del reproductor. Guardar y recuperar partidas depende del juego y del reproductor; recargar puede perder el progreso no guardado.",
     error: "No se pudo cargar el reproductor. Inténtalo de nuevo.",
     unsupported: "Este juego no está disponible para jugar en el navegador.",
   },
@@ -34,7 +34,7 @@ const copy = {
     exitFullscreen: "Sair da tela cheia",
     backToGame: "Detalhes do jogo",
     controlsLabel: "Controles",
-    controls: "Os controles e os jogos salvos estão no menu do player.",
+    controls: "Confira os controles do player. Salvar e restaurar depende do jogo e do player; recarregar pode perder o progresso não salvo.",
     error: "Não foi possível carregar o player. Tente novamente.",
     unsupported: "Este jogo não está disponível para jogar no navegador.",
   },
@@ -50,7 +50,7 @@ const copy = {
     exitFullscreen: '退出全屏',
     backToGame: '返回遊戲詳情',
     controlsLabel: '操作與存檔',
-    controls: '按鍵和存檔設置可在遊戲播放器菜單中調整。',
+    controls: '請查看播放器的按鍵設置。存檔和讀檔支援取決於遊戲及播放器；重新載入可能丟失未儲存的進度。',
     error: '遊戲播放器加載失敗，請重試。',
     unsupported: '該遊戲目前暫不支持在瀏覽器中游玩。',
   },
@@ -58,7 +58,7 @@ const copy = {
     loading: '게임 플레이어 불러오는 중…', loaded: '플레이어 페이지가 열렸습니다. 게임 진행 상태는 플레이어 안에서 확인하세요.', ready: '게임 플레이어를 불러왔습니다.',
     guide: '‘지금 플레이’가 나타나면 선택한 다음 플레이어 안의 ‘시작’을 선택하세요.', slow: '플레이어 로딩이 오래 걸립니다. 다시 불러오거나 다른 게임을 선택하세요.',
     retry: '플레이어 다시 불러오기', browse: '게임 둘러보기', fullscreen: '전체 화면', exitFullscreen: '전체 화면 종료', backToGame: '게임 상세 정보',
-    controlsLabel: '조작 및 저장', controls: '조작과 저장 설정은 플레이어 메뉴에서 확인할 수 있습니다.', error: '플레이어를 불러오지 못했습니다. 다시 시도하세요.', unsupported: '현재 브라우저에서 플레이할 수 없는 게임입니다.',
+    controlsLabel: '조작 및 저장', controls: '플레이어의 조작 설정을 확인하세요. 저장과 불러오기 지원은 게임과 플레이어에 따라 다르며, 새로고침하면 저장하지 않은 진행 상황을 잃을 수 있습니다.', error: '플레이어를 불러오지 못했습니다. 다시 시도하세요.', unsupported: '현재 브라우저에서 플레이할 수 없는 게임입니다.',
   },
   en: {
     loading: 'Loading game player…',
@@ -72,7 +72,7 @@ const copy = {
     exitFullscreen: 'Exit fullscreen',
     backToGame: 'Game details',
     controlsLabel: 'Controls',
-    controls: 'Controls and saves are available in the game player menu.',
+    controls: 'Check the player controls for key mappings. Save and restore support depends on the game and player; reloading may lose unsaved progress.',
     error: 'The game player failed to load. Please retry.',
     unsupported: 'This game is not currently available to play in the browser.',
   },
@@ -88,7 +88,7 @@ const copy = {
     exitFullscreen: '退出全屏',
     backToGame: '返回游戏详情',
     controlsLabel: '操作与存档',
-    controls: '按键和存档设置可在游戏播放器菜单中调整。',
+    controls: '请查看播放器的按键设置。存档和读档支持取决于游戏及播放器；重新加载可能丢失未保存的进度。',
     error: '游戏播放器加载失败，请重试。',
     unsupported: '该游戏目前暂不支持在浏览器中游玩。',
   },
@@ -104,7 +104,7 @@ const copy = {
     exitFullscreen: '全画面を終了',
     backToGame: 'ゲーム詳細に戻る',
     controlsLabel: '操作とセーブ',
-    controls: '操作とセーブ設定はゲームプレーヤーのメニューから変更できます。',
+    controls: 'プレーヤーの操作設定を確認してください。セーブとロードの対応はゲームとプレーヤーによって異なり、再読み込みで未保存の進行状況を失う場合があります。',
     error: 'ゲームプレーヤーの読み込みに失敗しました。再試行してください。',
     unsupported: 'このゲームは現在ブラウザーでプレイできません。',
   },
