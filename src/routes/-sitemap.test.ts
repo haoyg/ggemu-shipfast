@@ -39,6 +39,8 @@ describe('sitemap availability', () => {
     expect(firstXml).toContain('/en/games/word-ladder')
     expect(firstXml).toContain('/en/card-games-that-start-with-m')
     expect(firstXml).not.toContain('/zh-CN/card-games-that-start-with-m')
+    expect(firstXml).toContain('/en/pickwick-papers-card-game')
+    expect(firstXml).not.toContain('/zh-CN/pickwick-papers-card-game')
     expect(firstXml).toContain('/en/games/quake-online')
     expect(firstXml).toContain('/en/games/cs-surf')
     expect(firstXml).toContain('/en/games/freedoom-online')

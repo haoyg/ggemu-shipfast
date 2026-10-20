@@ -21,6 +21,7 @@ const SITEMAP_REQUEST_TIMEOUT_MS = 5_000
 const locales = ['zh-CN', 'zh-TW', 'en', 'ja', 'ko', 'es', 'pt', 'fr', 'de'] as const satisfies ReadonlyArray<Locale>
 const englishCollectionPaths = [
   '/card-games-that-start-with-m',
+  '/pickwick-papers-card-game',
   '/ps5-games-on-xbox-series-x',
   '/arcade-games',
   '/gba-games',

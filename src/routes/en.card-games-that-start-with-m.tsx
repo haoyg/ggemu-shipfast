@@ -180,6 +180,12 @@ function MCardGamesPage() {
           <Link className="link link-primary mt-3 inline-block font-semibold" params={{ locale: 'en', gameId: 'murdoku-html5-2026' }} to="/$locale/games/$gameId">Looking for Murdoku?</Link>
         </section>
 
+        <section aria-labelledby="literary-card-game" className="mt-10 rounded-xl border border-base-300 bg-base-100 p-5 sm:p-6">
+          <h2 className="text-2xl font-bold" id="literary-card-game">Solving a literary card-game clue?</h2>
+          <p className="mt-4 leading-7 text-base-content/80">The five-letter card game named in Charles Dickens’s <cite>The Pickwick Papers</cite> is WHIST.</p>
+          <Link className="link link-primary mt-3 inline-block font-semibold" to="/en/pickwick-papers-card-game">Read the Pickwick Papers card game answer</Link>
+        </section>
+
         <section aria-labelledby="m-card-faq" className="mt-10">
           <h2 className="text-2xl font-bold" id="m-card-faq">Frequently asked questions</h2>
           <div className="mt-5 space-y-3">

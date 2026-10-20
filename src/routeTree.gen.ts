@@ -51,6 +51,7 @@ import { Route as EnPs1GamesRouteImport } from './routes/en.ps1-games'
 import { Route as EnPs1CompatibilityRouteImport } from './routes/en.ps1-compatibility'
 import { Route as EnPs1RouteImport } from './routes/en.ps1'
 import { Route as EnPlaystationGamesRouteImport } from './routes/en.playstation-games'
+import { Route as EnPickwickPapersCardGameRouteImport } from './routes/en.pickwick-papers-card-game'
 import { Route as EnNesGamesRouteImport } from './routes/en.nes-games'
 import { Route as EnNesRouteImport } from './routes/en.nes'
 import { Route as EnN64GamesRouteImport } from './routes/en.n64-games'
@@ -302,6 +303,12 @@ const EnPlaystationGamesRoute = EnPlaystationGamesRouteImport.update({
   path: '/en/playstation-games',
   getParentRoute: () => rootRouteImport,
 } as any)
+const EnPickwickPapersCardGameRoute =
+  EnPickwickPapersCardGameRouteImport.update({
+    id: '/en/pickwick-papers-card-game',
+    path: '/en/pickwick-papers-card-game',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const EnNesGamesRoute = EnNesGamesRouteImport.update({
   id: '/en/nes-games',
   path: '/en/nes-games',
@@ -564,6 +571,7 @@ export interface FileRoutesByFullPath {
   '/en/n64-games': typeof EnN64GamesRoute
   '/en/nes': typeof EnNesRoute
   '/en/nes-games': typeof EnNesGamesRoute
+  '/en/pickwick-papers-card-game': typeof EnPickwickPapersCardGameRoute
   '/en/playstation-games': typeof EnPlaystationGamesRoute
   '/en/ps1': typeof EnPs1Route
   '/en/ps1-compatibility': typeof EnPs1CompatibilityRoute
@@ -648,6 +656,7 @@ export interface FileRoutesByTo {
   '/en/n64-games': typeof EnN64GamesRoute
   '/en/nes': typeof EnNesRoute
   '/en/nes-games': typeof EnNesGamesRoute
+  '/en/pickwick-papers-card-game': typeof EnPickwickPapersCardGameRoute
   '/en/playstation-games': typeof EnPlaystationGamesRoute
   '/en/ps1': typeof EnPs1Route
   '/en/ps1-compatibility': typeof EnPs1CompatibilityRoute
@@ -733,6 +742,7 @@ export interface FileRoutesById {
   '/en/n64-games': typeof EnN64GamesRoute
   '/en/nes': typeof EnNesRoute
   '/en/nes-games': typeof EnNesGamesRoute
+  '/en/pickwick-papers-card-game': typeof EnPickwickPapersCardGameRoute
   '/en/playstation-games': typeof EnPlaystationGamesRoute
   '/en/ps1': typeof EnPs1Route
   '/en/ps1-compatibility': typeof EnPs1CompatibilityRoute
@@ -819,6 +829,7 @@ export interface FileRouteTypes {
     | '/en/n64-games'
     | '/en/nes'
     | '/en/nes-games'
+    | '/en/pickwick-papers-card-game'
     | '/en/playstation-games'
     | '/en/ps1'
     | '/en/ps1-compatibility'
@@ -903,6 +914,7 @@ export interface FileRouteTypes {
     | '/en/n64-games'
     | '/en/nes'
     | '/en/nes-games'
+    | '/en/pickwick-papers-card-game'
     | '/en/playstation-games'
     | '/en/ps1'
     | '/en/ps1-compatibility'
@@ -987,6 +999,7 @@ export interface FileRouteTypes {
     | '/en/n64-games'
     | '/en/nes'
     | '/en/nes-games'
+    | '/en/pickwick-papers-card-game'
     | '/en/playstation-games'
     | '/en/ps1'
     | '/en/ps1-compatibility'
@@ -1059,6 +1072,7 @@ export interface RootRouteChildren {
   EnN64GamesRoute: typeof EnN64GamesRoute
   EnNesRoute: typeof EnNesRoute
   EnNesGamesRoute: typeof EnNesGamesRoute
+  EnPickwickPapersCardGameRoute: typeof EnPickwickPapersCardGameRoute
   EnPlaystationGamesRoute: typeof EnPlaystationGamesRoute
   EnPs1Route: typeof EnPs1Route
   EnPs1CompatibilityRoute: typeof EnPs1CompatibilityRoute
@@ -1373,6 +1387,13 @@ declare module '@tanstack/react-router' {
       path: '/en/playstation-games'
       fullPath: '/en/playstation-games'
       preLoaderRoute: typeof EnPlaystationGamesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/en/pickwick-papers-card-game': {
+      id: '/en/pickwick-papers-card-game'
+      path: '/en/pickwick-papers-card-game'
+      fullPath: '/en/pickwick-papers-card-game'
+      preLoaderRoute: typeof EnPickwickPapersCardGameRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/en/nes-games': {
@@ -1791,6 +1812,7 @@ const rootRouteChildren: RootRouteChildren = {
   EnN64GamesRoute: EnN64GamesRoute,
   EnNesRoute: EnNesRoute,
   EnNesGamesRoute: EnNesGamesRoute,
+  EnPickwickPapersCardGameRoute: EnPickwickPapersCardGameRoute,
   EnPlaystationGamesRoute: EnPlaystationGamesRoute,
   EnPs1Route: EnPs1Route,
   EnPs1CompatibilityRoute: EnPs1CompatibilityRoute,

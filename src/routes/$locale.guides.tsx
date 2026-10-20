@@ -51,6 +51,11 @@ function GuidesIndexPage() {
             <Link className="link link-primary mt-3 block font-semibold" hash="play-memory" to="/en/card-games-that-start-with-m">Play Memory and learn the rules</Link>
           </section>
           <section className="mb-6 rounded-xl border border-primary/30 bg-base-100 p-6 text-base-content">
+            <h2 className="text-xl font-bold">The Pickwick Papers card game answer</h2>
+            <p className="mt-3 leading-7 text-base-content/75">Find the five-letter crossword answer, verify it in Dickens’s text and learn why WHIST fits the clue.</p>
+            <Link className="link link-primary mt-4 inline-block font-semibold" to="/en/pickwick-papers-card-game">See the answer and explanation</Link>
+          </section>
+          <section className="mb-6 rounded-xl border border-primary/30 bg-base-100 p-6 text-base-content">
             <h2 className="text-xl font-bold">PS5 games on Xbox Series X</h2>
             <p className="mt-3 leading-7 text-base-content/75">See what the experimental PS5X project can actually run on Xbox hardware, with reported FPS, download status and a source for every claim.</p>
             <Link className="link link-primary mt-4 inline-block font-semibold" to="/en/ps5-games-on-xbox-series-x">Check PS5 game compatibility</Link>
