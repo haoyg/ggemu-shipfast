@@ -50,7 +50,7 @@ import {
   getGameHowToPlayParagraphs,
   getGameSidebarContent,
 } from '#/lib/game-detail-content'
-import { getAlternateLinksFromCanonical } from '#/lib/seo'
+import { getAlternateLinksFromCanonical, seoLocales } from '#/lib/seo'
 import { getCanonicalGameRouteId } from '#/lib/game-route-id'
 
 export const Route = createFileRoute('/$locale/games/$gameId')({
@@ -120,10 +120,17 @@ export const Route = createFileRoute('/$locale/games/$gameId')({
     ])
 
     const editorial = getGameEditorial(detail.game, locale)
+    const indexableLocales = seoLocales.filter((candidateLocale) =>
+      Boolean(
+        getGameEditorial(detail.game, candidateLocale) ||
+        gameSeo.getGameSearchSeo(detail.game, candidateLocale),
+      ),
+    )
 
     return {
       ...detail,
       editorial,
+      indexableLocales,
       kind: 'ready' as const,
       relatedGames,
       searchSeo: gameSeo.getGameSearchSeo(detail.game, locale),
@@ -148,7 +155,7 @@ export const Route = createFileRoute('/$locale/games/$gameId')({
       }
     }
 
-    const { canonicalUrl, editorial, game, searchSeo } = loaderData
+    const { canonicalUrl, editorial, game, indexableLocales, searchSeo } = loaderData
     const locale = normalizeLocale(params.locale)
     const seo = searchSeo ?? buildGameDetailSeo(game, locale)
     const image = game.game_cover
@@ -169,11 +176,14 @@ export const Route = createFileRoute('/$locale/games/$gameId')({
           rel: 'manifest',
           href: buildGameManifestHref(locale),
         },
-        ...getAlternateLinksFromCanonical(canonicalUrl),
+        ...getAlternateLinksFromCanonical(canonicalUrl, indexableLocales),
       ],
       meta: [
         { title: seo.title },
         { name: 'description', content: seo.description },
+        ...(!indexableLocales.includes(locale)
+          ? [{ name: 'robots', content: 'noindex,follow' }]
+          : []),
         { name: 'keywords', content: seo.keywords },
         { property: 'og:title', content: seo.title },
         { property: 'og:description', content: seo.description },

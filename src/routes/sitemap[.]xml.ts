@@ -9,6 +9,7 @@ import {
   getCanonicalGameRouteId,
   isSitemapGameRouteId,
 } from '#/lib/game-route-id'
+import { getIndexableGameLocales } from '#/lib/game-index-policy'
 
 const GGEMU_API_BASE_URL = 'https://ggemu.com'
 const SITEMAP_PAGE_SIZE = 100
@@ -449,8 +450,9 @@ function buildSitemapEntries(
 
     for (const game of games) {
       const routeId = getGameRouteId(game)
+      const indexableLocales = getIndexableGameLocales(game)
 
-      if (!isSitemapGameRouteId(routeId)) {
+      if (!isSitemapGameRouteId(routeId) || !indexableLocales.includes(locale)) {
         continue
       }
 
@@ -458,6 +460,7 @@ function buildSitemapEntries(
       const path = `/games/${gameId}`
 
       entries.push({
+        alternateLocales: indexableLocales,
         locale,
         loc: toAbsoluteLocalizedUrl(origin, locale, path),
         path,

@@ -8,7 +8,7 @@ function successfulFetch(input: string) {
   const blog = input.includes('/api/blog-posts')
   return Promise.resolve(Response.json(blog
     ? { success: true, blogPosts: [{ slug: 'guide' }], pagination: { pages: 1 } }
-    : { success: true, data: [{ url_slug: 'contra' }], pagination: { pages: 1 } }))
+    : { success: true, data: [{ url_slug: 'contra-nes-1988' }], pagination: { pages: 1 } }))
 }
 
 beforeEach(() => {
@@ -35,7 +35,8 @@ describe('sitemap availability', () => {
     expect(firstXml).toContain('hreflang="de"')
     expect(firstXml).not.toContain('/fr/privacy-policy')
     expect(firstXml).toContain('/de/ps1-compatibility')
-    expect(firstXml).toContain('/en/games/contra')
+    expect(firstXml).toContain('/en/games/contra-nes-1988')
+    expect(firstXml).not.toContain('/it/games/contra-nes-1988')
     expect(firstXml).toContain('/en/games/word-ladder')
     expect(firstXml).toContain('/en/card-games-that-start-with-m')
     expect(firstXml).not.toContain('/zh-CN/card-games-that-start-with-m')
@@ -69,7 +70,7 @@ describe('sitemap availability', () => {
           success: true,
           data: [
             { _id: '69d19a43eb21396d6195a021' },
-            { _id: 'readable-id', url_slug: 'readable-game' },
+            { _id: 'readable-id', url_slug: 'contra-nes-1988' },
           ],
           pagination: { pages: 1 },
         })))
@@ -78,7 +79,7 @@ describe('sitemap availability', () => {
     const xml = await (await getSitemapResponse(request())).text()
 
     expect(xml).not.toContain('69d19a43eb21396d6195a021')
-    expect(xml).toContain('/en/games/readable-game')
+    expect(xml).toContain('/en/games/contra-nes-1988')
   })
 
   it('returns uncached 503 on a cold failure and recovers after the retry interval', async () => {
@@ -132,10 +133,10 @@ describe('sitemap availability', () => {
   it('isolates preview caches and canonicalizes production origins', async () => {
     const { getSitemapResponse } = await import('./sitemap[.]xml')
     const canonical = await getSitemapResponse(new Request('http://www.pokopie.com/sitemap.xml'))
-    expect(await canonical.text()).toContain('https://pokopie.com/en/games/contra')
+    expect(await canonical.text()).toContain('https://pokopie.com/en/games/contra-nes-1988')
     const preview = await getSitemapResponse(new Request('https://preview.example/sitemap.xml'))
     const xml = await preview.text()
-    expect(xml).toContain('https://preview.example/en/games/contra')
+    expect(xml).toContain('https://preview.example/en/games/contra-nes-1988')
     expect(xml).not.toContain('https://pokopie.com')
   })
 
