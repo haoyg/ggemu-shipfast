@@ -16,6 +16,86 @@ export type GameEditorial = {
 
 // Reviewed against the linked sources on 2026-09-10. Player builds may differ.
 const editorials: Record<string, GameEditorial> = {
+  'the-king-of-fighters-97-arcade-1997': {
+    summary: "The King of Fighters '97 is SNK's 1997 team fighting game and the conclusion of the Orochi Saga. Build a three-fighter team and choose between Advanced and Extra battle systems.",
+    description: [
+      "SNK's official series history describes KOF '97 as the final chapter of the Orochi trilogy. Its roster brings together fighters associated with series such as Fatal Fury and Art of Fighting, alongside original KOF teams.",
+      'Advanced mode follows the KOF ’96 style, while Extra mode draws from KOF ’94 and ’95. They change how movement and power resources work, so choose a mode before trying to learn a character’s timing.',
+      'This page runs an arcade build through a browser player. Keyboard, controller, credit and start bindings belong to the player rather than the original cabinet, so inspect the control panel before beginning.',
+    ],
+    howToPlay: [
+      'Open the player controls and identify movement, the four attack buttons, credit and start. Add a credit, press start, then choose team or single play if the loaded build offers both.',
+      'Choose three fighters and set their order. Use the first round to learn movement, blocking and the difference between light and heavy attacks before relying on special moves.',
+      'Select Advanced or Extra mode deliberately. Their movement and power-gauge behavior differ; switching systems while learning makes inputs and resource timing harder to compare.',
+    ],
+    tips: [
+      'Keep one consistent team order while learning matchups.',
+      'Practice blocking and simple normal attacks before adding special-move inputs.',
+      'If the game does not respond, focus the player and verify credit and start mappings before reloading.',
+    ],
+    faq: [
+      { question: "What is The King of Fighters '97?", answer: "It is SNK's 1997 team fighting game and the final chapter of the Orochi Saga." },
+      { question: "What is the difference between Advanced and Extra mode?", answer: "They are distinct battle systems based on different earlier KOF entries. They change movement and power-resource behavior, so the same fighter can require a different approach." },
+      { question: 'Why will the arcade game not start immediately?', answer: 'Arcade builds normally require a credit input followed by start. Open the browser player controls and confirm both mappings.' },
+    ],
+    sources: [
+      { label: "SNK official KOF '97 series history", href: 'https://www.snk-corp.co.jp/us/games/kof-portal/series/97/' },
+      { label: "SNK ACA NEOGEO KOF '97 overview", href: 'https://www.snk-corp.co.jp/us/games/acaneogeo/kof97/' },
+    ],
+  },
+  'lilo-stitch-trouble-in-paradise-ps1-2002': {
+    summary: "Disney's Lilo & Stitch: Trouble in Paradise is a 2002 PlayStation action platform game. Play as Lilo and Stitch across Hawaiian island stages.",
+    description: [
+      "Sony's original release announcement describes an action-platform journey in Hawaii where players control either Lilo or Stitch. The European title adds the Trouble in Paradise subtitle; the North American PlayStation release was titled Disney's Lilo & Stitch.",
+      'The two characters support different actions and stage situations. Watch the current level introduction and on-screen prompts before assuming that an action available to one character also belongs to the other.',
+      'This browser page emulates the PlayStation game. Input, save-state and controller support come from the player, and can differ from the original console setup.',
+    ],
+    howToPlay: [
+      'Open the player controls before starting and identify the directional controls, face buttons, start and any shoulder-button mappings.',
+      'Begin a new game and follow the stage prompts. Explore carefully, collect the required items and use the active character’s abilities to avoid hazards and enemies.',
+      'Use the game’s own save system where available. If the browser player provides save states, verify that a saved state reloads before relying on it for a longer session.',
+    ],
+    tips: [
+      'Check which character the current stage uses before testing every button.',
+      'Protect progress before reloading the page or clearing browser storage.',
+      'If controls do not respond, click inside the player and check the current mapping first.',
+    ],
+    faq: [
+      { question: 'Is Trouble in Paradise the same as Disney’s Lilo & Stitch on PlayStation?', answer: 'The subtitle was used for the European release, while the North American PlayStation title was Disney’s Lilo & Stitch.' },
+      { question: 'Can you play as both Lilo and Stitch?', answer: 'Yes. The game uses both characters, with different abilities and stage situations.' },
+      { question: 'Does browser play use the original PlayStation controller?', answer: 'The game is the PlayStation entry, but the browser player maps its controls to keyboard, touch or a connected controller. Check the displayed mapping before playing.' },
+    ],
+    sources: [
+      { label: 'Sony 2002 Lilo & Stitch release announcement', href: 'https://sony.mediaroom.com/2002-06-18-Sony-Computer-Entertainment-America-Releases-Two-Action-Packed-Titles-Based-on-Disneys-New-Animated-Summer-Feature-Lilo-and-Stitch' },
+    ],
+  },
+  'prince-of-persia-the-sands-of-time-java-2003': {
+    summary: "Prince of Persia: The Sands of Time for Java-enabled phones is Gameloft's 2D action-platform adaptation of Ubisoft's 2003 game.",
+    description: [
+      'The mobile edition translates the larger 3D console adventure into a side-view game for keypad-era phones. It is a separate version with its own presentation and level design, rather than the full console game running at a smaller resolution.',
+      'Contemporary catalog records list Gameloft as publisher and Gameloft Software Beijing as developer, with J2ME, BREW and Symbian releases beginning in 2003. Exact layouts could vary across phone editions, so the loaded browser build may not match every historical handset version.',
+      'The browser player converts phone-keypad actions to modern inputs. Check the control overlay for directions, action keys and menu buttons before starting.',
+    ],
+    howToPlay: [
+      'Open the control panel and identify directional, action and menu inputs. Start the game, then use the first safe area to test movement and interaction.',
+      'Watch the full path before crossing traps. Move in short steps, time jumps around hazards and use available combat actions when guards block the route.',
+      'If progress appears stuck, check for a ledge, switch, climb point or alternate direction before resetting. Keypad games often assign more than one action to contextual buttons.',
+    ],
+    tips: [
+      'Treat this as the 2D mobile adaptation, not the 3D console release.',
+      'Learn the browser key mapping in a safe area before attempting timed traps.',
+      'Different historical phone builds may have different screen layouts and controls.',
+    ],
+    faq: [
+      { question: 'Is this the full 3D Sands of Time console game?', answer: 'No. This is the 2D mobile adaptation made for keypad-era phones.' },
+      { question: 'Who made the mobile version?', answer: 'Catalog records credit Gameloft Software Beijing as developer and Gameloft as publisher.' },
+      { question: 'Why can the controls differ from old screenshots?', answer: 'The game was released for several mobile platforms and screen formats. The browser player also remaps phone keypad input to modern controls.' },
+    ],
+    sources: [
+      { label: 'Ubisoft history of The Sands of Time', href: 'https://news.ubisoft.com/en-us/article/3oAqiLg5k7GazIw5OWYTO2/prince-of-persia--creating-the-sands-of-time-trilogy' },
+      { label: 'MobyGames mobile release and credits', href: 'https://www.mobygames.com/game/130812/prince-of-persia-the-sands-of-time/' },
+    ],
+  },
   'pokemon-emerald-gba-2004': {
     summary: 'Play Pokémon Emerald in your browser. Check the listed game language before starting: the version tested on POKOPIE uses Traditional Chinese text.',
     description: [

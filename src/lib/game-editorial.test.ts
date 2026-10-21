@@ -7,6 +7,20 @@ import { getGameSeoInternalLinks } from './game-seo-links'
 const slugs = ['murdoku-html5-2026', 'onet-master-html5', 'geometry-dash-advance-gba-2025', 'three-wonders-arcade-1991', 'pipi-and-bibis-other-1991', 'taiko-no-tatsujin-taiko-web-html5-2011', 'pokemon-ruby-gba-2002', 'pokemon-leafgreen-game-boy-advance-2004', 'fire-emblem-the-blazing-blade-gba-2003', 'professor-layton-and-the-curious-village-nds-2007', 'theme-hospital-dos-1997', 'pokemon-mystery-dungeon-red-rescue-team-game-boy-advance-2005', 'jin-yong-qun-xia-zhuan-dos-1996', 'xuan-yuan-sword-dos-1990', 'mario-and-luigi-superstar-saga-gba-2003', 'dad-n-me-flash-2005', 'chobits-atashi-dake-no-hito-game-boy-advance-2002', 'labrador-and-his-friends-nintendo-ds-2009', 'ghost-chaser-densei-snes-1994', '1944-cn-nes-1988', 'pokemon-team-rocket-game-boy-advance-2000', 'light-and-darkness-crystal-conflict-nes-2003', 'saiyuki-tang-sanzang-nes-1996', 'chinese-paladin-dos-1995', 'xuan-yuan-sword-ii-dos-1994', 'flame-dragon-knights-seal-of-the-evil-god-dos-1994', 'flame-dragon-knight-2-dos-1995', 'pokemon-firered-game-boy-advance-2004', 'maplestory-ds-nds-2010', 'naruto-shippuden-ultimate-impact-psp-2011', 'initial-d-another-stage-cn-gba-2002', '1942-cn-nes-1985', '1943-the-battle-of-midway-cn-nes-1988', 'double-dragon-ii-revenge-nes-1989', 'saint-seiya-ougon-densetsu-kanketsu-hen-cn-nes-1988', 'satomi-hakkenden-cn-nes-1989', 'richman-2-dos-1993', 'rich-man-3-dos-1996', 'romance-of-the-three-kingdoms-iv-dos-1994', 'san-guo-qun-ying-zhuan-2-html5-1998', 'sanguosha-html5-2011', 'the-killing-blade-arcade-1998', 'the-legend-of-sword-and-saber-arcade-2003', 'metal-gear-2030-cn-gbc', 'xian-jian-qi-xia-zhuan-gba-2001', 'naruto-rpg-gba-2003', 'yan-loong-story-flash-2008', 'yanlong-chuanshuo-2-erdu-chongji-flash-2009', 'yanlong-chuanshuo-2-shuang-long-flash-2009', 'yanlong-chuanshuo-3-chifeng-flash-2010', 'yanlong-chuanshuo-3-shuang-yan-flash-2009', 'jin-yong-heroes-2-enhanced-flash-2006', 'jin-yong-heroes-3-flash-2009', 'magic-tower-flash-2000', 'mahjong-academy-arcade-1989', 'doudizhu-gcoin-html5-2013', 'doudizhu-html5-2013', 'hong-kong-mahjong-html5', 'sichuan-mahjong-html5', 'taiwan-mahjong-16-tile-html5', 'chinese-mahjong-html5', 'ra2web-html5-2026', 'gals-panic-arcade']
 
 describe('reviewed English game content', () => {
+  it.each([
+    ['the-king-of-fighters-97-arcade-1997', 'Orochi Saga'],
+    ['lilo-stitch-trouble-in-paradise-ps1-2002', 'action platform'],
+    ['prince-of-persia-the-sands-of-time-java-2003', '2D action-platform'],
+  ])('provides reviewed content and sources for %s', (url_slug, expectedText) => {
+    const editorial = getGameEditorial({ url_slug }, 'en')
+
+    expect(editorial?.summary).toContain(expectedText)
+    expect(editorial?.description.length).toBeGreaterThanOrEqual(3)
+    expect(editorial?.howToPlay.length).toBeGreaterThanOrEqual(3)
+    expect(editorial?.faq.length).toBeGreaterThanOrEqual(3)
+    expect(editorial?.sources.length).toBeGreaterThan(0)
+  })
+
   it('uses the Chinese Three Kingdoms guide without replacing other locales', () => {
     const game = { url_slug: 'san-guo-qun-ying-zhuan-2-html5-1998', description: 'Original localized copy' }
     const editorial = getGameEditorial(game, 'zh-CN')!
