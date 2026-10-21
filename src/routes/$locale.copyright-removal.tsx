@@ -18,7 +18,7 @@ type RemovalCopy = {
   contactLabel: string
 }
 
-const removalCopies: Record<Exclude<Locale, 'fr' | 'de'>, RemovalCopy> = {
+const removalCopies: Record<Exclude<Locale, 'fr' | 'de' | 'it'>, RemovalCopy> = {
   es: {
   "eyebrow": "Información legal",
   "title": "Revisión de derechos y retirada de contenido",
@@ -107,12 +107,12 @@ const removalCopies: Record<Exclude<Locale, 'fr' | 'de'>, RemovalCopy> = {
 
 export const Route = createFileRoute('/$locale/copyright-removal')({
   beforeLoad: ({ params }) => {
-    if (params.locale === 'fr' || params.locale === 'de') throw redirect({ href: '/en/copyright-removal', statusCode: 302 })
+    if (params.locale === 'fr' || params.locale === 'de' || params.locale === 'it') throw redirect({ href: '/en/copyright-removal', statusCode: 302 })
   },
   loader: () => getSeoOrigin(),
   head: ({ loaderData, params }) => {
     const locale = normalizeLocale(params.locale)
-    const copy = removalCopies[locale === 'fr' || locale === 'de' ? 'en' : locale]
+    const copy = removalCopies[locale === 'fr' || locale === 'de' || locale === 'it' ? 'en' : locale]
     return {
       links: loaderData ? getLocalizedSeoLinks({ locale, origin: loaderData, path: '/copyright-removal' }) : undefined,
       meta: [
@@ -127,7 +127,7 @@ export const Route = createFileRoute('/$locale/copyright-removal')({
 function CopyrightRemovalPage() {
   const { locale } = Route.useParams()
   const lang = normalizeLocale(locale)
-  const copy = removalCopies[lang === 'fr' || lang === 'de' ? 'en' : lang]
+  const copy = removalCopies[lang === 'fr' || lang === 'de' || lang === 'it' ? 'en' : lang]
   const subject = encodeURIComponent('POKOPIE copyright review / removal notice')
 
   return (

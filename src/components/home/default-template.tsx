@@ -1257,7 +1257,7 @@ function getPlatformCollectionLinkLabel(
   if (lang === 'zh-TW') return `${viewAllLabel} ${shortLabel} 遊戲`
 
   if (lang === 'zh-CN') return `${viewAllLabel} ${shortLabel} 游戏`
-  if (lang === 'fr' || lang === 'de') return `${viewAllLabel}: ${shortLabel}`
+  if (lang === 'fr' || lang === 'de' || lang === 'it') return `${viewAllLabel}: ${shortLabel}`
   if (lang === 'es') return `${viewAllLabel} los juegos ${shortLabel}`
   if (lang === 'pt') return `${viewAllLabel} os jogos ${shortLabel}`
   if (lang === 'ko') return `${shortLabel} 게임 ${viewAllLabel}`

@@ -111,6 +111,7 @@ export const arcadePageConfig: GameCollectionPageConfig = {
 const localizedArcadeCopy = {
   fr: getEuropeanCollectionCopy('fr', 'Arcade'),
   de: getEuropeanCollectionCopy('de', 'Arcade'),
+  it: getEuropeanCollectionCopy('it', 'Arcade'),
   es: getRomanceCollectionCopy('es', 'Arcade'),
   pt: getRomanceCollectionCopy('pt', 'Arcade'),
   ko: { title: '온라인 아케이드 게임 | POKOPIE', description: '브라우저에서 클래식 아케이드 게임을 즐기세요.', heroTitle: '클래식 아케이드 게임', heroDescription: '격투, 슈팅, 퍼즐과 레이싱 게임을 찾아보세요.', ctaLabel: '아케이드 게임 보기', libraryTitle: '아케이드 게임 목록', libraryDescription: (total: number) => `게임 ${total}개`, unavailableMessage: '잠시 후 다시 시도하세요.', featuredLabel: '추천 아케이드 게임', coverAlt: '아케이드 게임 표지' },

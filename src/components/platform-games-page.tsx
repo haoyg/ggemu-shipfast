@@ -604,7 +604,7 @@ export function getLocalizedPlatformCollection(
     return collection
   }
 
-  const copy = locale === 'fr' || locale === 'de' ? getEuropeanCollectionCopy(locale, collection.platform) : localizedPlatformCopy[locale][key]
+  const copy = locale === 'fr' || locale === 'de' || locale === 'it' ? getEuropeanCollectionCopy(locale, collection.platform) : localizedPlatformCopy[locale][key]
   const routePath = `/${locale}/${localizedPlatformSlugs[key]}`
 
   return {

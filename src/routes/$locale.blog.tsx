@@ -55,7 +55,7 @@ export const Route = createFileRoute('/$locale/blog')({
     if (matches.some(match => String(match.routeId) === '/$locale/blog/$blogId')) return {}
     const locale = normalizeLocale(params.locale)
     const t = getI18n(locale).blog
-    const faqs = locale === 'fr' || locale === 'de' ? getHomeFaqs(locale) : locale === 'es' ? esBlogFaqs : locale === 'pt' ? ptBlogFaqs : locale === 'ko' ? koBlogFaqs : locale === 'zh-TW' ? zhTwBlogFaqs : locale === 'zh-CN' ? zhCnBlogFaqs : locale === 'ja' ? jaBlogFaqs : enBlogFaqs
+    const faqs = locale === 'fr' || locale === 'de' || locale === 'it' ? getHomeFaqs(locale) : locale === 'es' ? esBlogFaqs : locale === 'pt' ? ptBlogFaqs : locale === 'ko' ? koBlogFaqs : locale === 'zh-TW' ? zhTwBlogFaqs : locale === 'zh-CN' ? zhCnBlogFaqs : locale === 'ja' ? jaBlogFaqs : enBlogFaqs
     const seoOrigin = loaderData?.seoOrigin
     const canonicalUrl = seoOrigin
       ? `${seoOrigin}/${locale}/blog`

@@ -6,13 +6,13 @@ import { getRequestUrl } from '@tanstack/react-start/server'
 import type { Locale } from '#/lib/ggemu'
 import { normalizeLocale } from '#/lib/i18n'
 
-export const seoLocales = ['zh-CN', 'zh-TW', 'en', 'ja', 'ko', 'es', 'pt', 'fr', 'de'] as const satisfies ReadonlyArray<Locale>
+export const seoLocales = ['zh-CN', 'zh-TW', 'en', 'ja', 'ko', 'es', 'pt', 'fr', 'de', 'it'] as const satisfies ReadonlyArray<Locale>
 export const defaultSeoLocale = 'en' satisfies Locale
 
 export function getAvailableSeoLocales(path: string, locales: ReadonlyArray<Locale> = seoLocales) {
   if (path.startsWith('/blog/') && isEditorialBlogPost(path.slice('/blog/'.length))) return ['en'] satisfies Locale[]
   const englishFallback = ['/privacy-policy', '/terms-of-service', '/copyright-removal'].includes(path)
-  return englishFallback ? locales.filter(locale => locale !== 'fr' && locale !== 'de') : locales
+  return englishFallback ? locales.filter(locale => locale !== 'fr' && locale !== 'de' && locale !== 'it') : locales
 }
 
 

@@ -13,7 +13,7 @@ type LegalCopy = {
   sections: Array<{ title: string; body: string }>
 }
 
-const termsCopies: Record<Exclude<Locale, 'fr' | 'de'>, LegalCopy> = {
+const termsCopies: Record<Exclude<Locale, 'fr' | 'de' | 'it'>, LegalCopy> = {
   es: {
   "eyebrow": "Información legal",
   "title": "Condiciones de uso",
@@ -251,12 +251,12 @@ const termsCopies: Record<Exclude<Locale, 'fr' | 'de'>, LegalCopy> = {
 
 export const Route = createFileRoute('/$locale/terms-of-service')({
   beforeLoad: ({ params }) => {
-    if (params.locale === 'fr' || params.locale === 'de') throw redirect({ href: '/en/terms-of-service', statusCode: 302 })
+    if (params.locale === 'fr' || params.locale === 'de' || params.locale === 'it') throw redirect({ href: '/en/terms-of-service', statusCode: 302 })
   },
   loader: () => getSeoOrigin(),
   head: ({ loaderData, params }) => {
     const locale = normalizeLocale(params.locale)
-    const copy = termsCopies[locale === 'fr' || locale === 'de' ? 'en' : locale]
+    const copy = termsCopies[locale === 'fr' || locale === 'de' || locale === 'it' ? 'en' : locale]
 
     return {
       links: loaderData
@@ -278,7 +278,7 @@ export const Route = createFileRoute('/$locale/terms-of-service')({
 function TermsOfServicePage() {
   const { locale } = Route.useParams()
   const lang = normalizeLocale(locale)
-  const copy = termsCopies[lang === 'fr' || lang === 'de' ? 'en' : lang]
+  const copy = termsCopies[lang === 'fr' || lang === 'de' || lang === 'it' ? 'en' : lang]
 
   return (
     <SiteLayout locale={lang}>

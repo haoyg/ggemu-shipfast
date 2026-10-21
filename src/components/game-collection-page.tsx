@@ -65,7 +65,7 @@ export function GameCollectionPage({
     <SiteLayout
       locale={locale}
       localePaths={Object.fromEntries(
-        (['zh-CN', 'zh-TW', 'en', 'ja', 'ko', 'es', 'pt', 'fr', 'de'] as const).map((nextLocale) => {
+        (['zh-CN', 'zh-TW', 'en', 'ja', 'ko', 'es', 'pt', 'fr', 'de', 'it'] as const).map((nextLocale) => {
           const suffix = config.routePath.split('/').slice(2).join('/')
           const hasLocalizedRoute = /^(arcade|gba|n64|nes|ps1|sega-genesis|snes)-games$/.test(suffix)
           return [nextLocale, hasLocalizedRoute || nextLocale === locale ? `/${nextLocale}/${suffix}` : `/${nextLocale}`]
@@ -191,7 +191,7 @@ export function GameCollectionPage({
 
       <section className="arcade-section arcade-editorial border-t text-neutral-content">
         <div className="mx-auto max-w-4xl px-4 py-16 sm:px-6 lg:px-8">
-          <h2 className="arcade-section-title text-center text-3xl font-black text-white">{locale === 'fr' || locale === 'de' ? getI18n(locale).detail.faq : locale === 'zh-CN' ? '常见问题' : locale === 'es' ? 'Preguntas frecuentes' : locale === 'pt' ? 'Perguntas frequentes' : 'Frequently Asked Questions'}</h2>
+          <h2 className="arcade-section-title text-center text-3xl font-black text-white">{locale === 'fr' || locale === 'de' || locale === 'it' ? getI18n(locale).detail.faq : locale === 'zh-CN' ? '常见问题' : locale === 'es' ? 'Preguntas frecuentes' : locale === 'pt' ? 'Perguntas frequentes' : 'Frequently Asked Questions'}</h2>
           <div className="mt-8 divide-y divide-white/10 border-y border-white/10">
             {config.faqs.map((faq) => (
               <details className="group py-1" key={faq.question}>
@@ -223,7 +223,7 @@ function CollectionPagination({
   const pageNumbers = getVisiblePageNumbers(currentPage, pages)
 
   return (
-    <nav aria-label={locale === 'fr' || locale === 'de' ? getI18n(locale).home.page : locale === 'zh-CN' ? '游戏库分页' : locale === 'es' ? 'Paginación de juegos' : locale === 'pt' ? 'Paginação de jogos' : 'Game library pagination'} className="mt-10 flex flex-wrap items-center justify-center gap-2">
+    <nav aria-label={locale === 'fr' || locale === 'de' || locale === 'it' ? getI18n(locale).home.page : locale === 'zh-CN' ? '游戏库分页' : locale === 'es' ? 'Paginación de juegos' : locale === 'pt' ? 'Paginação de jogos' : 'Game library pagination'} className="mt-10 flex flex-wrap items-center justify-center gap-2">
       {currentPage > 1 ? (
         <a
           className="btn btn-sm border-white/15 bg-white/5 text-white hover:bg-white/10"
@@ -231,7 +231,7 @@ function CollectionPagination({
           rel="prev"
         >
           <i aria-hidden="true" className="ri-arrow-left-line" />
-          {locale === 'fr' || locale === 'de' ? getI18n(locale).home.previous : locale === 'zh-CN' ? '上一页' : locale === 'es' ? 'Anterior' : locale === 'pt' ? 'Anterior' : 'Previous'}
+          {locale === 'fr' || locale === 'de' || locale === 'it' ? getI18n(locale).home.previous : locale === 'zh-CN' ? '上一页' : locale === 'es' ? 'Anterior' : locale === 'pt' ? 'Anterior' : 'Previous'}
         </a>
       ) : null}
 
@@ -264,7 +264,7 @@ function CollectionPagination({
           href={getPlatformCollectionPagePath(routePath, currentPage + 1)}
           rel="next"
         >
-          {locale === 'fr' || locale === 'de' ? getI18n(locale).home.next : locale === 'zh-CN' ? '下一页' : locale === 'es' ? 'Siguiente' : locale === 'pt' ? 'Próxima' : 'Next'}
+          {locale === 'fr' || locale === 'de' || locale === 'it' ? getI18n(locale).home.next : locale === 'zh-CN' ? '下一页' : locale === 'es' ? 'Siguiente' : locale === 'pt' ? 'Próxima' : 'Next'}
           <i aria-hidden="true" className="ri-arrow-right-line" />
         </a>
       ) : null}

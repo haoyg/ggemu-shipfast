@@ -291,7 +291,7 @@ export function isTextSuitableForLocale(value: string | undefined, locale: Local
   const hangulCount = countMatches(text, hangulPattern)
 
   // Upstream Latin text is usually English; use translated fallbacks until an explicit override is available.
-  if (locale === 'es' || locale === 'pt' || locale === 'fr' || locale === 'de') return false
+  if (locale === 'es' || locale === 'pt' || locale === 'fr' || locale === 'de' || locale === 'it') return false
   if (locale === 'ko') return hangulCount >= 2
 
   if (locale === 'en') {

@@ -35,6 +35,7 @@ const localeOptions: Array<{ label: string; value: Locale }> = [
   { label: '한국어', value: 'ko' },
   { label: 'Español', value: 'es' },
   { label: 'Português', value: 'pt' },
+  { label: 'Italiano', value: 'it' },
 ]
 
 type PokiTileSize = 1 | 2 | 3
@@ -269,7 +270,7 @@ function PokiControlTiles({
     setOpenMenu(null)
 
     const nextPath = location.pathname.replace(
-      /^\/(zh-CN|zh-TW|en|ja|ko|es|pt|fr|de)(?=\/|$)/,
+      /^\/(zh-CN|zh-TW|en|ja|ko|es|pt|fr|de|it)(?=\/|$)/,
       `/${nextLocale}`,
     )
 

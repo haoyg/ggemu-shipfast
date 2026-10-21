@@ -21,7 +21,7 @@ const BLOCKED_IMAGE_HOSTS = new Set([
   'emulatorgamer.com',
 ])
 
-export type Locale = 'zh-CN' | 'zh-TW' | 'en' | 'ja' | 'ko' | 'es' | 'pt' | 'fr' | 'de'
+export type Locale = 'zh-CN' | 'zh-TW' | 'en' | 'ja' | 'ko' | 'es' | 'pt' | 'fr' | 'de' | 'it'
 export type GameSearchSort =
   | 'newest'
   | 'popular'
@@ -241,7 +241,7 @@ function normalizeLimit(limit: unknown) {
 }
 
 function normalizeLocale(locale: unknown): Locale {
-  return locale === 'es' || locale === 'pt' || locale === 'fr' || locale === 'de' || locale === 'en' || locale === 'ja' || locale === 'ko' || locale === 'zh-TW' ? locale : 'zh-CN'
+  return locale === 'es' || locale === 'pt' || locale === 'fr' || locale === 'de' || locale === 'it' || locale === 'en' || locale === 'ja' || locale === 'ko' || locale === 'zh-TW' ? locale : 'zh-CN'
 }
 
 function normalizeSort(sort: unknown): GameSearchSort {

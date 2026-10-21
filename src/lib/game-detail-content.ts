@@ -15,7 +15,7 @@ export function getGameFaqs(game: PublicGame, locale: Locale, editorial?: GameEd
 
 export function getGameDescriptionParagraphs(game: PublicGame, locale: Locale, editorial?: GameEditorial) {
   if (editorial) return [editorial.summary, ...editorial.description]
-  if (locale === 'fr' || locale === 'de') return [getGameDetailSummary(game, locale)]
+  if (locale === 'fr' || locale === 'de' || locale === 'it') return [getGameDetailSummary(game, locale)]
   const description = normalizeText(game.description) || getGameDetailSummary(game, locale)
 
   return uniqueTexts([
@@ -27,7 +27,7 @@ export function getGameDescriptionParagraphs(game: PublicGame, locale: Locale, e
 
 export function getGameHowToPlayParagraphs(game: PublicGame, locale: Locale, editorial?: GameEditorial) {
   if (editorial) return editorial.howToPlay
-  if (locale === 'fr' || locale === 'de') return [getGameDetailHowToPlay(game, locale)]
+  if (locale === 'fr' || locale === 'de' || locale === 'it') return [getGameDetailHowToPlay(game, locale)]
   const guide = normalizeText(game.how_to_play) || getGameDetailHowToPlay(game, locale)
   const explicitParagraphs = game.how_to_play
     ?.split(/\r?\n\s*\r?\n/)
@@ -44,6 +44,7 @@ export function getGameHowToPlayParagraphs(game: PublicGame, locale: Locale, edi
 export function getBrowserPlayGuide(locale: Locale, _game?: PublicGame, _editorial?: GameEditorial) {
   if (locale === 'fr') return { title: 'Commandes et dépannage', paragraphs: ['Cliquez dans le jeu si le clavier ne répond pas, puis vérifiez les commandes du lecteur.', 'Sur téléphone, vérifiez la présence de commandes tactiles. Le support des manettes dépend du jeu.', 'Si le chargement reste bloqué, réessayez. Sauvegardez avant de recharger : la progression non enregistrée peut être perdue.'] }
   if (locale === 'de') return { title: 'Steuerung und Fehlerbehebung', paragraphs: ['Klicke in das Spiel, falls die Tastatur nicht reagiert, und prüfe die Steuerung im Spieler.', 'Prüfe auf dem Smartphone die Touch-Steuerung. Gamepad-Unterstützung hängt vom Spiel ab.', 'Bei Ladeproblemen versuche es erneut. Speichere vor dem Neuladen: Ungespeicherter Fortschritt kann verloren gehen.'] }
+  if (locale === 'it') return { title: 'Comandi e risoluzione dei problemi', paragraphs: ['Se la tastiera non risponde, fai clic nell’area del gioco e controlla i comandi del giocatore.', 'Su smartphone, verifica la presenza dei controlli touch. Il supporto dei controller dipende dal gioco.', 'Se il caricamento si blocca, riprova. Salva prima di ricaricare: i progressi non salvati potrebbero andare persi.'] }
 
   if (locale === 'es') return { title: 'Controles y solución de problemas', paragraphs: ['Si el teclado no responde, haz clic en la pantalla del juego y consulta los controles del reproductor.', 'En el móvil, comprueba si hay botones táctiles. Prueba la orientación horizontal o la pantalla completa. La compatibilidad con mandos depende del juego.', 'Si la carga se detiene, espera un momento y prueba a recargar el reproductor. El progreso que no hayas guardado puede perderse.'] }
   if (locale === 'pt') return { title: 'Controles e solução de problemas', paragraphs: ['Se o teclado não responder, clique na tela do jogo e confira os controles do player.', 'No celular, confira se há botões de toque. Experimente a orientação horizontal ou a tela cheia. O suporte a controles depende do jogo.', 'Se o carregamento parar, aguarde um momento e tente recarregar o player. O progresso não salvo pode ser perdido.'] }
@@ -94,7 +95,7 @@ export function getBrowserPlayGuide(locale: Locale, _game?: PublicGame, _editori
 }
 
 export function getGameSidebarContent(game: PublicGame, locale: Locale, editorial?: GameEditorial) {
-  if (locale === 'es' || locale === 'pt' || locale === 'fr' || locale === 'de') {
+  if (locale === 'es' || locale === 'pt' || locale === 'fr' || locale === 'de' || locale === 'it') {
     const guide = getBrowserPlayGuide(locale, game, editorial)
     return { backgroundTitle: getI18n(locale).detail.details, background: getGameDetailSummary(game, locale), tipsTitle: guide.title, tips: guide.paragraphs }
   }
@@ -157,7 +158,7 @@ export function getGameSidebarContent(game: PublicGame, locale: Locale, editoria
 }
 
 function getGameBackgroundText(game: PublicGame, locale: Locale) {
-  if (locale === 'es' || locale === 'pt' || locale === 'fr' || locale === 'de') return getGameDetailSummary(game, locale)
+  if (locale === 'es' || locale === 'pt' || locale === 'fr' || locale === 'de' || locale === 'it') return getGameDetailSummary(game, locale)
   const name = game.name?.trim() || getFallbackName(locale)
   const platform = getLocalizedPlatformLabel(game.platform, locale)
   const year = game.released_year?.trim()
@@ -197,7 +198,7 @@ function getGameBackgroundText(game: PublicGame, locale: Locale) {
 }
 
 function getBrowserPlayText(game: PublicGame, locale: Locale) {
-  if (locale === 'es' || locale === 'pt' || locale === 'fr' || locale === 'de') return getGameDetailSummary(game, locale)
+  if (locale === 'es' || locale === 'pt' || locale === 'fr' || locale === 'de' || locale === 'it') return getGameDetailSummary(game, locale)
   const name = game.name?.trim() || getFallbackName(locale)
 
   if (locale === 'ko') return `${name}을 브라우저에서 시작할 수 있습니다. 실제 조작과 저장 옵션은 플레이어 메뉴에서 확인하세요.`

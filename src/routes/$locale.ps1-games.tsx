@@ -7,7 +7,7 @@ import { buildPlatformCollectionHead, loadPlatformCollection, getPlatformCollect
 
 export const Route = createFileRoute('/$locale/ps1-games')({
   loader: async ({ params }) => {
-    if (!['zh-CN', 'zh-TW', 'ja', 'ko', 'es', 'pt', 'fr', 'de'].includes(params.locale)) throw notFound()
+    if (!['zh-CN', 'zh-TW', 'ja', 'ko', 'es', 'pt', 'fr', 'de', 'it'].includes(params.locale)) throw notFound()
     const locale = normalizeLocale(params.locale)
     const data = await loadPlatformCollection(getLocalizedPs1Collection(locale), locale)
     return { ...data, locale }

@@ -60,7 +60,7 @@ function useGoogleAnalytics(disabled: boolean) {
 
 export function isAdSenseEligiblePath(pathname: string) {
   const localizedContentPath =
-    /^\/(?:zh-CN|zh-TW|en|ja|ko|es|pt|fr|de)(?:\/?|\/games\/[^/]+\/?|\/blog(?:\/[^/]+)?\/?)$/
+    /^\/(?:zh-CN|zh-TW|en|ja|ko|es|pt|fr|de|it)(?:\/?|\/games\/[^/]+\/?|\/blog(?:\/[^/]+)?\/?)$/
 
   return localizedContentPath.test(pathname)
 }

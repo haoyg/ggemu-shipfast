@@ -168,7 +168,7 @@ const capabilityDefinitions: Array<CapabilityDefinition> = [
   },
 ]
 
-const localizedCapabilities: Record<Locale, Record<string, { label: string; description: string; requirement: string }>> = {
+const localizedCapabilities: Record<Exclude<Locale, 'it'>, Record<string, { label: string; description: string; requirement: string }>> = {
   ...europeanCompatibilityCapabilities,
   es: {
   "wasm": {
@@ -280,7 +280,7 @@ export const Route = createFileRoute('/en/ps1-compatibility')({
 export function buildPs1CompatibilityHead(origin: string | undefined, locale: Locale) {
     const path = `/${locale}/ps1-compatibility`
     const canonicalUrl = origin ? `${origin}${path}` : path
-    const copy = compatibilityCopy[locale]
+    const copy = compatibilityCopy[locale === 'it' ? 'en' : locale]
     return {
       links: getSeoLinksFromCanonical(canonicalUrl, ['zh-CN', 'zh-TW', 'en', 'ja', 'ko', 'es', 'pt', 'fr', 'de']),
       meta: [
@@ -303,9 +303,10 @@ export function buildPs1CompatibilityHead(origin: string | undefined, locale: Lo
 }
 
 export function Ps1CompatibilityPage({ locale = 'en' }: { locale?: Locale }) {
-  const copy = compatibilityCopy[locale]
+  const contentLocale = locale === 'it' ? 'en' : locale
+  const copy = compatibilityCopy[contentLocale]
   const details = getCompatibilityDetails(locale)
-  const capabilitiesCopy = localizedCapabilities[locale]
+  const capabilitiesCopy = localizedCapabilities[contentLocale]
   const [capabilities, setCapabilities] = useState<BrowserCapabilityFlags | null>(null)
 
   function runCheck() {

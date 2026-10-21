@@ -12,6 +12,7 @@ const copies: Record<Locale, { title: string; body: string; allow: string; rejec
   pt: { title: 'Preferências de análise', body: 'Permitir cookies do Google Analytics para entender as visitas e o uso dos jogos? Você pode mudar sua escolha aqui a qualquer momento. Aplica-se apenas ao Google Analytics.', allow: 'Permitir análise', reject: 'Recusar análise', policy: 'Política de privacidade' },
   fr: { title: 'Préférences statistiques', body: 'Autoriser les cookies Google Analytics pour comprendre les visites et l’utilisation des jeux ? Vous pouvez modifier votre choix ici à tout moment. Ce choix concerne uniquement Google Analytics.', allow: 'Autoriser les statistiques', reject: 'Refuser les statistiques', policy: 'Politique de confidentialité' },
   de: { title: 'Analyseeinstellungen', body: 'Google-Analytics-Cookies erlauben, um Besuche und Spielnutzung zu verstehen? Du kannst deine Auswahl hier jederzeit ändern. Sie gilt nur für Google Analytics.', allow: 'Analyse erlauben', reject: 'Analyse ablehnen', policy: 'Datenschutzerklärung' },
+  it: { title: 'Preferenze di analisi', body: 'Vuoi consentire i cookie di Google Analytics per aiutarci a comprendere le visite e l’uso dei giochi? Puoi cambiare questa scelta in qualsiasi momento.', allow: 'Consenti analisi', reject: 'Rifiuta analisi', policy: 'Informativa sulla privacy' },
 }
 
 export function AnalyticsConsentControls({ locale }: { locale: Locale }) {

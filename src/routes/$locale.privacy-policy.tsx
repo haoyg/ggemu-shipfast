@@ -17,7 +17,7 @@ type LegalCopy = {
   }>
 }
 
-const privacyCopies: Record<Exclude<Locale, 'fr' | 'de'>, LegalCopy> = {
+const privacyCopies: Record<Exclude<Locale, 'fr' | 'de' | 'it'>, LegalCopy> = {
   es: {
   "eyebrow": "Información legal",
   "title": "Política de privacidad",
@@ -412,12 +412,12 @@ const privacyCopies: Record<Exclude<Locale, 'fr' | 'de'>, LegalCopy> = {
 
 export const Route = createFileRoute('/$locale/privacy-policy')({
   beforeLoad: ({ params }) => {
-    if (params.locale === 'fr' || params.locale === 'de') throw redirect({ href: '/en/privacy-policy', statusCode: 302 })
+    if (params.locale === 'fr' || params.locale === 'de' || params.locale === 'it') throw redirect({ href: '/en/privacy-policy', statusCode: 302 })
   },
   loader: () => getSeoOrigin(),
   head: ({ loaderData, params }) => {
     const locale = normalizeLocale(params.locale)
-    const copy = privacyCopies[locale === 'fr' || locale === 'de' ? 'en' : locale]
+    const copy = privacyCopies[locale === 'fr' || locale === 'de' || locale === 'it' ? 'en' : locale]
 
     return {
       links: loaderData
@@ -439,7 +439,7 @@ export const Route = createFileRoute('/$locale/privacy-policy')({
 function PrivacyPolicyPage() {
   const { locale } = Route.useParams()
   const lang = normalizeLocale(locale)
-  const copy = privacyCopies[lang === 'fr' || lang === 'de' ? 'en' : lang]
+  const copy = privacyCopies[lang === 'fr' || lang === 'de' || lang === 'it' ? 'en' : lang]
 
   return (
     <SiteLayout locale={lang}>

@@ -88,6 +88,7 @@ export const ps1PageConfig: GameCollectionPageConfig = {
 const localizedPs1Copy = {
   fr: getEuropeanCollectionCopy('fr', 'PS1'),
   de: getEuropeanCollectionCopy('de', 'PS1'),
+  it: getEuropeanCollectionCopy('it', 'PS1'),
   es: getRomanceCollectionCopy('es', 'PS1'),
   pt: getRomanceCollectionCopy('pt', 'PS1'),
   ko: { title: '온라인 PS1 게임 | POKOPIE', description: '브라우저에서 클래식 PlayStation 게임을 즐기세요.', heroTitle: '온라인 PS1 게임', heroDescription: 'PlayStation의 RPG, 레이싱, 액션과 격투 게임을 찾아보세요.', ctaLabel: 'PS1 게임 보기', libraryTitle: 'PS1 게임 목록', libraryDescription: (total: number) => `PlayStation 게임 ${total}개`, unavailableMessage: '잠시 후 다시 시도하세요.', featuredLabel: '추천 PS1 게임', coverAlt: 'PS1 게임 표지' },

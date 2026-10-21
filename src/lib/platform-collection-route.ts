@@ -92,7 +92,7 @@ export function buildPlatformCollectionHead(
     : collection.description
   const links = loaderData?.origin
     ? [
-        ...getSeoLinksFromCanonical(canonicalUrl, page > 1 ? [locale] : ['zh-CN', 'zh-TW', 'en', 'ja', 'ko', 'es', 'pt', 'fr', 'de']),
+        ...getSeoLinksFromCanonical(canonicalUrl, page > 1 ? [locale] : ['zh-CN', 'zh-TW', 'en', 'ja', 'ko', 'es', 'pt', 'fr', 'de', 'it']),
         ...(hasPaginationRoute && page > 1
           ? [{ rel: 'prev', href: `${loaderData.origin}${getPlatformCollectionPagePath(collection.routePath, page - 1)}` }]
           : []),
