@@ -29,8 +29,39 @@ describe('game SEO internal links', () => {
       'en',
     )
 
-    expect(links).toHaveLength(3)
-    expect(links.every((link) => link.slug.includes('one-piece'))).toBe(true)
+    expect(links.map((link) => link.slug)).toEqual([
+      'one-piece-gigant-battle-nds-2011',
+      'one-piece-grand-battle-swan-colosseum-wsc-2002',
+      'from-tv-animation-one-piece-grand-battle-swan-colosseum-wsc-2002',
+      'lilo-stitch-trouble-in-paradise-ps1-2002',
+      'prince-of-persia-the-sands-of-time-java-2003',
+    ])
+  })
+
+  it('links a recovered arcade page from established arcade pages', () => {
+    const links = getGameSeoInternalLinks(
+      { url_slug: 'three-wonders-arcade-1991' },
+      'en',
+    )
+
+    expect(links.map((link) => link.slug)).toContain(
+      'the-king-of-fighters-97-arcade-1997',
+    )
+  })
+
+  it('cross-links recovered early-2000s action games', () => {
+    const links = getGameSeoInternalLinks(
+      { url_slug: 'lilo-stitch-trouble-in-paradise-ps1-2002' },
+      'en',
+    )
+
+    expect(links.map((link) => link.slug)).toEqual([
+      'shonen-jump-s-one-piece-gba-2005',
+      'one-piece-gigant-battle-nds-2011',
+      'one-piece-grand-battle-swan-colosseum-wsc-2002',
+      'from-tv-animation-one-piece-grand-battle-swan-colosseum-wsc-2002',
+      'prince-of-persia-the-sands-of-time-java-2003',
+    ])
   })
 
   it('does not add the English SEO cluster to other locales', () => {

@@ -13,6 +13,8 @@ const gameSeoLinkClusters: Array<Array<GameSeoInternalLink>> = [
   [
     { label: 'Explore Three Wonders arcade games', slug: 'three-wonders-arcade-1991' },
     { label: 'Explore Pipi and Bibis arcade action', slug: 'pipi-and-bibis-other-1991' },
+    { label: "Play The King of Fighters '97 online", slug: 'the-king-of-fighters-97-arcade-1997' },
+    { label: 'Play Gals Panic online', slug: 'gals-panic-arcade' },
   ],
   [
     {
@@ -58,6 +60,14 @@ const gameSeoLinkClusters: Array<Array<GameSeoInternalLink>> = [
     {
       label: 'Play One Piece Swan Colosseum online',
       slug: 'from-tv-animation-one-piece-grand-battle-swan-colosseum-wsc-2002',
+    },
+    {
+      label: "Play Disney's Lilo & Stitch online",
+      slug: 'lilo-stitch-trouble-in-paradise-ps1-2002',
+    },
+    {
+      label: 'Play Prince of Persia: The Sands of Time online',
+      slug: 'prince-of-persia-the-sands-of-time-java-2003',
     },
   ],
 ]

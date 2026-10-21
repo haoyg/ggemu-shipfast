@@ -90,9 +90,12 @@ describe('reviewed English game content', () => {
   it('adds reciprocal links without linking a game to itself', () => {
     for (const url_slug of [slugs[0], slugs[1], slugs[3], slugs[4]]) {
       const links = getGameSeoInternalLinks({ url_slug }, 'en')
-      expect(links).toHaveLength(1)
-      expect(links[0].slug).not.toBe(url_slug)
-      expect(getGameSeoInternalLinks({ url_slug: links[0].slug }, 'en').map((link) => link.slug)).toContain(url_slug)
+      expect(links.length).toBeGreaterThan(0)
+      expect(links.every((link) => link.slug !== url_slug)).toBe(true)
+      expect(links.some((link) =>
+        getGameSeoInternalLinks({ url_slug: link.slug }, 'en')
+          .some((reciprocalLink) => reciprocalLink.slug === url_slug),
+      )).toBe(true)
     }
   })
 })
