@@ -20,6 +20,30 @@ const searchOnlyGameSeoBySlug = {
 } as const
 
 const targetedGameSeoBySlug = {
+  'the-king-of-fighters-97-arcade-1997': {
+    heading: "Play The King of Fighters '97 Online",
+    title: "The King of Fighters '97 Online | Arcade Fighting Game",
+    description:
+      "Play The King of Fighters '97 online in your browser. Choose a three-fighter team, learn the Advanced and Extra systems, and check the arcade controls before starting.",
+    keywords:
+      "The King of Fighters 97 online, play KOF 97, KOF 97 arcade, SNK fighting game",
+  },
+  'lilo-stitch-trouble-in-paradise-ps1-2002': {
+    heading: "Play Disney's Lilo & Stitch: Trouble in Paradise Online",
+    title: "Lilo & Stitch: Trouble in Paradise Online | PS1 Game",
+    description:
+      "Play Disney's Lilo & Stitch: Trouble in Paradise online. Switch between Lilo and Stitch, explore island levels, and check the PlayStation controls before starting.",
+    keywords:
+      "Lilo and Stitch Trouble in Paradise online, play Lilo and Stitch PS1, Disney PlayStation game",
+  },
+  'prince-of-persia-the-sands-of-time-java-2003': {
+    heading: 'Play Prince of Persia: The Sands of Time Online',
+    title: 'Prince of Persia: The Sands of Time Online | Java Game',
+    description:
+      'Play Prince of Persia: The Sands of Time online. Explore the Java mobile adaptation, avoid traps, fight guards and check the keyboard controls before starting.',
+    keywords:
+      'Prince of Persia Sands of Time Java online, play Prince of Persia mobile game, Java platform game',
+  },
   'gals-panic-arcade': {
     heading: 'Play Gals Panic Online',
     title: 'Gals Panic Online - Arcade Area-Capture Game | POKOPIE',
