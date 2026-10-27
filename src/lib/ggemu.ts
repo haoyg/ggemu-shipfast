@@ -808,7 +808,13 @@ export const getBlogPostDetailPageData = createServerFn({ method: 'GET' })
     const result = await fetchJson<BlogPostDetailResponse>(
       `/api/blog-posts/${encodeURIComponent(data.id)}`,
       new URLSearchParams(),
-    )
+    ).catch((error: unknown) => {
+      if (isMissingGameError(error)) return null
+      throw error
+    })
+
+    if (!result) return null
+
     const origin = getCanonicalOrigin(getRequestUrl({ xForwardedHost: false }))
 
     return {

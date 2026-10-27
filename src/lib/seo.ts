@@ -11,6 +11,7 @@ export const defaultSeoLocale = 'en' satisfies Locale
 
 export function getAvailableSeoLocales(path: string, locales: ReadonlyArray<Locale> = seoLocales) {
   if (path.startsWith('/blog/') && isEditorialBlogPost(path.slice('/blog/'.length))) return ['en'] satisfies Locale[]
+  if (path === '/ps1-compatibility') return locales.filter(locale => locale !== 'it')
   const englishFallback = ['/privacy-policy', '/terms-of-service', '/copyright-removal'].includes(path)
   return englishFallback ? locales.filter(locale => locale !== 'fr' && locale !== 'de' && locale !== 'it') : locales
 }

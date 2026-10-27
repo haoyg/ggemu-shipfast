@@ -35,6 +35,7 @@ describe('sitemap availability', () => {
     expect(firstXml).toContain('hreflang="de"')
     expect(firstXml).not.toContain('/fr/privacy-policy')
     expect(firstXml).toContain('/de/ps1-compatibility')
+    expect(firstXml).not.toContain('/it/ps1-compatibility')
     expect(firstXml).toContain('/en/games/contra-nes-1988')
     expect(firstXml).not.toContain('/it/games/contra-nes-1988')
     expect(firstXml).toContain('/en/games/word-ladder')

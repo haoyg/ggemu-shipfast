@@ -45,7 +45,7 @@ export const Route = createFileRoute('/$locale/blog/$blogId')({
         id: params.blogId,
         locale,
       },
-    }).catch(() => null)
+    })
 
     if (!detail) {
       throw notFound({

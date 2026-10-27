@@ -103,4 +103,5 @@ it('advertises new languages only on routes with translated content', () => {
   expect(getAvailableSeoLocales('/')).toContain('de')
   expect(getAvailableSeoLocales('/privacy-policy')).not.toContain('fr')
   expect(getAvailableSeoLocales('/ps1-compatibility')).toContain('de')
+  expect(getAvailableSeoLocales('/ps1-compatibility')).not.toContain('it')
 })
