@@ -24,7 +24,7 @@ const guides = [
   },
 ]
 
-export const Route = createFileRoute('/guides/brawl-stars')({
+export const Route = createFileRoute('/guides/brawl-stars/')({
   loader: () => getSeoOrigin(),
   head: ({ loaderData }) => buildBrawlStarsHubHead(loaderData),
   component: BrawlStarsGuidesPage,

@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest'
 
 import { buildCreatorCodesHead } from './guides.brawl-stars.creator-codes'
 import { buildCreatorCoffinsHead } from './guides.brawl-stars.creator-coffins'
-import { buildBrawlStarsHubHead } from './guides.brawl-stars'
+import { buildBrawlStarsHubHead } from './guides.brawl-stars.index'
 
 describe('Brawl Stars guide SEO', () => {
   it('builds a canonical CollectionPage for the guide hub', () => {
