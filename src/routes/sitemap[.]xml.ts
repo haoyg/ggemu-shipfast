@@ -363,6 +363,21 @@ function buildSitemapEntries(
     }
   }
 
+  for (const path of [
+    '/guides/brawl-stars/creator-codes',
+    '/guides/brawl-stars/creator-coffins',
+  ]) {
+    entries.push({
+      alternateLocales: [],
+      locale: 'en',
+      loc: `${origin}${path}`,
+      path,
+      changefreq: 'weekly',
+      lastmod: '2026-10-28',
+      priority: 0.8,
+    })
+  }
+
   for (const locale of locales) {
     entries.push({
       locale,
@@ -506,6 +521,8 @@ ${urls.join('\n')}
 }
 
 function formatSitemapAlternateLinks(entry: SitemapEntry) {
+  if (entry.alternateLocales?.length === 0) return ''
+
   const origin = new URL(entry.loc).origin
   const alternateLocales = getAvailableSeoLocales(entry.path, entry.alternateLocales ?? locales)
   const links = [

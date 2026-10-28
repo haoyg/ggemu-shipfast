@@ -44,6 +44,15 @@ function GuidesIndexPage() {
           </div>
         </section>
         <div className="mx-auto max-w-5xl px-4 py-10 sm:px-6 lg:px-8">
+          <section className="mb-6 overflow-hidden rounded-xl border border-sky-400/35 bg-gradient-to-br from-sky-400/15 via-base-100 to-fuchsia-400/10 p-6 text-base-content">
+            <p className="text-xs font-black uppercase tracking-[0.2em] text-sky-400">New Brawl Stars references</p>
+            <h2 className="mt-2 text-2xl font-black">Creator codes and Creator Coffins</h2>
+            <p className="mt-3 max-w-3xl leading-7 text-base-content/75">Search source-labeled creator codes, copy one in a click, or follow the official October 2026 Creator Coffins event steps and rewards.</p>
+            <div className="mt-5 flex flex-col gap-3 sm:flex-row">
+              <Link className="btn btn-primary" to="/guides/brawl-stars/creator-codes">Find creator codes</Link>
+              <Link className="btn btn-outline" to="/guides/brawl-stars/creator-coffins">Creator Coffins event guide</Link>
+            </div>
+          </section>
           <section className="mb-6 rounded-xl border border-primary/30 bg-base-100 p-6 text-base-content">
             <h2 className="text-xl font-bold">Card games that start with M</h2>
             <p className="mt-3 leading-7 text-base-content/75">Compare 40 names and variants by player count and cards needed. Play Memory in your browser, learn with an illustrated example, or follow sourced rules for other games.</p>

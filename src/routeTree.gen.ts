@@ -80,6 +80,8 @@ import { Route as LocaleArcadeGamesRouteImport } from './routes/$locale.arcade-g
 import { Route as LocaleAboutRouteImport } from './routes/$locale.about'
 import { Route as LocalePlatformRouteImport } from './routes/$locale.$platform'
 import { Route as LibraryGenresGenreRouteImport } from './routes/library.genres.$genre'
+import { Route as GuidesBrawlStarsCreatorCoffinsRouteImport } from './routes/guides.brawl-stars.creator-coffins'
+import { Route as GuidesBrawlStarsCreatorCodesRouteImport } from './routes/guides.brawl-stars.creator-codes'
 import { Route as GamesGameIdPlayRouteImport } from './routes/games/$gameId/play'
 import { Route as EnGamesWordLadderRouteImport } from './routes/en.games.word-ladder'
 import { Route as EnGamesQuakeOnlineRouteImport } from './routes/en.games.quake-online'
@@ -451,6 +453,18 @@ const LibraryGenresGenreRoute = LibraryGenresGenreRouteImport.update({
   path: '/library/genres/$genre',
   getParentRoute: () => rootRouteImport,
 } as any)
+const GuidesBrawlStarsCreatorCoffinsRoute =
+  GuidesBrawlStarsCreatorCoffinsRouteImport.update({
+    id: '/guides/brawl-stars/creator-coffins',
+    path: '/guides/brawl-stars/creator-coffins',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const GuidesBrawlStarsCreatorCodesRoute =
+  GuidesBrawlStarsCreatorCodesRouteImport.update({
+    id: '/guides/brawl-stars/creator-codes',
+    path: '/guides/brawl-stars/creator-codes',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const GamesGameIdPlayRoute = GamesGameIdPlayRouteImport.update({
   id: '/play',
   path: '/play',
@@ -591,6 +605,8 @@ export interface FileRoutesByFullPath {
   '/en/games/quake-online': typeof EnGamesQuakeOnlineRoute
   '/en/games/word-ladder': typeof EnGamesWordLadderRoute
   '/games/$gameId/play': typeof GamesGameIdPlayRoute
+  '/guides/brawl-stars/creator-codes': typeof GuidesBrawlStarsCreatorCodesRoute
+  '/guides/brawl-stars/creator-coffins': typeof GuidesBrawlStarsCreatorCoffinsRoute
   '/library/genres/$genre': typeof LibraryGenresGenreRoute
   '/$locale/$platform/page/$page': typeof LocalePlatformPagePageRoute
   '/$locale/games/$gameId/play': typeof LocaleGamesGameIdPlayRoute
@@ -676,6 +692,8 @@ export interface FileRoutesByTo {
   '/en/games/quake-online': typeof EnGamesQuakeOnlineRoute
   '/en/games/word-ladder': typeof EnGamesWordLadderRoute
   '/games/$gameId/play': typeof GamesGameIdPlayRoute
+  '/guides/brawl-stars/creator-codes': typeof GuidesBrawlStarsCreatorCodesRoute
+  '/guides/brawl-stars/creator-coffins': typeof GuidesBrawlStarsCreatorCoffinsRoute
   '/library/genres/$genre': typeof LibraryGenresGenreRoute
   '/$locale/$platform/page/$page': typeof LocalePlatformPagePageRoute
   '/$locale/games/$gameId/play': typeof LocaleGamesGameIdPlayRoute
@@ -762,6 +780,8 @@ export interface FileRoutesById {
   '/en/games/quake-online': typeof EnGamesQuakeOnlineRoute
   '/en/games/word-ladder': typeof EnGamesWordLadderRoute
   '/games/$gameId/play': typeof GamesGameIdPlayRoute
+  '/guides/brawl-stars/creator-codes': typeof GuidesBrawlStarsCreatorCodesRoute
+  '/guides/brawl-stars/creator-coffins': typeof GuidesBrawlStarsCreatorCoffinsRoute
   '/library/genres/$genre': typeof LibraryGenresGenreRoute
   '/$locale/$platform_/page/$page': typeof LocalePlatformPagePageRoute
   '/$locale/games/$gameId/play': typeof LocaleGamesGameIdPlayRoute
@@ -849,6 +869,8 @@ export interface FileRouteTypes {
     | '/en/games/quake-online'
     | '/en/games/word-ladder'
     | '/games/$gameId/play'
+    | '/guides/brawl-stars/creator-codes'
+    | '/guides/brawl-stars/creator-coffins'
     | '/library/genres/$genre'
     | '/$locale/$platform/page/$page'
     | '/$locale/games/$gameId/play'
@@ -934,6 +956,8 @@ export interface FileRouteTypes {
     | '/en/games/quake-online'
     | '/en/games/word-ladder'
     | '/games/$gameId/play'
+    | '/guides/brawl-stars/creator-codes'
+    | '/guides/brawl-stars/creator-coffins'
     | '/library/genres/$genre'
     | '/$locale/$platform/page/$page'
     | '/$locale/games/$gameId/play'
@@ -1019,6 +1043,8 @@ export interface FileRouteTypes {
     | '/en/games/quake-online'
     | '/en/games/word-ladder'
     | '/games/$gameId/play'
+    | '/guides/brawl-stars/creator-codes'
+    | '/guides/brawl-stars/creator-coffins'
     | '/library/genres/$genre'
     | '/$locale/$platform_/page/$page'
     | '/$locale/games/$gameId/play'
@@ -1088,6 +1114,8 @@ export interface RootRouteChildren {
   EnGamesFreedoomOnlineRoute: typeof EnGamesFreedoomOnlineRoute
   EnGamesQuakeOnlineRoute: typeof EnGamesQuakeOnlineRoute
   EnGamesWordLadderRoute: typeof EnGamesWordLadderRoute
+  GuidesBrawlStarsCreatorCodesRoute: typeof GuidesBrawlStarsCreatorCodesRoute
+  GuidesBrawlStarsCreatorCoffinsRoute: typeof GuidesBrawlStarsCreatorCoffinsRoute
   LibraryGenresGenreRoute: typeof LibraryGenresGenreRoute
   EmbedLocaleGamesGameIdRoute: typeof EmbedLocaleGamesGameIdRoute
   EnPlatformPagePageRoute: typeof EnPlatformPagePageRoute
@@ -1592,6 +1620,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LibraryGenresGenreRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/guides/brawl-stars/creator-coffins': {
+      id: '/guides/brawl-stars/creator-coffins'
+      path: '/guides/brawl-stars/creator-coffins'
+      fullPath: '/guides/brawl-stars/creator-coffins'
+      preLoaderRoute: typeof GuidesBrawlStarsCreatorCoffinsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/guides/brawl-stars/creator-codes': {
+      id: '/guides/brawl-stars/creator-codes'
+      path: '/guides/brawl-stars/creator-codes'
+      fullPath: '/guides/brawl-stars/creator-codes'
+      preLoaderRoute: typeof GuidesBrawlStarsCreatorCodesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/games/$gameId/play': {
       id: '/games/$gameId/play'
       path: '/play'
@@ -1828,6 +1870,8 @@ const rootRouteChildren: RootRouteChildren = {
   EnGamesFreedoomOnlineRoute: EnGamesFreedoomOnlineRoute,
   EnGamesQuakeOnlineRoute: EnGamesQuakeOnlineRoute,
   EnGamesWordLadderRoute: EnGamesWordLadderRoute,
+  GuidesBrawlStarsCreatorCodesRoute: GuidesBrawlStarsCreatorCodesRoute,
+  GuidesBrawlStarsCreatorCoffinsRoute: GuidesBrawlStarsCreatorCoffinsRoute,
   LibraryGenresGenreRoute: LibraryGenresGenreRoute,
   EmbedLocaleGamesGameIdRoute: EmbedLocaleGamesGameIdRoute,
   EnPlatformPagePageRoute: EnPlatformPagePageRoute,
