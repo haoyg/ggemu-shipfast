@@ -1,7 +1,7 @@
 import { Link, createFileRoute } from '@tanstack/react-router'
 import { useState } from 'react'
 
-import { BrawlStarsGuideShell, GuideSection, SourceLink } from '#/components/brawl-stars-guide-shell'
+import { BrawlStarsGuideShell, BrawlStarsHero, GuideSection, SourceLink } from '#/components/brawl-stars-guide-shell'
 import { creatorCodes, creatorCoffinsEndDate, creatorCoffinsStartDate, getCreatorCoffinsStatus } from '#/lib/brawl-stars-guides'
 import { getSeoOrigin } from '#/lib/seo'
 
@@ -9,6 +9,7 @@ const pagePath = '/guides/brawl-stars/creator-coffins'
 const title = 'Brawl Stars Creator Coffins – Codes, Teams & Rewards (2026)'
 const description = 'Explore the Brawl Stars Creator Coffins event, participating creator codes, team challenges, rewards, and how the event works.'
 const publishedAt = '2026-10-28'
+const heroImagePath = '/guide-art/brawl-stars/creator-coffins-hero.webp'
 
 const eventFaqs = [
   ['What is Creator Coffins?', 'Creator Coffins is a four-day Brawl Stars community event in which players support a participating creator, complete daily tasks and contribute to shared reward tiers.'],
@@ -28,7 +29,7 @@ export const Route = createFileRoute('/guides/brawl-stars/creator-coffins')({
 export function buildCreatorCoffinsHead(origin?: string) {
   const siteOrigin = origin ?? 'https://pokopie.com'
   const canonical = `${siteOrigin}${pagePath}`
-  const socialImage = `${siteOrigin}/og.png`
+  const socialImage = `${siteOrigin}${heroImagePath}`
   const graph = {
     '@context': 'https://schema.org',
     '@graph': [
@@ -51,7 +52,10 @@ export function buildCreatorCoffinsHead(origin?: string) {
   }
 
   return {
-    links: [{ rel: 'canonical', href: canonical }],
+    links: [
+      { rel: 'canonical', href: canonical },
+      { rel: 'preload', href: heroImagePath, as: 'image', type: 'image/webp' },
+    ],
     meta: [
       { title }, { name: 'description', content: description },
       { property: 'og:title', content: title }, { property: 'og:description', content: description },
@@ -70,17 +74,15 @@ function CreatorCoffinsPage() {
   return (
     <BrawlStarsGuideShell currentPage={pagePath}>
       <article>
-        <header className="overflow-hidden border-b border-fuchsia-400/20 bg-[radial-gradient(circle_at_75%_20%,rgba(217,70,239,0.3),transparent_28rem),radial-gradient(circle_at_10%_90%,rgba(249,115,22,0.2),transparent_24rem)]">
-          <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6 sm:py-20 lg:px-8">
-            <div className="flex flex-wrap items-center gap-3">
-              <span className={`rounded-full px-4 py-2 text-sm font-black uppercase tracking-wider ${statusClass}`}>{status}</span>
-              <span className="text-sm font-semibold text-slate-300">October 26–29, 2026</span>
-            </div>
-            <h1 className="mt-5 max-w-4xl text-4xl font-black leading-tight text-white sm:text-6xl">Brawl Stars Creator Coffins: Codes, Teams &amp; Rewards</h1>
-            <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-300">Join through the in-game event page, support a creator and complete daily tasks toward community rewards. Your event creator is locked for the full four days.</p>
-            <p className="mt-6 max-w-3xl rounded-2xl border border-white/10 bg-black/20 p-4 text-sm leading-6 text-slate-300">Status uses Supercell’s published date window and the current UTC calendar date. Supercell did not publish an exact closing time, so this is intentionally not a countdown.</p>
+        <BrawlStarsHero imageAlt="Glowing ceremonial event chest in a purple and orange arena" imagePath={heroImagePath} tone="purple">
+          <div className="flex flex-wrap items-center gap-3">
+            <span className={`rounded-full px-4 py-2 text-sm font-black uppercase tracking-wider shadow-lg ${statusClass}`}>{status}</span>
+            <span className="text-sm font-semibold text-slate-200">October 26–29, 2026</span>
           </div>
-        </header>
+          <h1 className="mt-5 text-4xl font-black leading-[1.05] text-white drop-shadow-2xl sm:text-6xl">Brawl Stars Creator Coffins: <span className="text-fuchsia-300">Codes, Teams &amp; Rewards</span></h1>
+          <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-200">Join through the in-game event page, support a creator and complete daily tasks toward community rewards. Your event creator is locked for the full four days.</p>
+          <p className="mt-6 max-w-2xl border-l-2 border-fuchsia-300 pl-4 text-sm leading-6 text-slate-300">Status uses Supercell’s published UTC date window. No exact closing time was announced, so this is intentionally not a countdown.</p>
+        </BrawlStarsHero>
 
         <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 lg:px-8">
           <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4" aria-label="Event facts">

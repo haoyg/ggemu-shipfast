@@ -1,13 +1,14 @@
 import { Link, createFileRoute } from '@tanstack/react-router'
 
 import { BrawlStarsCodeFinder } from '#/components/brawl-stars-code-finder'
-import { BrawlStarsGuideShell, GuideSection, SourceLink } from '#/components/brawl-stars-guide-shell'
+import { BrawlStarsGuideShell, BrawlStarsHero, GuideSection, SourceLink } from '#/components/brawl-stars-guide-shell'
 import { getSeoOrigin } from '#/lib/seo'
 
 const pagePath = '/guides/brawl-stars/creator-codes'
 const title = 'Brawl Stars Creator Codes (2026) – List & How to Use'
 const description = 'Find Brawl Stars creator codes, search your favorite creators, copy codes instantly, and learn how to use them in the Supercell Store.'
 const publishedAt = '2026-10-28'
+const heroImagePath = '/guide-art/brawl-stars/creator-codes-hero.webp'
 
 const faqs = [
   ['What is a Brawl Stars creator code?', 'A creator code lets an eligible creator receive support when you make an in-app purchase. Supercell says using a code does not add an extra cost to your purchase.'],
@@ -27,10 +28,13 @@ export const Route = createFileRoute('/guides/brawl-stars/creator-codes')({
 export function buildCreatorCodesHead(origin?: string) {
   const siteOrigin = origin ?? 'https://pokopie.com'
   const canonical = `${siteOrigin}${pagePath}`
-  const socialImage = `${siteOrigin}/og.png`
+  const socialImage = `${siteOrigin}${heroImagePath}`
 
   return {
-    links: [{ rel: 'canonical', href: canonical }],
+    links: [
+      { rel: 'canonical', href: canonical },
+      { rel: 'preload', href: heroImagePath, as: 'image', type: 'image/webp' },
+    ],
     meta: [
       { title },
       { name: 'description', content: description },
@@ -78,17 +82,15 @@ function CreatorCodesPage() {
   return (
     <BrawlStarsGuideShell currentPage={pagePath}>
       <article>
-        <header className="overflow-hidden border-b border-sky-400/20 bg-[radial-gradient(circle_at_80%_15%,rgba(14,165,233,0.32),transparent_28rem),radial-gradient(circle_at_15%_80%,rgba(245,158,11,0.16),transparent_25rem)]">
-          <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6 sm:py-20 lg:px-8">
-            <p className="text-sm font-black uppercase tracking-[0.22em] text-amber-300">Brawl Stars reference</p>
-            <h1 className="mt-4 max-w-4xl text-4xl font-black leading-tight text-white sm:text-6xl">Brawl Stars Creator Codes (2026)</h1>
-            <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-300">Search a source-labeled list, copy a code in one click and follow Supercell’s current in-game path. Creator codes support creators; they do not unlock free gems.</p>
-            <div className="mt-8 flex flex-wrap gap-3 text-sm">
-              <span className="rounded-full border border-emerald-400/30 bg-emerald-400/10 px-4 py-2 font-bold text-emerald-200">Last verified: October 28, 2026</span>
-              <a className="rounded-full border border-white/15 bg-white/5 px-4 py-2 font-bold text-sky-200 hover:bg-white/10" href="#creator-code-finder">Search codes ↓</a>
-            </div>
+        <BrawlStarsHero imageAlt="Futuristic creator support terminal with a glowing digital code card" imagePath={heroImagePath}>
+          <p className="text-sm font-black uppercase tracking-[0.22em] text-amber-300">Brawl Stars reference</p>
+          <h1 className="mt-4 text-4xl font-black leading-[1.05] text-white drop-shadow-2xl sm:text-6xl">Brawl Stars Creator Codes <span className="text-sky-300">(2026)</span></h1>
+          <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-200">Search a source-labeled list, copy a code in one click and follow Supercell’s current in-game path. Creator codes support creators; they do not unlock free gems.</p>
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
+            <a className="inline-flex min-h-12 items-center justify-center rounded-xl bg-sky-300 px-6 font-black text-slate-950 shadow-[0_10px_40px_rgba(56,189,248,0.28)] transition hover:-translate-y-0.5 hover:bg-white" href="#creator-code-finder">Search creator codes</a>
+            <span className="text-sm font-semibold text-emerald-200">● Verified October 28, 2026</span>
           </div>
-        </header>
+        </BrawlStarsHero>
 
         <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 lg:px-8">
           <div id="creator-code-finder"><BrawlStarsCodeFinder /></div>
