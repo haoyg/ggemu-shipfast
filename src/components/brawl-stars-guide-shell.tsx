@@ -10,7 +10,7 @@ export function BrawlStarsGuideShell({ children, currentPage }: { children: Reac
           <nav aria-label="Breadcrumb" className="mx-auto flex max-w-6xl items-center gap-2 px-4 py-4 text-sm text-slate-400 sm:px-6 lg:px-8">
             <Link className="hover:text-sky-300" params={{ locale: 'en' }} to="/$locale/guides">Guides</Link>
             <span aria-hidden="true">/</span>
-            <span>Brawl Stars</span>
+            <Link className="hover:text-sky-300" to="/guides/brawl-stars">Brawl Stars</Link>
           </nav>
         </div>
         {children}

@@ -49,8 +49,8 @@ function GuidesIndexPage() {
             <h2 className="mt-2 text-2xl font-black">Creator codes and Creator Coffins</h2>
             <p className="mt-3 max-w-3xl leading-7 text-base-content/75">Search source-labeled creator codes, copy one in a click, or follow the official October 2026 Creator Coffins event steps and rewards.</p>
             <div className="mt-5 flex flex-col gap-3 sm:flex-row">
-              <Link className="btn btn-primary" to="/guides/brawl-stars/creator-codes">Find creator codes</Link>
-              <Link className="btn btn-outline" to="/guides/brawl-stars/creator-coffins">Creator Coffins event guide</Link>
+              <Link className="btn btn-primary" preload="intent" to="/guides/brawl-stars">Browse all Brawl Stars guides</Link>
+              <Link className="btn btn-outline" to="/guides/brawl-stars/creator-codes">Find creator codes</Link>
             </div>
           </section>
           <section className="mb-6 rounded-xl border border-primary/30 bg-base-100 p-6 text-base-content">

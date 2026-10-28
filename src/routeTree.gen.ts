@@ -41,6 +41,7 @@ import { Route as ArcadeRouteImport } from './routes/arcade'
 import { Route as LocaleRouteImport } from './routes/$locale'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as PlayGameIdRouteImport } from './routes/play.$gameId'
+import { Route as GuidesBrawlStarsRouteImport } from './routes/guides.brawl-stars'
 import { Route as GamesGameIdRouteImport } from './routes/games/$gameId'
 import { Route as EnSnesGamesRouteImport } from './routes/en.snes-games'
 import { Route as EnSnesRouteImport } from './routes/en.snes'
@@ -255,6 +256,11 @@ const PlayGameIdRoute = PlayGameIdRouteImport.update({
   path: '/play/$gameId',
   getParentRoute: () => rootRouteImport,
 } as any)
+const GuidesBrawlStarsRoute = GuidesBrawlStarsRouteImport.update({
+  id: '/guides/brawl-stars',
+  path: '/guides/brawl-stars',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const GamesGameIdRoute = GamesGameIdRouteImport.update({
   id: '/games/$gameId',
   path: '/games/$gameId',
@@ -455,15 +461,15 @@ const LibraryGenresGenreRoute = LibraryGenresGenreRouteImport.update({
 } as any)
 const GuidesBrawlStarsCreatorCoffinsRoute =
   GuidesBrawlStarsCreatorCoffinsRouteImport.update({
-    id: '/guides/brawl-stars/creator-coffins',
-    path: '/guides/brawl-stars/creator-coffins',
-    getParentRoute: () => rootRouteImport,
+    id: '/creator-coffins',
+    path: '/creator-coffins',
+    getParentRoute: () => GuidesBrawlStarsRoute,
   } as any)
 const GuidesBrawlStarsCreatorCodesRoute =
   GuidesBrawlStarsCreatorCodesRouteImport.update({
-    id: '/guides/brawl-stars/creator-codes',
-    path: '/guides/brawl-stars/creator-codes',
-    getParentRoute: () => rootRouteImport,
+    id: '/creator-codes',
+    path: '/creator-codes',
+    getParentRoute: () => GuidesBrawlStarsRoute,
   } as any)
 const GamesGameIdPlayRoute = GamesGameIdPlayRouteImport.update({
   id: '/play',
@@ -596,6 +602,7 @@ export interface FileRoutesByFullPath {
   '/en/snes': typeof EnSnesRoute
   '/en/snes-games': typeof EnSnesGamesRoute
   '/games/$gameId': typeof GamesGameIdRouteWithChildren
+  '/guides/brawl-stars': typeof GuidesBrawlStarsRouteWithChildren
   '/play/$gameId': typeof PlayGameIdRoute
   '/$locale/blog/$blogId': typeof LocaleBlogBlogIdRoute
   '/$locale/games/$gameId': typeof LocaleGamesGameIdRouteWithChildren
@@ -683,6 +690,7 @@ export interface FileRoutesByTo {
   '/en/snes': typeof EnSnesRoute
   '/en/snes-games': typeof EnSnesGamesRoute
   '/games/$gameId': typeof GamesGameIdRouteWithChildren
+  '/guides/brawl-stars': typeof GuidesBrawlStarsRouteWithChildren
   '/play/$gameId': typeof PlayGameIdRoute
   '/$locale/blog/$blogId': typeof LocaleBlogBlogIdRoute
   '/$locale/games/$gameId': typeof LocaleGamesGameIdRouteWithChildren
@@ -771,6 +779,7 @@ export interface FileRoutesById {
   '/en/snes': typeof EnSnesRoute
   '/en/snes-games': typeof EnSnesGamesRoute
   '/games/$gameId': typeof GamesGameIdRouteWithChildren
+  '/guides/brawl-stars': typeof GuidesBrawlStarsRouteWithChildren
   '/play/$gameId': typeof PlayGameIdRoute
   '/$locale/blog/$blogId': typeof LocaleBlogBlogIdRoute
   '/$locale/games/$gameId': typeof LocaleGamesGameIdRouteWithChildren
@@ -860,6 +869,7 @@ export interface FileRouteTypes {
     | '/en/snes'
     | '/en/snes-games'
     | '/games/$gameId'
+    | '/guides/brawl-stars'
     | '/play/$gameId'
     | '/$locale/blog/$blogId'
     | '/$locale/games/$gameId'
@@ -947,6 +957,7 @@ export interface FileRouteTypes {
     | '/en/snes'
     | '/en/snes-games'
     | '/games/$gameId'
+    | '/guides/brawl-stars'
     | '/play/$gameId'
     | '/$locale/blog/$blogId'
     | '/$locale/games/$gameId'
@@ -1034,6 +1045,7 @@ export interface FileRouteTypes {
     | '/en/snes'
     | '/en/snes-games'
     | '/games/$gameId'
+    | '/guides/brawl-stars'
     | '/play/$gameId'
     | '/$locale/blog/$blogId'
     | '/$locale/games/$gameId'
@@ -1109,13 +1121,12 @@ export interface RootRouteChildren {
   EnSnesRoute: typeof EnSnesRoute
   EnSnesGamesRoute: typeof EnSnesGamesRoute
   GamesGameIdRoute: typeof GamesGameIdRouteWithChildren
+  GuidesBrawlStarsRoute: typeof GuidesBrawlStarsRouteWithChildren
   PlayGameIdRoute: typeof PlayGameIdRoute
   EnGamesCsSurfRoute: typeof EnGamesCsSurfRoute
   EnGamesFreedoomOnlineRoute: typeof EnGamesFreedoomOnlineRoute
   EnGamesQuakeOnlineRoute: typeof EnGamesQuakeOnlineRoute
   EnGamesWordLadderRoute: typeof EnGamesWordLadderRoute
-  GuidesBrawlStarsCreatorCodesRoute: typeof GuidesBrawlStarsCreatorCodesRoute
-  GuidesBrawlStarsCreatorCoffinsRoute: typeof GuidesBrawlStarsCreatorCoffinsRoute
   LibraryGenresGenreRoute: typeof LibraryGenresGenreRoute
   EmbedLocaleGamesGameIdRoute: typeof EmbedLocaleGamesGameIdRoute
   EnPlatformPagePageRoute: typeof EnPlatformPagePageRoute
@@ -1345,6 +1356,13 @@ declare module '@tanstack/react-router' {
       path: '/play/$gameId'
       fullPath: '/play/$gameId'
       preLoaderRoute: typeof PlayGameIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/guides/brawl-stars': {
+      id: '/guides/brawl-stars'
+      path: '/guides/brawl-stars'
+      fullPath: '/guides/brawl-stars'
+      preLoaderRoute: typeof GuidesBrawlStarsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/games/$gameId': {
@@ -1622,17 +1640,17 @@ declare module '@tanstack/react-router' {
     }
     '/guides/brawl-stars/creator-coffins': {
       id: '/guides/brawl-stars/creator-coffins'
-      path: '/guides/brawl-stars/creator-coffins'
+      path: '/creator-coffins'
       fullPath: '/guides/brawl-stars/creator-coffins'
       preLoaderRoute: typeof GuidesBrawlStarsCreatorCoffinsRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof GuidesBrawlStarsRoute
     }
     '/guides/brawl-stars/creator-codes': {
       id: '/guides/brawl-stars/creator-codes'
-      path: '/guides/brawl-stars/creator-codes'
+      path: '/creator-codes'
       fullPath: '/guides/brawl-stars/creator-codes'
       preLoaderRoute: typeof GuidesBrawlStarsCreatorCodesRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof GuidesBrawlStarsRoute
     }
     '/games/$gameId/play': {
       id: '/games/$gameId/play'
@@ -1807,6 +1825,19 @@ const GamesGameIdRouteWithChildren = GamesGameIdRoute._addFileChildren(
   GamesGameIdRouteChildren,
 )
 
+interface GuidesBrawlStarsRouteChildren {
+  GuidesBrawlStarsCreatorCodesRoute: typeof GuidesBrawlStarsCreatorCodesRoute
+  GuidesBrawlStarsCreatorCoffinsRoute: typeof GuidesBrawlStarsCreatorCoffinsRoute
+}
+
+const GuidesBrawlStarsRouteChildren: GuidesBrawlStarsRouteChildren = {
+  GuidesBrawlStarsCreatorCodesRoute: GuidesBrawlStarsCreatorCodesRoute,
+  GuidesBrawlStarsCreatorCoffinsRoute: GuidesBrawlStarsCreatorCoffinsRoute,
+}
+
+const GuidesBrawlStarsRouteWithChildren =
+  GuidesBrawlStarsRoute._addFileChildren(GuidesBrawlStarsRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   LocaleRoute: LocaleRouteWithChildren,
@@ -1865,13 +1896,12 @@ const rootRouteChildren: RootRouteChildren = {
   EnSnesRoute: EnSnesRoute,
   EnSnesGamesRoute: EnSnesGamesRoute,
   GamesGameIdRoute: GamesGameIdRouteWithChildren,
+  GuidesBrawlStarsRoute: GuidesBrawlStarsRouteWithChildren,
   PlayGameIdRoute: PlayGameIdRoute,
   EnGamesCsSurfRoute: EnGamesCsSurfRoute,
   EnGamesFreedoomOnlineRoute: EnGamesFreedoomOnlineRoute,
   EnGamesQuakeOnlineRoute: EnGamesQuakeOnlineRoute,
   EnGamesWordLadderRoute: EnGamesWordLadderRoute,
-  GuidesBrawlStarsCreatorCodesRoute: GuidesBrawlStarsCreatorCodesRoute,
-  GuidesBrawlStarsCreatorCoffinsRoute: GuidesBrawlStarsCreatorCoffinsRoute,
   LibraryGenresGenreRoute: LibraryGenresGenreRoute,
   EmbedLocaleGamesGameIdRoute: EmbedLocaleGamesGameIdRoute,
   EnPlatformPagePageRoute: EnPlatformPagePageRoute,

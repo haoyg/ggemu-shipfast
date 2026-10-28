@@ -51,6 +51,7 @@ describe('sitemap availability', () => {
     expect(firstXml).toContain('/en/guides/wasm-arcade-review')
     expect(firstXml).toContain('https://pokopie.com/guides/brawl-stars/creator-codes')
     expect(firstXml).toContain('https://pokopie.com/guides/brawl-stars/creator-coffins')
+    expect(firstXml).toContain('https://pokopie.com/guides/brawl-stars</loc>')
     expect(firstXml).not.toContain('/en/guides/brawl-stars/creator-codes')
     expect(firstXml).toContain('<lastmod>2026-10-13</lastmod>')
     expect(firstXml).toContain('<lastmod>2026-09-06</lastmod>')

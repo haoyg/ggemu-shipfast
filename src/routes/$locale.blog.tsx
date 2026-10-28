@@ -126,6 +126,16 @@ function BlogListPage() {
 
       <section className="bg-neutral text-neutral-content">
         <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+          {lang === 'en' ? (
+            <aside className="mb-8 rounded-2xl border border-sky-400/30 bg-gradient-to-br from-sky-400/15 to-fuchsia-400/10 p-6 sm:flex sm:items-center sm:justify-between sm:gap-6">
+              <div>
+                <p className="text-xs font-black uppercase tracking-[0.18em] text-amber-300">Featured collection</p>
+                <h2 className="mt-2 text-2xl font-black text-white">Brawl Stars guides</h2>
+                <p className="mt-2 max-w-3xl leading-7 text-white/70">Creator codes, event participation steps and reward references in one source-checked hub.</p>
+              </div>
+              <Link className="btn btn-primary mt-5 shrink-0 sm:mt-0" preload="intent" to="/guides/brawl-stars">Open the guide hub</Link>
+            </aside>
+          ) : null}
           {blogPosts.length > 0 ? (
             <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
               {blogPosts.map((blogPost) => (

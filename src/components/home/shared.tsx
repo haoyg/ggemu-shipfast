@@ -74,7 +74,9 @@ export function HomeLatestBlogPostsSection({
   }
 
   return (
-    <section className="bg-neutral text-neutral-content">
+    <>
+      {lang === 'en' ? <HomeBrawlStarsGuidesSection /> : null}
+      <section className="bg-neutral text-neutral-content">
       <div className="mx-auto max-w-7xl px-4 py-5 sm:px-6 lg:px-8">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
           <div className="max-w-3xl">
@@ -107,6 +109,22 @@ export function HomeLatestBlogPostsSection({
             />
           ))}
         </div>
+      </div>
+      </section>
+    </>
+  )
+}
+
+function HomeBrawlStarsGuidesSection() {
+  return (
+    <section className="bg-neutral px-4 py-5 text-neutral-content sm:px-6 lg:px-8" aria-labelledby="home-brawl-stars-guides">
+      <div className="mx-auto grid max-w-7xl gap-5 overflow-hidden rounded-2xl border border-sky-400/30 bg-gradient-to-br from-sky-400/15 via-white/[0.04] to-fuchsia-400/15 p-6 shadow-xl md:grid-cols-[minmax(0,1fr)_auto] md:items-center">
+        <div>
+          <p className="text-xs font-black uppercase tracking-[0.2em] text-amber-300">Featured guide collection</p>
+          <h2 className="mt-2 text-2xl font-black text-white" id="home-brawl-stars-guides">Brawl Stars creator codes and event guides</h2>
+          <p className="mt-3 max-w-3xl text-sm leading-7 text-white/70">Find source-checked creator codes, learn where to enter them and follow limited-time Creator Coffins event steps.</p>
+        </div>
+        <Link className="btn btn-primary w-fit" preload="intent" to="/guides/brawl-stars">Browse Brawl Stars guides</Link>
       </div>
     </section>
   )

@@ -2,8 +2,18 @@ import { describe, expect, it } from 'vitest'
 
 import { buildCreatorCodesHead } from './guides.brawl-stars.creator-codes'
 import { buildCreatorCoffinsHead } from './guides.brawl-stars.creator-coffins'
+import { buildBrawlStarsHubHead } from './guides.brawl-stars'
 
 describe('Brawl Stars guide SEO', () => {
+  it('builds a canonical CollectionPage for the guide hub', () => {
+    const head = buildBrawlStarsHubHead('https://pokopie.com')
+    const schema = JSON.parse(head.scripts[0].children)
+
+    expect(head.links).toContainEqual({ rel: 'canonical', href: 'https://pokopie.com/guides/brawl-stars' })
+    expect(schema['@type']).toBe('CollectionPage')
+    expect(schema.hasPart).toHaveLength(2)
+  })
+
   it('builds canonical, social and Article metadata for creator codes', () => {
     const head = buildCreatorCodesHead('https://pokopie.com')
     const schema = JSON.parse(head.scripts[0].children)

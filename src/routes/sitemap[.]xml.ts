@@ -364,6 +364,7 @@ function buildSitemapEntries(
   }
 
   for (const path of [
+    '/guides/brawl-stars',
     '/guides/brawl-stars/creator-codes',
     '/guides/brawl-stars/creator-coffins',
   ]) {
