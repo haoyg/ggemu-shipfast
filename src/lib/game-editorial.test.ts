@@ -91,6 +91,18 @@ describe('reviewed English game content', () => {
     expect(onet.description.join(' ')).toContain('two turns')
   })
 
+  it('covers Geometry Dash Advance GBA search intent with version-safe facts', () => {
+    const geometry = getGameEditorial({ url_slug: 'geometry-dash-advance-gba-2025' }, 'en')!
+    const content = [geometry.summary, ...geometry.description].join(' ')
+
+    expect(content).toContain('Geometry Dash GBA')
+    expect(content).toContain('Game Boy Advance')
+    expect(content).toContain('not an official Geometry Dash release')
+    expect(geometry.quickStart?.entries).toHaveLength(4)
+    expect(geometry.faq.some((item) => item.question.includes('without downloading a ROM'))).toBe(true)
+    expect(geometry.sources.some((source) => source.href.endsWith('/releases'))).toBe(true)
+  })
+
   it('keeps the Taiko control card tied to the upstream guide', () => {
     const taiko = getGameEditorial({ url_slug: 'taiko-no-tatsujin-taiko-web-html5-2011' }, 'en')!
     expect(taiko.quickStart?.entries.map((entry) => entry.keys)).toEqual([

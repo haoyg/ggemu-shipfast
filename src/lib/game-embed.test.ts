@@ -76,7 +76,8 @@ describe('game embed helpers', () => {
     )
 
     expect(seo?.title).toMatch(/^Geometry Dash Advance/)
-    expect(seo?.description).toContain('GBA demake')
+    expect(seo?.description).toContain('Geometry Dash GBA')
+    expect(seo?.keywords).toContain('Geometry Dash Game Boy Advance')
   })
 
   it('targets the English Taiko Web page', () => {

@@ -72,11 +72,11 @@ const targetedGameSeoBySlug = {
   },
   [geometryDashAdvanceTargetSlug]: {
     heading: 'Play Geometry Dash Advance Online',
-    title: 'Geometry Dash Advance - Play the GBA Demake Online | POKOPIE',
+    title: 'Geometry Dash Advance Online | Play the GBA Demake',
     description:
-      'Play Geometry Dash Advance online in your browser. Explore AleFunky’s GBA demake, read the control and practice-mode guide, and learn how it differs from the mobile game.',
+      'Play Geometry Dash Advance online, the community GBA demake also known as Geometry Dash GBA. Check browser controls, practice mode, levels and version details.',
     keywords:
-      'Geometry Dash Advance, Geometry Dash Advance online, play Geometry Dash Advance, GBA demake, rhythm platform game',
+      'Geometry Dash Advance, Geometry Dash Advance online, Geometry Dash GBA, Geometry Dash Game Boy Advance, GD Advance, play Geometry Dash Advance, GBA demake',
   },
   [murdokuTargetSlug]: {
     heading: 'Play Murdoku Online Free',
