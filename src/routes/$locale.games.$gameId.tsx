@@ -612,6 +612,16 @@ function LocalizedGameDetailPage() {
 
           {editorial?.quickStart ? <QuickStartCard quickStart={editorial.quickStart} /> : null}
 
+          <RelatedGameSection
+            games={getRelatedGames(
+              relatedGames.relatedByCategory,
+              relatedGames.relatedByDeveloper,
+              game,
+            )}
+            lang={lang}
+            title={t.relatedGames}
+          />
+
           <section className="grid gap-6 lg:grid-cols-[1fr_340px]">
             <div className="flex flex-col gap-6">
               {editorial ? <ArticlePanel paragraphs={descriptionParagraphs.filter((paragraph) => paragraph !== summary)} title={t.overview} /> : null}
@@ -639,15 +649,6 @@ function LocalizedGameDetailPage() {
                 </section>
               ) : null}
               <SeoInternalLinkSection lang={lang} links={seoInternalLinks} />
-              <RelatedGameSection
-                games={getRelatedGames(
-                  relatedGames.relatedByCategory,
-                  relatedGames.relatedByDeveloper,
-                  game,
-                )}
-                lang={lang}
-                title={t.relatedGames}
-              />
               <FaqSection items={faqItems} title={t.faq} />
               <div className="hidden sm:block"><GameEmbedCard canonicalUrl={canonicalUrl} embedUrl={embedUrl} labels={t} title={game.name || 'POKOPIE'} /></div>
             </div>
@@ -913,7 +914,7 @@ function RelatedGameSection({
   return (
     <section>
       <h2 className="text-xl font-bold text-white">{title}</h2>
-      <div className="mt-4 grid gap-4 grid-cols-2 max-[360px]:grid-cols-1 xl:grid-cols-3">
+      <div className="mt-4 grid snap-x snap-mandatory grid-flow-col auto-cols-[minmax(180px,75vw)] gap-4 overflow-x-auto pb-3 sm:auto-cols-[220px] lg:grid-flow-row lg:grid-cols-3 lg:overflow-visible lg:pb-0 xl:grid-cols-6">
         {games.map((game) => (
           <RelatedGameCard game={game} key={game.url_slug ?? game._id} lang={lang} />
         ))}
@@ -964,7 +965,7 @@ function RelatedGameCard({ game, lang }: { game: PublicGame; lang: Locale }) {
 
   return (
     <Link
-      className="group overflow-hidden rounded-xl border border-white/10 bg-white/[0.04] shadow-sm transition duration-200 hover:-translate-y-0.5 hover:border-primary/60 hover:bg-white/[0.08] hover:shadow-lg"
+      className="group snap-start overflow-hidden rounded-xl border border-white/10 bg-white/[0.04] shadow-sm transition duration-200 hover:-translate-y-0.5 hover:border-primary/60 hover:bg-white/[0.08] hover:shadow-lg"
       params={{ gameId, locale: lang }}
       search={{}}
       to="/$locale/games/$gameId"
