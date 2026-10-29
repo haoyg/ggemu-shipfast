@@ -8,6 +8,7 @@ const slugs = ['murdoku-html5-2026', 'onet-master-html5', 'geometry-dash-advance
 
 describe('reviewed English game content', () => {
   it.each([
+    ['commandos-dos-1998', 'real-time tactics'],
     ['the-king-of-fighters-97-arcade-1997', 'Orochi Saga'],
     ['lilo-stitch-trouble-in-paradise-ps1-2002', 'action platform'],
     ['prince-of-persia-the-sands-of-time-java-2003', '2D action-platform'],

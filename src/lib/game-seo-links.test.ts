@@ -3,6 +3,15 @@ import { describe, expect, it } from 'vitest'
 import { getGameSeoInternalLinks } from './game-seo-links'
 
 describe('game SEO internal links', () => {
+  it('links Commandos to other reviewed PC strategy pages', () => {
+    const links = getGameSeoInternalLinks({ url_slug: 'commandos-dos-1998' }, 'en')
+
+    expect(links.map((link) => link.slug)).toEqual([
+      'theme-hospital-dos-1997',
+      'romance-of-the-three-kingdoms-iv-dos-1994',
+    ])
+  })
+
   it('cross-links Chinese strategy pages without self-links or English labels', () => {
     const links = getGameSeoInternalLinks({ url_slug: 'san-guo-qun-ying-zhuan-2-html5-1998' }, 'zh-CN')
     expect(links.map((link) => link.slug)).toEqual(['romance-of-the-three-kingdoms-iv-dos-1994', 'sanguosha-html5-2011'])

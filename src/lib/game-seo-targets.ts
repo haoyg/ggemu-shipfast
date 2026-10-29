@@ -20,6 +20,14 @@ const searchOnlyGameSeoBySlug = {
 } as const
 
 const targetedGameSeoBySlug = {
+  'commandos-dos-1998': {
+    heading: 'Play Commandos: Behind Enemy Lines Online',
+    title: 'Play Commandos: Behind Enemy Lines Online | POKOPIE',
+    description:
+      'Play Commandos: Behind Enemy Lines online. Lead six specialists through stealth missions, study patrols and coordinate each move in this 1998 tactics game.',
+    keywords:
+      'play Commandos Behind Enemy Lines online, Commandos online, Commandos 1998, real-time tactics game, Pyro Studios',
+  },
   'the-king-of-fighters-97-arcade-1997': {
     heading: "Play The King of Fighters '97 Online",
     title: "The King of Fighters '97 Online | Arcade Fighting Game",

@@ -3,6 +3,7 @@ import { Link, createFileRoute } from '@tanstack/react-router'
 
 import { getGameDetail } from '#/lib/ggemu'
 import { buildGameEmbedSrc, isPspGame } from '#/lib/game-embed'
+import { getUpstreamGameRouteId } from '#/lib/game-route-id'
 import { normalizeLocale } from '#/lib/i18n'
 import { siteConfig } from '#/lib/site-config'
 import { useCurrentSiteTheme } from '#/lib/use-site-theme'
@@ -14,7 +15,7 @@ const embedHeaders = {
 } as const
 
 export const Route = createFileRoute('/embed/$locale/games/$gameId')({
-  loader: ({ params }) => getGameDetail({ data: { id: params.gameId, locale: normalizeLocale(params.locale) } }),
+  loader: ({ params }) => getGameDetail({ data: { id: getUpstreamGameRouteId(params.gameId), locale: normalizeLocale(params.locale) } }),
   headers: () => embedHeaders,
   head: ({ loaderData, params }) => {
     const locale = normalizeLocale(params.locale)

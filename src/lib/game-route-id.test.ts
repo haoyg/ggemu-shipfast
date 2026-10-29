@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest'
 
 import {
   getCanonicalGameRouteId,
+  getUpstreamGameRouteId,
   isSitemapGameRouteId,
 } from './game-route-id'
 
@@ -11,6 +12,14 @@ describe('game route ids', () => {
       _id: '69d19027eb21396d61959413',
       name: 'Crash Bandicoot',
     })).toBe('crash-bandicoot-ps1-1996')
+  })
+
+  it.each([
+    ['69cda6d55d5e184df7111a2f', 'naruto-konoha-ninpouchou-wsc-2001'],
+    ['69d19a43eb21396d6195a021', 'new-super-mario-bros-nds-2006'],
+  ])('replaces a known bare ObjectId with a readable route', (_id, expected) => {
+    expect(getCanonicalGameRouteId({ _id })).toBe(expected)
+    expect(getUpstreamGameRouteId(expected)).toBe(_id)
   })
 
   it('keeps upstream readable slugs as canonical ids', () => {

@@ -16,6 +16,33 @@ export type GameEditorial = {
 
 // Reviewed against the linked sources on 2026-09-10. Player builds may differ.
 const editorials: Record<string, GameEditorial> = {
+  'commandos-dos-1998': {
+    summary: 'Commandos: Behind Enemy Lines is Pyro Studios’ 1998 real-time tactics game. Lead a six-person specialist squad through stealth, sabotage and rescue missions set during World War II.',
+    description: [
+      'Each commando has a different role, so progress depends on combining their abilities rather than sending the whole squad into a direct firefight. Observe patrol routes, isolate guards and plan an escape path before acting.',
+      'Steam describes 20 missions across Europe and North Africa, with an isometric camera and six commandos. The browser catalog labels this build as DOS, while the official Steam requirements describe the original PC release for Windows; this page does not claim that the browser build matches every retail edition.',
+      'This page runs the available build through a browser player. Keyboard, controller, save-state and fullscreen behavior belong to that player, so inspect its controls before starting a mission.',
+    ],
+    howToPlay: [
+      'Open the player controls and identify selection, movement, action, pause and menu inputs. Click inside the player first if keyboard commands do not register.',
+      'At the start of a mission, inspect guard patrols and lines of sight. Select the specialist whose equipment fits the immediate obstacle, then move one commando at a time until the route is secure.',
+      'Coordinate actions instead of rushing. Use distractions, cover and specialist tools to complete the objective, then bring surviving commandos to the required extraction point.',
+    ],
+    tips: [
+      'Save before a coordinated move if the current player provides a working save-state feature.',
+      'Keep inactive commandos out of patrol routes and check every escape path before triggering an objective.',
+      'If a command appears unavailable, confirm that the correct commando is selected and that the browser player has input focus.',
+    ],
+    faq: [
+      { question: 'What kind of game is Commandos: Behind Enemy Lines?', answer: 'It is a 1998 real-time tactics game built around stealth, observation and coordinating six specialists during World War II missions.' },
+      { question: 'How many commandos and missions are in the original game?', answer: 'The official Steam listing describes six commandos with distinct skills and 20 missions across Europe and North Africa.' },
+      { question: 'Can I play Commandos online without installing it?', answer: 'This page runs the available catalog build in a browser player. Player compatibility, controls and saving can vary by device, so check the controls and test saving before a long session.' },
+    ],
+    sources: [
+      { label: 'Steam: Commandos — Behind Enemy Lines', href: 'https://store.steampowered.com/app/6800/Commandos_Behind_Enemy_Lines/' },
+      { label: 'GOG: Commandos Ammo Pack', href: 'https://www.gog.com/en/game/commandos_ammo_pack' },
+    ],
+  },
   'the-king-of-fighters-97-arcade-1997': {
     summary: "The King of Fighters '97 is SNK's 1997 team fighting game and the conclusion of the Orochi Saga. Build a three-fighter team and choose between Advanced and Extra battle systems.",
     description: [

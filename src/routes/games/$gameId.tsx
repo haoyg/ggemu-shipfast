@@ -1,11 +1,12 @@
 import { createFileRoute, notFound, redirect } from '@tanstack/react-router'
 
 import { getGameDetail } from '#/lib/ggemu'
+import { getCanonicalGameRouteId, getUpstreamGameRouteId } from '#/lib/game-route-id'
 
 export const Route = createFileRoute('/games/$gameId')({
   beforeLoad: async ({ params }) => {
-    const game = await getGameDetail({ data: { id: params.gameId } }).catch(() => null)
-    const gameId = game?.url_slug?.trim() || game?._id?.trim()
+    const game = await getGameDetail({ data: { id: getUpstreamGameRouteId(params.gameId) } }).catch(() => null)
+    const gameId = game && getCanonicalGameRouteId(game)
 
     if (!gameId) {
       throw notFound()

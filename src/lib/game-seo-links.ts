@@ -7,6 +7,11 @@ export type GameSeoInternalLink = {
 
 const gameSeoLinkClusters: Array<Array<GameSeoInternalLink>> = [
   [
+    { label: 'Play Commandos: Behind Enemy Lines online', slug: 'commandos-dos-1998' },
+    { label: 'Play Theme Hospital online', slug: 'theme-hospital-dos-1997' },
+    { label: 'Play Romance of the Three Kingdoms IV online', slug: 'romance-of-the-three-kingdoms-iv-dos-1994' },
+  ],
+  [
     { label: 'Try Murdoku deduction puzzles', slug: 'murdoku-html5-2026' },
     { label: 'Try Onet Master tile matching', slug: 'onet-master-html5' },
   ],

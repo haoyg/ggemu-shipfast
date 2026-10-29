@@ -51,7 +51,7 @@ import {
   getGameSidebarContent,
 } from '#/lib/game-detail-content'
 import { getAlternateLinksFromCanonical, seoLocales } from '#/lib/seo'
-import { getCanonicalGameRouteId } from '#/lib/game-route-id'
+import { getCanonicalGameRouteId, getUpstreamGameRouteId } from '#/lib/game-route-id'
 
 export const Route = createFileRoute('/$locale/games/$gameId')({
   beforeLoad: ({ location, params }) => {
@@ -78,7 +78,7 @@ export const Route = createFileRoute('/$locale/games/$gameId')({
   loader: async ({ params }) => {
     const locale = normalizeLocale(params.locale)
     const detail = await getGameDetailPageData({
-      data: { id: params.gameId, locale },
+      data: { id: getUpstreamGameRouteId(params.gameId), locale },
     }).catch(() => ({ kind: 'temporary-error' as const }))
 
     if (detail.kind === 'not-found') {

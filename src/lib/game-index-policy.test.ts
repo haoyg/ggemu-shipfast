@@ -11,6 +11,7 @@ describe('game index policy', () => {
   })
 
   it.each([
+    'commandos-dos-1998',
     'the-king-of-fighters-97-arcade-1997',
     'lilo-stitch-trouble-in-paradise-ps1-2002',
     'prince-of-persia-the-sands-of-time-java-2003',

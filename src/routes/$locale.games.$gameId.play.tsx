@@ -4,6 +4,7 @@ import { useEffect } from 'react'
 
 import { getGameDetail } from '#/lib/ggemu'
 import { buildGameEmbedSrc, isPspGame } from '#/lib/game-embed'
+import { getUpstreamGameRouteId } from '#/lib/game-route-id'
 import { normalizeLocale } from '#/lib/i18n'
 import { siteConfig } from '#/lib/site-config'
 import { useCurrentSiteTheme } from '#/lib/use-site-theme'
@@ -42,7 +43,7 @@ export const Route = createFileRoute('/$locale/games/$gameId/play')({
   },
   loader: async ({ params }) => {
     const game = await getGameDetail({
-      data: { id: params.gameId, locale: normalizeLocale(params.locale) },
+      data: { id: getUpstreamGameRouteId(params.gameId), locale: normalizeLocale(params.locale) },
     })
 
     if (!game) {
