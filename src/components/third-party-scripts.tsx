@@ -78,11 +78,16 @@ function useGoogleAdsense(disabled: boolean) {
     }
 
     initializeGoogleConsentMode()
-    appendAsyncScript(
-      googleAdsenseScriptId,
-      `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${encodeURIComponent(client)}`,
-      'anonymous',
-    )
+
+    return scheduleWhenIdle(() => {
+      if (document.getElementById(googleAdsenseScriptId)) return
+
+      appendAsyncScript(
+        googleAdsenseScriptId,
+        `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${encodeURIComponent(client)}`,
+        'anonymous',
+      )
+    })
   }, [client, disabled])
 }
 

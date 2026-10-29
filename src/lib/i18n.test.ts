@@ -126,6 +126,39 @@ describe('i18n messages', () => {
     ])
   })
 
+  it.each([
+    ['es', '¿Puedo jugar a Pixel Quest online?', 'GBA', 'Acción'],
+    ['pt', 'Posso jogar Pixel Quest online?', 'GBA', 'Ação'],
+    ['fr', 'Peut-on jouer à Pixel Quest en ligne ?', 'GBA', 'Action'],
+    ['de', 'Kann ich Pixel Quest online spielen?', 'GBA', 'Action'],
+    ['it', 'Posso giocare a Pixel Quest online?', 'GBA', 'Azione'],
+  ] as const)('builds game-specific FAQs for %s', (locale, question, platform, category) => {
+    const faqs = getGameDetailFaqs({
+      categories: ['Action'],
+      name: 'Pixel Quest',
+      platform: 'GBA',
+    }, locale)
+
+    expect(faqs[0]?.question).toBe(question)
+    expect(faqs[2]?.answer).toContain(platform)
+    expect(faqs[2]?.answer).toContain(category)
+  })
+
+  it.each(['en', 'zh-CN', 'zh-TW', 'ja', 'ko', 'es', 'pt', 'fr', 'de', 'it'] as const)(
+    'does not promise mobile support for desktop-only games in %s',
+    (locale) => {
+      const deviceFaq = getGameDetailFaqs({
+        name: 'Desktop Puzzle',
+        play_device: 1,
+      }, locale).find((item) =>
+        /mobile|móvil|celular|Mobilgerät|dispositivo mobile|端末|设备|設備|모바일|devices/i.test(item.question),
+      )
+
+      expect(deviceFaq?.answer).toBeTruthy()
+      expect(deviceFaq?.answer).not.toMatch(/desktop, tablet, and mobile|桌面电脑、平板和手机|桌面電腦、平板和手機/)
+    },
+  )
+
   it('uses localized fallbacks for blog excerpts that do not match the page locale', () => {
     const blogPost = {
       excerpt: 'Play classic games directly in your browser with no download.',

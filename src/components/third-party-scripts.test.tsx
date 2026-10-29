@@ -77,7 +77,7 @@ describe('ThirdPartyScripts', () => {
     expect(document.querySelectorAll(`#${analyticsScriptId}`)).toHaveLength(1)
   })
 
-  it('loads AdSense after hydration on content pages', async () => {
+  it('loads AdSense when the browser becomes idle on content pages', async () => {
     render(<ThirdPartyScripts pathname="/en" />)
 
     await waitFor(() => {

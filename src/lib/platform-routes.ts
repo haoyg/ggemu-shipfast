@@ -30,3 +30,32 @@ export function getPlatformCollectionPath(path: string, locale: Locale) {
 
   return `/${locale}${path.replace(/^\/en/, '')}`
 }
+
+const gamePlatformCollectionPaths: Record<string, string> = {
+  arcade: '/en/arcade-games',
+  famicom: '/en/nes-games',
+  gba: '/en/gba-games',
+  genesis: '/en/sega-genesis-games',
+  'game boy advance': '/en/gba-games',
+  'mega drive': '/en/sega-genesis-games',
+  n64: '/en/n64-games',
+  nes: '/en/nes-games',
+  'nintendo 64': '/en/n64-games',
+  'nintendo entertainment system': '/en/nes-games',
+  playstation: '/en/ps1-games',
+  'playstation 1': '/en/ps1-games',
+  ps1: '/en/ps1-games',
+  'sega genesis': '/en/sega-genesis-games',
+  snes: '/en/snes-games',
+  'super famicom': '/en/snes-games',
+  'super nintendo': '/en/snes-games',
+}
+
+export function getGamePlatformCollectionPath(
+  platform: string | undefined,
+  locale: Locale,
+) {
+  const path = gamePlatformCollectionPaths[platform?.trim().toLowerCase() ?? '']
+
+  return path ? getPlatformCollectionPath(path, locale) : undefined
+}

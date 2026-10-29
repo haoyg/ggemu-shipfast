@@ -52,6 +52,7 @@ import {
 } from '#/lib/game-detail-content'
 import { getAlternateLinksFromCanonical, seoLocales } from '#/lib/seo'
 import { getCanonicalGameRouteId, getUpstreamGameRouteId } from '#/lib/game-route-id'
+import { getGamePlatformCollectionPath } from '#/lib/platform-routes'
 
 export const Route = createFileRoute('/$locale/games/$gameId')({
   beforeLoad: ({ location, params }) => {
@@ -438,6 +439,7 @@ function LocalizedGameDetailPage() {
   const categories = getLocalizedCategoryLabels(game.categories, lang)
   const languages = game.languages ?? []
   const platformLabel = getLocalizedPlatformLabel(game.platform, lang)
+  const platformCollectionPath = getGamePlatformCollectionPath(game.platform, lang)
   const faqItems = getGameFaqs(game, lang, editorial)
   const isMurdoku = lang === 'en' && game.url_slug === 'murdoku-html5-2026'
   const summary = editorial?.summary ?? searchSeo?.description ?? getGameDetailSummary(game, lang)
@@ -469,6 +471,11 @@ function LocalizedGameDetailPage() {
                     {t.home}
                   </Link>
                 </li>
+                {platformCollectionPath && platformLabel ? (
+                  <li>
+                    <a href={platformCollectionPath}>{platformLabel}</a>
+                  </li>
+                ) : null}
                 <li className="min-w-0">
                   <span className="block max-w-[min(70vw,32rem)] truncate">{game.name}</span>
                 </li>
@@ -737,6 +744,38 @@ export function getRelatedGuideForGame(game: Pick<PublicGame, 'platform' | 'url_
       href: '/en/guides/how-browser-game-saves-work',
       label: 'Read: How Browser Game Saves Work',
       description: 'Understand the difference between in-game saves, save states, and browser storage.',
+    }
+  }
+
+  if (platform === 'PlayStation 1' || platform === 'PlayStation' || platform === 'PS1') {
+    return {
+      href: '/en/guides/retro-platform-comparison',
+      label: 'Read: Retro Platform Comparison',
+      description: 'Compare PlayStation 1 with NES, GBA, and Nintendo 64 before choosing your next browser game.',
+    }
+  }
+
+  if (platform === 'Arcade') {
+    return {
+      href: '/en/guides/retro-game-controller-guide',
+      label: 'Read: Retro Game Controller Guide',
+      description: 'Check keyboard and gamepad setup before starting an arcade action, fighting, or shooting game.',
+    }
+  }
+
+  if (platform === 'Genesis' || platform === 'Sega Genesis' || platform === 'Mega Drive') {
+    return {
+      href: '/en/guides/browser-retro-gaming-guide',
+      label: 'Read: Browser Retro Gaming Guide',
+      description: 'Review browser, controller, and save basics before starting a Sega Genesis game.',
+    }
+  }
+
+  if (platform === 'HTML5' || platform === 'Flash' || platform === 'Java') {
+    return {
+      href: '/en/guides/browser-retro-gaming-guide',
+      label: 'Read: Browser Retro Gaming Guide',
+      description: 'Learn how browser controls, compatibility, and local saves can vary between web games.',
     }
   }
 

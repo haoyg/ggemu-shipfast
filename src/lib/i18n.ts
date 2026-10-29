@@ -292,13 +292,41 @@ export function getGameDetailFaqs(game: PublicGame, locale: Locale) {
   const developer = game.developer?.trim()
   const category = getLocalizedCategoryLabels(game.categories, locale)[0]
 
-  if (locale === 'fr' || locale === 'de' || locale === 'it') return getHomeFaqs(locale).items
-  if (locale === 'es' || locale === 'pt') return getHomeFaqs(locale).items.slice(0, 4)
+  if (locale === 'fr') return [
+    { question: `Peut-on jouer à ${name} en ligne ?`, answer: `Oui. Ouvrez la page de ${name}, puis sélectionnez Jouer pour lancer la version prise en charge dans votre navigateur.` },
+    { question: `Faut-il télécharger ${name} ?`, answer: `Non. Aucun émulateur séparé n'est nécessaire : le lecteur charge le jeu directement dans le navigateur.` },
+    { question: `Sur quelle plateforme et dans quel genre se classe ${name} ?`, answer: `${name}${platform ? ` est un jeu ${platform}` : ' est un jeu jouable dans le navigateur'}${category ? ` classé dans la catégorie ${category}` : ''}. Les informations disponibles figurent aussi dans la section Détails.` },
+    { question: `Peut-on jouer à ${name} sur mobile ?`, answer: getGameDeviceFaqAnswer(game, locale, name) },
+  ]
+  if (locale === 'de') return [
+    { question: `Kann ich ${name} online spielen?`, answer: `Ja. Öffne die Seite von ${name} und wähle Spielen, um die unterstützte Version im Browser zu starten.` },
+    { question: `Muss ich ${name} herunterladen?`, answer: `Nein. Du brauchst keinen separaten Emulator; der Player lädt das Spiel direkt im Browser.` },
+    { question: `Für welche Plattform und welches Genre ist ${name}?`, answer: `${name}${platform ? ` ist ein ${platform}-Spiel` : ' ist ein Browser-Spiel'}${category ? ` aus der Kategorie ${category}` : ''}. Weitere bekannte Angaben stehen im Bereich Details.` },
+    { question: `Kann ich ${name} auf einem Mobilgerät spielen?`, answer: getGameDeviceFaqAnswer(game, locale, name) },
+  ]
+  if (locale === 'it') return [
+    { question: `Posso giocare a ${name} online?`, answer: `Sì. Apri la pagina di ${name} e seleziona Gioca per avviare nel browser la versione supportata.` },
+    { question: `Devo scaricare ${name}?`, answer: `No. Non serve installare un emulatore separato: il player carica il gioco direttamente nel browser.` },
+    { question: `Qual è la piattaforma o il genere di ${name}?`, answer: `${name}${platform ? ` è un gioco per ${platform}` : ' è un gioco eseguibile nel browser'}${category ? ` della categoria ${category}` : ''}. Gli altri dati disponibili sono indicati nella sezione Dettagli.` },
+    { question: `Posso giocare a ${name} su un dispositivo mobile?`, answer: getGameDeviceFaqAnswer(game, locale, name) },
+  ]
+  if (locale === 'es') return [
+    { question: `¿Puedo jugar a ${name} online?`, answer: `Sí. Abre la página de ${name} y pulsa Jugar para iniciar en el navegador la versión compatible.` },
+    { question: `¿Tengo que descargar ${name}?`, answer: `No. No necesitas instalar un emulador aparte; el reproductor carga el juego directamente en el navegador.` },
+    { question: `¿De qué plataforma o género es ${name}?`, answer: `${name}${platform ? ` es un juego de ${platform}` : ' es un juego para navegador'}${category ? ` de la categoría ${category}` : ''}. La sección de detalles muestra los demás datos disponibles.` },
+    { question: `¿Puedo jugar a ${name} en un móvil?`, answer: getGameDeviceFaqAnswer(game, locale, name) },
+  ]
+  if (locale === 'pt') return [
+    { question: `Posso jogar ${name} online?`, answer: `Sim. Abra a página de ${name} e pressione Jogar para iniciar no navegador a versão compatível.` },
+    { question: `Preciso baixar ${name}?`, answer: `Não. Você não precisa instalar um emulador separado; o player carrega o jogo diretamente no navegador.` },
+    { question: `Qual é a plataforma ou o gênero de ${name}?`, answer: `${name}${platform ? ` é um jogo de ${platform}` : ' é um jogo para navegador'}${category ? ` da categoria ${category}` : ''}. A seção de detalhes mostra as outras informações disponíveis.` },
+    { question: `Posso jogar ${name} no celular?`, answer: getGameDeviceFaqAnswer(game, locale, name) },
+  ]
   if (locale === 'ko') return [
     { question: `${name}을 온라인으로 플레이할 수 있나요?`, answer: '게임 페이지의 플레이 버튼을 누르면 브라우저에서 시작할 수 있습니다. 게임 내 언어는 웹사이트 언어와 다를 수 있습니다.' },
     { question: '별도 설치가 필요한가요?', answer: '별도 에뮬레이터 설치 없이 브라우저가 게임 데이터를 불러옵니다.' },
     { question: '어떤 플랫폼의 게임인가요?', answer: `${platform || '클래식 게임'}${category ? ` · ${category}` : ''}. 관련 게임에서 비슷한 작품을 찾아보세요.` },
-    { question: '모바일에서도 플레이할 수 있나요?', answer: '호환성과 터치 조작은 게임 및 플레이어에 따라 다릅니다. 플레이어의 조작 설정을 확인하세요.' },
+    { question: '모바일에서도 플레이할 수 있나요?', answer: getGameDeviceFaqAnswer(game, locale, name) },
   ]
 
   if (locale === 'zh-TW') {
@@ -317,7 +345,7 @@ export function getGameDetailFaqs(game: PublicGame, locale: Locale) {
       },
       {
         question: `${name} 適合在哪些設備上游玩？`,
-        answer: `${name} 通常可以在現代瀏覽器中運行，包括桌面電腦、平板和手機。為了獲得更穩定的體驗，建議使用 Chrome 或其他主流瀏覽器。`,
+        answer: getGameDeviceFaqAnswer(game, locale, name),
       },
       ...(developer
         ? [
@@ -346,7 +374,7 @@ export function getGameDetailFaqs(game: PublicGame, locale: Locale) {
       },
       {
         question: `${name} 适合在哪些设备上游玩？`,
-        answer: `${name} 通常可以在现代浏览器中运行，包括桌面电脑、平板和手机。为了获得更稳定的体验，建议使用 Chrome 或其他主流浏览器。`,
+        answer: getGameDeviceFaqAnswer(game, locale, name),
       },
       ...(developer
         ? [
@@ -375,7 +403,7 @@ export function getGameDetailFaqs(game: PublicGame, locale: Locale) {
       },
       {
         question: `${name} はどの端末で遊べますか？`,
-        answer: `${name} は多くのモダンブラウザーで動作し、PC、タブレット、スマートフォンでプレイできます。安定した体験には Chrome などの主要ブラウザーをおすすめします。`,
+        answer: getGameDeviceFaqAnswer(game, locale, name),
       },
       ...(developer
         ? [
@@ -403,7 +431,7 @@ export function getGameDetailFaqs(game: PublicGame, locale: Locale) {
     },
     {
       question: `What devices can run ${name}?`,
-      answer: `${name} usually works in modern browsers on desktop, tablet, and mobile devices. For the most stable gameplay experience, use Chrome or another mainstream browser.`,
+      answer: getGameDeviceFaqAnswer(game, locale, name),
     },
     ...(developer
       ? [
@@ -414,6 +442,42 @@ export function getGameDetailFaqs(game: PublicGame, locale: Locale) {
         ]
       : []),
   ]
+}
+
+function getGameDeviceFaqAnswer(game: PublicGame, locale: Locale, name: string) {
+  const desktopOnly = game.play_device === 1
+
+  if (locale === 'fr') return desktopOnly
+    ? `La version intégrée de ${name} est indiquée comme compatible avec les ordinateurs. La prise en charge des commandes tactiles n'est pas annoncée.`
+    : `La compatibilité mobile et les commandes tactiles dépendent du jeu et du lecteur. Vérifiez les commandes affichées après le lancement de ${name}.`
+  if (locale === 'de') return desktopOnly
+    ? `Die eingebettete Version von ${name} ist für Desktop-Computer ausgewiesen. Eine Touch-Steuerung wird nicht zugesichert.`
+    : `Mobile Kompatibilität und Touch-Steuerung hängen vom Spiel und Player ab. Prüfe nach dem Start von ${name} die angezeigten Bedienelemente.`
+  if (locale === 'it') return desktopOnly
+    ? `La versione integrata di ${name} è indicata per computer desktop. I controlli touch non sono garantiti.`
+    : `La compatibilità mobile e i controlli touch dipendono dal gioco e dal player. Controlla i comandi mostrati dopo aver avviato ${name}.`
+  if (locale === 'es') return desktopOnly
+    ? `La versión integrada de ${name} está indicada para ordenadores. No se garantiza la disponibilidad de controles táctiles.`
+    : `La compatibilidad móvil y los controles táctiles dependen del juego y del reproductor. Comprueba los controles visibles después de iniciar ${name}.`
+  if (locale === 'pt') return desktopOnly
+    ? `A versão integrada de ${name} é indicada para computadores. A disponibilidade de controles por toque não é garantida.`
+    : `A compatibilidade com celular e os controles por toque dependem do jogo e do player. Confira os controles exibidos depois de iniciar ${name}.`
+  if (locale === 'zh-TW') return desktopOnly
+    ? `${name} 的站內嵌入版本標記為僅支持電腦，請勿假設手機上提供觸控按鍵。`
+    : `${name} 是否支持手機和觸控操作取決於遊戲與播放器，請在啟動後查看實際顯示的控制按鍵。`
+  if (locale === 'zh-CN') return desktopOnly
+    ? `${name} 的站内嵌入版本标记为仅支持电脑，请不要假设手机上提供触控按键。`
+    : `${name} 是否支持手机和触控操作取决于游戏与播放器，请在启动后查看实际显示的控制按键。`
+  if (locale === 'ja') return desktopOnly
+    ? `${name} の埋め込み版はデスクトップ向けと表示されています。タッチ操作には対応しているとは限りません。`
+    : `${name} のモバイル対応とタッチ操作はゲームとプレイヤーによって異なります。起動後に表示される操作ボタンを確認してください。`
+  if (locale === 'ko') return desktopOnly
+    ? `${name}의 임베드 버전은 데스크톱용으로 표시됩니다. 터치 조작은 지원된다고 보장할 수 없습니다.`
+    : `${name}의 모바일 호환성과 터치 조작은 게임과 플레이어에 따라 다릅니다. 실행 후 표시되는 조작 버튼을 확인하세요.`
+
+  return desktopOnly
+    ? `The embedded version of ${name} is marked for desktop computers. Touch controls are not guaranteed.`
+    : `Mobile compatibility and touch controls depend on the game and player. Check the controls shown after ${name} starts.`
 }
 
 function getFallbackGameName(locale: Locale) {

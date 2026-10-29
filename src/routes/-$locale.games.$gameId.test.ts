@@ -9,11 +9,13 @@ describe('game-related guides', () => {
     }
   })
 
-  it('preserves platform guides and does not recommend the card directory for tile or action games', () => {
+  it('preserves platform guides and expands useful guide coverage', () => {
     expect(getRelatedGuideForGame({ url_slug: 'contra-nes-1988', platform: 'Famicom' })?.href).toBe('/en/guides/nes-vs-snes-games')
     expect(getRelatedGuideForGame({ url_slug: 'pokemon-emerald-gba-2004', platform: 'Game Boy Advance' })?.href).toBe('/en/guides/how-browser-game-saves-work')
-    expect(getRelatedGuideForGame({ url_slug: 'xiangqi-mahjong-tian-jiang-shen-bing-arcade-1997', platform: 'HTML5' })).toBeUndefined()
-    expect(getRelatedGuideForGame({ platform: 'HTML5' })).toBeUndefined()
+    expect(getRelatedGuideForGame({ url_slug: 'dead-or-alive-ps1-1998', platform: 'PlayStation 1' })?.href).toBe('/en/guides/retro-platform-comparison')
+    expect(getRelatedGuideForGame({ url_slug: 'kof-97', platform: 'Arcade' })?.href).toBe('/en/guides/retro-game-controller-guide')
+    expect(getRelatedGuideForGame({ url_slug: 'streets-of-rage-3', platform: 'Genesis' })?.href).toBe('/en/guides/browser-retro-gaming-guide')
+    expect(getRelatedGuideForGame({ url_slug: 'web-puzzle', platform: 'HTML5' })?.href).toBe('/en/guides/browser-retro-gaming-guide')
   })
 })
 
