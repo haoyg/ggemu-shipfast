@@ -15,6 +15,19 @@ const playPageCopy = {
   ja: '別ページでプレイ',
 }
 
+const nextStepCopy = {
+  es: 'Un paso más: pulsa Play Now dentro del reproductor.',
+  pt: 'Mais um passo: selecione Play Now dentro do player.',
+  'zh-TW': '還有一步：請點擊播放器內的 Play Now。',
+  ko: '한 단계만 더 진행하세요. 플레이어 안의 Play Now를 누르세요.',
+  en: 'One more step: press Play Now inside the player.',
+  'zh-CN': '还差一步：请点击播放器内的 Play Now。',
+  ja: 'あと一歩です。プレイヤー内の Play Now を押してください。',
+  fr: 'Encore une étape : sélectionnez Play Now dans le lecteur.',
+  de: 'Noch ein Schritt: Wähle Play Now im Player.',
+  it: 'Ancora un passaggio: seleziona Play Now nel player.',
+}
+
 export function EmbeddedGamePlayer({
   description,
   game,
@@ -34,6 +47,7 @@ export function EmbeddedGamePlayer({
 }) {
   const theme = useCurrentSiteTheme()
   const playPageLabel = playPageCopy[locale as keyof typeof playPageCopy] ?? playPageCopy.en
+  const nextStepLabel = nextStepCopy[locale as keyof typeof nextStepCopy] ?? nextStepCopy.en
   const isPsp = isPspGame(game)
   const embedSrc = buildGameEmbedSrc({
     embedId: game._id || game.url_slug || gameId,
@@ -68,6 +82,12 @@ export function EmbeddedGamePlayer({
           {playPageLabel}
         </a>
       </div>
+      {loadImmediately ? (
+        <p className="border-b border-white/10 bg-primary/10 px-4 py-2 text-sm font-semibold text-primary sm:px-6" role="status">
+          <i aria-hidden="true" className="ri-arrow-down-line mr-1" />
+          {nextStepLabel}
+        </p>
+      ) : null}
       {!isPsp ? <div className="aspect-video min-h-96 w-full min-w-0 bg-black">
         <GamePlayerFrame
           allow="autoplay; gamepad"

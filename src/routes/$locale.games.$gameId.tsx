@@ -259,7 +259,9 @@ function getRelatedGameScore(candidate: PublicGame, currentGame: PublicGame) {
   const sharedCategories = candidate.categories?.filter((category) => currentCategories.has(category.trim().toLowerCase())).length ?? 0
   const sameDeveloper = Boolean(candidate.developer?.trim()) && candidate.developer?.trim().toLowerCase() === currentGame.developer?.trim().toLowerCase()
 
-  return (samePlatform ? 100 : 0) + sharedCategories * 20 + (sameDeveloper ? 10 : 0) + Math.log10((candidate.plays_count ?? 0) + 1)
+  const hasCover = Boolean(candidate.game_cover?.trim())
+
+  return (samePlatform ? 100 : 0) + sharedCategories * 20 + (sameDeveloper ? 10 : 0) + (hasCover ? 15 : 0) + Math.log10((candidate.plays_count ?? 0) + 1)
 }
 
 function getGameRouteId(game: PublicGame) {
@@ -619,6 +621,7 @@ function LocalizedGameDetailPage() {
               game,
             )}
             lang={lang}
+            sourceGameId={gameId}
             title={t.relatedGames}
           />
 
@@ -901,10 +904,12 @@ function FaqSection({
 function RelatedGameSection({
   games,
   lang,
+  sourceGameId,
   title,
 }: {
   games: Array<PublicGame>
   lang: Locale
+  sourceGameId: string
   title: string
 }) {
   if (games.length === 0) {
@@ -916,7 +921,7 @@ function RelatedGameSection({
       <h2 className="text-xl font-bold text-white">{title}</h2>
       <div className="mt-4 grid snap-x snap-mandatory grid-flow-col auto-cols-[minmax(180px,75vw)] gap-4 overflow-x-auto pb-3 sm:auto-cols-[220px] lg:grid-flow-row lg:grid-cols-3 lg:overflow-visible lg:pb-0 xl:grid-cols-6">
         {games.map((game) => (
-          <RelatedGameCard game={game} key={game.url_slug ?? game._id} lang={lang} />
+          <RelatedGameCard game={game} key={game.url_slug ?? game._id} lang={lang} sourceGameId={sourceGameId} />
         ))}
       </div>
     </section>
@@ -956,7 +961,7 @@ function SeoInternalLinkSection({
   )
 }
 
-function RelatedGameCard({ game, lang }: { game: PublicGame; lang: Locale }) {
+function RelatedGameCard({ game, lang, sourceGameId }: { game: PublicGame; lang: Locale; sourceGameId: string }) {
   const gameId = game.url_slug || game._id || ''
 
   if (!gameId) {
@@ -966,6 +971,7 @@ function RelatedGameCard({ game, lang }: { game: PublicGame; lang: Locale }) {
   return (
     <Link
       className="group snap-start overflow-hidden rounded-xl border border-white/10 bg-white/[0.04] shadow-sm transition duration-200 hover:-translate-y-0.5 hover:border-primary/60 hover:bg-white/[0.08] hover:shadow-lg"
+      onClick={() => trackEvent('related_game_click', { game_id: gameId, locale: lang, source_game: sourceGameId })}
       params={{ gameId, locale: lang }}
       search={{}}
       to="/$locale/games/$gameId"
