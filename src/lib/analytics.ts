@@ -91,7 +91,7 @@ type FunnelEvent = 'game_play_click' | 'player_load_start' | 'player_frame_loade
   | 'game_view' | 'game_start' | 'game_complete' | 'game_restart' | 'hint_used' | 'game_share'
   | 'page_performance'
   | 'web_vitals'
-  | 'game_promotion_click' | 'related_game_click' | 'card_directory_filter' | 'guide_click' | 'ps5x_checker_filter'
+  | 'game_promotion_click' | 'card_directory_filter' | 'guide_click' | 'ps5x_checker_filter'
 
 type LayoutShiftEntry = PerformanceEntry & {
   hadRecentInput: boolean
