@@ -455,17 +455,23 @@ const editorials: Record<string, GameEditorial> = {
     ],
   },
   'three-wonders-arcade-1991': {
+    reviewedAt: '2026-11-01',
     summary: 'Three Wonders is Capcom’s three-game arcade collection: Midnight Wanderers, Chariot and Don’t Pull.',
     description: [
       'Midnight Wanderers is the action-platform adventure. Chariot is the scrolling flying shooter. Don’t Pull is the block-pushing puzzle game. Choose the mode you want from the game’s selection screen.',
       'Looking for Midnight Wanderers? It is part of Three Wonders, so you do not need a separate page to identify the collection. This page provides a browser player, not a downloadable game installer.',
+      'Capcom’s collection manual lists support for one or two cooperative players. Browser multiplayer still depends on the loaded player and its available local controls; this page does not promise online matchmaking.',
     ],
     howToPlay: [
       'Check the arcade player’s credit, start and action mappings, then choose one of the three games.',
       'In Midnight Wanderers, use movement, jumping and attacks to progress. In Chariot, steer through the flying stages and avoid incoming attacks.',
       'In Don’t Pull, plan how to push blocks against enemies. Check the controls again when switching modes, since each game uses a different style of play.',
     ],
-    tips: ['Choose Midnight Wanderers for platform action, Chariot for shooting, or Don’t Pull for puzzles.', 'Check the player’s options before assuming a second controller or online multiplayer is supported.'],
+    tips: [
+      'Choose Midnight Wanderers for platform action, Chariot for shooting, or Don’t Pull for puzzles.',
+      'Check the player’s options before assuming a second controller or online multiplayer is supported.',
+      'Return to the collection menu when you want to change genres instead of searching for a separate game page.',
+    ],
     faq: [
       { question: 'Which games are included in Three Wonders?', answer: 'The collection contains Midnight Wanderers, the action-platform game; Chariot, the flying shooter; and Don’t Pull, the block-pushing puzzle game.' },
       { question: 'Is Midnight Wanderers a separate game?', answer: 'Midnight Wanderers is one of the three games in Three Wonders. Select it from the collection’s game menu.' },
@@ -474,17 +480,23 @@ const editorials: Record<string, GameEditorial> = {
     sources: [{ label: 'Capcom Classics Collection Remixed manual: Three Wonders, page 23', href: 'https://static.capcom.com/cccr/manuals/PSP_Manual.pdf' }],
   },
   'pipi-and-bibis-other-1991': {
+    reviewedAt: '2026-11-01',
     summary: 'Pipi & Bibi’s, also known as Whoopee!!, is a Toaplan arcade action game about planting bombs and escaping safely.',
     description: [
       'The original uses four-direction movement and a Shredder Beam to deal with enemies. Its stage-clear bonus imagery includes adult themes, so it is not presented here as a children’s game.',
       'The browser player’s key assignments are separate from the original cabinet controls. Check its control menu before starting.',
+      'Toaplan’s official catalog lists the arcade release as 1992 and describes 24 stages. The upstream browser catalog uses 1991 in this page’s URL, so this guide follows the official release year instead of treating the slug as authoritative.',
     ],
     howToPlay: [
       'Find the required bomb locations and plan a route through the stage that leaves a safe way out.',
       'Use the Shredder Beam against enemies. Continued hits can knock an enemy down a floor, giving you room to move.',
       'After planting the bombs, escape safely. Enemy contact, enemy attacks and your own bomb blasts can cost a life.',
     ],
-    tips: ['Plan the escape before placing the final bomb.', 'Do not assume local two-player support means online multiplayer.'],
+    tips: [
+      'Plan the escape before placing the final bomb.',
+      'Keep enough distance from planted bombs because their blast can cost a life.',
+      'Do not assume local two-player support means online multiplayer.',
+    ],
     faq: [
       { question: 'What is the objective in Pipi & Bibi’s?', answer: 'Plant the required bombs and escape safely. Plan the route before placing the final bomb, because enemy contact and blasts can cost a life.' },
       { question: 'What is the Shredder Beam for?', answer: 'Use the Shredder Beam against enemies. Continued hits can knock an enemy down a floor and create room to move.' },

@@ -17,6 +17,8 @@ describe('reviewed English game content', () => {
     ['the-king-of-fighters-97-arcade-1997', 'Orochi Saga'],
     ['gals-panic-arcade', 'area-capture game'],
     ['geometry-dash-advance-gba-2025', 'community-made Geometry Dash demake'],
+    ['three-wonders-arcade-1991', 'three-game arcade collection'],
+    ['pipi-and-bibis-other-1991', 'planting bombs'],
   ])('provides unique reviewed content for SEO opportunity %s', (url_slug, expectedText) => {
     const editorial = getGameEditorial({ url_slug }, 'en')
 
@@ -111,6 +113,12 @@ describe('reviewed English game content', () => {
     const onet = getGameEditorial({ url_slug: 'onet-master-html5' }, 'en')!
     expect(onet.description.join(' ')).toContain('three straight segments')
     expect(onet.description.join(' ')).toContain('two turns')
+  })
+
+  it('uses Toaplan release data instead of trusting the Pipi and Bibis URL year', () => {
+    const pipi = getGameEditorial({ url_slug: 'pipi-and-bibis-other-1991' }, 'en')!
+    expect(pipi.description.join(' ')).toContain('official catalog lists the arcade release as 1992')
+    expect(pipi.description.join(' ')).toContain('24 stages')
   })
 
   it('covers Geometry Dash Advance GBA search intent with version-safe facts', () => {
