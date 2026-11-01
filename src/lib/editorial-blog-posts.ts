@@ -1,6 +1,98 @@
 import { editorialBlogPosts } from './editorial-blog-index'
 
 const contentBySlug: Record<string, string> = {
+  'how-to-play-roms-in-browser': `A browser-based retro game player can run a compatible game without asking you to install a separate desktop emulator. The web page supplies the player interface, while the loaded game still follows the controls, save system and limitations of its original platform. Before starting, check the exact game version, input mapping and save options instead of assuming every page behaves the same way.
+
+This guide explains the process without offering ROM downloads. Only use game files and services you are legally allowed to use. POKOPIE game pages provide the available browser entry and version notes; they do not make every original accessory, network service or console feature work in a modern browser.
+
+## Choose the exact game and platform
+
+Start with the game’s detail page rather than a generic player window. Read the listed platform, release year, language and version notes. A title may have separate NES, SNES, Game Boy Advance, Nintendo 64, PlayStation or arcade editions with different controls, levels and save systems.
+
+Do not assume that a familiar name identifies the exact release. Paperboy on Nintendo 64 is not the same build as the arcade or NES game. Donkey Kong on NES omits one screen from the full arcade release. A browser page should describe the loaded edition rather than combining facts from every version.
+
+Use POKOPIE’s platform collections to narrow the library:
+
+https://pokopie.com/en/nes-games
+
+https://pokopie.com/en/snes-games
+
+https://pokopie.com/en/gba-games
+
+https://pokopie.com/en/n64-games
+
+https://pokopie.com/en/ps1-games
+
+## Start the player and give it input focus
+
+Select the visible Play button and wait for the player to finish loading. Some pages have one launch button on the detail page and another inside the player. Complete each visible step once instead of repeatedly clicking while game data is still loading.
+
+Click inside the game area before using the keyboard. If a search field, browser address bar or surrounding page has focus, arrow keys and letters may control the page instead of the game. Open the player’s controls menu and identify directions, confirm, cancel, Start, Select and any shoulder or arcade credit buttons.
+
+Keyboard mappings vary by player and platform. A common example on some checked POKOPIE builds is W/A/S/D for directions, K for the original A button, J for B and Enter for Start, but that is not a universal layout. Fighting games, Nintendo 64 games and browser-native puzzles can use different mappings.
+
+## Test controls before a long session
+
+Use a title screen or safe opening area to test one action at a time. Confirm movement, the primary action, cancel and pause. For a fighting game, identify all attack buttons. For an arcade game, check whether it needs a credit input before Start. For a Nintendo DS game, verify how the player displays two screens and exposes touch input.
+
+If a modern controller is connected, check the selected controller port and Player 1 assignment. Browser detection alone does not prove that the correct player or every button is mapped. Test both movement and an action before relying on the controller.
+
+Touch controls are player-specific. A phone overlay may omit buttons needed by an original controller, and some upstream games explicitly restrict phone use. A site language switch cannot remove a device limitation imposed by the loaded player.
+
+## Understand game saves, save states and browser storage
+
+An in-game save is created by the game’s own menu. A save state captures the emulator’s current machine state. They are different, and one does not guarantee the other is available.
+
+After making a small amount of progress, create a test save using the method the page provides. Reload it before committing to a long session. If the player offers export or download for save data, keep a backup before clearing browser data, changing profiles or moving to another device.
+
+Browser storage can be tied to the current domain and profile. Private browsing, storage cleanup and browser privacy settings may remove or isolate progress. Do not clear site data as the first response to a loading problem.
+
+Read the dedicated save guide:
+
+https://pokopie.com/en/guides/how-browser-game-saves-work
+
+## Fix black screens, missing sound and unresponsive keys
+
+A black screen can mean the player is still loading, waiting for Start, blocked on an unsupported device or unable to fetch a game resource. Wait for the visible loading step, then compare with one smaller game to determine whether the problem affects one title or the whole connection.
+
+For missing sound, interact with the player first. Modern browsers can delay audio until a user gesture. Then check the player volume, muted browser tab, operating-system output and connected Bluetooth device.
+
+For unresponsive keys, click the player, reopen its control mapping and make sure another input field does not have focus. Reload only after protecting any save data. If the failure continues, record the game URL, browser, device and visible message.
+
+Use the troubleshooting guide:
+
+https://pokopie.com/en/blog/browser-game-black-screen-no-sound-controls-fix
+
+## Know which original features may not work
+
+Browser play does not automatically reproduce original hardware accessories or discontinued network services. Pokémon HeartGold’s Pokéwalker used infrared communication with a physical Nintendo DS Game Card. Nintendo Wi-Fi Connection for Nintendo DS software was discontinued in 2014. These features should not be advertised as available merely because the main game starts.
+
+The same caution applies to light guns, microphones, link cables, memory cards, local multiplayer ports and analog controls. The detail page should state known limitations; otherwise test the required feature before investing time in the game.
+
+## A quick browser-play checklist
+
+1. Confirm the game title, platform, language and version.
+2. Open the player and wait for loading to finish.
+3. Focus the game area and inspect the current controls.
+4. Test movement, actions, Start and pause.
+5. Check device-specific features such as touch, analog input or two screens.
+6. Create and restore a small test save.
+7. Keep an export or backup if the player supports it.
+8. Treat original network and accessory features as unsupported unless verified.
+
+## Technical references
+
+MDN explains how IndexedDB provides persistent browser storage for web applications:
+
+https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API
+
+Chrome’s autoplay policy explains why audio may wait for user interaction:
+
+https://developer.chrome.com/blog/autoplay
+
+EmulatorJS documents control mapping for players that use EmulatorJS:
+
+https://emulatorjs.org/docs4devs/control-mapping/`,
   'murdoku-beginner-solving-guide': `Murdoku asks you to reconstruct a crime scene, not fill a grid with numbers. Place every person according to the clues, keeping each person in a different row and column. Once the arrangement works, identify the person alone with the victim in the same area. Start with a definite placement and use it to eliminate possibilities elsewhere.
 
 This guide uses an invented example rather than an answer to an official case. For the original rules, see Manuel Garand’s printable Courtroom puzzle. The definitions below follow that case; always read the legend for the puzzle you actually open.

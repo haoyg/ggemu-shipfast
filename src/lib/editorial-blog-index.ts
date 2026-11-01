@@ -4,6 +4,11 @@ const publishedAt = '2026-10-15T00:00:00Z'
 
 export const editorialBlogPosts: BlogPost[] = [
   {
+    slug: 'how-to-play-roms-in-browser',
+    title: 'How to Play ROMs in a Browser: Controls, Saves and Compatibility',
+    excerpt: 'Learn how browser-based retro game players work, how to check controls and saves, and what to verify before starting a long play session.',
+  },
+  {
     slug: 'murdoku-beginner-solving-guide',
     title: 'How to Solve Murdoku: A Beginner’s Deduction Guide',
     excerpt: 'Learn Murdoku with an original worked example: record candidates, eliminate rows and columns, interpret beside clues and identify who was alone with the victim.',

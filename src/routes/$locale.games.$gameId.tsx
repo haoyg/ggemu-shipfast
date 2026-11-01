@@ -655,6 +655,13 @@ function LocalizedGameDetailPage() {
                   }}>{relatedGuide.label}</a>
                 </section>
               ) : null}
+              {lang === 'en' && game.platform !== 'HTML5' ? (
+                <section className="rounded-xl border border-cyan-300/20 bg-cyan-300/[0.07] p-5 shadow-sm">
+                  <h2 className="text-lg font-bold text-white">Playing ROMs in a browser</h2>
+                  <p className="mt-2 text-sm leading-6 text-white/70">Review controls, save methods, browser storage and platform limitations before starting a long session.</p>
+                  <Link className="link link-primary mt-3 inline-block" params={{ blogId: 'how-to-play-roms-in-browser', locale: 'en' }} to="/$locale/blog/$blogId">Read the browser ROM guide</Link>
+                </section>
+              ) : null}
               <SeoInternalLinkSection lang={lang} links={seoInternalLinks} />
               <FaqSection items={faqItems} title={t.faq} />
               <div className="hidden sm:block"><GameEmbedCard canonicalUrl={canonicalUrl} embedUrl={embedUrl} labels={t} title={game.name || 'POKOPIE'} /></div>

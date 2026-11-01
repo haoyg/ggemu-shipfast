@@ -186,6 +186,13 @@ export function GameCollectionPage({
                 <a className="link link-primary mt-3 inline-block" href={config.relatedGuide.href}>{locale === 'fr' ? 'Lire le guide en anglais' : locale === 'de' ? 'Englische Anleitung lesen' : locale === 'es' ? 'Leer guía en inglés' : locale === 'pt' ? 'Ler guia em inglês' : config.relatedGuide.label}</a>
               </aside>
             ) : null}
+            {locale === 'en' ? (
+              <aside className="mt-4 rounded-xl border border-cyan-300/20 bg-cyan-300/[0.07] p-5">
+                <h3 className="font-bold text-white">Playing ROMs in a browser</h3>
+                <p className="mt-2 text-sm leading-6 text-white/70">Check controls, save methods, browser storage and platform limitations before starting a long session.</p>
+                <a className="link link-primary mt-3 inline-block" href="/en/blog/how-to-play-roms-in-browser">Read the browser ROM guide</a>
+              </aside>
+            ) : null}
           </article>
 
           <div className="divide-y divide-white/10 border-y border-white/10">
