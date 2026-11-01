@@ -305,6 +305,15 @@ function serializeJsonLd(data: unknown) {
   return JSON.stringify(data).replace(/</g, '\\u003c')
 }
 
+function formatEditorialReviewDate(reviewedAt: string) {
+  return new Intl.DateTimeFormat('en-US', {
+    day: 'numeric',
+    month: 'short',
+    timeZone: 'UTC',
+    year: 'numeric',
+  }).format(new Date(`${reviewedAt}T00:00:00Z`))
+}
+
 export function buildGameStructuredData({
   canonicalUrl,
   editorial,
@@ -384,6 +393,35 @@ export function buildGameStructuredData({
 
   if (faqItems.length > 0) {
     schemas.push(faqSchema)
+  }
+
+  if (editorial?.reviewedAt && editorial.sources.length > 0) {
+    schemas.push({
+      '@context': 'https://schema.org',
+      '@type': 'Article',
+      '@id': `${canonicalUrl}#guide`,
+      headline: seo.title,
+      description: seo.description,
+      mainEntityOfPage: canonicalUrl,
+      about: { '@id': `${canonicalUrl}#game` },
+      dateModified: editorial.reviewedAt,
+      inLanguage: locale,
+      author: {
+        '@type': 'Organization',
+        name: 'POKOPIE',
+        url: new URL('/', canonicalUrl).toString(),
+      },
+      publisher: {
+        '@type': 'Organization',
+        name: 'POKOPIE',
+        url: new URL('/', canonicalUrl).toString(),
+      },
+      citation: editorial.sources.map((source) => ({
+        '@type': 'CreativeWork',
+        name: source.label,
+        url: new URL(source.href, canonicalUrl).toString(),
+      })),
+    })
   }
 
   const howToSteps = getGameHowToPlayParagraphs(game, locale, editorial)
@@ -523,6 +561,12 @@ function LocalizedGameDetailPage() {
                       <span className="truncate">{platformLabel}</span>
                     </span>
                   ) : null}
+                  {lang === 'en' && editorial?.reviewedAt ? (
+                    <span className="badge badge-sm badge-success max-w-full gap-1 sm:badge-md">
+                      <i aria-hidden="true" className="ri-verified-badge-line" />
+                      POKOPIE reviewed · {formatEditorialReviewDate(editorial.reviewedAt)}
+                    </span>
+                  ) : null}
                 </div>
                 {languages.length > 0 ? (
                   <p className="mb-2 text-sm text-white/75">
@@ -641,7 +685,7 @@ function LocalizedGameDetailPage() {
                 <section className="rounded-xl border border-white/10 bg-white/[0.04] p-5">
                   <h2 className="text-lg font-bold text-white">{lang === 'zh-CN' ? '资料来源' : 'Game references'}</h2>
                   <ul className="mt-3 space-y-2">
-                    {editorial.sources.map((source) => <li key={source.href}><a className="link link-primary text-sm" href={source.href}>{source.label}</a></li>)}
+                    {editorial.sources.map((source) => <li key={source.href}><a className="link link-primary text-sm" href={source.href} rel={source.href.startsWith('http') ? 'noopener noreferrer' : undefined} target={source.href.startsWith('http') ? '_blank' : undefined}>{source.label}</a></li>)}
                   </ul>
                 </section>
               ) : null}
@@ -650,7 +694,7 @@ function LocalizedGameDetailPage() {
                   <h2 className="text-lg font-bold text-white">Editorial review status</h2>
                   <p className="mt-2 text-sm leading-6 text-white/70">
                     This game guide was editorially reviewed on{' '}
-                    <time dateTime={editorial.reviewedAt}>November 1, 2026</time>. Browser player availability, exact controls, save support, and device compatibility can change after this content review.
+                    <time dateTime={editorial.reviewedAt}>{formatEditorialReviewDate(editorial.reviewedAt)}</time>. Browser player availability, exact controls, save support, and device compatibility can change after this content review.
                   </p>
                 </section>
               ) : null}

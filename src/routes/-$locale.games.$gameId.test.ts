@@ -81,4 +81,48 @@ describe('buildGameStructuredData', () => {
 
     expect(videoSchema).toBeUndefined()
   })
+
+  it('adds source-backed article provenance only for reviewed guides', () => {
+    const canonicalUrl = 'https://pokopie.com/en/games/contra-nes-1988'
+    const structuredData = buildGameStructuredData({
+      canonicalUrl,
+      editorial: {
+        reviewedAt: '2026-11-01',
+        summary: 'Reviewed Contra guide.',
+        description: ['Reviewed description.'],
+        howToPlay: ['Check the controls.'],
+        tips: ['Test saving early.'],
+        faq: [],
+        sources: [
+          { label: 'Official manual', href: 'https://example.com/manual' },
+          { label: 'POKOPIE save guide', href: '/en/guides/how-browser-game-saves-work' },
+        ],
+      },
+      faqItems: [],
+      game: { name: 'Contra' },
+      locale: 'en',
+      seo: {
+        description: 'Reviewed Contra browser guide.',
+        keywords: 'Contra, NES',
+        title: 'Contra Online Guide',
+      },
+    })
+
+    const articleSchema = structuredData.find((schema) => {
+      return typeof schema === 'object' && schema !== null && '@type' in schema && schema['@type'] === 'Article'
+    })
+
+    expect(articleSchema).toMatchObject({
+      '@id': `${canonicalUrl}#guide`,
+      '@type': 'Article',
+      about: { '@id': `${canonicalUrl}#game` },
+      author: { '@type': 'Organization', name: 'POKOPIE' },
+      dateModified: '2026-11-01',
+      mainEntityOfPage: canonicalUrl,
+    })
+    expect(articleSchema).toHaveProperty('citation', [
+      { '@type': 'CreativeWork', name: 'Official manual', url: 'https://example.com/manual' },
+      { '@type': 'CreativeWork', name: 'POKOPIE save guide', url: 'https://pokopie.com/en/guides/how-browser-game-saves-work' },
+    ])
+  })
 })
