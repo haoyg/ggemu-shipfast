@@ -3,6 +3,19 @@ import { describe, expect, it } from 'vitest'
 import { getIndexableGameLocales, isIndexableGameDetail } from './game-index-policy'
 
 describe('game index policy', () => {
+  it.each([
+    'super-mario-bros-the-lost-levels-enhanced-snes-1993',
+    'paperboy-n64-1999',
+    'pok-mon-heartgold-version-nds-2009',
+    'donkey-kong-nes-1983',
+    'tekken-ps1-1995',
+  ])('keeps the English SEO target %s indexable', (url_slug) => {
+    const game = { url_slug }
+
+    expect(isIndexableGameDetail(game, 'en')).toBe(true)
+    expect(getIndexableGameLocales(game)).toContain('en')
+  })
+
   it('keeps manually improved English game pages indexable', () => {
     const game = { url_slug: 'geometry-dash-advance-gba-2025' }
 

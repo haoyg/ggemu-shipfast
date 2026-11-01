@@ -20,6 +20,46 @@ const searchOnlyGameSeoBySlug = {
 } as const
 
 const targetedGameSeoBySlug = {
+  'super-mario-bros-the-lost-levels-enhanced-snes-1993': {
+    heading: 'Play Super Mario Bros.: The Lost Levels Online',
+    title: 'Play Super Mario Bros. The Lost Levels Online | POKOPIE',
+    description:
+      'Play Super Mario Bros.: The Lost Levels online in your browser. Learn the SNES controls, poison mushroom hazards, wind mechanics and beginner tips.',
+    keywords:
+      'Super Mario Bros The Lost Levels online, play Lost Levels online, Lost Levels online game, SNES Mario game',
+  },
+  'paperboy-n64-1999': {
+    heading: 'Play Paperboy Online Free',
+    title: 'Play Paperboy Online Free | Nintendo 64 | POKOPIE',
+    description:
+      'Play Paperboy online free in your browser. Deliver newspapers, avoid street hazards, learn the Nintendo 64 controls and improve your route score.',
+    keywords:
+      'Paperboy online, play Paperboy online, Paperboy online free, Paperboy game online free, Paperboy N64',
+  },
+  'pok-mon-heartgold-version-nds-2009': {
+    heading: 'Play Pokémon HeartGold Online',
+    title: 'Play Pokémon HeartGold Online | Nintendo DS | POKOPIE',
+    description:
+      'Play Pokémon HeartGold online in your browser. Explore Johto, choose a starter, learn the Nintendo DS controls and check browser save guidance before playing.',
+    keywords:
+      'Pokémon HeartGold online, Pokemon HeartGold game online, Pokemon Heart Gold online, play HeartGold online',
+  },
+  'donkey-kong-nes-1983': {
+    heading: 'Play Donkey Kong Online',
+    title: 'Play Donkey Kong Online | Classic NES Game | POKOPIE',
+    description:
+      'Play Donkey Kong online in your browser. Climb ladders, dodge barrels, use hammers and learn the controls for Nintendo’s classic NES arcade game.',
+    keywords:
+      'Donkey Kong play online, Donkey Kong online, play Donkey Kong NES, classic Donkey Kong game',
+  },
+  'tekken-ps1-1995': {
+    heading: 'Play Tekken Online',
+    title: 'Play Tekken Online | PlayStation Fighting Game | POKOPIE',
+    description:
+      'Play Tekken online in your browser. Choose a fighter, learn the PlayStation controls, practice basic attacks and start a match without a separate download.',
+    keywords:
+      'Tekken online, play Tekken online, unblocked Tekken, Tekken PS1, PlayStation fighting game',
+  },
   'commandos-dos-1998': {
     heading: 'Play Commandos: Behind Enemy Lines Online',
     title: 'Play Commandos: Behind Enemy Lines Online | POKOPIE',
