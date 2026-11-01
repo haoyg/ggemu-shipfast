@@ -117,6 +117,27 @@ const platformSeoPaths: Record<string, string> = {
   'Super Nintendo': '/en/snes-games',
 }
 
+const englishGuideSignals = [
+  {
+    description: 'Learn how input focus, browser storage, save methods, and player limitations affect a session.',
+    href: '/en/blog/how-to-play-roms-in-browser',
+    icon: 'ri-browser-line',
+    title: 'Browser play guide',
+  },
+  {
+    description: 'Check keyboard mapping, analog controls, and gamepad setup before opening a difficult game.',
+    href: '/en/guides/retro-game-controller-guide',
+    icon: 'ri-gamepad-line',
+    title: 'Controls guidance',
+  },
+  {
+    description: 'Use platform hubs to see explicit desktop-only flags and honest save-support caveats.',
+    href: '/en/gba-games#compatibility-check',
+    icon: 'ri-shield-check-line',
+    title: 'Compatibility notes',
+  },
+] as const
+
 export function DefaultHomeTemplate(props: HomeTemplateProps) {
   const {
     filterOptions,
@@ -452,6 +473,23 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
           </section>
 
           <section className="arcade-section px-3 py-7 sm:px-6 sm:py-9 lg:px-8">
+            {lang === 'en' && !hasActiveFilters ? (
+              <section aria-labelledby="home-guide-first-title" className="arcade-card mb-8 border border-emerald-300/20 p-4 sm:p-5">
+                <p className="arcade-kicker text-emerald-300">Guide-first discovery</p>
+                <h2 className="mt-2 text-2xl font-black text-white" id="home-guide-first-title">Use POKOPIE before you press play</h2>
+                <p className="mt-2 max-w-3xl text-sm leading-6 text-white/65">The player can change independently. These guides help you check the version, controls, saves, and device limitations first.</p>
+                <div className="mt-5 grid gap-3 md:grid-cols-3">
+                  {englishGuideSignals.map((signal) => (
+                    <a className="group rounded-xl border border-white/10 bg-white/[0.04] p-4 transition hover:-translate-y-0.5 hover:border-emerald-300/40 hover:bg-white/[0.07]" href={signal.href} key={signal.href}>
+                      <i aria-hidden="true" className={`${signal.icon} text-xl text-emerald-300`} />
+                      <h3 className="mt-3 font-bold text-white">{signal.title}</h3>
+                      <p className="mt-2 text-sm leading-6 text-white/60">{signal.description}</p>
+                      <span className="mt-3 inline-flex items-center gap-1 text-xs font-bold text-emerald-300">Read guide <i aria-hidden="true" className="ri-arrow-right-line transition group-hover:translate-x-0.5" /></span>
+                    </a>
+                  ))}
+                </div>
+              </section>
+            ) : null}
             {lang === 'en' && !hasActiveFilters ? (
               <section aria-labelledby="popular-retro-games-title" className="arcade-card mb-8 border border-white/10 p-4 sm:p-5">
                 <div className="mb-4 flex flex-wrap items-end justify-between gap-3">

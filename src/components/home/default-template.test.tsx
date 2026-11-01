@@ -32,6 +32,16 @@ beforeEach(() => vi.stubGlobal('matchMedia', vi.fn(() => ({
 }))))
 afterEach(() => { cleanup(); vi.clearAllMocks(); vi.unstubAllGlobals(); vi.useRealTimers() })
 
+it('leads English visitors to controls and compatibility guidance', () => {
+  render(<DefaultHomeTemplate {...props} />)
+
+  expect(screen.getByRole('heading', { level: 1, name: /Controls and Compatibility Guides/ })).not.toBeNull()
+  const guideSection = screen.getByRole('region', { name: 'Use POKOPIE before you press play' })
+  expect(within(guideSection).getByRole('heading', { name: 'Browser play guide' })).not.toBeNull()
+  expect(within(guideSection).getByRole('heading', { name: 'Controls guidance' })).not.toBeNull()
+  expect(within(guideSection).getByRole('heading', { name: 'Compatibility notes' })).not.toBeNull()
+})
+
 it('autoplays the hero preview when motion is allowed', () => {
   const play = vi.spyOn(HTMLMediaElement.prototype, 'play').mockResolvedValue()
   vi.spyOn(HTMLMediaElement.prototype, 'pause').mockImplementation(() => {})

@@ -64,13 +64,13 @@ describe('i18n messages', () => {
 
   it('uses the primary English search phrase in the homepage heading', () => {
     expect(getI18n('en').home.title).toBe(
-      'Play Retro Games Online - No Download Required',
+      'Retro Games Online with Controls and Compatibility Guides',
     )
     expect(getI18n('en').homeSeo.title).toBe(
-      'Play Retro Games Online Free – NES, SNES, GBA | POKOPIE',
+      'Retro Games Online – Controls & Compatibility | POKOPIE',
     )
     expect(getI18n('en').homeContent.whyTitle).toBe(
-      'Why Play Retro Games Online?',
+      'Why Use POKOPIE Before You Play?',
     )
   })
 

@@ -26,10 +26,10 @@ export const enMessages = {
       'Play classic retro games directly in your browser. No downloads required.',
   },
   home: {
-    title: 'Play Retro Games Online - No Download Required',
+    title: 'Retro Games Online with Controls and Compatibility Guides',
     subtitle:
-      'Browse 1500+ classic games from NES, SNES, GBA, PS1, Arcade, Sega Genesis and more. Start instantly in your browser with no downloads or sign-up.',
-    heroSearchHint: 'Find a classic by title, platform, or series.',
+      'Find browser-playable NES, SNES, GBA, PS1, Arcade, Sega Genesis and N64 games, then check controls, save guidance and device limitations before you start.',
+    heroSearchHint: 'Find a game, platform guide, or browser-play answer.',
     browsePopular: 'Browse popular games',
     discovery: 'More to explore',
     searchPlaceholder: 'Search by game title, platform, or series...',
@@ -64,29 +64,29 @@ export const enMessages = {
   },
   homeSeo: {
     title:
-      'Play Retro Games Online Free – NES, SNES, GBA | POKOPIE',
+      'Retro Games Online – Controls & Compatibility | POKOPIE',
     description:
-      'Play NES, SNES, GBA, PS1 and arcade games online free in your browser. No downloads or sign-up required. Browse classic games and start playing on POKOPIE.',
+      'Find NES, SNES, GBA, PS1, N64 and arcade games with browser controls, compatibility notes, save guidance and links to supported online players.',
     keywords:
       'retro games online, NES games, SNES games, GBA games, PS1 games, arcade games',
   },
   homeContent: {
-    whyTitle: 'Why Play Retro Games Online?',
+    whyTitle: 'Why Use POKOPIE Before You Play?',
     whyBody:
-      'POKOPIE makes classic games easy to revisit without installing emulators, downloading ROM files, or creating an account. Open a game page, press play, and the browser loads the game directly on desktop, tablet, or mobile. The library brings together retro favorites across NES, SNES, Game Boy Advance, PlayStation, Arcade, Sega Genesis, Nintendo 64, and more, so you can browse by platform, search by title, and discover related games from the same era. Online retro gaming is useful for quick nostalgia sessions, classroom breaks, casual competition, and testing games before you decide what to play next. Because each game has its own detail page, you also get clear descriptions, platform information, controls guidance, related titles, and share options instead of a bare iframe with no context.',
-    howTitle: 'How to Play',
+      'POKOPIE helps you choose the right game page before opening a browser player. Selected guides explain the exact release, original platform, controls, save limitations, device restrictions, and common loading problems using cited references where available. Platform hubs make it easier to compare NES, SNES, Game Boy Advance, PlayStation, Arcade, Sega Genesis, and Nintendo 64 games without assuming that every title works the same way. The game player and live availability are provided by GGEMU, while POKOPIE focuses on discovery, editorial guidance, compatibility context, and related resources.',
+    howTitle: 'How to Check a Game Before Playing',
     howSteps: [
       {
-        title: 'Choose a game',
-        body: 'Search by title or browse a platform such as NES, SNES, GBA, PS1, Arcade, or Sega Genesis.',
+        title: 'Find the correct version',
+        body: 'Search by title or use a platform hub to distinguish NES, SNES, GBA, PS1, Arcade, N64, and Sega Genesis releases.',
       },
       {
-        title: 'Open the game page',
-        body: 'Every card leads to a dedicated game page with cover art, details, related games, and a play button.',
+        title: 'Check controls and limitations',
+        body: 'Read the game page for keyboard mapping, mobile restrictions, save guidance, source links, and known browser issues when available.',
       },
       {
-        title: 'Start in your browser',
-        body: 'Press Play Now and use the keyboard, touch controls, or a connected gamepad when supported.',
+        title: 'Start and test early',
+        body: 'Open the player, confirm input and audio, then test saving before committing to a long session.',
       },
     ],
   },
