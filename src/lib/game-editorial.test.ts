@@ -15,6 +15,8 @@ describe('reviewed English game content', () => {
     ['tekken-ps1-1995', 'four main attack buttons'],
     ['commandos-dos-1998', 'real-time tactics'],
     ['the-king-of-fighters-97-arcade-1997', 'Orochi Saga'],
+    ['gals-panic-arcade', 'area-capture game'],
+    ['geometry-dash-advance-gba-2025', 'community-made Geometry Dash demake'],
   ])('provides unique reviewed content for SEO opportunity %s', (url_slug, expectedText) => {
     const editorial = getGameEditorial({ url_slug }, 'en')
 
