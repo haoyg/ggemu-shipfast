@@ -16,6 +16,7 @@ import {
   getLocalizedPlatformLabel,
 } from '#/lib/i18n'
 import { getGamePlayLabel, getPlatformBrowseLabel, getRetroCoverFallbackLabel } from '#/lib/locale-labels'
+import { GameCoverFallback } from '#/components/game-cover-fallback'
 import { prioritizeClassicGames } from '#/lib/home-game-priority'
 import { seoPriorityGames } from '#/lib/seo-priority-games'
 import { getPlatformCollectionPath } from '#/lib/platform-routes'
@@ -1187,9 +1188,7 @@ function ArcadeCover({
     <div
       className={`relative w-full overflow-hidden bg-[linear-gradient(135deg,rgba(244,63,94,0.22),rgba(34,211,238,0.14)),radial-gradient(circle_at_35%_30%,rgba(255,255,255,0.16),transparent_32%)] ${className}`}
     >
-      <div className="absolute inset-0 grid place-items-center px-3 text-center text-xs font-black uppercase tracking-wide text-white/45">
-        {getRetroCoverFallbackLabel(lang)}
-      </div>
+      <GameCoverFallback compact lang={lang} name={alt} />
       {cover?.trim() ? (
         <img
           alt={alt}

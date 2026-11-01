@@ -1,6 +1,7 @@
 import { isPspGame } from '#/lib/game-embed'
 import type { GameEditorial } from '#/lib/game-editorial'
 import { GameDetailLoadError, getGameDetailLoadErrorCopy } from '#/components/game-detail-load-error'
+import { GameCoverFallback } from '#/components/game-cover-fallback'
 import { temporaryGameDetailHeaders } from '#/lib/game-detail-request'
 import { useState } from 'react'
 import { trackEvent } from '#/lib/analytics'
@@ -39,7 +40,6 @@ import {
   getLocalizedPlatformLabel,
   normalizeLocale,
 } from '#/lib/i18n'
-import { getRetroCoverFallbackLabel } from '#/lib/locale-labels'
 import {
   getGameSeoInternalLinks,
   type GameSeoInternalLink,
@@ -524,9 +524,7 @@ function LocalizedGameDetailPage() {
               <div
                 className="group relative aspect-[4/3] w-full self-start overflow-hidden rounded-xl border border-white/10 bg-white/5 shadow-xl"
               >
-                <div className="absolute inset-0 flex items-center justify-center bg-white/5 text-white/40">
-                  {getRetroCoverFallbackLabel(lang)}
-                </div>
+                <GameCoverFallback lang={lang} name={game.name} platform={platformLabel} />
                 {game.game_cover ? (
                   <img
                     alt={game.name ?? 'Game cover'}
@@ -1070,9 +1068,7 @@ function RelatedGameCard({ game, lang }: { game: PublicGame; lang: Locale }) {
       to="/$locale/games/$gameId"
     >
       <div className="relative aspect-[4/3] overflow-hidden bg-white/5">
-        <div className="absolute inset-0 flex items-center justify-center text-white/40">
-          {getRetroCoverFallbackLabel(lang)}
-        </div>
+        <GameCoverFallback compact lang={lang} name={game.name} platform={getLocalizedPlatformLabel(game.platform, lang)} />
         {game.game_cover ? (
           <img
             alt={game.name ?? 'Game cover'}

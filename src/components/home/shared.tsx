@@ -18,10 +18,8 @@ import {
   getLocalizedCategoryLabel,
   getLocalizedPlatformLabel,
 } from '#/lib/i18n'
-import {
-  getBlogCoverFallbackLabel,
-  getRetroCoverFallbackLabel,
-} from '#/lib/locale-labels'
+import { getBlogCoverFallbackLabel } from '#/lib/locale-labels'
+import { GameCoverFallback } from '#/components/game-cover-fallback'
 
 import type { GamesSectionProps, HomeCopy, SearchFormProps } from './types'
 
@@ -518,9 +516,7 @@ function GameCard({ game, lang }: { game: PublicGame; lang: Locale }) {
       to="/$locale/games/$gameId"
     >
       <figure className="relative aspect-[4/3] bg-base-300">
-        <div className="absolute inset-0 flex items-center justify-center text-base-content/40">
-          {getRetroCoverFallbackLabel(lang)}
-        </div>
+        <GameCoverFallback compact lang={lang} name={game.name} platform={game.platform ? getLocalizedPlatformLabel(game.platform, lang) : undefined} />
         {game.game_cover ? (
           <img
             alt={game.name ?? 'Game cover'}

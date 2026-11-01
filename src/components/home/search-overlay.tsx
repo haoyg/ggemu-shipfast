@@ -11,7 +11,8 @@ import {
 } from '#/components/game-card-preview'
 import type { GameFilterOptions, GameSearchResult, Locale, PublicGame } from '#/lib/ggemu'
 import { searchGames } from '#/lib/ggemu'
-import { getRetroCoverFallbackLabel } from '#/lib/locale-labels'
+import { getLocalizedPlatformLabel } from '#/lib/i18n'
+import { GameCoverFallback } from '#/components/game-cover-fallback'
 import { useModalAccessibility } from '#/lib/use-modal-accessibility'
 
 import { FilterSelects, getSearchPlaceholder } from './shared'
@@ -252,19 +253,17 @@ function SearchResultCard({
       to="/$locale/games/$gameId"
     >
       <div className="relative aspect-square overflow-hidden bg-base-200">
+        <GameCoverFallback compact lang={lang} name={game.name} platform={game.platform ? getLocalizedPlatformLabel(game.platform, lang) : undefined} />
         {game.game_cover ? (
           <img
             alt={game.name ?? 'Game cover'}
             className="h-full w-full object-cover"
             decoding="async"
             loading="lazy"
+            onError={(event) => { event.currentTarget.hidden = true }}
             src={game.game_cover}
           />
-        ) : (
-          <div className="grid h-full w-full place-items-center text-xs text-base-content/50">
-            {getRetroCoverFallbackLabel(lang)}
-          </div>
-        )}
+        ) : null}
         <GameCardPreviewVideo src={game.game_video} />
       </div>
       <div className="p-2 text-[12px] font-medium leading-tight">
