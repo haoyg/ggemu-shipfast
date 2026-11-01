@@ -1,6 +1,7 @@
 import type { Locale, PublicGame } from './ggemu'
 
 export type GameEditorial = {
+  reviewedAt?: string
   summary: string
   description: string[]
   howToPlay: string[]
@@ -17,6 +18,7 @@ export type GameEditorial = {
 // Reviewed against the linked sources on 2026-09-10. Player builds may differ.
 const editorials: Record<string, GameEditorial> = {
   'super-mario-bros-the-lost-levels-enhanced-snes-1993': {
+    reviewedAt: '2026-11-01',
     summary: 'Super Mario Bros.: The Lost Levels is Nintendo’s difficult follow-up to the original Super Mario Bros. This page is labeled as an enhanced SNES edition, so its presentation can differ from the Japanese Famicom Disk System release.',
     description: [
       'The goal remains familiar: move from left to right, reach the flagpole and rescue the princess. The level design is less forgiving than the first game, with tighter jumps, hidden blocks placed near jump arcs and routes that can send an unprepared player backward.',
@@ -44,6 +46,7 @@ const editorials: Record<string, GameEditorial> = {
     ],
   },
   'paperboy-n64-1999': {
+    reviewedAt: '2026-11-01',
     summary: 'Paperboy for Nintendo 64 turns the newspaper route into an arcade challenge. Deliver papers to subscribers, avoid neighborhood hazards and finish the route with as many customers and points as possible.',
     description: [
       'Each route mixes delivery targets with moving vehicles, pedestrians, animals and fixed obstacles. A successful throw reaches a subscriber’s mailbox or doorstep; a careless throw can miss the property or break something that was not a delivery target.',
@@ -70,6 +73,7 @@ const editorials: Record<string, GameEditorial> = {
     ],
   },
   'pok-mon-heartgold-version-nds-2009': {
+    reviewedAt: '2026-11-01',
     summary: 'Pokémon HeartGold Version is a Nintendo DS return to the Johto region. Choose a first partner, collect Pokémon, challenge Gym Leaders and work toward completing the Johto Pokédex.',
     description: [
       'HeartGold revisits the adventure first told in Pokémon Gold while using Nintendo DS presentation and fourth-generation battle systems. The journey begins in Johto and centers on exploration, training a balanced party and earning Gym Badges.',
@@ -98,6 +102,7 @@ const editorials: Record<string, GameEditorial> = {
     ],
   },
   'donkey-kong-nes-1983': {
+    reviewedAt: '2026-11-01',
     summary: 'Donkey Kong for NES is Nintendo’s home-console adaptation of the arcade climbing game. Guide Mario up ladders and platforms, avoid rolling hazards and reach the top of each included stage.',
     description: [
       'Movement is deliberately simple: walk, climb and jump. The challenge comes from reading barrel paths, choosing safe ladders and deciding whether a hammer is worth taking before an enemy reaches Mario.',
@@ -126,6 +131,7 @@ const editorials: Record<string, GameEditorial> = {
     ],
   },
   'tekken-ps1-1995': {
+    reviewedAt: '2026-11-01',
     summary: 'Tekken is Namco’s original 3D fighting game, released first in arcades and then for PlayStation in 1995. Its four main attack buttons correspond to a fighter’s limbs.',
     description: [
       'Matches are built around one-on-one rounds. Each fighter has a distinct move set, but the shared left-punch, right-punch, left-kick and right-kick layout makes it possible to learn the basic control idea before memorizing combinations.',

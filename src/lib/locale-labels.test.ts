@@ -19,9 +19,9 @@ describe('locale labels', () => {
   })
 
   it('returns localized footer and live labels', () => {
-    expect(getPoweredByLabel('zh-CN')).toBe('由 POKOPIE 提供')
-    expect(getPoweredByLabel('en')).toBe('Powered by POKOPIE')
-    expect(getPoweredByLabel('ja')).toBe('POKOPIE 提供')
+    expect(getPoweredByLabel('zh-CN')).toBe('游戏播放器由 GGEMU 提供')
+    expect(getPoweredByLabel('en')).toBe('Game player powered by GGEMU')
+    expect(getPoweredByLabel('ja')).toBe('ゲームプレイヤー提供：GGEMU')
 
     expect(getLiveBadgeLabel('zh-CN')).toBe('直播中')
     expect(getLiveBadgeLabel('en')).toBe('LIVE')

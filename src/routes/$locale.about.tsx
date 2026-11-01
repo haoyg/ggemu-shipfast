@@ -253,6 +253,53 @@ platformBody: (platforms: string) => `O catálogo inclui plataformas como ${plat
   }
 }
 
+function getProviderCopy(locale: Locale) {
+  const copies: Record<Locale, { title: string; body: string }> = {
+    en: {
+      title: 'How POKOPIE and GGEMU work together',
+      body: 'POKOPIE creates the discovery experience, editorial guides, compatibility notes, controls help, and curated links on this site. When a supported game starts, its browser player and game availability are provided by GGEMU. Player availability, controls, saves, and device support can change independently of POKOPIE content.',
+    },
+    'zh-CN': {
+      title: 'POKOPIE 与 GGEMU 如何协作',
+      body: 'POKOPIE 负责本站的游戏发现体验、编辑指南、兼容性说明、操作帮助和精选链接。支持的游戏启动后，浏览器播放器及游戏可用状态由 GGEMU 提供。播放器可用性、操作、存档和设备支持可能独立于 POKOPIE 内容发生变化。',
+    },
+    'zh-TW': {
+      title: 'POKOPIE 與 GGEMU 如何協作',
+      body: 'POKOPIE 負責本站的遊戲探索體驗、編輯指南、相容性說明、操作協助和精選連結。支援的遊戲啟動後，瀏覽器播放器及遊戲可用狀態由 GGEMU 提供。播放器可用性、操作、存檔和裝置支援可能獨立於 POKOPIE 內容發生變化。',
+    },
+    ja: {
+      title: 'POKOPIE と GGEMU の役割',
+      body: 'POKOPIE はゲームの発見、編集ガイド、互換性情報、操作案内、厳選リンクを提供します。対応ゲームのブラウザープレイヤーと提供状況は GGEMU が提供します。プレイヤーの提供状況、操作、セーブ、端末対応は POKOPIE のコンテンツとは別に変更される場合があります。',
+    },
+    ko: {
+      title: 'POKOPIE와 GGEMU의 역할',
+      body: 'POKOPIE는 게임 탐색, 편집 가이드, 호환성 정보, 조작 도움말과 선별 링크를 제공합니다. 지원 게임의 브라우저 플레이어와 이용 가능 여부는 GGEMU에서 제공합니다. 플레이어 이용 가능 여부, 조작, 저장 및 기기 지원은 POKOPIE 콘텐츠와 별도로 변경될 수 있습니다.',
+    },
+    es: {
+      title: 'Cómo colaboran POKOPIE y GGEMU',
+      body: 'POKOPIE crea la experiencia de descubrimiento, las guías editoriales, las notas de compatibilidad, la ayuda de controles y los enlaces seleccionados. GGEMU proporciona el reproductor del navegador y la disponibilidad de los juegos compatibles. Los controles, guardados y dispositivos admitidos pueden cambiar de forma independiente.',
+    },
+    pt: {
+      title: 'Como POKOPIE e GGEMU trabalham juntos',
+      body: 'O POKOPIE cria a experiência de descoberta, os guias editoriais, as notas de compatibilidade, a ajuda de controles e os links selecionados. O GGEMU fornece o jogador no navegador e a disponibilidade dos jogos compatíveis. Controles, salvamentos e suporte a dispositivos podem mudar de forma independente.',
+    },
+    fr: {
+      title: 'Comment POKOPIE et GGEMU travaillent ensemble',
+      body: 'POKOPIE crée l’expérience de découverte, les guides éditoriaux, les notes de compatibilité, l’aide sur les commandes et les liens sélectionnés. GGEMU fournit le lecteur dans le navigateur et la disponibilité des jeux compatibles. Les commandes, sauvegardes et appareils pris en charge peuvent évoluer indépendamment.',
+    },
+    de: {
+      title: 'Wie POKOPIE und GGEMU zusammenarbeiten',
+      body: 'POKOPIE erstellt die Spielsuche, redaktionelle Anleitungen, Kompatibilitätshinweise, Steuerungshilfen und kuratierte Links. GGEMU stellt den Browser-Spieler und die Verfügbarkeit unterstützter Spiele bereit. Steuerung, Spielstände und Geräteunterstützung können sich unabhängig ändern.',
+    },
+    it: {
+      title: 'Come collaborano POKOPIE e GGEMU',
+      body: 'POKOPIE crea l’esperienza di scoperta, le guide editoriali, le note di compatibilità, l’aiuto sui comandi e i link selezionati. GGEMU fornisce il player nel browser e la disponibilità dei giochi supportati. Comandi, salvataggi e dispositivi supportati possono cambiare indipendentemente.',
+    },
+  }
+
+  return copies[locale]
+}
+
 const platformSearchTerms = supportedPlatforms.join(', ')
 
 export const Route = createFileRoute('/$locale/about')({
@@ -283,6 +330,7 @@ function AboutPage() {
   const { locale } = Route.useParams()
   const lang = normalizeLocale(locale)
   const copy = getAboutCopies(siteConfig.SITE_NAME)[lang]
+  const providerCopy = getProviderCopy(lang)
 
   return (
     <SiteLayout locale={lang}>
@@ -297,6 +345,19 @@ function AboutPage() {
           <p className="mt-5 text-base leading-7 text-white/70">
             {copy.intro}
           </p>
+
+          <section className="mt-8 rounded-xl border border-cyan-300/25 bg-cyan-300/[0.07] p-6">
+            <h2 className="text-xl font-bold text-white">{providerCopy.title}</h2>
+            <p className="mt-3 leading-7 text-white/70">{providerCopy.body}</p>
+            <a
+              className="link link-primary mt-4 inline-block"
+              href="https://ggemu.com"
+              rel="noopener noreferrer nofollow"
+              target="_blank"
+            >
+              GGEMU
+            </a>
+          </section>
 
           <section className="mt-10 rounded-xl border border-primary/25 bg-primary/10 p-6">
             <h2 className="text-2xl font-bold text-white">{copy.platformTitle}</h2>

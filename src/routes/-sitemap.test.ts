@@ -8,7 +8,14 @@ function successfulFetch(input: string) {
   const blog = input.includes('/api/blog-posts')
   return Promise.resolve(Response.json(blog
     ? { success: true, blogPosts: [{ slug: 'guide' }], pagination: { pages: 1 } }
-    : { success: true, data: [{ url_slug: 'contra-nes-1988' }], pagination: { pages: 1 } }))
+    : {
+        success: true,
+        data: [
+          { url_slug: 'contra-nes-1988' },
+          { url_slug: 'unreviewed-game-nes-1990' },
+        ],
+        pagination: { pages: 1 },
+      }))
 }
 
 beforeEach(() => {
@@ -37,6 +44,7 @@ describe('sitemap availability', () => {
     expect(firstXml).toContain('/de/ps1-compatibility')
     expect(firstXml).not.toContain('/it/ps1-compatibility')
     expect(firstXml).toContain('/en/games/contra-nes-1988')
+    expect(firstXml).not.toContain('/en/games/unreviewed-game-nes-1990')
     expect(firstXml).not.toContain('/it/games/contra-nes-1988')
     expect(firstXml).toContain('/en/games/word-ladder')
     expect(firstXml).toContain('/en/card-games-that-start-with-m')

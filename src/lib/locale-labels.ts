@@ -39,25 +39,25 @@ export function getBlogCoverFallbackLabel(locale: Locale) {
 }
 
 export function getPoweredByLabel(locale: Locale) {
-  if (locale === 'fr') return 'Proposé par POKOPIE'
-  if (locale === 'de') return 'Bereitgestellt von POKOPIE'
-  if (locale === 'it') return 'Offerto da POKOPIE'
-  if (locale === 'es') return 'Ofrecido por POKOPIE'
-  if (locale === 'pt') return 'Oferecido pelo POKOPIE'
-  if (locale === 'ko') return 'POKOPIE 제공'
+  if (locale === 'fr') return 'Lecteur de jeu fourni par GGEMU'
+  if (locale === 'de') return 'Spieler bereitgestellt von GGEMU'
+  if (locale === 'it') return 'Player di gioco fornito da GGEMU'
+  if (locale === 'es') return 'Reproductor de juegos proporcionado por GGEMU'
+  if (locale === 'pt') return 'Jogador fornecido pelo GGEMU'
+  if (locale === 'ko') return '게임 플레이어 제공: GGEMU'
   if (locale === 'zh-TW') {
-    return '由 POKOPIE 提供'
+    return '遊戲播放器由 GGEMU 提供'
   }
 
   if (locale === 'zh-CN') {
-    return '由 POKOPIE 提供'
+    return '游戏播放器由 GGEMU 提供'
   }
 
   if (locale === 'ja') {
-    return 'POKOPIE 提供'
+    return 'ゲームプレイヤー提供：GGEMU'
   }
 
-  return 'Powered by POKOPIE'
+  return 'Game player powered by GGEMU'
 }
 
 export function getLiveBadgeLabel(locale: Locale) {

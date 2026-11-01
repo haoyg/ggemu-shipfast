@@ -645,6 +645,15 @@ function LocalizedGameDetailPage() {
                   </ul>
                 </section>
               ) : null}
+              {lang === 'en' && editorial?.reviewedAt ? (
+                <section className="rounded-xl border border-emerald-300/20 bg-emerald-300/[0.06] p-5">
+                  <h2 className="text-lg font-bold text-white">Editorial review status</h2>
+                  <p className="mt-2 text-sm leading-6 text-white/70">
+                    This game guide was editorially reviewed on{' '}
+                    <time dateTime={editorial.reviewedAt}>November 1, 2026</time>. Browser player availability, exact controls, save support, and device compatibility can change after this content review.
+                  </p>
+                </section>
+              ) : null}
               <ArticlePanel paragraphs={browserGuide.paragraphs} title={browserGuide.title} />
               {relatedGuide ? (
                 <section className="rounded-xl border border-primary/25 bg-primary/10 p-5 shadow-sm">

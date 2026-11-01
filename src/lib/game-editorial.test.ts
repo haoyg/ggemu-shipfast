@@ -23,6 +23,7 @@ describe('reviewed English game content', () => {
     expect(editorial?.faq.length).toBeGreaterThanOrEqual(3)
     expect(editorial?.sources.length).toBeGreaterThan(0)
     expect(editorial?.sources.every((source) => new URL(source.href).protocol === 'https:')).toBe(true)
+    expect(editorial?.reviewedAt).toBe('2026-11-01')
   })
 
   it.each([
