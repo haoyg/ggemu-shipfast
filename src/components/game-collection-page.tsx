@@ -8,6 +8,7 @@ import {
 import { SiteLayout } from '#/components/site-layout'
 import type { Locale, PublicGame } from '#/lib/ggemu'
 import { getPlatformCollectionPagePath } from '#/lib/platform-collection-route'
+import { getCollectionPriorityGames } from '#/lib/seo-priority-games'
 
 export type GameCollectionFaq = {
   question: string
@@ -60,6 +61,7 @@ export function GameCollectionPage({
 }) {
   const featuredGames = games.slice(0, 4)
   const libraryGames = games
+  const priorityGames = page === 1 ? getCollectionPriorityGames(config.routePath) : []
 
   return (
     <SiteLayout
@@ -99,6 +101,35 @@ export function GameCollectionPage({
           <HeroGameCovers games={featuredGames} label={config.featuredLabel} locale={locale} />
         </div>
       </section>
+
+      {priorityGames.length > 0 ? (
+        <section className="arcade-section border-b text-neutral-content" aria-labelledby="collection-editor-picks">
+          <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+            <p className="arcade-kicker text-cyan-300">Editor pick</p>
+            <h2 className="mt-1 text-2xl font-black text-white" id="collection-editor-picks">Featured game to play online</h2>
+            <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+              {priorityGames.map((game) => (
+                <Link
+                  className="arcade-card group flex min-h-20 items-center gap-4 border border-cyan-300/20 p-4 transition hover:-translate-y-0.5 hover:border-cyan-300/50"
+                  key={game.slug}
+                  params={{ gameId: game.slug, locale }}
+                  search={{}}
+                  to="/$locale/games/$gameId"
+                >
+                  <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-cyan-300/10 text-cyan-300">
+                    <i aria-hidden="true" className="ri-gamepad-line text-xl" />
+                  </span>
+                  <span className="min-w-0">
+                    <strong className="block text-base text-white">{game.name}</strong>
+                    <small className="mt-1 block text-xs text-white/50">Play the {game.platform} game online</small>
+                  </span>
+                  <i aria-hidden="true" className="ri-arrow-right-line ml-auto text-cyan-300" />
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+      ) : null}
 
       <section className="arcade-section text-neutral-content" id="game-library">
         <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">

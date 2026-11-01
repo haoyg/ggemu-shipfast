@@ -17,6 +17,7 @@ import {
 } from '#/lib/i18n'
 import { getGamePlayLabel, getPlatformBrowseLabel, getRetroCoverFallbackLabel } from '#/lib/locale-labels'
 import { prioritizeClassicGames } from '#/lib/home-game-priority'
+import { seoPriorityGames } from '#/lib/seo-priority-games'
 import { getPlatformCollectionPath } from '#/lib/platform-routes'
 import { originalGames } from '#/lib/original-games'
 import { trackEvent } from '#/lib/analytics'
@@ -451,6 +452,37 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
           </section>
 
           <section className="arcade-section px-3 py-7 sm:px-6 sm:py-9 lg:px-8">
+            {lang === 'en' && !hasActiveFilters ? (
+              <section aria-labelledby="popular-retro-games-title" className="arcade-card mb-8 border border-white/10 p-4 sm:p-5">
+                <div className="mb-4 flex flex-wrap items-end justify-between gap-3">
+                  <div>
+                    <p className="arcade-kicker text-cyan-300">Editor picks</p>
+                    <h2 className="mt-1 text-xl font-black text-white sm:text-2xl" id="popular-retro-games-title">Popular Retro Games Online</h2>
+                  </div>
+                  <span className="text-xs font-semibold uppercase tracking-[0.14em] text-white/45">Play in your browser</span>
+                </div>
+                <div className="grid gap-2 sm:grid-cols-2 xl:grid-cols-5">
+                  {seoPriorityGames.map((game) => (
+                    <Link
+                      className="group flex min-h-16 items-center gap-3 rounded-lg border border-white/10 bg-white/[0.04] px-3 py-2 transition hover:-translate-y-0.5 hover:border-cyan-300/45 hover:bg-white/[0.08]"
+                      key={game.slug}
+                      params={{ gameId: game.slug, locale: lang }}
+                      search={{}}
+                      to="/$locale/games/$gameId"
+                    >
+                      <span className="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-cyan-300/10 text-cyan-300">
+                        <i aria-hidden="true" className="ri-gamepad-line text-lg" />
+                      </span>
+                      <span className="min-w-0">
+                        <strong className="line-clamp-2 block text-sm leading-5 text-white">{game.name}</strong>
+                        <small className="mt-0.5 block text-xs text-white/45">{game.platform}</small>
+                      </span>
+                      <i aria-hidden="true" className="ri-arrow-right-s-line ml-auto text-white/30 transition group-hover:translate-x-0.5 group-hover:text-cyan-300" />
+                    </Link>
+                  ))}
+                </div>
+              </section>
+            ) : null}
             {lang === 'en' && !hasActiveFilters ? (
               <section aria-labelledby="murdoku-promotion-title" className="arcade-card mb-8 flex flex-col gap-4 border border-cyan-300/30 p-4 sm:flex-row sm:items-center sm:justify-between sm:p-5">
                 <div className="min-w-0">
