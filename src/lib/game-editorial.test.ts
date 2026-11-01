@@ -8,6 +8,24 @@ const slugs = ['murdoku-html5-2026', 'onet-master-html5', 'geometry-dash-advance
 
 describe('reviewed English game content', () => {
   it.each([
+    ['super-mario-bros-the-lost-levels-enhanced-snes-1993', 'difficult follow-up'],
+    ['paperboy-n64-1999', 'newspaper route'],
+    ['pok-mon-heartgold-version-nds-2009', 'Johto region'],
+    ['donkey-kong-nes-1983', 'home-console adaptation'],
+    ['tekken-ps1-1995', 'four main attack buttons'],
+  ])('provides unique reviewed content for SEO opportunity %s', (url_slug, expectedText) => {
+    const editorial = getGameEditorial({ url_slug }, 'en')
+
+    expect(editorial?.summary).toContain(expectedText)
+    expect(editorial?.description.length).toBeGreaterThanOrEqual(3)
+    expect(editorial?.howToPlay.length).toBeGreaterThanOrEqual(3)
+    expect(editorial?.tips.length).toBeGreaterThanOrEqual(3)
+    expect(editorial?.faq.length).toBeGreaterThanOrEqual(3)
+    expect(editorial?.sources.length).toBeGreaterThan(0)
+    expect(editorial?.sources.every((source) => new URL(source.href).protocol === 'https:')).toBe(true)
+  })
+
+  it.each([
     ['commandos-dos-1998', 'real-time tactics'],
     ['the-king-of-fighters-97-arcade-1997', 'Orochi Saga'],
     ['lilo-stitch-trouble-in-paradise-ps1-2002', 'action platform'],

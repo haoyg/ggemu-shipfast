@@ -16,6 +16,143 @@ export type GameEditorial = {
 
 // Reviewed against the linked sources on 2026-09-10. Player builds may differ.
 const editorials: Record<string, GameEditorial> = {
+  'super-mario-bros-the-lost-levels-enhanced-snes-1993': {
+    summary: 'Super Mario Bros.: The Lost Levels is Nintendo’s difficult follow-up to the original Super Mario Bros. This page is labeled as an enhanced SNES edition, so its presentation can differ from the Japanese Famicom Disk System release.',
+    description: [
+      'The goal remains familiar: move from left to right, reach the flagpole and rescue the princess. The level design is less forgiving than the first game, with tighter jumps, hidden blocks placed near jump arcs and routes that can send an unprepared player backward.',
+      'A Poison Mushroom is harmful rather than a power-up. Its appearance can be confused with a helpful mushroom at a glance, so identify the item before collecting it. Some Lost Levels stages also use wind and unusually strong springboards; exact audiovisual details can vary in enhanced releases.',
+      'This browser entry is cataloged as an SNES build. The browser player supplies the keyboard, controller, save-state and fullscreen mappings, so check its controls instead of assuming the original console layout.',
+    ],
+    howToPlay: [
+      'Open the player controls and identify movement, jump, run, start and pause. Click inside the player before testing keyboard input.',
+      'Use short taps near narrow platforms and hold run only after checking the landing area. Hidden blocks can interrupt a jump, so avoid taking an unfamiliar route at full speed.',
+      'Treat unfamiliar mushrooms as hazards until their appearance is clear. On windy stages, watch how the character drifts before committing to a long jump.',
+    ],
+    tips: [
+      'Keep momentum for long gaps, but release the direction input before landing on a small platform.',
+      'Test suspicious blocks from a safe position; a hidden block above a jump can redirect the character into danger.',
+      'Use save states only after confirming that the player can restore them, and keep the game’s own progress separate from browser storage.',
+    ],
+    faq: [
+      { question: 'Why is The Lost Levels harder than the original Super Mario Bros.?', answer: 'Its stages use tighter jumps, deceptive item placement, hidden blocks and routes designed for players already familiar with the first game.' },
+      { question: 'Is every mushroom helpful?', answer: 'No. The Poison Mushroom damages the player, so inspect an unfamiliar mushroom before collecting it.' },
+      { question: 'Is this the original Japanese release?', answer: 'The catalog labels this page as an enhanced SNES edition. Graphics, sound and some presentation details can differ from the original Famicom Disk System release.' },
+    ],
+    sources: [
+      { label: 'Nintendo Mario history: Super Mario Bros. 2 / The Lost Levels', href: 'https://www.nintendo.com/jp/character/mario/en/history/smb2/index.html?lang=en' },
+      { label: 'Nintendo Support: games included with Game & Watch Super Mario Bros.', href: 'https://en-americas-support.nintendo.com/app/answers/detail/a_id/53499/' },
+    ],
+  },
+  'paperboy-n64-1999': {
+    summary: 'Paperboy for Nintendo 64 turns the newspaper route into an arcade challenge. Deliver papers to subscribers, avoid neighborhood hazards and finish the route with as many customers and points as possible.',
+    description: [
+      'Each route mixes delivery targets with moving vehicles, pedestrians, animals and fixed obstacles. A successful throw reaches a subscriber’s mailbox or doorstep; a careless throw can miss the property or break something that was not a delivery target.',
+      'The Nintendo 64 version expands the older arcade concept with selectable characters, routes and power-ups. Scoring rewards accurate deliveries and other route actions, while collisions cost time or a life depending on the active mode.',
+      'The original manual uses the Nintendo 64 Control Stick and controller buttons. This browser player remaps those inputs, so open its controls and test steering, throwing and braking before beginning a serious route.',
+    ],
+    howToPlay: [
+      'Check the browser mapping for steering, acceleration, braking and paper throws. Use the opening part of a route to learn how quickly the bicycle turns.',
+      'Look ahead for the next subscriber while keeping the bicycle away from traffic and roadside obstacles. Line up a delivery before throwing instead of correcting at the last moment.',
+      'Complete the route rather than chasing every optional score opportunity. A safe finish with retained subscribers is more useful than a risky detour that ends the run.',
+    ],
+    tips: [
+      'Steer smoothly; repeated full-direction corrections make it harder to aim a throw.',
+      'Prioritize subscriber deliveries before bonus targets when the route becomes crowded.',
+      'Learn one route’s obstacle timing before trying to maximize score.',
+    ],
+    faq: [
+      { question: 'What is the goal in Paperboy?', answer: 'Deliver newspapers to subscriber homes, avoid hazards and reach the end of the route while preserving customers and earning points.' },
+      { question: 'Is this the original arcade version?', answer: 'No. This page is cataloged as the Nintendo 64 version, which expands the arcade concept with its own routes, presentation and options.' },
+      { question: 'Why do the controls feel different in a browser?', answer: 'The Nintendo 64 game was designed for an analog Control Stick. The browser player maps that input to a keyboard, touch layout or modern controller, so sensitivity can differ.' },
+    ],
+    sources: [
+      { label: 'Paperboy Nintendo 64 instruction manual archive', href: 'https://www.gamesdatabase.org/Media/SYSTEM/Nintendo_N64/manual/Formated/Paperboy_-_1999_-_Midway_Games.pdf' },
+    ],
+  },
+  'pok-mon-heartgold-version-nds-2009': {
+    summary: 'Pokémon HeartGold Version is a Nintendo DS return to the Johto region. Choose a first partner, collect Pokémon, challenge Gym Leaders and work toward completing the Johto Pokédex.',
+    description: [
+      'HeartGold revisits the adventure first told in Pokémon Gold while using Nintendo DS presentation and fourth-generation battle systems. The journey begins in Johto and centers on exploration, training a balanced party and earning Gym Badges.',
+      'The official release also supported the Pokéwalker accessory through an infrared connection and Nintendo DS communication features. Those hardware and discontinued network features should not be assumed to work in a browser player.',
+      'Nintendo DS games can depend on two screens, touch input and system time. Check how the current player exposes both screens and save controls before beginning, and verify that a test save reloads successfully.',
+    ],
+    howToPlay: [
+      'Open the browser controls and identify the directional pad, A, B, Start, Select and any touch-screen input. Confirm which screen is active before selecting a menu item.',
+      'Begin the story, choose a partner Pokémon and explore each route methodically. Talk to characters, collect items and heal the party before longer battles.',
+      'Use type matchups and a varied party rather than relying on one overleveled Pokémon. Save through the game menu and test the browser player’s storage before a long session.',
+    ],
+    tips: [
+      'Keep several Pokémon trained so one unfavorable type matchup does not stop progress.',
+      'Return to a Pokémon Center before entering an unfamiliar cave, route or Gym.',
+      'Do not rely on original infrared, Pokéwalker or Nintendo Wi-Fi features in browser emulation.',
+    ],
+    faq: [
+      { question: 'Where does Pokémon HeartGold take place?', answer: 'The main adventure begins in the Johto region, which first appeared in Pokémon Gold and Pokémon Silver.' },
+      { question: 'Does the Pokéwalker work in the browser?', answer: 'The original accessory used an infrared connection with a physical Nintendo DS Game Card. This page does not claim browser support for that hardware feature.' },
+      { question: 'Can I use the original Nintendo Wi-Fi features?', answer: 'Nintendo discontinued the Nintendo Wi-Fi Connection service for Nintendo DS software in 2014. Browser-player networking should not be assumed to replace it.' },
+    ],
+    sources: [
+      { label: 'The Pokémon Company: HeartGold and SoulSilver overview', href: 'https://www.pokemon.com/us/pokemon-video-games/pokemon-heartgold-and-soulsilver-versions' },
+      { label: 'Nintendo Pokémon HeartGold instruction booklet', href: 'https://csassets.nintendo.com/noaext/image/private/t_KA_PDF/DS_Pokemon_HeartGold' },
+      { label: 'Nintendo UK: Pokémon HeartGold Version', href: 'https://www.nintendo.com/en-gb/Games/Nintendo-DS/Pokemon-HeartGold-Version-272365.html' },
+    ],
+  },
+  'donkey-kong-nes-1983': {
+    summary: 'Donkey Kong for NES is Nintendo’s home-console adaptation of the arcade climbing game. Guide Mario up ladders and platforms, avoid rolling hazards and reach the top of each included stage.',
+    description: [
+      'Movement is deliberately simple: walk, climb and jump. The challenge comes from reading barrel paths, choosing safe ladders and deciding whether a hammer is worth taking before an enemy reaches Mario.',
+      'A hammer can destroy barrels and fire enemies for points, but it temporarily changes what Mario can do. Plan where the effect will end instead of grabbing it automatically beside a ladder or gap.',
+      'The NES edition is not the complete arcade release. It contains three of the arcade game’s four original screens, so guides for the full cabinet version may describe a stage that is absent here.',
+    ],
+    howToPlay: [
+      'Check the player mapping for movement, jump, start and pause. Align Mario with a ladder before pressing up or down.',
+      'Watch a barrel’s direction before choosing between jumping, waiting or changing ladders. Jump only when the landing path is clear.',
+      'Use a hammer when several hazards are approaching and there is enough safe ground for its duration. Continue climbing after the effect ends.',
+    ],
+    tips: [
+      'Waiting for a safer barrel pattern is often better than forcing a jump.',
+      'Do not enter a broken or unsafe ladder path without checking where the next barrel can roll.',
+      'The hammer earns points, but survival and route position matter more than chasing every target.',
+    ],
+    faq: [
+      { question: 'How do you play Donkey Kong on NES?', answer: 'Move Mario across platforms, climb ladders, jump over hazards and reach Donkey Kong at the top of the stage.' },
+      { question: 'What does the hammer do?', answer: 'It temporarily lets Mario destroy barrels and fire enemies for points, but it limits normal movement while active.' },
+      { question: 'Does the NES game include every arcade stage?', answer: 'No. The NES adaptation contains three of the original arcade game’s four screens.' },
+    ],
+    sources: [
+      { label: 'Nintendo Donkey Kong controls and gameplay guide', href: 'https://csassets.nintendo.com/noaext/image/private/t_KA_PDF/DS_GameWatch_Club' },
+      { label: 'Nintendo: Arcade Archives Donkey Kong', href: 'https://www.nintendo.com/en-ca/store/products/arcade-archives-donkey-kong-switch/' },
+      { label: 'Nintendo UK: Donkey Kong for NES', href: 'https://www.nintendo.com/en-gb/Games/NES/Donkey-Kong-780429.html' },
+    ],
+  },
+  'tekken-ps1-1995': {
+    summary: 'Tekken is Namco’s original 3D fighting game, released first in arcades and then for PlayStation in 1995. Its four main attack buttons correspond to a fighter’s limbs.',
+    description: [
+      'Matches are built around one-on-one rounds. Each fighter has a distinct move set, but the shared left-punch, right-punch, left-kick and right-kick layout makes it possible to learn the basic control idea before memorizing combinations.',
+      'The first Tekken is an early entry in the series and should not be described with mechanics introduced by later sequels. Start with movement, blocking and simple attacks before attempting longer strings.',
+      'This browser page runs the PlayStation version. Keyboard and controller buttons come from the player mapping, so confirm all four attacks, directions and Start before entering a match.',
+    ],
+    howToPlay: [
+      'Open the player controls and identify movement, the four attack buttons, Start and pause. Test each attack separately so you know which limb it controls.',
+      'Choose one fighter and learn a small set of reliable attacks. Block after an unsafe move and watch the opponent’s distance rather than pressing every button continuously.',
+      'Combine attacks only after their individual range and timing are clear. Use practice through repeated early matches instead of switching characters after every loss.',
+    ],
+    tips: [
+      'Keep one consistent button layout; changing mappings makes move timing harder to learn.',
+      'Use quick single attacks to test distance before committing to a slower sequence.',
+      'If the game appears unresponsive, focus the player and verify Start plus all four attack mappings before reloading.',
+    ],
+    faq: [
+      { question: 'What kind of game is the original Tekken?', answer: 'It is Namco’s early 3D one-on-one fighting game, released in arcades in 1994 and on PlayStation in 1995.' },
+      { question: 'How do Tekken’s four attack buttons work?', answer: 'The core layout assigns the main buttons to left punch, right punch, left kick and right kick.' },
+      { question: 'Can I play Tekken unblocked in a browser?', answer: 'This page provides a browser player for the available PlayStation build. Access still depends on the device, network policy and browser compatibility.' },
+    ],
+    sources: [
+      { label: 'Bandai Namco history: the original Tekken', href: 'https://www.bandainamco.co.jp/en/about/history/namco.html' },
+      { label: 'Bandai Namco Studios: Tekken series', href: 'https://www.bandainamcostudios.com/en/products/tekken.html' },
+      { label: 'PlayStation history: Tekken on the original PlayStation', href: 'https://www.playstation.com/en-us/playstation-history/1994-ps-one/' },
+    ],
+  },
   'commandos-dos-1998': {
     summary: 'Commandos: Behind Enemy Lines is Pyro Studios’ 1998 real-time tactics game. Lead a six-person specialist squad through stealth, sabotage and rescue missions set during World War II.',
     description: [
