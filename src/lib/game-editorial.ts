@@ -160,6 +160,7 @@ const editorials: Record<string, GameEditorial> = {
     ],
   },
   'commandos-dos-1998': {
+    reviewedAt: '2026-11-01',
     summary: 'Commandos: Behind Enemy Lines is Pyro Studios’ 1998 real-time tactics game. Lead a six-person specialist squad through stealth, sabotage and rescue missions set during World War II.',
     description: [
       'Each commando has a different role, so progress depends on combining their abilities rather than sending the whole squad into a direct firefight. Observe patrol routes, isolate guards and plan an escape path before acting.',
@@ -187,6 +188,7 @@ const editorials: Record<string, GameEditorial> = {
     ],
   },
   'the-king-of-fighters-97-arcade-1997': {
+    reviewedAt: '2026-11-01',
     summary: "The King of Fighters '97 is SNK's 1997 team fighting game and the conclusion of the Orochi Saga. Build a three-fighter team and choose between Advanced and Extra battle systems.",
     description: [
       "SNK's official series history describes KOF '97 as the final chapter of the Orochi trilogy. Its roster brings together fighters associated with series such as Fatal Fury and Art of Fighting, alongside original KOF teams.",

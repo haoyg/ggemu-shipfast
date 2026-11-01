@@ -13,6 +13,8 @@ describe('reviewed English game content', () => {
     ['pok-mon-heartgold-version-nds-2009', 'Johto region'],
     ['donkey-kong-nes-1983', 'home-console adaptation'],
     ['tekken-ps1-1995', 'four main attack buttons'],
+    ['commandos-dos-1998', 'real-time tactics'],
+    ['the-king-of-fighters-97-arcade-1997', 'Orochi Saga'],
   ])('provides unique reviewed content for SEO opportunity %s', (url_slug, expectedText) => {
     const editorial = getGameEditorial({ url_slug }, 'en')
 
@@ -27,8 +29,6 @@ describe('reviewed English game content', () => {
   })
 
   it.each([
-    ['commandos-dos-1998', 'real-time tactics'],
-    ['the-king-of-fighters-97-arcade-1997', 'Orochi Saga'],
     ['lilo-stitch-trouble-in-paradise-ps1-2002', 'action platform'],
     ['prince-of-persia-the-sands-of-time-java-2003', '2D action-platform'],
   ])('provides reviewed content and sources for %s', (url_slug, expectedText) => {
