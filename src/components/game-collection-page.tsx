@@ -62,6 +62,7 @@ export function GameCollectionPage({
   const featuredGames = games.slice(0, 4)
   const libraryGames = games
   const priorityGames = page === 1 ? getCollectionPriorityGames(config.routePath) : []
+  const compatibility = getCollectionCompatibilitySummary(games)
 
   return (
     <SiteLayout
@@ -126,6 +127,42 @@ export function GameCollectionPage({
                   <i aria-hidden="true" className="ri-arrow-right-line ml-auto text-cyan-300" />
                 </Link>
               ))}
+            </div>
+          </div>
+        </section>
+      ) : null}
+
+      {locale === 'en' ? (
+        <section className="arcade-section border-b text-neutral-content" id="compatibility-check">
+          <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+            <p className="arcade-kicker text-emerald-300">Catalog compatibility</p>
+            <h2 className="mt-2 text-3xl font-black text-white">Check the player before a long session</h2>
+            <p className="mt-3 max-w-3xl text-sm leading-6 text-white/65">
+              These notes use the current catalog response for this page. They do not promise permanent player availability or hardware support.
+            </p>
+            <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+              <CompatibilityFact
+                icon="ri-browser-line"
+                title="Current page"
+                value={`${compatibility.listedGames} playable catalog entries loaded`}
+              />
+              <CompatibilityFact
+                icon="ri-computer-line"
+                title="Desktop-only flags"
+                value={compatibility.desktopOnlyGames > 0
+                  ? `${compatibility.desktopOnlyGames} ${compatibility.desktopOnlyGames === 1 ? 'entry is' : 'entries are'} marked desktop only`
+                  : 'No entry on this page is marked desktop only'}
+              />
+              <CompatibilityFact
+                icon="ri-save-3-line"
+                title="Save support"
+                value="Not verified by the catalog; test save and reload first"
+              />
+              <CompatibilityFact
+                icon="ri-gamepad-line"
+                title="Controls"
+                value="Keyboard, touch, and gamepad support depend on the loaded player"
+              />
             </div>
           </div>
         </section>
@@ -400,12 +437,42 @@ function GameCollectionCard({
           />
         ) : null}
         <GameCardPreviewVideo src={game.game_video} />
+        {locale === 'en' && game.play_device === 1 ? (
+          <span className="absolute left-2 top-2 rounded-full border border-amber-300/30 bg-neutral/90 px-2 py-1 text-[10px] font-bold uppercase tracking-wide text-amber-200">
+            Desktop only
+          </span>
+        ) : null}
       </div>
       <h3 className="line-clamp-2 min-h-12 px-3 py-3 text-sm font-semibold leading-snug text-white">
         {game.name}
       </h3>
     </Link>
   )
+}
+
+function CompatibilityFact({
+  icon,
+  title,
+  value,
+}: {
+  icon: string
+  title: string
+  value: string
+}) {
+  return (
+    <article className="rounded-xl border border-white/10 bg-white/[0.04] p-4">
+      <i aria-hidden="true" className={`${icon} text-xl text-emerald-300`} />
+      <h3 className="mt-3 font-bold text-white">{title}</h3>
+      <p className="mt-2 text-sm leading-6 text-white/60">{value}</p>
+    </article>
+  )
+}
+
+export function getCollectionCompatibilitySummary(games: Array<PublicGame>) {
+  return {
+    desktopOnlyGames: games.filter((game) => game.play_device === 1).length,
+    listedGames: games.length,
+  }
 }
 
 function GenreLink({

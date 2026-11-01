@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest'
 
 import { getLocalizedPlatformCollection, getRelatedGuide } from './platform-games-page'
 import { getLocalizedArcadePageConfig } from './arcade-games-page'
+import { getCollectionCompatibilitySummary } from './game-collection-page'
 
 describe('platform guide links', () => {
   it.each(['nes', 'snes'] as const)('localizes the complete Chinese %s editorial sections', (key) => {
@@ -37,5 +38,13 @@ describe('platform guide links', () => {
     expect(getRelatedGuide('Famicom')?.href).toBe('/en/guides/nes-vs-snes-games')
     expect(getRelatedGuide('Super Famicom')?.href).toBe('/en/guides/nes-vs-snes-games')
     expect(getRelatedGuide('Genesis')?.href).toBe('/en/guides/browser-retro-gaming-guide')
+  })
+
+  it('reports only explicit desktop-only flags in collection compatibility data', () => {
+    expect(getCollectionCompatibilitySummary([
+      { url_slug: 'desktop-game', play_device: 1 },
+      { url_slug: 'unspecified-game' },
+      { url_slug: 'other-device-game', play_device: 2 },
+    ])).toEqual({ desktopOnlyGames: 1, listedGames: 3 })
   })
 })
