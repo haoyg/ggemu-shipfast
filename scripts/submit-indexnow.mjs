@@ -6,13 +6,23 @@ const keyLocation = `${siteOrigin}/${key}.txt`
 const requestTimeoutMs = 20_000
 const maxAttempts = 3
 
-const explicitUrls = process.argv.slice(2)
-const sitemapXml = await fetchTextWithRetry(sitemapUrl)
-const sitemapUrls = extractSitemapUrls(sitemapXml)
+const argumentsList = process.argv.slice(2)
+const fullSiteSubmission = argumentsList.includes('--full')
+const unsupportedFlags = argumentsList.filter((argument) => argument.startsWith('--') && argument !== '--full')
+
+if (unsupportedFlags.length > 0) {
+  throw new Error(`Unsupported IndexNow option: ${unsupportedFlags.join(', ')}`)
+}
+
+const explicitUrls = argumentsList.filter((argument) => argument !== '--full')
+const sitemapUrls = fullSiteSubmission
+  ? extractSitemapUrls(await fetchTextWithRetry(sitemapUrl))
+  : []
 const urls = uniqueValidSiteUrls([...sitemapUrls, ...explicitUrls])
 
 if (urls.length === 0) {
-  throw new Error('IndexNow submission stopped because the sitemap contained no valid URLs.')
+  console.log('IndexNow skipped: pass changed URLs, or use --full for an intentional full-site submission.')
+  process.exit(0)
 }
 
 if (process.env.INDEXNOW_DRY_RUN === '1') {
@@ -20,11 +30,17 @@ if (process.env.INDEXNOW_DRY_RUN === '1') {
   process.exit(0)
 }
 
-for (const urlList of chunk(urls, 10_000)) {
-  await submitWithRetry(urlList)
+if (fullSiteSubmission) {
+  for (const urlList of chunk(urls, 10_000)) {
+    await submitBatchWithRetry(urlList)
+  }
+} else {
+  for (const url of urls) {
+    await submitSingleWithRetry(url)
+  }
 }
 
-console.log(`IndexNow accepted ${urls.length} URLs.`)
+console.log(`IndexNow accepted ${urls.length} changed URL${urls.length === 1 ? '' : 's'}.`)
 
 function extractSitemapUrls(xml) {
   return [...xml.matchAll(/<loc>\s*([^<]+?)\s*<\/loc>/gi)]
@@ -78,7 +94,25 @@ async function fetchTextWithRetry(url) {
   })
 }
 
-async function submitWithRetry(urlList) {
+async function submitSingleWithRetry(url) {
+  const submissionUrl = new URL(endpoint)
+  submissionUrl.searchParams.set('url', url)
+  submissionUrl.searchParams.set('key', key)
+  submissionUrl.searchParams.set('keyLocation', keyLocation)
+
+  await retry(async () => {
+    const response = await fetch(submissionUrl, {
+      signal: AbortSignal.timeout(requestTimeoutMs),
+    })
+
+    if (response.status !== 200 && response.status !== 202) {
+      const body = (await response.text()).slice(0, 300)
+      throw new Error(`IndexNow returned HTTP ${response.status}${body ? `: ${body}` : '.'}`)
+    }
+  })
+}
+
+async function submitBatchWithRetry(urlList) {
   await retry(async () => {
     const response = await fetch(endpoint, {
       method: 'POST',

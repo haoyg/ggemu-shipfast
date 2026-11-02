@@ -20,8 +20,9 @@
     "preview": "vite preview",
     "test": "vitest run",
     "indexnow": "node scripts/submit-indexnow.mjs",
+    "indexnow:full": "node scripts/submit-indexnow.mjs --full",
     "deploy:dry-run": "npm run build && wrangler deploy --dry-run",
-    "deploy": "npm run build && wrangler deploy && npm run indexnow"
+    "deploy": "npm run build && wrangler deploy"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.3.2",
