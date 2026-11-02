@@ -47,4 +47,14 @@ describe('platform guide links', () => {
       { url_slug: 'other-device-game', play_device: 2 },
     ])).toEqual({ desktopOnlyGames: 1, listedGames: 3 })
   })
+
+  it.each(['es', 'pt'] as const)('uses a substantial %s platform meta description', locale => {
+    const description = getLocalizedPlatformCollection('gba', locale).description
+    expect(description.length).toBeGreaterThanOrEqual(120)
+    expect(description.length).toBeLessThanOrEqual(170)
+  })
+
+  it('uses a substantial Korean platform meta description', () => {
+    expect(getLocalizedPlatformCollection('gba', 'ko').description.length).toBeGreaterThanOrEqual(70)
+  })
 })

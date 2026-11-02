@@ -507,7 +507,21 @@ function truncateText(value: string, maxLength: number) {
     return value
   }
 
-  return `${value.slice(0, maxLength - 1).trim()}...`
+  return `${value.slice(0, maxLength - 3).trim()}...`
+}
+
+function buildEnglishGameDescription(
+  name: string,
+  platform: string,
+  baseDescription: string,
+) {
+  const pageContext = `Play ${name}${platform ? ` for ${platform}` : ''} online, review the controls and compatibility, and find related games before opening the browser player.`
+
+  if (!baseDescription) return truncateText(pageContext, 155)
+  if (baseDescription.length >= 120) return truncateText(baseDescription, 155)
+
+  const separator = /[.!?]$/.test(baseDescription) ? ' ' : '. '
+  return truncateText(`${baseDescription}${separator}${pageContext}`, 155)
 }
 
 export function buildGameDetailSeo(game: PublicGame, locale: Locale) {
@@ -520,9 +534,9 @@ export function buildGameDetailSeo(game: PublicGame, locale: Locale) {
   const baseDescription = game.description ? compactText(game.description) : ''
   const localizedDescription = getGameDetailSummary(game, locale)
 
-  if (locale === 'fr' || locale === 'de' || locale === 'it') return { title: `${name} ${locale === 'fr' ? 'en ligne' : 'online'} | POKOPIE`, description: localizedDescription, keywords: [name, platform, categoryText].filter(Boolean).join(', ') }
-  if (locale === 'es' || locale === 'pt') return { title: `${name} online | POKOPIE`, description: getGameDetailSummary(game, locale), keywords: [name, platform, getI18n(locale).homeSeo.keywords].filter(Boolean).join(', ') }
-  if (locale === 'ko') return { title: `${name} 온라인 게임 | ${platform || 'POKOPIE'}`, description: getGameDetailSummary(game, locale), keywords: [name, platform, '레트로 게임', '브라우저 게임'].filter(Boolean).join(', ') }
+  if (locale === 'fr' || locale === 'de' || locale === 'it') return { title: `${name} ${locale === 'fr' ? 'en ligne' : 'online'} | POKOPIE`, description: truncateText(localizedDescription, 155), keywords: [name, platform, categoryText].filter(Boolean).join(', ') }
+  if (locale === 'es' || locale === 'pt') return { title: `${name} online | POKOPIE`, description: truncateText(localizedDescription, 155), keywords: [name, platform, getI18n(locale).homeSeo.keywords].filter(Boolean).join(', ') }
+  if (locale === 'ko') return { title: `${name} 온라인 게임 | ${platform || 'POKOPIE'}`, description: truncateText(localizedDescription, 155), keywords: [name, platform, '레트로 게임', '브라우저 게임'].filter(Boolean).join(', ') }
 
   if (locale === 'zh-TW') {
     return {
@@ -588,11 +602,7 @@ export function buildGameDetailSeo(game: PublicGame, locale: Locale) {
     title: [`Play ${name} Online`, platform, year, 'No Download']
       .filter(Boolean)
       .join(' | '),
-    description: truncateText(
-      baseDescription ||
-        `Play ${name}${platform ? ` for ${platform}` : ''} online in your browser. No download required.`,
-      155,
-    ),
+    description: buildEnglishGameDescription(name, platform, baseDescription),
     keywords: [
       `play ${name} online`,
       `${name} browser game`,
@@ -617,9 +627,9 @@ export function getGameDetailSummary(game: PublicGame, locale: Locale) {
   if (locale === 'fr') return `Jouez à ${name}${platform ? ` (${platform})` : ''} dans votre navigateur. ${categories.length ? `Genres : ${categories.join(', ')}. ` : ''}Consultez la présentation, les commandes et les jeux similaires. La compatibilité dépend du lecteur et de votre appareil.`
   if (locale === 'de') return `Spiele ${name}${platform ? ` (${platform})` : ''} im Browser. ${categories.length ? `Genres: ${categories.join(', ')}. ` : ''}Lies die Spielbeschreibung und Steuerung und entdecke ähnliche Titel. Die Kompatibilität hängt vom Spieler und deinem Gerät ab.`
   if (locale === 'it') return `Gioca a ${name}${platform ? ` (${platform})` : ''} nel browser. ${categories.length ? `Generi: ${categories.join(', ')}. ` : ''}Consulta la descrizione, i comandi e i giochi simili. La compatibilità dipende dal giocatore e dal dispositivo.`
-  if (locale === 'es') return `Juega a ${name}${platform ? ` (${platform})` : ''} en tu navegador. Pulsa Jugar ahora para empezar, sin instalar un emulador.`
-  if (locale === 'pt') return `Jogue ${name}${platform ? ` (${platform})` : ''} no navegador. Pressione Jogar agora para começar, sem instalar um emulador.`
-  if (locale === 'ko') return `${name}${platform ? ` (${platform})` : ''}을 브라우저에서 즐기세요. 별도 설치 없이 플레이 버튼으로 시작할 수 있습니다.`
+  if (locale === 'es') return `Juega a ${name}${platform ? ` (${platform})` : ''} en tu navegador sin instalar un emulador. Consulta la descripción, los controles, la compatibilidad del dispositivo y otros juegos relacionados antes de empezar.`
+  if (locale === 'pt') return `Jogue ${name}${platform ? ` (${platform})` : ''} no navegador sem instalar um emulador. Confira a descrição, os controles, a compatibilidade do dispositivo e jogos relacionados antes de começar.`
+  if (locale === 'ko') return `${name}${platform ? ` (${platform})` : ''}을 브라우저에서 즐기세요. 별도 에뮬레이터 설치 없이 시작하고, 실행 전에 게임 설명과 조작법, 기기 호환성 및 관련 게임을 확인할 수 있습니다.`
 
   if (locale === 'zh-TW') {
     return compactText(

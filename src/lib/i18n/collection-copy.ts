@@ -7,7 +7,9 @@ export function getRomanceCollectionCopy(locale: 'es' | 'pt', platform: string) 
   const name = `${spanish ? 'Juegos' : 'Jogos'} ${platform}`
   return {
     title: `${name} online | POKOPIE`,
-    description: spanish ? `Juega a clásicos de ${platform} en tu navegador, sin instalar un emulador.` : `Jogue clássicos de ${platform} no navegador, sem instalar um emulador.`,
+    description: spanish
+      ? `Juega a clásicos de ${platform} en tu navegador sin instalar un emulador. Consulta controles, compatibilidad y juegos relacionados antes de abrir el reproductor.`
+      : `Jogue clássicos de ${platform} no navegador sem instalar um emulador. Confira controles, compatibilidade e jogos relacionados antes de abrir o player.`,
     schemaName: name,
     breadcrumbName: name,
     heroTitle: `${name} online`,

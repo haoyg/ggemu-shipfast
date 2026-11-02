@@ -126,6 +126,32 @@ describe('i18n messages', () => {
     ])
   })
 
+  it('adds useful page context when an English source description is too short', () => {
+    const seo = buildGameDetailSeo({
+      description: 'A fast arcade puzzle game.',
+      name: 'Pixel Match',
+      platform: 'Arcade',
+    }, 'en')
+
+    expect(seo.description.length).toBeGreaterThanOrEqual(120)
+    expect(seo.description.length).toBeLessThanOrEqual(155)
+    expect(seo.description).toContain('controls and compatibility')
+  })
+
+  it.each(['es', 'pt', 'fr', 'de', 'it'] as const)(
+    'keeps %s game descriptions informative and within snippet length',
+    (locale) => {
+      const description = buildGameDetailSeo({
+        categories: ['Action'],
+        name: 'Pixel Quest',
+        platform: 'GBA',
+      }, locale).description
+
+      expect(description.length).toBeGreaterThanOrEqual(120)
+      expect(description.length).toBeLessThanOrEqual(155)
+    },
+  )
+
   it.each([
     ['es', '¿Puedo jugar a Pixel Quest online?', 'GBA', 'Acción'],
     ['pt', 'Posso jogar Pixel Quest online?', 'GBA', 'Ação'],
