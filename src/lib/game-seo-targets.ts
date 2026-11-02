@@ -20,6 +20,38 @@ const searchOnlyGameSeoBySlug = {
 } as const
 
 const targetedGameSeoBySlug = {
+  'neighbours-from-hell-flash-2003': {
+    heading: 'Play Neighbours from Hell Online',
+    title: 'Play Neighbours from Hell Online | Puzzle Game | POKOPIE',
+    description:
+      'Play Neighbours from Hell online. Learn the 2003 prank puzzle game’s controls, watch the neighbour’s routine, set traps and avoid being caught.',
+    keywords:
+      'Neighbours from Hell online, play Neighbours from Hell, Neighbors from Hell game, prank puzzle game',
+  },
+  'crash-bandicoot-2-cortex-strikes-back-ps1-1997': {
+    heading: 'Play Crash Bandicoot 2: Cortex Strikes Back Online',
+    title: 'Play Crash Bandicoot 2 Online | PS1 | POKOPIE',
+    description:
+      'Play Crash Bandicoot 2 online in your browser. Collect crystals, break crates, explore warp rooms and learn the controls for the original 1997 PS1 game.',
+    keywords:
+      'Crash Bandicoot 2 online, play Crash 2 online, Cortex Strikes Back online, Crash Bandicoot PS1 game',
+  },
+  'harry-potter-and-the-philosopher-s-stone-ps1-2001': {
+    heading: 'Play Harry Potter and the Philosopher’s Stone Online',
+    title: 'Harry Potter and the Philosopher’s Stone Online | PS1',
+    description:
+      'Play Harry Potter and the Philosopher’s Stone online. Explore Hogwarts, learn spells and check controls for the original 2001 PlayStation adventure.',
+    keywords:
+      'Harry Potter Philosopher’s Stone online, Sorcerer’s Stone PS1 online, play Harry Potter PS1, Hogwarts game',
+  },
+  'tenchu-2-birth-of-the-stealth-assassins-ps1-2000': {
+    heading: 'Play Tenchu 2: Birth of the Stealth Assassins Online',
+    title: 'Play Tenchu 2 Online | PS1 Stealth Game | POKOPIE',
+    description:
+      'Play Tenchu 2 online in your browser. Study guard routes, use stealth and items, and learn the controls for the 2000 PlayStation prequel.',
+    keywords:
+      'Tenchu 2 online, play Tenchu 2, Birth of the Stealth Assassins online, PS1 stealth game',
+  },
   'super-mario-bros-the-lost-levels-enhanced-snes-1993': {
     heading: 'Play Super Mario Bros.: The Lost Levels Online',
     title: 'Play Super Mario Bros. The Lost Levels Online | POKOPIE',

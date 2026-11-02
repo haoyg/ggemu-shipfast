@@ -7,6 +7,12 @@ export type GameSeoInternalLink = {
 
 const gameSeoLinkClusters: Array<Array<GameSeoInternalLink>> = [
   [
+    { label: 'Play Crash Bandicoot 2 online', slug: 'crash-bandicoot-2-cortex-strikes-back-ps1-1997' },
+    { label: 'Explore Hogwarts in Harry Potter', slug: 'harry-potter-and-the-philosopher-s-stone-ps1-2001' },
+    { label: 'Play Tenchu 2 stealth missions', slug: 'tenchu-2-birth-of-the-stealth-assassins-ps1-2000' },
+    { label: 'Plan pranks in Neighbours from Hell', slug: 'neighbours-from-hell-flash-2003' },
+  ],
+  [
     { label: 'Play Commandos: Behind Enemy Lines online', slug: 'commandos-dos-1998' },
     { label: 'Play Theme Hospital online', slug: 'theme-hospital-dos-1997' },
     { label: 'Play Romance of the Three Kingdoms IV online', slug: 'romance-of-the-three-kingdoms-iv-dos-1994' },

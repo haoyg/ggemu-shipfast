@@ -9,6 +9,10 @@ describe('game index policy', () => {
     'pok-mon-heartgold-version-nds-2009',
     'donkey-kong-nes-1983',
     'tekken-ps1-1995',
+    'neighbours-from-hell-flash-2003',
+    'crash-bandicoot-2-cortex-strikes-back-ps1-1997',
+    'harry-potter-and-the-philosopher-s-stone-ps1-2001',
+    'tenchu-2-birth-of-the-stealth-assassins-ps1-2000',
   ])('keeps the English SEO target %s indexable', (url_slug) => {
     const game = { url_slug }
 
@@ -41,6 +45,7 @@ describe('game index policy', () => {
 
     expect(getIndexableGameLocales(genericGame)).toEqual([])
     expect(isIndexableGameDetail(englishEditorial, 'it')).toBe(false)
+    expect(isIndexableGameDetail({ url_slug: 'crash-bandicoot-2-cortex-strikes-back-ps1-1997' }, 'zh-CN')).toBe(false)
   })
 
   it('allows localized pages only when they have localized editorial or search content', () => {

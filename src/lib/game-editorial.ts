@@ -18,6 +18,118 @@ export type GameEditorial = {
 // Entries with reviewedAt were checked against their linked sources on that date.
 // Player builds may still differ from the documented original release.
 const editorials: Record<string, GameEditorial> = {
+  'neighbours-from-hell-flash-2003': {
+    reviewedAt: '2026-11-02',
+    summary: 'Neighbours from Hell is a 2003 comedy puzzle game about setting up elaborate pranks while staying out of the neighbour’s sight. Each episode rewards careful observation, timing and using household objects in the right place.',
+    description: [
+      'The action takes place inside the neighbour’s home as part of a fictional television show. Move between rooms, collect useful objects and combine them with interactive spots to prepare pranks before the neighbour arrives.',
+      'The neighbour follows a repeated routine. Watch where he walks, which rooms he visits and how long each action takes, then choose a route that lets Woody prepare the next prank without being caught. Hiding or leaving a room is often safer than rushing one more interaction.',
+      'This catalog URL labels the game as a Flash title, while the documented original was released for PC. The available browser build may therefore use a wrapper or adapted player; check its current pointer, keyboard and save controls instead of assuming they match the retail release.',
+    ],
+    howToPlay: [
+      'Open the player controls, click inside the game and test movement plus interaction. Inspect rooms for objects that can be collected or used.',
+      'Observe one full part of the neighbour’s routine before acting. Prepare a prank only when there is enough time to leave the room safely.',
+      'Chain several successful pranks to improve the episode rating, but avoid the neighbour’s line of sight. If he approaches unexpectedly, retreat to a safe room or hiding place.',
+    ],
+    tips: [
+      'Learn the route first; most failures come from entering a room without knowing where the neighbour goes next.',
+      'Collect nearby objects before setting a trap so fewer return trips are needed.',
+      'Do not assume every highlighted object is used immediately. Keep it until the matching interaction becomes clear.',
+    ],
+    faq: [
+      { question: 'What is the goal in Neighbours from Hell?', answer: 'Set up pranks around the house, trigger the neighbour’s angry reactions and finish the episode without being caught.' },
+      { question: 'Is Neighbours from Hell an action game?', answer: 'It is primarily an observation and point-and-click puzzle game. Timing and route planning matter more than fast combat.' },
+      { question: 'Why does this page say Flash?', answer: 'That is the platform label used by this catalog entry. The documented 2003 original was a PC release, so the browser version may be an adapted build rather than the original delivery format.' },
+    ],
+    sources: [
+      { label: 'Steam: Neighbours from Hell gameplay overview', href: 'https://store.steampowered.com/app/260750/Neighbours_from_Hell/?l=english' },
+      { label: 'GameSpot: Neighbors from Hell release and game information', href: 'https://www.gamespot.com/games/neighbors-from-hell/' },
+    ],
+  },
+  'crash-bandicoot-2-cortex-strikes-back-ps1-1997': {
+    reviewedAt: '2026-11-02',
+    summary: 'Crash Bandicoot 2: Cortex Strikes Back is Naughty Dog’s 1997 PlayStation platform game. Explore stages from the warp rooms, collect each level’s crystal and master Crash’s jump, spin, slide, crawl and body-slam moves.',
+    description: [
+      'The main route is organized through warp rooms. Enter a stage, reach its crystal and return to unlock further progress. Crates, bonus areas and hidden routes add optional challenges beyond simply reaching the exit.',
+      'Crash can use movement skills together: a slide can pass under low hazards, a body slam can break reinforced crates and a well-timed jump can avoid enemies or reach a safer route. Some gems require special conditions or a later return to a stage.',
+      'This page runs the original PlayStation version through a browser player. Open the control panel to identify the mapped directional, jump, spin, crouch, Start and shoulder-button inputs before relying on a console guide.',
+    ],
+    howToPlay: [
+      'Check the browser mapping and test movement, jump, spin, slide and body slam near the start of a level.',
+      'Follow the main path to collect the crystal, but watch crate patterns and side routes for bonus opportunities. Use checkpoints before attempting a risky sequence.',
+      'Return to the warp room after completing the objective. Revisit a stage later when a colored-gem route or alternate condition cannot yet be completed safely.',
+    ],
+    tips: [
+      'Use short jumps for narrow platforms and keep the spin attack available when an enemy blocks the landing area.',
+      'Count crate groups around checkpoints; a missed side crate can prevent a clear-gem result even after the exit is reached.',
+      'Test that normal in-game saving or the player’s save state can be restored before a long session.',
+    ],
+    faq: [
+      { question: 'What is the main objective in Crash Bandicoot 2?', answer: 'Collect the crystal in each stage and return through the warp rooms while optionally pursuing gems and complete crate runs.' },
+      { question: 'Is this the N. Sane Trilogy version?', answer: 'No. This page is cataloged as the original 1997 PlayStation release, not the later remastered collection.' },
+      { question: 'Why are some gem routes unavailable?', answer: 'Certain routes depend on a colored gem or a special level condition. Continue the main route and revisit the stage after meeting the requirement.' },
+    ],
+    sources: [
+      { label: 'Activision: Crash Bandicoot 2 PlayStation manual', href: 'https://support.activision.com/servlet/servlet.FileDownload?file=00P0B0000166KeeUAE&retURL=%2Fapex%2Fmanuals' },
+      { label: 'PSX Data Center: Crash Bandicoot 2 release information', href: 'https://psxdatacenter.com/games/U/C/SCUS-94154.html' },
+    ],
+  },
+  'harry-potter-and-the-philosopher-s-stone-ps1-2001': {
+    reviewedAt: '2026-11-02',
+    summary: 'Harry Potter and the Philosopher’s Stone is a 2001 PlayStation action-adventure set during Harry’s first year at Hogwarts. Explore the castle, learn spells, solve environmental challenges and take part in broom and story activities.',
+    description: [
+      'Progress follows an adaptation of the first book and film. Lessons introduce spells that are then used for exploration and puzzles, while castle routes mix platforming, collecting and encounters with familiar characters.',
+      'Chocolate Frog cards and other collectibles reward careful exploration. Some areas ask for precise jumping, climbing or spell use, so inspect the route before moving and repeat a lesson if its input pattern is unclear.',
+      'The PlayStation edition is different from contemporary PC and later console versions. This page uses the PS1 build through a browser player, so rely on the displayed control mapping for movement, actions, spells, camera and menu input.',
+    ],
+    howToPlay: [
+      'Open the browser controls and identify movement, action, spell, jump, camera and Start inputs. Click inside the player if the keyboard does not respond.',
+      'Follow lesson prompts to learn each spell, then use the newly learned ability on matching objects around Hogwarts. Explore side paths for cards and useful items.',
+      'For platforming sections, line Harry up before jumping and adjust the camera when possible. Save at a safe point before longer challenges or broom sequences.',
+    ],
+    tips: [
+      'Listen to lesson instructions and practice a new spell before leaving the area.',
+      'Search rooms and side corridors, but return to the marked story route when an object cannot yet be activated.',
+      'Treat guides for the PC or newer-console releases cautiously because their levels and controls can differ from this PS1 game.',
+    ],
+    faq: [
+      { question: 'Is Philosopher’s Stone the same as Sorcerer’s Stone?', answer: 'They are regional titles for the same first Harry Potter story. Game packaging and on-screen wording can vary by release region.' },
+      { question: 'Can you explore Hogwarts in this game?', answer: 'Yes. The adventure connects lessons and story events with castle exploration, platforming, spell challenges and collectibles.' },
+      { question: 'Is this the PC version?', answer: 'No. This page is cataloged as the 2001 PlayStation version, whose stages and controls differ from the separate PC release.' },
+    ],
+    sources: [
+      { label: 'Harry Potter and the Philosopher’s Stone PlayStation manual', href: 'https://oldgamesdownload.com/wp-content/uploads/Harry_Potter_and_the_Philosophers_Stone_PS_Manual_EN.pdf' },
+      { label: 'The Centre for Computing History: PlayStation release information', href: 'https://www.computinghistory.org.uk/det/39249/Harry-Potter-and-the-Philosopher-s-Stone/' },
+    ],
+  },
+  'tenchu-2-birth-of-the-stealth-assassins-ps1-2000': {
+    reviewedAt: '2026-11-02',
+    summary: 'Tenchu 2: Birth of the Stealth Assassins is Acquire’s 2000 PlayStation stealth-action prequel. Study guard routes, use rooftops and shadows, complete mission objectives and avoid turning every encounter into a direct fight.',
+    description: [
+      'Missions reward remaining unseen and eliminating threats quietly. Watch the awareness indicator, separate guards when possible and keep an escape route ready before dropping from cover or entering an open courtyard.',
+      'Items can create distractions, support movement or provide a safer answer to a difficult patrol. Direct sword combat is available, but multiple alerted enemies make a mission much harder than a patient stealth route.',
+      'The original game was designed for the PlayStation controller and also included a mission editor. In this browser player, verify movement, camera, crouch, attack, item and grappling-hook mappings before starting a scored mission.',
+    ],
+    howToPlay: [
+      'Open the player controls and test movement, camera, crouch, attack, item selection, item use and the grappling hook in a safe area.',
+      'Pause at the edge of each new area and observe the full guard patrol. Move behind cover, approach from outside the guard’s view and act only when nearby enemies are separated.',
+      'Complete the stated objective and locate the exit instead of chasing every enemy. If detected, break line of sight and regain stealth rather than fighting several guards at once.',
+    ],
+    tips: [
+      'Use roofs and elevated routes to inspect an area before committing to the ground path.',
+      'Save limited items for patrol patterns that cannot be passed safely with timing alone.',
+      'A fast mission is not automatically a good mission; avoiding detection and unnecessary combat is more reliable.',
+    ],
+    faq: [
+      { question: 'Is Tenchu 2 a sequel or a prequel?', answer: 'It is the second released Tenchu game, but its story is a prequel set before the original Tenchu: Stealth Assassins.' },
+      { question: 'Should I fight every guard?', answer: 'No. The game is built around stealth, observation and silent takedowns. Direct combat is usually the riskier option.' },
+      { question: 'Does Tenchu 2 include a mission editor?', answer: 'The original PlayStation release includes a mission editor. Browser-player storage and compatibility can affect whether created missions persist.' },
+    ],
+    sources: [
+      { label: 'GameSpot: Tenchu 2 review and stealth gameplay overview', href: 'https://www.gamespot.com/reviews/tenchu-2-birth-of-the-stealth-assassins-review/1900-2613253/' },
+      { label: 'PSX Data Center: Tenchu 2 release information', href: 'https://www.psxdatacenter.com/games/U/T/SLUS-00939.html' },
+    ],
+  },
   'super-mario-bros-the-lost-levels-enhanced-snes-1993': {
     reviewedAt: '2026-11-01',
     summary: 'Super Mario Bros.: The Lost Levels is Nintendo’s difficult follow-up to the original Super Mario Bros. This page is labeled as an enhanced SNES edition, so its presentation can differ from the Japanese Famicom Disk System release.',
