@@ -116,11 +116,11 @@ const localizedArcadeCopy = {
   pt: getRomanceCollectionCopy('pt', 'Arcade'),
   ko: { title: '온라인 아케이드 게임 | POKOPIE', description: '브라우저에서 클래식 아케이드 게임을 즐기세요. 격투, 슈팅, 퍼즐과 레이싱 작품을 찾고, 게임별 조작법과 기기 호환성을 확인한 뒤 플레이어를 실행할 수 있습니다.', heroTitle: '클래식 아케이드 게임', heroDescription: '격투, 슈팅, 퍼즐과 레이싱 게임을 찾아보세요.', ctaLabel: '아케이드 게임 보기', libraryTitle: '아케이드 게임 목록', libraryDescription: (total: number) => `게임 ${total}개`, unavailableMessage: '잠시 후 다시 시도하세요.', featuredLabel: '추천 아케이드 게임', coverAlt: '아케이드 게임 표지' },
   'zh-TW': {
-    title: '在線玩經典街機遊戲 | POKOPIE', description: '在瀏覽器中在線玩經典街機遊戲，瀏覽格鬥、射擊、益智、賽車和平臺遊戲。', heroTitle: '在線玩經典街機遊戲', heroDescription: '在瀏覽器中重溫經典街機遊戲，支持的遊戲無需單獨下載模擬器。', ctaLabel: '瀏覽街機遊戲', libraryTitle: '經典街機遊戲庫', libraryDescription: (total: number) => `瀏覽 POKOPIE 目錄中的 ${total} 款街機遊戲。`, unavailableMessage: '街機遊戲暫時不可用，請稍後再試。', featuredLabel: '精選經典街機遊戲', coverAlt: '經典街機遊戲封面',
+    title: '在線玩經典街機遊戲 | POKOPIE', description: '在瀏覽器中在線玩經典街機遊戲，瀏覽格鬥、射擊、益智、賽車和平臺作品。進入遊戲詳情頁查看投幣、開始與操作按鍵，確認裝置兼容性後再啟動支持的播放器。', heroTitle: '在線玩經典街機遊戲', heroDescription: '在瀏覽器中重溫經典街機遊戲，支持的遊戲無需單獨下載模擬器。', ctaLabel: '瀏覽街機遊戲', libraryTitle: '經典街機遊戲庫', libraryDescription: (total: number) => `瀏覽 POKOPIE 目錄中的 ${total} 款街機遊戲。`, unavailableMessage: '街機遊戲暫時不可用，請稍後再試。', featuredLabel: '精選經典街機遊戲', coverAlt: '經典街機遊戲封面',
   },
   'zh-CN': {
     ...chineseCollectionEditorials.arcade,
-    title: '在线玩经典街机游戏 | POKOPIE', description: '在浏览器中在线玩经典街机游戏，浏览格斗、射击、益智、赛车和平台游戏。', heroTitle: '在线玩经典街机游戏', heroDescription: '在浏览器中重温经典街机游戏，支持的游戏无需单独下载模拟器。', ctaLabel: '浏览街机游戏', libraryTitle: '经典街机游戏库', libraryDescription: (total: number) => `浏览 POKOPIE 目录中的 ${total} 款街机游戏。`, unavailableMessage: '街机游戏暂时不可用，请稍后再试。', featuredLabel: '精选经典街机游戏', coverAlt: '经典街机游戏封面',
+    title: '在线玩经典街机游戏 | POKOPIE', description: '在浏览器中在线玩经典街机游戏，浏览格斗、射击、益智、赛车和平台作品。进入游戏详情页查看投币、开始与操作按键，确认设备兼容性后再启动支持的播放器。', heroTitle: '在线玩经典街机游戏', heroDescription: '在浏览器中重温经典街机游戏，支持的游戏无需单独下载模拟器。', ctaLabel: '浏览街机游戏', libraryTitle: '经典街机游戏库', libraryDescription: (total: number) => `浏览 POKOPIE 目录中的 ${total} 款街机游戏。`, unavailableMessage: '街机游戏暂时不可用，请稍后再试。', featuredLabel: '精选经典街机游戏', coverAlt: '经典街机游戏封面',
   },
   ja: {
     title: 'クラシックアーケードゲームをオンラインでプレイ | POKOPIE', description: 'ブラウザーでクラシックアーケードゲームをプレイ。格闘、シューティング、パズル、レースなどを楽しめます。', heroTitle: 'クラシックアーケードゲームをオンラインでプレイ', heroDescription: 'ブラウザーで名作アーケードゲームを楽しめます。対応タイトルは専用エミュレーター不要です。', ctaLabel: 'アーケードゲームを見る', libraryTitle: 'クラシックアーケードゲームライブラリ', libraryDescription: (total: number) => `POKOPIE に掲載されているアーケードゲーム ${total} 件を閲覧できます。`, unavailableMessage: 'アーケードゲームは一時的に利用できません。後でもう一度お試しください。', featuredLabel: 'おすすめアーケードゲーム', coverAlt: 'クラシックアーケードゲームのカバー',

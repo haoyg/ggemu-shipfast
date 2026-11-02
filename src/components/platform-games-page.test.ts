@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 
 import { getLocalizedPlatformCollection, getRelatedGuide } from './platform-games-page'
-import { getLocalizedArcadePageConfig } from './arcade-games-page'
+import { getLocalizedArcadeCollection, getLocalizedArcadePageConfig } from './arcade-games-page'
 import { getCollectionCompatibilitySummary } from './game-collection-page'
 
 describe('platform guide links', () => {
@@ -18,6 +18,10 @@ describe('platform guide links', () => {
     expect(page.articleTitle).toContain('投币')
     expect(page.faqs.some((faq) => faq.question.includes('在线联机'))).toBe(true)
     expect(page.genres.find((genre) => genre.name === '射击')?.matchTerms).toContain('Shoot')
+  })
+
+  it.each(['zh-CN', 'zh-TW'] as const)('uses an informative %s arcade meta description', locale => {
+    expect(getLocalizedArcadeCollection(locale).description.length).toBeGreaterThanOrEqual(60)
   })
 
   it('provides Chinese GBA editorial content while preserving the English collection', () => {
