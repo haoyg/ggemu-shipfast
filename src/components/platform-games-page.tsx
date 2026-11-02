@@ -174,9 +174,9 @@ const localizedPlatformCopy = {
     },
     nes: {
       ...chineseCollectionEditorials.nes,
-      title: '在线玩 NES 游戏 | 免下载 | POKOPIE',
-      description: '在浏览器中在线玩 NES 游戏，浏览经典 Nintendo 动作、平台、益智、体育和冒险游戏，无需单独下载模拟器。',
-      schemaName: '在线玩 NES 游戏',
+      title: '红白机（NES）游戏在线玩｜魂斗罗、超级马里奥等经典免下载',
+      description: '红白机（NES）游戏在线玩：浏览魂斗罗、超级马里奥、赤色要塞、沙罗曼蛇等经典动作、平台和射击游戏，无需单独下载模拟器。',
+      schemaName: '红白机（NES）游戏在线玩',
       breadcrumbName: 'NES 游戏',
       heroTitle: '在线玩 NES 游戏',
       heroDescription: '在线重温塑造动作、平台、益智、体育和冒险游戏的 8 位经典作品，支持的游戏可以直接从详情页开始。',

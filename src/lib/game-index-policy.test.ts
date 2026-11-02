@@ -54,4 +54,12 @@ describe('game index policy', () => {
     expect(isIndexableGameDetail(game, 'zh-CN')).toBe(true)
     expect(isIndexableGameDetail(game, 'it')).toBe(false)
   })
+
+  it('indexes a reviewed Chinese alias without changing unsupported locales', () => {
+    const game = { url_slug: 'contra-nes-1988', name: 'Contra' }
+
+    expect(isIndexableGameDetail(game, 'zh-CN')).toBe(true)
+    expect(isIndexableGameDetail(game, 'zh-TW')).toBe(true)
+    expect(isIndexableGameDetail(game, 'it')).toBe(false)
+  })
 })

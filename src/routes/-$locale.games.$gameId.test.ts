@@ -20,6 +20,30 @@ describe('game-related guides', () => {
 })
 
 describe('buildGameStructuredData', () => {
+  it('adds reviewed Chinese names without changing English schema', () => {
+    const chineseSchema = buildGameStructuredData({
+      canonicalUrl: 'https://pokopie.com/zh-CN/games/contra-nes-1988',
+      faqItems: [],
+      game: { name: '魂斗罗（Contra）', url_slug: 'contra-nes-1988' },
+      locale: 'zh-CN',
+      seo: { description: '魂斗罗游戏介绍。', keywords: '魂斗罗，Contra', title: '魂斗罗在线玩' },
+    })
+    const englishSchema = buildGameStructuredData({
+      canonicalUrl: 'https://pokopie.com/en/games/contra-nes-1988',
+      faqItems: [],
+      game: { name: 'Contra', url_slug: 'contra-nes-1988' },
+      locale: 'en',
+      seo: { description: 'Play Contra online.', keywords: 'Contra', title: 'Play Contra Online' },
+    })
+
+    expect(chineseSchema[0]).toMatchObject({
+      name: '魂斗罗（Contra）',
+      alternateName: ['魂斗罗', 'Contra'],
+    })
+    expect(englishSchema[0]).toMatchObject({ name: 'Contra' })
+    expect(englishSchema[0]).not.toHaveProperty('alternateName')
+  })
+
   it('describes the canonical playable page as a free offer with an update date', () => {
     const canonicalUrl = 'https://pokopie.com/en/games/contra-nes-1988'
     const structuredData = buildGameStructuredData({

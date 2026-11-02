@@ -5,6 +5,7 @@ import { getRequestUrl } from '@tanstack/react-start/server'
 import { TimedAsyncCache } from '#/lib/timed-async-cache'
 import { getPs1CoverFallback } from '#/lib/ps1-cover-fallbacks'
 import { localizePublicGame, localizePublicGames } from '#/lib/game-localization'
+import { resolveChineseGameSearchQuery } from '#/lib/game-name-aliases'
 import { GgemuApiError, isMissingGameError, requestGameDetail } from '#/lib/game-detail-request'
 
 const API_BASE_URL = 'https://ggemu.com'
@@ -629,7 +630,7 @@ export const searchGames = createServerFn({ method: 'GET' })
       play_online: '1',
     })
 
-    addOptionalParam(params, 'query', data.query)
+    addOptionalParam(params, 'query', resolveChineseGameSearchQuery(data.query, data.locale))
     addOptionalParam(params, 'platform', data.platform)
     addOptionalParam(params, 'category', data.category)
     addOptionalParam(params, 'sort', data.sort)

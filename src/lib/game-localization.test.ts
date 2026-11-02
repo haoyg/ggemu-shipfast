@@ -1,8 +1,30 @@
 import { describe, expect, it } from 'vitest'
 
 import { isTextSuitableForLocale, localizePublicGame } from './game-localization'
+import { resolveChineseGameSearchQuery } from './game-name-aliases'
 
 describe('localizePublicGame', () => {
+  it('adds reviewed Chinese names without changing the English game name', () => {
+    const game = { url_slug: 'contra-nes-1988', name: 'Contra' }
+
+    expect(localizePublicGame(game, 'zh-CN').name).toBe('魂斗罗（Contra）')
+    expect(localizePublicGame(game, 'zh-TW').name).toBe('魂斗羅（Contra）')
+    expect(localizePublicGame(game, 'en').name).toBe('Contra')
+  })
+
+  it('localizes a reviewed game that only has an upstream database id', () => {
+    const game = { _id: '69cc9932a1f847282b35b6a5', name: 'Super Mario 64' }
+
+    expect(localizePublicGame(game, 'zh-CN').name).toBe('超级马里奥 64（Super Mario 64）')
+    expect(localizePublicGame(game, 'en').name).toBe('Super Mario 64')
+  })
+
+  it('maps exact Chinese aliases to upstream English search terms', () => {
+    expect(resolveChineseGameSearchQuery('魂斗罗', 'zh-CN')).toBe('Contra')
+    expect(resolveChineseGameSearchQuery('口袋妖怪绿宝石', 'zh-CN')).toBe('Pokémon Emerald')
+    expect(resolveChineseGameSearchQuery('Contra', 'en')).toBe('Contra')
+    expect(resolveChineseGameSearchQuery('未知游戏', 'zh-CN')).toBe('未知游戏')
+  })
   it('uses a reviewed English title override across the game object', () => {
     const game = localizePublicGame({
       url_slug: 'pokemon-emerald-gba-2004',

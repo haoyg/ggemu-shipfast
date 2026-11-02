@@ -1,4 +1,5 @@
 import type { Locale, PublicGame } from './ggemu'
+import { getReviewedChineseGameName } from './game-name-aliases'
 
 type LocalizedGameOverride = {
   name?: Partial<Record<Locale, string>>
@@ -263,10 +264,11 @@ const hangulPattern = /\p{Script=Hangul}/gu
 
 export function localizePublicGame(game: PublicGame, locale: Locale): PublicGame {
   const override = localizedGameOverrides[normalizeSlug(game.url_slug)]
+  const reviewedChineseName = getReviewedChineseGameName(game, locale)
 
   return {
     ...game,
-    name: override?.name?.[locale]?.trim() || game.name,
+    name: reviewedChineseName?.displayName || override?.name?.[locale]?.trim() || game.name,
     description: getLocalizedText(game.description, override?.description?.[locale], locale),
     how_to_play: getLocalizedText(game.how_to_play, override?.howToPlay?.[locale], locale),
     developer: getMetadataOverride(game.developer, override?.developer),

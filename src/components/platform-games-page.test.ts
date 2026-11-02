@@ -24,6 +24,15 @@ describe('platform guide links', () => {
     expect(getLocalizedArcadeCollection(locale).description.length).toBeGreaterThanOrEqual(60)
   })
 
+  it('targets the Chinese NES name while preserving the English collection', () => {
+    const chinese = getLocalizedPlatformCollection('nes', 'zh-CN')
+    const english = getLocalizedPlatformCollection('nes', 'en')
+
+    expect(chinese.title).toContain('红白机（NES）游戏在线玩')
+    expect(chinese.description).toContain('魂斗罗')
+    expect(english.title).toBe('Play NES Games Online Free | No Download | POKOPIE')
+  })
+
   it('provides Chinese GBA editorial content while preserving the English collection', () => {
     const chinese = getLocalizedPlatformCollection('gba', 'zh-CN')
     const english = getLocalizedPlatformCollection('gba', 'en')

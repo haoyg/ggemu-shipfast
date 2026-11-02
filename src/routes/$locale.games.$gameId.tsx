@@ -53,6 +53,7 @@ import {
 import { getAlternateLinksFromCanonical, seoLocales } from '#/lib/seo'
 import { getCanonicalGameRouteId, getUpstreamGameRouteId } from '#/lib/game-route-id'
 import { getGamePlatformCollectionPath } from '#/lib/platform-routes'
+import { getGameAlternateNames } from '#/lib/game-name-aliases'
 
 export const Route = createFileRoute('/$locale/games/$gameId')({
   beforeLoad: ({ location, params }) => {
@@ -335,6 +336,7 @@ export function buildGameStructuredData({
     '@type': 'VideoGame',
     '@id': `${canonicalUrl}#game`,
     name: game.name,
+    alternateName: getGameAlternateNames(game, locale),
     description: seo.description,
     url: canonicalUrl,
     image: game.game_cover,

@@ -1,4 +1,5 @@
 import type { Locale, PublicGame } from '#/lib/ggemu'
+import { getReviewedChineseGameName } from '#/lib/game-name-aliases'
 
 const contraTargetSlug = 'contra-nes-1988'
 const geometryDashAdvanceTargetSlug = 'geometry-dash-advance-gba-2025'
@@ -622,6 +623,25 @@ export function getTargetedGameSeo(game: PublicGame, locale: Locale) {
 }
 
 export function getGameSearchSeo(game: PublicGame, locale: Locale) {
+  const reviewedChineseName = getReviewedChineseGameName(game, locale)
+  if (reviewedChineseName) {
+    const onlineText = locale === 'zh-TW' ? '在線玩' : '在线玩'
+    const noDownloadText = locale === 'zh-TW' ? '瀏覽器免下載' : '浏览器免下载'
+    return {
+      heading: reviewedChineseName.displayName,
+      title: `${reviewedChineseName.localizedName}${onlineText}（${reviewedChineseName.englishName}）｜${noDownloadText}`,
+      description: locale === 'zh-TW'
+        ? `${reviewedChineseName.displayName}遊戲介紹與操作說明。查看原始平台、發行信息、瀏覽器控制、設備兼容性和相關遊戲，再從頁面入口開始遊玩。`
+        : `${reviewedChineseName.displayName}游戏介绍与操作说明。查看原始平台、发行信息、浏览器控制、设备兼容性和相关游戏，再从页面入口开始游玩。`,
+      keywords: [
+        reviewedChineseName.localizedName,
+        reviewedChineseName.englishName,
+        ...reviewedChineseName.searchAliases,
+        `${reviewedChineseName.localizedName}${onlineText}`,
+      ].join('，'),
+    }
+  }
+
   if (locale === 'zh-CN' && normalizeGameSlug(game) === murdokuTargetSlug) {
     return {
       heading: 'Murdoku 在线玩',
