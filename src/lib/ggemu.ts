@@ -16,6 +16,8 @@ const GGEMU_DEFAULT_CACHE_TTL_MS = 1000 * 60 * 5
 const GGEMU_DEFAULT_STALE_TTL_MS = 1000 * 60 * 60 * 24
 const GGEMU_LIVE_CACHE_TTL_MS = 1000 * 15
 const GGEMU_FILTER_CACHE_TTL_MS = 1000 * 60 * 60 * 24
+const GGEMU_DETAIL_EDGE_FRESH_TTL_MS = 1000 * 60 * 60 * 6
+const GGEMU_DETAIL_EDGE_STALE_TTL_MS = 1000 * 60 * 60 * 24 * 7
 const GGEMU_CACHE_MAX_ENTRIES = 500
 const BLOCKED_IMAGE_HOSTS = new Set([
   'cdn.emulatorgamer.com',
@@ -297,6 +299,15 @@ async function fetchJson<T>(
     return cached.value as T
   }
 
+  const edgeSnapshot = path === '/api/game/detail'
+    ? await readGameDetailSnapshot<T>(cacheKey)
+    : undefined
+
+  if (edgeSnapshot && edgeSnapshot.createdAt + GGEMU_DETAIL_EDGE_FRESH_TTL_MS > now) {
+    rememberJson(cacheKey, edgeSnapshot.value, cacheTtlMs, staleTtlMs)
+    return edgeSnapshot.value
+  }
+
   return jsonCache.run(cacheKey, async () => {
     const latestCached = jsonCache.get<T>(cacheKey)
 
@@ -331,19 +342,19 @@ async function fetchJson<T>(
       }
 
       if (cacheTtlMs > 0 || staleTtlMs > 0) {
-        const cachedAt = Date.now()
-
-        jsonCache.set(cacheKey, {
-          expiresAt: cachedAt + cacheTtlMs,
-          staleUntil: cachedAt + cacheTtlMs + staleTtlMs,
-          value,
-        })
+        rememberJson(cacheKey, value, cacheTtlMs, staleTtlMs)
       }
+
+      if (path === '/api/game/detail') await writeGameDetailSnapshot(cacheKey, value)
 
       return value
     } catch (error) {
       if (!isMissingGameError(error) && latestCached && latestCached.staleUntil > Date.now()) {
         return latestCached.value
+      }
+      if (!isMissingGameError(error) && edgeSnapshot && edgeSnapshot.createdAt + GGEMU_DETAIL_EDGE_STALE_TTL_MS > Date.now()) {
+        rememberJson(cacheKey, edgeSnapshot.value, cacheTtlMs, staleTtlMs)
+        return edgeSnapshot.value
       }
 
       throw error
@@ -351,6 +362,51 @@ async function fetchJson<T>(
       clearTimeout(timeoutId)
     }
   })
+}
+
+function rememberJson<T>(cacheKey: string, value: T, cacheTtlMs: number, staleTtlMs: number) {
+  const cachedAt = Date.now()
+  jsonCache.set(cacheKey, {
+    expiresAt: cachedAt + cacheTtlMs,
+    staleUntil: cachedAt + cacheTtlMs + staleTtlMs,
+    value,
+  })
+}
+
+function getGameDetailSnapshotStore() {
+  return (globalThis.caches as (CacheStorage & { default?: Cache }) | undefined)?.default
+}
+
+function getGameDetailSnapshotKey(cacheKey: string) {
+  return `https://pokopie.com/__cache/ggemu-game-detail-v1/${encodeURIComponent(cacheKey)}`
+}
+
+async function readGameDetailSnapshot<T>(cacheKey: string) {
+  try {
+    const response = await getGameDetailSnapshotStore()?.match(getGameDetailSnapshotKey(cacheKey))
+    if (!response) return
+    const createdAt = Number(response.headers.get('X-POKOPIE-Cached-At'))
+    if (!createdAt || createdAt + GGEMU_DETAIL_EDGE_STALE_TTL_MS <= Date.now()) return
+    return { createdAt, value: await response.json() as T }
+  } catch {
+    return undefined
+  }
+}
+
+async function writeGameDetailSnapshot<T>(cacheKey: string, value: T) {
+  try {
+    await getGameDetailSnapshotStore()?.put(
+      getGameDetailSnapshotKey(cacheKey),
+      Response.json(value, {
+        headers: {
+          'Cache-Control': 'public, max-age=604800',
+          'X-POKOPIE-Cached-At': String(Date.now()),
+        },
+      }),
+    )
+  } catch {
+    // A successful upstream response remains usable even if edge storage is unavailable.
+  }
 }
 
 async function fetchGames(params: URLSearchParams) {

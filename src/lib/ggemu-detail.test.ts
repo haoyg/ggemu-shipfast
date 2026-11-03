@@ -18,6 +18,7 @@ beforeEach(() => {
   vi.setSystemTime(new Date('2026-10-11T00:00:00Z'))
   fetchMock = vi.fn()
   vi.stubGlobal('fetch', fetchMock)
+  vi.stubGlobal('caches', undefined)
 })
 afterEach(() => { vi.useRealTimers(); vi.unstubAllGlobals() })
 
@@ -84,5 +85,38 @@ describe('game detail failure handling', () => {
     fetchMock.mockResolvedValue(new Response('', { status: 404 }))
     expect(await load()).toEqual({ kind: 'not-found' })
     expect(fetchMock).toHaveBeenCalledTimes(2)
+  })
+
+  it('restores a successful detail response after a Worker isolate restart', async () => {
+    const entries = new Map<string, Response>()
+    const store = {
+      match: vi.fn(async (key: string) => entries.get(key)?.clone()),
+      put: vi.fn(async (key: string, response: Response) => { entries.set(key, response.clone()) }),
+    }
+    vi.stubGlobal('caches', { default: store })
+    fetchMock.mockResolvedValueOnce(success())
+    expect(await load()).toMatchObject({ kind: 'ready', game: { name: 'Contra' } })
+    expect(store.put).toHaveBeenCalledTimes(1)
+
+    vi.resetModules()
+    fetchMock.mockRejectedValue(new TypeError('Network unavailable'))
+    expect(await load()).toMatchObject({ kind: 'ready', game: { name: 'Contra' } })
+    expect(fetchMock).toHaveBeenCalledTimes(1)
+  })
+
+  it('does not hide a confirmed removal behind an expired edge snapshot', async () => {
+    const entries = new Map<string, Response>()
+    const store = {
+      match: vi.fn(async (key: string) => entries.get(key)?.clone()),
+      put: vi.fn(async (key: string, response: Response) => { entries.set(key, response.clone()) }),
+    }
+    vi.stubGlobal('caches', { default: store })
+    fetchMock.mockResolvedValueOnce(success())
+    await load()
+    vi.resetModules()
+    vi.advanceTimersByTime(6 * 60 * 60 * 1000 + 1)
+    fetchMock.mockResolvedValue(new Response('', { status: 404 }))
+
+    expect(await load()).toEqual({ kind: 'not-found' })
   })
 })
