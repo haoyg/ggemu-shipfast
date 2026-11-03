@@ -18,6 +18,8 @@ const GGEMU_LIVE_CACHE_TTL_MS = 1000 * 15
 const GGEMU_FILTER_CACHE_TTL_MS = 1000 * 60 * 60 * 24
 const GGEMU_DETAIL_EDGE_FRESH_TTL_MS = 1000 * 60 * 60 * 6
 const GGEMU_DETAIL_EDGE_STALE_TTL_MS = 1000 * 60 * 60 * 24 * 7
+const GGEMU_SEARCH_EDGE_FRESH_TTL_MS = 1000 * 60 * 15
+const GGEMU_SEARCH_EDGE_STALE_TTL_MS = 1000 * 60 * 60 * 24
 const GGEMU_CACHE_MAX_ENTRIES = 500
 const BLOCKED_IMAGE_HOSTS = new Set([
   'cdn.emulatorgamer.com',
@@ -299,11 +301,12 @@ async function fetchJson<T>(
     return cached.value as T
   }
 
-  const edgeSnapshot = path === '/api/game/detail'
-    ? await readGameDetailSnapshot<T>(cacheKey)
+  const edgePolicy = getEdgeSnapshotPolicy(path)
+  const edgeSnapshot = edgePolicy
+    ? await readEdgeSnapshot<T>(cacheKey, edgePolicy)
     : undefined
 
-  if (edgeSnapshot && edgeSnapshot.createdAt + GGEMU_DETAIL_EDGE_FRESH_TTL_MS > now) {
+  if (edgeSnapshot && edgePolicy && edgeSnapshot.createdAt + edgePolicy.freshTtlMs > now) {
     rememberJson(cacheKey, edgeSnapshot.value, cacheTtlMs, staleTtlMs)
     return edgeSnapshot.value
   }
@@ -340,19 +343,26 @@ async function fetchJson<T>(
       )) {
         throw new Error('Invalid game detail response')
       }
+      if (path === '/api/games/search' && (
+        !value || typeof value !== 'object' || !('success' in value) || value.success !== true ||
+        !('data' in value) || !Array.isArray(value.data) ||
+        !('pagination' in value) || !value.pagination || typeof value.pagination !== 'object'
+      )) {
+        throw new Error('Invalid game search response')
+      }
 
       if (cacheTtlMs > 0 || staleTtlMs > 0) {
         rememberJson(cacheKey, value, cacheTtlMs, staleTtlMs)
       }
 
-      if (path === '/api/game/detail') await writeGameDetailSnapshot(cacheKey, value)
+      if (edgePolicy) await writeEdgeSnapshot(cacheKey, value, edgePolicy)
 
       return value
     } catch (error) {
       if (!isMissingGameError(error) && latestCached && latestCached.staleUntil > Date.now()) {
         return latestCached.value
       }
-      if (!isMissingGameError(error) && edgeSnapshot && edgeSnapshot.createdAt + GGEMU_DETAIL_EDGE_STALE_TTL_MS > Date.now()) {
+      if (!isMissingGameError(error) && edgeSnapshot && edgePolicy && edgeSnapshot.createdAt + edgePolicy.staleTtlMs > Date.now()) {
         rememberJson(cacheKey, edgeSnapshot.value, cacheTtlMs, staleTtlMs)
         return edgeSnapshot.value
       }
@@ -373,33 +383,48 @@ function rememberJson<T>(cacheKey: string, value: T, cacheTtlMs: number, staleTt
   })
 }
 
-function getGameDetailSnapshotStore() {
+type EdgeSnapshotPolicy = {
+  freshTtlMs: number
+  staleTtlMs: number
+}
+
+function getEdgeSnapshotPolicy(path: string): EdgeSnapshotPolicy | undefined {
+  if (path === '/api/game/detail') {
+    return { freshTtlMs: GGEMU_DETAIL_EDGE_FRESH_TTL_MS, staleTtlMs: GGEMU_DETAIL_EDGE_STALE_TTL_MS }
+  }
+  if (path === '/api/games/search') {
+    return { freshTtlMs: GGEMU_SEARCH_EDGE_FRESH_TTL_MS, staleTtlMs: GGEMU_SEARCH_EDGE_STALE_TTL_MS }
+  }
+  return undefined
+}
+
+function getEdgeSnapshotStore() {
   return (globalThis.caches as (CacheStorage & { default?: Cache }) | undefined)?.default
 }
 
-function getGameDetailSnapshotKey(cacheKey: string) {
-  return `https://pokopie.com/__cache/ggemu-game-detail-v1/${encodeURIComponent(cacheKey)}`
+function getEdgeSnapshotKey(cacheKey: string) {
+  return `https://pokopie.com/__cache/ggemu-json-v2/${encodeURIComponent(cacheKey)}`
 }
 
-async function readGameDetailSnapshot<T>(cacheKey: string) {
+async function readEdgeSnapshot<T>(cacheKey: string, policy: EdgeSnapshotPolicy) {
   try {
-    const response = await getGameDetailSnapshotStore()?.match(getGameDetailSnapshotKey(cacheKey))
+    const response = await getEdgeSnapshotStore()?.match(getEdgeSnapshotKey(cacheKey))
     if (!response) return
     const createdAt = Number(response.headers.get('X-POKOPIE-Cached-At'))
-    if (!createdAt || createdAt + GGEMU_DETAIL_EDGE_STALE_TTL_MS <= Date.now()) return
+    if (!createdAt || createdAt + policy.staleTtlMs <= Date.now()) return
     return { createdAt, value: await response.json() as T }
   } catch {
     return undefined
   }
 }
 
-async function writeGameDetailSnapshot<T>(cacheKey: string, value: T) {
+async function writeEdgeSnapshot<T>(cacheKey: string, value: T, policy: EdgeSnapshotPolicy) {
   try {
-    await getGameDetailSnapshotStore()?.put(
-      getGameDetailSnapshotKey(cacheKey),
+    await getEdgeSnapshotStore()?.put(
+      getEdgeSnapshotKey(cacheKey),
       Response.json(value, {
         headers: {
-          'Cache-Control': 'public, max-age=604800',
+          'Cache-Control': `public, max-age=${Math.floor(policy.staleTtlMs / 1000)}`,
           'X-POKOPIE-Cached-At': String(Date.now()),
         },
       }),
