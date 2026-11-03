@@ -20,6 +20,7 @@ const GGEMU_DETAIL_EDGE_FRESH_TTL_MS = 1000 * 60 * 60 * 6
 const GGEMU_DETAIL_EDGE_STALE_TTL_MS = 1000 * 60 * 60 * 24 * 7
 const GGEMU_SEARCH_EDGE_FRESH_TTL_MS = 1000 * 60 * 15
 const GGEMU_SEARCH_EDGE_STALE_TTL_MS = 1000 * 60 * 60 * 24
+const GGEMU_RELATED_GAMES_TIMEOUT_MS = 2_000
 const GGEMU_CACHE_MAX_ENTRIES = 500
 const BLOCKED_IMAGE_HOSTS = new Set([
   'cdn.emulatorgamer.com',
@@ -434,8 +435,8 @@ async function writeEdgeSnapshot<T>(cacheKey: string, value: T, policy: EdgeSnap
   }
 }
 
-async function fetchGames(params: URLSearchParams) {
-  const result = await fetchJson<GameSearchResponse>('/api/games/search', params)
+async function fetchGames(params: URLSearchParams, options?: FetchJsonOptions) {
+  const result = await fetchJson<GameSearchResponse>('/api/games/search', params, options)
 
   return {
     games: normalizePublicGames(result.data),
@@ -670,8 +671,12 @@ async function fetchRelatedGames({
   addOptionalParam(developerParams, 'query', developer)
 
   const [categoryResult, developerResult] = await Promise.all([
-    category ? fetchGames(categoryParams).catch(() => null) : null,
-    developer ? fetchGames(developerParams).catch(() => null) : null,
+    category
+      ? fetchGames(categoryParams, { timeoutMs: GGEMU_RELATED_GAMES_TIMEOUT_MS }).catch(() => null)
+      : null,
+    developer
+      ? fetchGames(developerParams, { timeoutMs: GGEMU_RELATED_GAMES_TIMEOUT_MS }).catch(() => null)
+      : null,
   ])
 
   const relatedByCategory = dedupeGames(categoryResult?.games ?? [])
