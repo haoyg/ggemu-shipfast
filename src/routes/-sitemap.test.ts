@@ -1,185 +1,63 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
-const request = () => new Request('https://pokopie.com/sitemap.xml')
-const day = 86_400_000
+const request = (url = 'https://pokopie.com/sitemap.xml') => new Request(url)
 let fetchMock: ReturnType<typeof vi.fn>
-
-function successfulFetch(input: string) {
-  const blog = input.includes('/api/blog-posts')
-  return Promise.resolve(Response.json(blog
-    ? { success: true, blogPosts: [{ slug: 'guide' }], pagination: { pages: 1 } }
-    : {
-        success: true,
-        data: [
-          { url_slug: 'contra-nes-1988' },
-          { url_slug: 'unreviewed-game-nes-1990' },
-        ],
-        pagination: { pages: 1 },
-      }))
-}
 
 beforeEach(() => {
   vi.resetModules()
-  vi.useFakeTimers()
-  vi.setSystemTime(new Date('2026-09-05T00:00:00Z'))
-  fetchMock = vi.fn(successfulFetch)
+  fetchMock = vi.fn()
   vi.stubGlobal('fetch', fetchMock)
-  vi.stubGlobal('caches', undefined)
 })
 
-afterEach(() => { vi.useRealTimers(); vi.unstubAllGlobals() })
+afterEach(() => {
+  vi.unstubAllGlobals()
+})
 
 describe('sitemap availability', () => {
-  it('long-caches only complete successful results and coalesces concurrent refreshes', async () => {
+  it('builds a focused sitemap without waiting for GGEMU', async () => {
     const { getSitemapResponse } = await import('./sitemap[.]xml')
-    const [first, second] = await Promise.all([getSitemapResponse(request()), getSitemapResponse(request())])
-    expect(first.status).toBe(200)
-    expect(first.headers.get('Cache-Control')).toContain('s-maxage=86400')
-    const firstXml = await first.text()
-    expect(firstXml).toContain('/fr/gba-games')
-    expect(firstXml).toContain('/de/gba-games')
-    expect(firstXml).toContain('hreflang="fr"')
-    expect(firstXml).toContain('hreflang="de"')
-    expect(firstXml).not.toContain('/fr/privacy-policy')
-    expect(firstXml).toContain('/de/ps1-compatibility')
-    expect(firstXml).not.toContain('/it/ps1-compatibility')
-    expect(firstXml).toContain('/en/games/contra-nes-1988')
-    expect(firstXml).not.toContain('/en/games/unreviewed-game-nes-1990')
-    expect(firstXml).not.toContain('/it/games/contra-nes-1988')
-    expect(firstXml).toContain('/en/games/word-ladder')
-    expect(firstXml).toContain('/en/card-games-that-start-with-m')
-    expect(firstXml).not.toContain('/zh-CN/card-games-that-start-with-m')
-    expect(firstXml).toContain('/en/pickwick-papers-card-game')
-    expect(firstXml).not.toContain('/zh-CN/pickwick-papers-card-game')
-    expect(firstXml).toContain('/en/games/quake-online')
-    expect(firstXml).toContain('/en/games/cs-surf')
-    expect(firstXml).toContain('/en/games/freedoom-online')
-    expect(firstXml).not.toContain('/zh-CN/games/word-ladder')
-    expect(firstXml).toContain('/en/guides/browser-retro-gaming-guide')
-    expect(firstXml).toContain('/en/guides/wasm-arcade-review')
-    expect(firstXml).toContain('https://pokopie.com/guides/brawl-stars/creator-codes')
-    expect(firstXml).toContain('https://pokopie.com/guides/brawl-stars/creator-coffins')
-    expect(firstXml).toContain('https://pokopie.com/guides/brawl-stars</loc>')
-    expect(firstXml).not.toContain('/en/guides/brawl-stars/creator-codes')
-    expect(firstXml).toContain('<lastmod>2026-10-13</lastmod>')
-    expect(firstXml).toContain('<lastmod>2026-09-06</lastmod>')
-    expect(firstXml).not.toContain('/zh-CN/guides/browser-retro-gaming-guide')
-    expect(firstXml).not.toContain('/ja/guides/browser-retro-gaming-guide')
-    expect(firstXml).toContain('https://pokopie.com/zh-CN/nes-games')
-    expect(firstXml).toContain('hreflang="ja" href="https://pokopie.com/ja/nes-games"')
-    expect(firstXml).toContain('https://pokopie.com/zh-CN/arcade-games')
-    expect(firstXml).toContain('https://pokopie.com/ja/ps1-games')
-    expect(firstXml).toContain('https://pokopie.com/zh-CN/ps1-compatibility')
-    expect(firstXml).toContain('hreflang="ja" href="https://pokopie.com/ja/ps1-compatibility"')
-    expect(await second.text()).toContain('/en/blog/guide')
-    await getSitemapResponse(request())
-    expect(fetchMock).toHaveBeenCalledTimes(2)
+    const response = await getSitemapResponse(request())
+    const xml = await response.text()
+
+    expect(response.status).toBe(200)
+    expect(response.headers.get('Cache-Control')).toContain('s-maxage=86400')
+    expect(response.headers.get('Content-Type')).toContain('application/xml')
+    expect(fetchMock).not.toHaveBeenCalled()
+    expect(xml).toContain('/en/games/contra-nes-1988')
+    expect(xml).toContain('/zh-CN/games/contra-nes-1988')
+    expect(xml).toContain('/en/games/geometry-dash-advance-gba-2025')
+    expect(xml).not.toContain('/en/games/unreviewed-game-nes-1990')
+    expect(xml).not.toMatch(/\/games\/[a-f0-9]{24}</)
   })
 
-  it('does not submit bare ObjectId game routes', async () => {
-    fetchMock.mockImplementation((input: string) => input.includes('/api/blog-posts')
-      ? successfulFetch(input)
-      : Promise.resolve(Response.json({
-          success: true,
-          data: [
-            { _id: '69d19a43eb21396d6195a021' },
-            { _id: 'readable-id', url_slug: 'contra-nes-1988' },
-          ],
-          pagination: { pages: 1 },
-        })))
-
+  it('submits original editorial blogs only in English', async () => {
     const { getSitemapResponse } = await import('./sitemap[.]xml')
     const xml = await (await getSitemapResponse(request())).text()
 
-    expect(xml).not.toContain('69d19a43eb21396d6195a021')
-    expect(xml).toContain('/en/games/contra-nes-1988')
+    expect(xml).toContain('/en/blog/how-to-play-roms-in-browser')
+    expect(xml).toContain('/en/blog/murdoku-beginner-solving-guide')
+    expect(xml).not.toContain('/zh-CN/blog/how-to-play-roms-in-browser')
   })
 
-  it('returns uncached 503 on a cold failure and recovers after the retry interval', async () => {
-    fetchMock.mockRejectedValue(new Error('Offline'))
+  it('keeps curated collection and guide routes', async () => {
     const { getSitemapResponse } = await import('./sitemap[.]xml')
-    const failed = await getSitemapResponse(request())
-    expect(failed.status).toBe(503)
-    expect(failed.headers.get('Cache-Control')).toBe('no-store')
-    expect(failed.headers.get('Retry-After')).toBe('60')
-    expect(await failed.text()).not.toContain('<urlset')
-    fetchMock.mockImplementation(successfulFetch)
-    vi.setSystemTime(Date.now() + 60_001)
-    expect((await getSitemapResponse(request())).status).toBe(200)
+    const xml = await (await getSitemapResponse(request())).text()
+
+    expect(xml).toContain('/en/arcade-games')
+    expect(xml).toContain('/zh-CN/nes-games')
+    expect(xml).toContain('/en/guides/browser-retro-gaming-guide')
+    expect(xml).toContain('/guides/brawl-stars/creator-codes')
+    expect(xml).toContain('hreflang="zh-CN"')
   })
 
-  it('preserves the complete prior sitemap if either upstream fails', async () => {
+  it('isolates preview origins and canonicalizes production hosts', async () => {
     const { getSitemapResponse } = await import('./sitemap[.]xml')
-    const original = await (await getSitemapResponse(request())).text()
-    vi.setSystemTime(Date.now() + day + 1)
-    fetchMock.mockImplementation((input: string) => input.includes('/api/blog-posts')
-      ? Promise.reject(new Error('Blog unavailable')) : successfulFetch(input))
-    const stale = await getSitemapResponse(request())
-    expect(stale.headers.get('Cache-Control')).toBe('public, max-age=60, s-maxage=60')
-    expect(await stale.text()).toBe(original)
-    fetchMock.mockImplementation(successfulFetch)
-    vi.setSystemTime(Date.now() + 60_001)
-    expect((await getSitemapResponse(request())).headers.get('Cache-Control')).toContain('s-maxage=86400')
-  })
-
-  it('rejects partial pagination instead of publishing missing game pages', async () => {
-    fetchMock.mockImplementation((input: string) => {
-      if (input.includes('/api/blog-posts')) return successfulFetch(input)
-      return Promise.resolve(new URL(input).searchParams.get('page') === '2'
-        ? new Response('Unavailable', { status: 502 })
-        : Response.json({ success: true, data: [{ url_slug: 'contra' }], pagination: { pages: 2 } }))
-    })
-    const { getSitemapResponse } = await import('./sitemap[.]xml')
-    expect((await getSitemapResponse(request())).status).toBe(503)
-  })
-
-  it('accepts a valid empty blog but rejects malformed successful responses', async () => {
-    fetchMock.mockImplementation((input: string) => input.includes('/api/blog-posts')
-      ? Promise.resolve(Response.json({ success: true, blogPosts: [], pagination: { pages: 0 } }))
-      : successfulFetch(input))
-    const { getSitemapResponse } = await import('./sitemap[.]xml')
-    expect((await getSitemapResponse(request())).status).toBe(200)
-    fetchMock.mockResolvedValue(Response.json({ success: false, data: [] }))
-    expect((await getSitemapResponse(new Request('https://preview.example/sitemap.xml'))).status).toBe(503)
-  })
-
-  it('isolates preview caches and canonicalizes production origins', async () => {
-    const { getSitemapResponse } = await import('./sitemap[.]xml')
-    const canonical = await getSitemapResponse(new Request('http://www.pokopie.com/sitemap.xml'))
+    const canonical = await getSitemapResponse(request('http://www.pokopie.com/sitemap.xml'))
     expect(await canonical.text()).toContain('https://pokopie.com/en/games/contra-nes-1988')
-    const preview = await getSitemapResponse(new Request('https://preview.example/sitemap.xml'))
+
+    const preview = await getSitemapResponse(request('https://preview.example/sitemap.xml'))
     const xml = await preview.text()
     expect(xml).toContain('https://preview.example/en/games/contra-nes-1988')
     expect(xml).not.toContain('https://pokopie.com')
-  })
-
-  it('restores an edge snapshot after an isolate restart without overwriting it on failure', async () => {
-    const entries = new Map<string, Response>()
-    const store = {
-      match: vi.fn(async (key: string) => entries.get(key)?.clone()),
-      put: vi.fn(async (key: string, response: Response) => { entries.set(key, response.clone()) }),
-    }
-    vi.stubGlobal('caches', { default: store })
-    const firstModule = await import('./sitemap[.]xml')
-    const xml = await (await firstModule.getSitemapResponse(request())).text()
-    vi.resetModules()
-    vi.setSystemTime(Date.now() + day + 1)
-    fetchMock.mockRejectedValue(new Error('Offline'))
-    const restarted = await import('./sitemap[.]xml')
-    expect(await (await restarted.getSitemapResponse(request())).text()).toBe(xml)
-    expect(store.put).toHaveBeenCalledTimes(1)
-  })
-
-  it('times out a stalled response body, not just the response headers', async () => {
-    fetchMock.mockImplementation((_input: string, options: RequestInit) => Promise.resolve({
-      ok: true,
-      json: () => new Promise((_resolve, reject) => {
-        options.signal?.addEventListener('abort', () => reject(new Error('Aborted')))
-      }),
-    }))
-    const { getSitemapResponse } = await import('./sitemap[.]xml')
-    const pending = getSitemapResponse(request())
-    await vi.advanceTimersByTimeAsync(5_001)
-    expect((await pending).status).toBe(503)
   })
 })

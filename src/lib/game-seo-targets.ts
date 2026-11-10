@@ -602,6 +602,16 @@ const localizedTaikoSeo = {
   },
 } as const
 
+export function getGameSeoRouteIds() {
+  return [
+    ...Object.keys(searchOnlyGameSeoBySlug),
+    ...Object.keys(targetedGameSeoBySlug),
+    murdokuTargetSlug,
+    'san-guo-qun-ying-zhuan-2-html5-1998',
+    taikoWebTargetSlug,
+  ]
+}
+
 export function getTargetedGameSeo(game: PublicGame, locale: Locale) {
   if (locale !== 'en') {
     if (locale === 'zh-CN' && normalizeGameSlug(game) === 'san-guo-qun-ying-zhuan-2-html5-1998') {

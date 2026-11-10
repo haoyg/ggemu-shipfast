@@ -26,6 +26,10 @@ const chineseGameNames: Readonly<Record<string, ChineseGameName>> = {
   'three-wonders-arcade-1991': { en: 'Three Wonders', 'zh-CN': '三个奇迹', 'zh-TW': '三個奇蹟' },
 }
 
+export function getReviewedChineseGameRouteIds() {
+  return Object.keys(chineseGameNames)
+}
+
 export function getReviewedChineseGameName(game: PublicGame, locale: Locale) {
   if (locale !== 'zh-CN' && locale !== 'zh-TW') return null
   const entry = chineseGameNames[getGameNameKey(game)]

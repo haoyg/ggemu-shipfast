@@ -1964,6 +1964,15 @@ const chineseMurdokuEditorial: GameEditorial = {
   ],
 }
 
+export function getEditorialGameRouteIds() {
+  return [
+    ...Object.keys(editorials),
+    'murdoku-html5-2026',
+    'san-guo-qun-ying-zhuan-2-html5-1998',
+    'taiko-no-tatsujin-taiko-web-html5-2011',
+  ]
+}
+
 export function getGameEditorial(game: PublicGame, locale: Locale) {
   if (locale !== 'en') {
     if (locale === 'zh-CN' && game.url_slug?.trim().toLowerCase() === 'murdoku-html5-2026') {
