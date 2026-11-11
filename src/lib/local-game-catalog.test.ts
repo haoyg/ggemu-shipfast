@@ -13,7 +13,7 @@ describe('local game catalog', () => {
     const games = getLocalGames()
     const slugs = games.map((game) => game.url_slug)
 
-    expect(games).toHaveLength(25)
+    expect(games).toHaveLength(30)
     expect(new Set(slugs).size).toBe(slugs.length)
     expect(slugs).toContain('contra-nes-1988')
     expect(slugs).toContain('geometry-dash-advance-gba-2025')
@@ -23,6 +23,8 @@ describe('local game catalog', () => {
     expect(slugs).toContain('theme-hospital-dos-1997')
     expect(slugs).toContain('pokemon-emerald-gba-2004')
     expect(slugs).toContain('rhythm-heaven-nds-2008')
+    expect(slugs).toContain('onet-master-html5')
+    expect(slugs).toContain('lilo-stitch-trouble-in-paradise-ps1-2002')
   })
 
   it('returns defensive copies instead of mutable catalog records', () => {
@@ -105,6 +107,20 @@ describe('local game catalog', () => {
       'rhythm-tengoku-japan-gba-2006',
       'rhythm-heaven-nds-2008',
     ]))
+  })
+
+  it('finds the browser-native and long-tail batch locally', () => {
+    const onet = searchLocalGames({ limit: 30, page: 1, query: 'connect pairs game' })
+    const taiko = searchLocalGames({ limit: 30, page: 1, query: '太鼓网页' })
+    const rtk = searchLocalGames({ limit: 30, page: 1, query: '三国志4' })
+
+    expect(onet.games.map((game) => game.url_slug)).toEqual(['onet-master-html5'])
+    expect(taiko.games.map((game) => game.url_slug)).toEqual([
+      'taiko-no-tatsujin-taiko-web-html5-2011',
+    ])
+    expect(rtk.games.map((game) => game.url_slug)).toEqual([
+      'romance-of-the-three-kingdoms-iv-dos-1994',
+    ])
   })
 
   it('derives resilient filters from the local catalog', () => {

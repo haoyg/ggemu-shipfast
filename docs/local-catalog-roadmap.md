@@ -7,9 +7,9 @@ metadata changed.
 ## Current target
 
 - Baseline: 10 local games on 2026-11-11.
-- Current count: 25 local games.
+- Current count: 30 local games.
 - Phase 2 target: 30 local games.
-- Remaining work: add 5 reviewed games in one final batch.
+- Remaining work: none for Phase 2.
 - Phase 2 is complete only when the first discovery grid and related-game
   sections can be populated from local data before an upstream fallback is
   needed.
@@ -58,11 +58,11 @@ control guidance. Keep the upstream request as a runtime fallback only.
 
 ### Batch 4: browser-native and long-tail coverage
 
-- `onet-master-html5`
-- `space-is-key-flash-2011`
-- `taiko-no-tatsujin-taiko-web-html5-2011`
-- `romance-of-the-three-kingdoms-iv-dos-1994`
-- `lilo-stitch-trouble-in-paradise-ps1-2002`
+- [x] `onet-master-html5`
+- [x] `space-is-key-flash-2011`
+- [x] `taiko-no-tatsujin-taiko-web-html5-2011`
+- [x] `romance-of-the-three-kingdoms-iv-dos-1994`
+- [x] `lilo-stitch-trouble-in-paradise-ps1-2002`
 
 The order may change when current search data shows a better opportunity. Any
 replacement must be recorded in the change log with a short reason.
@@ -97,4 +97,5 @@ replacement must be recorded in the change log with a short reason.
 | 2026-11-11 | `42198ff` | 15 | Added batch 1: three arcade titles and two NES titles with POKOPIE-authored metadata, Chinese aliases, and local cover art. | 572 tests, typecheck, build, deploy `3d543511`, four live pages, and eight IndexNow URLs verified; one live check timed out. |
 | 2026-11-11 | `69feeda` | 20 | Added batch 2: one NES, three PlayStation, and one DOS title with reviewed metadata and local cover art; existing reviewed Chinese names remain limited to translated pages. | 573 tests, typecheck, build, deploy `6663f280`, five live pages, and nine IndexNow URLs verified. |
 | 2026-11-11 | `6314467` | 25 | Added batch 3: three Pokémon GBA titles plus one GBA and one NDS rhythm title with reviewed language labels, Unicode local search, and local cover art. | 574 tests, typecheck, build, deploy `bec36c44`, four live pages, and eight IndexNow URLs verified; one live check timed out. |
+| 2026-11-11 | This commit | 30 | Completed Phase 2 with two browser games, one Flash game, one DOS strategy title, and one PlayStation title with original local cover art. | Pending full check, deploy, live-page verification, and IndexNow submission. |
 
