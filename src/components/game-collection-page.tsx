@@ -416,37 +416,47 @@ function GameCollectionCard({
   const gameId = getGameId(game)
 
   return (
-    <Link
-      className="arcade-card arcade-game-card group overflow-hidden transition hover:-translate-y-1"
-      {...gameCardPreviewHandlers}
-      params={{ gameId, locale }}
-      search={{}}
-      to="/$locale/games/$gameId"
-    >
-      <div className="relative aspect-[4/3] overflow-hidden bg-white/5">
-        {game.game_cover ? (
-          <img
-            alt={`${game.name ?? 'Game'} ${coverAlt}`}
-            className="h-full w-full object-cover"
-            decoding="async"
-            fetchPriority={isPriority ? 'high' : 'auto'}
-            height="300"
-            loading={isPriority ? 'eager' : 'lazy'}
-            src={game.game_cover}
-            width="400"
-          />
-        ) : null}
-        <GameCardPreviewVideo src={game.game_video} />
-        {locale === 'en' && game.play_device === 1 ? (
-          <span className="absolute left-2 top-2 rounded-full border border-amber-300/30 bg-neutral/90 px-2 py-1 text-[10px] font-bold uppercase tracking-wide text-amber-200">
-            Desktop only
-          </span>
-        ) : null}
-      </div>
-      <h3 className="line-clamp-2 min-h-12 px-3 py-3 text-sm font-semibold leading-snug text-white">
-        {game.name}
-      </h3>
-    </Link>
+    <article className="arcade-card arcade-game-card group relative overflow-hidden transition hover:-translate-y-1">
+      <Link
+        {...gameCardPreviewHandlers}
+        className="block"
+        params={{ gameId, locale }}
+        search={{}}
+        to="/$locale/games/$gameId"
+      >
+        <div className="relative aspect-[4/3] overflow-hidden bg-white/5">
+          {game.game_cover ? (
+            <img
+              alt={`${game.name ?? 'Game'} ${coverAlt}`}
+              className="h-full w-full object-cover"
+              decoding="async"
+              fetchPriority={isPriority ? 'high' : 'auto'}
+              height="300"
+              loading={isPriority ? 'eager' : 'lazy'}
+              src={game.game_cover}
+              width="400"
+            />
+          ) : null}
+          <GameCardPreviewVideo src={game.game_video} />
+          {locale === 'en' && game.play_device === 1 ? (
+            <span className="absolute left-2 top-2 rounded-full border border-amber-300/30 bg-neutral/90 px-2 py-1 text-[10px] font-bold uppercase tracking-wide text-amber-200">
+              Desktop only
+            </span>
+          ) : null}
+        </div>
+        <h3 className="line-clamp-2 min-h-12 px-3 py-3 pr-12 text-sm font-semibold leading-snug text-white">
+          {game.name}
+        </h3>
+      </Link>
+      <Link
+        aria-label={`${getI18n(locale).detail.play}: ${game.name ?? 'Game'}`}
+        className="absolute bottom-2 right-2 grid h-9 w-9 place-items-center rounded-full bg-primary text-lg text-primary-content shadow-lg transition hover:scale-105 hover:brightness-110"
+        params={{ gameId, locale }}
+        to="/$locale/games/$gameId/play"
+      >
+        <i aria-hidden="true" className="ri-play-fill" />
+      </Link>
+    </article>
   )
 }
 

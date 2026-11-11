@@ -1041,41 +1041,51 @@ function SearchSuggestionItem({
     : ''
 
   return (
-    <Link
+    <div
       aria-selected={isHighlighted}
       id={id}
       role="option"
-      tabIndex={-1}
-      className={`flex min-w-0 items-center gap-3 rounded-md px-2 py-2 text-white transition hover:bg-white/10 ${isHighlighted ? 'bg-white/10' : ''}`}
-      params={{ gameId, locale: lang }}
-      search={{}}
-      title={getGamePlayLabel(lang, game.name ?? getRetroCoverFallbackLabel(lang))}
-      to="/$locale/games/$gameId"
+      className={`flex min-w-0 items-center gap-1 rounded-md p-1 text-white transition hover:bg-white/10 ${isHighlighted ? 'bg-white/10' : ''}`}
     >
-      <div className="h-12 w-12 shrink-0 overflow-hidden rounded-md bg-white/10">
-        {game.game_cover ? (
-          <img
-            alt={game.name ?? 'Game cover'}
-            className="h-full w-full object-cover"
-            decoding="async"
-            loading="lazy"
-            src={game.game_cover}
-          />
-        ) : (
-          <div className="grid h-full w-full place-items-center text-[10px] text-white/45">
-            {getRetroCoverFallbackLabel(lang)}
-          </div>
-        )}
-      </div>
-      <div className="min-w-0 flex-1">
-        <div className="truncate text-sm font-semibold">{game.name}</div>
-        <div className="mt-1 flex min-w-0 gap-2 text-xs text-white/50">
-          {platform ? <span className="truncate">{platform}</span> : null}
-          {category ? <span className="truncate">{category}</span> : null}
+      <Link
+        className="flex min-w-0 flex-1 items-center gap-3 rounded px-1 py-1"
+        params={{ gameId, locale: lang }}
+        search={{}}
+        title={game.name ?? getRetroCoverFallbackLabel(lang)}
+        to="/$locale/games/$gameId"
+      >
+        <div className="h-12 w-12 shrink-0 overflow-hidden rounded-md bg-white/10">
+          {game.game_cover ? (
+            <img
+              alt={game.name ?? 'Game cover'}
+              className="h-full w-full object-cover"
+              decoding="async"
+              loading="lazy"
+              src={game.game_cover}
+            />
+          ) : (
+            <div className="grid h-full w-full place-items-center text-[10px] text-white/45">
+              {getRetroCoverFallbackLabel(lang)}
+            </div>
+          )}
         </div>
-      </div>
-      <i className="ri-arrow-right-s-line shrink-0 text-lg text-white/45" />
-    </Link>
+        <div className="min-w-0 flex-1">
+          <div className="truncate text-sm font-semibold">{game.name}</div>
+          <div className="mt-1 flex min-w-0 gap-2 text-xs text-white/50">
+            {platform ? <span className="truncate">{platform}</span> : null}
+            {category ? <span className="truncate">{category}</span> : null}
+          </div>
+        </div>
+      </Link>
+      <Link
+        aria-label={getGamePlayLabel(lang, game.name ?? getRetroCoverFallbackLabel(lang))}
+        className="grid h-10 w-10 shrink-0 place-items-center rounded-lg bg-primary text-lg text-primary-content transition hover:brightness-110"
+        params={{ gameId, locale: lang }}
+        to="/$locale/games/$gameId/play"
+      >
+        <i aria-hidden="true" className="ri-play-fill" />
+      </Link>
+    </div>
   )
 }
 
@@ -1132,40 +1142,45 @@ function ArcadeGameCard({
   const gameName = game.name?.trim() || 'Game'
 
   return (
-    <Link
-      className="arcade-card arcade-game-card group relative min-w-0 overflow-hidden shadow-sm transition duration-200 hover:-translate-y-1"
-      {...gameCardPreviewHandlers}
-      params={{ gameId, locale: lang }}
-      search={{}}
-      title={getGamePlayLabel(lang, gameName)}
-      to="/$locale/games/$gameId"
-    >
-      <ArcadeCover
-        alt={gameName}
-        className="aspect-[4/3]"
-        cover={game.game_cover}
-        isPriority={isPriority}
-        lang={lang}
+    <article className="arcade-card arcade-game-card group relative min-w-0 overflow-hidden shadow-sm transition duration-200 hover:-translate-y-1">
+      <Link
+        {...gameCardPreviewHandlers}
+        className="block"
+        params={{ gameId, locale: lang }}
+        search={{}}
+        title={gameName}
+        to="/$locale/games/$gameId"
       >
-        <GameCardPreviewVideo src={game.game_video} />
-        <span className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/15 to-transparent" />
-        <span className="absolute inset-0 grid place-items-center opacity-0 transition group-hover:opacity-100">
-          <span className="grid h-12 w-12 place-items-center rounded-full bg-white/90 text-xl text-neutral shadow-xl">
-            <i className="ri-play-fill" />
-          </span>
-        </span>
-        {platformBadge ? (
-          <span className="absolute left-2 top-2 rounded bg-primary px-2 py-0.5 text-[10px] font-black uppercase text-primary-content">
-            {platformBadge}
-          </span>
-        ) : null}
-      </ArcadeCover>
-      <div className="p-2.5">
-        <h3 className="arcade-game-title line-clamp-2 min-h-9 text-sm font-semibold leading-snug">
-          {gameName}
-        </h3>
-      </div>
-    </Link>
+        <ArcadeCover
+          alt={gameName}
+          className="aspect-[4/3]"
+          cover={game.game_cover}
+          isPriority={isPriority}
+          lang={lang}
+        >
+          <GameCardPreviewVideo src={game.game_video} />
+          <span className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/15 to-transparent" />
+          {platformBadge ? (
+            <span className="absolute left-2 top-2 rounded bg-primary px-2 py-0.5 text-[10px] font-black uppercase text-primary-content">
+              {platformBadge}
+            </span>
+          ) : null}
+        </ArcadeCover>
+        <div className="py-2.5 pl-2.5 pr-12">
+          <h3 className="arcade-game-title line-clamp-2 min-h-9 text-sm font-semibold leading-snug">
+            {gameName}
+          </h3>
+        </div>
+      </Link>
+      <Link
+        aria-label={getGamePlayLabel(lang, gameName)}
+        className="absolute bottom-2 right-2 grid h-9 w-9 place-items-center rounded-full bg-primary text-lg text-primary-content shadow-lg transition hover:scale-105 hover:brightness-110"
+        params={{ gameId, locale: lang }}
+        to="/$locale/games/$gameId/play"
+      >
+        <i aria-hidden="true" className="ri-play-fill" />
+      </Link>
+    </article>
   )
 }
 

@@ -10,7 +10,7 @@ vi.mock('@tanstack/react-start', () => ({ useServerFn: () => runSearch }))
 vi.mock('#/lib/ggemu', () => ({ searchGames: vi.fn() }))
 vi.mock('@tanstack/react-router', () => ({
   useNavigate: () => navigate,
-  Link: ({ children, className, id, role, tabIndex, 'aria-selected': selected }: ComponentProps<'a'>) => <a className={className} href="#game" id={id} role={role} tabIndex={tabIndex} aria-selected={selected}>{children}</a>,
+  Link: ({ children, className, id, role, tabIndex, to, 'aria-label': label, 'aria-selected': selected }: ComponentProps<'a'> & { to?: string }) => <a aria-label={label} className={className} href={to ?? '#game'} id={id} role={role} tabIndex={tabIndex} aria-selected={selected}>{children}</a>,
 }))
 vi.mock('./recent-played-games', () => ({ useRecentPlayedGames: () => ({ games: [], clear: vi.fn() }) }))
 
@@ -73,6 +73,14 @@ it('reveals games in batches before offering the next page', () => {
   expect(screen.queryByRole('button', { name: 'Load more games' })).toBeNull()
   fireEvent.click(screen.getByRole('button', { name: props.t.next }))
   expect(props.onLoadPage).toHaveBeenCalledWith(2)
+})
+
+it('offers one-click play actions on discovery cards', () => {
+  render(<DefaultHomeTemplate {...props} />)
+
+  const quickPlayLinks = screen.getAllByRole('link', { name: 'Play Game 0 online' })
+
+  expect(quickPlayLinks.some((link) => link.getAttribute('href') === '/$locale/games/$gameId/play')).toBe(true)
 })
 
 it('resets the visible batch when results change', () => {
