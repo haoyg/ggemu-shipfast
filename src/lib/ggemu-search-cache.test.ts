@@ -75,12 +75,14 @@ describe('game search edge cache', () => {
     expect(store.put).not.toHaveBeenCalled()
   })
 
-  it('keeps the unfiltered catalog useful when the upstream is unavailable', async () => {
+  it('serves the full first discovery grid without contacting the upstream', async () => {
     fetchMock.mockRejectedValue(new TypeError('Network unavailable'))
 
     const result = await search('')
 
     expect(result.games.map((game) => game.url_slug)).toContain('contra-nes-1988')
     expect(result.pagination.total).toBe(30)
+    expect(result.games).toHaveLength(24)
+    expect(fetchMock).not.toHaveBeenCalled()
   })
 })

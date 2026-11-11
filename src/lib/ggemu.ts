@@ -580,6 +580,17 @@ function mergeLocalSearchResults(
   }
 }
 
+function canServeSearchFromLocalCatalog(
+  data: Required<Pick<GameSearchPayload, 'category' | 'limit' | 'page' | 'platform' | 'query'>>,
+  localResult: GameSearchResult,
+) {
+  return data.page === 1
+    && !data.query.trim()
+    && !data.platform.trim()
+    && !data.category.trim()
+    && localResult.games.length >= data.limit
+}
+
 function mergeFilterOptions(
   localOptions: Array<FilterOption>,
   upstreamOptions: Array<FilterOption>,
@@ -784,6 +795,13 @@ export const searchGames = createServerFn({ method: 'GET' })
       query: resolvedQuery,
       sort: data.sort,
     })
+    if (canServeSearchFromLocalCatalog(data, localResult)) {
+      return {
+        ...localResult,
+        games: localizePublicGames(localResult.games, data.locale),
+      }
+    }
+
     const upstreamResult = await fetchGames(params).catch(() => null)
     const result = upstreamResult
       ? mergeLocalSearchResults(upstreamResult, localResult, data.page, data.limit)
