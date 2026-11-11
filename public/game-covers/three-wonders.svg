@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600" role="img" aria-labelledby="title desc">
+  <title id="title">Three Wonders</title>
+  <desc id="desc">Original POKOPIE arcade collection poster</desc>
+  <defs><linearGradient id="bg" x2="1" y2="1"><stop stop-color="#071a31"/><stop offset="1" stop-color="#4b164c"/></linearGradient><filter id="glow"><feGaussianBlur stdDeviation="14"/></filter></defs>
+  <rect width="800" height="600" rx="32" fill="url(#bg)"/><circle cx="400" cy="270" r="190" fill="#ffcf4a" opacity=".14" filter="url(#glow)"/>
+  <path d="M145 386 270 190l88 138 92-174 202 232Z" fill="#31d7c6" opacity=".7"/><path d="M190 386 315 250l91 136Z" fill="#f7d354" opacity=".9"/><path d="m430 386 90-150 105 150Z" fill="#f064a8" opacity=".85"/>
+  <text x="400" y="92" text-anchor="middle" fill="#fff" font-family="system-ui,sans-serif" font-size="34" font-weight="800" letter-spacing="9">ARCADE TRILOGY</text>
+  <text x="400" y="465" text-anchor="middle" fill="#fff" font-family="system-ui,sans-serif" font-size="72" font-weight="900">THREE WONDERS</text>
+  <text x="400" y="520" text-anchor="middle" fill="#bcecff" font-family="system-ui,sans-serif" font-size="24" letter-spacing="5">ACTION • SHOOTER • PUZZLE</text>
+</svg>

@@ -9,14 +9,16 @@ import {
 } from './local-game-catalog'
 
 describe('local game catalog', () => {
-  it('keeps stable unique slugs for the first independent catalog batch', () => {
+  it('keeps stable unique slugs for the reviewed independent catalog batches', () => {
     const games = getLocalGames()
     const slugs = games.map((game) => game.url_slug)
 
-    expect(games).toHaveLength(10)
+    expect(games).toHaveLength(15)
     expect(new Set(slugs).size).toBe(slugs.length)
     expect(slugs).toContain('contra-nes-1988')
     expect(slugs).toContain('geometry-dash-advance-gba-2025')
+    expect(slugs).toContain('three-wonders-arcade-1991')
+    expect(slugs).toContain('battle-city-nes-1985')
   })
 
   it('returns defensive copies instead of mutable catalog records', () => {
@@ -60,8 +62,22 @@ describe('local game catalog', () => {
     expect(nes.games.map((game) => game.url_slug)).toEqual(expect.arrayContaining([
       'contra-nes-1988',
       'donkey-kong-nes-1983',
+      'super-mario-bros-nes-1985',
+      'battle-city-nes-1985',
     ]))
     expect(snes.games.map((game) => game.url_slug)).toContain('super-mario-bros-the-lost-levels-enhanced-snes-1993')
+  })
+
+  it('finds the new arcade batch by common search aliases', () => {
+    const kof = searchLocalGames({ limit: 20, page: 1, query: 'KOF 97' })
+    const whoopee = searchLocalGames({ limit: 20, page: 1, query: 'Whoopee' })
+
+    expect(kof.games.map((game) => game.url_slug)).toEqual([
+      'the-king-of-fighters-97-arcade-1997',
+    ])
+    expect(whoopee.games.map((game) => game.url_slug)).toEqual([
+      'pipi-and-bibis-other-1991',
+    ])
   })
 
   it('derives resilient filters from the local catalog', () => {

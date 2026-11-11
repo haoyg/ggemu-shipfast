@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600" role="img" aria-labelledby="title desc">
+  <title id="title">Battle City</title>
+  <desc id="desc">Original POKOPIE tactical tank poster</desc>
+  <defs><linearGradient id="bg" x2="1" y2="1"><stop stop-color="#172417"/><stop offset="1" stop-color="#080c09"/></linearGradient><pattern id="map" width="80" height="80" patternUnits="userSpaceOnUse"><rect width="80" height="80" fill="none" stroke="#9aa44a" stroke-opacity=".18" stroke-width="3"/><circle cx="40" cy="40" r="4" fill="#d8df72" opacity=".28"/></pattern></defs>
+  <rect width="800" height="600" rx="32" fill="url(#bg)"/><rect width="800" height="600" rx="32" fill="url(#map)"/>
+  <path d="M170 365h175l35 45H135Zm285-110h170l55 110H415Z" fill="#8e9f45" stroke="#d7df75" stroke-width="9"/><rect x="205" y="305" width="105" height="68" rx="12" fill="#a8b956"/><rect x="485" y="195" width="105" height="68" rx="12" fill="#a8b956"/><path d="M255 305v-70h32v70m250-110v-74h32v74" stroke="#d7df75" stroke-width="18"/>
+  <path d="M380 445 400 410l20 35 40 8-28 28 7 40-39-19-39 19 7-40-28-28Z" fill="#ffcf43"/>
+  <text x="400" y="90" text-anchor="middle" fill="#e8ef9b" font-family="system-ui,sans-serif" font-size="28" font-weight="800" letter-spacing="9">DEFEND THE BASE</text>
+  <text x="400" y="570" text-anchor="middle" fill="#fff" font-family="system-ui,sans-serif" font-size="78" font-weight="950">BATTLE CITY</text>
+</svg>

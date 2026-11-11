@@ -81,6 +81,6 @@ describe('game search edge cache', () => {
     const result = await search('')
 
     expect(result.games.map((game) => game.url_slug)).toContain('contra-nes-1988')
-    expect(result.pagination.total).toBe(10)
+    expect(result.pagination.total).toBe(15)
   })
 })

@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600" role="img" aria-labelledby="title desc">
+  <title id="title">Pipi and Bibis</title>
+  <desc id="desc">Original POKOPIE bomb-route arcade poster</desc>
+  <defs><linearGradient id="bg" x2="0" y2="1"><stop stop-color="#23103d"/><stop offset="1" stop-color="#080b19"/></linearGradient><pattern id="grid" width="64" height="64" patternUnits="userSpaceOnUse"><path d="M64 0H0v64" fill="none" stroke="#da6dff" stroke-opacity=".16" stroke-width="3"/></pattern></defs>
+  <rect width="800" height="600" rx="32" fill="url(#bg)"/><rect width="800" height="600" rx="32" fill="url(#grid)"/>
+  <path d="M120 392h120V260h120v80h120V190h180" fill="none" stroke="#55f2d2" stroke-width="34" stroke-linecap="round" stroke-linejoin="round"/>
+  <g fill="#ffcc45" stroke="#fff" stroke-width="5"><circle cx="120" cy="392" r="30"/><circle cx="360" cy="340" r="30"/><circle cx="660" cy="190" r="30"/></g><path d="m642 158 18-43 18 43" fill="none" stroke="#ff7b68" stroke-width="10" stroke-linecap="round"/>
+  <text x="400" y="88" text-anchor="middle" fill="#fff" font-family="system-ui,sans-serif" font-size="28" font-weight="800" letter-spacing="7">PLAN THE ROUTE</text>
+  <text x="400" y="486" text-anchor="middle" fill="#fff" font-family="system-ui,sans-serif" font-size="74" font-weight="900">PIPI &amp; BIBI’S</text>
+  <text x="400" y="534" text-anchor="middle" fill="#d9b7ff" font-family="system-ui,sans-serif" font-size="24" letter-spacing="6">PLANT • ESCAPE • REPEAT</text>
+</svg>

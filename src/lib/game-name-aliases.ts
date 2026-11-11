@@ -13,6 +13,8 @@ const chineseGameNames: Readonly<Record<string, ChineseGameName>> = {
   'donkey-kong-nes-1983': { en: 'Donkey Kong', 'zh-CN': '大金刚', 'zh-TW': '大金剛' },
   'jackal-nes-1988': { en: 'Jackal', 'zh-CN': '赤色要塞', 'zh-TW': '赤色要塞' },
   'life-force-nes-1988': { en: 'Life Force', 'zh-CN': '沙罗曼蛇', 'zh-TW': '沙羅曼蛇', searchAliases: ['Salamander'] },
+  'battle-city-nes-1985': { en: 'Battle City', 'zh-CN': '坦克大战', 'zh-TW': '坦克大戰', searchAliases: ['坦克大战 1990', 'Tank 1990'] },
+  'super-mario-bros-nes-1985': { en: 'Super Mario Bros.', 'zh-CN': '超级马里奥兄弟', 'zh-TW': '超級瑪利歐兄弟', searchAliases: ['超级玛丽', '超級瑪利歐'] },
   'super-mario-bros-the-lost-levels-enhanced-snes-1993': { en: 'Super Mario Bros.: The Lost Levels', 'zh-CN': '超级马里奥兄弟：失落的关卡', 'zh-TW': '超級瑪利歐兄弟：失落的關卡', searchAliases: ['超级玛丽', '超級瑪利歐'] },
   'super-mario-64-n64-1996': { en: 'Super Mario 64', 'zh-CN': '超级马里奥 64', 'zh-TW': '超級瑪利歐 64', searchAliases: ['超级玛丽64', '超級瑪利歐64'] },
   'new-super-mario-bros-nds-2006': { en: 'New Super Mario Bros.', 'zh-CN': '新超级马里奥兄弟', 'zh-TW': '新超級瑪利歐兄弟', searchAliases: ['新超级玛丽', '新超級瑪利歐'] },

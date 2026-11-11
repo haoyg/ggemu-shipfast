@@ -7,8 +7,9 @@ metadata changed.
 ## Current target
 
 - Baseline: 10 local games on 2026-11-11.
+- Current count: 15 local games.
 - Phase 2 target: 30 local games.
-- Next batch: add 20 reviewed games in four batches of 5.
+- Remaining work: add 15 reviewed games in three batches of 5.
 - Phase 2 is complete only when the first discovery grid and related-game
   sections can be populated from local data before an upstream fallback is
   needed.
@@ -33,11 +34,11 @@ control guidance. Keep the upstream request as a runtime fallback only.
 
 ### Batch 1: existing search and internal-link demand
 
-- `three-wonders-arcade-1991`
-- `pipi-and-bibis-other-1991`
-- `the-king-of-fighters-97-arcade-1997`
-- `super-mario-bros-nes-1985`
-- `battle-city-nes-1985`
+- [x] `three-wonders-arcade-1991`
+- [x] `pipi-and-bibis-other-1991`
+- [x] `the-king-of-fighters-97-arcade-1997`
+- [x] `super-mario-bros-nes-1985`
+- [x] `battle-city-nes-1985`
 
 ### Batch 2: strong editorial coverage
 
@@ -93,4 +94,5 @@ replacement must be recorded in the change log with a short reason.
 | 2026-11-11 | `84c8364` | 10 | Added the first reviewed local catalog and local-first detail lookups. | Tests and production build passed. |
 | 2026-11-11 | `479155f` | 10 | Made homepage search, collections, filters, and related games prefer local data. | 571 tests, typecheck, build, and production checks passed. |
 | 2026-11-11 | `84d50e7` | 10 | Added one-click play links to the active homepage, search suggestions, and collection cards. | 571 tests, typecheck, build, deploy, and live-link checks passed. |
+| 2026-11-11 | This commit | 15 | Added batch 1: three arcade titles and two NES titles with POKOPIE-authored metadata, Chinese aliases, and local cover art. | 572 tests, typecheck, and production build passed; deploy and live verification pending. |
 
