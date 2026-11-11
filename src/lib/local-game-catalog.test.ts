@@ -13,12 +13,14 @@ describe('local game catalog', () => {
     const games = getLocalGames()
     const slugs = games.map((game) => game.url_slug)
 
-    expect(games).toHaveLength(15)
+    expect(games).toHaveLength(20)
     expect(new Set(slugs).size).toBe(slugs.length)
     expect(slugs).toContain('contra-nes-1988')
     expect(slugs).toContain('geometry-dash-advance-gba-2025')
     expect(slugs).toContain('three-wonders-arcade-1991')
     expect(slugs).toContain('battle-city-nes-1985')
+    expect(slugs).toContain('crash-bandicoot-2-cortex-strikes-back-ps1-1997')
+    expect(slugs).toContain('theme-hospital-dos-1997')
   })
 
   it('returns defensive copies instead of mutable catalog records', () => {
@@ -77,6 +79,18 @@ describe('local game catalog', () => {
     ])
     expect(whoopee.games.map((game) => game.url_slug)).toEqual([
       'pipi-and-bibis-other-1991',
+    ])
+  })
+
+  it('finds the second batch from editorial search intent', () => {
+    const hogwarts = searchLocalGames({ limit: 20, page: 1, query: 'explore Hogwarts' })
+    const hospital = searchLocalGames({ limit: 20, page: 1, query: 'hospital management' })
+
+    expect(hogwarts.games.map((game) => game.url_slug)).toEqual([
+      'harry-potter-and-the-philosopher-s-stone-ps1-2001',
+    ])
+    expect(hospital.games.map((game) => game.url_slug)).toEqual([
+      'theme-hospital-dos-1997',
     ])
   })
 

@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600" role="img" aria-labelledby="title desc">
+  <title id="title">Double Dragon II</title><desc id="desc">Original POKOPIE two-player action poster</desc>
+  <defs><linearGradient id="bg" x2="1" y2="1"><stop stop-color="#16172f"/><stop offset="1" stop-color="#681f2d"/></linearGradient></defs><rect width="800" height="600" rx="32" fill="url(#bg)"/>
+  <circle cx="400" cy="270" r="210" fill="#ff6848" opacity=".16"/><path d="M135 385 285 190l115 150 115-150 150 195" fill="none" stroke="#ffce55" stroke-width="28" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="m210 390 75-125 75 125m80 0 75-125 75 125" fill="#e74f57" stroke="#fff" stroke-width="10"/><text x="400" y="92" text-anchor="middle" fill="#ffd76b" font-family="system-ui,sans-serif" font-size="28" font-weight="800" letter-spacing="8">TWO FIGHTERS • ONE STREET</text>
+  <text x="400" y="485" text-anchor="middle" fill="#fff" font-family="system-ui,sans-serif" font-size="66" font-weight="950">DOUBLE DRAGON II</text><text x="400" y="535" text-anchor="middle" fill="#ffbf55" font-family="system-ui,sans-serif" font-size="24" letter-spacing="6">THE REVENGE</text>
+</svg>

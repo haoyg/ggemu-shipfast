@@ -7,9 +7,9 @@ metadata changed.
 ## Current target
 
 - Baseline: 10 local games on 2026-11-11.
-- Current count: 15 local games.
+- Current count: 20 local games.
 - Phase 2 target: 30 local games.
-- Remaining work: add 15 reviewed games in three batches of 5.
+- Remaining work: add 10 reviewed games in two batches of 5.
 - Phase 2 is complete only when the first discovery grid and related-game
   sections can be populated from local data before an upstream fallback is
   needed.
@@ -42,11 +42,11 @@ control guidance. Keep the upstream request as a runtime fallback only.
 
 ### Batch 2: strong editorial coverage
 
-- `double-dragon-ii-revenge-nes-1989`
-- `crash-bandicoot-2-cortex-strikes-back-ps1-1997`
-- `harry-potter-and-the-philosopher-s-stone-ps1-2001`
-- `tenchu-2-birth-of-the-stealth-assassins-ps1-2000`
-- `theme-hospital-dos-1997`
+- [x] `double-dragon-ii-revenge-nes-1989`
+- [x] `crash-bandicoot-2-cortex-strikes-back-ps1-1997`
+- [x] `harry-potter-and-the-philosopher-s-stone-ps1-2001`
+- [x] `tenchu-2-birth-of-the-stealth-assassins-ps1-2000`
+- [x] `theme-hospital-dos-1997`
 
 ### Batch 3: GBA and DS discovery depth
 
@@ -95,4 +95,5 @@ replacement must be recorded in the change log with a short reason.
 | 2026-11-11 | `479155f` | 10 | Made homepage search, collections, filters, and related games prefer local data. | 571 tests, typecheck, build, and production checks passed. |
 | 2026-11-11 | `84d50e7` | 10 | Added one-click play links to the active homepage, search suggestions, and collection cards. | 571 tests, typecheck, build, deploy, and live-link checks passed. |
 | 2026-11-11 | `42198ff` | 15 | Added batch 1: three arcade titles and two NES titles with POKOPIE-authored metadata, Chinese aliases, and local cover art. | 572 tests, typecheck, build, deploy `3d543511`, four live pages, and eight IndexNow URLs verified; one live check timed out. |
+| 2026-11-11 | This commit | 20 | Added batch 2: one NES, three PlayStation, and one DOS title with reviewed metadata and local cover art; existing reviewed Chinese names remain limited to translated pages. | Full verification pending. |
 
