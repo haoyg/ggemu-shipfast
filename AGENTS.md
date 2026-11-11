@@ -15,6 +15,7 @@ Before substantial work:
 - Watch cyclomatic complexity and reuse code where it helps.
 - Keep module boundaries clear and use design patterns only when they reduce real complexity.
 - Minimize changes and avoid touching unrelated modules.
+- When adding, removing, renaming, or changing metadata for a local game, update `docs/local-catalog-roadmap.md` in the same commit.
 
 ## Project context
 
