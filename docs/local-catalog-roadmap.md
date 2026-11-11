@@ -28,7 +28,9 @@ Prioritize a game only when it meets at least one of these conditions:
 4. It has verified title, platform, year, developer, controls, and cover data.
 
 Do not copy upstream descriptions. Write concise POKOPIE-specific summaries and
-control guidance. Keep the upstream request as a runtime fallback only.
+control guidance. Keep the upstream request as a runtime fallback only. Do not
+generate replacement artwork for catalog games. Use the corresponding reviewed
+GGEMU cover selected by the site owner, without redrawing or restyling it.
 
 ## Planned additions
 

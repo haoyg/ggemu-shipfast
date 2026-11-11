@@ -396,7 +396,7 @@ const localGames = [
     play_online: 1,
     play_device: 0,
     downloadable: 0,
-    game_cover: 'https://pokopie.com/game-covers/pokemon-emerald.svg',
+    game_cover: 'https://storage.ggemu.com/games/6a70351cd46a19a590dfeb9b/game_cover.jpg',
   },
   {
     url_slug: 'pokemon-ruby-gba-2002',
@@ -414,7 +414,7 @@ const localGames = [
     play_online: 1,
     play_device: 0,
     downloadable: 0,
-    game_cover: 'https://pokopie.com/game-covers/pokemon-ruby.svg',
+    game_cover: 'https://storage.ggemu.com/games/6a7034c3d46a19a590dfe86c/game_cover.jpg',
   },
   {
     url_slug: 'pokemon-leafgreen-game-boy-advance-2004',
@@ -432,7 +432,7 @@ const localGames = [
     play_online: 1,
     play_device: 0,
     downloadable: 0,
-    game_cover: 'https://pokopie.com/game-covers/pokemon-leafgreen.svg',
+    game_cover: 'https://storage.ggemu.com/games/69df9bc5b3f31da225db8579/game_cover.jpg',
   },
   {
     url_slug: 'rhythm-tengoku-japan-gba-2006',
@@ -450,7 +450,7 @@ const localGames = [
     play_online: 1,
     play_device: 0,
     downloadable: 0,
-    game_cover: 'https://pokopie.com/game-covers/rhythm-tengoku.svg',
+    game_cover: 'https://storage.ggemu.com/games/69be85146d8635af26570216/game_cover.jpg',
   },
   {
     url_slug: 'rhythm-heaven-nds-2008',

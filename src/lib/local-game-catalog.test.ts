@@ -47,8 +47,22 @@ describe('local game catalog', () => {
     expect(result?.relatedByDeveloper).toEqual([])
   })
 
-  it('does not retain upstream image hosts in local catalog data', () => {
-    expect(getLocalGames().map((game) => game.game_cover ?? '').join('\n')).not.toContain('ggemu.com')
+  it('uses reviewed GGEMU covers for games whose artwork is copyright-cleared by the site owner', () => {
+    const games = getLocalGames()
+    const coverFor = (slug: string) => games.find((game) => game.url_slug === slug)?.game_cover
+
+    expect(coverFor('pokemon-emerald-gba-2004')).toBe(
+      'https://storage.ggemu.com/games/6a70351cd46a19a590dfeb9b/game_cover.jpg',
+    )
+    expect(coverFor('pokemon-ruby-gba-2002')).toBe(
+      'https://storage.ggemu.com/games/6a7034c3d46a19a590dfe86c/game_cover.jpg',
+    )
+    expect(coverFor('pokemon-leafgreen-game-boy-advance-2004')).toBe(
+      'https://storage.ggemu.com/games/69df9bc5b3f31da225db8579/game_cover.jpg',
+    )
+    expect(coverFor('rhythm-tengoku-japan-gba-2006')).toBe(
+      'https://storage.ggemu.com/games/69be85146d8635af26570216/game_cover.jpg',
+    )
   })
 
   it('searches names and keyword variants from local data', () => {
