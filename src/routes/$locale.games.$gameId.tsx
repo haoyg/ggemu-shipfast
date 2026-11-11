@@ -771,6 +771,22 @@ const cardGuideGameSlugs = new Set([
 ])
 
 export function getRelatedGuideForGame(game: Pick<PublicGame, 'platform' | 'url_slug'>) {
+  if (game.url_slug === 'contra-nes-1988') {
+    return {
+      href: '/en/blog/best-contra-games-to-play-online',
+      label: 'Compare the best Contra games to play online',
+      description: 'See how NES Contra, Super Contra, Contra III and Contra: Hard Corps differ before choosing a browser version.',
+    }
+  }
+
+  if (game.url_slug === 'geometry-dash-advance-gba-2025') {
+    return {
+      href: '/en/blog/geometry-dash-advance-controls-levels-practice-guide',
+      label: 'Read the Geometry Dash Advance controls and practice guide',
+      description: 'Check the GBA button mapping, practice-mode sequence and version-dependent level features before starting a run.',
+    }
+  }
+
   if (game.url_slug && cardGuideGameSlugs.has(game.url_slug)) {
     return {
       href: '/en/card-games-that-start-with-m',

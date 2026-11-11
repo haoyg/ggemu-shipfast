@@ -276,6 +276,138 @@ https://pokopie.com/en/guides/retro-game-controller-guide
 If sound or controls fail before the second player joins:
 
 https://pokopie.com/en/blog/browser-game-black-screen-no-sound-controls-fix`,
+  'best-contra-games-to-play-online': `The best Contra game to start with depends on the kind of session you want. NES Contra is the clearest introduction to the series. Super Contra keeps the eight-bit format but changes the stages and challenge. Contra III: The Alien Wars is the faster 16-bit choice, while Contra: Hard Corps offers branching routes and a different Sega Genesis feel.
+
+This comparison covers the versions currently linked from POKOPIE. Browser availability, control mappings and two-player support can change with the loaded player, so open each game page and test its current controls before beginning a serious run.
+
+## Start with NES Contra for the classic formula
+
+The NES version is the easiest place to understand the basic Contra loop: move through side-scrolling and behind-the-back stages, avoid enemy fire, collect weapon upgrades and learn the position of repeated hazards. It is still demanding, but its structure makes it easier to identify why a run failed.
+
+Open the reviewed NES Contra page:
+
+https://pokopie.com/en/games/contra-nes-1988
+
+Use this version when you want the most recognizable starting point, a shorter path into the series and a page with dedicated controls, version context and browser troubleshooting notes. Before choosing two-player mode, confirm that the current player exposes separate inputs for both players; the original game supporting two people does not guarantee that every browser setup does.
+
+## Choose Super Contra for another NES challenge
+
+Super Contra is a separate NES entry, not a difficulty setting inside the first game. It keeps the run-and-gun focus while changing the stages, enemy patterns and overhead sections. Players who already understand the first game’s movement and weapon pickups can use it as the next eight-bit step.
+
+Open Super Contra:
+
+https://pokopie.com/en/games/super-contra-nes-1988
+
+Check the title screen and player mapping before applying a guide written for NES Contra. Similar names do not mean that stage layouts, bosses or safe positions are interchangeable.
+
+## Pick Contra III for faster SNES action
+
+Contra III: The Alien Wars is the 16-bit option in this group. It increases the visual intensity and uses mechanics associated with the Super Nintendo controller, so the browser mapping deserves attention before play. Verify every action button, Start and any shoulder-button function shown by the current player.
+
+Open Contra III:
+
+https://pokopie.com/en/games/contra-iii-the-alien-wars-snes-1992
+
+Choose it when you want a more aggressive presentation and are comfortable learning a denser control layout. If the page scrolls when you press a direction, click inside the player again and reopen the controls menu.
+
+## Try Contra: Hard Corps for branching Genesis routes
+
+Contra: Hard Corps is the Sega Genesis choice. Its playable characters and route choices make it less suitable as a direct substitute for the NES original, but more interesting when you want repeated runs with different paths.
+
+Open Contra: Hard Corps:
+
+https://pokopie.com/en/games/contra-hard-corps-genesis-1994
+
+Use the Genesis collection to compare it with other browser games built around the same controller family:
+
+https://pokopie.com/en/sega-genesis-games
+
+## Which Contra game should you play first?
+
+Choose NES Contra if you are new to the series or want the most direct introduction. Move to Super Contra when you want another eight-bit game with different stage knowledge. Choose Contra III for 16-bit speed and a busier control scheme. Pick Hard Corps when characters and branching routes matter more than recreating the original NES experience.
+
+Whichever version you choose, run a short input test first. Confirm movement, jump, fire, Start and pause. If you plan to play with another person, test each player independently and then press several inputs together; some keyboard combinations do not register reliably.
+
+## Sources and related guides
+
+Konami’s official Contra anniversary page distinguishes the early arcade, Famicom and NES releases:
+
+https://www.konami.com/games/50th/ac/contra/asia/en/
+
+Read the same-device multiplayer setup guide:
+
+https://pokopie.com/en/blog/two-player-browser-retro-games-guide
+
+Review keyboard, controller and save basics before a longer session:
+
+https://pokopie.com/en/blog/how-to-play-roms-in-browser`,
+  'geometry-dash-advance-controls-levels-practice-guide': `Geometry Dash Advance is a community-made Game Boy Advance demake by AleFunky. In a browser, the most important first step is not memorizing a universal key: it is opening the current player controls and identifying which keyboard or controller input maps to the GBA action button, Start and Select.
+
+The project has stable and nightly releases, while an embedded browser player may load a different build. Level availability, custom content, endless mode and visual effects must therefore be checked in the version you actually open.
+
+## Open the reviewed Geometry Dash Advance page
+
+Use the dedicated game page rather than a generic emulator window. It contains the browser entry, version caveats, quick-start notes and links to the developer repository.
+
+https://pokopie.com/en/games/geometry-dash-advance-gba-2025
+
+Click inside the player before pressing keys. If the page scrolls or the browser reacts instead of the game, focus is outside the player. Reopen the player controls and test the mapped action input, Start and Select on a menu before choosing a difficult level.
+
+## Understand the essential controls
+
+Geometry Dash Advance uses a small set of actions, but the physical keyboard keys are supplied by the browser player rather than fixed by the game project. The action input handles the main timing interaction. Start opens or pauses relevant menus, and Select is used by the practice-mode sequence described in the developer release notes.
+
+Do not copy a control list from another emulator without checking the current mapping. A controller may also be detected but assigned to the wrong port. Test one jump or menu action before relying on it.
+
+## Enter practice mode carefully
+
+The developer’s release notes describe practice mode as follows: press Start to open the pause screen, then press Select. That sequence is version-specific. If Select does nothing, first verify its browser mapping, then confirm that the loaded build and current level expose practice mode.
+
+Use practice mode to divide a difficult level into short timing sections. Repeat one obstacle sequence until the jump timing is consistent, then continue. Practice completion is useful for learning a route, but it should not be confused with completing the normal level.
+
+## Check which levels and features are included
+
+The developer repository describes main levels, custom levels, icon customization, a music test and endless mode across project releases. The exact browser build may not contain every item listed by the newest release.
+
+Check the in-game menus for the authoritative answer about the current build. If a guide refers to a level or mode you cannot find, compare the displayed version with the stable and nightly release notes instead of assuming the player is broken.
+
+Developer repository:
+
+https://github.com/AleFunky/geometry_dash_advance
+
+Release history:
+
+https://github.com/AleFunky/geometry_dash_advance/releases
+
+## Improve timing without adding input delay
+
+Keep the player focused and avoid rapidly switching tabs during a run. Close unnecessary heavy pages if animation becomes uneven. When using Bluetooth audio, judge jumps by the visual cue if sound appears delayed; audio latency can make a correct visual rhythm feel late.
+
+Fullscreen can reduce distractions, but first identify the exit shortcut and verify the controls outside fullscreen. If an input is ignored only while several keys are held, test a simpler keyboard combination or a mapped controller.
+
+## Fix common browser problems
+
+If the player stays black, wait for the game data to load and complete any visible start step once. If there is no sound, interact with the player and check the tab’s mute state. If keys scroll the page, click the game area and inspect focus. Do not clear browser storage as the first fix, because that can remove locally stored progress.
+
+Use the full browser troubleshooting sequence:
+
+https://pokopie.com/en/blog/browser-game-black-screen-no-sound-controls-fix
+
+For GBA and browser save behavior, read:
+
+https://pokopie.com/en/guides/how-browser-game-saves-work
+
+## Quick checklist
+
+1. Open the Geometry Dash Advance detail page.
+2. Focus the player and inspect the current GBA mapping.
+3. Test the action button, Start and Select.
+4. Confirm which build, levels and modes are present.
+5. Use Start and then Select for practice mode when supported.
+6. Learn one short obstacle sequence at a time.
+7. Protect browser-stored progress before resetting site data.
+
+Geometry Dash Advance is an independent fan project, not an official RobTop Games release. Use the developer repository for project-specific claims and the loaded game menus for the features available in the browser build.`,
 }
 
 export function getEditorialBlogPost(id: string) {

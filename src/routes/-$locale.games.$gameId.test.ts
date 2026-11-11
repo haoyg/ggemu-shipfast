@@ -10,7 +10,8 @@ describe('game-related guides', () => {
   })
 
   it('preserves platform guides and expands useful guide coverage', () => {
-    expect(getRelatedGuideForGame({ url_slug: 'contra-nes-1988', platform: 'Famicom' })?.href).toBe('/en/guides/nes-vs-snes-games')
+    expect(getRelatedGuideForGame({ url_slug: 'contra-nes-1988', platform: 'Famicom' })?.href).toBe('/en/blog/best-contra-games-to-play-online')
+    expect(getRelatedGuideForGame({ url_slug: 'geometry-dash-advance-gba-2025', platform: 'Game Boy Advance' })?.href).toBe('/en/blog/geometry-dash-advance-controls-levels-practice-guide')
     expect(getRelatedGuideForGame({ url_slug: 'pokemon-emerald-gba-2004', platform: 'Game Boy Advance' })?.href).toBe('/en/guides/how-browser-game-saves-work')
     expect(getRelatedGuideForGame({ url_slug: 'dead-or-alive-ps1-1998', platform: 'PlayStation 1' })?.href).toBe('/en/guides/retro-platform-comparison')
     expect(getRelatedGuideForGame({ url_slug: 'kof-97', platform: 'Arcade' })?.href).toBe('/en/guides/retro-game-controller-guide')

@@ -1,5 +1,5 @@
 import { Link, createFileRoute, notFound, redirect } from '@tanstack/react-router'
-import { isEditorialBlogPost } from '#/lib/editorial-blog-index'
+import { editorialBlogPosts, isEditorialBlogPost } from '#/lib/editorial-blog-index'
 import type { ReactNode } from 'react'
 
 import {
@@ -63,13 +63,20 @@ export const Route = createFileRoute('/$locale/blog/$blogId')({
         detail.blogPost.content || detail.blogPost.excerpt || '',
         locale,
       ),
-      relatedBlogPosts: await getRelatedBlogPosts({
-        data: {
-          currentPostId: detail.blogPost.slug?.trim() || detail.blogPost._id?.trim() || '',
-          keyword: extractRelatedKeyword(detail.blogPost.title || ''),
-          limit: 4,
-        },
-      }).catch(() => ({ blogPosts: [] })),
+      relatedBlogPosts: isEditorialBlogPost(params.blogId)
+        ? {
+            blogPosts: editorialBlogPosts
+              .filter((post) => post.slug !== params.blogId)
+              .slice(-4)
+              .reverse(),
+          }
+        : await getRelatedBlogPosts({
+            data: {
+              currentPostId: detail.blogPost.slug?.trim() || detail.blogPost._id?.trim() || '',
+              keyword: extractRelatedKeyword(detail.blogPost.title || ''),
+              limit: 4,
+            },
+          }).catch(() => ({ blogPosts: [] })),
     }
   },
   head: ({ loaderData, params }) => {

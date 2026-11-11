@@ -23,7 +23,25 @@ export const editorialBlogPosts: BlogPost[] = [
     title: 'Two-Player Retro Games in a Browser: Local Co-op Setup Guide',
     excerpt: 'Choose a two-player retro game, check both control mappings and distinguish same-device co-op from online play before starting a browser gaming session.',
   },
-].map(post => ({ ...post, created_at: publishedAt, updated_at: publishedAt }))
+  {
+    slug: 'best-contra-games-to-play-online',
+    title: 'Best Contra Games to Play Online: NES, SNES & Genesis',
+    excerpt: 'Compare Contra on NES, Super Contra, Contra III and Contra: Hard Corps, then choose the right browser game by difficulty, platform and play style.',
+    created_at: '2026-11-11T00:00:00Z',
+    cover_image_url: 'https://pokopie.com/blog-art/contra-games-guide.jpg',
+  },
+  {
+    slug: 'geometry-dash-advance-controls-levels-practice-guide',
+    title: 'Geometry Dash Advance Controls, Levels and Practice Mode Guide',
+    excerpt: 'Learn how to check the GBA controls, enter practice mode, understand version-dependent levels and troubleshoot Geometry Dash Advance in a browser.',
+    created_at: '2026-11-11T00:00:00Z',
+    cover_image_url: 'https://pokopie.com/blog-art/geometry-dash-advance-guide.jpg',
+  },
+].map(post => ({
+  ...post,
+  created_at: post.created_at ?? publishedAt,
+  updated_at: post.created_at ?? publishedAt,
+}))
 
 export function isEditorialBlogPost(id: string) {
   return editorialBlogPosts.some(post => post.slug === id)
