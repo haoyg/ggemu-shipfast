@@ -32,7 +32,7 @@ describe('related game loading', () => {
     const pending = getRelatedGamePageData({
       data: {
         category: 'Action',
-        currentId: 'contra-nes-1988',
+        currentId: 'upstream-game-nes-1990',
         developer: 'Konami',
         locale: 'en',
       },

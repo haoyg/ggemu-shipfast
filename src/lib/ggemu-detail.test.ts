@@ -8,7 +8,8 @@ vi.mock('@tanstack/react-start', () => ({
 }))
 vi.mock('@tanstack/react-start/server', () => ({ getRequestUrl: () => new URL('https://pokopie.com/en') }))
 
-const game = { _id: 'contra-id', url_slug: 'contra-nes-1988', name: 'Contra', platform: 'NES' }
+const upstreamSlug = 'upstream-game-nes-1990'
+const game = { _id: 'upstream-id', url_slug: upstreamSlug, name: 'Upstream Game', platform: 'NES' }
 const success = () => Response.json({ success: true, data: game })
 let fetchMock: ReturnType<typeof vi.fn>
 
@@ -24,13 +25,27 @@ afterEach(() => { vi.useRealTimers(); vi.unstubAllGlobals() })
 
 async function load() {
   const { getGameDetailPageData } = await import('./ggemu')
-  return getGameDetailPageData({ data: { id: 'contra-nes-1988', locale: 'en' } })
+  return getGameDetailPageData({ data: { id: upstreamSlug, locale: 'en' } })
 }
 
 describe('game detail failure handling', () => {
+  it('serves a curated local game without requesting GGEMU', async () => {
+    const { getGameDetailPageData } = await import('./ggemu')
+    const result = await getGameDetailPageData({
+      data: { id: 'contra-nes-1988', locale: 'en' },
+    })
+
+    expect(result).toMatchObject({
+      kind: 'ready',
+      canonicalUrl: 'https://pokopie.com/en/games/contra-nes-1988',
+      game: { name: 'Contra', url_slug: 'contra-nes-1988' },
+    })
+    expect(fetchMock).not.toHaveBeenCalled()
+  })
+
   it('retries a transient failure and renders the recovered game', async () => {
     fetchMock.mockResolvedValueOnce(new Response('', { status: 503 })).mockResolvedValueOnce(success())
-    expect(await load()).toMatchObject({ kind: 'ready', game: { name: 'Contra' } })
+    expect(await load()).toMatchObject({ kind: 'ready', game: { name: 'Upstream Game' } })
     expect(fetchMock).toHaveBeenCalledTimes(2)
   })
 
@@ -45,7 +60,7 @@ describe('game detail failure handling', () => {
       options.signal!.addEventListener('abort', () => reject(new DOMException('Timed out', 'AbortError')))
     }))
     const { getGameDetailPageData } = await import('./ggemu')
-    const pending = getGameDetailPageData({ data: { id: 'contra-nes-1988', locale: 'en' } })
+    const pending = getGameDetailPageData({ data: { id: upstreamSlug, locale: 'en' } })
     await vi.advanceTimersByTimeAsync(8_000)
     expect(await pending).toEqual({ kind: 'temporary-error' })
     expect(fetchMock).toHaveBeenCalledTimes(2)
@@ -65,7 +80,7 @@ describe('game detail failure handling', () => {
 
   it('does not cache a malformed response and recovers on the next attempt', async () => {
     fetchMock.mockResolvedValueOnce(Response.json({ success: true, data: null })).mockResolvedValueOnce(success())
-    expect(await load()).toMatchObject({ kind: 'ready', game: { name: 'Contra' } })
+    expect(await load()).toMatchObject({ kind: 'ready', game: { name: 'Upstream Game' } })
     expect(fetchMock).toHaveBeenCalledTimes(2)
   })
 
@@ -74,7 +89,7 @@ describe('game detail failure handling', () => {
     expect(await load()).toMatchObject({ kind: 'ready' })
     vi.advanceTimersByTime(300_001)
     fetchMock.mockRejectedValue(new TypeError('Network unavailable'))
-    expect(await load()).toMatchObject({ kind: 'ready', game: { name: 'Contra' } })
+    expect(await load()).toMatchObject({ kind: 'ready', game: { name: 'Upstream Game' } })
     expect(fetchMock).toHaveBeenCalledTimes(2)
   })
 
@@ -95,12 +110,12 @@ describe('game detail failure handling', () => {
     }
     vi.stubGlobal('caches', { default: store })
     fetchMock.mockResolvedValueOnce(success())
-    expect(await load()).toMatchObject({ kind: 'ready', game: { name: 'Contra' } })
+    expect(await load()).toMatchObject({ kind: 'ready', game: { name: 'Upstream Game' } })
     expect(store.put).toHaveBeenCalledTimes(1)
 
     vi.resetModules()
     fetchMock.mockRejectedValue(new TypeError('Network unavailable'))
-    expect(await load()).toMatchObject({ kind: 'ready', game: { name: 'Contra' } })
+    expect(await load()).toMatchObject({ kind: 'ready', game: { name: 'Upstream Game' } })
     expect(fetchMock).toHaveBeenCalledTimes(1)
   })
 

@@ -7,6 +7,7 @@ import { getPs1CoverFallback } from '#/lib/ps1-cover-fallbacks'
 import { localizePublicGame, localizePublicGames } from '#/lib/game-localization'
 import { resolveChineseGameSearchQuery } from '#/lib/game-name-aliases'
 import { GgemuApiError, isMissingGameError, requestGameDetail } from '#/lib/game-detail-request'
+import { getLocalGame, getLocalRelatedGames } from '#/lib/local-game-catalog'
 
 const API_BASE_URL = 'https://ggemu.com'
 const PAGE_SIZE = 20
@@ -809,6 +810,12 @@ export const getGameDetail = createServerFn({ method: 'GET' })
     locale: payload.locale ? normalizeLocale(payload.locale) : undefined,
   }))
   .handler(async ({ data }) => {
+    const localGame = getLocalGame(data.id)
+
+    if (localGame) {
+      return data.locale ? localizePublicGame(localGame, data.locale) : localGame
+    }
+
     const params = new URLSearchParams({ id: data.id })
     const result = await fetchJson<GameDetailResponse>('/api/game/detail', params)
 
@@ -823,6 +830,19 @@ export const getGameDetailPageData = createServerFn({ method: 'GET' })
     locale: normalizeLocale(payload.locale),
   }))
   .handler(async ({ data }) => {
+    const localGame = getLocalGame(data.id)
+    const origin = getCanonicalOrigin(getRequestUrl({ xForwardedHost: false }))
+
+    if (localGame) {
+      const game = localizePublicGame(localGame, data.locale)
+
+      return {
+        kind: 'ready' as const,
+        canonicalUrl: getAbsoluteGameUrl(origin, data.locale, game, data.id),
+        game,
+      } satisfies GameDetailPageData
+    }
+
     const params = new URLSearchParams({ id: data.id })
     const outcome = await requestGameDetail(() =>
       fetchJson<GameDetailResponse>('/api/game/detail', params, { timeoutMs: 4_000 }),
@@ -830,8 +850,6 @@ export const getGameDetailPageData = createServerFn({ method: 'GET' })
     if (outcome.kind !== 'ready') return outcome
     const result = outcome.value
     const game = localizePublicGame(normalizePublicGame(result.data), data.locale)
-    const origin = getCanonicalOrigin(getRequestUrl({ xForwardedHost: false }))
-
     return {
       kind: 'ready' as const,
       canonicalUrl: getAbsoluteGameUrl(origin, data.locale, game, data.id),
@@ -847,7 +865,7 @@ export const getRelatedGamePageData = createServerFn({ method: 'GET' })
     locale: normalizeLocale(payload.locale),
   }))
   .handler(async ({ data }) => {
-    const result = await fetchRelatedGames(data)
+    const result = getLocalRelatedGames(data.currentId) ?? await fetchRelatedGames(data)
 
     return {
       relatedByCategory: localizePublicGames(result.relatedByCategory, data.locale),
