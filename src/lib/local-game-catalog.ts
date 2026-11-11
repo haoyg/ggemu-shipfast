@@ -216,7 +216,7 @@ const localGames = [
     play_online: 1,
     play_device: 0,
     downloadable: 0,
-    game_cover: 'https://pokopie.com/game-covers/three-wonders.svg',
+    game_cover: 'https://storage.ggemu.com/games/69be82146d8635af2657019b/game_cover.jpg',
   },
   {
     url_slug: 'pipi-and-bibis-other-1991',
@@ -234,7 +234,7 @@ const localGames = [
     play_online: 1,
     play_device: 0,
     downloadable: 0,
-    game_cover: 'https://pokopie.com/game-covers/pipi-and-bibis.svg',
+    game_cover: 'https://storage.ggemu.com/games/6a85cb932657f317a7ee9707/game_cover.jpg',
   },
   {
     url_slug: 'the-king-of-fighters-97-arcade-1997',
@@ -252,7 +252,7 @@ const localGames = [
     play_online: 1,
     play_device: 0,
     downloadable: 0,
-    game_cover: 'https://pokopie.com/game-covers/kof-97.svg',
+    game_cover: 'https://storage.ggemu.com/games/69950bf6fa4c51c949bf3c9b/game_cover.jpg',
   },
   {
     url_slug: 'super-mario-bros-nes-1985',
@@ -288,7 +288,7 @@ const localGames = [
     play_online: 1,
     play_device: 0,
     downloadable: 0,
-    game_cover: 'https://pokopie.com/game-covers/battle-city.svg',
+    game_cover: 'https://storage.ggemu.com/games/69c1ed83ae50a5875bfc2c59/game_cover.jpg',
   },
   {
     url_slug: 'double-dragon-ii-revenge-nes-1989',
@@ -324,7 +324,7 @@ const localGames = [
     play_online: 1,
     play_device: 0,
     downloadable: 0,
-    game_cover: 'https://pokopie.com/game-covers/crash-bandicoot-2.svg',
+    game_cover: 'https://emulatorgamer.com/covers/ps/crash-bandicoot-2-cortex-strikes-back.webp',
   },
   {
     url_slug: 'harry-potter-and-the-philosopher-s-stone-ps1-2001',
@@ -342,7 +342,7 @@ const localGames = [
     play_online: 1,
     play_device: 0,
     downloadable: 0,
-    game_cover: 'https://pokopie.com/game-covers/harry-potter-stone.svg',
+    game_cover: 'https://cdn.emulatorgamer.com/covers/ps/harry-potter-and-the-philosophers-stone.webp',
   },
   {
     url_slug: 'tenchu-2-birth-of-the-stealth-assassins-ps1-2000',
@@ -360,7 +360,7 @@ const localGames = [
     play_online: 1,
     play_device: 0,
     downloadable: 0,
-    game_cover: 'https://pokopie.com/game-covers/tenchu-2.svg',
+    game_cover: 'https://emulatorgamer.com/covers/ps/tenchu-2-birth-of-the-stealth-assassins.webp',
   },
   {
     url_slug: 'theme-hospital-dos-1997',
@@ -378,7 +378,7 @@ const localGames = [
     play_online: 1,
     play_device: 1,
     downloadable: 0,
-    game_cover: 'https://pokopie.com/game-covers/theme-hospital.svg',
+    game_cover: 'https://storage.ggemu.com/games/69dcf0835f47f45a8b727675/game_cover.jpeg',
   },
   {
     url_slug: 'pokemon-emerald-gba-2004',
@@ -468,7 +468,7 @@ const localGames = [
     play_online: 1,
     play_device: 0,
     downloadable: 0,
-    game_cover: 'https://pokopie.com/game-covers/rhythm-heaven.svg',
+    game_cover: 'https://emulatorgamer.com/covers/nds/rhythm-heaven.webp',
   },
   {
     url_slug: 'onet-master-html5',
@@ -486,7 +486,7 @@ const localGames = [
     play_online: 1,
     play_device: 1,
     downloadable: 0,
-    game_cover: 'https://pokopie.com/game-covers/onet-master.svg',
+    game_cover: 'https://storage.ggemu.com/games/69e01ed7b3f31da225dda726/game_cover.jpg',
   },
   {
     url_slug: 'space-is-key-flash-2011',
@@ -504,7 +504,7 @@ const localGames = [
     play_online: 1,
     play_device: 0,
     downloadable: 0,
-    game_cover: 'https://pokopie.com/game-covers/space-is-key.svg',
+    game_cover: 'https://storage.ggemu.com/games/69bbf38af8bfc155e8aec058/game_cover.jpg',
   },
   {
     url_slug: 'taiko-no-tatsujin-taiko-web-html5-2011',
@@ -540,7 +540,7 @@ const localGames = [
     play_online: 1,
     play_device: 0,
     downloadable: 0,
-    game_cover: 'https://pokopie.com/game-covers/romance-three-kingdoms-iv.svg',
+    game_cover: 'https://storage.ggemu.com/games/69bc124cf8bfc155e8aec31f/game_cover.jpeg',
   },
   {
     url_slug: 'lilo-stitch-trouble-in-paradise-ps1-2002',

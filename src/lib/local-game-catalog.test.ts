@@ -63,6 +63,18 @@ describe('local game catalog', () => {
     expect(coverFor('rhythm-tengoku-japan-gba-2006')).toBe(
       'https://storage.ggemu.com/games/69be85146d8635af26570216/game_cover.jpg',
     )
+    expect(coverFor('three-wonders-arcade-1991')).toBe(
+      'https://storage.ggemu.com/games/69be82146d8635af2657019b/game_cover.jpg',
+    )
+    expect(coverFor('rhythm-heaven-nds-2008')).toBe(
+      'https://emulatorgamer.com/covers/nds/rhythm-heaven.webp',
+    )
+    expect(coverFor('onet-master-html5')).toBe(
+      'https://storage.ggemu.com/games/69e01ed7b3f31da225dda726/game_cover.jpg',
+    )
+    expect(coverFor('romance-of-the-three-kingdoms-iv-dos-1994')).toBe(
+      'https://storage.ggemu.com/games/69bc124cf8bfc155e8aec31f/game_cover.jpeg',
+    )
   })
 
   it('searches names and keyword variants from local data', () => {

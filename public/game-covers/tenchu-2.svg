@@ -1,6 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600" role="img" aria-labelledby="title desc">
-  <title id="title">Tenchu 2</title><desc id="desc">Original POKOPIE rooftop stealth poster</desc>
-  <defs><linearGradient id="bg" x2="0" y2="1"><stop stop-color="#142c3d"/><stop offset="1" stop-color="#05080b"/></linearGradient></defs><rect width="800" height="600" rx="32" fill="url(#bg)"/><circle cx="605" cy="150" r="80" fill="#dce9d4" opacity=".85"/>
-  <path d="M55 420 250 290l150 85 150-120 195 165Z" fill="#10151a" stroke="#506673" stroke-width="9"/><path d="M150 315h190l-95-70Zm300-65h210l-105-82Z" fill="#1d2930" stroke="#76909a" stroke-width="8"/><path d="m355 370 45-100 45 100-45 35Z" fill="#9d1f32"/><path d="m400 270 54-55" stroke="#d7d9cf" stroke-width="10"/>
-  <text x="400" y="85" text-anchor="middle" fill="#dce9d4" font-family="system-ui,sans-serif" font-size="28" font-weight="800" letter-spacing="9">STAY ABOVE • STAY UNSEEN</text><text x="400" y="490" text-anchor="middle" fill="#fff" font-family="system-ui,sans-serif" font-size="84" font-weight="950">TENCHU 2</text><text x="400" y="540" text-anchor="middle" fill="#d97579" font-family="system-ui,sans-serif" font-size="22" letter-spacing="5">BIRTH OF THE STEALTH ASSASSINS</text>
-</svg>

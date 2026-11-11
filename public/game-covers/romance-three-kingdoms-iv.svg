@@ -1,6 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" role="img" aria-labelledby="title desc">
-  <title id="title">Romance of the Three Kingdoms IV</title><desc id="desc">A strategy map with fortress banners and a setting sun.</desc>
-  <defs><linearGradient id="bg" y2="1"><stop stop-color="#7f1d1d"/><stop offset="1" stop-color="#1c1917"/></linearGradient></defs><rect width="640" height="360" rx="28" fill="url(#bg)"/><circle cx="480" cy="95" r="55" fill="#fbbf24" opacity=".9"/>
-  <path d="M0 250l100-55 95 25 85-90 100 70 95-50 165 100v110H0z" fill="#292524"/><g fill="#d6d3d1"><path d="M104 220h118v80H104zM122 192h82v28h-82zM137 170h52v22h-52z"/><path d="M420 225h92v75h-92zM437 202h58v23h-58z"/></g>
-  <g fill="#dc2626"><path d="M115 142v82h8v-58h58l-18-16 18-8z"/><path d="M430 165v70h8v-48h50l-16-14 16-8z"/></g><text x="320" y="65" text-anchor="middle" fill="#fff7ed" font-family="Georgia,serif" font-size="34" font-weight="700">ROMANCE OF THE THREE KINGDOMS IV</text><text x="320" y="105" text-anchor="middle" fill="#fde68a" font-family="system-ui,sans-serif" font-size="24">WALL OF FIRE</text>
-</svg>
