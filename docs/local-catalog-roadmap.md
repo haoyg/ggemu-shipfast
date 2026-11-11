@@ -7,9 +7,9 @@ metadata changed.
 ## Current target
 
 - Baseline: 10 local games on 2026-11-11.
-- Current count: 20 local games.
+- Current count: 25 local games.
 - Phase 2 target: 30 local games.
-- Remaining work: add 10 reviewed games in two batches of 5.
+- Remaining work: add 5 reviewed games in one final batch.
 - Phase 2 is complete only when the first discovery grid and related-game
   sections can be populated from local data before an upstream fallback is
   needed.
@@ -50,11 +50,11 @@ control guidance. Keep the upstream request as a runtime fallback only.
 
 ### Batch 3: GBA and DS discovery depth
 
-- `pokemon-emerald-gba-2004`
-- `pokemon-ruby-gba-2002`
-- `pokemon-leafgreen-game-boy-advance-2004`
-- `rhythm-tengoku-japan-gba-2006`
-- `rhythm-heaven-nds-2008`
+- [x] `pokemon-emerald-gba-2004`
+- [x] `pokemon-ruby-gba-2002`
+- [x] `pokemon-leafgreen-game-boy-advance-2004`
+- [x] `rhythm-tengoku-japan-gba-2006`
+- [x] `rhythm-heaven-nds-2008`
 
 ### Batch 4: browser-native and long-tail coverage
 
@@ -96,4 +96,5 @@ replacement must be recorded in the change log with a short reason.
 | 2026-11-11 | `84d50e7` | 10 | Added one-click play links to the active homepage, search suggestions, and collection cards. | 571 tests, typecheck, build, deploy, and live-link checks passed. |
 | 2026-11-11 | `42198ff` | 15 | Added batch 1: three arcade titles and two NES titles with POKOPIE-authored metadata, Chinese aliases, and local cover art. | 572 tests, typecheck, build, deploy `3d543511`, four live pages, and eight IndexNow URLs verified; one live check timed out. |
 | 2026-11-11 | `69feeda` | 20 | Added batch 2: one NES, three PlayStation, and one DOS title with reviewed metadata and local cover art; existing reviewed Chinese names remain limited to translated pages. | 573 tests, typecheck, build, deploy `6663f280`, five live pages, and nine IndexNow URLs verified. |
+| 2026-11-11 | This commit | 25 | Added batch 3: three Pokémon GBA titles plus one GBA and one NDS rhythm title with reviewed language labels and local cover art. | Full verification pending. |
 

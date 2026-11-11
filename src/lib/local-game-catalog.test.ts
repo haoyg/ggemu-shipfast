@@ -13,7 +13,7 @@ describe('local game catalog', () => {
     const games = getLocalGames()
     const slugs = games.map((game) => game.url_slug)
 
-    expect(games).toHaveLength(20)
+    expect(games).toHaveLength(25)
     expect(new Set(slugs).size).toBe(slugs.length)
     expect(slugs).toContain('contra-nes-1988')
     expect(slugs).toContain('geometry-dash-advance-gba-2025')
@@ -21,6 +21,8 @@ describe('local game catalog', () => {
     expect(slugs).toContain('battle-city-nes-1985')
     expect(slugs).toContain('crash-bandicoot-2-cortex-strikes-back-ps1-1997')
     expect(slugs).toContain('theme-hospital-dos-1997')
+    expect(slugs).toContain('pokemon-emerald-gba-2004')
+    expect(slugs).toContain('rhythm-heaven-nds-2008')
   })
 
   it('returns defensive copies instead of mutable catalog records', () => {
@@ -92,6 +94,17 @@ describe('local game catalog', () => {
     expect(hospital.games.map((game) => game.url_slug)).toEqual([
       'theme-hospital-dos-1997',
     ])
+  })
+
+  it('finds the GBA and DS discovery batch locally', () => {
+    const emerald = searchLocalGames({ limit: 25, page: 1, query: '口袋妖怪绿宝石' })
+    const rhythm = searchLocalGames({ limit: 25, page: 1, query: 'rhythm game' })
+
+    expect(emerald.games.map((game) => game.url_slug)).toEqual(['pokemon-emerald-gba-2004'])
+    expect(rhythm.games.map((game) => game.url_slug)).toEqual(expect.arrayContaining([
+      'rhythm-tengoku-japan-gba-2006',
+      'rhythm-heaven-nds-2008',
+    ]))
   })
 
   it('derives resilient filters from the local catalog', () => {
