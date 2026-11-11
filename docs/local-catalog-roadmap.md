@@ -95,5 +95,5 @@ replacement must be recorded in the change log with a short reason.
 | 2026-11-11 | `479155f` | 10 | Made homepage search, collections, filters, and related games prefer local data. | 571 tests, typecheck, build, and production checks passed. |
 | 2026-11-11 | `84d50e7` | 10 | Added one-click play links to the active homepage, search suggestions, and collection cards. | 571 tests, typecheck, build, deploy, and live-link checks passed. |
 | 2026-11-11 | `42198ff` | 15 | Added batch 1: three arcade titles and two NES titles with POKOPIE-authored metadata, Chinese aliases, and local cover art. | 572 tests, typecheck, build, deploy `3d543511`, four live pages, and eight IndexNow URLs verified; one live check timed out. |
-| 2026-11-11 | This commit | 20 | Added batch 2: one NES, three PlayStation, and one DOS title with reviewed metadata and local cover art; existing reviewed Chinese names remain limited to translated pages. | Full verification pending. |
+| 2026-11-11 | `69feeda` | 20 | Added batch 2: one NES, three PlayStation, and one DOS title with reviewed metadata and local cover art; existing reviewed Chinese names remain limited to translated pages. | 573 tests, typecheck, build, deploy `6663f280`, five live pages, and nine IndexNow URLs verified. |
 
