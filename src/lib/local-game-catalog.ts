@@ -1,4 +1,31 @@
-import type { PublicGame, RelatedGamesData } from '#/lib/ggemu'
+import type {
+  FilterOption,
+  GameFilterOptions,
+  GameSearchSort,
+  PublicGame,
+  RelatedGamesData,
+} from '#/lib/ggemu'
+
+type LocalGameSearchOptions = {
+  category?: string
+  limit: number
+  page: number
+  platform?: string
+  query?: string
+  sort?: GameSearchSort
+}
+
+const platformAliases: ReadonlyArray<ReadonlySet<string>> = [
+  new Set(['famicom', 'nes', 'nintendoentertainmentsystem']),
+  new Set(['snes', 'superfamicom', 'supernintendo', 'supernintendoentertainmentsystem']),
+  new Set(['gba', 'gameboyadvance']),
+  new Set(['n64', 'nintendo64']),
+  new Set(['ps1', 'playstation', 'playstation1']),
+  new Set(['nds', 'nintendods']),
+  new Set(['html5', 'browser']),
+  new Set(['dos', 'msdos']),
+  new Set(['arcade']),
+]
 
 const localGames = [
   {
@@ -197,6 +224,57 @@ export function getLocalGames() {
   return localGames.map(cloneGame)
 }
 
+export function searchLocalGames({
+  category = '',
+  limit,
+  page,
+  platform = '',
+  query = '',
+  sort = 'popular',
+}: LocalGameSearchOptions) {
+  const queryTerms = normalizeSearchText(query).split(' ').filter(Boolean)
+  const normalizedCategory = normalizeSearchText(category)
+  const filteredGames = localGames.filter((game) => {
+    if (platform && !matchesPlatform(game, platform)) return false
+    if (normalizedCategory && !(game.categories ?? []).some((value) => normalizeSearchText(value) === normalizedCategory)) return false
+
+    if (queryTerms.length > 0) {
+      const searchableText = normalizeSearchText([
+        game.name,
+        game.description,
+        game.developer,
+        game.keywords,
+        game.platform,
+        ...(game.categories ?? []),
+      ].filter(Boolean).join(' '))
+
+      if (!queryTerms.every((term) => searchableText.includes(term))) return false
+    }
+
+    return true
+  })
+
+  const sortedGames = [...filteredGames].sort(getLocalGameComparator(sort))
+  const start = (page - 1) * limit
+
+  return {
+    games: sortedGames.slice(start, start + limit).map(cloneGame),
+    pagination: {
+      limit,
+      page,
+      pages: Math.ceil(sortedGames.length / limit),
+      total: sortedGames.length,
+    },
+  }
+}
+
+export function getLocalGameFilterOptions(): GameFilterOptions {
+  return {
+    platforms: countFilterOptions(localGames.map((game) => game.platform).filter(Boolean)),
+    categories: countFilterOptions(localGames.flatMap((game) => game.categories ?? [])),
+  }
+}
+
 export function getLocalRelatedGames(currentId: string): RelatedGamesData | undefined {
   const current = gameBySlug.get(currentId.trim().toLowerCase())
 
@@ -221,4 +299,57 @@ export function getLocalRelatedGames(currentId: string): RelatedGamesData | unde
     relatedByCategory: scoredGames,
     relatedByDeveloper: [],
   }
+}
+
+function normalizeSearchText(value: string) {
+  return value
+    .normalize('NFKD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, ' ')
+    .trim()
+}
+
+function normalizePlatform(value: string) {
+  return normalizeSearchText(value).replaceAll(' ', '')
+}
+
+function matchesPlatform(game: PublicGame, requestedPlatform: string) {
+  const requested = normalizePlatform(requestedPlatform)
+  const requestedGroup = platformAliases.find((group) => group.has(requested))
+  const candidates = [game.platform, game.platform_slug, game.platformSlug]
+    .filter((value): value is string => Boolean(value))
+    .map(normalizePlatform)
+
+  return candidates.some((candidate) => (
+    requestedGroup ? requestedGroup.has(candidate) : candidate === requested
+  ))
+}
+
+function getLocalGameComparator(sort: GameSearchSort) {
+  if (sort === 'newest') {
+    return (left: PublicGame, right: PublicGame) => Number(right.released_year ?? 0) - Number(left.released_year ?? 0)
+  }
+
+  if (sort === 'oldest') {
+    return (left: PublicGame, right: PublicGame) => Number(left.released_year ?? 0) - Number(right.released_year ?? 0)
+  }
+
+  if (sort === 'name_asc') {
+    return (left: PublicGame, right: PublicGame) => (left.name ?? '').localeCompare(right.name ?? '')
+  }
+
+  return () => 0
+}
+
+function countFilterOptions(values: Array<string>): Array<FilterOption> {
+  const counts = new Map<string, number>()
+
+  for (const value of values) {
+    counts.set(value, (counts.get(value) ?? 0) + 1)
+  }
+
+  return [...counts]
+    .map(([name, count]) => ({ name, count }))
+    .sort((left, right) => right.count - left.count || left.name.localeCompare(right.name))
 }

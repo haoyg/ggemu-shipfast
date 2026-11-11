@@ -10,7 +10,7 @@ vi.mock('@tanstack/react-start/server', () => ({ getRequestUrl: () => new URL('h
 
 const searchResponse = () => Response.json({
   success: true,
-  data: [{ _id: 'contra-id', url_slug: 'contra-nes-1988', name: 'Contra' }],
+  data: [{ _id: 'upstream-id', url_slug: 'upstream-game-nes-1990', name: 'Upstream Game' }],
   pagination: { total: 1, page: 1, limit: 24, pages: 1 },
 })
 
@@ -38,22 +38,22 @@ afterEach(() => {
   vi.unstubAllGlobals()
 })
 
-async function search() {
+async function search(query = 'upstream') {
   const { searchGames } = await import('./ggemu')
   return searchGames({
-    data: { category: '', limit: 24, locale: 'zh-CN', page: 1, platform: '', query: '', sort: 'popular' },
+    data: { category: '', limit: 24, locale: 'zh-CN', page: 1, platform: '', query, sort: 'popular' },
   })
 }
 
 describe('game search edge cache', () => {
   it('restores a list after a Worker isolate restart', async () => {
     fetchMock.mockResolvedValueOnce(searchResponse())
-    expect(await search()).toMatchObject({ games: [{ name: '魂斗罗（Contra）' }] })
+    expect(await search()).toMatchObject({ games: [{ name: 'Upstream Game' }] })
     expect(store.put).toHaveBeenCalledTimes(1)
 
     vi.resetModules()
     fetchMock.mockRejectedValue(new TypeError('Network unavailable'))
-    expect(await search()).toMatchObject({ games: [{ name: '魂斗罗（Contra）' }] })
+    expect(await search()).toMatchObject({ games: [{ name: 'Upstream Game' }] })
     expect(fetchMock).toHaveBeenCalledTimes(1)
   })
 
@@ -68,10 +68,19 @@ describe('game search edge cache', () => {
     expect(fetchMock).toHaveBeenCalledTimes(2)
   })
 
-  it('does not persist malformed successful responses', async () => {
+  it('falls back locally without persisting malformed successful responses', async () => {
     fetchMock.mockResolvedValue(Response.json({ success: true, data: null, pagination: {} }))
 
-    await expect(search()).rejects.toThrow()
+    await expect(search()).resolves.toMatchObject({ games: [], pagination: { total: 0 } })
     expect(store.put).not.toHaveBeenCalled()
+  })
+
+  it('keeps the unfiltered catalog useful when the upstream is unavailable', async () => {
+    fetchMock.mockRejectedValue(new TypeError('Network unavailable'))
+
+    const result = await search('')
+
+    expect(result.games.map((game) => game.url_slug)).toContain('contra-nes-1988')
+    expect(result.pagination.total).toBe(10)
   })
 })

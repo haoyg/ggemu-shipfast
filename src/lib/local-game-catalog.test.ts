@@ -1,6 +1,12 @@
 import { describe, expect, it } from 'vitest'
 
-import { getLocalGame, getLocalGames, getLocalRelatedGames } from './local-game-catalog'
+import {
+  getLocalGame,
+  getLocalGameFilterOptions,
+  getLocalGames,
+  getLocalRelatedGames,
+  searchLocalGames,
+} from './local-game-catalog'
 
 describe('local game catalog', () => {
   it('keeps stable unique slugs for the first independent catalog batch', () => {
@@ -35,5 +41,33 @@ describe('local game catalog', () => {
 
   it('does not retain upstream image hosts in local catalog data', () => {
     expect(getLocalGames().map((game) => game.game_cover ?? '').join('\n')).not.toContain('ggemu.com')
+  })
+
+  it('searches names and keyword variants from local data', () => {
+    const result = searchLocalGames({
+      limit: 20,
+      page: 1,
+      query: 'unblocked tekken',
+    })
+
+    expect(result.games.map((game) => game.url_slug)).toEqual(['tekken-ps1-1995'])
+  })
+
+  it('matches common platform aliases for collection pages', () => {
+    const nes = searchLocalGames({ limit: 20, page: 1, platform: 'Famicom' })
+    const snes = searchLocalGames({ limit: 20, page: 1, platform: 'Super Famicom' })
+
+    expect(nes.games.map((game) => game.url_slug)).toEqual(expect.arrayContaining([
+      'contra-nes-1988',
+      'donkey-kong-nes-1983',
+    ]))
+    expect(snes.games.map((game) => game.url_slug)).toContain('super-mario-bros-the-lost-levels-enhanced-snes-1993')
+  })
+
+  it('derives resilient filters from the local catalog', () => {
+    const options = getLocalGameFilterOptions()
+
+    expect(options.platforms.map((option) => option.name)).toContain('Arcade')
+    expect(options.categories.map((option) => option.name)).toContain('Puzzle')
   })
 })

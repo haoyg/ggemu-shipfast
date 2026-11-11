@@ -7,7 +7,12 @@ import { getPs1CoverFallback } from '#/lib/ps1-cover-fallbacks'
 import { localizePublicGame, localizePublicGames } from '#/lib/game-localization'
 import { resolveChineseGameSearchQuery } from '#/lib/game-name-aliases'
 import { GgemuApiError, isMissingGameError, requestGameDetail } from '#/lib/game-detail-request'
-import { getLocalGame, getLocalRelatedGames } from '#/lib/local-game-catalog'
+import {
+  getLocalGame,
+  getLocalGameFilterOptions,
+  getLocalRelatedGames,
+  searchLocalGames,
+} from '#/lib/local-game-catalog'
 
 const API_BASE_URL = 'https://ggemu.com'
 const PAGE_SIZE = 20
@@ -546,6 +551,53 @@ function normalizeFilterOptions(options: Array<FilterOption>) {
   })
 }
 
+function mergeLocalSearchResults(
+  upstream: GameSearchResult,
+  local: GameSearchResult,
+  page: number,
+  limit: number,
+): GameSearchResult {
+  const localResultSlugs = new Set(
+    local.games.map((game) => game.url_slug).filter(Boolean),
+  )
+  const upstreamGames = upstream.games.filter(
+    (game) => !localResultSlugs.has(game.url_slug),
+  )
+  const games = page === 1
+    ? [...local.games, ...upstreamGames].slice(0, limit)
+    : upstreamGames.slice(0, limit)
+  const total = Math.max(upstream.pagination.total, local.pagination.total)
+
+  return {
+    games,
+    pagination: {
+      ...upstream.pagination,
+      limit,
+      page,
+      pages: Math.ceil(total / limit),
+      total,
+    },
+  }
+}
+
+function mergeFilterOptions(
+  localOptions: Array<FilterOption>,
+  upstreamOptions: Array<FilterOption>,
+) {
+  const merged = new Map<string, FilterOption>()
+
+  for (const option of [...localOptions, ...upstreamOptions]) {
+    const key = option.name.trim().toLowerCase()
+    const existing = merged.get(key)
+
+    merged.set(key, existing
+      ? { ...existing, ...option, count: Math.max(existing.count ?? 0, option.count ?? 0) }
+      : option)
+  }
+
+  return [...merged.values()]
+}
+
 function normalizePlatformKey(value: string | undefined) {
   return value?.trim().toLowerCase() ?? ''
 }
@@ -717,12 +769,25 @@ export const searchGames = createServerFn({ method: 'GET' })
       play_online: '1',
     })
 
-    addOptionalParam(params, 'query', resolveChineseGameSearchQuery(data.query, data.locale))
+    const resolvedQuery = resolveChineseGameSearchQuery(data.query, data.locale)
+
+    addOptionalParam(params, 'query', resolvedQuery)
     addOptionalParam(params, 'platform', data.platform)
     addOptionalParam(params, 'category', data.category)
     addOptionalParam(params, 'sort', data.sort)
 
-    const result = await fetchGames(params)
+    const localResult = searchLocalGames({
+      category: data.category,
+      limit: data.limit,
+      page: data.page,
+      platform: data.platform,
+      query: resolvedQuery,
+      sort: data.sort,
+    })
+    const upstreamResult = await fetchGames(params).catch(() => null)
+    const result = upstreamResult
+      ? mergeLocalSearchResults(upstreamResult, localResult, data.page, data.limit)
+      : localResult
 
     return {
       ...result,
@@ -772,15 +837,22 @@ export const getGameFilterOptions = createServerFn({ method: 'GET' })
     const [platformsResult, genresResult] = await Promise.all([
       fetchJson<FilterOptionResponse>('/api/games/platforms', emptyParams, {
         cacheTtlMs: GGEMU_FILTER_CACHE_TTL_MS,
-      }),
+      }).catch(() => null),
       fetchJson<FilterOptionResponse>('/api/games/genres', emptyParams, {
         cacheTtlMs: GGEMU_FILTER_CACHE_TTL_MS,
-      }),
+      }).catch(() => null),
     ])
+    const localOptions = getLocalGameFilterOptions()
 
     return {
-      platforms: normalizeFilterOptions(platformsResult.data),
-      categories: normalizeFilterOptions(genresResult.data),
+      platforms: mergeFilterOptions(
+        localOptions.platforms,
+        normalizeFilterOptions(platformsResult?.data ?? []),
+      ),
+      categories: mergeFilterOptions(
+        localOptions.categories,
+        normalizeFilterOptions(genresResult?.data ?? []),
+      ),
     } satisfies GameFilterOptions
   })
 
