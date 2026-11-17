@@ -638,10 +638,13 @@ export function PlatformGamesPage({
   total: number
 }) {
   const relatedGuide = locale === 'en' ? getRelatedGuide(collection.platform) : undefined
+  const secondaryCta = locale === 'zh-CN' && collection.platform === 'Famicom' && page === 1
+    ? { href: '/zh-CN/games/contra-nes-1988', label: '玩魂斗罗（NES 版）' }
+    : collection.page.secondaryCta
 
   return (
     <GameCollectionPage
-      config={{ ...collection.page, relatedGuide }}
+      config={{ ...collection.page, relatedGuide, secondaryCta }}
       games={games}
       locale={locale}
       page={page}

@@ -1882,6 +1882,24 @@ const localizedTaikoEditorial: Partial<Record<Locale, GameEditorial>> = {
   },
 }
 
+const chineseDoubleDragonIiEditorial: GameEditorial = {
+  summary: '《双截龙 II》是一款横版动作游戏。这个条目对应红白机（NES）版的中文翻译版本，玩法和关卡以家用机版为准。',
+  description: [
+    '比利和吉米·李一路迎战从两侧靠近的敌人。开局最值得练的是左右攻击：两颗攻击键分别打向不同方向，敌人绕到背后时可以换键回击。',
+  ],
+  howToPlay: [
+    '进入播放器后，先查看键位设置，找到方向键和 NES 的 A、B 键。原版手柄的 A 向右攻击，B 向左攻击，同时按 A 和 B 可以跳跃。浏览器里的实际按键以播放器设置为准。',
+    '先找一个落单敌人练习左右攻击。被夹击时，可以沿画面的上下方向移动，拉开距离再出手。遇到跳台前，先在安全位置试一次组合按键。',
+  ],
+  tips: ['如果播放器提供即时存档，可以先在安全位置测试保存和读取，再开始长时间游玩。'],
+  faq: [
+    { question: '这里是《双截龙 II》的哪个版本？', answer: '本站条目对应 NES 版的中文翻译版本。街机版和 NES 版的关卡设计有差异。' },
+    { question: '敌人跑到身后时该按哪个键？', answer: '看敌人位于角色的哪一侧。原版 NES 手柄的 A 打右侧，B 打左侧。' },
+    { question: '手机上怎么跳？', answer: '先确认播放器是否显示 A 和 B 两个触控键，并检查它们能否同时触发。也可以用电脑键盘，按播放器设置里的对应键。' },
+  ],
+  sources: [{ label: '《双截龙 II》NES 原版操作手册', href: 'https://www.digitpress.com/library/manuals/nes/Double%20Dragon%20II.pdf' }],
+}
+
 const chineseThreeKingdomsEditorial: GameEditorial = {
   summary: '三国群英传 2 是以三国时代为背景的策略游戏。本页提供浏览器版本入口：在大地图上管理城池和武将，在战场上指挥部队并使用武将技。',
   description: [
@@ -1974,6 +1992,9 @@ export function getEditorialGameRouteIds() {
 }
 
 export function getGameEditorial(game: PublicGame, locale: Locale) {
+  if (locale === 'zh-CN' && game.url_slug?.trim().toLowerCase() === 'double-dragon-ii-revenge-nes-1989') {
+    return chineseDoubleDragonIiEditorial
+  }
   if (locale !== 'en') {
     if (locale === 'zh-CN' && game.url_slug?.trim().toLowerCase() === 'murdoku-html5-2026') {
       return chineseMurdokuEditorial
