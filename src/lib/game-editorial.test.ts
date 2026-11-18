@@ -5,11 +5,11 @@ import { getGameSearchSeo, getTargetedGameSeo } from './game-seo-targets'
 import { getGameSeoInternalLinks } from './game-seo-links'
 import { getReviewedChineseGameRouteIds } from './game-name-aliases'
 
-it('uses distinct Simplified Chinese descriptions for games with reviewed names', () => {
+it.each(['zh-CN', 'zh-TW'] as const)('uses distinct %s descriptions for games with reviewed names', (locale) => {
   const descriptions = getReviewedChineseGameRouteIds().map((slug) => {
-    const description = getGameSearchSeo({ _id: slug, url_slug: slug }, 'zh-CN')?.description
+    const description = getGameSearchSeo({ _id: slug, url_slug: slug }, locale)?.description
     expect(description).toBeTruthy()
-    expect(description).not.toContain('游戏介绍与操作说明')
+    expect(description).not.toMatch(/游戏介绍与操作说明|遊戲介紹與操作說明/)
     return description
   })
   expect(new Set(descriptions).size).toBe(descriptions.length)

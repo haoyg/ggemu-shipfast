@@ -654,17 +654,40 @@ const reviewedChineseMetaDescriptions: Partial<Record<string, string>> = {
   'super-mario-bros-the-lost-levels-enhanced-snes-1993': '挑战《超级马里奥兄弟：失落的关卡》的 SNES 增强版。留意毒蘑菇、隐藏砖块和要求精确起跳的关卡。打开浏览器游玩入口前，可先查看版本差异和按键说明。',
 }
 
+const reviewedTraditionalChineseMetaDescriptions: Partial<Record<string, string>> = {
+  'contra-nes-1988': '在瀏覽器玩紅白機《魂斗羅》。一邊跳躍一邊射擊，穿越叢林與敵方基地，沿途撿拾武器道具。開玩前可查看移動、跳躍、射擊和雙人操作的按鍵說明。',
+  'double-dragon-ii-revenge-nes-1989': '在瀏覽器玩紅白機《雙截龍 II：復仇》。闖過橫向捲軸關卡，熟悉向左、向右攻擊和跳躍招式。遊戲頁提供版本、按鍵和裝置相容資訊。',
+  'donkey-kong-nes-1983': '在瀏覽器玩紅白機《大金剛》。操控瑪利歐爬梯子、跳過滾桶，往寶琳所在的平台前進。可先查看紅白機版與街機原版的關卡差異及操作方式。',
+  'jackal-nes-1988': '紅白機《赤色要塞》線上玩。駕駛吉普車深入敵方基地，用機槍和手榴彈開路，救出戰俘後送往撤離點。進入遊戲前可先看移動和攻擊的按鍵。',
+  'life-force-nes-1988': '在瀏覽器玩紅白機《沙羅曼蛇》（Life Force）。駕駛戰機穿越橫向與直向捲軸關卡，收集強化道具、挑戰頭目。頁面提供版本介紹、按鍵說明與遊玩入口。',
+  'battle-city-nes-1985': '在瀏覽器玩紅白機《坦克大戰》（Battle City）。駕駛坦克穿過磚牆和障礙，攔截敵方坦克並守住基地。開玩前可先查看方向和射擊的按鍵。',
+  'super-mario-bros-nes-1985': '在瀏覽器重溫紅白機《超級瑪利歐兄弟》。穿越水管、磚塊和城堡，跳過敵人並收集道具。先看跑步和跳躍的按鍵，再從遊戲頁啟動。',
+  'super-mario-bros-the-lost-levels-enhanced-snes-1993': '挑戰《超級瑪利歐兄弟：失落的關卡》的超級任天堂強化版。留意毒蘑菇、隱藏磚塊和需要精準起跳的地形，開玩前可先查閱版本差異和操作說明。',
+  'super-mario-64-n64-1996': '在瀏覽器體驗 N64《超級瑪利歐 64》。從城堡進入畫中世界，探索 3D 關卡並收集力量之星。啟動前可先查看類比搖桿、鏡頭控制和裝置相容性。',
+  'new-super-mario-bros-nds-2006': '在瀏覽器玩 NDS《新超級瑪利歐兄弟》。在橫向捲軸關卡尋找星星金幣，使用巨大蘑菇等道具突破障礙。遊戲頁提供操作和裝置相容資訊。',
+  'the-king-of-fighters-97-arcade-1997': '《拳皇 97》街機版線上玩。挑選三名角色組隊，安排出場順序並練習必殺技。遊戲頁提供瀏覽器入口、投幣及開始按鍵，以及裝置相容資訊。',
+  'pokemon-emerald-gba-2004': '在瀏覽器體驗 GBA《寶可夢 綠寶石》。從未白鎮出發，探索豐緣地區、培育隊伍並挑戰道館。開玩前可查看按鍵和瀏覽器存檔注意事項。',
+  'pokemon-ruby-gba-2002': '在瀏覽器體驗 GBA《寶可夢 紅寶石》。探索豐緣地區、捕捉並培育夥伴，挑戰道館並阻止熔岩隊。遊戲頁提供按鍵說明和存檔提醒。',
+  'pokemon-leafgreen-game-boy-advance-2004': '在瀏覽器體驗 GBA《寶可夢 葉綠》。從真新鎮出發，組隊挑戰關都道館。頁面說明《葉綠》和《火紅》的版本差異，也提供操作和存檔提示。',
+  'pokemon-firered-game-boy-advance-2004': '在瀏覽器體驗 GBA《寶可夢 火紅》。從真新鎮挑選初始夥伴，收集八枚道館徽章並對抗火箭隊。頁面提供瀏覽器遊玩入口、按鍵和存檔資訊。',
+  'theme-hospital-dos-1997': '在瀏覽器體驗 Bullfrog 的 DOS 經營遊戲《主題醫院》。規劃診間、聘僱員工、治療虛構怪病並維持收支。開始前可先查看滑鼠操作及相容性提示。',
+  'commandos-dos-1998': '在瀏覽器體驗 DOS《盟軍敢死隊：深入敵後》。運用隊員各自的技能規劃潛入路線，避開巡邏與敵人視線。遊戲頁提供玩法、操作說明和遊玩入口。',
+  'three-wonders-arcade-1991': '在瀏覽器玩 Capcom 街機合集《三個奇蹟》。選擇橫向捲軸動作、飛行射擊或推方塊益智遊戲。開玩前可先查看模式選擇、投幣和操作按鍵。',
+}
+
 export function getGameSearchSeo(game: PublicGame, locale: Locale) {
   const reviewedChineseName = getReviewedChineseGameName(game, locale)
   if (reviewedChineseName) {
+    const routeId = getCanonicalGameRouteId(game).toLowerCase()
     const onlineText = locale === 'zh-TW' ? '在線玩' : '在线玩'
     const noDownloadText = locale === 'zh-TW' ? '瀏覽器免下載' : '浏览器免下载'
     return {
       heading: reviewedChineseName.displayName,
       title: `${reviewedChineseName.localizedName}${onlineText}（${reviewedChineseName.englishName}）｜${noDownloadText}`,
       description: locale === 'zh-TW'
-        ? `${reviewedChineseName.displayName}遊戲介紹與操作說明。查看原始平台、發行信息、瀏覽器控制、設備兼容性和相關遊戲，再從頁面入口開始遊玩。`
-        : reviewedChineseMetaDescriptions[getCanonicalGameRouteId(game).toLowerCase()] ??
+        ? reviewedTraditionalChineseMetaDescriptions[routeId] ??
+          `${reviewedChineseName.displayName}遊戲介紹與操作說明。查看原始平台、發行信息、瀏覽器控制、設備兼容性和相關遊戲，再從頁面入口開始遊玩。`
+        : reviewedChineseMetaDescriptions[routeId] ??
           `${reviewedChineseName.displayName}游戏介绍与操作说明。查看原始平台、发行信息、浏览器控制、设备兼容性和相关游戏，再从页面入口开始游玩。`,
       keywords: [
         reviewedChineseName.localizedName,
