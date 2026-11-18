@@ -91,6 +91,9 @@ replacement must be recorded in the change log with a short reason.
 
 ## Change log
 
+- 2026-11-18: Added individual Simplified Chinese search descriptions for the
+  remaining 11 game pages with reviewed Chinese names. Catalog count remains 30.
+
 - 2026-11-18: Replaced generic Simplified Chinese search descriptions with
   game-specific summaries for seven reviewed detail pages, including local
   catalog entries. Catalog count remains 30.

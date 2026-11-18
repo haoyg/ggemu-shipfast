@@ -49,6 +49,16 @@ describe('game detail failure handling', () => {
     expect(fetchMock).toHaveBeenCalledTimes(2)
   })
 
+  it('builds a canonical URL from the public route ID for an upstream game without a slug', async () => {
+    const id = '69cc9932a1f847282b35b6a5'
+    fetchMock.mockResolvedValueOnce(Response.json({ success: true, data: { _id: id, name: 'Super Mario 64' } }))
+    const { getGameDetailPageData } = await import('./ggemu')
+    expect(await getGameDetailPageData({ data: { id, locale: 'zh-CN' } })).toMatchObject({
+      kind: 'ready',
+      canonicalUrl: 'https://pokopie.com/zh-CN/games/super-mario-64-n64-1996',
+    })
+  })
+
   it('returns a temporary error after two network failures', async () => {
     fetchMock.mockRejectedValue(new TypeError('Network unavailable'))
     expect(await load()).toEqual({ kind: 'temporary-error' })

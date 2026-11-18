@@ -1,5 +1,6 @@
 import type { Locale, PublicGame } from '#/lib/ggemu'
 import { getReviewedChineseGameName } from '#/lib/game-name-aliases'
+import { getCanonicalGameRouteId } from '#/lib/game-route-id'
 
 const contraTargetSlug = 'contra-nes-1988'
 const geometryDashAdvanceTargetSlug = 'geometry-dash-advance-gba-2025'
@@ -633,9 +634,20 @@ export function getTargetedGameSeo(game: PublicGame, locale: Locale) {
 }
 
 const reviewedChineseMetaDescriptions: Partial<Record<string, string>> = {
+  'double-dragon-ii-revenge-nes-1989': '在浏览器中游玩红白机《双截龙 II：复仇》。穿过横版关卡，练习左右攻击和跳跃招式，可先查看本页的按键、版本与设备说明。',
+  'donkey-kong-nes-1983': '在浏览器中游玩红白机《大金刚》。操控马里奥攀爬梯子、跳过滚桶，向宝琳所在的平台前进。启动前可查看 NES 版本与街机原版的区别及按键说明。',
+  'jackal-nes-1988': '红白机《赤色要塞》在线玩。驾驶吉普车深入敌方基地，用机枪和手榴弹开路，把救出的战俘送到撤离点。打开浏览器播放器前可先查看移动和攻击按键。',
+  'life-force-nes-1988': '在浏览器中游玩红白机《沙罗曼蛇》（Life Force）。驾驶战机穿越横向和纵向卷轴关卡，拾取强化道具并挑战首领。页面提供版本介绍、操作说明与游玩入口。',
+  'battle-city-nes-1985': '在浏览器中游玩红白机《坦克大战》（Battle City）。驾驶坦克穿过砖墙和障碍，拦截敌方坦克并保护基地。可先查看方向和射击按键，再进入游戏。',
   'super-mario-bros-nes-1985': '在浏览器中重温红白机《超级马里奥兄弟》。操控马里奥穿越水管、砖块和城堡，在横版关卡里躲敌人、拿道具。查看跳跃和跑动的按键说明，再从页面进入游戏。',
+  'super-mario-64-n64-1996': '在浏览器中体验 N64《超级马里奥 64》。从城堡进入画中世界，探索 3D 关卡并收集力量之星。先查看模拟摇杆、镜头操作和设备兼容说明，再启动游戏。',
+  'new-super-mario-bros-nds-2006': '在浏览器中游玩 NDS《新超级马里奥兄弟》。在横版关卡中踩踏敌人、寻找星星金币，使用巨大蘑菇等道具。启动前可查看按键和设备支持说明。',
   'pokemon-emerald-gba-2004': '在浏览器中体验 GBA《宝可梦 绿宝石》。从未白镇出发，探索丰缘地区、组建队伍、挑战道馆。页面提供网页版游玩入口、操作和存档提示。',
+  'pokemon-ruby-gba-2002': '在浏览器中体验 GBA《宝可梦 红宝石》。探索丰缘地区，捕捉并培养伙伴，挑战道馆并阻止熔岩队。进入游戏前可查看按键和存档提示。',
+  'pokemon-leafgreen-game-boy-advance-2004': '在浏览器中体验 GBA《宝可梦 叶绿》。从真新镇出发，捕捉并培养伙伴、挑战关都道馆。页面介绍《叶绿》与《火红》的版本区别，以及浏览器操作和存档注意事项。',
   'theme-hospital-dos-1997': '在浏览器里体验 Bullfrog 的 DOS 经营游戏《主题医院》。规划诊室、雇用员工、治疗虚构怪病，并维持医院收支。查看本页的鼠标操作与设备兼容提示后开始游戏。',
+  'commandos-dos-1998': '在浏览器中体验 DOS《盟军敢死队：深入敌后》。利用小队成员各自的技能规划潜入路线，避开巡逻和视野范围。页面提供玩法、操作说明与游玩入口。',
+  'three-wonders-arcade-1991': '在浏览器中游玩 Capcom 街机合集《三个奇迹》。从横版动作、飞行射击和推块解谜三种玩法中选一款，先看本页的选模式、投币和按键说明。',
   'the-king-of-fighters-97-arcade-1997': '《拳皇 97》街机版在线玩。选择三名角色组队，按出场顺序对战，练习普通技和必杀技。本页提供浏览器入口、投币和开始按键，以及操作和设备兼容说明。',
   'contra-nes-1988': '在浏览器中游玩红白机《魂斗罗》。在横版关卡中边移动边射击，躲避敌人火力并拾取武器。页面介绍跳跃、射击和双人操作，方便在启动前确认按键。',
   'pokemon-firered-game-boy-advance-2004': '在浏览器中体验 GBA《宝可梦 火红》。从真新镇挑选初始伙伴，在关都收集八枚道馆徽章并对抗火箭队。查看浏览器游玩入口、操作说明和存档注意事项。',
@@ -652,7 +664,7 @@ export function getGameSearchSeo(game: PublicGame, locale: Locale) {
       title: `${reviewedChineseName.localizedName}${onlineText}（${reviewedChineseName.englishName}）｜${noDownloadText}`,
       description: locale === 'zh-TW'
         ? `${reviewedChineseName.displayName}遊戲介紹與操作說明。查看原始平台、發行信息、瀏覽器控制、設備兼容性和相關遊戲，再從頁面入口開始遊玩。`
-        : reviewedChineseMetaDescriptions[normalizeGameSlug(game)] ??
+        : reviewedChineseMetaDescriptions[getCanonicalGameRouteId(game).toLowerCase()] ??
           `${reviewedChineseName.displayName}游戏介绍与操作说明。查看原始平台、发行信息、浏览器控制、设备兼容性和相关游戏，再从页面入口开始游玩。`,
       keywords: [
         reviewedChineseName.localizedName,

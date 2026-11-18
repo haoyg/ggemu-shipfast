@@ -6,6 +6,7 @@ import { TimedAsyncCache } from '#/lib/timed-async-cache'
 import { getPs1CoverFallback } from '#/lib/ps1-cover-fallbacks'
 import { localizePublicGame, localizePublicGames } from '#/lib/game-localization'
 import { resolveChineseGameSearchQuery } from '#/lib/game-name-aliases'
+import { getCanonicalGameRouteId } from '#/lib/game-route-id'
 import { GgemuApiError, isMissingGameError, requestGameDetail } from '#/lib/game-detail-request'
 import {
   getLocalGame,
@@ -497,7 +498,7 @@ function getGameId(game: PublicGame) {
 }
 
 function getAbsoluteGameUrl(origin: string, locale: Locale, game: PublicGame, fallbackId: string) {
-  const id = encodeURIComponent(getGameId(game) || fallbackId)
+  const id = encodeURIComponent(getCanonicalGameRouteId(game) || fallbackId)
 
   return `${origin}/${locale}/games/${id}`
 }
