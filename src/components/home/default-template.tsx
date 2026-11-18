@@ -715,6 +715,13 @@ export function DefaultHomeTemplate(props: HomeTemplateProps) {
                 </div>
                 <Link className="btn btn-primary shrink-0" to="/en/games/word-ladder">Play the daily puzzle <i aria-hidden="true" className="ri-arrow-right-line" /></Link>
               </div>
+              <div className="arcade-card mt-3 flex flex-col gap-4 border-primary/30 bg-primary/10 p-5 sm:flex-row sm:items-center sm:justify-between">
+                <div>
+                  <h3 className="text-xl font-black text-white">Memory Card Game</h3>
+                  <p className="mt-2 text-sm leading-6 text-white/70">Flip cards and find all the matching pairs.</p>
+                </div>
+                <Link className="btn btn-primary shrink-0" hash="play-memory" to="/en/card-games-that-start-with-m">Play Memory <i aria-hidden="true" className="ri-arrow-right-line" /></Link>
+              </div>
               <div className="mt-4 grid gap-3 sm:grid-cols-2">
                 <Link className="arcade-card border-white/10 bg-white/5 p-4" to="/en/games/quake-online">
                   <span className="font-black text-white">Quake Online</span>
