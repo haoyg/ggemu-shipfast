@@ -146,7 +146,7 @@ const localizedPlatformCopy = {
     gba: {
       ...chineseGbaEditorial,
       title: '在线玩 GBA 游戏 | 免下载 | POKOPIE',
-      description: '在浏览器中在线玩 GBA 游戏，浏览动作、RPG、赛车、平台和冒险类 Game Boy Advance 游戏，无需单独下载模拟器。',
+      description: '在 POKOPIE 浏览 GBA（Game Boy Advance）游戏，按动作、角色扮演、赛车和冒险等类型挑选掌机作品。点开详情查看玩法、按键与设备支持，再在浏览器里启动支持的游戏，无需单独安装模拟器。',
       schemaName: '在线玩 GBA 游戏',
       breadcrumbName: 'GBA 游戏',
       heroTitle: '在线玩 GBA 游戏',
@@ -160,7 +160,7 @@ const localizedPlatformCopy = {
     },
     n64: {
       title: '在线玩 N64 游戏 | 免下载 | POKOPIE',
-      description: '在浏览器中在线玩 N64 游戏，浏览 Nintendo 64 的平台、赛车、体育、动作和冒险游戏。',
+      description: '在 POKOPIE 查找 Nintendo 64 游戏，从 3D 平台跳跃、赛车和体育作品中挑选想玩的经典。打开详情查看键盘和手柄操作建议，了解模拟摇杆等控制差异，再启动支持的浏览器版本。',
       schemaName: '在线玩 N64 游戏',
       breadcrumbName: 'N64 游戏',
       heroTitle: '在线玩 N64 游戏',
@@ -175,7 +175,7 @@ const localizedPlatformCopy = {
     nes: {
       ...chineseCollectionEditorials.nes,
       title: '红白机（NES）游戏在线玩｜魂斗罗、超级马里奥等经典免下载',
-      description: '红白机（NES）游戏在线玩：浏览魂斗罗、超级马里奥、赤色要塞、沙罗曼蛇等经典动作、平台和射击游戏，无需单独下载模拟器。',
+      description: '在线玩红白机（NES）游戏。浏览魂斗罗、超级马里奥、赤色要塞和沙罗曼蛇，从横版动作、平台跳跃和射击作品中找回想玩的经典。进入相应游戏页查看操作和设备支持，支持的游戏可在浏览器中启动。',
       schemaName: '红白机（NES）游戏在线玩',
       breadcrumbName: 'NES 游戏',
       heroTitle: '在线玩 NES 游戏',
@@ -189,7 +189,7 @@ const localizedPlatformCopy = {
     },
     segaGenesis: {
       title: '在线玩 Sega Genesis 游戏 | POKOPIE',
-      description: '在浏览器中在线玩 Sega Genesis 游戏，浏览动作、平台、赛车、格斗和体育经典，无需单独下载模拟器。',
+      description: '在 POKOPIE 浏览世嘉 Mega Drive（Sega Genesis）游戏，从横版动作、平台跳跃、赛车、格斗和体育作品中挑选。先到详情页确认按键和设备兼容性，再打开支持的浏览器版本，无需单独安装模拟器。',
       schemaName: '在线玩 Sega Genesis 游戏',
       breadcrumbName: 'Sega Genesis 游戏',
       heroTitle: '在线玩 Sega Genesis 游戏',
@@ -204,7 +204,7 @@ const localizedPlatformCopy = {
     snes: {
       ...chineseCollectionEditorials.snes,
       title: '在线玩 SNES 游戏 | 免下载 | POKOPIE',
-      description: '在浏览器中在线玩 SNES 游戏，浏览 Super Nintendo 的 RPG、平台、赛车、动作和冒险经典，无需单独下载模拟器。',
+      description: '在 POKOPIE 查找超级任天堂（SNES）经典游戏，从 16 位角色扮演、平台跳跃、动作冒险和赛车作品中挑选。打开详情页查看玩法、操作和设备支持，支持的游戏可直接在浏览器中启动。',
       schemaName: '在线玩 SNES 游戏',
       breadcrumbName: 'SNES 游戏',
       heroTitle: '在线玩 SNES 游戏',
@@ -248,7 +248,7 @@ const localizedPlatformCopy = {
     },
     nes: {
       title: 'NES ゲームをオンラインでプレイ | ダウンロード不要 | POKOPIE',
-      description: 'ブラウザーで NES ゲームをプレイ。専用エミュレーターのダウンロードなしで、Nintendo のアクションやパズルを楽しめます。',
+      description: 'POKOPIE でファミコン（NES）のアクション、パズルやシューティングを探せます。気になる作品の詳細ページで遊び方、操作方法や対応環境を確認し、対応タイトルをブラウザーでプレイできます。',
       schemaName: 'NES ゲームをオンラインでプレイ',
       breadcrumbName: 'NES ゲーム',
       heroTitle: 'NES ゲームをオンラインでプレイ',
@@ -276,7 +276,7 @@ const localizedPlatformCopy = {
     },
     snes: {
       title: 'SNES ゲームをオンラインでプレイ | ダウンロード不要 | POKOPIE',
-      description: 'ブラウザーで SNES ゲームをプレイ。Super Nintendo の RPG、アクション、レース、アドベンチャーを楽しめます。',
+      description: 'POKOPIE でスーパーファミコン（SNES）の RPG、アクション、レースやアドベンチャーを一覧から探せます。作品ごとの紹介、操作方法や対応環境を確認してから、対応タイトルをブラウザーで遊べます。',
       schemaName: 'SNES ゲームをオンラインでプレイ',
       breadcrumbName: 'SNES ゲーム',
       heroTitle: 'SNES ゲームをオンラインでプレイ',

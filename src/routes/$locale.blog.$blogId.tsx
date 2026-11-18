@@ -96,7 +96,9 @@ export const Route = createFileRoute('/$locale/blog/$blogId')({
 
     const { blogPost, canonicalUrl } = loaderData
     const title = blogPost.title || getI18n(locale).blog.title
-    const description = getLocalizedBlogPostExcerpt(blogPost, locale)
+    const description = locale === 'es' && params.blogId === 'free-online-nes-classic-games'
+      ? 'Guía en chino sobre ocho clásicos de NES, entre ellos Contra, Bomberman, Excitebike y Castlevania. Repasa cómo se juega y encuentra enlaces a cada título.'
+      : getLocalizedBlogPostExcerpt(blogPost, locale)
     const image = blogPost.cover_image_url
     const origin = new URL(canonicalUrl).origin
 

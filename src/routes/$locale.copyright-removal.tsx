@@ -73,7 +73,7 @@ const removalCopies: Record<Exclude<Locale, 'fr' | 'de' | 'it'>, RemovalCopy> = 
   'zh-CN': {
     eyebrow: '法律',
     title: '版权审核与内容下架',
-    description: 'POKOPIE 的版权审核、权利人通知与内容下架流程。',
+    description: '了解 POKOPIE 如何受理版权通知及内容下架请求。权利人可以查阅提交方式，以及应提供的作品信息、相关页面地址和联系方式，以便网站审核。',
     intro: '如果您是权利人或其授权代表，并认为 POKOPIE 上的内容侵犯了您的权利，请提交信息完整的审核或下架通知。',
     requirementsTitle: '通知应包含',
     requirements: ['权利人或授权代表的姓名与联系方式', '需要保护的作品或权利说明', '存在争议内容的准确 POKOPIE URL', '您认为该使用未经授权的说明', '信息真实准确且您有权提出申请的声明'],

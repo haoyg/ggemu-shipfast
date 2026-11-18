@@ -64,7 +64,7 @@ export const zhTwMessages = {
   homeSeo: {
     title: '在線玩經典復古遊戲 | GBA、NES、SNES、PS1、N64 免下載',
     description:
-      '在瀏覽器裡直接遊玩 GBA、NES、SNES、PS1、N64、Sega Genesis、街機等經典復古遊戲，無需下載。',
+      '在 POKOPIE 按 GBA、紅白機、超級任天堂、PS1、N64 和街機等平台尋找經典遊戲。從遊戲詳情頁查閱玩法、按鍵和裝置相容性，再開啟支援的瀏覽器版本。',
     keywords:
       '在線復古遊戲, GBA 在線遊戲, NES 在線遊戲, SNES 在線遊戲, PS1 在線遊戲, N64 在線遊戲, 街機遊戲, 瀏覽器遊戲, 免下載遊戲',
   },

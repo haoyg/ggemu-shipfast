@@ -42,11 +42,11 @@ const playMyRomCopies: Record<Locale, { title: string; description: string }> = 
   },
   'zh-CN': {
     title: '玩本地 ROM',
-    description: '通过 POKOPIE 的嵌入式播放器加载并游玩你自己的 ROM。',
+    description: '打开 POKOPIE 的浏览器播放器，从设备选取自己的 ROM 文件并运行支持的游戏。页面嵌入 GGEMU 播放器，支持从播放器进入全屏，也可使用兼容的游戏手柄。',
   },
   en: {
     title: 'Play My ROM',
-    description: 'Load and play your own ROM through the embedded POKOPIE player.',
+    description: 'Open your own ROM file in POKOPIE’s embedded GGEMU player. Run supported games in your browser, switch to fullscreen, or use a compatible gamepad.',
   },
   ja: {
     title: '自分の ROM で遊ぶ',

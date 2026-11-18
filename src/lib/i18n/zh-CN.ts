@@ -148,7 +148,7 @@ export const zhCnMessages = {
   },
   blog: {
     title: '博客',
-    description: '阅读游戏指南、浏览器游玩技巧和复古游戏相关文章。',
+    description: '在 POKOPIE 博客查找复古游戏指南和浏览器游玩教程。阅读如何打开自己的 ROM、设置键盘或手柄，以及在开始游戏前确认设备支持和存档方式。',
     subtitle: '阅读游戏指南、浏览器游玩技巧和复古游戏相关文章。',
     eyebrow: '博客',
     empty: '暂无文章',
@@ -157,7 +157,7 @@ export const zhCnMessages = {
   },
   live: {
     title: '游戏直播',
-    description: '发现正在直播的经典复古游戏和活跃直播间。',
+    description: '查看 POKOPIE 当前有哪些复古游戏在直播。浏览直播间列表，打开感兴趣的直播观看玩法，也可通过游戏入口查看对应作品的浏览器游玩信息。',
     subtitle: '看看大家此刻正在直播哪些经典游戏，找到下一款想玩的作品。',
     eyebrow: '正在直播',
     empty: '目前没有正在直播的游戏',

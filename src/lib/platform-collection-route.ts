@@ -87,9 +87,20 @@ export function buildPlatformCollectionHead(
   const title = page > 1
     ? `${collection.page.heroTitle} – ${pageLabel} | POKOPIE`
     : collection.title
-  const description = page > 1
+  const gameNames = page > 1 && (locale === 'zh-CN' || locale === 'en')
+    ? loaderData?.games
+        .map((game) => game.name?.trim())
+        .filter((name): name is string => Boolean(name && name.length <= 40))
+        .slice(0, 2)
+    : undefined
+  const pageDescription = page > 1
     ? `${collection.description} ${locale === 'zh-CN' ? `第 ${page} / ${loaderData?.pagination.pages ?? page} 页。` : locale === 'es' || locale === 'pt' ? `Página ${page} de ${loaderData?.pagination.pages ?? page}.` : `Page ${page} of ${loaderData?.pagination.pages ?? page}.`}`
     : collection.description
+  const description = gameNames?.length
+    ? locale === 'zh-CN'
+      ? `${collection.breadcrumbName}目录第 ${page} 页。浏览本页收录的 ${gameNames.join('、')}，打开游戏详情查看玩法、按键和设备支持。`
+      : `Browse page ${page} of ${collection.breadcrumbName} on POKOPIE, including ${gameNames.join(' and ')}. Check controls, device compatibility and browser play options on each game page.`
+    : pageDescription
   const links = loaderData?.origin
     ? [
         ...getSeoLinksFromCanonical(canonicalUrl, page > 1 ? [locale] : ['zh-CN', 'zh-TW', 'en', 'ja', 'ko', 'es', 'pt', 'fr', 'de', 'it']),

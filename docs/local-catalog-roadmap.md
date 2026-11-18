@@ -91,6 +91,10 @@ replacement must be recorded in the change log with a short reason.
 
 ## Change log
 
+- 2026-11-18: Replaced generic Simplified Chinese search descriptions with
+  game-specific summaries for seven reviewed detail pages, including local
+  catalog entries. Catalog count remains 30.
+
 | Date | Commit | Local count | Change | Verification |
 | --- | --- | ---: | --- | --- |
 | 2026-11-11 | `84c8364` | 10 | Added the first reviewed local catalog and local-first detail lookups. | Tests and production build passed. |

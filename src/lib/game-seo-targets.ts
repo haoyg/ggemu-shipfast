@@ -632,6 +632,16 @@ export function getTargetedGameSeo(game: PublicGame, locale: Locale) {
   return targetedGameSeoBySlug[slug as keyof typeof targetedGameSeoBySlug] ?? null
 }
 
+const reviewedChineseMetaDescriptions: Partial<Record<string, string>> = {
+  'super-mario-bros-nes-1985': '在浏览器中重温红白机《超级马里奥兄弟》。操控马里奥穿越水管、砖块和城堡，在横版关卡里躲敌人、拿道具。查看跳跃和跑动的按键说明，再从页面进入游戏。',
+  'pokemon-emerald-gba-2004': '在浏览器中体验 GBA《宝可梦 绿宝石》。从未白镇出发，探索丰缘地区、组建队伍、挑战道馆。页面提供网页版游玩入口、操作和存档提示。',
+  'theme-hospital-dos-1997': '在浏览器里体验 Bullfrog 的 DOS 经营游戏《主题医院》。规划诊室、雇用员工、治疗虚构怪病，并维持医院收支。查看本页的鼠标操作与设备兼容提示后开始游戏。',
+  'the-king-of-fighters-97-arcade-1997': '《拳皇 97》街机版在线玩。选择三名角色组队，按出场顺序对战，练习普通技和必杀技。本页提供浏览器入口、投币和开始按键，以及操作和设备兼容说明。',
+  'contra-nes-1988': '在浏览器中游玩红白机《魂斗罗》。在横版关卡中边移动边射击，躲避敌人火力并拾取武器。页面介绍跳跃、射击和双人操作，方便在启动前确认按键。',
+  'pokemon-firered-game-boy-advance-2004': '在浏览器中体验 GBA《宝可梦 火红》。从真新镇挑选初始伙伴，在关都收集八枚道馆徽章并对抗火箭队。查看浏览器游玩入口、操作说明和存档注意事项。',
+  'super-mario-bros-the-lost-levels-enhanced-snes-1993': '挑战《超级马里奥兄弟：失落的关卡》的 SNES 增强版。留意毒蘑菇、隐藏砖块和要求精确起跳的关卡。打开浏览器游玩入口前，可先查看版本差异和按键说明。',
+}
+
 export function getGameSearchSeo(game: PublicGame, locale: Locale) {
   const reviewedChineseName = getReviewedChineseGameName(game, locale)
   if (reviewedChineseName) {
@@ -642,7 +652,8 @@ export function getGameSearchSeo(game: PublicGame, locale: Locale) {
       title: `${reviewedChineseName.localizedName}${onlineText}（${reviewedChineseName.englishName}）｜${noDownloadText}`,
       description: locale === 'zh-TW'
         ? `${reviewedChineseName.displayName}遊戲介紹與操作說明。查看原始平台、發行信息、瀏覽器控制、設備兼容性和相關遊戲，再從頁面入口開始遊玩。`
-        : `${reviewedChineseName.displayName}游戏介绍与操作说明。查看原始平台、发行信息、浏览器控制、设备兼容性和相关游戏，再从页面入口开始游玩。`,
+        : reviewedChineseMetaDescriptions[normalizeGameSlug(game)] ??
+          `${reviewedChineseName.displayName}游戏介绍与操作说明。查看原始平台、发行信息、浏览器控制、设备兼容性和相关游戏，再从页面入口开始游玩。`,
       keywords: [
         reviewedChineseName.localizedName,
         reviewedChineseName.englishName,

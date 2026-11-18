@@ -20,6 +20,10 @@ describe('platform collection pagination', () => {
     }
     const head = buildPlatformCollectionHead(getLocalizedPlatformCollection('gba', 'zh-CN'), data, 'zh-CN', 2)
     expect(head.meta).toContainEqual({ title: '在线玩 GBA 游戏 – 第 2 页 | POKOPIE' })
+    expect(head.meta).toContainEqual({
+      name: 'description',
+      content: expect.stringMatching(/第 2 页.*GBA 49/),
+    })
     expect(head.links).toContainEqual({ rel: 'canonical', href: 'https://pokopie.com/zh-CN/gba-games/page/2' })
     expect(head.links).toContainEqual({ rel: 'prev', href: 'https://pokopie.com/zh-CN/gba-games' })
     expect(head.links).toContainEqual({ rel: 'next', href: 'https://pokopie.com/zh-CN/gba-games/page/3' })
