@@ -91,6 +91,9 @@ replacement must be recorded in the change log with a short reason.
 
 ## Change log
 
+- 2026-11-19: Expanded six Simplified Chinese game descriptions cited in the
+  Bing report with details from the reviewed guides. Catalog count remains 30.
+
 - 2026-11-18: Added individual Traditional Chinese search descriptions for
   all 18 game pages with reviewed Chinese names. Catalog count remains 30.
 
