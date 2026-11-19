@@ -91,6 +91,9 @@ replacement must be recorded in the change log with a short reason.
 
 ## Change log
 
+- 2026-11-19: Expanded the reviewed Simplified Chinese and Japanese Taiko Web
+  search descriptions with note timing, song selection, and troubleshooting.
+
 - 2026-11-19: Expanded six Simplified Chinese game descriptions cited in the
   Bing report with details from the reviewed guides. Catalog count remains 30.
 

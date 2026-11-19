@@ -592,13 +592,13 @@ const localizedTaikoSeo = {
   'zh-CN': {
     heading: '太鼓 Web 在线玩',
     title: '太鼓 Web 在线玩｜太鼓达人网页版与按键说明｜POKOPIE',
-    description: '在浏览器中游玩太鼓 Web（Taiko Web），无需下载。了解红蓝音符、F/J 与 D/K 按键、选曲和难度设置，查看无声或按键无响应时的处理方法。',
+    description: '在浏览器中游玩太鼓 Web（Taiko Web）。先选曲和难度，等音符到达判定线时，用 F/J 敲红色鼓面、D/K 敲蓝色鼓边。页面也说明如何切换曲目分类，以及无声、节拍不同步或按键没反应时该检查哪些设置。',
     keywords: '太鼓web，太鼓 Web 在线玩，太鼓达人网页版，Taiko Web，太鼓按键说明',
   },
   ja: {
     heading: '太鼓ウェブ（Taiko Web）をオンラインで遊ぶ',
     title: '太鼓ウェブ（Taiko Web）｜遊び方・操作方法｜POKOPIE',
-    description: 'ブラウザで太鼓ウェブ（Taiko Web）をプレイ。ダウンロード不要。赤・青の音符、F/J・D/K の操作、選曲と難易度、音が出ない場合やキーが反応しない場合の対処方法を紹介します。',
+    description: '太鼓ウェブ（Taiko Web）をブラウザーで遊ぼう。曲と難易度を選び、判定枠に合わせて赤い音符は F/J で面、青い音符は D/K で縁を打ちます。曲カテゴリの切り替え方や、音が出ないとき、音と譜面がずれるとき、キーが反応しないときの確認手順も紹介します。',
     keywords: '太鼓ウェブ, Taiko Web, 太鼓web, 太鼓ウェブ 遊び方, 太鼓ウェブ 操作方法',
   },
 } as const
@@ -619,7 +619,7 @@ export function getTargetedGameSeo(game: PublicGame, locale: Locale) {
       return {
         heading: '三国群英传 2 在线玩',
         title: '三国群英传 2 在线玩｜网页版玩法与存档说明｜POKOPIE',
-        description: '三国群英传 2 在线玩：在浏览器中体验城池管理、武将出征与即时战斗。本页介绍内政、行军和交战的基本流程，提供游玩入口、操作与存档注意事项，帮助你熟悉网页版后再安排征战。',
+        description: '在浏览器中游玩《三国群英传 2》。先查看己方城池、武将和兵力，留足守军再安排部队出征；交战时观察兵种和阵形，选择使用武将技的时机。页面提供网页版入口、内政与行军说明，以及刷新页面前需要确认的存档事项。',
         keywords: '三国群英传2，三国群英传 2 在线玩，三国群英传2网页版，三國群英傳 II，三国策略游戏',
       }
     }
