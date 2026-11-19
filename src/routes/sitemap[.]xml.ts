@@ -280,13 +280,14 @@ function formatSitemapAlternateLinks(entry: SitemapEntry) {
 
   const origin = new URL(entry.loc).origin
   const alternateLocales = getAvailableSeoLocales(entry.path, entry.alternateLocales ?? locales)
+  const xDefaultLocale = alternateLocales.includes(defaultSeoLocale) ? defaultSeoLocale : entry.locale
   const links = [
     ...alternateLocales.map((locale) => ({
       href: toAbsoluteLocalizedUrl(origin, locale, entry.path),
       hrefLang: locale,
     })),
     {
-      href: toAbsoluteLocalizedUrl(origin, defaultSeoLocale, entry.path),
+      href: toAbsoluteLocalizedUrl(origin, xDefaultLocale, entry.path),
       hrefLang: 'x-default',
     },
   ]

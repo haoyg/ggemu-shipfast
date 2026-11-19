@@ -50,7 +50,7 @@ import {
   getGameHowToPlayParagraphs,
   getGameSidebarContent,
 } from '#/lib/game-detail-content'
-import { getAlternateLinksFromCanonical, seoLocales } from '#/lib/seo'
+import { getAlternateLinksFromCanonical } from '#/lib/seo'
 import { getCanonicalGameRouteId, getUpstreamGameRouteId } from '#/lib/game-route-id'
 import { getGamePlatformCollectionPath } from '#/lib/platform-routes'
 import { getGameAlternateNames } from '#/lib/game-name-aliases'
@@ -105,7 +105,7 @@ export const Route = createFileRoute('/$locale/games/$gameId')({
       })
     }
 
-    const [relatedGames, { getGameEditorial }, gameSeo] = await Promise.all([
+    const [relatedGames, { getGameEditorial }, gameSeo, { getIndexableGameLocales }] = await Promise.all([
       getRelatedGamePageData({
         data: {
           category: detail.game.categories?.[0],
@@ -119,21 +119,18 @@ export const Route = createFileRoute('/$locale/games/$gameId')({
       })),
       import('#/lib/game-editorial'),
       import('#/lib/game-seo-targets'),
+      import('#/lib/game-index-policy'),
     ])
 
     const editorial = getGameEditorial(detail.game, locale)
-    const indexableLocales = seoLocales.filter((candidateLocale) =>
-      Boolean(
-        getGameEditorial(detail.game, candidateLocale) ||
-        gameSeo.getGameSearchSeo(detail.game, candidateLocale),
-      ),
-    )
+    const indexableLocales = getIndexableGameLocales(detail.game)
 
     return {
       ...detail,
       editorial,
       indexableLocales,
       kind: 'ready' as const,
+      metaDescription: gameSeo.getGameMetaDescription(detail.game, locale),
       relatedGames,
       searchSeo: gameSeo.getGameSearchSeo(detail.game, locale),
       targetedSeo: gameSeo.getTargetedGameSeo(detail.game, locale),
@@ -157,9 +154,10 @@ export const Route = createFileRoute('/$locale/games/$gameId')({
       }
     }
 
-    const { canonicalUrl, editorial, game, indexableLocales, searchSeo } = loaderData
+    const { canonicalUrl, editorial, game, indexableLocales, metaDescription, searchSeo } = loaderData
     const locale = normalizeLocale(params.locale)
-    const seo = searchSeo ?? buildGameDetailSeo(game, locale)
+    const baseSeo = searchSeo ?? buildGameDetailSeo(game, locale)
+    const seo = metaDescription ? { ...baseSeo, description: metaDescription } : baseSeo
     const image = game.game_cover
     const faqItems = getGameFaqs(game, locale, editorial)
     const structuredData = buildGameStructuredData({

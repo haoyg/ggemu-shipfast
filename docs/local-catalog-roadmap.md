@@ -91,6 +91,9 @@ replacement must be recorded in the change log with a short reason.
 
 ## Change log
 
+- 2026-11-19: Expanded the Simplified Chinese Murdoku search description
+  while retaining the device-specific browser play guidance.
+
 - 2026-11-19: Expanded the reviewed Simplified Chinese and Japanese Taiko Web
   search descriptions with note timing, song selection, and troubleshooting.
 

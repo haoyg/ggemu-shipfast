@@ -1,9 +1,15 @@
 import { describe, expect, it } from 'vitest'
 import { getGameEditorial } from './game-editorial'
 import { getBrowserPlayGuide, getGameDescriptionParagraphs, getGameFaqs, getGameHowToPlayParagraphs, getGameSidebarContent } from './game-detail-content'
-import { getGameSearchSeo, getTargetedGameSeo } from './game-seo-targets'
+import { getGameMetaDescription, getGameSearchSeo, getTargetedGameSeo } from './game-seo-targets'
 import { getGameSeoInternalLinks } from './game-seo-links'
 import { getReviewedChineseGameRouteIds } from './game-name-aliases'
+
+it('supplies the reviewed Bing description without replacing the game search title', () => {
+  const game = { _id: 'roadster-rush-html5-2020', url_slug: 'roadster-rush-html5-2020' }
+  expect(getGameMetaDescription(game, 'zh-CN')).toContain('Roadster Rush')
+  expect(getGameSearchSeo(game, 'zh-CN')).toBeNull()
+})
 
 it.each(['zh-CN', 'zh-TW'] as const)('uses distinct %s descriptions for games with reviewed names', (locale) => {
   const descriptions = getReviewedChineseGameRouteIds().map((slug) => {

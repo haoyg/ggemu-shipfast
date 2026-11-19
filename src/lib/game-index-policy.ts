@@ -1,12 +1,12 @@
 import type { Locale, PublicGame } from '#/lib/ggemu'
 import { getEditorialGameRouteIds, getGameEditorial } from '#/lib/game-editorial'
-import { getGameSearchSeo, getGameSeoRouteIds } from '#/lib/game-seo-targets'
+import { getBingReviewedGameRouteIds, getGameMetaDescription, getGameSearchSeo, getGameSeoRouteIds } from '#/lib/game-seo-targets'
 import { getReviewedChineseGameRouteIds } from '#/lib/game-name-aliases'
 
 const gameLocales = ['zh-CN', 'zh-TW', 'en', 'ja', 'ko', 'es', 'pt', 'fr', 'de', 'it'] as const satisfies ReadonlyArray<Locale>
 
 export function isIndexableGameDetail(game: PublicGame, locale: Locale) {
-  return Boolean(getGameEditorial(game, locale) || getGameSearchSeo(game, locale))
+  return Boolean(getGameEditorial(game, locale) || getGameSearchSeo(game, locale) || getGameMetaDescription(game, locale))
 }
 
 export function getIndexableGameLocales(game: PublicGame) {
@@ -18,5 +18,6 @@ export function getIndexableGameRouteIds() {
     ...getEditorialGameRouteIds(),
     ...getGameSeoRouteIds(),
     ...getReviewedChineseGameRouteIds(),
+    ...getBingReviewedGameRouteIds(),
   ])).sort()
 }

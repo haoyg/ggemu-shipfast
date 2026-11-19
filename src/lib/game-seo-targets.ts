@@ -675,6 +675,38 @@ const reviewedTraditionalChineseMetaDescriptions: Partial<Record<string, string>
   'three-wonders-arcade-1991': '在瀏覽器玩 Capcom 街機合集《三個奇蹟》。選擇橫向捲軸動作、飛行射擊或推方塊益智遊戲。開玩前可先查看模式選擇、投幣和操作按鍵。',
 }
 
+const bingGameMetaDescriptions: Partial<Record<Locale, Partial<Record<string, string>>>> = {
+  en: {
+    'xiangqi-traveler-html5-2026': 'Try the browser demo of Xiangqi Traveler. Review how the Chinese chess pieces move, plan each turn around threats to your general, and check the controls before playing.',
+  },
+  'zh-CN': {
+    'murdoku-html5-2026': '在 Murdoku 中用数独式排除法调查凶案。根据人物和位置线索记录候选、逐项排除，找出与受害者单独相处的人。页面提供玩法指南和浏览器入口。',
+    'roadster-rush-html5-2020': '在浏览器中打开 HTML5 赛车游戏 Roadster Rush。进入游戏前查看操作和设备兼容说明，启动后先确认转向等输入是否响应，再开始一局。',
+    'king-of-gladiator-arcade-2002': '在浏览器中游玩街机动作游戏 King of Gladiator。游戏详情页提供游玩入口和操作提示。开局前可先确认投币、开始和动作按键，以及当前设备的输入支持。',
+    'spin-master-arcade-1993': '在浏览器中游玩 Data East 的街机游戏 Spin Master。操控角色用悠悠球攻击、跳过障碍，并拾取关卡道具。页面提供游戏入口，以及投币、开始和操作提示。',
+    'rainbow-six-rogue-spear-gba-2002': '在浏览器中体验 GBA 版《彩虹六号：雷霆战警》（Rogue Spear）。这是掌机上的战术行动游戏。启动前可核对版本、浏览器操作和当前设备支持。',
+    'contra-gender-swap-nes-1988': '在浏览器中游玩红白机《魂斗罗》的 Contra Gender Swap 改版。打开详情页核对版本与输入说明，再进入横版关卡练习移动、跳跃和射击。',
+    'international-superstar-soccer-pro-ps1-1997': '在浏览器中游玩 PS1 足球游戏 International Superstar Soccer Pro。选择球队并体验传球、射门和防守，开赛前可先在详情页确认键盘或手柄的操作方式。',
+    'jian-xia-qing-yuan-wai-chuan-yue-ying-chuan-shuo-html5-2001': '通过浏览器入口体验《剑侠情缘外传：月影传说》。跟随杨影枫展开武侠冒险，在探索、对话和战斗中推进剧情。页面提供版本、操作和设备支持提示。',
+    'parasite-eve-ps1-1998': '在浏览器中体验 PS1《寄生前夜》。跟随警探 Aya Brea 调查纽约发生的异常事件，在探索和战斗中推进剧情。启动前可查看版本、操作和兼容信息。',
+    'hikaru-no-go-gba-2002': '在浏览器中游玩 GBA《棋魂》。这款掌机作品以围棋为主题，进入游戏前可先确认版本、游戏语言和操作方式，再通过详情页打开浏览器播放器。',
+    'richman-4-java-2005': '在浏览器中体验 Java 版《大富翁 4》。掷骰移动、购买地产，安排现金和道具的使用。页面提供游玩入口，启动前可确认这个版本的控制方式与设备支持。',
+  },
+}
+
+export function getGameMetaDescription(game: PublicGame, locale: Locale) {
+  const routeId = getCanonicalGameRouteId(game).toLowerCase()
+  const description = bingGameMetaDescriptions[locale]?.[routeId]
+  if (description && routeId === murdokuTargetSlug && game.play_device === 1) {
+    return `${description}站内嵌入版仅支持电脑，手机玩家可前往官方游玩页。`
+  }
+  return description
+}
+
+export function getBingReviewedGameRouteIds() {
+  return Object.values(bingGameMetaDescriptions).flatMap((descriptions) => Object.keys(descriptions))
+}
+
 export function getGameSearchSeo(game: PublicGame, locale: Locale) {
   const reviewedChineseName = getReviewedChineseGameName(game, locale)
   if (reviewedChineseName) {
