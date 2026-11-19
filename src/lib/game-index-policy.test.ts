@@ -45,7 +45,9 @@ describe('game index policy', () => {
 
     expect(getIndexableGameLocales(genericGame)).toEqual([])
     expect(isIndexableGameDetail(englishEditorial, 'it')).toBe(false)
-    expect(isIndexableGameDetail({ url_slug: 'crash-bandicoot-2-cortex-strikes-back-ps1-1997' }, 'zh-CN')).toBe(false)
+    const crash = { url_slug: 'crash-bandicoot-2-cortex-strikes-back-ps1-1997' }
+    expect(isIndexableGameDetail(crash, 'zh-CN')).toBe(true)
+    expect(isIndexableGameDetail(crash, 'zh-TW')).toBe(false)
   })
 
   it('allows localized pages only when they have localized editorial or search content', () => {

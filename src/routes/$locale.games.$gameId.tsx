@@ -478,7 +478,7 @@ function LocalizedGameDetailPage() {
   const platformCollectionPath = getGamePlatformCollectionPath(game.platform, lang)
   const faqItems = getGameFaqs(game, lang, editorial)
   const isMurdoku = lang === 'en' && game.url_slug === 'murdoku-html5-2026'
-  const summary = editorial?.summary ?? searchSeo?.description ?? getGameDetailSummary(game, lang)
+  const summary = editorial?.summary ?? searchSeo?.description ?? data.metaDescription ?? getGameDetailSummary(game, lang)
   const keywordText = getGameDetailKeywordText(game, lang)
   const descriptionParagraphs = getGameDescriptionParagraphs(game, lang, editorial)
   const howToPlayParagraphs = getGameHowToPlayParagraphs(game, lang, editorial)

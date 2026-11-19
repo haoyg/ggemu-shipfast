@@ -91,6 +91,9 @@ replacement must be recorded in the change log with a short reason.
 
 ## Change log
 
+- 2026-11-19: Added reviewed descriptions and sitemap entries for five English
+  and fifteen Simplified Chinese detail pages in the 30-game local catalog.
+
 - 2026-11-19: Expanded the Simplified Chinese Murdoku search description
   while retaining the device-specific browser play guidance.
 

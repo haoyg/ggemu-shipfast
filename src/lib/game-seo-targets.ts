@@ -675,11 +675,31 @@ const reviewedTraditionalChineseMetaDescriptions: Partial<Record<string, string>
   'three-wonders-arcade-1991': '在瀏覽器玩 Capcom 街機合集《三個奇蹟》。選擇橫向捲軸動作、飛行射擊或推方塊益智遊戲。開玩前可先查看模式選擇、投幣和操作按鍵。',
 }
 
-const bingGameMetaDescriptions: Partial<Record<Locale, Partial<Record<string, string>>>> = {
+const reviewedGameMetaDescriptions: Partial<Record<Locale, Partial<Record<string, string>>>> = {
   en: {
+    'super-mario-bros-nes-1985': 'Play the original NES Super Mario Bros. in your browser. Run and jump past enemies, collect power-ups and cross the gap to the flagpole. Check controls first.',
+    'battle-city-nes-1985': 'Play Namco’s NES Battle City online. Drive through breakable brick walls, stop waves of enemy tanks and protect the eagle base. Check movement and fire controls.',
+    'rhythm-tengoku-japan-gba-2006': 'Play the Japanese GBA release of Rhythm Tengoku in your browser. Practice each short rhythm game, listen for the beat and check the A and B button mappings.',
+    'rhythm-heaven-nds-2008': 'Play Rhythm Heaven for Nintendo DS in your browser. Practice each music game, follow the audio cues and check how the player maps taps and flicks.',
+    'space-is-key-flash-2011': 'Play Space Is Key, Chris Jeff’s one-button Flash platformer. Press Space to jump as the block moves automatically and time each jump to clear the obstacles.',
     'xiangqi-traveler-html5-2026': 'Try the browser demo of Xiangqi Traveler. Review how the Chinese chess pieces move, plan each turn around threats to your general, and check the controls before playing.',
   },
   'zh-CN': {
+    'geometry-dash-advance-gba-2025': '在浏览器中体验 GBA 版 Geometry Dash Advance。跟随节奏跳过尖刺和障碍，先确认跳跃按键，再试用练习模式。页面说明如何开始、核对关卡版本及排查输入问题。',
+    'gals-panic-arcade': '在浏览器中游玩街机 Gals Panic。移动时画线围出区域，同时避开敌人和它们对未完成线路的干扰。页面提供玩法、操作按键与游玩入口。',
+    'paperboy-n64-1999': '体验 Nintendo 64 版《送报童》。骑车沿路投递报纸，避开车辆和路上的障碍。开始前可核对 N64 版本、方向控制与投报按键。',
+    'tekken-ps1-1995': '在浏览器中游玩初代 PlayStation 版《铁拳》。选择角色进行一对一格斗，练习移动、防守和不同拳脚按键。详情页提供版本与设备兼容提示。',
+    'pok-mon-heartgold-version-nds-2009': '在浏览器中体验 NDS《宝可梦 心金》。从城都启程，捕捉和培养伙伴、挑战道馆。打开播放器前可先核对按键、设备兼容性与存档方式。',
+    'pipi-and-bibis-other-1991': '在浏览器中游玩 Toaplan 街机游戏 Pipi and Bibis（Whoopee!!）。在楼层间移动，布置炸弹并及时逃离，留意敌人的巡逻路线和可用道具。',
+    'crash-bandicoot-2-cortex-strikes-back-ps1-1997': '在浏览器中游玩 PS1《古惑狼 2》。穿过传送房间通往各个关卡，用跳跃和旋转躲避敌人、收集水晶。开始前可查看按键和设备支持。',
+    'harry-potter-and-the-philosopher-s-stone-ps1-2001': '在浏览器中体验 PS1《哈利·波特与魔法石》。探索霍格沃茨，学习咒语并完成挑战。详情页提供 PlayStation 版本信息、操作和游玩入口。',
+    'tenchu-2-birth-of-the-stealth-assassins-ps1-2000': '在浏览器中体验 PS1《天诛 2》。观察敌人的巡逻与视线，利用屋顶和隐蔽路线完成潜行关卡。启动前可核对移动、道具和镜头操作。',
+    'rhythm-tengoku-japan-gba-2006': '在浏览器中游玩日本发售的 GBA《节奏天国》。先完成每个音乐小游戏的练习，听清节拍再按键。页面提供日文版本信息与浏览器操作提示。',
+    'rhythm-heaven-nds-2008': '在浏览器中游玩 NDS《节奏天国》。先练习触屏动作，再跟随音乐提示在正确时机点击或滑动。启动前可确认播放器如何映射触屏输入。',
+    'onet-master-html5': '打开网页版 Onet Master 连连看。选中两块相同图案，最多转两次弯将它们连起来。优先清理边缘的对子，为中间的图块腾出连接路线。',
+    'space-is-key-flash-2011': '在浏览器中游玩一键平台游戏 Space Is Key。方块会自动前进，用空格键把握起跳时机，逐段越过障碍。详情页提供 Flash 版本信息和操作提示。',
+    'romance-of-the-three-kingdoms-iv-dos-1994': '在浏览器中体验光荣的 DOS 策略游戏《三国志 IV》。选择君主，安排城池内政、武将任命和外交，再组织部队出征。开玩前可检查操作与存档方式。',
+    'lilo-stitch-trouble-in-paradise-ps1-2002': '在浏览器中游玩 PS1《星际宝贝：天堂危机》。操控莉萝和史迪奇闯过夏威夷岛屿关卡，按角色能力应对不同障碍。先查看版本和操作提示再启动。',
     'murdoku-html5-2026': '在 Murdoku 中用数独式排除法调查凶案。根据人物和位置线索记录候选、逐项排除，找出与受害者单独相处的人。页面提供玩法指南和浏览器入口。',
     'roadster-rush-html5-2020': '在浏览器中打开 HTML5 赛车游戏 Roadster Rush。进入游戏前查看操作和设备兼容说明，启动后先确认转向等输入是否响应，再开始一局。',
     'king-of-gladiator-arcade-2002': '在浏览器中游玩街机动作游戏 King of Gladiator。游戏详情页提供游玩入口和操作提示。开局前可先确认投币、开始和动作按键，以及当前设备的输入支持。',
@@ -696,7 +716,7 @@ const bingGameMetaDescriptions: Partial<Record<Locale, Partial<Record<string, st
 
 export function getGameMetaDescription(game: PublicGame, locale: Locale) {
   const routeId = getCanonicalGameRouteId(game).toLowerCase()
-  const description = bingGameMetaDescriptions[locale]?.[routeId]
+  const description = reviewedGameMetaDescriptions[locale]?.[routeId]
   if (description && routeId === murdokuTargetSlug && game.play_device === 1) {
     return `${description}站内嵌入版仅支持电脑，手机玩家可前往官方游玩页。`
   }
@@ -704,7 +724,7 @@ export function getGameMetaDescription(game: PublicGame, locale: Locale) {
 }
 
 export function getBingReviewedGameRouteIds() {
-  return Object.values(bingGameMetaDescriptions).flatMap((descriptions) => Object.keys(descriptions))
+  return Object.values(reviewedGameMetaDescriptions).flatMap((descriptions) => Object.keys(descriptions))
 }
 
 export function getGameSearchSeo(game: PublicGame, locale: Locale) {

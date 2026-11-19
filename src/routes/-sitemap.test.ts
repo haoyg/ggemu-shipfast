@@ -1,4 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
+import { getLocalGames } from '#/lib/local-game-catalog'
 
 const request = (url = 'https://pokopie.com/sitemap.xml') => new Request(url)
 let fetchMock: ReturnType<typeof vi.fn>
@@ -27,6 +28,11 @@ describe('sitemap availability', () => {
     expect(xml).toContain('/zh-CN/games/roadster-rush-html5-2020')
     expect(xml).toContain('/en/games/xiangqi-traveler-html5-2026')
     expect(xml).not.toContain('/en/games/roadster-rush-html5-2020')
+    for (const game of getLocalGames()) {
+      for (const locale of ['en', 'zh-CN']) {
+        expect(xml.includes(`<loc>https://pokopie.com/${locale}/games/${game.url_slug}</loc>`), game.url_slug).toBe(true)
+      }
+    }
     expect(xml).toContain('/zh-CN/games/contra-nes-1988')
     expect(xml).toContain('/en/games/geometry-dash-advance-gba-2025')
     expect(xml).not.toContain('/games/naruto-rpg-gba-2003')
