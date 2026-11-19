@@ -417,13 +417,13 @@ const targetedGameSeoBySlug = {
   'richman-2-dos-1993': {
     heading: 'Play Richman 2 Online',
     title: 'Play Richman 2 Online | 1993 DOS Board Game',
-    description: 'Play Richman 2 online in your browser. Buy property, manage cash, use cards and survive Softstar’s 1993 DOS board game.',
+    description: 'Play Softstar’s Richman 2 in your browser. Roll the dice, buy properties and save cash for tolls and random events. Check the DOS controls before playing.',
     keywords: 'Richman 2 online, play Richman 2, 大富翁2, Softstar DOS board game, property game',
   },
   'rich-man-3-dos-1996': {
     heading: 'Play Richman 3 Online',
     title: 'Play Richman 3 Online | 1996 DOS Board Game',
-    description: 'Play Richman 3 online. Manage property, cash, cards and random events in Softstar’s 1996 DOS board game.',
+    description: 'Play Softstar’s Richman 3 in your browser. Upgrade properties, time your card plays and keep cash for unexpected tolls. Check the DOS controls before you start.',
     keywords: 'Richman 3 online, play Richman 3, 大富翁3, Softstar DOS game, property board game',
   },
   'romance-of-the-three-kingdoms-iv-dos-1994': {

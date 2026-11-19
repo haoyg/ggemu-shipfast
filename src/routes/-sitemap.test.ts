@@ -26,6 +26,7 @@ describe('sitemap availability', () => {
     expect(xml).toContain('/en/games/contra-nes-1988')
     expect(xml).toContain('/zh-CN/games/contra-nes-1988')
     expect(xml).toContain('/en/games/geometry-dash-advance-gba-2025')
+    expect(xml).not.toContain('/games/naruto-rpg-gba-2003')
     expect(xml).not.toContain('/en/games/unreviewed-game-nes-1990')
     expect(xml).not.toMatch(/\/games\/[a-f0-9]{24}</)
   })

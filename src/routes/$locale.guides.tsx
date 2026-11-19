@@ -12,13 +12,17 @@ export const Route = createFileRoute('/$locale/guides')({
     }
   },
   loader: () => getSeoOrigin(),
-  head: ({ loaderData, params }) => ({
-    meta: [
-      { title: 'Retro Game Guides | POKOPIE' },
-      { name: 'description', content: 'Read POKOPIE guides to retro game platforms, keyboard and controller setup, browser saves and compatibility. Compare options before choosing your next game.' },
-    ],
-    links: loaderData ? [{ rel: 'canonical', href: `${loaderData}/${params.locale}/guides` }] : undefined,
-  }),
+  head: ({ loaderData, matches, params }) => {
+    if (matches.at(-1)?.routeId !== '/$locale/guides') return {}
+
+    return {
+      meta: [
+        { title: 'Retro Game Guides | POKOPIE' },
+        { name: 'description', content: 'Read POKOPIE guides to retro game platforms, keyboard and controller setup, browser saves and compatibility. Compare options before choosing your next game.' },
+      ],
+      links: loaderData ? [{ rel: 'canonical', href: `${loaderData}/${params.locale}/guides` }] : undefined,
+    }
+  },
   component: GuidesIndexPage,
 })
 

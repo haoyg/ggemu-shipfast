@@ -43,6 +43,7 @@ const guideSlugs = [
   'wasm-arcade-review',
 ] as const
 const guidesLastModified = '2026-09-06'
+const unavailableGameRouteIds = new Set(['naruto-rpg-gba-2003'])
 
 type SitemapEntry = {
   alternateLocales?: ReadonlyArray<Locale>
@@ -65,7 +66,9 @@ export const Route = createFileRoute('/sitemap.xml')({
 export async function getSitemapResponse(request: Request) {
   const url = new URL(request.url)
   const origin = getCanonicalOrigin(url)
-  const games = getIndexableGameRouteIds().map((url_slug) => ({ url_slug }))
+  const games = getIndexableGameRouteIds()
+    .filter((routeId) => !unavailableGameRouteIds.has(routeId))
+    .map((url_slug) => ({ url_slug }))
   const xml = buildSitemapXml(buildSitemapEntries(origin, games, editorialBlogPosts))
 
   return new Response(xml, {

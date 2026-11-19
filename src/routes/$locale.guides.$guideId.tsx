@@ -24,7 +24,7 @@ export type Guide = {
 export const guides: Record<string, Guide> = {
   'browser-retro-gaming-guide': {
     title: 'Browser Retro Gaming Guide: Start Playing in Minutes',
-    description: 'A practical guide to choosing a platform, controller, and browser for classic games.',
+    description: 'Get started with retro games in your browser. Pick a platform for the time you have, choose keyboard or gamepad controls, and check how to save progress.',
     publishedAt: '2026-09-06', updatedAt: '2026-09-06',
     facts: ['NES is an 8-bit home console family; SNES moved to a 16-bit design.', 'Game Boy Advance launched in 2001 and is designed around short portable sessions.', 'Browser support depends on the embedded player and the title, so compatibility can vary by game.'],
     faqs: [
@@ -44,7 +44,7 @@ export const guides: Record<string, Guide> = {
   },
   'retro-game-controller-guide': {
     title: 'Retro Game Controller Guide for Browser Play',
-    description: 'How to choose keyboard, touch, and gamepad controls for browser retro games.',
+    description: 'Choose keyboard, touch, or gamepad controls for browser retro games. Learn when analog sticks and shoulder buttons help, and what to check if inputs fail.',
     publishedAt: '2026-09-06', updatedAt: '2026-09-06',
     facts: ['NES and Game Boy layouts need a directional pad plus a small number of face buttons.', 'SNES adds X, Y, L, and R inputs, which makes a physical controller more useful.', 'PlayStation and N64 games rely more heavily on analog movement and benefit from a gamepad.'],
     faqs: [
@@ -61,7 +61,7 @@ export const guides: Record<string, Guide> = {
   },
   'nes-vs-snes-games': {
     title: 'NES vs SNES Games: Which Classic Library Fits You?',
-    description: 'Compare NES and SNES libraries by controls, visual style, and session length.',
+    description: 'Compare NES and SNES games by controller layout, visual style, and session length. Find out which library suits quick challenges or longer adventures.',
     publishedAt: '2026-09-06', updatedAt: '2026-09-06',
     facts: ['Nintendo introduced the Super Famicom in Japan in 1990; the SNES name followed in other markets.', 'SNES Game Paks could include enhancement chips such as Super FX, enabling polygon effects in selected titles.', 'The two libraries differ in controller layout, audiovisual capability, and typical game scale.'],
     faqs: [
@@ -78,7 +78,7 @@ export const guides: Record<string, Guide> = {
   },
   'retro-platform-comparison': {
     title: 'Retro Platform Comparison: NES, GBA, PS1, and N64',
-    description: 'A practical comparison of major retro platforms available to play in a browser.',
+    description: 'Compare NES, SNES, GBA, PS1, and N64 for browser play. See how controls, session length, and device compatibility can help you choose your next game.',
     publishedAt: '2026-09-06', updatedAt: '2026-09-06',
     facts: ['Game Boy Advance launched in 2001 as Nintendo’s next-generation handheld system.', 'The original PlayStation launched in Japan on December 3, 1994 and used CD-ROM software.', 'Nintendo 64 is a cartridge-based 3D platform whose analog stick is central to many games.'],
     faqs: [
@@ -98,7 +98,7 @@ export const guides: Record<string, Guide> = {
   },
   'how-browser-game-saves-work': {
     title: 'How Browser Game Saves Work',
-    description: 'Understand save states, in-game saves, and what can remove browser game progress.',
+    description: 'Learn how in-game saves and emulator save states differ. Find out why browser profiles and cleared site data matter, and when you can export a backup.',
     publishedAt: '2026-09-06', updatedAt: '2026-09-06',
     facts: ['An in-game save is written by the game’s own save system; a save state captures emulator memory at a point in time.', 'Browser storage is scoped to a site and browser profile, so private browsing or clearing site data can remove local progress.', 'Save-state compatibility can change when the embedded emulator or game core changes.'],
     faqs: [
