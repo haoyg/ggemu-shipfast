@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest'
 import { applyResponseCachePolicy } from './response-cache'
 
 import { getLocalizedPlatformCollection, platformCollections } from '#/components/platform-games-page'
+import { getLocalizedArcadeCollection } from '#/components/arcade-games-page'
 import {
   buildPlatformCollectionHead,
   getPlatformCollectionHeaders,
@@ -12,6 +13,19 @@ import {
 } from '#/lib/platform-collection-route'
 
 describe('platform collection pagination', () => {
+  it('describes the games and arcade controls on a Simplified Chinese arcade page', () => {
+    const data: PlatformCollectionLoaderData = {
+      games: [{ _id: 'game-1', name: 'Dynasty Wars' }, { _id: 'game-2', name: 'Alien Challenge' }],
+      origin: 'https://pokopie.com',
+      pagination: { limit: 48, page: 3, pages: 5, total: 200 },
+    }
+    const head = buildPlatformCollectionHead(getLocalizedArcadeCollection('zh-CN'), data, 'zh-CN', 3)
+    expect(head.meta).toContainEqual({
+      name: 'description',
+      content: expect.stringMatching(/第 3 页.*Dynasty Wars、Alien Challenge.*投币.*设备/),
+    })
+  })
+
   it('links Chinese pagination to real Chinese pages without English alternate URLs', () => {
     const data: PlatformCollectionLoaderData = {
       games: [{ _id: 'gba-49', name: 'GBA 49' }],

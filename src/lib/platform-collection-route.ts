@@ -93,12 +93,17 @@ export function buildPlatformCollectionHead(
         .filter((name): name is string => Boolean(name && name.length <= 40))
         .slice(0, 2)
     : undefined
+  const joinedGameNames = gameNames?.join('、') ?? ''
+  const chineseGameNames = joinedGameNames.length <= 45 ? joinedGameNames : gameNames?.[0]
+  const chinesePageDetails = platformSlug === 'arcade-games'
+    ? '浏览格斗、射击、益智、赛车和平台类街机游戏，打开详情查看玩法、投币、开始与操作按键，确认当前设备是否支持后再启动浏览器播放器。'
+    : '打开游戏详情查看玩法、版本和按键说明，确认键盘、手柄及设备支持，再从详情页启动支持的浏览器版本。'
   const pageDescription = page > 1
     ? `${collection.description} ${locale === 'zh-CN' ? `第 ${page} / ${loaderData?.pagination.pages ?? page} 页。` : locale === 'es' || locale === 'pt' ? `Página ${page} de ${loaderData?.pagination.pages ?? page}.` : `Page ${page} of ${loaderData?.pagination.pages ?? page}.`}`
     : collection.description
   const description = gameNames?.length
     ? locale === 'zh-CN'
-      ? `${collection.breadcrumbName}目录第 ${page} 页。浏览本页收录的 ${gameNames.join('、')}，打开游戏详情查看玩法、按键和设备支持。`
+      ? `${collection.breadcrumbName}目录第 ${page} 页。本页收录 ${chineseGameNames} 等作品。${chinesePageDetails}`
       : `Browse page ${page} of ${collection.breadcrumbName} on POKOPIE, including ${gameNames.join(' and ')}. Check controls, device compatibility and browser play options on each game page.`
     : pageDescription
   const links = loaderData?.origin
