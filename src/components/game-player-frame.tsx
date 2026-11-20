@@ -123,6 +123,10 @@ type Props = {
   unavailable?: boolean
 }
 
+export function getBrowserPlayUnavailableMessage(locale: string) {
+  return (copy[locale as keyof typeof copy] ?? copy.en).unsupported
+}
+
 export function GamePlayerFrame(props: Props) {
   // Reset every attempt, timer and visible state when the game or theme changes.
   return <PlayerAttempt key={props.src} {...props} />

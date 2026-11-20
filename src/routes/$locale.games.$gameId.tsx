@@ -6,6 +6,7 @@ import { temporaryGameDetailHeaders } from '#/lib/game-detail-request'
 import { useState } from 'react'
 import { trackEvent } from '#/lib/analytics'
 import { getBrowserPlayGuide } from '#/lib/game-detail-content'
+import { getBrowserPlayUnavailableMessage } from '#/components/game-player-frame'
 import { getChinesePlatformPlayNote } from '#/lib/seo-priority-games'
 import {
   Link,
@@ -582,6 +583,9 @@ function LocalizedGameDetailPage() {
               </div>
 
               <div className="grid gap-3 sm:flex sm:flex-row">
+                {game.play_online === 0 ? (
+                  <p className="self-center text-sm text-white/75">{getBrowserPlayUnavailableMessage(lang)}</p>
+                ) : (
                 <div className="grid gap-1 sm:w-auto">
                   <a
                     className="btn btn-primary btn-lg w-full px-8 text-primary-content hover:text-primary-content sm:w-auto"
@@ -603,6 +607,7 @@ function LocalizedGameDetailPage() {
                     </p>
                   ) : null}
                 </div>
+                )}
                 <div className="grid grid-cols-2 gap-3 sm:contents">
                   <GameInstallButton labels={t} manifestHref={manifestHref} />
                   <GameShareActions
@@ -653,7 +658,7 @@ function LocalizedGameDetailPage() {
             </div>
           ) : null}
 
-          {targetedSeo ? (
+          {targetedSeo && game.play_online !== 0 ? (
             <EmbeddedGamePlayer
               description={targetedSeo.description}
               game={game}

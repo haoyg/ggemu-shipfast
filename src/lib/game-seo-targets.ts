@@ -685,7 +685,7 @@ const reviewedGameMetaDescriptions: Partial<Record<Locale, Partial<Record<string
     'xiangqi-traveler-html5-2026': 'Try the browser demo of Xiangqi Traveler. Review how the Chinese chess pieces move, plan each turn around threats to your general, and check the controls before playing.',
   },
   'zh-CN': {
-    'initial-d-ps1-1998': '在浏览器中体验 PS1《头文字 D》的山路竞速。通过弯道时把握刹车和加速时机，开赛前先在播放器内核对转向、油门与刹车按键。',
+    'initial-d-ps1-1998': '了解 PS1《头文字 D》的山路竞速、版本和操作信息，并在 POKOPIE 查看该版本的浏览器游玩状态。',
     'geometry-dash-advance-gba-2025': '在浏览器中体验 GBA 版 Geometry Dash Advance。跟随节奏跳过尖刺和障碍，先确认跳跃按键，再试用练习模式。页面说明如何开始、核对关卡版本及排查输入问题。',
     'gals-panic-arcade': '在浏览器中游玩街机 Gals Panic。移动时画线围出区域，同时避开敌人和它们对未完成线路的干扰。页面提供玩法、操作按键与游玩入口。',
     'paperboy-n64-1999': '体验 Nintendo 64 版《送报童》。骑车沿路投递报纸，避开车辆和路上的障碍。开始前可核对 N64 版本、方向控制与投报按键。',
@@ -709,7 +709,7 @@ const reviewedGameMetaDescriptions: Partial<Record<Locale, Partial<Record<string
     'contra-gender-swap-nes-1988': '在浏览器中游玩红白机《魂斗罗》的 Contra Gender Swap 改版。打开详情页核对版本与输入说明，再进入横版关卡练习移动、跳跃和射击。',
     'international-superstar-soccer-pro-ps1-1997': '在浏览器中游玩 PS1 足球游戏 International Superstar Soccer Pro。选择球队并体验传球、射门和防守，开赛前可先在详情页确认键盘或手柄的操作方式。',
     'jian-xia-qing-yuan-wai-chuan-yue-ying-chuan-shuo-html5-2001': '通过浏览器入口体验《剑侠情缘外传：月影传说》。跟随杨影枫展开武侠冒险，在探索、对话和战斗中推进剧情。页面提供版本、操作和设备支持提示。',
-    'parasite-eve-ps1-1998': '在浏览器中体验 PS1《寄生前夜》。跟随警探 Aya Brea 调查纽约发生的异常事件，在探索和战斗中推进剧情。启动前可查看版本、操作和兼容信息。',
+    'parasite-eve-ps1-1998': '了解 PS1《寄生前夜》的版本和玩法。跟随警探 Aya Brea 调查纽约发生的异常事件，在探索和战斗中推进剧情。详情页提供设备兼容信息和网页游玩状态。',
     'hikaru-no-go-gba-2002': '在浏览器中游玩 GBA《棋魂》。这款掌机作品以围棋为主题，进入游戏前可先确认版本、游戏语言和操作方式，再通过详情页打开浏览器播放器。',
     'richman-4-java-2005': '在浏览器中体验 Java 版《大富翁 4》。掷骰移动、购买地产，安排现金和道具的使用。页面提供游玩入口，启动前可确认这个版本的控制方式与设备支持。',
   },

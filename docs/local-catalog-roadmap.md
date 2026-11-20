@@ -91,6 +91,9 @@ replacement must be recorded in the change log with a short reason.
 
 ## Change log
 
+- 2026-11-20: Replaced two unavailable PS1 picks with Crash Bandicoot 2 and
+  Lilo & Stitch after verifying the browser player routes.
+
 - 2026-11-20: Added Simplified Chinese GBA and PS1 featured links with
   game-specific pre-play notes, including local catalog titles.
 
