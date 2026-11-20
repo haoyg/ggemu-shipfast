@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { getCollectionPriorityGames, seoPriorityGames } from './seo-priority-games'
+import { getChinesePlatformPlayNote, getCollectionPriorityGames, seoPriorityGames } from './seo-priority-games'
 
 describe('SEO priority games', () => {
   it('keeps the five current ranking opportunities on the English homepage', () => {
@@ -19,4 +19,12 @@ describe('SEO priority games', () => {
     ])
     expect(getCollectionPriorityGames('/en/gba-games')).toEqual([])
   })
+})
+it.each(['/zh-CN/gba-games', '/zh-CN/ps1-games'])('links three games with play notes from %s', (path) => {
+  const picks = getCollectionPriorityGames(path)
+  expect(picks).toHaveLength(3)
+  for (const game of picks) {
+    expect(game.description).toBeTruthy()
+    expect(getChinesePlatformPlayNote(game.slug)).toBeTruthy()
+  }
 })

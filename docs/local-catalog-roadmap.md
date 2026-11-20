@@ -91,6 +91,9 @@ replacement must be recorded in the change log with a short reason.
 
 ## Change log
 
+- 2026-11-20: Added Simplified Chinese GBA and PS1 featured links with
+  game-specific pre-play notes, including local catalog titles.
+
 - 2026-11-19: Added reviewed descriptions and sitemap entries for five English
   and fifteen Simplified Chinese detail pages in the 30-game local catalog.
 

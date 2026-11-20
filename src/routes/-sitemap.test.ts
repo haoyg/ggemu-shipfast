@@ -26,6 +26,7 @@ describe('sitemap availability', () => {
     expect(fetchMock).not.toHaveBeenCalled()
     expect(xml).toContain('/en/games/contra-nes-1988')
     expect(xml).toContain('/zh-CN/games/roadster-rush-html5-2020')
+    expect(xml).toContain('<loc>https://pokopie.com/zh-CN/games/initial-d-ps1-1998</loc>')
     expect(xml).toContain('/en/games/xiangqi-traveler-html5-2026')
     expect(xml).not.toContain('/en/games/roadster-rush-html5-2020')
     for (const game of getLocalGames()) {

@@ -685,6 +685,7 @@ const reviewedGameMetaDescriptions: Partial<Record<Locale, Partial<Record<string
     'xiangqi-traveler-html5-2026': 'Try the browser demo of Xiangqi Traveler. Review how the Chinese chess pieces move, plan each turn around threats to your general, and check the controls before playing.',
   },
   'zh-CN': {
+    'initial-d-ps1-1998': '在浏览器中体验 PS1《头文字 D》的山路竞速。通过弯道时把握刹车和加速时机，开赛前先在播放器内核对转向、油门与刹车按键。',
     'geometry-dash-advance-gba-2025': '在浏览器中体验 GBA 版 Geometry Dash Advance。跟随节奏跳过尖刺和障碍，先确认跳跃按键，再试用练习模式。页面说明如何开始、核对关卡版本及排查输入问题。',
     'gals-panic-arcade': '在浏览器中游玩街机 Gals Panic。移动时画线围出区域，同时避开敌人和它们对未完成线路的干扰。页面提供玩法、操作按键与游玩入口。',
     'paperboy-n64-1999': '体验 Nintendo 64 版《送报童》。骑车沿路投递报纸，避开车辆和路上的障碍。开始前可核对 N64 版本、方向控制与投报按键。',

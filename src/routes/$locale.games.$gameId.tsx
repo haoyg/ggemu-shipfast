@@ -6,6 +6,7 @@ import { temporaryGameDetailHeaders } from '#/lib/game-detail-request'
 import { useState } from 'react'
 import { trackEvent } from '#/lib/analytics'
 import { getBrowserPlayGuide } from '#/lib/game-detail-content'
+import { getChinesePlatformPlayNote } from '#/lib/seo-priority-games'
 import {
   Link,
   Outlet,
@@ -461,6 +462,7 @@ function LocalizedGameDetailPage() {
   const [playerRequested, setPlayerRequested] = useState(false)
   const lang = normalizeLocale(locale)
   const t = getI18n(lang).detail
+  const platformPlayNote = lang === 'zh-CN' ? getChinesePlatformPlayNote(gameId) : undefined
 
   if (data.kind === 'temporary-error') return <GameDetailLoadError locale={lang} />
 
@@ -587,7 +589,7 @@ function LocalizedGameDetailPage() {
                     onClick={() => {
                       if (useInlinePlayer) setPlayerRequested(true)
                       saveRecentPlayedGame(game, gameId)
-                      trackEvent('game_play_click', { game_id: gameId, source: 'detail' })
+                      trackEvent('game_play_click', { game_id: gameId, locale: lang, source: 'detail' })
                     }}
                     rel={useInlinePlayer ? undefined : 'noopener noreferrer'}
                     target={useInlinePlayer ? undefined : '_blank'}
@@ -611,6 +613,10 @@ function LocalizedGameDetailPage() {
                   />
                 </div>
               </div>
+
+              {platformPlayNote ? (
+                <p className="max-w-3xl text-sm leading-6 text-white/75">{platformPlayNote}</p>
+              ) : null}
 
               <div className="grid grid-cols-2 gap-4 text-left sm:max-w-md sm:gap-6">
                 <Stat label={t.plays} value={game.plays_count ?? 0} />
