@@ -178,7 +178,7 @@ const localizedPlatformCopy = {
       description: '在线玩红白机（NES）游戏。浏览魂斗罗、超级马里奥、赤色要塞和沙罗曼蛇，从横版动作、平台跳跃和射击作品中找回想玩的经典。进入相应游戏页查看操作和设备支持，支持的游戏可在浏览器中启动。',
       schemaName: '红白机（NES）游戏在线玩',
       breadcrumbName: 'NES 游戏',
-      heroTitle: '在线玩 NES 游戏',
+      heroTitle: '红白机（NES）游戏在线玩',
       heroDescription: '在线重温塑造动作、平台、益智、体育和冒险游戏的 8 位经典作品，支持的游戏可以直接从详情页开始。',
       ctaLabel: '浏览 NES 游戏',
       libraryTitle: 'NES 游戏库',
