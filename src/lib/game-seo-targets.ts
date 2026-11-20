@@ -724,6 +724,17 @@ export function getGameMetaDescription(game: PublicGame, locale: Locale) {
   return description
 }
 
+const reviewedEnglishMetaTitles: Partial<Record<string, string>> = {
+  'the-king-of-fighters-97-plus-arcade-1997': 'The King of Fighters ’97 Plus (Arcade) | POKOPIE',
+  'driver-2-back-on-the-streets-ps1-2000': 'Driver 2: Back on the Streets (PS1) | POKOPIE',
+  'international-superstar-soccer-pro-ps1-1997': 'International Superstar Soccer Pro (PS1) | POKOPIE',
+  'spider-man-in-smash-remix-n64-2021': 'Spider-Man in Smash Remix (N64) | POKOPIE',
+}
+
+export function getGameMetaTitle(game: PublicGame, locale: Locale) {
+  if (locale === 'en') return reviewedEnglishMetaTitles[getCanonicalGameRouteId(game).toLowerCase()]
+}
+
 export function getBingReviewedGameRouteIds() {
   return Object.values(reviewedGameMetaDescriptions).flatMap((descriptions) => Object.keys(descriptions))
 }

@@ -40,6 +40,9 @@ export const seoPriorityGames: ReadonlyArray<SeoPriorityGame> = [
 ]
 
 const chinesePlatformPicks: ReadonlyArray<SeoPriorityGame> = [
+  { name: '超级马里奥兄弟：失落的关卡', platform: 'SNES', slug: 'super-mario-bros-the-lost-levels-enhanced-snes-1993', collectionPath: '/zh-CN/snes-games', description: 'SNES 增强版 · 精准跳跃', playNote: '先确认跑动和跳跃按键。留意毒蘑菇和隐藏砖块，遇到宽缺口时从安全位置练习助跑和起跳。' },
+  { name: '送报童', platform: 'N64', slug: 'paperboy-n64-1999', collectionPath: '/zh-CN/n64-games', description: '骑车投递 · 先确认转向与投报', playNote: '在第一条路线先试转向和投报按键。靠近投递目标时放慢速度，确认投出的报纸能落到指定位置。' },
+  { name: '超级马里奥 64', platform: 'N64', slug: 'super-mario-64-n64-1996', collectionPath: '/zh-CN/n64-games', description: '3D 平台冒险 · 先检查摇杆和镜头', playNote: '进入城堡前，先测试模拟摇杆、跳跃和镜头控制。使用键盘时尤其要确认镜头键的映射，再开始收集力量之星。' },
   { name: '魂斗罗', platform: 'NES', slug: 'contra-nes-1988', collectionPath: '/zh-CN/nes-games', description: '横版射击 · 先核对跳跃和射击', playNote: '在丛林关卡先试方向、跳跃和射击键。想双人游玩时，先分别检查两套按键是否响应。' },
   { name: '坦克大战', platform: 'NES', slug: 'battle-city-nes-1985', collectionPath: '/zh-CN/nes-games', description: '坦克闯关 · 守住基地', playNote: '先试方向键与射击键，再观察敌方坦克的来路。守住基地附近的通道，开火时留意基地周围的砖墙。' },
   { name: '超级马里奥兄弟', platform: 'NES', slug: 'super-mario-bros-nes-1985', collectionPath: '/zh-CN/nes-games', description: '平台跳跃 · 练习跑动和起跳', playNote: '在第一关先分别测试跳跃和加速键。遇到宽缺口时先助跑，跳过障碍后松开方向键，看看落点是否合适。' },

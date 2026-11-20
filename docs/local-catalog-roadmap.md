@@ -91,6 +91,9 @@ replacement must be recorded in the change log with a short reason.
 
 ## Change log
 
+- 2026-11-20: Added Simplified Chinese SNES and N64 picks and pre-play notes
+  for The Lost Levels, Paperboy, and Super Mario 64.
+
 - 2026-11-20: Added three Simplified Chinese NES featured links and pre-play
   notes for Contra, Battle City, and Super Mario Bros.
 

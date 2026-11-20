@@ -133,6 +133,7 @@ export const Route = createFileRoute('/$locale/games/$gameId')({
       indexableLocales,
       kind: 'ready' as const,
       metaDescription: gameSeo.getGameMetaDescription(detail.game, locale),
+      metaTitle: gameSeo.getGameMetaTitle(detail.game, locale),
       relatedGames,
       searchSeo: gameSeo.getGameSearchSeo(detail.game, locale),
       targetedSeo: gameSeo.getTargetedGameSeo(detail.game, locale),
@@ -156,10 +157,14 @@ export const Route = createFileRoute('/$locale/games/$gameId')({
       }
     }
 
-    const { canonicalUrl, editorial, game, indexableLocales, metaDescription, searchSeo } = loaderData
+    const { canonicalUrl, editorial, game, indexableLocales, metaDescription, metaTitle, searchSeo } = loaderData
     const locale = normalizeLocale(params.locale)
     const baseSeo = searchSeo ?? buildGameDetailSeo(game, locale)
-    const seo = metaDescription ? { ...baseSeo, description: metaDescription } : baseSeo
+    const seo = {
+      ...baseSeo,
+      description: metaDescription ?? baseSeo.description,
+      title: metaTitle ?? baseSeo.title,
+    }
     const image = game.game_cover
     const faqItems = getGameFaqs(game, locale, editorial)
     const structuredData = buildGameStructuredData({

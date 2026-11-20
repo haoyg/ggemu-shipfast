@@ -20,9 +20,15 @@ describe('SEO priority games', () => {
     expect(getCollectionPriorityGames('/en/gba-games')).toEqual([])
   })
 })
-it.each(['/zh-CN/gba-games', '/zh-CN/ps1-games', '/zh-CN/nes-games'])('links three games with play notes from %s', (path) => {
+it.each([
+  ['/zh-CN/gba-games', 3],
+  ['/zh-CN/ps1-games', 3],
+  ['/zh-CN/nes-games', 3],
+  ['/zh-CN/snes-games', 1],
+  ['/zh-CN/n64-games', 2],
+])('links reviewed games with play notes from %s', (path, count) => {
   const picks = getCollectionPriorityGames(path)
-  expect(picks).toHaveLength(3)
+  expect(picks).toHaveLength(count)
   for (const game of picks) {
     expect(game.description).toBeTruthy()
     expect(getChinesePlatformPlayNote(game.slug)).toBeTruthy()

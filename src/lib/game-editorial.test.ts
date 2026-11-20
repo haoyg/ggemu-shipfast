@@ -1,9 +1,21 @@
 import { describe, expect, it } from 'vitest'
 import { getGameEditorial } from './game-editorial'
 import { getBrowserPlayGuide, getGameDescriptionParagraphs, getGameFaqs, getGameHowToPlayParagraphs, getGameSidebarContent } from './game-detail-content'
-import { getGameMetaDescription, getGameSearchSeo, getTargetedGameSeo } from './game-seo-targets'
+import { getGameMetaDescription, getGameMetaTitle, getGameSearchSeo, getTargetedGameSeo } from './game-seo-targets'
 import { getGameSeoInternalLinks } from './game-seo-links'
 import { getReviewedChineseGameRouteIds } from './game-name-aliases'
+
+it('uses distinct short English titles for the four Bing-reported games', () => {
+  const slugs = [
+    'the-king-of-fighters-97-plus-arcade-1997',
+    'driver-2-back-on-the-streets-ps1-2000',
+    'international-superstar-soccer-pro-ps1-1997',
+    'spider-man-in-smash-remix-n64-2021',
+  ]
+  const titles = slugs.map((url_slug) => getGameMetaTitle({ url_slug }, 'en'))
+  expect(new Set(titles).size).toBe(4)
+  expect(titles.every((title) => title && title.length < 70)).toBe(true)
+})
 
 it('supplies the reviewed Bing description without replacing the game search title', () => {
   const game = { _id: 'roadster-rush-html5-2020', url_slug: 'roadster-rush-html5-2020' }
