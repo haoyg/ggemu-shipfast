@@ -1,4 +1,8 @@
 node_modules
+.local-freedoom-review/
+previews/freedoom/*.wasm
+previews/freedoom/*.wad
+previews/freedoom/websockets-doom.js
 .DS_Store
 dist
 dist-ssr

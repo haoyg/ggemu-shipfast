@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>POKOPIE Freedoom player preview</title>
+<style>
+body{margin:0;background:#121820;color:#eee;font:16px system-ui;text-align:center}canvas{display:block;width:min(100%,960px);margin:auto;image-rendering:pixelated}button{padding:12px;margin:8px}p{padding:0 16px}
+</style>
+<h1>Freedoom player preview</h1>
+<p id="status" role="status">Select Start to download the engine and game data.</p>
+<button id="start">Start</button>
+<button id="export" disabled>Export saves</button>
+<label>Import saves <input id="import" type="file" accept="application/json" disabled></label>
+<canvas id="screen" width="640" height="400" tabindex="0" aria-label="Freedoom game"></canvas>
+<p>Use the configured keyboard controls. Save in the game before exporting. Browser storage and export support are under validation.</p>
+<script>
+'use strict';
+(() => {
+const status = document.getElementById('status');
+const screen = document.getElementById('screen');
+const storageKey = 'pokopie-freedoom-phase1-saves-v1';
+let fs;
+let previousSave = '';
+window.addEventListener('error', event => {
+  status.textContent = 'Player error: ' + event.message;
+});
+window.addEventListener('unhandledrejection', event => {
+  status.textContent = 'Player error: ' + String(event.reason);
+});
+function readSaves() {
+  return Object.fromEntries(fs.readdir('/savefiles').filter(name => /^[\w.-]+\.dsg$/i.test(name)).map(name => [name, Array.from(fs.readFile('/savefiles/' + name))]));
+}
+function restoreSaves(saves) {
+  if (!saves || typeof saves !== 'object' || Array.isArray(saves)) throw new Error('Invalid save file');
+  const entries = Object.entries(saves);
+  if (entries.length > 20) throw new Error('Too many save files');
+  for (const [name, bytes] of entries) {
+    if (!/^[\w.-]+\.dsg$/i.test(name) || !Array.isArray(bytes) || bytes.length > 2000000 || !bytes.every(byte => Number.isInteger(byte) && byte >= 0 && byte <= 255)) throw new Error('Invalid save data');
+  }
+  for (const [name, bytes] of entries) fs.writeFile('/savefiles/' + name, new Uint8Array(bytes));
+}
+function persist() {
+  if (!fs) return;
+  try {
+    const saved = JSON.stringify(readSaves());
+    if (saved !== previousSave) { localStorage.setItem(storageKey, saved); previousSave = saved; }
+  } catch { status.textContent = 'Browser saving unavailable. Export your saves before closing.'; }
+}
+document.getElementById('start').onclick = function () {
+  this.disabled = true;
+  status.textContent = 'Loading engine and game data…';
+  window.Module = {
+    canvas: screen, noInitialRun: true, noExitRuntime: true,
+    print: () => {}, printErr: text => console.warn(text),
+    monitorRunDependencies: count => {
+      status.textContent = count ? 'Loading resources (' + count + ' pending)…' : 'Resources loaded. Starting engine…';
+    },
+    onAbort: () => { status.textContent = 'Player loading failed. Check that the preview resources are installed, then reload.'; },
+    preRun: () => {
+      fs = window.Module.FS;
+      fs.mkdirTree('/savefiles');
+      try { restoreSaves(JSON.parse(localStorage.getItem(storageKey) || '{}')); }
+      catch { status.textContent = 'Stored saves could not be restored. You can import a backup.'; }
+      for (const name of ['freedoom1.wad', 'default.cfg']) fs.createPreloadedFile('', name, name, true, true);
+    },
+    onRuntimeInitialized: () => {
+      try {
+        window.callMain(['-iwad','freedoom1.wad','-window','-nogui','-nomusic','-config','default.cfg','-savedir','/savefiles']);
+        status.textContent = 'Engine initialized. Focus the game to use the keyboard.';
+        document.getElementById('export').disabled = false;
+        document.getElementById('import').disabled = false;
+        screen.focus();
+        setInterval(persist, 3000);
+      } catch (error) { status.textContent = 'Game startup failed: ' + String(error); }
+    }
+  };
+  const script = document.createElement('script');
+  script.src = 'websockets-doom.js';
+  script.onerror = () => { status.textContent = 'Engine download failed. Reload to retry.'; };
+  document.body.append(script);
+};
+document.getElementById('export').onclick = () => {
+  persist();
+  const url = URL.createObjectURL(new Blob([JSON.stringify(readSaves())], {type:'application/json'}));
+  const link = document.createElement('a');
+  link.href = url; link.download = 'freedoom-phase1-saves.json'; link.click();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+};
+document.getElementById('import').onchange = async event => {
+  const file = event.target.files[0];
+  if (!file) return;
+  try {
+    if (file.size > 10000000) throw new Error('Save backup is too large');
+    restoreSaves(JSON.parse(await file.text())); persist();
+    status.textContent = 'Saves imported. Use Load Game in the game menu.';
+  } catch { status.textContent = 'Import failed. Select a valid Freedoom save backup.'; }
+  event.target.value = '';
+};
+window.addEventListener('pagehide', persist);
+})();
+</script>
+</html>

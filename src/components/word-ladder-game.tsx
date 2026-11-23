@@ -21,11 +21,18 @@ import {
   type WordLadderStorage,
 } from '#/lib/word-ladder/storage'
 
+const browserStorage = {
+  getItem: (key: string) => window.localStorage.getItem(key),
+  setItem: (key: string, value: string) => window.localStorage.setItem(key, value),
+}
+
 export function WordLadderGame({
   dailyDate,
   dailyPuzzle,
+  shareUrl,
 }: {
   dailyDate: string
+  shareUrl?: string
   dailyPuzzle: WordLadderPuzzle
 }) {
   const [mode, setMode] = useState<WordLadderMode>('daily')
@@ -53,7 +60,7 @@ export function WordLadderGame({
   )
 
   useEffect(() => {
-    const stored = loadWordLadderStorage(window.localStorage)
+    const stored = loadWordLadderStorage(browserStorage)
     const progress = stored.progress
     setSavedState(stored)
     setUnlimitedIndex(stored.unlimitedIndex)
@@ -96,7 +103,7 @@ export function WordLadderGame({
       },
       unlimitedIndex,
     }
-    saveWordLadderStorage(window.localStorage, nextState)
+    saveWordLadderStorage(browserStorage, nextState)
   }, [dailyDate, hintsUsed, isComplete, isHydrated, mode, path, puzzle.id, savedState, unlimitedIndex])
 
   function submitWord(event: React.FormEvent<HTMLFormElement>) {
@@ -159,7 +166,7 @@ export function WordLadderGame({
     setMessage(alreadyScored
       ? 'Practice replay complete. Today’s official result was already saved.'
       : 'Ladder complete! Compare your route with the shortest path below.')
-    saveWordLadderStorage(window.localStorage, nextState)
+    saveWordLadderStorage(browserStorage, nextState)
     playTone(savedState.soundEnabled, 'complete')
     trackEvent('game_complete', {
       completed_steps: nextPath.length - 1,
@@ -230,7 +237,7 @@ export function WordLadderGame({
     const soundEnabled = !savedState.soundEnabled
     const nextState = { ...savedState, soundEnabled }
     setSavedState(nextState)
-    saveWordLadderStorage(window.localStorage, nextState)
+    saveWordLadderStorage(browserStorage, nextState)
     if (soundEnabled) playTone(true, 'move')
   }
 
@@ -238,12 +245,13 @@ export function WordLadderGame({
     const moves = path.length - 1
     const label = mode === 'daily' ? `Daily #${challengeNumber}` : 'Unlimited'
     const text = `POKOPIE Word Ladder ${label}: ${isComplete ? `${moves} moves` : 'in progress'}${hintsUsed ? `, ${hintsUsed} hints` : ''}.`
-    const shareData = { title: 'Word Ladder Challenge', text, url: window.location.href }
+    const url = shareUrl ?? window.location.href
+    const shareData = { title: 'Word Ladder Challenge', text, url }
 
     try {
       if (navigator.share) await navigator.share(shareData)
       else {
-        await navigator.clipboard.writeText(`${text} ${window.location.href}`)
+        await navigator.clipboard.writeText(`${text} ${url}`)
         setShareMessage('Result copied to your clipboard.')
       }
       trackEvent('game_share', {

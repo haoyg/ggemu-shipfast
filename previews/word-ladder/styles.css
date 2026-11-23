@@ -1,0 +1,12 @@
+@import "tailwindcss" source(none);
+@source "./index.html";
+@source "../../src/components/word-ladder-game.tsx";
+
+@plugin "daisyui" {
+  themes: dark --default;
+  include: alert, button, input, join, label, link;
+}
+
+.ri-arrow-right-line::before {
+  content: "→";
+}

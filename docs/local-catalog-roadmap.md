@@ -18,6 +18,30 @@ Thirty games is the next checkpoint because the default discovery grid shows
 about 24 games. The extra six entries provide room for platform filtering and
 related-game matching without importing a large, unreviewed catalog.
 
+## Phase 3: self-hosted game execution
+
+The 30-game catalog milestone covers metadata and discovery. It does not mean
+the corresponding players, emulator cores, ROMs, or media are self-hosted.
+
+The next migration candidate is Freedoom Phase 1. Word Ladder and Memory
+already execute as POKOPIE components. Freedoom currently uses a GitHub Pages
+player, while the regular retro-game player still uses GGEMU.
+
+- [x] Download the current Freedoom browser distribution for local inspection.
+- [x] Pin the reviewed distribution to `e0ba81004e27e7d66141925dfebb091a558e2fe8`
+  from `https://github.com/danborden1/doom-web`.
+- [ ] Package the matching engine source and preserve engine/data licenses.
+- [ ] Implement a POKOPIE launcher and persistent saves with export/import.
+- [ ] Host the WAD and engine files on POKOPIE-controlled storage. The reviewed
+  WAD is 28,795,076 bytes, so it needs a large-file delivery path rather than a
+  regular Workers static asset.
+- [ ] Verify desktop startup, touch input, refresh-and-restore, and failure retry.
+- [ ] Block GGEMU and the original GitHub Pages host during acceptance testing.
+- [ ] Switch the existing Freedoom detail page only after these checks pass.
+
+The local inspection clone lives in the ignored `.local-freedoom-review/`
+directory. It is not a production resource or a completed migration.
+
 ## Selection order
 
 Prioritize a game only when it meets at least one of these conditions:
