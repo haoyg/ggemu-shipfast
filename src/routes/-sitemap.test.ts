@@ -31,6 +31,8 @@ describe('sitemap availability', () => {
     expect(xml).toContain('<loc>https://pokopie.com/en/games/the-king-of-fighters-2002-arcade-2002</loc>')
     expect(xml).toContain('<loc>https://pokopie.com/zh-CN/games/the-killing-blade-arcade-1998</loc>')
     expect(xml).not.toContain('/games/the-king-of-fighters-2002-arcade-2002/play')
+    expect(xml).toContain('<loc>https://pokopie.com/en/games/crash-bandicoot-ps1-1996</loc>')
+    expect(xml).toContain('<loc>https://pokopie.com/fr/games/onet-master-html5</loc>')
     expect(xml).not.toContain('/en/games/roadster-rush-html5-2020')
     for (const game of getLocalGames()) {
       for (const locale of ['en', 'zh-CN']) {

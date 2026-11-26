@@ -166,3 +166,5 @@ replacement must be recorded in the change log with a short reason.
 | 2026-11-11 | `cadb981` | 30 | Made the unfiltered first discovery grid return immediately from the reviewed local catalog instead of waiting for an unnecessary upstream search. | 575 tests, typecheck, build, and deploy `57981e61` passed; the regression test confirms zero upstream requests for the first 24-game grid. |
 | 2026-11-11 | `84162ee` | 30 | Replaced 12 generated catalog covers with the exact cover URLs returned by matching GGEMU detail records; four timed-out records remain unchanged pending verification. | 575 tests, typecheck, build, and deploy `ef3c6ff1` passed. |
 
+
+- 2026-11-26: Added a reviewed French search description and indexing eligibility for Onet Master. The local catalog count is unchanged.

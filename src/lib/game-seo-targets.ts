@@ -676,7 +676,11 @@ const reviewedTraditionalChineseMetaDescriptions: Partial<Record<string, string>
 }
 
 const reviewedGameMetaDescriptions: Partial<Record<Locale, Partial<Record<string, string>>>> = {
+  fr: {
+    'onet-master-html5': 'Reliez deux images identiques dans Onet Master. Le chemin doit rester libre et ne faire que deux virages au maximum. Libérez les cases pour ouvrir de nouvelles paires.',
+  },
   en: {
+    'crash-bandicoot-ps1-1996': 'Explore the original 1996 PlayStation Crash Bandicoot. Time your jumps, spin past enemies and collect Wumpa fruit as you work through the platforming stages.',
     'the-king-of-fighters-2002-arcade-2002': 'Explore the original arcade King of Fighters 2002. Build a three-fighter team, choose its order and learn how MAX mode uses a stock from your power gauge.',
     'super-mario-bros-nes-1985': 'Play the original NES Super Mario Bros. in your browser. Run and jump past enemies, collect power-ups and cross the gap to the flagpole. Check controls first.',
     'battle-city-nes-1985': 'Play Namco’s NES Battle City online. Drive through breakable brick walls, stop waves of enemy tanks and protect the eagle base. Check movement and fire controls.',
