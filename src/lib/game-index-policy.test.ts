@@ -64,4 +64,24 @@ describe('game index policy', () => {
     expect(isIndexableGameDetail(game, 'zh-TW')).toBe(true)
     expect(isIndexableGameDetail(game, 'it')).toBe(false)
   })
+
+  it.each([
+    'mahjong-chao-ji-man-guan-2-arcade-2002',
+    'saiyuuki-world-nes-1991',
+    'the-legend-of-the-condor-heroes-ps1-2000',
+    'warriors-of-fate-ii-arcade-1992',
+    'warriors-of-fate-ii-sanjiansheng-arcade-1993',
+  ])('indexes the reviewed Chinese Bing page %s without opening other locales', (url_slug) => {
+    const game = { url_slug }
+
+    expect(isIndexableGameDetail(game, 'zh-CN')).toBe(true)
+    expect(isIndexableGameDetail(game, 'en')).toBe(false)
+  })
+
+  it('indexes the reviewed Japanese Mother 2 Deluxe page only in Japanese', () => {
+    const game = { url_slug: 'mother-2-deluxe-snes-1994' }
+
+    expect(isIndexableGameDetail(game, 'ja')).toBe(true)
+    expect(isIndexableGameDetail(game, 'en')).toBe(false)
+  })
 })

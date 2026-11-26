@@ -679,6 +679,9 @@ const reviewedGameMetaDescriptions: Partial<Record<Locale, Partial<Record<string
   fr: {
     'onet-master-html5': 'Reliez deux images identiques dans Onet Master. Le chemin doit rester libre et ne faire que deux virages au maximum. Libérez les cases pour ouvrir de nouvelles paires.',
   },
+  ja: {
+    'mother-2-deluxe-snes-1994': 'MOTHER 2 Deluxe の SNES 版ページです。通常版や別の改造版と混同しないよう、タイトル画面とゲーム内表記を確認し、ブラウザープレイヤーを開く前に十字キー、決定、キャンセル、スタートの割り当てと端末の対応状況を確認できます。',
+  },
   en: {
     'crash-bandicoot-ps1-1996': 'Explore the original 1996 PlayStation Crash Bandicoot. Time your jumps, spin past enemies and collect Wumpa fruit as you work through the platforming stages.',
     'the-king-of-fighters-2002-arcade-2002': 'Explore the original arcade King of Fighters 2002. Build a three-fighter team, choose its order and learn how MAX mode uses a stock from your power gauge.',
@@ -692,7 +695,12 @@ const reviewedGameMetaDescriptions: Partial<Record<Locale, Partial<Record<string
   'zh-CN': {
     'cadillacs-and-dinosaurs-arcade-1993': '《恐龙快打》（Cadillacs and Dinosaurs）是卡普空的横版清关街机游戏。选好角色后，在关卡中移动、跳跃和攻击，拾取道具应对不同敌人。启动浏览器播放器前，可核对投币、开始和动作按键。',
     'grand-theft-auto-2-ps1-1999': '了解 1999 年《侠盗猎车手 2》的初代 PlayStation 版本。在俯视视角下探索城市，通过完成任务改变帮派关系。进入浏览器播放器前，先核对步行、驾驶和上下车的按键，并查看设备支持。',
+    'mahjong-chao-ji-man-guan-2-arcade-2002': '查看街机游戏 Mahjong Chao Ji Man Guan 2 的版本与浏览器游玩信息。由于目录名称使用罗马字拼写，开始前请通过标题画面确认实际版本，并核对投币、开始、麻将牌选择和确认按键，避免与系列中的其他麻将作品混淆。',
+    'saiyuuki-world-nes-1991': '查看红白机 Saiyuuki World 的版本说明与浏览器操作。目录年份和译名可能因地区资料而不同，进入游戏后可先核对标题画面，再确认方向、攻击、跳跃、开始和选择键的映射，以及当前设备是否支持输入。',
+    'the-legend-of-the-condor-heroes-ps1-2000': '了解初代 PlayStation 游戏 The Legend of the Condor Heroes 的版本与网页游玩状态。开始前可先核对游戏内语言、方向与确认按键、菜单操作和设备兼容性，并通过标题画面辨认实际载入的地区版本。',
     'the-killing-blade-arcade-1998': '了解鈊象电子的 PGM 街机格斗游戏《傲剑狂刀》。选定角色后，先熟悉武器的攻击距离和招式收招时机，再尝试连招。打开播放器前可以核对浏览器里的投币、开始和攻击按键。',
+    'warriors-of-fate-ii-arcade-1992': '查看 Warriors of Fate II 街机目录页的版本与操作说明。本站同时收录名称相近的三剑圣版本，进入播放器后请先核对标题画面，再确认投币、开始、移动、攻击和跳跃按键，避免把两个目录条目混为同一版本。',
+    'warriors-of-fate-ii-sanjiansheng-arcade-1993': '查看 Warriors of Fate II Sanjiansheng 街机目录页。该条目与 Warriors of Fate II 名称相近，开始前请根据标题画面和游戏内表记确认实际版本，并核对投币、开始、方向、攻击与跳跃按键及设备支持。',
     'initial-d-ps1-1998': '了解初代 PlayStation《头文字 D》的山路竞速玩法与版本信息。在 POKOPIE 查看 PS1 版的游戏介绍、操作提示，以及当前设备的兼容信息。开始前先核对该版本的浏览器游玩状态，避免与其他平台或街机版本混淆。',
     'geometry-dash-advance-gba-2025': '在浏览器中体验 GBA 版 Geometry Dash Advance。跟随节奏跳过尖刺和障碍，先确认跳跃按键，再试用练习模式。页面说明如何开始、核对关卡版本及排查输入问题。',
     'gals-panic-arcade': '在浏览器中游玩街机 Gals Panic，利用移动和画线逐步围出区域，同时避开敌人对角色与未完成线路的干扰。先阅读页面中的玩法介绍，了解区域占领的基本规则，再核对方向、动作、投币与开始按键，确认设备支持后打开浏览器播放器。',
