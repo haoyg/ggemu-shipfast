@@ -34,7 +34,7 @@ const playMyRomCopies: Record<Locale, { title: string; description: string }> = 
 },
   'zh-TW': {
     title: '玩本地 ROM',
-    description: '通過 POKOPIE 的嵌入式播放器加載並遊玩你自己的 ROM。',
+    description: '使用 POKOPIE 內嵌的 GGEMU 瀏覽器播放器，從目前裝置選取自己的 ROM 檔案，載入並執行受支援的遊戲。可以切換全螢幕，或使用相容的遊戲手柄進行操作。遊戲能否啟動及可用控制方式取決於檔案格式、播放器和目前裝置；請在載入後確認畫面與按鍵是否正常，再開始遊玩，並以播放器實際提供的功能為準。',
   },
   ko: {
     title: '내 ROM 실행',

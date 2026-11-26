@@ -23,7 +23,7 @@ export const koMessages = {
   },
   homeSeo: {
     title: '무료 온라인 레트로 게임 — NES, SNES, GBA | POKOPIE',
-    description: 'NES, SNES, GBA, PS1 및 아케이드 게임을 브라우저에서 무료로 즐기세요. 설치나 가입 없이 클래식 게임을 찾아 바로 시작하세요.',
+    description: 'POKOPIE에서 NES, SNES, GBA, PS1과 아케이드의 클래식 게임을 찾아보세요. 플랫폼과 장르별 목록에서 작품을 고르고, 상세 페이지에서 게임 소개와 조작법, 기기 호환성을 확인한 뒤 지원되는 게임을 브라우저 플레이어로 실행하세요. 별도 에뮬레이터 설치가 필요 없습니다.',
     keywords: '레트로 게임, 온라인 게임, NES 게임, SNES 게임, GBA 게임, PS1 게임, 아케이드 게임',
   },
   homeContent: {

@@ -67,7 +67,7 @@ const localizedPlatformCopy = {
   es: Object.fromEntries(Object.entries({ gba: 'Game Boy Advance', n64: 'Nintendo 64', nes: 'Famicom', segaGenesis: 'Sega Genesis', snes: 'Super Famicom' }).map(([key, name]) => [key, getRomanceCollectionCopy('es', name)])) as Record<PlatformCollectionKey, ReturnType<typeof getRomanceCollectionCopy>>,
   pt: Object.fromEntries(Object.entries({ gba: 'Game Boy Advance', n64: 'Nintendo 64', nes: 'Famicom', segaGenesis: 'Sega Genesis', snes: 'Super Famicom' }).map(([key, name]) => [key, getRomanceCollectionCopy('pt', name)])) as Record<PlatformCollectionKey, ReturnType<typeof getRomanceCollectionCopy>>,
   ko: Object.fromEntries(Object.entries({ gba: 'Game Boy Advance', n64: 'Nintendo 64', nes: 'Famicom', segaGenesis: 'Sega Genesis', snes: 'Super Famicom' }).map(([key, value]) => [key, {
-    title: `${value} 온라인 게임 | POKOPIE`, description: `${value} 게임을 브라우저에서 즐기세요. 게임별 설명과 조작법, 기기 호환성, 관련 작품을 확인한 뒤 지원되는 브라우저 플레이어를 실행할 수 있습니다.`, schemaName: `${value} 게임`, breadcrumbName: `${value} 게임`,
+    title: `${value} 온라인 게임 | POKOPIE`, description: `POKOPIE에서 ${value} 게임 목록을 살펴보고 다음에 즐길 클래식 작품을 골라보세요. 게임 표지를 열면 작품 소개, 조작법과 기기 호환성을 확인할 수 있습니다. 관련 게임도 비교하고, 키보드나 게임패드 지원을 확인한 뒤 지원되는 작품을 브라우저 플레이어에서 시작하세요.`, schemaName: `${value} 게임`, breadcrumbName: `${value} 게임`,
     heroTitle: `${value} 온라인 게임`, heroDescription: '설치 없이 브라우저에서 클래식 게임을 찾아보세요.', ctaLabel: '게임 보기', libraryTitle: '게임 목록', libraryDescription: (total: number) => `게임 ${total}개`, unavailableMessage: '게임을 불러오지 못했습니다. 잠시 후 다시 시도하세요.', featuredLabel: '추천 게임', coverAlt: '게임 표지',
   }])) as Record<PlatformCollectionKey, { title: string; description: string; schemaName: string; breadcrumbName: string; heroTitle: string; heroDescription: string; ctaLabel: string; libraryTitle: string; libraryDescription: (total: number) => string; unavailableMessage: string; featuredLabel: string; coverAlt: string }>,
   'zh-TW': {
@@ -129,7 +129,7 @@ const localizedPlatformCopy = {
     },
     snes: {
       title: '在線玩 SNES 遊戲 | 免下載 | POKOPIE',
-      description: '在瀏覽器中在線玩 SNES 遊戲，瀏覽 Super Nintendo 的 RPG、平臺、賽車、動作和冒險經典，無需單獨下載模擬器。',
+      description: '在 POKOPIE 瀏覽超級任天堂 SNES 遊戲，從 Super Nintendo 的角色扮演、平台跳躍、賽車、動作與冒險作品中挑選想玩的經典。點選遊戲封面進入詳情，查閱玩法、版本和操作說明，再確認目前裝置與鍵盤或手把的支援情況。支援的作品可以透過瀏覽器播放器啟動，無需另外安裝模擬器，亦可從相關遊戲繼續探索。',
       schemaName: '在線玩 SNES 遊戲',
       breadcrumbName: 'SNES 遊戲',
       heroTitle: '在線玩 SNES 遊戲',
@@ -248,7 +248,7 @@ const localizedPlatformCopy = {
     },
     nes: {
       title: 'NES ゲームをオンラインでプレイ | ダウンロード不要 | POKOPIE',
-      description: 'POKOPIE でファミコン（NES）のアクション、パズルやシューティングを探せます。気になる作品の詳細ページで遊び方、操作方法や対応環境を確認し、対応タイトルをブラウザーでプレイできます。',
+      description: 'POKOPIE でファミコン（NES）のアクション、パズル、スポーツやシューティングを探しましょう。ゲーム一覧から気になる作品の詳細ページを開き、遊び方、バージョン、キーボードやゲームパッドの操作方法、端末の対応状況を確認できます。対応タイトルは専用エミュレーターを別途インストールせずにブラウザーで起動できます。',
       schemaName: 'NES ゲームをオンラインでプレイ',
       breadcrumbName: 'NES ゲーム',
       heroTitle: 'NES ゲームをオンラインでプレイ',

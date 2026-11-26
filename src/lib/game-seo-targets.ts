@@ -685,10 +685,10 @@ const reviewedGameMetaDescriptions: Partial<Record<Locale, Partial<Record<string
     'xiangqi-traveler-html5-2026': 'Try the browser demo of Xiangqi Traveler. Review how the Chinese chess pieces move, plan each turn around threats to your general, and check the controls before playing.',
   },
   'zh-CN': {
-    'initial-d-ps1-1998': '了解 PS1《头文字 D》的山路竞速、版本和操作信息，并在 POKOPIE 查看该版本的浏览器游玩状态。',
+    'initial-d-ps1-1998': '了解初代 PlayStation《头文字 D》的山路竞速玩法与版本信息。在 POKOPIE 查看 PS1 版的游戏介绍、操作提示，以及当前设备的兼容信息。开始前先核对该版本的浏览器游玩状态，避免与其他平台或街机版本混淆。',
     'geometry-dash-advance-gba-2025': '在浏览器中体验 GBA 版 Geometry Dash Advance。跟随节奏跳过尖刺和障碍，先确认跳跃按键，再试用练习模式。页面说明如何开始、核对关卡版本及排查输入问题。',
-    'gals-panic-arcade': '在浏览器中游玩街机 Gals Panic。移动时画线围出区域，同时避开敌人和它们对未完成线路的干扰。页面提供玩法、操作按键与游玩入口。',
-    'paperboy-n64-1999': '体验 Nintendo 64 版《送报童》。骑车沿路投递报纸，避开车辆和路上的障碍。开始前可核对 N64 版本、方向控制与投报按键。',
+    'gals-panic-arcade': '在浏览器中游玩街机 Gals Panic，利用移动和画线逐步围出区域，同时避开敌人对角色与未完成线路的干扰。先阅读页面中的玩法介绍，了解区域占领的基本规则，再核对方向、动作、投币与开始按键，确认设备支持后打开浏览器播放器。',
+    'paperboy-n64-1999': '体验 Nintendo 64 版《送报童》，骑车沿路向住户投递报纸，在行进中避开车辆和道路障碍。页面提供 N64 版本介绍与浏览器游玩入口，帮助你在开始前核对方向控制、投报按键和设备兼容性，区分这一版本与其他平台上的同名作品。',
     'tekken-ps1-1995': '在浏览器中游玩初代 PlayStation 版《铁拳》。选择角色进行一对一格斗，练习移动、防守和不同拳脚按键。详情页提供版本与设备兼容提示。',
     'pok-mon-heartgold-version-nds-2009': '在浏览器中体验 NDS《宝可梦 心金》。从城都启程，捕捉和培养伙伴、挑战道馆。打开播放器前可先核对按键、设备兼容性与存档方式。',
     'pipi-and-bibis-other-1991': '在浏览器中游玩 Toaplan 街机游戏 Pipi and Bibis（Whoopee!!）。在楼层间移动，布置炸弹并及时逃离，留意敌人的巡逻路线和可用道具。',
@@ -710,7 +710,7 @@ const reviewedGameMetaDescriptions: Partial<Record<Locale, Partial<Record<string
     'international-superstar-soccer-pro-ps1-1997': '在浏览器中游玩 PS1 足球游戏 International Superstar Soccer Pro。选择球队并体验传球、射门和防守，开赛前可先在详情页确认键盘或手柄的操作方式。',
     'jian-xia-qing-yuan-wai-chuan-yue-ying-chuan-shuo-html5-2001': '通过浏览器入口体验《剑侠情缘外传：月影传说》。跟随杨影枫展开武侠冒险，在探索、对话和战斗中推进剧情。页面提供版本、操作和设备支持提示。',
     'parasite-eve-ps1-1998': '了解 PS1《寄生前夜》的版本和玩法。跟随警探 Aya Brea 调查纽约发生的异常事件，在探索和战斗中推进剧情。详情页提供设备兼容信息和网页游玩状态。',
-    'hikaru-no-go-gba-2002': '在浏览器中游玩 GBA《棋魂》。这款掌机作品以围棋为主题，进入游戏前可先确认版本、游戏语言和操作方式，再通过详情页打开浏览器播放器。',
+    'hikaru-no-go-gba-2002': '在浏览器中体验以围棋为主题的 GBA《棋魂》。先在详情页查看 Game Boy Advance 版本介绍，核对游戏语言、方向选择与确认按键，再从游玩入口打开浏览器播放器。开始前确认当前设备的输入是否正常，并通过页面中的相关作品继续寻找掌机游戏。',
     'richman-4-java-2005': '在浏览器中体验 Java 版《大富翁 4》。掷骰移动、购买地产，安排现金和道具的使用。页面提供游玩入口，启动前可确认这个版本的控制方式与设备支持。',
   },
 }

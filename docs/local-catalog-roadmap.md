@@ -1,5 +1,10 @@
 # POKOPIE local catalog roadmap
 
+- 2026-11-26: Audited the 50 URLs exported from Bing against earlier SEO fixes.
+  Expanded the remaining short Chinese search descriptions for Initial D,
+  Gals Panic, Paperboy, and Hikaru no Go. Local catalog entries and count are
+  unchanged; localized collection and utility-page descriptions were also reviewed.
+
 This file is the source of truth for the local-first game catalog. Update it in
 the same commit whenever a local game is added, removed, renamed, or has its
 metadata changed.
