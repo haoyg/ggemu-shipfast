@@ -677,6 +677,7 @@ const reviewedTraditionalChineseMetaDescriptions: Partial<Record<string, string>
 
 const reviewedGameMetaDescriptions: Partial<Record<Locale, Partial<Record<string, string>>>> = {
   en: {
+    'the-king-of-fighters-2002-arcade-2002': 'Explore the original arcade King of Fighters 2002. Build a three-fighter team, choose its order and learn how MAX mode uses a stock from your power gauge.',
     'super-mario-bros-nes-1985': 'Play the original NES Super Mario Bros. in your browser. Run and jump past enemies, collect power-ups and cross the gap to the flagpole. Check controls first.',
     'battle-city-nes-1985': 'Play Namco’s NES Battle City online. Drive through breakable brick walls, stop waves of enemy tanks and protect the eagle base. Check movement and fire controls.',
     'rhythm-tengoku-japan-gba-2006': 'Play the Japanese GBA release of Rhythm Tengoku in your browser. Practice each short rhythm game, listen for the beat and check the A and B button mappings.',
@@ -685,6 +686,7 @@ const reviewedGameMetaDescriptions: Partial<Record<Locale, Partial<Record<string
     'xiangqi-traveler-html5-2026': 'Try the browser demo of Xiangqi Traveler. Review how the Chinese chess pieces move, plan each turn around threats to your general, and check the controls before playing.',
   },
   'zh-CN': {
+    'the-killing-blade-arcade-1998': '了解鈊象电子的 PGM 街机格斗游戏《傲剑狂刀》。选定角色后，先熟悉武器的攻击距离和招式收招时机，再尝试连招。打开播放器前可以核对浏览器里的投币、开始和攻击按键。',
     'initial-d-ps1-1998': '了解初代 PlayStation《头文字 D》的山路竞速玩法与版本信息。在 POKOPIE 查看 PS1 版的游戏介绍、操作提示，以及当前设备的兼容信息。开始前先核对该版本的浏览器游玩状态，避免与其他平台或街机版本混淆。',
     'geometry-dash-advance-gba-2025': '在浏览器中体验 GBA 版 Geometry Dash Advance。跟随节奏跳过尖刺和障碍，先确认跳跃按键，再试用练习模式。页面说明如何开始、核对关卡版本及排查输入问题。',
     'gals-panic-arcade': '在浏览器中游玩街机 Gals Panic，利用移动和画线逐步围出区域，同时避开敌人对角色与未完成线路的干扰。先阅读页面中的玩法介绍，了解区域占领的基本规则，再核对方向、动作、投币与开始按键，确认设备支持后打开浏览器播放器。',
