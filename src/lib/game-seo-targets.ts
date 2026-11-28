@@ -676,6 +676,9 @@ const reviewedTraditionalChineseMetaDescriptions: Partial<Record<string, string>
 }
 
 const reviewedGameMetaDescriptions: Partial<Record<Locale, Partial<Record<string, string>>>> = {
+  ja: {
+    'mother-2-deluxe-snes-1994': 'Mother 2 Deluxe は、北米版 EarthBound をベースにしたファン制作の改造版です。町を探索して仲間を集め、戦闘では PSI やアイテムを使い分けます。ブラウザーで始める前に、操作方法とセーブの扱いを確認しましょう。',
+  },
   fr: {
     'onet-master-html5': 'Reliez deux images identiques dans Onet Master. Le chemin doit rester libre et ne faire que deux virages au maximum. Libérez les cases pour ouvrir de nouvelles paires.',
   },
@@ -692,6 +695,7 @@ const reviewedGameMetaDescriptions: Partial<Record<Locale, Partial<Record<string
   'zh-CN': {
     'cadillacs-and-dinosaurs-arcade-1993': '《恐龙快打》（Cadillacs and Dinosaurs）是卡普空的横版清关街机游戏。选好角色后，在关卡中移动、跳跃和攻击，拾取道具应对不同敌人。启动浏览器播放器前，可核对投币、开始和动作按键。',
     'grand-theft-auto-2-ps1-1999': '了解 1999 年《侠盗猎车手 2》的初代 PlayStation 版本。在俯视视角下探索城市，通过完成任务改变帮派关系。进入浏览器播放器前，先核对步行、驾驶和上下车的按键，并查看设备支持。',
+    'the-legend-of-the-condor-heroes-ps1-2000': '了解 2000 年初代 PlayStation 上的武侠角色扮演游戏《射雕英雄传》。跟随郭靖闯荡江湖，在场景间探索、与人物交谈并推进剧情。打开浏览器播放器前，可先核对方向、菜单和确认按键。',
     'the-killing-blade-arcade-1998': '了解鈊象电子的 PGM 街机格斗游戏《傲剑狂刀》。选定角色后，先熟悉武器的攻击距离和招式收招时机，再尝试连招。打开播放器前可以核对浏览器里的投币、开始和攻击按键。',
     'initial-d-ps1-1998': '了解初代 PlayStation《头文字 D》的山路竞速玩法与版本信息。在 POKOPIE 查看 PS1 版的游戏介绍、操作提示，以及当前设备的兼容信息。开始前先核对该版本的浏览器游玩状态，避免与其他平台或街机版本混淆。',
     'geometry-dash-advance-gba-2025': '在浏览器中体验 GBA 版 Geometry Dash Advance。跟随节奏跳过尖刺和障碍，先确认跳跃按键，再试用练习模式。页面说明如何开始、核对关卡版本及排查输入问题。',

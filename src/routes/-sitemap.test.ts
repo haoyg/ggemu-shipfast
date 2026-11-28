@@ -35,6 +35,8 @@ describe('sitemap availability', () => {
     expect(xml).toContain('<loc>https://pokopie.com/fr/games/onet-master-html5</loc>')
     expect(xml).toContain('<loc>https://pokopie.com/zh-CN/games/cadillacs-and-dinosaurs-arcade-1993</loc>')
     expect(xml).toContain('<loc>https://pokopie.com/zh-CN/games/grand-theft-auto-2-ps1-1999</loc>')
+    expect(xml).toContain('<loc>https://pokopie.com/ja/games/mother-2-deluxe-snes-1994</loc>')
+    expect(xml).toContain('<loc>https://pokopie.com/zh-CN/games/the-legend-of-the-condor-heroes-ps1-2000</loc>')
     expect(xml).not.toContain('/en/games/roadster-rush-html5-2020')
     for (const game of getLocalGames()) {
       for (const locale of ['en', 'zh-CN']) {
